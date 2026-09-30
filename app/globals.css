@@ -72,6 +72,32 @@ body{background:#f4efff}
 @media(max-width:760px){.app-shell{padding:0;display:block}.content-wrap{border-radius:0;border:0;box-shadow:none}.desktop-sidebar{display:none}.topbar{padding:0 20px}.page{padding:29px 20px 90px}.palette-options{gap:8px}.palette-swatch{height:58px!important;border-radius:18px!important}.palette-swatch>span{border-radius:14px!important}}
 @media(max-width:400px){.palette-swatch{height:52px!important}.palette-check{width:24px;height:24px}.palette-check svg{width:12px;height:12px}}
 
+/* Full theme mapping: every palette updates the canvas, surfaces, accents, controls, and progress colors. */
+.palette-0{--background:#f5f2ff;--foreground:#17134d;--card:#ffffff;--line:#ded9ff;--green:#2b00ff;--deep:#2a2c5f;--peach:#ffd1e7;--mint:#b7f1ea;--lavender:#c9c6ff;--blue:#bde9f5;--accent:#2b00ff;--accent-soft:#e8e4ff;--accent-strong:#17134d}
+.palette-1{--background:#f7ffe9;--foreground:#272026;--card:#ffffff;--line:#dff0ad;--green:#73b51c;--deep:#2b2024;--peach:#ffb28d;--mint:#c6e772;--lavender:#ffd2cf;--blue:#ff4f3f;--accent:#ff2d78;--accent-soft:#efffb9;--accent-strong:#b51c52}
+.palette-2{--background:#effcfb;--foreground:#123b49;--card:#ffffff;--line:#c9eeea;--green:#0c8abc;--deep:#073358;--peach:#90e3dc;--mint:#9deee3;--lavender:#b9d8ff;--blue:#124e96;--accent:#0c8abc;--accent-soft:#d8f8f2;--accent-strong:#073358}
+.palette-3{--background:#fff2fa;--foreground:#35133d;--card:#ffffff;--line:#f1d4e9;--green:#15cda9;--deep:#4f2c75;--peach:#f8c2df;--mint:#bcefe3;--lavender:#cbb6ec;--blue:#4fcae5;--accent:#e932a6;--accent-soft:#ffe0f3;--accent-strong:#79205e}
+.palette-4{--background:#fffbed;--foreground:#24191d;--card:#ffffff;--line:#f5df9d;--green:#0da574;--deep:#001f3e;--peach:#ffd716;--mint:#b8edb0;--lavender:#9ed4e8;--blue:#073358;--accent:#ff5a3d;--accent-soft:#fff0b0;--accent-strong:#001f3e}
+
+.app-shell{background:radial-gradient(circle at 92% 4%,color-mix(in srgb,var(--accent) 18%,transparent),transparent 25%),linear-gradient(135deg,var(--background),color-mix(in srgb,var(--background) 82%,white));}
+.brand-mark,.hero-card,.progress-summary,.coach-avatar,.social-hero button{background:linear-gradient(135deg,var(--deep),var(--accent));}
+.brand span span,.mobile-brand span{color:var(--accent)}
+.side-nav button.active{color:var(--accent-strong);background:color-mix(in srgb,var(--accent) 16%,var(--background))}
+.side-nav button:hover{background:color-mix(in srgb,var(--accent) 10%,var(--background))}
+.section-heading button,.library-link,.water-add{color:var(--accent)}
+.hero-card{box-shadow:0 18px 34px color-mix(in srgb,var(--accent) 22%,transparent)}
+.light-button{color:var(--accent-strong)}
+.hero-orb{background:color-mix(in srgb,var(--accent) 55%,white);color:var(--card)}
+.progress-line i,.check.checked{background:var(--accent);border-color:var(--accent)}
+.ai-plan,.social-hero{background:color-mix(in srgb,var(--accent-soft) 82%,var(--card));color:var(--accent-strong)}
+.ai-badge{color:var(--accent)}
+.tabs button.selected{color:var(--accent-strong);box-shadow:0 3px 10px color-mix(in srgb,var(--accent) 18%,transparent)}
+.week-row .today strong{background:var(--accent);}
+.explore-grid button svg,.metric-grid svg,.buddy-card div svg{color:var(--accent)}
+.stat-card,.plan-row,.explore-grid button,.post,.buddy-card,.settings-profile,.settings-group{border-color:color-mix(in srgb,var(--accent) 16%,var(--line));}
+.palette-check{background:var(--card);color:var(--accent-strong);}
+@media(max-width:760px){.app-shell{background:radial-gradient(circle at 80% 0%,color-mix(in srgb,var(--accent) 20%,transparent),transparent 34%),var(--background)}}
+
 /* Premium polish: crisp type, lively accents, and calm card density. */
 body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f4efff}
 .app-shell{background:radial-gradient(circle at 86% 4%,color-mix(in srgb,#ff4f9a 18%,transparent),transparent 30%),radial-gradient(circle at 8% 92%,color-mix(in srgb,#43d9e7 16%,transparent),transparent 28%),var(--background)}
