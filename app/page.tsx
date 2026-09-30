@@ -57,6 +57,7 @@ function App() {
   const [done, setDone] = useState<string[]>([])
   const [showAuth, setShowAuth] = useState(false)
   const [palette, setPalette] = useState(0)
+  const [focusMode, setFocusMode] = useState(false)
 
   const toggleDone = (item: string) => setDone((current) => current.includes(item) ? current.filter((x) => x !== item) : [...current, item])
 
@@ -72,7 +73,7 @@ function App() {
       <section className="content-wrap">
         <header className="topbar"><div className="mobile-brand"><Logo /><strong>Fit<span>Sync</span></strong></div><div className="top-actions"><button aria-label="Search"><Search size={19} /></button><button className="profile-button" onClick={() => setShowAuth(true)}><div className="avatar small">JD</div><span>Jamie</span><ChevronRight size={15} /></button></div></header>
 
-        {active === 'home' && <HomeView water={water} setWater={setWater} done={done} toggleDone={toggleDone} onNavigate={setActive} />}
+        {active === 'home' && <HomeView water={water} setWater={setWater} done={done} toggleDone={toggleDone} onNavigate={setActive} focusMode={focusMode} setFocusMode={setFocusMode} />}
         {active === 'plans' && <PlansView done={done} toggleDone={toggleDone} />}
         {active === 'library' && <LibraryView />}
         {active === 'social' && <SocialView />}
@@ -86,9 +87,9 @@ function App() {
   )
 }
 
-function HomeView({ water, setWater, done, toggleDone, onNavigate }: { water: number; setWater: (v: number) => void; done: string[]; toggleDone: (s: string) => void; onNavigate: (s: Section) => void }) {
-  return <div className="page"><div className="greeting"><div><p className="eyebrow">Tuesday, September 30</p><h1>Good morning, Jamie <Sparkles className="greeting-spark" size={18} /></h1><p className="muted">Small steps today, stronger you tomorrow.</p></div><div className="streak"><Flame size={19} fill="currentColor" /><strong>12</strong><span>day streak</span></div></div>
-    <div className="hero-card"><div><p className="eyebrow light">YOUR DAILY FOCUS</p><h2>Move with intention.</h2><p>Complete your plan to keep your momentum going.</p><button className="light-button" onClick={() => onNavigate('plans')}>View today&apos;s plan <ArrowRight size={15} /></button></div><div className="hero-orb"><Dumbbell size={43} /></div></div>
+function HomeView({ water, setWater, done, toggleDone, onNavigate, focusMode, setFocusMode }: { water: number; setWater: (v: number) => void; done: string[]; toggleDone: (s: string) => void; onNavigate: (s: Section) => void; focusMode: boolean; setFocusMode: (value: boolean) => void }) {
+  return <div className={`page ${focusMode ? 'focus-mode' : ''}`}><div className="ambient-shape shape-one" aria-hidden="true" /><div className="ambient-shape shape-two" aria-hidden="true" /><div className="greeting"><div><p className="eyebrow">Tuesday, September 30</p><h1>Good morning, Jamie <Sparkles className="greeting-spark" size={18} /></h1><p className="muted">Small steps today, stronger you tomorrow.</p></div><div className="streak"><Flame size={19} fill="currentColor" /><strong>12</strong><span>day streak</span></div></div>
+    <div className="hero-card"><div><p className="eyebrow light">YOUR DAILY FOCUS</p><h2>Move with intention.</h2><p>Complete your plan to keep your momentum going.</p><button className="light-button" onClick={() => onNavigate('plans')}>View today&apos;s plan <ArrowRight size={15} /></button></div><button className={`hero-orb ${focusMode ? 'is-focused' : ''}`} onClick={() => setFocusMode(!focusMode)} aria-pressed={focusMode} aria-label={focusMode ? 'Turn off focus mode' : 'Start focus mode'}><Dumbbell size={43} /><span>{focusMode ? 'Locked in' : 'Tap to focus'}</span></button></div>
     <div className="section-heading"><h2>Today at a glance</h2><button onClick={() => onNavigate('progress')}>See progress <ArrowRight size={15} /></button></div>
     <div className="stats-grid"><div className="stat-card"><div className="stat-icon peach"><Flame size={18} /></div><strong>1,240</strong><span>kcal remaining</span><div className="progress-line"><i style={{ width: '46%' }} /></div></div><div className="stat-card"><div className="stat-icon mint"><Dumbbell size={18} /></div><strong>24 <small>min</small></strong><span>movement today</span><div className="progress-line mint-line"><i style={{ width: '65%' }} /></div></div><div className="stat-card water-card"><div className="stat-icon blue"><Activity size={18} /></div><strong>{water}<small>/ 8 glasses</small></strong><span>water tracker</span><button className="water-add" onClick={() => setWater(water >= 8 ? 0 : water + 1)}><Plus size={14} />Add glass</button></div></div>
     <div className="section-heading"><h2>Tuesday&apos;s plan</h2><button onClick={() => onNavigate('plans')}>Full schedule <ArrowRight size={15} /></button></div>

@@ -199,3 +199,20 @@ button:active{transform:scale(.97)}
   .stat-card,.plan-row,.explore-grid button,.post,.buddy-card,.settings-profile,.settings-group{box-shadow:0 7px 18px rgb(35 28 55 / .055),inset 0 1px 0 rgb(255 255 255 / .3)}
   .topbar{background:color-mix(in srgb,var(--card) 76%,transparent)}
 }
+
+/* Abstract movement cues keep the dashboard playful while the content stays crisp. */
+.page{position:relative;isolation:isolate}
+.ambient-shape{position:absolute;z-index:-1;pointer-events:none;opacity:.72;mix-blend-mode:multiply}
+.shape-one{width:92px;height:92px;right:-34px;top:82px;border-radius:42% 58% 65% 35%;background:color-mix(in srgb,var(--accent) 18%,transparent);transform:rotate(24deg);animation:float-shape 8s ease-in-out infinite}
+.shape-two{width:54px;height:54px;left:-18px;top:310px;border:10px solid color-mix(in srgb,var(--mint) 70%,transparent);border-radius:50%;transform:rotate(-16deg);animation:orbit-shape 10s linear infinite}
+.hero-orb{border:0;cursor:pointer;position:relative;display:grid;place-items:center;transition:transform .25s ease,box-shadow .25s ease,background .25s ease}
+.hero-orb span{position:absolute;bottom:15px;font:700 8px Inter,ui-sans-serif,sans-serif;letter-spacing:.08em;text-transform:uppercase;opacity:0;transform:translateY(5px);transition:opacity .2s ease,transform .2s ease}
+.hero-orb:hover,.hero-orb:focus-visible{transform:rotate(12deg) scale(1.06);box-shadow:0 18px 30px color-mix(in srgb,var(--accent) 28%,transparent)}
+.hero-orb:hover span,.hero-orb:focus-visible span,.hero-orb.is-focused span{opacity:1;transform:translateY(0)}
+.hero-orb.is-focused{background:var(--accent);animation:focus-pulse 1.8s ease-in-out infinite}
+.focus-mode .shape-one{animation-duration:3s;opacity:1}.focus-mode .shape-two{animation-duration:4s}
+@keyframes float-shape{0%,100%{transform:translate3d(0,0,0) rotate(24deg)}50%{transform:translate3d(-10px,12px,0) rotate(42deg)}}
+@keyframes orbit-shape{to{transform:rotate(344deg) translateX(7px) rotate(-344deg)}}
+@keyframes focus-pulse{0%,100%{box-shadow:0 0 0 0 color-mix(in srgb,var(--accent) 28%,transparent)}50%{box-shadow:0 0 0 12px color-mix(in srgb,var(--accent) 0%,transparent)}}
+@media(prefers-reduced-motion:reduce){.ambient-shape,.hero-orb.is-focused{animation:none!important}}
+@media(max-width:760px){.shape-one{right:-26px;top:70px;width:70px;height:70px}.shape-two{top:280px;width:42px;height:42px;border-width:8px}.hero-orb span{bottom:10px}}
