@@ -157,3 +157,45 @@ button:active{transform:scale(.97)}
   .stat-card{min-height:122px;padding:12px}.stat-card>span{font-size:10px}.explore-grid button{min-height:104px;padding:14px}
   .palette-setting{padding:16px 0}.palette-options{gap:6px}.palette-swatch{height:50px!important}
 }
+
+/* Tactile finish: matte surfaces paired with selective glass for depth without visual noise. */
+.app-shell{
+  background:
+    radial-gradient(circle at 88% 2%,color-mix(in srgb,var(--accent) 16%,transparent),transparent 27%),
+    radial-gradient(circle at 8% 96%,color-mix(in srgb,var(--mint) 24%,transparent),transparent 25%),
+    var(--background);
+}
+.app-shell::after{opacity:.32;filter:blur(8px)}
+.content-wrap,.desktop-sidebar,.stat-card,.plan-row,.explore-grid button,.post,.buddy-card,.settings-profile,.settings-group,.library-card{
+  background-color:color-mix(in srgb,var(--card) 94%,var(--background));
+  background-image:linear-gradient(135deg,rgb(255 255 255 / .18),transparent 42%);
+}
+.stat-card,.plan-row,.explore-grid button,.post,.buddy-card,.settings-profile,.settings-group{
+  border:1px solid color-mix(in srgb,var(--foreground) 7%,transparent);
+  box-shadow:0 10px 24px rgb(35 28 55 / .06),inset 0 1px 0 rgb(255 255 255 / .34);
+}
+.hero-card,.progress-summary,.ai-plan,.social-hero{
+  position:relative;
+  overflow:hidden;
+}
+.hero-card::before,.progress-summary::before,.ai-plan::before,.social-hero::before{
+  content:"";position:absolute;inset:0;pointer-events:none;opacity:.2;
+  background-image:radial-gradient(rgb(255 255 255 / .6) .7px,transparent .7px);
+  background-size:7px 7px;
+  mix-blend-mode:soft-light;
+}
+.hero-card > *,.progress-summary > *,.ai-plan > *,.social-hero > *{position:relative;z-index:1}
+.topbar,.mobile-nav{
+  background:color-mix(in srgb,var(--card) 70%,transparent);
+  backdrop-filter:blur(20px) saturate(135%);
+  -webkit-backdrop-filter:blur(20px) saturate(135%);
+  box-shadow:0 1px 0 rgb(255 255 255 / .18);
+}
+.palette-swatch{box-shadow:inset 0 1px 0 rgb(255 255 255 / .5),0 5px 12px rgb(30 20 60 / .1)}
+.palette-swatch.selected{box-shadow:0 0 0 3px var(--card),0 0 0 6px var(--foreground),0 10px 20px color-mix(in srgb,var(--foreground) 18%,transparent)}
+@media(prefers-reduced-motion:reduce){button,.stat-card,.plan-row,.explore-grid button{transition:none!important}.palette-swatch.selected .palette-check{animation:none}}
+@media(max-width:760px){
+  .content-wrap{background:color-mix(in srgb,var(--background) 88%,transparent)}
+  .stat-card,.plan-row,.explore-grid button,.post,.buddy-card,.settings-profile,.settings-group{box-shadow:0 7px 18px rgb(35 28 55 / .055),inset 0 1px 0 rgb(255 255 255 / .3)}
+  .topbar{background:color-mix(in srgb,var(--card) 76%,transparent)}
+}
