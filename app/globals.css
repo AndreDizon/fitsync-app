@@ -23,4 +23,14 @@ button,input { font:inherit; } button { border:0; background:none; color:inherit
 .palette-2{--background:#f2f8fa;--foreground:#203036;--card:#fff;--line:#dce8eb;--green:#5b96a5;--deep:#285765;--peach:#f5d8c4;--mint:#d7ecec;--lavender:#dce3f1;--blue:#cfe5ef}
 .palette-3{--background:#f7f5fc;--foreground:#282532;--card:#fff;--line:#e5e1f0;--green:#867bb2;--deep:#514875;--peach:#f0d7cb;--mint:#dce9e3;--lavender:#ded8f3;--blue:#dce3f1}
 .palette-4{--background:#fff5f8;--foreground:#33252c;--card:#fff;--line:#f0dce4;--green:#b26786;--deep:#713c59;--peach:#f5c9c4;--mint:#dcebe2;--lavender:#e8d9ef;--blue:#dbe6f0}
+/* Palette tokens stay scoped to the app so every selection updates the interface without a reload. */
+.app-shell { background:var(--background); color:var(--foreground); transition:background-color .2s ease, color .2s ease; }
+.desktop-sidebar { background:color-mix(in srgb, var(--background) 70%, white); }
+.topbar, .mobile-nav { background:var(--background); }
+.stat-card, .plan-row, .explore-grid button, .post, .buddy-card, .settings-profile, .settings-group { background:color-mix(in srgb, var(--card) 92%, var(--background)); }
+.side-nav button.active { background:color-mix(in srgb, var(--green) 22%, var(--background)); }
+.side-nav button:hover { background:color-mix(in srgb, var(--green) 12%, var(--background)); }
+.hero-card, .progress-summary, .coach-avatar, .social-hero button { background:var(--deep); }
+.palette-swatch { transition:transform .15s ease, border-color .15s ease; }
+.palette-swatch:hover { transform:scale(1.08); }
 .palette-setting{padding:13px 0;border-bottom:1px solid var(--line)}.palette-setting-label{display:flex;align-items:center;justify-content:space-between}.palette-setting-label span{display:flex;align-items:center;gap:10px;font-size:13px}.palette-setting-label small{color:var(--muted);font-size:10px}.palette-options{display:flex;gap:10px;margin-top:13px}.palette-swatch{width:31px;height:31px;border-radius:50%;padding:3px;position:relative;border:2px solid transparent;display:grid;place-items:center;color:#fff}.palette-swatch span{width:100%;height:100%;border-radius:50%;display:block}.palette-swatch.selected{border-color:var(--foreground)}.palette-swatch-0 span{background:linear-gradient(135deg,#31584c 50%,#75a995 50%)}.palette-swatch-1 span{background:linear-gradient(135deg,#78483b 50%,#d99672 50%)}.palette-swatch-2 span{background:linear-gradient(135deg,#285765 50%,#6daebc 50%)}.palette-swatch-3 span{background:linear-gradient(135deg,#514875 50%,#a69bd2 50%)}.palette-swatch-4 span{background:linear-gradient(135deg,#713c59 50%,#c67d9b 50%)}
