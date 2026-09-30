@@ -42,16 +42,18 @@ button,input { font:inherit; } button { border:0; background:none; color:inherit
 .palette-swatch-4 span{background:linear-gradient(135deg,#8d285b 0 48%,#ee82a9 48% 100%)}
 .palette-setting{padding:13px 0;border-bottom:1px solid var(--line)}.palette-setting-label{display:flex;align-items:center;justify-content:space-between}.palette-setting-label span{display:flex;align-items:center;gap:10px;font-size:13px}.palette-setting-label small{color:var(--muted);font-size:10px}.palette-options{display:flex;gap:10px;margin-top:13px}.palette-swatch{width:31px;height:31px;border-radius:50%;padding:3px;position:relative;border:2px solid transparent;display:grid;place-items:center;color:#fff}.palette-options .palette-swatch{display:grid;place-items:center;flex:none}.palette-swatch > span{width:100%;height:100%;border-radius:50%;display:block!important;flex:none!important}.palette-swatch.selected{border-color:var(--foreground)}.palette-swatch-0 span{background:linear-gradient(135deg,#31584c 50%,#75a995 50%)}.palette-swatch-1 span{background:linear-gradient(135deg,#78483b 50%,#d99672 50%)}.palette-swatch-2 span{background:linear-gradient(135deg,#285765 50%,#6daebc 50%)}.palette-swatch-3 span{background:linear-gradient(135deg,#514875 50%,#a69bd2 50%)}.palette-swatch-4 span{background:linear-gradient(to bottom,#2b2024 0 25%,#a80139 25% 50%,#fd0053 50% 75%,#fff 75%)}
 
-/* Color reference-inspired fitness palettes: each swatch is a compact four-tone stack. */
-.palette-swatch{width:56px;height:48px;padding:3px;border-radius:12px;background:var(--card);border:2px solid transparent;transition:transform .15s ease,box-shadow .15s ease,border-color .15s ease}
-.palette-swatch:hover{transform:translateY(-2px);box-shadow:0 5px 12px color-mix(in srgb,var(--foreground) 18%,transparent)}
-.palette-swatch:focus-visible{outline:3px solid color-mix(in srgb,var(--green) 45%,transparent);outline-offset:3px}
+  /* Color-reference palettes: Klein Blue, Citric, Aquamarine, Fuchsia, Tangerine, and Black. */
+.palette-options{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;margin-top:16px;max-width:390px}
+.palette-swatch{width:100%!important;height:64px!important;min-width:0!important;flex:1 1 0!important;padding:4px;border-radius:999px;background:var(--card);border:2px solid transparent;overflow:hidden;position:relative;cursor:pointer;transition:transform .18s ease,box-shadow .18s ease,border-color .18s ease}
+.palette-swatch:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 8px 16px color-mix(in srgb,var(--foreground) 18%,transparent)}
+.palette-swatch:focus-visible{outline:3px solid color-mix(in srgb,var(--green) 45%,transparent);outline-offset:4px}
 .palette-swatch.selected{border-color:var(--foreground);box-shadow:0 0 0 2px var(--background),0 0 0 4px var(--foreground)}
-.palette-swatch>span{width:100%;height:100%;border-radius:8px;display:block!important}
-.palette-swatch-0 span{background:linear-gradient(to bottom,#1a273a 0 25%,#3e4a62 25% 50%,#c24d2c 50% 75%,#d9d9d7 75%)}
-.palette-swatch-1 span{background:linear-gradient(to bottom,#faffa3 0 25%,#c6e772 25% 50%,#66d47e 50% 75%,#073835 75%)}
-.palette-swatch-2 span{background:linear-gradient(to bottom,#ffeed0 0 25%,#f4c180 25% 50%,#00a79d 50% 75%,#007064 75%)}
-.palette-swatch-3 span{background:linear-gradient(to bottom,#9765c8 0 25%,#099a97 25% 50%,#15cda9 50% 75%,#f0e4e4 75%)}
-.settings-group .palette-options .palette-swatch{width:56px!important;height:48px!important;min-width:56px;flex:0 0 56px;padding:3px;}
-.settings-group .palette-options .palette-swatch>span{width:100%!important;height:100%!important;min-width:0!important;min-height:0!important;display:block!important;flex:none!important;position:absolute;inset:3px;width:auto!important;height:auto!important;grid-column:auto;grid-row:auto;border-radius:8px;overflow:hidden;}
-@media(max-width:400px){.settings-group .palette-options .palette-swatch{width:48px!important;height:44px!important;min-width:48px;flex-basis:48px}.palette-options{gap:8px}}
+.palette-swatch>span{position:absolute;inset:4px;width:auto!important;height:auto!important;min-width:0!important;min-height:0!important;display:block!important;border-radius:999px;overflow:hidden}
+.palette-swatch-0 span{background:linear-gradient(to bottom,#2b00ff 0 25%,#43d9e7 25% 50%,#393c83 50% 75%,#2a2c5f 75%)}
+.palette-swatch-1 span{background:linear-gradient(to bottom,#c6e772 0 25%,#ff4f3f 25% 50%,#ff2d78 50% 75%,#2b2024 75%)}
+.palette-swatch-2 span{background:linear-gradient(to bottom,#90e3dc 0 25%,#0c8abc 25% 50%,#124e96 50% 75%,#073358 75%)}
+.palette-swatch-3 span{background:linear-gradient(to bottom,#9765c8 0 25%,#15cda9 25% 50%,#4fcae5 50% 75%,#f0e4e4 75%)}
+.palette-swatch-4 span{background:linear-gradient(to bottom,#ffd716 0 25%,#0da574 25% 50%,#073358 50% 75%,#001f3e 75%)}
+.palette-swatch svg{position:relative;z-index:1;color:white;filter:drop-shadow(0 1px 2px rgb(0 0 0 / .45))}
+@media(max-width:600px){.palette-options{gap:8px;max-width:none}.palette-swatch{height:56px!important}}
+@media(max-width:400px){.palette-options{gap:6px}.palette-swatch{height:48px!important;padding:3px}.palette-swatch>span{inset:3px}}
