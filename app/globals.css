@@ -116,6 +116,20 @@ h1{font-weight:800;letter-spacing:-.055em}.section-heading h2,.subheading{font-w
 @media(max-width:760px){.app-shell{background:radial-gradient(circle at 100% 0%,color-mix(in srgb,#ff4f9a 15%,transparent),transparent 34%),radial-gradient(circle at 0% 70%,color-mix(in srgb,#43d9e7 12%,transparent),transparent 30%),var(--background)}.topbar{height:70px}.page{padding:25px 18px 102px}.greeting{align-items:center}.hero-card{min-height:184px;padding:23px 20px}.hero-orb{width:70px;height:70px}.section-heading{margin:28px 0 13px}.stats-grid{gap:10px}.stat-card{padding:14px}.settings-group{padding:8px 16px}.palette-options{gap:7px}.palette-swatch{height:56px!important}}
 @media(max-width:400px){.page{padding-left:16px;padding-right:16px}.greeting h1{font-size:24px}.hero-card{min-height:170px}.hero-card h2{font-size:20px}.hero-orb{width:58px;height:58px}.stat-card strong{font-size:19px}.palette-swatch{height:50px!important;border-radius:16px!important}.palette-swatch>span{border-radius:12px!important}}
 
+/* Editorial type pairing inspired by the references: confident display weight, softer supporting copy, and selective italic contrast. */
+body{font-family:"Trebuchet MS",Inter,ui-sans-serif,system-ui,sans-serif}
+h1,h2,.brand,.mobile-brand,.hero-card h2,.stat-card strong,.row-copy strong,.section-heading h2,.subheading,.settings-profile strong{font-family:"Trebuchet MS",Inter,ui-sans-serif,sans-serif}
+h1{font-weight:900;letter-spacing:-.075em;line-height:.98}
+h2,.section-heading h2,.subheading{font-weight:800;letter-spacing:-.055em}
+.greeting h1{font-size:clamp(27px,3.2vw,38px);line-height:1.02}
+.greeting .muted,.hero-card p:not(.eyebrow),.intro{font-family:Georgia,"Times New Roman",serif;font-style:italic;letter-spacing:-.01em}
+.hero-card h2{font-size:clamp(23px,3vw,31px);font-weight:900;line-height:.98}
+.hero-card p:not(.eyebrow){font-size:13px;max-width:310px}
+.eyebrow,.settings-group>p{font-family:Inter,ui-sans-serif,sans-serif;font-weight:800}
+.stat-card strong{font-weight:900;letter-spacing:-.07em}
+.row-copy strong,.settings-profile strong{font-weight:800;letter-spacing:-.025em}
+.row-copy span,.stat-card>span,.muted,.settings-profile span{letter-spacing:.005em}
+button{letter-spacing:-.015em}
 /* Premium mobile finish: a focused editorial rhythm with bright workout energy. */
 :where(button,input){-webkit-tap-highlight-color:transparent}
 button{transition:transform .18s ease,opacity .18s ease,background-color .18s ease,box-shadow .18s ease}
