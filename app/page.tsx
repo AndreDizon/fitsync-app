@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import {
   Activity,
   Apple,
@@ -58,6 +58,29 @@ function App() {
   const [showAuth, setShowAuth] = useState(false)
   const [palette, setPalette] = useState(0)
   const [focusMode, setFocusMode] = useState(false)
+  const [navHidden, setNavHidden] = useState(false)
+  const lastScrollY = useRef(0)
+
+  useEffect(() => {
+    lastScrollY.current = window.scrollY
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+      const scrollingDown = currentScrollY > lastScrollY.current + 2
+      const scrollingUp = currentScrollY < lastScrollY.current - 2
+
+      if (scrollingDown && currentScrollY > 24) setNavHidden(true)
+      if (scrollingUp || currentScrollY <= 24) setNavHidden(false)
+      lastScrollY.current = currentScrollY
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    document.addEventListener('scroll', handleScroll, { passive: true })
+    return () => {
+      window.removeEventListener('scroll', handleScroll)
+      document.removeEventListener('scroll', handleScroll)
+    }
+  }, [])
 
   const toggleDone = (item: string) => setDone((current) => current.includes(item) ? current.filter((x) => x !== item) : [...current, item])
 
@@ -81,7 +104,7 @@ function App() {
         {active === 'settings' && <SettingsView palette={palette} setPalette={setPalette} />}
       </section>
 
-      <nav className="mobile-nav">{navItems.map(({ id, label, icon: Icon }) => <button key={id} className={active === id ? 'active' : ''} onClick={() => setActive(id)}><Icon size={20} /><span>{label}</span></button>)}</nav>
+      <nav className={`mobile-nav ${navHidden ? 'nav-hidden' : ''}`} aria-hidden={navHidden}>{navItems.map(({ id, label, icon: Icon }) => <button key={id} className={active === id ? 'active' : ''} onClick={() => setActive(id)} tabIndex={navHidden ? -1 : 0}><Icon size={20} /><span>{label}</span></button>)}</nav>
       {showAuth && <div className="modal-backdrop" onClick={() => setShowAuth(false)}><div className="auth-card" onClick={(event) => event.stopPropagation()}><button className="close" onClick={() => setShowAuth(false)}><X size={18} /></button><div className="auth-icon"><HeartPulse size={22} /></div><h2>Welcome to FitSync</h2><p>Sign in to keep your progress in sync.</p><input placeholder="Email address" /><input placeholder="Password" type="password" /><button className="primary full" onClick={() => setShowAuth(false)}>Sign in</button><button className="ghost full">Continue with Google</button><small>Don&apos;t have an account? <b>Register here</b></small></div></div>}
     </main>
   )
