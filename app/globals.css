@@ -47,6 +47,17 @@ button,input { font:inherit; } button { border:0; background:none; color:inherit
     .social-main-sections>.people-strip{background:#dcefe4}
     .social-main-sections>.social-gyms-card{background:#e4def4}
   }
+  /* Keep the three mobile bands touching so their arches overlap without white seams. */
+  @media(max-width:650px){
+    .social-main-sections{gap:0;background:#f4d7e2}
+    .social-main-sections>.social-section-title{margin-top:0!important;margin-bottom:-24px;padding-top:16px;padding-bottom:48px}
+    .social-main-sections>.social-section-title.people-section{margin-top:-2px!important}
+    .social-main-sections>.social-section-title.nearby-section{margin-top:-2px!important}
+    .social-main-sections>.social-feed-card,.social-main-sections>.people-strip,.social-main-sections>.social-gyms-card{margin-top:0!important;margin-bottom:-2px!important;padding-top:20px;padding-bottom:28px}
+    .social-main-sections>.social-feed-card{border-radius:0 0 34px 34px}
+    .social-main-sections>.people-strip{border-radius:0 0 34px 34px}
+    .social-main-sections>.social-gyms-card{border-radius:0 0 34px 34px}
+  }
   .palette-1{--background:#fff8f3;--foreground:#302522;--card:#fff;--line:#f0ddd2;--green:#c78667;--deep:#78483b;--peach:#f6c8ae;--mint:#f2dfd2;--lavender:#ead9d2;--blue:#e8d9d3}
 .palette-2{--background:#f2f8fa;--foreground:#203036;--card:#fff;--line:#dce8eb;--green:#5b96a5;--deep:#285765;--peach:#f5d8c4;--mint:#d7ecec;--lavender:#dce3f1;--blue:#cfe5ef}
 .palette-3{--background:#f7f5fc;--foreground:#282532;--card:#fff;--line:#e5e1f0;--green:#867bb2;--deep:#514875;--peach:#f0d7cb;--mint:#dce9e3;--lavender:#ded8f3;--blue:#dce3f1}
