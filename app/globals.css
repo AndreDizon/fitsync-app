@@ -32,8 +32,10 @@ button,input { font:inherit; } button { border:0; background:none; color:inherit
   /* Social section dividers use nested, edge-bleeding arches like the reference shape. */
   @media(max-width:650px){
     .social-main-sections{width:calc(100% + 32px);max-width:none;margin-left:-16px;margin-right:-16px;overflow:hidden}
-    .social-main-sections>.social-section-title{position:relative;z-index:1;margin:16px 0 0;padding:20px 32px 28px;border:0;border-radius:34px 34px 0 0}
-    .social-main-sections>.social-section-title::after{content:"";position:absolute;z-index:-1;left:50%;bottom:-22px;width:120%;height:46px;transform:translateX(-50%);border-radius:50% 50% 0 0/100% 100% 0 0}
+  .social-main-sections>.social-section-title{position:relative;z-index:2;margin:16px 0 -22px;padding:20px 32px 46px;border:0;border-radius:50% 50% 0 0/42% 42% 0 0}
+  .social-main-sections>.social-section-title::after{content:"";position:absolute;z-index:-1;left:50%;bottom:-34px;width:150%;height:78px;transform:translateX(-50%);border-radius:50% 50% 0 0/100% 100% 0 0}
+  .social-main-sections>.social-section-title.people-section,.social-main-sections>.social-section-title.nearby-section{margin-top:-4px}
+  .social-main-sections>.social-section-title.people-section::after,.social-main-sections>.social-section-title.nearby-section::after{height:88px;bottom:-40px}
     .social-main-sections>.social-section-title.pulse-section{background:#f4d7e2}
     .social-main-sections>.social-section-title.pulse-section::after{background:#f4d7e2}
     .social-main-sections>.social-section-title.people-section{background:#dcefe4}
