@@ -38,7 +38,6 @@ type Section = 'home' | 'plans' | 'library' | 'social' | 'progress' | 'settings'
 const navItems: { id: Section; label: string; icon: typeof Home }[] = [
   { id: 'home', label: 'Home', icon: Home },
   { id: 'plans', label: 'Plans', icon: CalendarDays },
-  { id: 'library', label: 'Library', icon: BookOpen },
   { id: 'social', label: 'Social', icon: Users },
   { id: 'progress', label: 'Progress', icon: Activity },
 ]
