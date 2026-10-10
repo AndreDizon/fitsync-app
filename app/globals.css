@@ -44,7 +44,16 @@ button,input { font:inherit; } button { border:0; background:none; color:inherit
  .social-main-sections>.social-feed-card::after{background:#f1d5e0}
  .social-main-sections>.people-strip::after{background:#d8eee4}
  .social-main-sections>.nearby-band{z-index:3}
- .social-main-sections>.social-gyms-card{z-index:2}
+   .social-main-sections>.social-gyms-card{z-index:2}
+  /* Tight mobile rhythm: overlap each arch and keep content evenly inset. */
+  .social-main-sections>.social-section-title{padding-left:24px;padding-right:24px;padding-bottom:30px}
+  .social-main-sections>.social-section-title+section{padding-left:24px;padding-right:24px;padding-top:12px;padding-bottom:30px}
+  .social-main-sections>.pulse-band+section{margin-bottom:-42px;padding-bottom:58px}
+  .social-main-sections>.people-band{margin-top:-42px!important;padding-top:62px;padding-bottom:30px}
+  .social-main-sections>.people-band+section{padding-top:10px;padding-bottom:58px;margin-bottom:-42px}
+  .social-main-sections>.nearby-band{margin-top:-42px!important;padding-top:62px}
+  .social-main-sections>.nearby-band+section{padding-top:10px;padding-bottom:46px}
+  .social-main-sections>.social-feed-card::after,.social-main-sections>.people-strip::after{bottom:-48px;height:70px}
   }
   .palette-1{--background:#fff8f3;--foreground:#302522;--card:#fff;--line:#f0ddd2;--green:#c78667;--deep:#78483b;--peach:#f6c8ae;--mint:#f2dfd2;--lavender:#ead9d2;--blue:#e8d9d3}
 .palette-2{--background:#f2f8fa;--foreground:#203036;--card:#fff;--line:#dce8eb;--green:#5b96a5;--deep:#285765;--peach:#f5d8c4;--mint:#d7ecec;--lavender:#dce3f1;--blue:#cfe5ef}
