@@ -97,7 +97,7 @@ function App() {
         <header className="topbar"><div className="mobile-brand"><Logo /><strong>Fit<span>Sync</span></strong></div><div className="top-actions"><button aria-label="Search"><Search size={19} /></button><button className="profile-button" onClick={() => setShowAuth(true)}><div className="avatar small">JD</div><span>Jamie</span><ChevronRight size={15} /></button></div></header>
 
         {active === 'home' && <HomeView water={water} setWater={setWater} done={done} toggleDone={toggleDone} onNavigate={setActive} focusMode={focusMode} setFocusMode={setFocusMode} />}
-        {active === 'plans' && <PlansView done={done} toggleDone={toggleDone} />}
+        {active === 'plans' && <PlansWorkspace done={done} toggleDone={toggleDone} />}
         {active === 'library' && <LibraryView />}
         {active === 'social' && <SocialView />}
         {active === 'progress' && <ProgressView />}
@@ -118,6 +118,36 @@ function HomeView({ water, setWater, done, toggleDone, onNavigate, focusMode, se
     <div className="section-heading"><h2>Tuesday&apos;s plan</h2><button onClick={() => onNavigate('plans')}>Full schedule <ArrowRight size={15} /></button></div>
     <div className="plan-list">{[{ title: 'Lower body strength', meta: 'Workout · 28 min · Beginner', icon: Dumbbell, tone: 'peach' }, { title: 'Greek yogurt parfait', meta: 'Breakfast · 380 kcal', icon: Utensils, tone: 'mint' }].map((item) => <div className="plan-row" key={item.title}><div className={`row-icon ${item.tone}`}><item.icon size={19} /></div><div className="row-copy"><strong>{item.title}</strong><span>{item.meta}</span></div><button className={`check ${done.includes(item.title) ? 'checked' : ''}`} onClick={() => toggleDone(item.title)}>{done.includes(item.title) ? <Check size={16} /> : <span />}</button></div>)}</div>
     <div className="section-heading"><h2>Explore FitSync</h2></div><div className="explore-grid"><button onClick={() => onNavigate('social')}><MessageCircle size={20} /><strong>Ask AI coach</strong><span>Personalized answers</span></button><button onClick={() => onNavigate('library')}><BookOpen size={20} /><strong>Browse library</strong><span>Find your next move</span></button><button onClick={() => onNavigate('progress')}><Trophy size={20} /><strong>Progress log</strong><span>Celebrate your wins</span></button></div>
+  </div>
+}
+
+function PlansWorkspace({ done, toggleDone }: { done: string[]; toggleDone: (s: string) => void }) {
+  const [mode, setMode] = useState<'nutrition' | 'workout'>('workout')
+  const [tab, setTab] = useState<'plan' | 'playlist' | 'library'>('plan')
+  const [day, setDay] = useState(2)
+  const [saved, setSaved] = useState(false)
+  const [water, setWater] = useState(4)
+  const week = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+  const workoutItems = [
+    { title: 'Lower body strength', meta: '28 min · Beginner', icon: Dumbbell, tone: 'peach' },
+    { title: 'Core & mobility flow', meta: '18 min · All levels', icon: Activity, tone: 'lavender' },
+    { title: 'Low-impact full body', meta: '24 min · Beginner', icon: Zap, tone: 'mint' },
+  ]
+  const nutritionItems = meals.map((meal) => ({ title: meal.name, meta: meal.meta, icon: meal.icon, tone: meal.color }))
+  const items = mode === 'workout' ? workoutItems : nutritionItems
+  const completed = (title: string) => done.includes(title)
+  return <div className="page plans-page plan-workspace">
+    <div className="plans-hero"><div><p className="eyebrow">YOUR PERSONAL PLAN</p><h1>{mode === 'workout' ? 'Train with intention.' : 'Fuel your momentum.'}</h1><p className="muted intro">A clear, flexible week built around your goals.</p></div><div className="plan-mode-switch" role="group" aria-label="Plan mode"><button className={mode === 'workout' ? 'active' : ''} onClick={() => setMode('workout')}><Dumbbell size={16} />Workout</button><button className={mode === 'nutrition' ? 'active' : ''} onClick={() => setMode('nutrition')}><Apple size={16} />Nutrition</button></div></div>
+    <div className="plan-tabs" role="tablist" aria-label="Plan sections">{([{ id: 'plan', label: 'My plan', icon: CalendarDays }, { id: 'playlist', label: 'Playlist', icon: Play }, { id: 'library', label: 'Library', icon: BookOpen }] as const).map(({ id, label, icon: Icon }) => <button key={id} className={tab === id ? 'selected' : ''} onClick={() => setTab(id)} role="tab" aria-selected={tab === id}><Icon size={16} />{label}</button>)}</div>
+    {tab === 'plan' && <>
+      <div className="plan-summary"><div className="plan-summary-top"><div className="ai-badge"><Sparkles size={16} />AI COACHED</div><span className="plan-status"><Check size={13} /> {mode === 'workout' ? '3 sessions' : '4 meals'} planned</span></div><h2>{mode === 'workout' ? 'A stronger week starts here.' : 'Balanced fuel, made simple.'}</h2><p>{mode === 'workout' ? '70 min planned · Recovery-aware · Beginner friendly' : '1,840 kcal · 128g protein · 210g carbs · 58g fat'}</p><div className="plan-progress"><span style={{ width: mode === 'workout' ? '38%' : '52%' }} /></div><small>{mode === 'workout' ? '1 of 3 sessions complete' : '2 of 4 meals complete'}</small></div>
+      <div className="plan-section-header"><div><p className="eyebrow">WEEK AT A GLANCE</p><h2>Choose a day</h2></div><button className="outline-action"><DownloadIcon />Export week</button></div><div className="week-row plan-week">{week.map((name, index) => <button key={name} className={day === index ? 'today' : ''} onClick={() => setDay(index)}><span>{name}</span><strong>{index + 1}</strong><small>{index === day ? 'Today' : index < day ? 'Done' : 'Open'}</small></button>)}</div>
+      <div className="plan-section-header"><div><p className="eyebrow">{week[day].toUpperCase()} FOCUS</p><h2>{mode === 'workout' ? 'Today&apos;s movement' : 'Today&apos;s nourishment'}</h2></div><button className="text-action" onClick={() => setSaved(!saved)}>{saved ? 'Saved' : 'Save week'} <Check size={15} /></button></div>
+      <div className="plan-items">{items.map((item) => <article className="plan-item" key={item.title}><div className={`plan-item-icon ${item.tone}`}><item.icon size={21} /></div><div className="plan-item-copy"><div><strong>{item.title}</strong><span>{item.meta}</span></div><button className={`round-check ${completed(item.title) ? 'checked' : ''}`} onClick={() => toggleDone(item.title)} aria-label={`${completed(item.title) ? 'Undo' : 'Mark'} ${item.title} complete`}>{completed(item.title) ? <Check size={15} /> : <span />}</button></div><div className="plan-item-actions"><button onClick={() => toggleDone(item.title)}>{completed(item.title) ? 'Completed' : 'Mark done'}</button><button>Swap</button><button onClick={() => setSaved(true)}>Save</button></div></article>)}</div>
+      <div className="plan-bottom-grid"><div className="recovery-card"><div className="card-icon"><HeartPulse size={19} /></div><div><p className="eyebrow">RECOVERY NOTE</p><h3>{mode === 'workout' ? 'Rest is part of training.' : 'Hydration supports every goal.'}</h3><p>{mode === 'workout' ? 'Take a slower day when your body asks for it. Light mobility still counts.' : 'Track your water throughout the day and keep your energy steady.'}</p></div></div><div className="water-card-plan"><div><p className="eyebrow">WATER CHECK</p><strong>{water} / 8 glasses</strong></div><button onClick={() => setWater(water >= 8 ? 0 : water + 1)}><Plus size={17} />Add glass</button></div></div>
+    </>}
+    {tab === 'playlist' && <div className="empty-plan-state"><div className="state-icon"><Play size={24} /></div><p className="eyebrow">YOUR PLAYLIST</p><h2>{saved ? 'Week saved offline.' : 'Build your rhythm.'}</h2><p className="muted">Save a full week or add favorites from the library. Your choices stay ready when you are.</p><button className="primary" onClick={() => setSaved(true)}><Plus size={16} />Create playlist</button></div>}
+    {tab === 'library' && <div className="plan-library-grid">{items.concat(items).map((item, index) => <div className="plan-library-card" key={`${item.title}-${index}`}><div className={`plan-item-icon ${item.tone}`}><item.icon size={20} /></div><strong>{item.title}</strong><span>{item.meta}</span><button onClick={() => setSaved(true)}><Plus size={14} /> Add to playlist</button></div>)}</div>}
   </div>
 }
 
