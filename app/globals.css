@@ -30,7 +30,7 @@ button,input { font:inherit; } button { border:0; background:none; color:inherit
 /* Keep the expanded gym directory contained on narrow screens. */
 @media(max-width:650px){.social-detail-view{width:100%;min-width:0;box-sizing:border-box}.social-detail-view .social-gyms-card{width:100%;max-width:100%;padding:14px;box-sizing:border-box;border-radius:22px;overflow:hidden}.social-detail-view .gym-tools{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;width:100%;margin:0 0 14px;box-sizing:border-box}.social-detail-view .gym-tools .tab-search{width:100%;min-width:0;height:46px;padding:0 11px;box-sizing:border-box}.social-detail-view .gym-tools .tab-search input{min-width:0;width:100%;font-size:11px}.social-detail-view .gym-tools .tab-search span{display:none}.social-detail-view .post-gym-button{height:46px;padding:0 10px;font-size:10px;white-space:nowrap}.social-detail-view .gym-list{display:grid!important;grid-template-columns:1fr!important;gap:9px!important;width:100%;margin:0!important}.social-detail-view .gym-list article{display:grid!important;grid-template-columns:42px minmax(0,1fr) 18px!important;align-items:center;gap:10px;width:100%;min-width:0;min-height:86px;padding:12px;box-sizing:border-box}.social-detail-view .gym-list article>div:nth-child(2){display:grid!important;min-width:0;text-align:left}.social-detail-view .gym-list strong,.social-detail-view .gym-list span,.social-detail-view .gym-list small{display:block;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.social-detail-view .gym-list article>svg{display:block;width:16px}.social-detail-view .gym-photo{width:42px;height:48px}}
   @media(max-width:650px){
-    .social-main-sections{width:calc(100% + 32px);max-width:none;margin-left:-16px;overflow:hidden;background:var(--background)}
+    .social-main-sections{width:100vw;max-width:none;margin-left:calc((100vw - 100%)/-2);margin-right:0;overflow:hidden;background:#f1d5e0}
     .social-main-sections>.social-section-title,.social-main-sections>section{border:0;box-shadow:none}
     .social-main-sections>.social-section-title{position:relative;z-index:2;margin:0;padding:22px 32px 40px;border-radius:50% 50% 0 0 / 52px 52px 0 0}
     .social-main-sections>.social-section-title+section{position:relative;margin:0;padding:18px 32px 34px;border-radius:0 0 50% 50% / 0 0 30px 30px}
@@ -40,14 +40,17 @@ button,input { font:inherit; } button { border:0; background:none; color:inherit
  .social-main-sections>.people-band,.social-main-sections>.people-band+section{background:#d8eee4}
  .social-main-sections>.nearby-band,.social-main-sections>.nearby-band+section{background:#e2dcf4}
  .social-main-sections>.social-feed-card,.social-main-sections>.people-strip,.social-main-sections>.social-gyms-card{position:relative;z-index:1}
- .social-main-sections>.social-feed-card::after,.social-main-sections>.people-strip::after{content:"";position:absolute;left:0;right:0;bottom:-34px;height:52px;z-index:-1;border-radius:0 0 50% 50% / 0 0 28px 28px}
+ .social-main-sections>.social-feed-card::after,.social-main-sections>.people-strip::after{content:"";position:absolute;left:0;right:0;bottom:-48px;height:76px;z-index:0;pointer-events:none;border-radius:0 0 50% 50% / 0 0 42px 42px}
  .social-main-sections>.social-feed-card::after{background:#f1d5e0}
  .social-main-sections>.people-strip::after{background:#d8eee4}
  .social-main-sections>.nearby-band{z-index:3}
    .social-main-sections>.social-gyms-card{z-index:2}
   /* Tight mobile rhythm: overlap each arch and keep content evenly inset. */
-  .social-main-sections>.social-section-title{padding-left:24px;padding-right:24px;padding-bottom:30px}
-  .social-main-sections>.social-section-title+section{padding-left:24px;padding-right:24px;padding-top:12px;padding-bottom:30px}
+  .social-main-sections>.social-section-title{padding-left:24px;padding-right:24px;padding-bottom:26px}
+  .social-main-sections>.social-section-title+section{padding-left:24px;padding-right:24px;padding-top:10px;padding-bottom:28px}
+  .social-main-sections>.pulse-band{padding-top:18px}
+  .social-main-sections>.pulse-band+section .community-posts{margin-top:8px;gap:10px}
+  .social-main-sections>.pulse-band+section .community-post{margin:0}
   .social-main-sections>.pulse-band+section{margin-bottom:-42px;padding-bottom:58px}
   .social-main-sections>.people-band{margin-top:-42px!important;padding-top:62px;padding-bottom:30px}
   .social-main-sections>.people-band+section{padding-top:10px;padding-bottom:58px;margin-bottom:-42px}
