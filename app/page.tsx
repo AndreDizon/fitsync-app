@@ -14,7 +14,6 @@ import {
   ChevronLeft,
   ChevronRight,
   Dumbbell,
-  Droplet,
   Droplets,
   Flame,
   Flag,
