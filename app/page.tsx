@@ -54,7 +54,7 @@ const meals = [
 ]
 
 function Logo() {
-  return <div className="brand-mark"><Activity size={19} strokeWidth={2.8} /></div>
+ return <div className="brand-mark"><img src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/3D%20Fox%20Mascot%20on%20Yellow-8Ki24jlFIqkaZqmP1uMIKVFTYLOwns.png" alt="FitSync fox mascot" /></div>
 }
 
 function App() {
