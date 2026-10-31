@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { supabase } from '@/lib/supabase'
 
+const datasetMedia = fetch('https://raw.githubusercontent.com/hasaneyldrm/exercises-dataset/main/data/exercises.json', { next: { revalidate: 86400 } }).then((response) => response.ok ? response.json() : []).catch(() => [])
+
 const allowedFilters = ['category', 'target_muscle', 'equipment'] as const
 
 export async function GET(request: NextRequest) {
@@ -28,5 +30,13 @@ export async function GET(request: NextRequest) {
   const { data, error, count } = await requestQuery
   if (error) return NextResponse.json({ error: 'Unable to load exercises' }, { status: 500 })
 
-  return NextResponse.json({ data: data ?? [], total: count ?? 0, page, pageSize, totalPages: Math.ceil((count ?? 0) / pageSize) })
+  const mediaById = new Map((await datasetMedia).map((exercise: { id: string; image: string; gif_url: string; media_id: string }) => [exercise.id, exercise]))
+  const enrichedData = (data ?? []).map((exercise) => {
+    const media = mediaById.get(exercise.source_id) as { image: string; gif_url: string; media_id: string } | undefined
+    if (!media) return exercise
+    const base = 'https://raw.githubusercontent.com/hasaneyldrm/exercises-dataset/main/'
+    return { ...exercise, image_url: `${base}${media.image}`, media_urls: [`${base}${media.gif_url}`], media_id: media.media_id }
+  })
+
+  return NextResponse.json({ data: enrichedData, total: count ?? 0, page, pageSize, totalPages: Math.ceil((count ?? 0) / pageSize) })
 }
