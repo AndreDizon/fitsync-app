@@ -1,0 +1,69 @@
+/* Scale the reference composition together instead of rearranging it on phones. */
+.home-greeting-frame { container-type: inline-size; width: 100%; }
+.theme-default .home-page .home-greeting-frame .greeting-with-mascot {
+  display: block;
+  position: relative;
+  height: 43cqw;
+  min-height: 0;
+  margin: 0 0 2.4cqw;
+}
+.home-page .home-greeting-frame .greeting-with-mascot::before {
+  bottom: 0;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 4.7cqw, #b58a2717 4.7cqw 4.8cqw),
+    repeating-linear-gradient(90deg, transparent 0 4.7cqw, #b58a2717 4.7cqw 4.8cqw),
+    radial-gradient(ellipse at 100% 6%, #ef9a4d99, transparent 35%),
+    radial-gradient(ellipse at 0 90%, #f0ab4273, transparent 35%),
+    linear-gradient(105deg, #ffe77c, #fff1af 75%);
+}
+.home-page .home-greeting-frame .greeting-with-mascot::after { bottom: -2.4cqw; height: 2.5cqw; }
+.home-page .home-greeting-frame .greeting-copy {
+  container-type: normal;
+  position: absolute;
+  left: 0;
+  top: 3cqw;
+  width: 76cqw;
+  height: 40cqw;
+  margin: 0;
+  padding: 3.4cqw 3.5cqw;
+  box-sizing: border-box;
+}
+.home-page .home-greeting-frame .greeting-copy::before { inset: 0; border-radius: 3.5cqw 3.5cqw 0 0; }
+.home-page .home-greeting-frame .greeting-copy .eyebrow { font-size: 1.4cqw; letter-spacing: .1em; transform: scale(1.15); transform-origin: left center; }
+.theme-default .home-page .home-greeting-frame .greeting-with-mascot h1 {
+  display: block;
+  font-size: 5.4cqw;
+  margin: 2cqw 0 2.2cqw;
+  line-height: 1.15;
+  letter-spacing: -.045em;
+  white-space: nowrap;
+}
+.home-page .home-greeting-frame .greeting-salutation,
+.home-page .home-greeting-frame .greeting-progress { -webkit-text-stroke: .12cqw #95731d; }
+.home-page .home-greeting-frame .greeting-title-line,
+.home-page .home-greeting-frame .greeting-salutation,
+.home-page .home-greeting-frame .greeting-name,
+.home-page .home-greeting-frame .greeting-progress { text-shadow: .2cqw .3cqw .2cqw #e9822652, .4cqw .6cqw .8cqw #e982262e; }
+.home-page .home-greeting-frame .greeting-spark { width: 2.7cqw; height: 2.7cqw; margin-left: .2cqw; }
+.theme-default .home-page .home-greeting-frame .greeting-with-mascot .muted { max-width: none; white-space: nowrap; font-size: 2.3cqw; line-height: 1.5; transform: none; color: #5f543d; }
+.home-page .home-greeting-frame .greeting-trend-art { position: absolute; bottom: 1.8cqw; left: 3.5cqw; width: 67cqw; height: 8cqw; margin: 0; transform: none; }
+.home-page .home-greeting-frame .greeting-fox-stage { position: absolute; right: 8cqw; top: 1.5cqw; width: 30cqw; height: 39cqw; margin: 0; transform: none; }
+.home-page .home-greeting-frame .greeting-fox-stage::before { inset: 2cqw -2cqw 1cqw; }
+.home-page .home-greeting-frame .greeting-fox-stage::after { bottom: .4cqw; height: 1cqw; filter: blur(.2cqw); }
+.home-page .home-greeting-frame .greeting-with-mascot .streak {
+  position: absolute;
+  top: 3cqw;
+  right: 0;
+  width: 14cqw;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  gap: .5cqw;
+  padding: 1.5cqw 1cqw;
+  margin: 0;
+  border-radius: 2.4cqw;
+  box-shadow: inset 0 .2cqw .2cqw #fff, inset 0 -.2cqw .3cqw #c18b3333, 0 .4cqw 0 #c89b4859, 0 1cqw 2cqw #8f621829;
+}
+.home-page .home-greeting-frame .greeting-with-mascot .streak svg { width: 7.2cqw; height: 7.2cqw; padding: 1.8cqw; margin-bottom: .3cqw; border-width: .35cqw; }
+.home-page .home-greeting-frame .greeting-with-mascot .streak strong { font-size: 2.7cqw; transform: scale(1.15); transform-origin: center; }
+.home-page .home-greeting-frame .greeting-with-mascot .streak span { grid-column: 1; font-size: 1.3cqw; transform: scale(1.15); transform-origin: center; }

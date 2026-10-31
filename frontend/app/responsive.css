@@ -1,0 +1,143 @@
+/* Shared fluid sizing; the reference hero keeps its own proportional canvas. */
+:root {
+  --page-gutter: clamp(16px, 3.4vw, 42px);
+  --space-sm: clamp(8px, 1vw, 12px);
+  --space-md: clamp(12px, 1.6vw, 20px);
+  --space-lg: clamp(20px, 2.8vw, 34px);
+  --panel-radius: clamp(18px, 2.2vw, 28px);
+  --panel-padding: clamp(16px, 2.2vw, 28px);
+}
+html { -webkit-text-size-adjust: 100%; }
+body { min-width: 280px; }
+img, video, canvas { max-width: 100%; }
+input, select, textarea { max-width: 100%; }
+.theme-default.app-shell { width: 100%; padding: clamp(0px, 1.4vw, 18px); }
+.theme-default .content-wrap { min-width: 0; border-radius: var(--panel-radius); }
+.theme-default .page {
+  width: 100%;
+  max-width: 1120px;
+  padding-inline: var(--page-gutter);
+  padding-bottom: calc(110px + env(safe-area-inset-bottom, 0px));
+}
+.theme-default .page:not(.home-page) { padding-top: var(--space-lg); }
+.theme-default .topbar { height: clamp(68px, 7vw, 84px); padding-inline: var(--page-gutter); gap: var(--space-sm); }
+.theme-default .header-brand { min-width: 0; gap: clamp(6px, 1vw, 12px); }
+.theme-default .top-actions { gap: clamp(4px, 1.4vw, 18px); flex-shrink: 0; }
+.theme-default .profile-button {
+  display: inline-flex;
+  align-items: center;
+  gap: clamp(8px, 1vw, 12px);
+  height: 44px;
+  min-height: 44px;
+  padding: 3px 12px 3px 3px;
+  border: 1px solid #e9dfb7;
+  border-radius: 13px;
+  background: #fff8d9;
+  box-shadow: 0 2px 0 #e9dfb7;
+  color: #191a1b;
+}
+.theme-default .profile-button:hover { background: #ffd522; }
+.theme-default .profile-button:active { box-shadow: none; transform: translateY(2px); }
+.theme-default .profile-button .avatar { width: 36px; height: 36px; flex-shrink: 0; border-radius: 11px; }
+.theme-default .profile-button > span { display: inline; font-size: clamp(12px, 1.2vw, 14px); }
+.theme-default .profile-button > svg { display: block; width: 15px; height: 15px; flex-shrink: 0; }
+.theme-default .mobile-brand { gap: clamp(5px, .8vw, 10px); }
+.theme-default .mobile-brand .fitsync-wordmark { font-size: clamp(22px, 2.8vw, 32px); }
+.theme-default .brand-mark { width: clamp(28px, 3.4vw, 38px); height: clamp(28px, 3.4vw, 38px); }
+.theme-default .menu-toggle { width: 44px; height: 44px; }
+.theme-default .page:not(.home-page) h1 { font-size: clamp(28px, 3.5vw, 42px); line-height: 1.1; }
+.theme-default .page:not(.home-page) .intro { font-size: clamp(13px, 1.3vw, 16px); line-height: 1.55; }
+.theme-default :is(.stats-grid, .explore-grid, .metric-grid, .exercise-library-grid, .plan-library-grid, .library-cards) { gap: var(--space-md); }
+.theme-default :is(.stats-grid, .explore-grid) { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.theme-default :is(.stats-grid, .explore-grid, .metric-grid, .exercise-library-grid, .plan-library-grid) > * { min-width: 0; }
+.theme-default :is(.stat-card, .explore-grid button, .settings-group, .settings-profile, .post, .buddy-card, .plan-summary, .plans-hero, .plan-library-card) { border-radius: var(--panel-radius); }
+.theme-default :is(.stat-card, .explore-grid button, .plan-summary, .plans-hero, .post) { padding: var(--panel-padding); }
+.theme-default .stat-card strong { font-size: clamp(22px, 2.6vw, 30px); }
+.theme-default .stat-card strong small { display: inline; margin-left: 4px; font-size: clamp(11px, 1.1vw, 13px); letter-spacing: normal; line-height: 1.4; }
+.theme-default :is(.stat-card > span, .row-copy span, .plan-item-copy span) { font-size: clamp(11px, 1.1vw, 13px); line-height: 1.45; }
+.theme-default :is(.row-copy, .plan-item-copy, .plan-item-copy > div, .post-head > div, .settings-profile > div) { min-width: 0; overflow-wrap: anywhere; }
+.theme-default .plan-row { gap: var(--space-sm); }
+.theme-default .plan-row .row-icon, .theme-default .check, .theme-default .round-check { flex-shrink: 0; }
+.theme-default :is(.section-heading, .plan-section-header) { gap: 12px; }
+.theme-default :is(.section-heading, .plan-section-header) > button { flex-shrink: 0; }
+.theme-default :is(.section-heading h2, .subheading, .plan-section-header h2) { font-size: clamp(16px, 1.8vw, 21px); }
+.theme-default .library-filter-bar { grid-template-columns: minmax(0, 1.6fr) repeat(3, minmax(0, 1fr)); gap: var(--space-sm); }
+.theme-default .library-filter-bar > * { min-width: 0; width: 100%; }
+.theme-default .library-filter-bar .searchbox { margin: 0; }
+.theme-default .library-filter-bar select { min-height: 44px; font-size: clamp(11px, 1.1vw, 13px); }
+.theme-default .searchbox input, .theme-default .tab-search input { width: 100%; min-width: 0; }
+.theme-default .exercise-library-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr)); }
+.theme-default .exercise-card-media { height: auto; aspect-ratio: 4 / 3; }
+.theme-default .exercise-card-body { padding: clamp(12px, 1.6vw, 18px); }
+.theme-default .exercise-card h3 { font-size: clamp(14px, 1.5vw, 18px); overflow-wrap: anywhere; }
+.theme-default .exercise-card summary { min-height: 32px; }
+.theme-default .plan-library-grid { grid-template-columns: repeat(auto-fit, minmax(min(100%, 170px), 1fr)); }
+.theme-default :is(.plans-hero, .plans-heading, .plan-section-header, .plan-actions) { flex-wrap: wrap; gap: var(--space-md); }
+.theme-default .plan-mode-switch { flex-shrink: 0; }
+.theme-default .plan-tabs { display: flex; max-width: 100%; gap: var(--space-sm); flex-wrap: wrap; }
+.theme-default .plan-tabs button { min-height: 44px; }
+.theme-default .plan-week { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: clamp(3px, .8vw, 10px); }
+.theme-default .plan-week button { min-width: 0; padding-inline: 0; }
+.theme-default .plan-week strong { width: clamp(26px, 4vw, 38px); height: clamp(26px, 4vw, 38px); }
+.theme-default .plan-bottom-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-md); }
+.theme-default :is(.recovery-card, .water-card-plan) { min-width: 0; padding: var(--panel-padding); border-radius: var(--panel-radius); }
+.theme-default .water-droplet-grid { gap: clamp(4px, .8vw, 12px); }
+.theme-default .water-droplet svg { width: clamp(22px, 2.7vw, 32px); height: clamp(22px, 2.7vw, 32px); }
+.theme-default .progress-summary { gap: var(--space-md); padding: var(--panel-padding); flex-wrap: wrap; }
+.theme-default .metric-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.theme-default .metric-grid > div:last-child { grid-column: auto; }
+.theme-default .bars { gap: clamp(5px, 1vw, 14px); }
+.theme-default .social-hero { gap: var(--space-sm); flex-wrap: wrap; padding: var(--panel-padding); }
+.theme-default .social-tabs { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
+.theme-default .post { overflow-wrap: anywhere; }
+.theme-default .post-actions { flex-wrap: wrap; gap: var(--space-sm); }
+.theme-default .settings-profile { gap: var(--space-sm); padding: var(--panel-padding); }
+.theme-default .settings-group { padding-inline: var(--panel-padding); }
+.theme-default .settings-group > button { gap: 10px; min-height: 48px; }
+.theme-default .settings-group > button > span { min-width: 0; overflow-wrap: anywhere; }
+.theme-default .settings-group > button > small { flex-shrink: 0; }
+.theme-default .navigation-drawer { width: min(340px, calc(100vw - 24px)); padding: var(--panel-padding); }
+.theme-default .mobile-nav { width: min(520px, calc(100% - 24px)); max-width: 520px; height: clamp(64px, 6vw, 72px); }
+.theme-default .mobile-nav button { font-size: clamp(10px, 1vw, 12px); }
+.theme-default .modal-backdrop { padding: 16px; overflow-y: auto; }
+.theme-default .auth-card { width: min(100%, 420px); max-width: 420px; padding: var(--panel-padding); max-height: calc(100dvh - 32px); overflow-y: auto; }
+/* Chat is rendered into document.body, outside the theme wrapper. */
+.coach-overlay { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: clamp(10px, 2vw, 24px); background: #191a1b66; }
+.coach-overlay .coach-chat { display: flex; flex-direction: column; width: min(100%, 640px); height: min(720px, calc(100dvh - 48px)); margin: 0; border-radius: var(--panel-radius); box-shadow: 0 20px 60px #191a1b33; }
+.coach-overlay .coach-messages { flex: 1; min-height: 0; max-height: none; overflow-y: auto; padding: var(--panel-padding); }
+.coach-overlay .coach-chat-head { padding: clamp(12px, 2vw, 20px); }
+.coach-overlay .coach-chat-form { padding: clamp(10px, 1.5vw, 16px); }
+.coach-overlay :is(.coach-message, .coach-welcome) { font-size: clamp(12px, 1.2vw, 14px); overflow-wrap: anywhere; }
+.coach-overlay .coach-chat-form input { font-size: 16px; }
+.coach-overlay .coach-chat-form button { min-height: 44px; min-width: 44px; }
+@media (max-width: 800px) {
+  .theme-default .library-filter-bar { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .theme-default .plan-bottom-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .theme-default.app-shell { padding: 0; }
+  .theme-default .content-wrap { border-radius: 0; }
+  .theme-default .page { max-width: 100%; }
+  .theme-default .profile-button { gap: 7px; padding-right: 9px; }
+  .theme-default :is(.stats-grid, .explore-grid) { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .theme-default :is(.water-card, .explore-grid > button:last-child) { grid-column: 1 / -1; }
+  .theme-default .metric-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .theme-default .metric-grid > div:last-child { grid-column: 1 / -1; }
+  .theme-default .exercise-library-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .theme-default .plan-item-actions { flex-wrap: wrap; }
+  .theme-default .water-droplet-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .theme-default .home-page .hero-card { gap: 12px; }
+  .theme-default .home-page .hero-card > div { min-width: 0; }
+  .coach-overlay .coach-chat { height: calc(100dvh - 20px); }
+}
+@media (max-width: 360px) {
+  .theme-default .profile-button { gap: 5px; min-height: 44px; padding: 4px 7px 4px 4px; }
+  .theme-default .profile-button .avatar { width: 28px; height: 28px; border-radius: 9px; }
+  .theme-default .top-actions > button:first-child { display: none; }
+  .theme-default .library-filter-bar { grid-template-columns: 1fr; }
+  .theme-default .exercise-library-grid { grid-template-columns: 1fr; }
+  .theme-default .settings-profile { flex-wrap: wrap; }
+}
+@media (max-width: 320px) {
+  .theme-default .header-brand .brand-mark { display: none; }
+}

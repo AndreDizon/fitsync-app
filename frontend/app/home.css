@@ -1,0 +1,153 @@
+/* Home hierarchy: a warm welcome, one clear action, then daily progress. */
+.theme-default .topbar { border-bottom: 1px solid #ece8dc; }
+.theme-default .menu-toggle { background: #fff8d9; border-color: #e9dfb7; box-shadow: 0 2px 0 #e9dfb7; border-radius: 13px; }
+.theme-default .mobile-nav { max-width: 440px; height: 64px; border-color: #e7e1ce; box-shadow: 0 8px 28px #29251118; }
+.theme-default .mobile-nav button.active { background: #ffdc38; }
+.theme-default .home-page { padding-top: 20px; }
+.theme-default .home-page .greeting-with-mascot { min-height: 306px; grid-template-columns: minmax(0, 1fr) clamp(245px, 29vw, 310px); gap: 10px; margin-bottom: 24px; }
+.home-page .greeting-with-mascot::before {
+  top: -20px;
+  bottom: -18px;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 47px, #b58a2717 47px 48px),
+    repeating-linear-gradient(90deg, transparent 0 47px, #b58a2717 47px 48px),
+    radial-gradient(ellipse at 100% 6%, #ef9a4d99, transparent 35%),
+    radial-gradient(ellipse at 0 90%, #f0ab4273, transparent 35%),
+    linear-gradient(105deg, #ffe77c, #fff1af 75%);
+  border-bottom: 1px solid #f0e7ca;
+}
+.home-page .greeting-with-mascot::after {
+  content: '';
+  position: absolute;
+  z-index: 5;
+  left: 50%;
+  bottom: -24px;
+  width: 100vw;
+  height: 14px;
+  transform: translateX(-50%);
+  background: #fffefa;
+  pointer-events: none;
+}
+.home-page .greeting-copy .eyebrow { color: #7c704e; font-size: 10px; letter-spacing: .12em; }
+.home-page .greeting-copy { container-type: inline-size; position: relative; isolation: isolate; align-self: stretch; margin-top: 22px; padding: 28px 20px 18px 26px; }
+.home-page .greeting-copy::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0 -90px -18px 0;
+  border-radius: 28px 28px 0 0;
+  border: 1px solid #ffffffc9;
+  background:
+    radial-gradient(ellipse at 18% 0%, #ffffff75, #ffffff00 70%),
+    linear-gradient(180deg, #fffdf2ed 0%, #fff8dce8 35%, #fff2c8e3 68%, #fff2cee8 100%);
+  box-shadow: inset 0 2px 2px #fff, inset 2px 0 3px #ffffff91, inset -2px 0 4px #d6a94d26, 0 7px 0 #bd91371a, 0 16px 30px #9f741b17;
+  backdrop-filter: blur(8px);
+  pointer-events: none;
+}
+.greeting-trend-art { display: block; width: calc(100% + 60px); height: 54px; margin-top: 24px; overflow: visible; transform: translateY(8px); pointer-events: none; }
+.theme-default .home-page .greeting-with-mascot h1 { display: block; white-space: nowrap; font-size: clamp(22px, 10.3cqw, 58px); margin: 14px 0 12px; letter-spacing: -.045em; line-height: 1.12; }
+.greeting-title-line { display: block; }
+.greeting-progress-line { margin-top: .12em; font-size: inherit; font-weight: 900; color: #191a1b; }
+.greeting-progress { color: #fff; -webkit-text-stroke: 1.2px #95731d; paint-order: stroke fill; text-shadow: 0 2px 2px #94751b20; }
+.greeting-salutation { display: inline; font-size: inherit; font-weight: 900; letter-spacing: inherit; color: #fff; -webkit-text-stroke: 1.2px #95731d; paint-order: stroke fill; text-shadow: 0 2px 2px #94751b20; }
+.greeting-name { display: inline; margin-top: 0; font-size: inherit; font-weight: 900; color: #191a1b; }
+.home-page .greeting-title-line,
+.home-page .greeting-salutation,
+.home-page .greeting-name,
+.home-page .greeting-progress {
+  text-shadow: 2px 3px 2px #e9822652, 4px 6px 8px #e982262e;
+}
+.home-page .greeting-spark { margin-left: 2px; color: #b58208; }
+.theme-default .home-page .greeting-with-mascot .muted { max-width: 380px; font: 400 18px/1.5 Inter, ui-sans-serif, system-ui, sans-serif; color: #776d54; transform: scale(1.12); transform-origin: left top; }
+.home-page .greeting-fox-stage { height: 350px; margin-top: 6px; margin-bottom: -30px; transform: translate(-48px, -46px); z-index: 4; }
+.home-page .greeting-fox { object-position: center bottom; }
+.home-page .greeting-fox-stage::before { content: ''; position: absolute; z-index: -1; inset: 24px -20px 12px; border-radius: 50%; background: radial-gradient(ellipse, #ffdc5550, #ffe7a124 56%, transparent 73%); }
+.home-page .greeting-fox-stage::after {
+  height: 10px;
+  left: 17%;
+  right: 17%;
+  bottom: 3px;
+  background: radial-gradient(ellipse at 35% 50%, #3f2f174d, transparent 60%), radial-gradient(ellipse at 65% 50%, #3f2f1740, transparent 60%);
+  filter: blur(2px);
+  opacity: .9;
+}
+.home-page .greeting-with-mascot .streak { position: absolute; z-index: 3; top: 22px; right: 0; display: grid; grid-template-columns: 1fr; justify-items: center; gap: 3px; width: 104px; margin-top: 0; padding: 10px; border: 1px solid #fffdf3b3; border-radius: 18px; background: linear-gradient(130deg, #fffdf0bf, #fff1d1b3); box-shadow: 0 12px 30px #845a1a12, inset 0 1px 1px #fff; backdrop-filter: blur(14px); }
+.home-page .greeting-with-mascot .streak svg { width: 54px; height: 54px; padding: 13px; margin-bottom: 2px; border: 3px solid #b47b2833; border-top-color: #a8551e; border-right-color: #c28c33; border-radius: 50%; color: #c47d18; background: radial-gradient(circle, #ffe9a3, #fff5de88 70%); filter: drop-shadow(0 3px 5px #a36a1220); }
+.home-page .greeting-with-mascot .streak strong { font-size: 21px; color: #ac4f14; }
+.home-page .greeting-with-mascot .streak span { grid-column: 1; font-size: 10px; }
+.home-page .greeting-with-mascot .streak {
+  overflow: hidden;
+  border-color: #ffffffd9;
+  background:
+    radial-gradient(ellipse at 25% 0%, #ffffff85, #ffffff00 75%),
+    linear-gradient(180deg, #fff9e9f5 0%, #fff1d8f0 35%, #ffe8bdec 70%, #fff1d4f2 100%);
+  box-shadow: inset 0 2px 2px #fff, inset 1px 0 2px #ffffffbf, inset 0 -2px 3px #c18b3333, 0 4px 0 #c89b4859, 0 10px 20px #8f621829;
+}
+.home-page .greeting-with-mascot .streak::before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 5px;
+  right: 5px;
+  height: 70%;
+  border-radius: 14px;
+  background: radial-gradient(ellipse at 50% 0%, #ffffff50, #ffffff00 75%);
+  pointer-events: none;
+}
+.home-page .greeting-with-mascot .streak > * { position: relative; }
+.home-page .greeting-with-mascot .streak svg { background: radial-gradient(circle at 38% 30%, #fffbe9, #ffe5a3 62%, #eac37a); box-shadow: inset 0 2px 4px #fff8da, 0 3px 8px #b17a2524; }
+.theme-default .home-page .hero-card { min-height: 224px; padding: 28px 32px; border-radius: 26px; background: radial-gradient(ellipse at 100% 100%, #454329, transparent 66%), #1b1d1b; box-shadow: 0 10px 24px #191a1b12; }
+.theme-default .home-page .hero-card::before { opacity: .09; }
+.theme-default .home-page .hero-card::after { opacity: .35; }
+.theme-default .home-page .hero-card h2 { font-size: clamp(25px, 3vw, 34px); line-height: 1.1; letter-spacing: -.04em; margin-block: 13px 8px; }
+.theme-default .home-page .hero-card .eyebrow { font-size: 8px; letter-spacing: .12em; border: 0; padding: 0; background: transparent; }
+.theme-default .home-page .hero-card p:not(.eyebrow) { font: 400 12px/1.6 Inter, ui-sans-serif, system-ui, sans-serif; color: #c8ccbf; max-width: 330px; }
+.theme-default .home-page .light-button { margin-top: 22px; padding: 13px 18px; min-height: 44px; border-radius: 14px !important; box-shadow: 0 3px 0 #bd9600; }
+.theme-default .home-page .hero-orb { width: 100px; height: 100px; margin-right: 10px; border-width: 1px; box-shadow: 0 0 0 10px #ffd5220c; transform: rotate(-8deg); }
+.home-page .hero-orb > svg { width: 35px; height: 35px; }
+.theme-default .home-page .daily-momentum { margin-top: 16px; gap: 16px; padding: 18px 22px; background: #fffdf4; border-color: #eae2c6; border-radius: 20px; }
+.home-page .daily-momentum::after { display: none; }
+.home-page .momentum-mascot { display: none; }
+.home-page .momentum-copy .eyebrow { font-size: 8px; color: #82724c; }
+.home-page .momentum-copy h2 { font-size: 19px; margin-block: 6px 4px; letter-spacing: -.04em; }
+.home-page .momentum-copy > p:last-child { color: #837b65; }
+.home-page .momentum-score { border-left-color: #ebe3c9; }
+.home-page .momentum-score strong { font-size: 26px; }
+.home-page .momentum-score progress { background: #eee8d5; }
+.home-page .momentum-score progress::-webkit-progress-bar { background: #eee8d5; }
+.home-page .momentum-score progress::-webkit-progress-value { background: #b89718; }
+.home-page .momentum-score progress::-moz-progress-bar { background: #b89718; }
+.home-page > .ambient-shape { display: none; }
+.theme-default .home-page .section-heading { margin-top: 30px; }
+.theme-default .home-page .section-heading h2 { font-size: 17px; letter-spacing: -.025em; }
+.theme-default .home-page .section-heading h2::before { height: 13px; width: 4px; }
+@media (max-width: 760px) {
+  .theme-default .home-page { padding-top: 16px; }
+  .home-page .greeting-with-mascot::before { top: -16px; }
+}
+@media (max-width: 600px) {
+  .home-page .greeting-with-mascot::after { bottom: -20px; }
+  .theme-default .home-page .greeting-with-mascot { min-height: 290px; grid-template-columns: minmax(0, 1fr) 175px; gap: 0; margin-bottom: 20px; }
+  .home-page .greeting-copy { grid-column: 1 / -1; margin-top: 0; padding: 22px 18px 16px; }
+  .home-page .greeting-copy::before { right: 0; border-radius: 22px 22px 0 0; }
+  .greeting-trend-art { width: 100%; height: 36px; margin-top: 18px; transform: translateY(5px); }
+  .home-page .greeting-copy .eyebrow { font-size: 8px; letter-spacing: .07em; }
+  .theme-default .home-page .greeting-with-mascot h1 { font-size: clamp(24px, 10.3cqw, 46px); }
+  .home-page .greeting-spark { width: 17px; height: 17px; }
+  .theme-default .home-page .greeting-with-mascot .muted { font-size: 15px; line-height: 1.5; }
+  .home-page .greeting-fox-stage { grid-row: 2; height: 232px; margin-top: -38px; margin-bottom: -16px; align-self: center; transform: translate(-30px, -40px); }
+  .home-page .greeting-fox-stage::after { bottom: 1px; height: 8px; }
+  .home-page .greeting-with-mascot .streak { position: relative; top: auto; right: auto; grid-column: 1; grid-row: 2; align-self: center; padding: 9px; margin-top: 0; width: 96px; display: grid; gap: 3px; align-items: center; border-radius: 18px; }
+  .home-page .greeting-with-mascot .streak strong { font-size: 14px; }
+  .home-page .greeting-with-mascot .streak span { font-size: 9px; }
+  .home-page .greeting-with-mascot .streak svg { width: 46px; height: 46px; padding: 10px; }
+  .theme-default .home-page .hero-card { min-height: 215px; padding: 23px 20px; border-radius: 23px; gap: 12px; }
+  .theme-default .home-page .hero-card h2 { font-size: 26px; }
+  .theme-default .home-page .hero-card p:not(.eyebrow) { font-size: 11px; }
+  .theme-default .home-page .hero-orb { flex-shrink: 0; width: 62px; height: 62px; margin-right: 0; box-shadow: 0 0 0 6px #ffd5220c; }
+  .home-page .hero-orb > svg { width: 26px; height: 26px; }
+  .theme-default .home-page .light-button { padding: 12px 14px; font-size: 10px; }
+  .theme-default .home-page .daily-momentum { padding: 16px; }
+  .home-page .momentum-copy h2 { font-size: 18px; }
+  .home-page .momentum-copy > p:last-child { font-size: 10px; }
+}
