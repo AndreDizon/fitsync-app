@@ -8,6 +8,7 @@ import './home.css'
 import './home-responsive.css'
 import './responsive.css'
 import './auth.css'
+import './auth-mobile.css'
 
 export const metadata: Metadata = {
   title: 'FitSync · Move with intention',

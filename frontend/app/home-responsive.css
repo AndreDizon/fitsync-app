@@ -47,7 +47,7 @@
 .home-page .home-greeting-frame .greeting-spark { width: 2.7cqw; height: 2.7cqw; margin-left: .2cqw; }
 .theme-default .home-page .home-greeting-frame .greeting-with-mascot .muted { max-width: none; white-space: nowrap; font-size: 2.3cqw; line-height: 1.5; transform: none; color: #5f543d; }
 .home-page .home-greeting-frame .greeting-trend-art { position: absolute; bottom: 1.8cqw; left: 3.5cqw; width: 67cqw; height: 8cqw; margin: 0; transform: none; }
-.home-page .home-greeting-frame .greeting-fox-stage { position: absolute; right: 8cqw; top: 1.5cqw; width: 30cqw; height: 39cqw; margin: 0; transform: none; }
+.home-page .home-greeting-frame .greeting-fox-stage { position: absolute; right: 9.5cqw; top: 1.5cqw; width: 30cqw; height: 39cqw; margin: 0; transform: none; }
 .home-page .home-greeting-frame .greeting-fox-stage::before { inset: 2cqw -2cqw 1cqw; }
 .home-page .home-greeting-frame .greeting-fox-stage::after { bottom: .4cqw; height: 1cqw; filter: blur(.2cqw); }
 .home-page .home-greeting-frame .greeting-with-mascot .streak {
