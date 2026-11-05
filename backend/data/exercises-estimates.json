@@ -1,0 +1,5012 @@
+{
+  "method": {
+    "version": 1,
+    "source": "https://pacompendium.com/",
+    "referenceWeightKg": 70,
+    "energyType": "gross_kcal_including_resting_energy",
+    "formula": "kcal = MET × 3.5 × weightKg / 200 × minutes; active work and rest calculated separately",
+    "assumptions": "Adult reference estimates. Repetitions take 2–4 seconds; rest 45–90 seconds between sets (60–120 for plyometrics). Rest uses 1.3 MET. Setup, warm-up and cool-down are excluded. Activity-class MET ranges are approximate, not exercise-specific measurements."
+  },
+  "exercises": {
+    "barbell-bench-press": {
+      "prescription": "3 Sets × 8-12 Reps",
+      "estimatedMinutes": [
+        2.3,
+        5.4
+      ],
+      "activeSeconds": [
+        48,
+        144
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        6,
+        22
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports pectorals fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the pectorals; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "barbell-incline-bench-press": {
+      "prescription": "3 Sets × 8-10 Reps",
+      "estimatedMinutes": [
+        2.3,
+        5
+      ],
+      "activeSeconds": [
+        48,
+        120
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        6,
+        19
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports pectorals fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the pectorals; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "dumbbell-bench-press": {
+      "prescription": "3 Sets × 8-12 Reps",
+      "estimatedMinutes": [
+        2.3,
+        5.4
+      ],
+      "activeSeconds": [
+        48,
+        144
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        6,
+        22
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports pectorals fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the pectorals; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "dumbbell-incline-bench-press": {
+      "prescription": "3 Sets × 8-12 Reps",
+      "estimatedMinutes": [
+        2.3,
+        5.4
+      ],
+      "activeSeconds": [
+        48,
+        144
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        6,
+        22
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports pectorals fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the pectorals; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "dumbbell-fly": {
+      "prescription": "2 Sets × 10-15 Reps",
+      "estimatedMinutes": [
+        1.4,
+        3.5
+      ],
+      "activeSeconds": [
+        40,
+        120
+      ],
+      "restSeconds": [
+        45,
+        90
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        4,
+        17
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports pectorals fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the pectorals; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "cable-standing-fly": {
+      "prescription": "3 Sets × 10-15 Reps",
+      "estimatedMinutes": [
+        2.5,
+        6
+      ],
+      "activeSeconds": [
+        60,
+        180
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        7,
+        27
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports pectorals fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the pectorals; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "push-up": {
+      "prescription": "3 Sets × 6-12 Reps",
+      "estimatedMinutes": [
+        2.1,
+        5.4
+      ],
+      "activeSeconds": [
+        36,
+        144
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        2.8,
+        3.8
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        4,
+        16
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports pectorals fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the pectorals; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "incline-push-up": {
+      "prescription": "3 Sets × 8-15 Reps",
+      "estimatedMinutes": [
+        2.3,
+        6
+      ],
+      "activeSeconds": [
+        48,
+        180
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        2.8,
+        3.8
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        5,
+        19
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports pectorals fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the pectorals; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "lever-chest-press": {
+      "prescription": "3 Sets × 10-12 Reps",
+      "estimatedMinutes": [
+        2.5,
+        5.4
+      ],
+      "activeSeconds": [
+        60,
+        144
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        7,
+        22
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports pectorals fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the pectorals; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "lever-seated-fly": {
+      "prescription": "3 Sets × 10-15 Reps",
+      "estimatedMinutes": [
+        2.5,
+        6
+      ],
+      "activeSeconds": [
+        60,
+        180
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        7,
+        27
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports pectorals fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the pectorals; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "decline-push-up": {
+      "prescription": "3 Sets × 6-10 Reps",
+      "estimatedMinutes": [
+        2.1,
+        5
+      ],
+      "activeSeconds": [
+        36,
+        120
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        2.8,
+        3.8
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        4,
+        14
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports pectorals fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the pectorals; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "kneeling-push-up-male": {
+      "prescription": "3 Sets × 8-12 Reps",
+      "estimatedMinutes": [
+        2.3,
+        5.4
+      ],
+      "activeSeconds": [
+        48,
+        144
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        2.8,
+        3.8
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        5,
+        16
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports pectorals fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the pectorals; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "dumbbell-decline-bench-press": {
+      "prescription": "3 Sets × 8-12 Reps",
+      "estimatedMinutes": [
+        2.3,
+        5.4
+      ],
+      "activeSeconds": [
+        48,
+        144
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        6,
+        22
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports pectorals fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the pectorals; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "smith-bench-press": {
+      "prescription": "3 Sets × 8-12 Reps",
+      "estimatedMinutes": [
+        2.3,
+        5.4
+      ],
+      "activeSeconds": [
+        48,
+        144
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        6,
+        22
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports pectorals fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the pectorals; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "band-bench-press": {
+      "prescription": "3 Sets × 10-15 Reps",
+      "estimatedMinutes": [
+        2.5,
+        6
+      ],
+      "activeSeconds": [
+        60,
+        180
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        7,
+        27
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports pectorals fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the pectorals; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "chest-and-front-of-shoulder-stretch": {
+      "prescription": "2 Holds × 20-30 Seconds",
+      "estimatedMinutes": [
+        1.4,
+        2.5
+      ],
+      "activeSeconds": [
+        40,
+        60
+      ],
+      "restSeconds": [
+        45,
+        90
+      ],
+      "activeMet": [
+        2.3,
+        2.3
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        3,
+        5
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports comfortable range of motion around the pectorals."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Supports movement preparation and recovery rather than a direct muscle-building stimulus."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Supports a strength routine through mobility or conditioning; it does not estimate strength gained."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Supports range of motion; endurance adaptations require sustained or repeated effort."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Targets comfortable flexibility of the pectorals; avoid forcing end range."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "cable-pulldown": {
+      "prescription": "3 Sets × 8-12 Reps",
+      "estimatedMinutes": [
+        2.3,
+        5.4
+      ],
+      "activeSeconds": [
+        48,
+        144
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        6,
+        22
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports latissimus dorsi fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the latissimus dorsi; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the pull pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated pull work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "pull-up": {
+      "prescription": "3 Sets × 4-8 Reps",
+      "estimatedMinutes": [
+        1.9,
+        4.6
+      ],
+      "activeSeconds": [
+        24,
+        96
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        2.8,
+        3.8
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        4,
+        12
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports latissimus dorsi fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the latissimus dorsi; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the pull pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated pull work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "chin-up": {
+      "prescription": "3 Sets × 4-8 Reps",
+      "estimatedMinutes": [
+        1.9,
+        4.6
+      ],
+      "activeSeconds": [
+        24,
+        96
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        2.8,
+        3.8
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        4,
+        12
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports latissimus dorsi fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the latissimus dorsi; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the pull pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated pull work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "cable-seated-row": {
+      "prescription": "3 Sets × 10-12 Reps",
+      "estimatedMinutes": [
+        2.5,
+        5.4
+      ],
+      "activeSeconds": [
+        60,
+        144
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        7,
+        22
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports upper back fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the upper back; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the pull pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated pull work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "barbell-bent-over-row": {
+      "prescription": "3 Sets × 8-10 Reps",
+      "estimatedMinutes": [
+        2.3,
+        5
+      ],
+      "activeSeconds": [
+        48,
+        120
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        6,
+        19
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports upper back fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the upper back; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the pull pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated pull work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "dumbbell-bent-over-row": {
+      "prescription": "3 Sets × 8-12 Reps",
+      "estimatedMinutes": [
+        2.3,
+        5.4
+      ],
+      "activeSeconds": [
+        48,
+        144
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        6,
+        22
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports upper back fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the upper back; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the pull pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated pull work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "dumbbell-incline-row": {
+      "prescription": "3 Sets × 10-12 Reps",
+      "estimatedMinutes": [
+        2.5,
+        5.4
+      ],
+      "activeSeconds": [
+        60,
+        144
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        7,
+        22
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports upper back fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the upper back; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the pull pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated pull work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "cable-straight-arm-pulldown": {
+      "prescription": "3 Sets × 10-15 Reps",
+      "estimatedMinutes": [
+        2.5,
+        6
+      ],
+      "activeSeconds": [
+        60,
+        180
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        7,
+        27
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports latissimus dorsi fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the latissimus dorsi; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the pull pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated pull work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "lever-seated-row": {
+      "prescription": "3 Sets × 10-12 Reps",
+      "estimatedMinutes": [
+        2.5,
+        5.4
+      ],
+      "activeSeconds": [
+        60,
+        144
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        7,
+        22
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports upper back fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the upper back; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the pull pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated pull work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "inverted-row": {
+      "prescription": "3 Sets × 6-12 Reps",
+      "estimatedMinutes": [
+        2.1,
+        5.4
+      ],
+      "activeSeconds": [
+        36,
+        144
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        2.8,
+        3.8
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        4,
+        16
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports upper back fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the upper back; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the pull pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated pull work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "cable-underhand-pulldown": {
+      "prescription": "3 Sets × 8-12 Reps",
+      "estimatedMinutes": [
+        2.3,
+        5.4
+      ],
+      "activeSeconds": [
+        48,
+        144
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        6,
+        22
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports latissimus dorsi fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the latissimus dorsi; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the pull pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated pull work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "pull-up-neutral-grip": {
+      "prescription": "3 Sets × 4-8 Reps",
+      "estimatedMinutes": [
+        1.9,
+        4.6
+      ],
+      "activeSeconds": [
+        24,
+        96
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        2.8,
+        3.8
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        4,
+        12
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports latissimus dorsi fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the latissimus dorsi; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the pull pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated pull work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "inverted-row-bent-knees": {
+      "prescription": "3 Sets × 8-12 Reps",
+      "estimatedMinutes": [
+        2.3,
+        5.4
+      ],
+      "activeSeconds": [
+        48,
+        144
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        2.8,
+        3.8
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        5,
+        16
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports upper back fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the upper back; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the pull pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated pull work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "band-one-arm-standing-low-row": {
+      "prescription": "3 Sets × 10-15 Reps per Side",
+      "estimatedMinutes": [
+        3.5,
+        9
+      ],
+      "activeSeconds": [
+        120,
+        360
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        11,
+        49
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports upper back fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the upper back; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the pull pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated pull work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "barbell-shrug": {
+      "prescription": "3 Sets × 10-15 Reps",
+      "estimatedMinutes": [
+        2.5,
+        6
+      ],
+      "activeSeconds": [
+        60,
+        180
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        7,
+        27
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports upper trapezius fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the upper trapezius; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the pull pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated pull work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "kneeling-lat-stretch": {
+      "prescription": "2 Holds × 20-30 Seconds",
+      "estimatedMinutes": [
+        1.4,
+        2.5
+      ],
+      "activeSeconds": [
+        40,
+        60
+      ],
+      "restSeconds": [
+        45,
+        90
+      ],
+      "activeMet": [
+        2.3,
+        2.3
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        3,
+        5
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports comfortable range of motion around the latissimus dorsi."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Supports movement preparation and recovery rather than a direct muscle-building stimulus."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Supports a strength routine through mobility or conditioning; it does not estimate strength gained."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Supports range of motion; endurance adaptations require sustained or repeated effort."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Targets comfortable flexibility of the latissimus dorsi; avoid forcing end range."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "barbell-high-bar-squat": {
+      "prescription": "3 Sets × 6-10 Reps",
+      "estimatedMinutes": [
+        2.1,
+        5
+      ],
+      "activeSeconds": [
+        36,
+        120
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        5,
+        19
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports quadriceps fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the quadriceps; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the squat pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated squat work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "dumbbell-goblet-squat": {
+      "prescription": "3 Sets × 8-12 Reps",
+      "estimatedMinutes": [
+        2.3,
+        5.4
+      ],
+      "activeSeconds": [
+        48,
+        144
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        6,
+        22
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports quadriceps fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the quadriceps; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the squat pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated squat work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "sled-45-leg-press": {
+      "prescription": "3 Sets × 10-15 Reps",
+      "estimatedMinutes": [
+        2.5,
+        6
+      ],
+      "activeSeconds": [
+        60,
+        180
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        7,
+        27
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports quadriceps fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the quadriceps; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the squat pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated squat work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "barbell-romanian-deadlift": {
+      "prescription": "3 Sets × 8-10 Reps",
+      "estimatedMinutes": [
+        2.3,
+        5
+      ],
+      "activeSeconds": [
+        48,
+        120
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        6,
+        19
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports hamstrings fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the hamstrings; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the hinge pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated hinge work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "dumbbell-lunge": {
+      "prescription": "3 Sets × 8-10 Reps per Side",
+      "estimatedMinutes": [
+        3.1,
+        7
+      ],
+      "activeSeconds": [
+        96,
+        240
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        9,
+        34
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports quadriceps fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the quadriceps; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the squat pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated squat work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "dumbbell-rear-lunge": {
+      "prescription": "3 Sets × 8-10 Reps per Side",
+      "estimatedMinutes": [
+        3.1,
+        7
+      ],
+      "activeSeconds": [
+        96,
+        240
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        9,
+        34
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports glutes fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the glutes; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the squat pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated squat work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "dumbbell-single-leg-split-squat": {
+      "prescription": "3 Sets × 8-10 Reps per Side",
+      "estimatedMinutes": [
+        3.1,
+        7
+      ],
+      "activeSeconds": [
+        96,
+        240
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        9,
+        34
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports quadriceps fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the quadriceps; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the squat pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated squat work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "lever-leg-extension": {
+      "prescription": "3 Sets × 10-15 Reps",
+      "estimatedMinutes": [
+        2.5,
+        6
+      ],
+      "activeSeconds": [
+        60,
+        180
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        7,
+        27
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports quadriceps fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the quadriceps; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "lever-lying-leg-curl": {
+      "prescription": "3 Sets × 10-15 Reps",
+      "estimatedMinutes": [
+        2.5,
+        6
+      ],
+      "activeSeconds": [
+        60,
+        180
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        7,
+        27
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports hamstrings fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the hamstrings; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the pull pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated pull work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "barbell-glute-bridge": {
+      "prescription": "3 Sets × 10-12 Reps",
+      "estimatedMinutes": [
+        2.5,
+        5.4
+      ],
+      "activeSeconds": [
+        60,
+        144
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        7,
+        22
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports glutes fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the glutes; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the hinge pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated hinge work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "lever-standing-calf-raise": {
+      "prescription": "3 Sets × 12-15 Reps",
+      "estimatedMinutes": [
+        2.7,
+        6
+      ],
+      "activeSeconds": [
+        72,
+        180
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        8,
+        27
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports calves fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the calves; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "lever-seated-calf-raise": {
+      "prescription": "3 Sets × 12-20 Reps",
+      "estimatedMinutes": [
+        2.7,
+        7
+      ],
+      "activeSeconds": [
+        72,
+        240
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        8,
+        34
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports soleus fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the soleus; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "barbell-deadlift": {
+      "prescription": "3 Sets × 5-8 Reps",
+      "estimatedMinutes": [
+        2,
+        4.6
+      ],
+      "activeSeconds": [
+        30,
+        96
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        5,
+        17
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports glutes fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the glutes; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the hinge pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated hinge work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "dumbbell-step-up": {
+      "prescription": "3 Sets × 8-10 Reps per Side",
+      "estimatedMinutes": [
+        3.1,
+        7
+      ],
+      "activeSeconds": [
+        96,
+        240
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        9,
+        34
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports quadriceps fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the quadriceps; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the squat pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated squat work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "lever-seated-leg-curl": {
+      "prescription": "3 Sets × 10-15 Reps",
+      "estimatedMinutes": [
+        2.5,
+        6
+      ],
+      "activeSeconds": [
+        60,
+        180
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        7,
+        27
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports hamstrings fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the hamstrings; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the pull pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated pull work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "lever-seated-hip-abduction": {
+      "prescription": "3 Sets × 12-15 Reps",
+      "estimatedMinutes": [
+        2.7,
+        6
+      ],
+      "activeSeconds": [
+        72,
+        180
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        8,
+        27
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports hip abductors fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the hip abductors; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "lever-seated-hip-adduction": {
+      "prescription": "3 Sets × 12-15 Reps",
+      "estimatedMinutes": [
+        2.7,
+        6
+      ],
+      "activeSeconds": [
+        72,
+        180
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        8,
+        27
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports adductors fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the adductors; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the pull pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated pull work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "bodyweight-standing-calf-raise": {
+      "prescription": "3 Sets × 15-20 Reps",
+      "estimatedMinutes": [
+        3,
+        7
+      ],
+      "activeSeconds": [
+        90,
+        240
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        2.8,
+        3.8
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        8,
+        23
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports calves fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the calves; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "lying-side-quads-stretch": {
+      "prescription": "2 Holds × 20-30 Seconds per Side",
+      "estimatedMinutes": [
+        2.1,
+        3.5
+      ],
+      "activeSeconds": [
+        80,
+        120
+      ],
+      "restSeconds": [
+        45,
+        90
+      ],
+      "activeMet": [
+        2.3,
+        2.3
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        5,
+        8
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports comfortable range of motion around the quadriceps."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Supports movement preparation and recovery rather than a direct muscle-building stimulus."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Supports a strength routine through mobility or conditioning; it does not estimate strength gained."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Supports range of motion; endurance adaptations require sustained or repeated effort."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Targets comfortable flexibility of the quadriceps; avoid forcing end range."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "jump-squat": {
+      "prescription": "3 Sets × 5-8 Controlled Jumps",
+      "estimatedMinutes": [
+        2.5,
+        5.6
+      ],
+      "activeSeconds": [
+        30,
+        96
+      ],
+      "restSeconds": [
+        120,
+        240
+      ],
+      "activeMet": [
+        3.8,
+        7.5
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        6,
+        21
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports quadriceps fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Primarily supports conditioning or power; use alongside progressive resistance training for muscle-building goals."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Supports a strength routine through mobility or conditioning; it does not estimate strength gained."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated squat work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "barbell-seated-overhead-press": {
+      "prescription": "3 Sets × 8-10 Reps",
+      "estimatedMinutes": [
+        2.3,
+        5
+      ],
+      "activeSeconds": [
+        48,
+        120
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        6,
+        19
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports deltoids fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the deltoids; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "dumbbell-seated-shoulder-press": {
+      "prescription": "3 Sets × 8-12 Reps",
+      "estimatedMinutes": [
+        2.3,
+        5.4
+      ],
+      "activeSeconds": [
+        48,
+        144
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        6,
+        22
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports deltoids fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the deltoids; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "dumbbell-lateral-raise": {
+      "prescription": "3 Sets × 12-15 Reps",
+      "estimatedMinutes": [
+        2.7,
+        6
+      ],
+      "activeSeconds": [
+        72,
+        180
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        8,
+        27
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports lateral deltoids fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the lateral deltoids; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "cable-lateral-raise": {
+      "prescription": "3 Sets × 12-15 Reps per Side",
+      "estimatedMinutes": [
+        3.9,
+        9
+      ],
+      "activeSeconds": [
+        144,
+        360
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        13,
+        49
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports lateral deltoids fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the lateral deltoids; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "dumbbell-rear-fly": {
+      "prescription": "3 Sets × 12-15 Reps",
+      "estimatedMinutes": [
+        2.7,
+        6
+      ],
+      "activeSeconds": [
+        72,
+        180
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        8,
+        27
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports posterior deltoids fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the posterior deltoids; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the pull pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated pull work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "cable-rear-delt-row-with-rope": {
+      "prescription": "3 Sets × 12-15 Reps",
+      "estimatedMinutes": [
+        2.7,
+        6
+      ],
+      "activeSeconds": [
+        72,
+        180
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        8,
+        27
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports posterior deltoids fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the posterior deltoids; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the pull pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated pull work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "dumbbell-front-raise": {
+      "prescription": "2 Sets × 10-15 Reps",
+      "estimatedMinutes": [
+        1.4,
+        3.5
+      ],
+      "activeSeconds": [
+        40,
+        120
+      ],
+      "restSeconds": [
+        45,
+        90
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        4,
+        17
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports anterior deltoids fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the anterior deltoids; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "lever-shoulder-press": {
+      "prescription": "3 Sets × 10-12 Reps",
+      "estimatedMinutes": [
+        2.5,
+        5.4
+      ],
+      "activeSeconds": [
+        60,
+        144
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        7,
+        22
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports deltoids fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the deltoids; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "dumbbell-standing-overhead-press": {
+      "prescription": "3 Sets × 8-12 Reps",
+      "estimatedMinutes": [
+        2.3,
+        5.4
+      ],
+      "activeSeconds": [
+        48,
+        144
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        6,
+        22
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports deltoids fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the deltoids; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "dumbbell-arnold-press": {
+      "prescription": "3 Sets × 8-12 Reps",
+      "estimatedMinutes": [
+        2.3,
+        5.4
+      ],
+      "activeSeconds": [
+        48,
+        144
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        6,
+        22
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports deltoids fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the deltoids; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "lever-lateral-raise": {
+      "prescription": "3 Sets × 12-15 Reps",
+      "estimatedMinutes": [
+        2.7,
+        6
+      ],
+      "activeSeconds": [
+        72,
+        180
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        8,
+        27
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports lateral deltoids fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the lateral deltoids; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "cable-standing-cross-over-high-reverse-fly": {
+      "prescription": "3 Sets × 12-15 Reps",
+      "estimatedMinutes": [
+        2.7,
+        6
+      ],
+      "activeSeconds": [
+        72,
+        180
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        8,
+        27
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports posterior deltoids fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the posterior deltoids; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the pull pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated pull work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "cable-standing-shoulder-external-rotation": {
+      "prescription": "2 Sets × 12-15 Light Reps per Side",
+      "estimatedMinutes": [
+        2.4,
+        5.5
+      ],
+      "activeSeconds": [
+        96,
+        240
+      ],
+      "restSeconds": [
+        45,
+        90
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        8,
+        32
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports external shoulder rotators fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the external shoulder rotators; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the pull pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated pull work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "rear-deltoid-stretch": {
+      "prescription": "2 Holds × 20-30 Seconds per Side",
+      "estimatedMinutes": [
+        2.1,
+        3.5
+      ],
+      "activeSeconds": [
+        80,
+        120
+      ],
+      "restSeconds": [
+        45,
+        90
+      ],
+      "activeMet": [
+        2.3,
+        2.3
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        5,
+        8
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports comfortable range of motion around the posterior deltoids."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Supports movement preparation and recovery rather than a direct muscle-building stimulus."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Supports a strength routine through mobility or conditioning; it does not estimate strength gained."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Supports range of motion; endurance adaptations require sustained or repeated effort."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Targets comfortable flexibility of the posterior deltoids; avoid forcing end range."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "barbell-curl": {
+      "prescription": "3 Sets × 10-12 Reps",
+      "estimatedMinutes": [
+        2.5,
+        5.4
+      ],
+      "activeSeconds": [
+        60,
+        144
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        7,
+        22
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports biceps fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the biceps; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the pull pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated pull work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "dumbbell-biceps-curl": {
+      "prescription": "3 Sets × 10-12 Reps",
+      "estimatedMinutes": [
+        2.5,
+        5.4
+      ],
+      "activeSeconds": [
+        60,
+        144
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        7,
+        22
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports biceps fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the biceps; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the pull pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated pull work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "dumbbell-hammer-curl": {
+      "prescription": "3 Sets × 10-12 Reps",
+      "estimatedMinutes": [
+        2.5,
+        5.4
+      ],
+      "activeSeconds": [
+        60,
+        144
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        7,
+        22
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports brachialis fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the brachialis; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the pull pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated pull work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "cable-curl": {
+      "prescription": "3 Sets × 10-15 Reps",
+      "estimatedMinutes": [
+        2.5,
+        6
+      ],
+      "activeSeconds": [
+        60,
+        180
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        7,
+        27
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports biceps fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the biceps; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the pull pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated pull work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "dumbbell-preacher-curl": {
+      "prescription": "3 Sets × 10-12 Reps per Side",
+      "estimatedMinutes": [
+        3.5,
+        7.8
+      ],
+      "activeSeconds": [
+        120,
+        288
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        11,
+        40
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports biceps fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the biceps; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the pull pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated pull work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "cable-pushdown-with-rope-attachment": {
+      "prescription": "3 Sets × 10-15 Reps",
+      "estimatedMinutes": [
+        2.5,
+        6
+      ],
+      "activeSeconds": [
+        60,
+        180
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        7,
+        27
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports triceps fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the triceps; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "cable-overhead-triceps-extension-rope-attachment": {
+      "prescription": "3 Sets × 10-15 Reps",
+      "estimatedMinutes": [
+        2.5,
+        6
+      ],
+      "activeSeconds": [
+        60,
+        180
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        7,
+        27
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports triceps fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the triceps; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "barbell-close-grip-bench-press": {
+      "prescription": "3 Sets × 8-10 Reps",
+      "estimatedMinutes": [
+        2.3,
+        5
+      ],
+      "activeSeconds": [
+        48,
+        120
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        6,
+        19
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports triceps fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the triceps; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "dumbbell-lying-triceps-extension": {
+      "prescription": "3 Sets × 10-12 Reps",
+      "estimatedMinutes": [
+        2.5,
+        5.4
+      ],
+      "activeSeconds": [
+        60,
+        144
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        7,
+        22
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports triceps fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the triceps; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "dumbbell-kickback": {
+      "prescription": "3 Sets × 12-15 Reps",
+      "estimatedMinutes": [
+        2.7,
+        6
+      ],
+      "activeSeconds": [
+        72,
+        180
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        8,
+        27
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports triceps fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the triceps; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "dumbbell-incline-biceps-curl": {
+      "prescription": "3 Sets × 10-12 Reps",
+      "estimatedMinutes": [
+        2.5,
+        5.4
+      ],
+      "activeSeconds": [
+        60,
+        144
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        7,
+        22
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports biceps fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the biceps; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the pull pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated pull work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "dumbbell-concentration-curl": {
+      "prescription": "3 Sets × 10-12 Reps per Side",
+      "estimatedMinutes": [
+        3.5,
+        7.8
+      ],
+      "activeSeconds": [
+        120,
+        288
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        11,
+        40
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports biceps fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the biceps; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the pull pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated pull work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "ez-barbell-curl": {
+      "prescription": "3 Sets × 10-12 Reps",
+      "estimatedMinutes": [
+        2.5,
+        5.4
+      ],
+      "activeSeconds": [
+        60,
+        144
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        7,
+        22
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports biceps fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the biceps; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the pull pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated pull work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "barbell-reverse-curl": {
+      "prescription": "3 Sets × 10-15 Reps",
+      "estimatedMinutes": [
+        2.5,
+        6
+      ],
+      "activeSeconds": [
+        60,
+        180
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        7,
+        27
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports brachioradialis fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the brachioradialis; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the pull pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated pull work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "cable-one-arm-tricep-pushdown": {
+      "prescription": "3 Sets × 10-15 Reps per Side",
+      "estimatedMinutes": [
+        3.5,
+        9
+      ],
+      "activeSeconds": [
+        120,
+        360
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        11,
+        49
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports triceps fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the triceps; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "diamond-push-up": {
+      "prescription": "3 Sets × 6-10 Reps",
+      "estimatedMinutes": [
+        2.1,
+        5
+      ],
+      "activeSeconds": [
+        36,
+        120
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        2.8,
+        3.8
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        4,
+        14
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports triceps fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the triceps; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "dumbbells-seated-triceps-extension": {
+      "prescription": "3 Sets × 10-12 Reps",
+      "estimatedMinutes": [
+        2.5,
+        5.4
+      ],
+      "activeSeconds": [
+        60,
+        144
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        7,
+        22
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports triceps fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the triceps; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the push pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated push work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "overhead-triceps-stretch": {
+      "prescription": "2 Holds × 20-30 Seconds per Side",
+      "estimatedMinutes": [
+        2.1,
+        3.5
+      ],
+      "activeSeconds": [
+        80,
+        120
+      ],
+      "restSeconds": [
+        45,
+        90
+      ],
+      "activeMet": [
+        2.3,
+        2.3
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        5,
+        8
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports comfortable range of motion around the triceps."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Supports movement preparation and recovery rather than a direct muscle-building stimulus."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Supports a strength routine through mobility or conditioning; it does not estimate strength gained."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Supports range of motion; endurance adaptations require sustained or repeated effort."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Targets comfortable flexibility of the triceps; avoid forcing end range."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "dead-bug": {
+      "prescription": "3 Sets × 6-10 Reps per Side",
+      "estimatedMinutes": [
+        2.7,
+        7
+      ],
+      "activeSeconds": [
+        72,
+        240
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        2.8,
+        3.8
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        7,
+        23
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports abdominals fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the abdominals; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the core pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated core work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "reverse-crunch": {
+      "prescription": "3 Sets × 10-15 Reps",
+      "estimatedMinutes": [
+        2.5,
+        6
+      ],
+      "activeSeconds": [
+        60,
+        180
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        2.8,
+        3.8
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        6,
+        19
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports rectus abdominis fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the rectus abdominis; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the core pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated core work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "crunch-floor": {
+      "prescription": "3 Sets × 10-15 Reps",
+      "estimatedMinutes": [
+        2.5,
+        6
+      ],
+      "activeSeconds": [
+        60,
+        180
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        2.8,
+        3.8
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        6,
+        19
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports rectus abdominis fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the rectus abdominis; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the core pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated core work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "side-bridge-v-2": {
+      "prescription": "3 Sets × 15-30 Seconds per Side",
+      "estimatedMinutes": [
+        3,
+        6
+      ],
+      "activeSeconds": [
+        90,
+        180
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        2.8,
+        3.8
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        8,
+        19
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports obliques fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the obliques; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the core pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated core work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "band-horizontal-pallof-press": {
+      "prescription": "3 Sets × 8-12 Reps per Side",
+      "estimatedMinutes": [
+        3.1,
+        7.8
+      ],
+      "activeSeconds": [
+        96,
+        288
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        9,
+        40
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports obliques fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the obliques; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the core pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated core work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "shoulder-tap": {
+      "prescription": "3 Sets × 8-12 Taps per Side",
+      "estimatedMinutes": [
+        3.1,
+        7.8
+      ],
+      "activeSeconds": [
+        96,
+        288
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        2.8,
+        3.8
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        8,
+        27
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports abdominals fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the abdominals; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the core pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated core work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "mountain-climber": {
+      "prescription": "3 Rounds × 20-30 Seconds",
+      "estimatedMinutes": [
+        2.5,
+        4.5
+      ],
+      "activeSeconds": [
+        60,
+        90
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.8,
+        7.5
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        7,
+        19
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports cardiovascular system fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Primarily supports conditioning or power; use alongside progressive resistance training for muscle-building goals."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Supports a strength routine through mobility or conditioning; it does not estimate strength gained."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated cardio work can support cardiorespiratory endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "jack-jump-male": {
+      "prescription": "3 Rounds × 30 Seconds",
+      "estimatedMinutes": [
+        3,
+        4.5
+      ],
+      "activeSeconds": [
+        90,
+        90
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.8,
+        7.5
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        9,
+        19
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports cardiovascular system fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Primarily supports conditioning or power; use alongside progressive resistance training for muscle-building goals."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Supports a strength routine through mobility or conditioning; it does not estimate strength gained."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated cardio work can support cardiorespiratory endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "jump-rope": {
+      "prescription": "3 Rounds × 20-40 Seconds",
+      "estimatedMinutes": [
+        2.5,
+        5
+      ],
+      "activeSeconds": [
+        60,
+        120
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        8.3,
+        12.3
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        13,
+        35
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports cardiovascular system fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Primarily supports conditioning or power; use alongside progressive resistance training for muscle-building goals."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Supports a strength routine through mobility or conditioning; it does not estimate strength gained."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated cardio work can support cardiorespiratory endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "stationary-bike-walk": {
+      "prescription": "5-10 Minutes at an Easy-to-Moderate Pace",
+      "estimatedMinutes": [
+        5,
+        10
+      ],
+      "activeSeconds": [
+        300,
+        600
+      ],
+      "restSeconds": [
+        0,
+        0
+      ],
+      "activeMet": [
+        3.5,
+        6.8
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        21,
+        83
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports cardiovascular system fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Primarily supports conditioning or power; use alongside progressive resistance training for muscle-building goals."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Supports a strength routine through mobility or conditioning; it does not estimate strength gained."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated cardio work can support cardiorespiratory endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "hanging-leg-raise": {
+      "prescription": "3 Sets × 6-10 Reps",
+      "estimatedMinutes": [
+        2.1,
+        5
+      ],
+      "activeSeconds": [
+        36,
+        120
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        2.8,
+        3.8
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        4,
+        14
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports abdominals fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the abdominals; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the core pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated core work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "russian-twist": {
+      "prescription": "3 Sets × 8-12 Reps per Side",
+      "estimatedMinutes": [
+        3.1,
+        7.8
+      ],
+      "activeSeconds": [
+        96,
+        288
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        2.8,
+        3.8
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        8,
+        27
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports obliques fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the obliques; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the core pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated core work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "weighted-front-plank": {
+      "prescription": "3 Holds × 15-25 Seconds",
+      "estimatedMinutes": [
+        2.3,
+        4.3
+      ],
+      "activeSeconds": [
+        45,
+        75
+      ],
+      "restSeconds": [
+        90,
+        180
+      ],
+      "activeMet": [
+        3.5,
+        6
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        6,
+        14
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports abdominals fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Provides a training stimulus for the abdominals; progress depends on load, effort, recovery and nutrition."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Practises force production through the core pattern; increase resistance gradually as technique allows."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated core work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "burpee": {
+      "prescription": "3 Rounds × 5-8 Controlled Reps",
+      "estimatedMinutes": [
+        2.5,
+        5.6
+      ],
+      "activeSeconds": [
+        30,
+        96
+      ],
+      "restSeconds": [
+        120,
+        240
+      ],
+      "activeMet": [
+        3.8,
+        7.5
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        6,
+        21
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports cardiovascular system fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Primarily supports conditioning or power; use alongside progressive resistance training for muscle-building goals."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Supports a strength routine through mobility or conditioning; it does not estimate strength gained."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated cardio work can support local muscular endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "walk-elliptical-cross-trainer": {
+      "prescription": "5-10 Minutes at an Easy-to-Moderate Pace",
+      "estimatedMinutes": [
+        5,
+        10
+      ],
+      "activeSeconds": [
+        300,
+        600
+      ],
+      "restSeconds": [
+        0,
+        0
+      ],
+      "activeMet": [
+        5,
+        9
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        31,
+        110
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports cardiovascular system fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Primarily supports conditioning or power; use alongside progressive resistance training for muscle-building goals."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Supports a strength routine through mobility or conditioning; it does not estimate strength gained."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated cardio work can support cardiorespiratory endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    },
+    "walking-on-incline-treadmill": {
+      "prescription": "5-10 Minutes at a Comfortable Incline",
+      "estimatedMinutes": [
+        5,
+        10
+      ],
+      "activeSeconds": [
+        300,
+        600
+      ],
+      "restSeconds": [
+        0,
+        0
+      ],
+      "activeMet": [
+        3.8,
+        8
+      ],
+      "estimatedBurnKcalAt70Kg": [
+        23,
+        98
+      ],
+      "goals": {
+        "general_fitness": {
+          "label": "General fitness",
+          "benefit": "Supports cardiovascular system fitness as part of a balanced routine."
+        },
+        "fat_loss": {
+          "label": "Fat loss",
+          "benefit": "Contributes to total activity energy expenditure. Fat loss depends on overall energy balance; this does not predict fat lost."
+        },
+        "muscle_gain": {
+          "label": "Build muscle",
+          "benefit": "Primarily supports conditioning or power; use alongside progressive resistance training for muscle-building goals."
+        },
+        "strength": {
+          "label": "Build strength",
+          "benefit": "Supports a strength routine through mobility or conditioning; it does not estimate strength gained."
+        },
+        "endurance": {
+          "label": "Improve endurance",
+          "benefit": "Repeated cardio work can support cardiorespiratory endurance."
+        },
+        "mobility": {
+          "label": "Improve mobility",
+          "benefit": "Use a controlled, comfortable range of motion. This exercise is not a measured flexibility gain."
+        }
+      },
+      "estimatedMuscleGainKg": null
+    }
+  }
+}

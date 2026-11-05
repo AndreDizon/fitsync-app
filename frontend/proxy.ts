@@ -53,4 +53,4 @@ export async function proxy(request: NextRequest) {
   return finish(response)
 }
 
-export const config = { matcher: ['/', '/login', '/signup', '/forgot-password', '/reset-password', '/auth/:path*', '/api/:path*'] }
+export const config = { matcher: ['/', '/onboarding', '/plan-preparation', '/login', '/signup', '/forgot-password', '/reset-password', '/auth/:path*', '/api/:path*'] }

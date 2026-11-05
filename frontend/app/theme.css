@@ -1,7 +1,8 @@
 /* FitSync's single daytime theme, inspired by the fox mascot. */
 :root, .theme-default {
   color-scheme: light;
-  --background: #fffcf3;
+  --page-surface: #faf8f3;
+  --background: var(--page-surface);
   --foreground: #191a1b;
   --card: #ffffff;
   --muted: #65645e;
@@ -16,7 +17,7 @@
   --lavender: #e7e3fa;
   --blue: #dceefa;
 }
-body { background: #fffcf3; color: #191a1b; }
+body { background: var(--page-surface); color: #191a1b; }
 .fitsync-wordmark {
   display: inline-flex;
   vertical-align: baseline;
@@ -39,7 +40,7 @@ body { background: #fffcf3; color: #191a1b; }
 .opening-wordmark .fitsync-wordmark { font-size: inherit; }
 .theme-default.app-shell { background: radial-gradient(ellipse at 90% 0%, #fff0a9, transparent 38%), var(--background); gap: 0; }
 .theme-default.app-shell::before, .theme-default.app-shell::after { display: none; }
-.theme-default .content-wrap { width: 100%; background: #fffefa; box-shadow: 0 14px 40px #25200b08; }
+.theme-default .content-wrap { width: 100%; background: var(--page-surface); box-shadow: 0 14px 40px #25200b08; }
 .theme-default .topbar { background: #fff; }
 .header-brand, .drawer-heading { display: flex; align-items: center; gap: 12px; }
 .drawer-heading { justify-content: space-between; }

@@ -1,0 +1,118 @@
+/* One proportional hero composition at every viewport width. */
+
+  .theme-default .home-page { padding-top: 0; }
+  .theme-default .home-page .home-greeting-frame .greeting-with-mascot::before { top: 0; }
+  .theme-default .home-page .home-greeting-frame .greeting-copy { top: 5cqw; height: 38cqw; }
+  .theme-default .home-page .home-greeting-frame .greeting-with-mascot .streak { top: 5cqw; }
+
+  .theme-default :is(.plan-hero-frame, .social-hero-frame) {
+    height: 43cqw;
+    min-height: 0;
+    gap: 0;
+    padding-top: 5cqw;
+    padding-bottom: 0;
+  }
+  .theme-default :is(.plan-hero-frame, .social-hero-frame)::before {
+    background-size: auto;
+    background-image:
+      repeating-linear-gradient(0deg, transparent 0 4.7cqw, #b58a2717 4.7cqw 4.8cqw),
+      repeating-linear-gradient(90deg, transparent 0 4.7cqw, #b58a2717 4.7cqw 4.8cqw),
+      radial-gradient(ellipse at 100% 6%, #ef9a4d99, transparent 35%),
+      radial-gradient(ellipse at 0 90%, #f0ab4273, transparent 35%),
+      linear-gradient(105deg, #ffe77c, #fff1af 75%);
+  }
+  .theme-default .plan-workspace .plans-mascot-hero {
+    display: block;
+    height: 28.4cqw;
+    min-height: 0;
+    padding: 3cqw;
+    border-radius: 2.8cqw;
+  }
+  .theme-default .plans-mascot-hero .plan-hero-copy { width: 58%; position: relative; z-index: 2; }
+  .theme-default .plans-mascot-hero .plan-hero-copy .eyebrow { line-height: 1.5; margin: 0; }
+  .theme-default .plans-mascot-hero .plan-hero-copy .intro { margin: 0; white-space: nowrap; }
+  .theme-default .plan-hero-copy .eyebrow,
+  .theme-default .social-hero-card .eyebrow { font-size: 1.8cqw; letter-spacing: .1em; }
+  .theme-default .plans-mascot-hero .plan-hero-copy h1,
+  .theme-default .social-hero-card .social-intro h1 {
+    font-size: 4.8cqw;
+    line-height: 1.1;
+    letter-spacing: -.045em;
+    margin: 1.8cqw 0;
+    white-space: nowrap;
+    text-shadow: .2cqw .3cqw .2cqw #e9822652, .4cqw .6cqw .8cqw #e982262e;
+  }
+  .theme-default .plans-mascot-hero .plan-hero-copy .intro,
+  .theme-default .social-hero-card .social-intro .intro { font-size: 2cqw; line-height: 1.6; }
+  .theme-default :is(.plans-mascot-hero, .social-hero-card) .plan-title-highlight { -webkit-text-stroke-width: .12cqw; }
+  .theme-default .plans-mascot-hero .plan-hero-lines { width: 65%; }
+  .theme-default .plans-mascot-hero .plan-hero-mascot { position: absolute; inset: 0 17% 0 auto; width: 30%; min-height: 0; }
+  .theme-default .plan-hero-mascot img { width: 30.4cqw; height: 30.4cqw; left: 50%; bottom: 0; }
+  .theme-default .plans-mascot-hero .plan-mode-switch {
+    display: grid;
+    position: absolute; left: 3cqw; bottom: 2cqw; margin: 0;
+    width: 25cqw; min-height: 0; height: 6.2cqw; padding: .6cqw; gap: .4cqw;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .theme-default .plans-mascot-hero .plan-mode-switch button { height: 4.8cqw; padding: 0 1cqw; font-size: 1.4cqw; gap: .7cqw; }
+  .theme-default .plans-mascot-hero .plan-mode-switch button svg { width: 1.9cqw; height: 1.9cqw; }
+  .theme-default .plans-mascot-hero .plan-mode-switch::after { top: .6cqw; bottom: .6cqw; left: .6cqw; width: calc(50% - .8cqw); }
+  .theme-default .plans-mascot-hero .plan-mode-switch.nutrition::after { left: calc(50% + .2cqw); }
+  .theme-default .plans-mascot-hero .plan-mode-switch::after { display: none; }
+  .theme-default .plans-mascot-hero .plan-mode-switch button { width: 100%; justify-content: center; }
+
+  .theme-default .social-hero-frame { padding-bottom: 5cqw; }
+  .theme-default .social-hero-card { width: 78%; height: 100%; min-height: 0; padding: 2.6cqw; border-radius: 2.8cqw; }
+  .theme-default .social-hero-card .social-intro { width: 57%; }
+  .theme-default .social-hero-art { inset: 0 -28% 0 auto; width: 85%; height: auto; }
+  .theme-default .social-world { width: 44.5cqw; height: 40.5cqw; max-width: none; max-height: none; left: -1.5cqw; bottom: -8.5cqw; }
+  .theme-default .social-hero-art .social-phone-fox { width: 29cqw; height: 29cqw; max-width: none; max-height: none; right: 2cqw; bottom: -5.2cqw; }
+  .theme-default .social-hero-art .social-phone-signal { width: 10cqw; height: 10cqw; right: 22cqw; bottom: 8cqw; }
+  .theme-default .social-connection-card {
+    position: absolute; top: 5cqw; right: var(--page-gutter); width: 15%; min-width: 0;
+    margin: 0; padding: 1.8cqw 1.2cqw; gap: .8cqw; border-radius: 2.2cqw;
+    grid-template-columns: 1fr; align-items: start;
+  }
+  .theme-default .social-connection-card > svg { width: 2.4cqw; height: 2.4cqw; }
+  .theme-default .social-connection-card p { font-size: .9cqw; }
+  .theme-default .social-connection-card strong { font-size: 3.2cqw; }
+  .theme-default .social-connection-card span { grid-column: auto; font-size: 1cqw; }
+  .theme-default .social-hero-card .social-date-filter { margin: 0; padding: 1.2cqw 1.6cqw; gap: 1.6cqw; width: max-content; border-radius: 2cqw; }
+  .theme-default .social-hero-card .social-date-filter label { font-size: 1.3cqw; }
+  .theme-default .social-hero-card .social-date-filter input { width: 17cqw; height: 4.2cqw; min-height: 0; padding: .7cqw 1cqw; font-size: 1.3cqw; border-radius: 1.2cqw; }
+
+/* Keep folder widths, labels and icons fluid without filling the right edge. */
+.theme-default .plan-hero-frame > .plan-tabs {
+  width: min(calc(70cqw + var(--page-gutter)), 780px);
+  max-width: calc(100% + var(--page-gutter) - 12px);
+  height: clamp(32px, 5.8cqw, 60px);
+  min-height: 0;
+}
+.theme-default .plan-hero-frame > .plan-tabs button {
+  flex: 1 1 0;
+  height: 100%;
+  min-height: 0;
+  padding: 0 clamp(5px, 1.4cqw, 18px);
+  gap: clamp(3px, .8cqw, 9px);
+  font-size: clamp(9px, 1.3cqw, 14px);
+  white-space: nowrap;
+  transition: color .15s ease, background-color .15s ease;
+}
+.theme-default .plan-hero-frame > .plan-tabs button:active { transform: none; }
+.theme-default .plan-hero-frame > .plan-tabs button svg {
+  width: clamp(12px, 1.9cqw, 20px);
+  height: clamp(12px, 1.9cqw, 20px);
+}
+/* Tabs must scale with the hero too, rather than consuming its bottom gap. */
+@media (width < 768px) {
+  .theme-default .plan-hero-frame { height: 43cqw; }
+  .theme-default .plan-hero-frame > .plan-tabs { width: calc(100% + var(--page-gutter) - 12px); height: 8cqw; min-height: 0; }
+  .theme-default .plan-hero-frame > .plan-tabs button {
+    height: 8cqw;
+    min-height: 0;
+    padding: 0 2cqw;
+    gap: 1cqw;
+    font-size: clamp(9px, 2cqw, 13px);
+  }
+  .theme-default .plan-hero-frame > .plan-tabs button svg { width: clamp(12px, 2.6cqw, 18px); height: clamp(12px, 2.6cqw, 18px); }
+}

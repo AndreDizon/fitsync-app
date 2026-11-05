@@ -1,13 +1,20 @@
 {
   "name": "fitsync",
   "private": true,
-  "workspaces": ["frontend", "backend"],
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
   "scripts": {
     "seed:tester": "node scripts/seed-tester.mjs",
+    "seed:offline": "node scripts/seed-offline-exercises.mjs",
     "dev": "node scripts/dev.mjs",
     "dev:frontend": "npm run dev --workspace frontend",
     "dev:backend": "npm run dev --workspace backend",
     "build": "npm run build --workspaces",
     "typecheck": "npm run typecheck --workspaces"
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.2"
   }
 }

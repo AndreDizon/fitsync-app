@@ -1,0 +1,17 @@
+{
+  "source": "https://github.com/JahelCuadrado/ExerciseGymGifsDB",
+  "revision": "f6d16e977fbee3c04295311c44cb8374ca8ff182",
+  "language": "en",
+  "count": 100,
+  "media_count": 100,
+  "groups": {
+    "Chest": 16,
+    "Back": 16,
+    "Legs": 20,
+    "Shoulders": 14,
+    "Arms": 18,
+    "Core/Cardio": 16
+  },
+  "instructions_author": "FitSync curated guidance",
+  "export_media_convention": "Requested bodyPart/id CDN template; use the verified media manifest for display because upstream folders differ."
+}

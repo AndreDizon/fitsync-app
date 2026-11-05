@@ -1,0 +1,570 @@
+// FitSync-authored guidance. Group membership stays outside the strict export schema.
+import { additionalGroups } from './additional-exercises.mjs'
+const chest = [
+  {
+    id: 'barbell-bench-press', name: 'Barbell Bench Press', bodyPart: 'chest', target: 'pectorals', secondaryMuscles: ['Triceps', 'Anterior Deltoids'], equipment: 'barbell', category: 'strength', difficulty: 'Intermediate', movementPattern: 'Push', defaultTarget: '3 Sets × 8-12 Reps',
+    specificInstructions: [
+      'Set the rack safeties just below chest height or use a spotter; lie with your eyes below the bar and both feet flat on the floor.',
+      'Draw your shoulder blades back against the bench, grip slightly wider than shoulder-width, and unrack with your wrists stacked over your forearms.',
+      'Bend your elbows to lower the bar toward your lower-to-mid chest, keeping your forearms approximately vertical and your upper arms about 45-60 degrees from your torso.',
+      'Press upward and slightly back toward your shoulders while keeping your head, upper back, and buttocks on the bench; straighten your elbows without bouncing the bar.'
+    ], coachTip: 'Plant your paws! Steady feet and a quiet upper back make a much stronger launchpad.'
+  },
+  {
+    id: 'barbell-incline-bench-press', name: 'Incline Barbell Bench Press', bodyPart: 'chest', target: 'pectorals', secondaryMuscles: ['Anterior Deltoids', 'Triceps'], equipment: 'barbell', category: 'strength', difficulty: 'Intermediate', movementPattern: 'Push', defaultTarget: '3 Sets × 8-10 Reps',
+    specificInstructions: [
+      'Set an incline bench around 30 degrees inside a rack with safeties or a spotter, and plant your feet with your upper back supported.',
+      'Retract your shoulder blades, take a grip slightly wider than your shoulders, and lift the bar above your upper chest.',
+      'Lower toward the upper chest below the collarbones while keeping your wrists above your elbows and your shoulders against the pad.',
+      'Press the bar upward over your shoulders without lifting your hips or forcing an exaggerated arch through your lower back.'
+    ], coachTip: 'A small hill is enough, fox friend. Keep the incline modest so your upper chest stays in the game.'
+  },
+  {
+    id: 'dumbbell-bench-press', name: 'Dumbbell Bench Press', bodyPart: 'chest', target: 'pectorals', secondaryMuscles: ['Triceps', 'Anterior Deltoids'], equipment: 'dumbbell', category: 'strength', difficulty: 'Beginner', movementPattern: 'Push', defaultTarget: '3 Sets × 8-12 Reps',
+    specificInstructions: [
+      'Sit with the dumbbells supported on your thighs, then lie back and bring them beside your chest with your feet firmly grounded.',
+      'Keep your shoulder blades against the bench and position each wrist over its elbow, with your upper arms angled slightly inward from your shoulders.',
+      'Press both weights above your chest, bringing them slightly toward each other without clashing them together.',
+      'Lower until your upper arms are approximately level with your torso, or stop sooner if your shoulders cannot stay comfortably controlled.'
+    ], coachTip: 'Two paws, one smooth rhythm. Let both weights arrive together without a noisy dumbbell high-five.'
+  },
+  {
+    id: 'dumbbell-incline-bench-press', name: 'Incline Dumbbell Bench Press', bodyPart: 'chest', target: 'pectorals', secondaryMuscles: ['Anterior Deltoids', 'Triceps'], equipment: 'dumbbell', category: 'strength', difficulty: 'Beginner', movementPattern: 'Push', defaultTarget: '3 Sets × 8-12 Reps',
+    specificInstructions: [
+      'Set the bench to roughly 30 degrees, sit with dumbbells on your thighs, and guide them beside your upper chest as you lean back.',
+      'Keep your feet down, your shoulder blades supported, and your wrists above your elbows rather than letting the weights tip backward.',
+      'Press upward over your shoulders while keeping your ribs from lifting away from your pelvis.',
+      'Lower the weights toward the sides of your upper chest until your upper arms reach a comfortable depth; reverse without bouncing.'
+    ], coachTip: 'Keep your ribs tucked like a cozy fox curl. The chest should press, not your lower back.'
+  },
+  {
+    id: 'dumbbell-fly', name: 'Dumbbell Chest Fly', bodyPart: 'chest', target: 'pectorals', secondaryMuscles: ['Anterior Deltoids'], equipment: 'dumbbell', category: 'strength', difficulty: 'Intermediate', movementPattern: 'Push', defaultTarget: '2 Sets × 10-15 Reps',
+    specificInstructions: [
+      'Lie on a flat bench with light dumbbells held above your chest, palms facing each other and elbows softly bent.',
+      'Keep the bend in your elbows nearly constant as you open your arms outward in a wide arc.',
+      'Stop when your upper arms are approximately level with your torso or earlier if you feel strain at the front of your shoulders.',
+      'Bring the weights back above your chest by drawing your upper arms inward; avoid turning the return into a bent-elbow press.'
+    ], coachTip: 'Imagine hugging a big fluffy tree. A gentle elbow bend and light weights keep this hug friendly.'
+  },
+  {
+    id: 'cable-standing-fly', name: 'Standing Cable Chest Fly', bodyPart: 'chest', target: 'pectorals', secondaryMuscles: ['Anterior Deltoids'], equipment: 'cable', category: 'strength', difficulty: 'Intermediate', movementPattern: 'Push', defaultTarget: '3 Sets × 10-15 Reps',
+    specificInstructions: [
+      'Place both cable pulleys near shoulder height, grasp the handles, and step forward into a staggered stance.',
+      'Lean slightly forward from your ankles, brace your abdomen, and hold your upper arms out with a small bend in each elbow.',
+      'Sweep your hands together in front of your chest by bringing your upper arms inward without shrugging your shoulders.',
+      'Open your arms slowly until they align with your torso, keeping your elbow angle and trunk position steady.'
+    ], coachTip: 'Give the air a smooth fox hug. If your whole body rocks, lighten the stack and own the arc.'
+  },
+  {
+    id: 'push-up', name: 'Push-Up', bodyPart: 'chest', target: 'pectorals', secondaryMuscles: ['Triceps', 'Anterior Deltoids', 'Rectus Abdominis'], equipment: 'bodyweight', category: 'strength', difficulty: 'Beginner', movementPattern: 'Push', defaultTarget: '3 Sets × 6-12 Reps',
+    specificInstructions: [
+      'Place your hands slightly wider than your shoulders, extend your legs, and balance on your palms and toes.',
+      'Tighten your abdomen and glutes so your head, ribs, pelvis, and heels travel as one straight line.',
+      'Bend your elbows about 30-45 degrees away from your sides and lower your chest between your hands without letting your hips sag.',
+      'Press the floor away to straighten your elbows, allowing your shoulder blades to move naturally around your ribs at the top.'
+    ], coachTip: 'Move like a sturdy plank, not a wiggly tail! An elevated version is a great way to build clean reps.'
+  },
+  {
+    id: 'incline-push-up', name: 'Incline Push-Up', bodyPart: 'chest', target: 'pectorals', secondaryMuscles: ['Triceps', 'Anterior Deltoids', 'Rectus Abdominis'], equipment: 'bodyweight', category: 'strength', difficulty: 'Beginner', movementPattern: 'Push', defaultTarget: '3 Sets × 8-15 Reps',
+    specificInstructions: [
+      'Set your hands on a fixed bench or rail slightly wider than shoulder-width and walk your feet back until your body forms a straight line.',
+      'Brace your abdomen and keep your chest aligned over the space between your hands.',
+      'Bend your elbows diagonally back to bring your lower chest toward the support while keeping your hips level.',
+      'Push the support away until your elbows straighten; use a higher surface if you cannot maintain your trunk position.'
+    ], coachTip: 'Raise the trail, keep the challenge. A higher support helps you collect strong, tidy reps.'
+  },
+  {
+    id: 'lever-chest-press', name: 'Machine Chest Press', bodyPart: 'chest', target: 'pectorals', secondaryMuscles: ['Triceps', 'Anterior Deltoids'], equipment: 'machine', category: 'strength', difficulty: 'Beginner', movementPattern: 'Push', defaultTarget: '3 Sets × 10-12 Reps',
+    specificInstructions: [
+      'Adjust the seat so the handles line up near the middle of your chest and your feet rest flat on the floor.',
+      'Sit against the back pad, grasp the handles, and keep your wrists straight with your elbows slightly below shoulder level.',
+      'Press forward by extending your elbows while keeping your shoulders and upper back against the support.',
+      'Return the handles slowly until your upper arms reach a comfortable position beside your torso; do not let the stack slam.'
+    ], coachTip: 'Let the seat be your den wall: stay supported and make the weight stack whisper on the way home.'
+  },
+  {
+    id: 'lever-seated-fly', name: 'Pec Deck Fly', bodyPart: 'chest', target: 'pectorals', secondaryMuscles: ['Anterior Deltoids'], equipment: 'machine', category: 'strength', difficulty: 'Beginner', movementPattern: 'Push', defaultTarget: '3 Sets × 10-15 Reps',
+    specificInstructions: [
+      'Set the seat so the handles or elbow pads align with your chest and your shoulders remain comfortably below the machine pivots.',
+      'Place your back against the pad and grasp the handles with a soft bend in your elbows, or rest your forearms on the supported pads.',
+      'Bring your upper arms together in front of your chest while keeping your shoulders from rolling forward.',
+      'Return slowly until your arms are roughly in line with your torso, keeping a gentle bend in your elbows and tension through your chest.'
+    ], coachTip: 'Close the den doors gently. You only need a comfortable stretch, not the widest opening the machine allows.'
+  }
+]
+
+const back = [
+  {
+    id: 'cable-pulldown', name: 'Lat Pulldown', bodyPart: 'back', target: 'latissimus dorsi', secondaryMuscles: ['Biceps', 'Teres Major', 'Lower Trapezius'], equipment: 'cable', category: 'strength', difficulty: 'Beginner', movementPattern: 'Pull', defaultTarget: '3 Sets × 8-12 Reps',
+    specificInstructions: [
+      'Secure your thighs beneath the pad and take an overhand grip on the bar slightly wider than your shoulders.',
+      'Sit tall with a small backward lean from your hips and keep your ribs stacked over your pelvis.',
+      'Drive your elbows down toward your sides to bring the bar in front of your face toward your upper chest.',
+      'Extend your elbows slowly and let your shoulder blades rotate upward as the bar rises; keep the return controlled without swinging your torso.'
+    ], coachTip: 'Think elbows toward your back pockets. Your paws hold the bar, but your back leads the journey.'
+  },
+  {
+    id: 'pull-up', name: 'Pull-Up', bodyPart: 'back', target: 'latissimus dorsi', secondaryMuscles: ['Biceps', 'Brachialis', 'Lower Trapezius'], equipment: 'bodyweight', category: 'strength', difficulty: 'Intermediate', movementPattern: 'Pull', defaultTarget: '3 Sets × 4-8 Reps',
+    specificInstructions: [
+      'Take an overhand grip on a secure bar just wider than shoulder-width and hang with your legs clear of the floor.',
+      'Brace your abdomen, keep your legs quiet, and begin by drawing your shoulder blades down as your elbows start bending.',
+      'Pull your elbows toward your ribs until your chin clears the bar without craning your neck or kicking your legs.',
+      'Lower under control until your elbows straighten through your comfortable overhead range; use assistance if you cannot control the descent.'
+    ], coachTip: 'Climb with quiet paws and a quiet tail. A controlled assisted rep beats a big swinging shortcut.'
+  },
+  {
+    id: 'chin-up', name: 'Chin-Up', bodyPart: 'back', target: 'latissimus dorsi', secondaryMuscles: ['Biceps', 'Brachialis', 'Lower Trapezius'], equipment: 'bodyweight', category: 'strength', difficulty: 'Intermediate', movementPattern: 'Pull', defaultTarget: '3 Sets × 4-8 Reps',
+    specificInstructions: [
+      'Grip a fixed overhead bar with palms facing you and hands approximately shoulder-width apart.',
+      'Keep your ribs down and legs still as you start pulling your elbows toward the sides of your rib cage.',
+      'Lift until your chin passes the bar while keeping your neck in line with your spine rather than reaching your chin forward.',
+      'Lower slowly to straight elbows within your comfortable shoulder range, keeping your body from swinging between repetitions.'
+    ], coachTip: 'Let your elbows lead the climb. Your chin gets the view, but your arms and back do the hiking.'
+  },
+  {
+    id: 'cable-seated-row', name: 'Seated Cable Row', bodyPart: 'back', target: 'upper back', secondaryMuscles: ['Latissimus Dorsi', 'Biceps', 'Posterior Deltoids'], equipment: 'cable', category: 'strength', difficulty: 'Beginner', movementPattern: 'Pull', defaultTarget: '3 Sets × 10-12 Reps',
+    specificInstructions: [
+      'Sit facing a low pulley, place your feet securely on the supports, and hold the handle with your knees slightly bent.',
+      'Set your torso upright, keep your spine long, and allow your arms to reach forward without collapsing your lower back.',
+      'Pull the handle toward your lower ribs by driving your elbows backward and drawing your shoulder blades toward each other.',
+      'Extend your arms slowly and allow your shoulder blades to glide forward while your torso remains nearly still.'
+    ], coachTip: 'Row the handle, not the whole boat. Keep your torso calm and let your elbows do the paddling.'
+  },
+  {
+    id: 'barbell-bent-over-row', name: 'Barbell Bent-Over Row', bodyPart: 'back', target: 'upper back', secondaryMuscles: ['Latissimus Dorsi', 'Biceps', 'Spinal Erectors'], equipment: 'barbell', category: 'strength', difficulty: 'Intermediate', movementPattern: 'Pull', defaultTarget: '3 Sets × 8-10 Reps',
+    specificInstructions: [
+      'Hold the bar with an overhand grip slightly wider than your legs, soften your knees, and hinge your hips backward.',
+      'Keep your back neutral and your torso angled toward the floor, with the bar hanging below your shoulders.',
+      'Pull the bar toward your lower ribs by bending your elbows behind you without lifting your torso to meet it.',
+      'Lower to straight arms while maintaining your hip hinge and abdominal brace; reset if your lower-back position changes.'
+    ], coachTip: 'Freeze your fox silhouette. If every pull turns into a little standing-up dance, reduce the load.'
+  },
+  {
+    id: 'dumbbell-bent-over-row', name: 'Dumbbell Bent-Over Row', bodyPart: 'back', target: 'upper back', secondaryMuscles: ['Latissimus Dorsi', 'Biceps', 'Posterior Deltoids'], equipment: 'dumbbell', category: 'strength', difficulty: 'Intermediate', movementPattern: 'Pull', defaultTarget: '3 Sets × 8-12 Reps',
+    specificInstructions: [
+      'Stand with feet about hip-width apart and a dumbbell in each hand, then bend your knees slightly and hinge at your hips.',
+      'Hold your torso steady with your spine neutral and let both weights hang beneath your shoulders with palms facing inward.',
+      'Draw your elbows back toward your hips to bring the dumbbells beside your lower ribs without rotating or jerking your trunk.',
+      'Lower the weights to straight arms while keeping your hips back and your neck aligned with your spine.'
+    ], coachTip: 'Keep both paws on the same trail. Smooth, matching rows make your back work harder than momentum does.'
+  },
+  {
+    id: 'dumbbell-incline-row', name: 'Chest-Supported Dumbbell Row', bodyPart: 'back', target: 'upper back', secondaryMuscles: ['Latissimus Dorsi', 'Biceps', 'Posterior Deltoids'], equipment: 'dumbbell', category: 'strength', difficulty: 'Beginner', movementPattern: 'Pull', defaultTarget: '3 Sets × 10-12 Reps',
+    specificInstructions: [
+      'Set a bench at a moderate incline and lie face down with your chest against the pad and feet securely on the floor.',
+      'Hold a dumbbell in each hand with arms hanging toward the floor and your neck aligned with your upper back.',
+      'Pull your elbows behind your torso to bring the weights toward the sides of your ribs while keeping your chest against the pad.',
+      'Lower the weights slowly, allowing your shoulder blades to separate without lifting your chest to gain extra range.'
+    ], coachTip: 'Let the bench give your chest a fox hug. Staying supported makes it easier to feel your back doing the work.'
+  },
+  {
+    id: 'cable-straight-arm-pulldown', name: 'Straight-Arm Cable Pulldown', bodyPart: 'back', target: 'latissimus dorsi', secondaryMuscles: ['Teres Major', 'Triceps Long Head'], equipment: 'cable', category: 'strength', difficulty: 'Beginner', movementPattern: 'Pull', defaultTarget: '3 Sets × 10-15 Reps',
+    specificInstructions: [
+      'Attach a straight bar to a high pulley, grip it overhand, and step back with your knees soft and hips slightly hinged.',
+      'Start with your arms angled above shoulder height and elbows softly bent, keeping your ribs from flaring upward.',
+      'Sweep the bar toward the fronts of your thighs by moving your upper arms down while keeping the elbow bend almost unchanged.',
+      'Return the bar slowly overhead until you feel a comfortable stretch along your sides without arching your lower back.'
+    ], coachTip: 'Sweep your paws down like brushing tall grass. Keep your elbows quiet so your lats stay in charge.'
+  },
+  {
+    id: 'lever-seated-row', name: 'Machine Seated Row', bodyPart: 'back', target: 'upper back', secondaryMuscles: ['Latissimus Dorsi', 'Biceps', 'Posterior Deltoids'], equipment: 'machine', category: 'strength', difficulty: 'Beginner', movementPattern: 'Pull', defaultTarget: '3 Sets × 10-12 Reps',
+    specificInstructions: [
+      'Adjust the seat and chest pad so you can reach the handles with straight arms while keeping your feet supported.',
+      'Rest your chest against the pad, grip the handles, and keep your shoulders relaxed away from your ears.',
+      'Pull the handles toward your ribs by moving your elbows backward without peeling your chest away from the support.',
+      'Return until your elbows straighten and shoulder blades glide forward, keeping control of the machine throughout the return.'
+    ], coachTip: 'Stay close to your den wall. The chest pad is there to help your back row without a torso swing.'
+  },
+  {
+    id: 'inverted-row', name: 'Inverted Row', bodyPart: 'back', target: 'upper back', secondaryMuscles: ['Latissimus Dorsi', 'Biceps', 'Posterior Deltoids'], equipment: 'bodyweight', category: 'strength', difficulty: 'Beginner', movementPattern: 'Pull', defaultTarget: '3 Sets × 6-12 Reps',
+    specificInstructions: [
+      'Secure a bar in a rack around waist height, grip it overhand, and position your body underneath with your heels on the floor.',
+      'Straighten your body from head to heels and brace your glutes and abdomen; move your feet closer to make the angle easier.',
+      'Bend your elbows and draw your chest toward the bar while keeping your hips from sagging or thrusting upward.',
+      'Lower to straight arms under control, allowing your shoulder blades to move forward while your body stays aligned.'
+    ], coachTip: 'Make yourself a sturdy bridge. Changing your foot position is a clever way to find the right challenge.'
+  }
+]
+
+const legs = [
+  {
+    id: 'barbell-high-bar-squat', name: 'Barbell High-Bar Squat', bodyPart: 'upper-legs', target: 'quadriceps', secondaryMuscles: ['Gluteus Maximus', 'Adductors', 'Spinal Erectors'], equipment: 'barbell', category: 'strength', difficulty: 'Intermediate', movementPattern: 'Squat', defaultTarget: '3 Sets × 6-10 Reps',
+    specificInstructions: [
+      'Set rack safeties below your intended depth, position the bar on your upper trapezius rather than your neck, and step back with a secure grip.',
+      'Set your feet about shoulder-width apart with toes slightly outward, brace your abdomen, and keep pressure through your whole foot.',
+      'Bend your knees and hips together, allowing your knees to track in the direction of your toes as you lower to a depth you can control.',
+      'Push the floor away to stand, bringing your hips and shoulders upward together without letting your knees collapse inward.'
+    ], coachTip: 'Three points under each paw: heel, big-toe base, little-toe base. Keep the whole trail under you.'
+  },
+  {
+    id: 'dumbbell-goblet-squat', name: 'Dumbbell Goblet Squat', bodyPart: 'upper-legs', target: 'quadriceps', secondaryMuscles: ['Gluteus Maximus', 'Adductors', 'Rectus Abdominis'], equipment: 'dumbbell', category: 'strength', difficulty: 'Beginner', movementPattern: 'Squat', defaultTarget: '3 Sets × 8-12 Reps',
+    specificInstructions: [
+      'Hold one dumbbell vertically against your chest with both hands supporting its upper end and your elbows pointing downward.',
+      'Place your feet slightly wider than hip-width with toes gently turned out, keeping your heels and forefeet grounded.',
+      'Sit down between your hips by bending your knees and hips, keeping the weight close and your knees following your toes.',
+      'Stand by driving through your whole feet while keeping your chest and pelvis rising together.'
+    ], coachTip: 'Carry that dumbbell like a prized acorn. Keeping it close helps you squat tall and steady.'
+  },
+  {
+    id: 'sled-45-leg-press', name: '45-Degree Leg Press', bodyPart: 'upper-legs', target: 'quadriceps', secondaryMuscles: ['Gluteus Maximus', 'Adductors'], equipment: 'machine', category: 'strength', difficulty: 'Beginner', movementPattern: 'Squat', defaultTarget: '3 Sets × 10-15 Reps',
+    specificInstructions: [
+      'Sit with your back and pelvis supported, place your feet about shoulder-width on the platform, and check the machine safety stops.',
+      'Extend your legs enough to release the handles while keeping your knees softly unlocked and both feet flat against the platform.',
+      'Lower the sled by bending your knees and hips, stopping before your pelvis rolls away from the back pad or your heels lift.',
+      'Press through your whole feet to return without snapping your knees straight; re-engage the safety catches before exiting.'
+    ], coachTip: 'Your tailbone stays in the seat! A comfortable depth with a supported pelvis beats chasing the lowest sled.'
+  },
+  {
+    id: 'barbell-romanian-deadlift', name: 'Barbell Romanian Deadlift', bodyPart: 'upper-legs', target: 'hamstrings', secondaryMuscles: ['Gluteus Maximus', 'Spinal Erectors', 'Adductors'], equipment: 'barbell', category: 'strength', difficulty: 'Intermediate', movementPattern: 'Hinge', defaultTarget: '3 Sets × 8-10 Reps',
+    specificInstructions: [
+      'Begin standing with a barbell at the fronts of your thighs, hands just outside your legs and knees slightly bent.',
+      'Brace your abdomen and push your hips backward while keeping the bar close enough to skim your thighs.',
+      'Continue lowering along your shins until you feel hamstring tension and can no longer hinge without rounding your back; keep your knee bend nearly constant.',
+      'Push your feet into the floor and bring your hips forward to stand tall, stopping before you lean backward at the top.'
+    ], coachTip: 'Send your tail toward the wall behind you. The bar follows your legs; it does not lead a dive to the floor.'
+  },
+  {
+    id: 'dumbbell-lunge', name: 'Dumbbell Forward Lunge', bodyPart: 'upper-legs', target: 'quadriceps', secondaryMuscles: ['Gluteus Maximus', 'Adductors', 'Hamstrings'], equipment: 'dumbbell', category: 'strength', difficulty: 'Intermediate', movementPattern: 'Squat', defaultTarget: '3 Sets × 8-10 Reps per Side',
+    specificInstructions: [
+      'Stand tall holding dumbbells at your sides, with feet hip-width apart and enough clear space in front of you.',
+      'Step one foot forward onto a separate hip-width track and bend both knees, keeping the front heel grounded.',
+      'Lower until your rear knee approaches the floor and your front thigh nears parallel, or stop at a shallower controlled depth.',
+      'Push through the front foot to return to standing without twisting your pelvis, then alternate legs.'
+    ], coachTip: 'Walk on two trails, not a tightrope. A little space between your feet makes the landing steadier.'
+  },
+  {
+    id: 'dumbbell-rear-lunge', name: 'Dumbbell Reverse Lunge', bodyPart: 'upper-legs', target: 'glutes', secondaryMuscles: ['Quadriceps', 'Adductors', 'Hamstrings'], equipment: 'dumbbell', category: 'strength', difficulty: 'Beginner', movementPattern: 'Squat', defaultTarget: '3 Sets × 8-10 Reps per Side',
+    specificInstructions: [
+      'Stand with a dumbbell beside each thigh and feet about hip-width apart, keeping your abdomen braced.',
+      'Step one foot backward and land on its forefoot while leaving the front foot planted flat.',
+      'Bend both knees to lower the rear knee toward the floor, keeping the front knee aligned with the toes and your pelvis facing forward.',
+      'Press through the front foot to bring the rear leg back under your hips, then repeat on the other side.'
+    ], coachTip: 'The front paw is your anchor. Step back softly and let the planted leg bring you home.'
+  },
+  {
+    id: 'dumbbell-single-leg-split-squat', name: 'Dumbbell Bulgarian Split Squat', bodyPart: 'upper-legs', target: 'quadriceps', secondaryMuscles: ['Gluteus Maximus', 'Adductors'], equipment: 'dumbbell', category: 'strength', difficulty: 'Intermediate', movementPattern: 'Squat', defaultTarget: '3 Sets × 8-10 Reps per Side',
+    specificInstructions: [
+      'Stand a short stride in front of a stable low bench, hold dumbbells at your sides, and rest the top of one foot on the bench behind you.',
+      'Keep your front foot on its own hip-width track and distribute most of your weight through that planted foot.',
+      'Bend the front knee and hip to lower your rear knee toward the floor, keeping your pelvis level and front heel down.',
+      'Drive through the front foot to stand, using the rear leg mainly for balance; complete the set before switching sides.'
+    ], coachTip: 'Your back paw is a kickstand, not the engine. Let the front leg earn the climb.'
+  },
+  {
+    id: 'lever-leg-extension', name: 'Machine Leg Extension', bodyPart: 'upper-legs', target: 'quadriceps', secondaryMuscles: [], equipment: 'machine', category: 'strength', difficulty: 'Beginner', movementPattern: 'Push', defaultTarget: '3 Sets × 10-15 Reps',
+    specificInstructions: [
+      'Adjust the backrest so your knees line up with the machine pivot and place the roller just above the fronts of your ankles.',
+      'Keep your hips and back against the seat, grasp the side handles, and point your knees straight ahead.',
+      'Straighten your knees smoothly to lift the roller until your legs are nearly extended without kicking or snapping the joints.',
+      'Bend your knees slowly to return while keeping your thighs resting on the seat and the weight stack controlled.'
+    ], coachTip: 'Lift like a fox opening a delicate gate. Smooth knee motion matters more than a big stack.'
+  },
+  {
+    id: 'lever-lying-leg-curl', name: 'Lying Leg Curl', bodyPart: 'upper-legs', target: 'hamstrings', secondaryMuscles: ['Gastrocnemius'], equipment: 'machine', category: 'strength', difficulty: 'Beginner', movementPattern: 'Pull', defaultTarget: '3 Sets × 10-15 Reps',
+    specificInstructions: [
+      'Lie face down with your knees aligned to the machine pivot and the roller resting above your heels on the lower calves.',
+      'Hold the handles and keep the fronts of your hips in contact with the pad rather than arching your lower back.',
+      'Bend your knees to bring your heels toward your buttocks, stopping before your hips lift or your knees feel compressed.',
+      'Lower the roller slowly until your knees are nearly straight without letting the stack drop.'
+    ], coachTip: 'Keep your tail resting on the pad. If your hips pop up, shorten the curl and choose a lighter load.'
+  },
+  {
+    id: 'barbell-glute-bridge', name: 'Barbell Glute Bridge', bodyPart: 'upper-legs', target: 'glutes', secondaryMuscles: ['Hamstrings', 'Adductors'], equipment: 'barbell', category: 'strength', difficulty: 'Intermediate', movementPattern: 'Hinge', defaultTarget: '3 Sets × 10-12 Reps',
+    specificInstructions: [
+      'Lie on your back on the floor with knees bent and feet flat, then position a padded barbell across your hip crease and steady it with both hands.',
+      'Place your feet so your shins approach vertical at the top, and gently draw your ribs toward your pelvis.',
+      'Press through your feet to lift your hips until your shoulders, hips, and knees form a line, squeezing your glutes without arching your lower back.',
+      'Lower your pelvis to the floor under control while keeping the bar centered over your hips.'
+    ], coachTip: 'Finish with a glute squeeze, not a backbend. Your tail lifts the bridge while your ribs stay cozy.'
+  },
+  {
+    id: 'lever-standing-calf-raise', name: 'Standing Machine Calf Raise', bodyPart: 'lower-legs', target: 'calves', secondaryMuscles: ['Soleus'], equipment: 'machine', category: 'strength', difficulty: 'Beginner', movementPattern: 'Push', defaultTarget: '3 Sets × 12-15 Reps',
+    specificInstructions: [
+      'Adjust the shoulder pads and place the balls of your feet on the platform with your heels free to move.',
+      'Stand tall with your abdomen braced and knees softly straight, holding the handles for balance.',
+      'Rise onto the balls of your feet by lifting your heels as high as you can without rolling your ankles outward.',
+      'Lower your heels slowly through a comfortable stretch and pause briefly before the next repetition instead of bouncing.'
+    ], coachTip: 'Sneak up tall on your tiptoes, then lower like a quiet fox. The slow bottom pause is where control shines.'
+  },
+  {
+    id: 'lever-seated-calf-raise', name: 'Seated Machine Calf Raise', bodyPart: 'lower-legs', target: 'soleus', secondaryMuscles: ['Gastrocnemius'], equipment: 'machine', category: 'strength', difficulty: 'Beginner', movementPattern: 'Push', defaultTarget: '3 Sets × 12-20 Reps',
+    specificInstructions: [
+      'Sit with knees bent about 90 degrees, the thigh pads above your knees, and the balls of your feet supported on the platform.',
+      'Lift your heels enough to release the safety lever while keeping your knees beneath the pads.',
+      'Raise your heels by pressing through the balls of your feet, keeping your ankles aligned rather than rolling to their outer edges.',
+      'Lower the heels slowly to a comfortable calf stretch, then repeat without bouncing the weight or lifting your thighs from the pads.'
+    ], coachTip: 'Tiny trail, big calf work. Keep the motion in your ankles and let the seat do the balancing.'
+  }
+]
+
+const shoulders = [
+  {
+    id: 'barbell-seated-overhead-press', name: 'Seated Barbell Overhead Press', bodyPart: 'shoulders', target: 'deltoids', secondaryMuscles: ['Triceps', 'Serratus Anterior', 'Trapezius'], equipment: 'barbell', category: 'strength', difficulty: 'Intermediate', movementPattern: 'Push', defaultTarget: '3 Sets × 8-10 Reps',
+    specificInstructions: [
+      'Set a near-upright bench inside a rack with safeties, sit with feet planted, and grip the bar slightly wider than your shoulders.',
+      'Unrack to the front of your upper chest with your forearms nearly vertical and your abdomen braced.',
+      'Press the bar upward in front of your face and then above your shoulders, moving your head only enough to clear its path.',
+      'Lower to the front of your upper chest through a comfortable range while keeping your ribs down and your lower back from overextending.'
+    ], coachTip: 'Make a tall tower from ribs to hips. The bar goes up; your lower back does not need to join the adventure.'
+  },
+  {
+    id: 'dumbbell-seated-shoulder-press', name: 'Seated Dumbbell Shoulder Press', bodyPart: 'shoulders', target: 'deltoids', secondaryMuscles: ['Triceps', 'Serratus Anterior', 'Trapezius'], equipment: 'dumbbell', category: 'strength', difficulty: 'Beginner', movementPattern: 'Push', defaultTarget: '3 Sets × 8-12 Reps',
+    specificInstructions: [
+      'Sit against a near-upright backrest with feet flat and bring the dumbbells beside your shoulders.',
+      'Turn your palms forward or slightly inward and position your elbows a little in front of your torso with wrists above elbows.',
+      'Press the dumbbells overhead until your elbows straighten comfortably, allowing your shoulder blades to rotate upward.',
+      'Lower the weights beside your shoulders without flaring your ribs or forcing your elbows far behind your body.'
+    ], coachTip: 'Give your paws room overhead. A smooth shoulder path beats forcing the dumbbells to touch.'
+  },
+  {
+    id: 'dumbbell-lateral-raise', name: 'Dumbbell Lateral Raise', bodyPart: 'shoulders', target: 'lateral deltoids', secondaryMuscles: ['Supraspinatus', 'Trapezius'], equipment: 'dumbbell', category: 'strength', difficulty: 'Beginner', movementPattern: 'Push', defaultTarget: '3 Sets × 12-15 Reps',
+    specificInstructions: [
+      'Stand with light dumbbells beside your thighs, knees softly bent, and elbows slightly bent.',
+      'Raise your upper arms out to your sides and slightly forward of your torso, keeping your wrists in line with your forearms.',
+      'Stop around shoulder height with thumbs level or slightly upward rather than pouring your hands downward.',
+      'Lower slowly while keeping your torso still and avoiding a shrug to start the next repetition.'
+    ], coachTip: 'Spread your wings gently, fox friend. Lighter weights help your shoulders lift without a body swing.'
+  },
+  {
+    id: 'cable-lateral-raise', name: 'Single-Arm Cable Lateral Raise', bodyPart: 'shoulders', target: 'lateral deltoids', secondaryMuscles: ['Supraspinatus', 'Trapezius'], equipment: 'cable', category: 'strength', difficulty: 'Intermediate', movementPattern: 'Push', defaultTarget: '3 Sets × 12-15 Reps per Side',
+    specificInstructions: [
+      'Set a single handle on a low pulley and stand sideways with your working arm farther from the cable stack.',
+      'Hold the handle across the front of your hips and keep a soft elbow bend with your torso upright.',
+      'Lift the working upper arm outward and slightly forward until it approaches shoulder height, keeping your wrist neutral.',
+      'Lower the handle slowly toward the opposite hip without leaning away from the machine; finish the set before changing sides.'
+    ], coachTip: 'Stay tall like a curious fox. Let the cable stretch the shoulder, not pull you into a sideways lean.'
+  },
+  {
+    id: 'dumbbell-rear-fly', name: 'Bent-Over Dumbbell Reverse Fly', bodyPart: 'shoulders', target: 'posterior deltoids', secondaryMuscles: ['Rhomboids', 'Middle Trapezius'], equipment: 'dumbbell', category: 'strength', difficulty: 'Intermediate', movementPattern: 'Pull', defaultTarget: '3 Sets × 12-15 Reps',
+    specificInstructions: [
+      'Hold light dumbbells, bend your knees slightly, and hinge your hips so your torso angles toward the floor with a neutral back.',
+      'Let your hands hang below your chest with palms facing each other and elbows softly bent.',
+      'Sweep your upper arms outward until they are roughly level with your torso, keeping the elbow bend nearly unchanged.',
+      'Lower the weights slowly beneath your chest without lifting your torso, shrugging, or turning the movement into a row.'
+    ], coachTip: 'Open your wings while your body stays still. If your elbows fold into a row, make the weights friendlier.'
+  },
+  {
+    id: 'cable-rear-delt-row-with-rope', name: 'Rope Face Pull', bodyPart: 'shoulders', target: 'posterior deltoids', secondaryMuscles: ['Middle Trapezius', 'Rhomboids', 'External Shoulder Rotators'], equipment: 'cable', category: 'strength', difficulty: 'Beginner', movementPattern: 'Pull', defaultTarget: '3 Sets × 12-15 Reps',
+    specificInstructions: [
+      'Attach a rope to a pulley near face height and step back holding one end in each hand with your arms extended.',
+      'Set a stable stance and brace your abdomen so the cable cannot pull your ribs forward.',
+      'Pull the rope toward your brow while separating its ends beside your face and moving your elbows outward.',
+      'Return to straight arms slowly without pushing your head forward or leaning backward to move the weight.'
+    ], coachTip: 'Frame your fox ears with the rope ends. Keep your neck long and let your shoulders do the steering.'
+  },
+  {
+    id: 'dumbbell-front-raise', name: 'Dumbbell Front Raise', bodyPart: 'shoulders', target: 'anterior deltoids', secondaryMuscles: ['Clavicular Pectorals', 'Serratus Anterior'], equipment: 'dumbbell', category: 'strength', difficulty: 'Beginner', movementPattern: 'Push', defaultTarget: '2 Sets × 10-15 Reps',
+    specificInstructions: [
+      'Stand with light dumbbells in front of your thighs, palms facing you and elbows slightly bent.',
+      'Brace your abdomen and lift your arms forward without swinging your hips or leaning back.',
+      'Stop with the weights around shoulder height, keeping your wrists straight and your neck relaxed.',
+      'Lower the dumbbells slowly to the fronts of your thighs while maintaining the same elbow bend.'
+    ], coachTip: 'Lift to the horizon, not the treetops. Shoulder height gives you plenty of work without a big body sway.'
+  },
+  {
+    id: 'lever-shoulder-press', name: 'Machine Shoulder Press', bodyPart: 'shoulders', target: 'deltoids', secondaryMuscles: ['Triceps', 'Serratus Anterior', 'Trapezius'], equipment: 'machine', category: 'strength', difficulty: 'Beginner', movementPattern: 'Push', defaultTarget: '3 Sets × 10-12 Reps',
+    specificInstructions: [
+      'Adjust the seat so the handles start around shoulder level and your feet can rest securely on the floor.',
+      'Sit against the back pad and grip the handles with wrists stacked above your elbows.',
+      'Press the handles overhead through a comfortable range while keeping your ribs down and pelvis against the seat.',
+      'Lower the handles back toward shoulder height under control without bouncing off the bottom stops.'
+    ], coachTip: 'Stay snug against the pad and press tall. The machine guides your paws, while you control the pace.'
+  }
+]
+
+const arms = [
+  {
+    id: 'barbell-curl', name: 'Barbell Biceps Curl', bodyPart: 'upper-arms', target: 'biceps', secondaryMuscles: ['Brachialis', 'Brachioradialis'], equipment: 'barbell', category: 'strength', difficulty: 'Beginner', movementPattern: 'Pull', defaultTarget: '3 Sets × 10-12 Reps',
+    specificInstructions: [
+      'Stand with feet hip-width apart and hold the bar palms-up with hands about shoulder-width apart.',
+      'Keep your elbows near the sides of your ribs and your wrists straight as you brace your abdomen.',
+      'Bend your elbows to curl the bar toward your shoulders without moving your upper arms forward or swinging your hips.',
+      'Lower the bar slowly until your elbows are nearly straight while keeping tension and avoiding a backward trunk lean.'
+    ], coachTip: 'Pin your elbows near your den walls. Quiet upper arms turn a curl into honest biceps work.'
+  },
+  {
+    id: 'dumbbell-biceps-curl', name: 'Dumbbell Biceps Curl', bodyPart: 'upper-arms', target: 'biceps', secondaryMuscles: ['Brachialis', 'Brachioradialis'], equipment: 'dumbbell', category: 'strength', difficulty: 'Beginner', movementPattern: 'Pull', defaultTarget: '3 Sets × 10-12 Reps',
+    specificInstructions: [
+      'Stand with a dumbbell beside each thigh and your arms extended, palms facing forward or beginning in a neutral grip.',
+      'Keep your upper arms beside your torso and rotate your palms upward as you bend your elbows.',
+      'Lift the weights toward your shoulders without letting your elbows drift far forward or bending your wrists backward.',
+      'Extend your elbows slowly to return the dumbbells beside your thighs, keeping your torso and shoulders still.'
+    ], coachTip: 'Show your paws to the sky as you curl. A steady wrist helps your biceps do the carrying.'
+  },
+  {
+    id: 'dumbbell-hammer-curl', name: 'Dumbbell Hammer Curl', bodyPart: 'upper-arms', target: 'brachialis', secondaryMuscles: ['Brachioradialis', 'Biceps'], equipment: 'dumbbell', category: 'strength', difficulty: 'Beginner', movementPattern: 'Pull', defaultTarget: '3 Sets × 10-12 Reps',
+    specificInstructions: [
+      'Stand with dumbbells at your sides, palms facing inward and thumbs pointing forward.',
+      'Hold your elbows close to your ribs and keep your wrists aligned with your forearms.',
+      'Bend your elbows to lift the weights toward the fronts of your shoulders while maintaining the palms-in grip.',
+      'Lower the dumbbells slowly without rotating your palms upward or using your hips to start the next curl.'
+    ], coachTip: 'Carry two little lanterns with thumbs up. No swinging needed to light up your arms.'
+  },
+  {
+    id: 'cable-curl', name: 'Standing Cable Biceps Curl', bodyPart: 'upper-arms', target: 'biceps', secondaryMuscles: ['Brachialis', 'Brachioradialis'], equipment: 'cable', category: 'strength', difficulty: 'Beginner', movementPattern: 'Pull', defaultTarget: '3 Sets × 10-15 Reps',
+    specificInstructions: [
+      'Attach a short bar to a low pulley and stand facing the stack with an underhand, roughly shoulder-width grip.',
+      'Step back just enough to keep tension in the cable and place your upper arms beside your torso.',
+      'Curl the bar toward your shoulders by bending your elbows while keeping your shoulders and trunk still.',
+      'Extend your elbows slowly without letting your wrists bend or allowing the weight stack to crash down.'
+    ], coachTip: 'Keep the cable talking softly. A quiet stack means you are controlling both halves of the curl.'
+  },
+  {
+    id: 'dumbbell-preacher-curl', name: 'Dumbbell Preacher Curl', bodyPart: 'upper-arms', target: 'biceps', secondaryMuscles: ['Brachialis', 'Brachioradialis'], equipment: 'dumbbell', category: 'strength', difficulty: 'Intermediate', movementPattern: 'Pull', defaultTarget: '3 Sets × 10-12 Reps per Side',
+    specificInstructions: [
+      'Adjust a preacher bench so your upper arm rests fully on the sloped pad with your armpit near its top edge.',
+      'Hold a light dumbbell palm-up and keep your shoulder and upper arm resting against the pad.',
+      'Bend your elbow to bring the weight toward your shoulder without lifting your upper arm off the support.',
+      'Lower slowly until your elbow is nearly straight, stopping short of a forced lockout and avoiding a bounce at the bottom.'
+    ], coachTip: 'The pad is your patient training buddy. Keep your upper arm settled and treat the bottom stretch gently.'
+  },
+  {
+    id: 'cable-pushdown-with-rope-attachment', name: 'Rope Triceps Pushdown', bodyPart: 'upper-arms', target: 'triceps', secondaryMuscles: ['Anconeus'], equipment: 'cable', category: 'strength', difficulty: 'Beginner', movementPattern: 'Push', defaultTarget: '3 Sets × 10-15 Reps',
+    specificInstructions: [
+      'Attach a rope to a high pulley and stand facing it with a rope end in each hand and palms facing inward.',
+      'Bring your elbows beside your ribs and begin with your forearms angled upward while keeping your torso steady.',
+      'Straighten your elbows to move the rope toward your thighs, separating the rope ends slightly as your arms extend.',
+      'Let your elbows bend slowly to return without allowing your upper arms to swing forward or your shoulders to shrug.'
+    ], coachTip: 'Your elbows are little hinges beside the den door. Keep them parked while your forearms do the swinging.'
+  },
+  {
+    id: 'cable-overhead-triceps-extension-rope-attachment', name: 'Overhead Rope Triceps Extension', bodyPart: 'upper-arms', target: 'triceps', secondaryMuscles: ['Anconeus'], equipment: 'cable', category: 'strength', difficulty: 'Intermediate', movementPattern: 'Push', defaultTarget: '3 Sets × 10-15 Reps',
+    specificInstructions: [
+      'Attach a rope to a low pulley, face away from the stack, and carefully bring its ends above and behind your head.',
+      'Use a staggered stance, brace your abdomen, and hold your upper arms near your ears with elbows pointing upward.',
+      'Straighten your elbows to extend the rope overhead while keeping your upper arms and ribs nearly still.',
+      'Bend your elbows to lower the rope behind your head through a comfortable stretch without flaring your ribs or pulling your neck forward.'
+    ], coachTip: 'Keep your ribs zipped and your ears roomy. Only your elbows need to open and close here.'
+  },
+  {
+    id: 'barbell-close-grip-bench-press', name: 'Close-Grip Barbell Bench Press', bodyPart: 'upper-arms', target: 'triceps', secondaryMuscles: ['Pectorals', 'Anterior Deltoids'], equipment: 'barbell', category: 'strength', difficulty: 'Intermediate', movementPattern: 'Push', defaultTarget: '3 Sets × 8-10 Reps',
+    specificInstructions: [
+      'Lie on a flat bench inside a rack with safeties or a spotter, and grip the bar about shoulder-width rather than placing your hands together.',
+      'Plant your feet, set your shoulder blades against the bench, and unrack the bar above your chest.',
+      'Lower toward the lower chest with elbows tracking near your torso and wrists staying stacked above your forearms.',
+      'Press upward to straighten your elbows while keeping your buttocks and upper back supported on the bench.'
+    ], coachTip: 'Close grip does not mean touching paws. Shoulder-width gives your wrists room while your triceps take the lead.'
+  },
+  {
+    id: 'dumbbell-lying-triceps-extension', name: 'Lying Dumbbell Triceps Extension', bodyPart: 'upper-arms', target: 'triceps', secondaryMuscles: ['Anconeus'], equipment: 'dumbbell', category: 'strength', difficulty: 'Intermediate', movementPattern: 'Push', defaultTarget: '3 Sets × 10-12 Reps',
+    specificInstructions: [
+      'Lie on a flat bench with feet planted and light dumbbells held above your shoulders, palms facing each other.',
+      'Keep your upper arms angled slightly toward your head and your wrists straight.',
+      'Bend your elbows to lower the weights beside your temples or just beyond your head, keeping the upper-arm position nearly fixed.',
+      'Straighten your elbows to return the dumbbells overhead without swinging your shoulders or letting the weights approach your face.'
+    ], coachTip: 'Make a safe little path beside your fox ears. Light weights and steady elbows keep this extension tidy.'
+  },
+  {
+    id: 'dumbbell-kickback', name: 'Dumbbell Triceps Kickback', bodyPart: 'upper-arms', target: 'triceps', secondaryMuscles: ['Posterior Deltoids', 'Anconeus'], equipment: 'dumbbell', category: 'strength', difficulty: 'Beginner', movementPattern: 'Push', defaultTarget: '3 Sets × 12-15 Reps',
+    specificInstructions: [
+      'Hold light dumbbells, soften your knees, and hinge forward with your back neutral and abdomen braced.',
+      'Bring your elbows beside your torso so your upper arms are approximately parallel to the floor and your forearms hang downward.',
+      'Straighten your elbows to send the weights backward while keeping your upper arms at the same height.',
+      'Bend your elbows slowly to return the weights beneath them without swinging your upper arms forward.'
+    ], coachTip: 'Your upper arms stay perched like calm fox ears. The forearms flick back; the whole body stays quiet.'
+  }
+]
+
+const coreCardio = [
+  {
+    id: 'dead-bug', name: 'Dead Bug', bodyPart: 'core', target: 'abdominals', secondaryMuscles: ['Obliques', 'Hip Flexors'], equipment: 'bodyweight', category: 'strength', difficulty: 'Beginner', movementPattern: 'Core', defaultTarget: '3 Sets × 6-10 Reps per Side',
+    specificInstructions: [
+      'Lie on your back with arms pointing toward the ceiling and hips and knees bent approximately 90 degrees.',
+      'Exhale to gently draw your ribs down and keep your lower back from arching away from the floor.',
+      'Reach one arm behind you and extend the opposite leg toward the floor only as far as you can maintain your trunk position.',
+      'Bring the arm and leg back above your torso, then alternate sides slowly while continuing to breathe.'
+    ], coachTip: 'Move your paws slowly like a sleepy fox stretch. A shorter reach with a steady back is a winning rep.'
+  },
+  {
+    id: 'reverse-crunch', name: 'Reverse Crunch', bodyPart: 'core', target: 'rectus abdominis', secondaryMuscles: ['Obliques', 'Hip Flexors'], equipment: 'bodyweight', category: 'strength', difficulty: 'Beginner', movementPattern: 'Core', defaultTarget: '3 Sets × 10-15 Reps',
+    specificInstructions: [
+      'Lie on your back with arms resting beside you and hips and knees bent so your thighs point upward.',
+      'Exhale and curl your pelvis toward your ribs, lifting your tailbone a few centimeters from the floor.',
+      'Keep your knees bent and avoid throwing your legs toward your face or pressing hard through your hands.',
+      'Lower your pelvis slowly back to the mat, stopping before momentum rolls you into the next repetition.'
+    ], coachTip: 'Curl your tail, do not launch your legs. A tiny controlled lift can give your abs a big challenge.'
+  },
+  {
+    id: 'crunch-floor', name: 'Floor Crunch', bodyPart: 'core', target: 'rectus abdominis', secondaryMuscles: ['Obliques'], equipment: 'bodyweight', category: 'strength', difficulty: 'Beginner', movementPattern: 'Core', defaultTarget: '3 Sets × 10-15 Reps',
+    specificInstructions: [
+      'Lie on your back with knees bent and feet flat; rest your fingertips lightly beside your head without interlacing behind your neck.',
+      'Keep a small comfortable gap between your chin and chest and exhale as you bring your ribs toward your pelvis.',
+      'Lift your shoulder blades slightly off the floor without sitting all the way up or pulling your head forward.',
+      'Lower your upper back to the floor slowly while keeping your feet relaxed and your neck aligned.'
+    ], coachTip: 'Think ribs toward hips, fox friend. Your paws are passengers beside your head, not a neck-pulling team.'
+  },
+  {
+    id: 'side-bridge-v-2', name: 'Side Plank', bodyPart: 'core', target: 'obliques', secondaryMuscles: ['Quadratus Lumborum', 'Gluteus Medius', 'Shoulder Stabilizers'], equipment: 'bodyweight', category: 'strength', difficulty: 'Beginner', movementPattern: 'Core', defaultTarget: '3 Sets × 15-30 Seconds per Side',
+    specificInstructions: [
+      'Lie on one side with your elbow directly under your shoulder, forearm on the floor, and legs extended with feet stacked or staggered.',
+      'Press through your forearm and the sides of your feet to lift your hips until your head, ribs, pelvis, and ankles form a line.',
+      'Keep your pelvis facing forward rather than rolling backward, and breathe steadily while maintaining space between your shoulder and ear.',
+      'Lower your hips under control and switch sides; bend your knees and support from them if you cannot hold the straight-leg version.'
+    ], coachTip: 'Build a little side bridge and keep your tail from drooping. Short, steady holds count.'
+  },
+  {
+    id: 'band-horizontal-pallof-press', name: 'Band Pallof Press', bodyPart: 'core', target: 'obliques', secondaryMuscles: ['Transversus Abdominis', 'Rectus Abdominis', 'Gluteus Medius'], equipment: 'band', category: 'strength', difficulty: 'Beginner', movementPattern: 'Core', defaultTarget: '3 Sets × 8-12 Reps per Side',
+    specificInstructions: [
+      'Secure a resistance band at chest height, stand sideways to the anchor, and hold the band with both hands at your sternum.',
+      'Step away until the band is taut, set your feet shoulder-width apart, and soften your knees.',
+      'Press your hands straight forward from your chest while resisting the band pulling your shoulders or pelvis toward the anchor.',
+      'Pause briefly with arms extended, return your hands to your chest, and complete the set before turning to face the opposite direction.'
+    ], coachTip: 'Be the fox that will not twist in the breeze. If the band turns you, take one small step closer.'
+  },
+  {
+    id: 'shoulder-tap', name: 'Plank Shoulder Tap', bodyPart: 'core', target: 'abdominals', secondaryMuscles: ['Obliques', 'Serratus Anterior', 'Glutes'], equipment: 'bodyweight', category: 'strength', difficulty: 'Intermediate', movementPattern: 'Core', defaultTarget: '3 Sets × 8-12 Taps per Side',
+    specificInstructions: [
+      'Start in a high plank with hands under your shoulders, legs extended, and feet a little wider than hip-width.',
+      'Brace your abdomen and glutes while pressing evenly through both palms to keep your torso level.',
+      'Shift your weight slightly into one hand and lift the other hand to touch the opposite shoulder without letting your hips rotate.',
+      'Replace the hand beneath your shoulder and alternate sides slowly; widen your feet or elevate your hands if you cannot stay steady.'
+    ], coachTip: 'Balance an imaginary acorn on your back. Slow taps keep that little treasure from rolling away.'
+  },
+  {
+    id: 'mountain-climber', name: 'Mountain Climber', bodyPart: 'cardio', target: 'cardiovascular system', secondaryMuscles: ['Abdominals', 'Hip Flexors', 'Quadriceps', 'Shoulder Stabilizers'], equipment: 'bodyweight', category: 'cardio', difficulty: 'Intermediate', movementPattern: 'Cardio', defaultTarget: '3 Rounds × 20-30 Seconds',
+    specificInstructions: [
+      'Place your hands directly below your shoulders in a high plank, with legs extended and abdomen braced.',
+      'Bring one knee toward your chest without rounding your shoulders forward or lifting your hips sharply.',
+      'Return that foot behind you and draw the opposite knee forward, keeping your weight supported through your hands and toes.',
+      'Continue alternating at a pace that lets your hips stay level; slow to individual steps if your trunk begins to bounce.'
+    ], coachTip: 'Quick paws are optional; steady hips are the goal. Find a climbing pace your whole body can control.'
+  },
+  {
+    id: 'jack-jump-male', name: 'Jumping Jack', bodyPart: 'cardio', target: 'cardiovascular system', secondaryMuscles: ['Calves', 'Quadriceps', 'Hip Abductors', 'Deltoids'], equipment: 'bodyweight', category: 'cardio', difficulty: 'Beginner', movementPattern: 'Cardio', defaultTarget: '3 Rounds × 30 Seconds',
+    specificInstructions: [
+      'Stand with feet together or comfortably close, arms beside your body, and knees softly bent.',
+      'Hop your feet outward while sweeping your arms sideways and upward through a comfortable shoulder range.',
+      'Land quietly with knees tracking over your feet, then hop your feet inward as your arms return to your sides.',
+      'Repeat rhythmically while breathing; use alternating side steps instead of jumps when you want a lower-impact version.'
+    ], coachTip: 'Land like a fox sneaking past a sleeping owl. Soft paws make the rhythm smoother.'
+  },
+  {
+    id: 'jump-rope', name: 'Jump Rope', bodyPart: 'cardio', target: 'cardiovascular system', secondaryMuscles: ['Calves', 'Quadriceps', 'Forearms'], equipment: 'jump rope', category: 'cardio', difficulty: 'Beginner', movementPattern: 'Cardio', defaultTarget: '3 Rounds × 20-40 Seconds',
+    specificInstructions: [
+      'Hold the rope handles beside your hips with elbows close to your ribs and the rope resting behind your heels.',
+      'Turn the rope mainly with small wrist circles while keeping your shoulders relaxed and your gaze forward.',
+      'Hop just high enough for the rope to pass under your feet, landing softly through your forefeet with knees slightly bent.',
+      'Maintain small repeated hops and steady breathing; stop and reset when the rope catches rather than rushing the next jump.'
+    ], coachTip: 'Small hops save fox energy. Let your wrists spin the rope while your shoulders enjoy the ride.'
+  },
+  {
+    id: 'stationary-bike-walk', name: 'Stationary Bike', bodyPart: 'cardio', target: 'cardiovascular system', secondaryMuscles: ['Quadriceps', 'Glutes', 'Hamstrings', 'Calves'], equipment: 'machine', category: 'cardio', difficulty: 'Beginner', movementPattern: 'Cardio', defaultTarget: '5-10 Minutes at an Easy-to-Moderate Pace',
+    specificInstructions: [
+      'Adjust the saddle so your knee remains slightly bent when the pedal reaches its lowest point, and secure your feet on the pedals.',
+      'Set the handlebars to a comfortable reach that lets your elbows stay soft and your shoulders relaxed.',
+      'Begin with light resistance and pedal in smooth circles while keeping your hips level on the saddle.',
+      'Increase resistance gradually to a pace where you can still speak in sentences, then finish with a slower easy pedal before stopping.'
+    ], coachTip: 'Spin a trail you can chat through. Smooth circles and a comfy saddle make a happy fox ride.'
+  }
+]
+
+export const curatedGroups = Object.fromEntries(Object.entries({ Chest: chest, Back: back, Legs: legs, Shoulders: shoulders, Arms: arms, 'Core/Cardio': coreCardio }).map(([group, items]) => [group, [...items, ...additionalGroups[group]]]))
+const cdn = 'https://cdn.jsdelivr.net/gh/JahelCuadrado/ExerciseGymGifsDB@v1.1.0'
+export const curatedExercises = Object.values(curatedGroups).flat().map(item => ({
+  id: item.id, name: item.name, bodyPart: item.bodyPart, target: item.target,
+  secondaryMuscles: item.secondaryMuscles, equipment: item.equipment, category: item.category,
+  difficulty: item.difficulty, movementPattern: item.movementPattern, defaultTarget: item.defaultTarget,
+  gifUrl: `${cdn}/${item.bodyPart}/${item.id}.gif`,
+  thumbnailUrl: `${cdn}/${item.bodyPart}/${item.id}.webp`,
+  specificInstructions: item.specificInstructions, coachTip: item.coachTip,
+}))

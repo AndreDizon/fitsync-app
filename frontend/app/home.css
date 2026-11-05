@@ -25,7 +25,7 @@
   width: 100vw;
   height: 14px;
   transform: translateX(-50%);
-  background: #fffefa;
+  background: var(--page-surface);
   pointer-events: none;
 }
 .home-page .greeting-copy .eyebrow { color: #7c704e; font-size: 10px; letter-spacing: .12em; }

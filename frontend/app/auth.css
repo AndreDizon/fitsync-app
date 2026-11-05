@@ -1,4 +1,4 @@
-.auth-page { min-height: 100dvh; width: 100%; padding: 0; background: #fffefa; color: #24231d; }
+.auth-page { min-height: 100dvh; width: 100%; padding: 0; background: var(--page-surface); color: #24231d; }
 .auth-shell { width: 100%; min-height: 100dvh; display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 0; border-radius: 0; box-shadow: none; background: transparent; }
 .auth-story { position: sticky; top: 24px; height: calc(100dvh - 48px); min-height: 650px; align-self: start; margin: 24px 24px 24px 0; border-radius: 38px; isolation: isolate; overflow: hidden; padding: clamp(24px, 3.5vw, 48px); display: flex; flex-direction: column; background: radial-gradient(ellipse at 90% 50%, #ffbe4b66, transparent 60%), repeating-linear-gradient(0deg, transparent 0 47px, #ad881018 47px 48px), repeating-linear-gradient(90deg, transparent 0 47px, #ad881018 47px 48px), #ffe578; }
 .auth-brand { display: inline-flex; width: fit-content; align-items: center; gap: 10px; text-decoration: none; font-size: 36px; }

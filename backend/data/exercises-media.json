@@ -1,0 +1,902 @@
+{
+  "barbell-bench-press": {
+    "group": "Chest",
+    "source_id": "pectorals/barbell-bench-press",
+    "image_url": "/exercises/barbell-bench-press.webp",
+    "media_urls": [
+      "/exercises/barbell-bench-press.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/pectorals/barbell-bench-press.gif"
+  },
+  "barbell-incline-bench-press": {
+    "group": "Chest",
+    "source_id": "pectorals/barbell-incline-bench-press",
+    "image_url": "/exercises/barbell-incline-bench-press.webp",
+    "media_urls": [
+      "/exercises/barbell-incline-bench-press.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/pectorals/barbell-incline-bench-press.gif"
+  },
+  "dumbbell-bench-press": {
+    "group": "Chest",
+    "source_id": "pectorals/dumbbell-bench-press",
+    "image_url": "/exercises/dumbbell-bench-press.webp",
+    "media_urls": [
+      "/exercises/dumbbell-bench-press.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/pectorals/dumbbell-bench-press.gif"
+  },
+  "dumbbell-incline-bench-press": {
+    "group": "Chest",
+    "source_id": "pectorals/dumbbell-incline-bench-press",
+    "image_url": "/exercises/dumbbell-incline-bench-press.webp",
+    "media_urls": [
+      "/exercises/dumbbell-incline-bench-press.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/pectorals/dumbbell-incline-bench-press.gif"
+  },
+  "dumbbell-fly": {
+    "group": "Chest",
+    "source_id": "pectorals/dumbbell-fly",
+    "image_url": "/exercises/dumbbell-fly.webp",
+    "media_urls": [
+      "/exercises/dumbbell-fly.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/pectorals/dumbbell-fly.gif"
+  },
+  "cable-standing-fly": {
+    "group": "Chest",
+    "source_id": "pectorals/cable-standing-fly",
+    "image_url": "/exercises/cable-standing-fly.webp",
+    "media_urls": [
+      "/exercises/cable-standing-fly.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/pectorals/cable-standing-fly.gif"
+  },
+  "push-up": {
+    "group": "Chest",
+    "source_id": "pectorals/push-up",
+    "image_url": "/exercises/push-up.webp",
+    "media_urls": [
+      "/exercises/push-up.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/pectorals/push-up.gif"
+  },
+  "incline-push-up": {
+    "group": "Chest",
+    "source_id": "pectorals/incline-push-up",
+    "image_url": "/exercises/incline-push-up.webp",
+    "media_urls": [
+      "/exercises/incline-push-up.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/pectorals/incline-push-up.gif"
+  },
+  "lever-chest-press": {
+    "group": "Chest",
+    "source_id": "pectorals/lever-chest-press",
+    "image_url": "/exercises/lever-chest-press.webp",
+    "media_urls": [
+      "/exercises/lever-chest-press.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/pectorals/lever-chest-press.gif"
+  },
+  "lever-seated-fly": {
+    "group": "Chest",
+    "source_id": "pectorals/lever-seated-fly",
+    "image_url": "/exercises/lever-seated-fly.webp",
+    "media_urls": [
+      "/exercises/lever-seated-fly.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/pectorals/lever-seated-fly.gif"
+  },
+  "decline-push-up": {
+    "group": "Chest",
+    "source_id": "pectorals/decline-push-up",
+    "image_url": "/exercises/decline-push-up.webp",
+    "media_urls": [
+      "/exercises/decline-push-up.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/pectorals/decline-push-up.gif"
+  },
+  "kneeling-push-up-male": {
+    "group": "Chest",
+    "source_id": "pectorals/kneeling-push-up-male",
+    "image_url": "/exercises/kneeling-push-up-male.webp",
+    "media_urls": [
+      "/exercises/kneeling-push-up-male.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/pectorals/kneeling-push-up-male.gif"
+  },
+  "dumbbell-decline-bench-press": {
+    "group": "Chest",
+    "source_id": "pectorals/dumbbell-decline-bench-press",
+    "image_url": "/exercises/dumbbell-decline-bench-press.webp",
+    "media_urls": [
+      "/exercises/dumbbell-decline-bench-press.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/pectorals/dumbbell-decline-bench-press.gif"
+  },
+  "smith-bench-press": {
+    "group": "Chest",
+    "source_id": "pectorals/smith-bench-press",
+    "image_url": "/exercises/smith-bench-press.webp",
+    "media_urls": [
+      "/exercises/smith-bench-press.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/pectorals/smith-bench-press.gif"
+  },
+  "band-bench-press": {
+    "group": "Chest",
+    "source_id": "pectorals/band-bench-press",
+    "image_url": "/exercises/band-bench-press.webp",
+    "media_urls": [
+      "/exercises/band-bench-press.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/pectorals/band-bench-press.gif"
+  },
+  "chest-and-front-of-shoulder-stretch": {
+    "group": "Chest",
+    "source_id": "pectorals/chest-and-front-of-shoulder-stretch",
+    "image_url": "/exercises/chest-and-front-of-shoulder-stretch.webp",
+    "media_urls": [
+      "/exercises/chest-and-front-of-shoulder-stretch.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/pectorals/chest-and-front-of-shoulder-stretch.gif"
+  },
+  "cable-pulldown": {
+    "group": "Back",
+    "source_id": "lats/cable-pulldown",
+    "image_url": "/exercises/cable-pulldown.webp",
+    "media_urls": [
+      "/exercises/cable-pulldown.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/lats/cable-pulldown.gif"
+  },
+  "pull-up": {
+    "group": "Back",
+    "source_id": "lats/pull-up",
+    "image_url": "/exercises/pull-up.webp",
+    "media_urls": [
+      "/exercises/pull-up.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/lats/pull-up.gif"
+  },
+  "chin-up": {
+    "group": "Back",
+    "source_id": "lats/chin-up",
+    "image_url": "/exercises/chin-up.webp",
+    "media_urls": [
+      "/exercises/chin-up.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/lats/chin-up.gif"
+  },
+  "cable-seated-row": {
+    "group": "Back",
+    "source_id": "upper-back/cable-seated-row",
+    "image_url": "/exercises/cable-seated-row.webp",
+    "media_urls": [
+      "/exercises/cable-seated-row.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/upper-back/cable-seated-row.gif"
+  },
+  "barbell-bent-over-row": {
+    "group": "Back",
+    "source_id": "upper-back/barbell-bent-over-row",
+    "image_url": "/exercises/barbell-bent-over-row.webp",
+    "media_urls": [
+      "/exercises/barbell-bent-over-row.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/upper-back/barbell-bent-over-row.gif"
+  },
+  "dumbbell-bent-over-row": {
+    "group": "Back",
+    "source_id": "upper-back/dumbbell-bent-over-row",
+    "image_url": "/exercises/dumbbell-bent-over-row.webp",
+    "media_urls": [
+      "/exercises/dumbbell-bent-over-row.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/upper-back/dumbbell-bent-over-row.gif"
+  },
+  "dumbbell-incline-row": {
+    "group": "Back",
+    "source_id": "upper-back/dumbbell-incline-row",
+    "image_url": "/exercises/dumbbell-incline-row.webp",
+    "media_urls": [
+      "/exercises/dumbbell-incline-row.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/upper-back/dumbbell-incline-row.gif"
+  },
+  "cable-straight-arm-pulldown": {
+    "group": "Back",
+    "source_id": "lats/cable-straight-arm-pulldown",
+    "image_url": "/exercises/cable-straight-arm-pulldown.webp",
+    "media_urls": [
+      "/exercises/cable-straight-arm-pulldown.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/lats/cable-straight-arm-pulldown.gif"
+  },
+  "lever-seated-row": {
+    "group": "Back",
+    "source_id": "upper-back/lever-seated-row",
+    "image_url": "/exercises/lever-seated-row.webp",
+    "media_urls": [
+      "/exercises/lever-seated-row.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/upper-back/lever-seated-row.gif"
+  },
+  "inverted-row": {
+    "group": "Back",
+    "source_id": "upper-back/inverted-row",
+    "image_url": "/exercises/inverted-row.webp",
+    "media_urls": [
+      "/exercises/inverted-row.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/upper-back/inverted-row.gif"
+  },
+  "cable-underhand-pulldown": {
+    "group": "Back",
+    "source_id": "lats/cable-underhand-pulldown",
+    "image_url": "/exercises/cable-underhand-pulldown.webp",
+    "media_urls": [
+      "/exercises/cable-underhand-pulldown.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/lats/cable-underhand-pulldown.gif"
+  },
+  "pull-up-neutral-grip": {
+    "group": "Back",
+    "source_id": "lats/pull-up-neutral-grip",
+    "image_url": "/exercises/pull-up-neutral-grip.webp",
+    "media_urls": [
+      "/exercises/pull-up-neutral-grip.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/lats/pull-up-neutral-grip.gif"
+  },
+  "inverted-row-bent-knees": {
+    "group": "Back",
+    "source_id": "upper-back/inverted-row-bent-knees",
+    "image_url": "/exercises/inverted-row-bent-knees.webp",
+    "media_urls": [
+      "/exercises/inverted-row-bent-knees.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/upper-back/inverted-row-bent-knees.gif"
+  },
+  "band-one-arm-standing-low-row": {
+    "group": "Back",
+    "source_id": "upper-back/band-one-arm-standing-low-row",
+    "image_url": "/exercises/band-one-arm-standing-low-row.webp",
+    "media_urls": [
+      "/exercises/band-one-arm-standing-low-row.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/upper-back/band-one-arm-standing-low-row.gif"
+  },
+  "barbell-shrug": {
+    "group": "Back",
+    "source_id": "traps/barbell-shrug",
+    "image_url": "/exercises/barbell-shrug.webp",
+    "media_urls": [
+      "/exercises/barbell-shrug.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/traps/barbell-shrug.gif"
+  },
+  "kneeling-lat-stretch": {
+    "group": "Back",
+    "source_id": "lats/kneeling-lat-stretch",
+    "image_url": "/exercises/kneeling-lat-stretch.webp",
+    "media_urls": [
+      "/exercises/kneeling-lat-stretch.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/lats/kneeling-lat-stretch.gif"
+  },
+  "barbell-high-bar-squat": {
+    "group": "Legs",
+    "source_id": "glutes/barbell-high-bar-squat",
+    "image_url": "/exercises/barbell-high-bar-squat.webp",
+    "media_urls": [
+      "/exercises/barbell-high-bar-squat.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/glutes/barbell-high-bar-squat.gif"
+  },
+  "dumbbell-goblet-squat": {
+    "group": "Legs",
+    "source_id": "quads/dumbbell-goblet-squat",
+    "image_url": "/exercises/dumbbell-goblet-squat.webp",
+    "media_urls": [
+      "/exercises/dumbbell-goblet-squat.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/quads/dumbbell-goblet-squat.gif"
+  },
+  "sled-45-leg-press": {
+    "group": "Legs",
+    "source_id": "glutes/sled-45-leg-press",
+    "image_url": "/exercises/sled-45-leg-press.webp",
+    "media_urls": [
+      "/exercises/sled-45-leg-press.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/glutes/sled-45-leg-press.gif"
+  },
+  "barbell-romanian-deadlift": {
+    "group": "Legs",
+    "source_id": "glutes/barbell-romanian-deadlift",
+    "image_url": "/exercises/barbell-romanian-deadlift.webp",
+    "media_urls": [
+      "/exercises/barbell-romanian-deadlift.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/glutes/barbell-romanian-deadlift.gif"
+  },
+  "dumbbell-lunge": {
+    "group": "Legs",
+    "source_id": "glutes/dumbbell-lunge",
+    "image_url": "/exercises/dumbbell-lunge.webp",
+    "media_urls": [
+      "/exercises/dumbbell-lunge.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/glutes/dumbbell-lunge.gif"
+  },
+  "dumbbell-rear-lunge": {
+    "group": "Legs",
+    "source_id": "glutes/dumbbell-rear-lunge",
+    "image_url": "/exercises/dumbbell-rear-lunge.webp",
+    "media_urls": [
+      "/exercises/dumbbell-rear-lunge.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/glutes/dumbbell-rear-lunge.gif"
+  },
+  "dumbbell-single-leg-split-squat": {
+    "group": "Legs",
+    "source_id": "quads/dumbbell-single-leg-split-squat",
+    "image_url": "/exercises/dumbbell-single-leg-split-squat.webp",
+    "media_urls": [
+      "/exercises/dumbbell-single-leg-split-squat.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/quads/dumbbell-single-leg-split-squat.gif"
+  },
+  "lever-leg-extension": {
+    "group": "Legs",
+    "source_id": "quads/lever-leg-extension",
+    "image_url": "/exercises/lever-leg-extension.webp",
+    "media_urls": [
+      "/exercises/lever-leg-extension.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/quads/lever-leg-extension.gif"
+  },
+  "lever-lying-leg-curl": {
+    "group": "Legs",
+    "source_id": "hamstrings/lever-lying-leg-curl",
+    "image_url": "/exercises/lever-lying-leg-curl.webp",
+    "media_urls": [
+      "/exercises/lever-lying-leg-curl.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/hamstrings/lever-lying-leg-curl.gif"
+  },
+  "barbell-glute-bridge": {
+    "group": "Legs",
+    "source_id": "glutes/barbell-glute-bridge",
+    "image_url": "/exercises/barbell-glute-bridge.webp",
+    "media_urls": [
+      "/exercises/barbell-glute-bridge.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/glutes/barbell-glute-bridge.gif"
+  },
+  "lever-standing-calf-raise": {
+    "group": "Legs",
+    "source_id": "calves/lever-standing-calf-raise",
+    "image_url": "/exercises/lever-standing-calf-raise.webp",
+    "media_urls": [
+      "/exercises/lever-standing-calf-raise.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/calves/lever-standing-calf-raise.gif"
+  },
+  "lever-seated-calf-raise": {
+    "group": "Legs",
+    "source_id": "calves/lever-seated-calf-raise",
+    "image_url": "/exercises/lever-seated-calf-raise.webp",
+    "media_urls": [
+      "/exercises/lever-seated-calf-raise.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/calves/lever-seated-calf-raise.gif"
+  },
+  "barbell-deadlift": {
+    "group": "Legs",
+    "source_id": "glutes/barbell-deadlift",
+    "image_url": "/exercises/barbell-deadlift.webp",
+    "media_urls": [
+      "/exercises/barbell-deadlift.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/glutes/barbell-deadlift.gif"
+  },
+  "dumbbell-step-up": {
+    "group": "Legs",
+    "source_id": "glutes/dumbbell-step-up",
+    "image_url": "/exercises/dumbbell-step-up.webp",
+    "media_urls": [
+      "/exercises/dumbbell-step-up.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/glutes/dumbbell-step-up.gif"
+  },
+  "lever-seated-leg-curl": {
+    "group": "Legs",
+    "source_id": "hamstrings/lever-seated-leg-curl",
+    "image_url": "/exercises/lever-seated-leg-curl.webp",
+    "media_urls": [
+      "/exercises/lever-seated-leg-curl.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/hamstrings/lever-seated-leg-curl.gif"
+  },
+  "lever-seated-hip-abduction": {
+    "group": "Legs",
+    "source_id": "abductors/lever-seated-hip-abduction",
+    "image_url": "/exercises/lever-seated-hip-abduction.webp",
+    "media_urls": [
+      "/exercises/lever-seated-hip-abduction.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/abductors/lever-seated-hip-abduction.gif"
+  },
+  "lever-seated-hip-adduction": {
+    "group": "Legs",
+    "source_id": "adductors/lever-seated-hip-adduction",
+    "image_url": "/exercises/lever-seated-hip-adduction.webp",
+    "media_urls": [
+      "/exercises/lever-seated-hip-adduction.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/adductors/lever-seated-hip-adduction.gif"
+  },
+  "bodyweight-standing-calf-raise": {
+    "group": "Legs",
+    "source_id": "calves/bodyweight-standing-calf-raise",
+    "image_url": "/exercises/bodyweight-standing-calf-raise.webp",
+    "media_urls": [
+      "/exercises/bodyweight-standing-calf-raise.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/calves/bodyweight-standing-calf-raise.gif"
+  },
+  "lying-side-quads-stretch": {
+    "group": "Legs",
+    "source_id": "quads/lying-side-quads-stretch",
+    "image_url": "/exercises/lying-side-quads-stretch.webp",
+    "media_urls": [
+      "/exercises/lying-side-quads-stretch.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/quads/lying-side-quads-stretch.gif"
+  },
+  "jump-squat": {
+    "group": "Legs",
+    "source_id": "glutes/jump-squat",
+    "image_url": "/exercises/jump-squat.webp",
+    "media_urls": [
+      "/exercises/jump-squat.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/glutes/jump-squat.gif"
+  },
+  "barbell-seated-overhead-press": {
+    "group": "Shoulders",
+    "source_id": "delts/barbell-seated-overhead-press",
+    "image_url": "/exercises/barbell-seated-overhead-press.webp",
+    "media_urls": [
+      "/exercises/barbell-seated-overhead-press.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/delts/barbell-seated-overhead-press.gif"
+  },
+  "dumbbell-seated-shoulder-press": {
+    "group": "Shoulders",
+    "source_id": "delts/dumbbell-seated-shoulder-press",
+    "image_url": "/exercises/dumbbell-seated-shoulder-press.webp",
+    "media_urls": [
+      "/exercises/dumbbell-seated-shoulder-press.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/delts/dumbbell-seated-shoulder-press.gif"
+  },
+  "dumbbell-lateral-raise": {
+    "group": "Shoulders",
+    "source_id": "delts/dumbbell-lateral-raise",
+    "image_url": "/exercises/dumbbell-lateral-raise.webp",
+    "media_urls": [
+      "/exercises/dumbbell-lateral-raise.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/delts/dumbbell-lateral-raise.gif"
+  },
+  "cable-lateral-raise": {
+    "group": "Shoulders",
+    "source_id": "delts/cable-lateral-raise",
+    "image_url": "/exercises/cable-lateral-raise.webp",
+    "media_urls": [
+      "/exercises/cable-lateral-raise.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/delts/cable-lateral-raise.gif"
+  },
+  "dumbbell-rear-fly": {
+    "group": "Shoulders",
+    "source_id": "delts/dumbbell-rear-fly",
+    "image_url": "/exercises/dumbbell-rear-fly.webp",
+    "media_urls": [
+      "/exercises/dumbbell-rear-fly.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/delts/dumbbell-rear-fly.gif"
+  },
+  "cable-rear-delt-row-with-rope": {
+    "group": "Shoulders",
+    "source_id": "delts/cable-rear-delt-row-with-rope",
+    "image_url": "/exercises/cable-rear-delt-row-with-rope.webp",
+    "media_urls": [
+      "/exercises/cable-rear-delt-row-with-rope.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/delts/cable-rear-delt-row-with-rope.gif"
+  },
+  "dumbbell-front-raise": {
+    "group": "Shoulders",
+    "source_id": "delts/dumbbell-front-raise",
+    "image_url": "/exercises/dumbbell-front-raise.webp",
+    "media_urls": [
+      "/exercises/dumbbell-front-raise.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/delts/dumbbell-front-raise.gif"
+  },
+  "lever-shoulder-press": {
+    "group": "Shoulders",
+    "source_id": "delts/lever-shoulder-press",
+    "image_url": "/exercises/lever-shoulder-press.webp",
+    "media_urls": [
+      "/exercises/lever-shoulder-press.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/delts/lever-shoulder-press.gif"
+  },
+  "dumbbell-standing-overhead-press": {
+    "group": "Shoulders",
+    "source_id": "delts/dumbbell-standing-overhead-press",
+    "image_url": "/exercises/dumbbell-standing-overhead-press.webp",
+    "media_urls": [
+      "/exercises/dumbbell-standing-overhead-press.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/delts/dumbbell-standing-overhead-press.gif"
+  },
+  "dumbbell-arnold-press": {
+    "group": "Shoulders",
+    "source_id": "delts/dumbbell-arnold-press",
+    "image_url": "/exercises/dumbbell-arnold-press.webp",
+    "media_urls": [
+      "/exercises/dumbbell-arnold-press.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/delts/dumbbell-arnold-press.gif"
+  },
+  "lever-lateral-raise": {
+    "group": "Shoulders",
+    "source_id": "delts/lever-lateral-raise",
+    "image_url": "/exercises/lever-lateral-raise.webp",
+    "media_urls": [
+      "/exercises/lever-lateral-raise.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/delts/lever-lateral-raise.gif"
+  },
+  "cable-standing-cross-over-high-reverse-fly": {
+    "group": "Shoulders",
+    "source_id": "delts/cable-standing-cross-over-high-reverse-fly",
+    "image_url": "/exercises/cable-standing-cross-over-high-reverse-fly.webp",
+    "media_urls": [
+      "/exercises/cable-standing-cross-over-high-reverse-fly.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/delts/cable-standing-cross-over-high-reverse-fly.gif"
+  },
+  "cable-standing-shoulder-external-rotation": {
+    "group": "Shoulders",
+    "source_id": "delts/cable-standing-shoulder-external-rotation",
+    "image_url": "/exercises/cable-standing-shoulder-external-rotation.webp",
+    "media_urls": [
+      "/exercises/cable-standing-shoulder-external-rotation.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/delts/cable-standing-shoulder-external-rotation.gif"
+  },
+  "rear-deltoid-stretch": {
+    "group": "Shoulders",
+    "source_id": "delts/rear-deltoid-stretch",
+    "image_url": "/exercises/rear-deltoid-stretch.webp",
+    "media_urls": [
+      "/exercises/rear-deltoid-stretch.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/delts/rear-deltoid-stretch.gif"
+  },
+  "barbell-curl": {
+    "group": "Arms",
+    "source_id": "biceps/barbell-curl",
+    "image_url": "/exercises/barbell-curl.webp",
+    "media_urls": [
+      "/exercises/barbell-curl.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/biceps/barbell-curl.gif"
+  },
+  "dumbbell-biceps-curl": {
+    "group": "Arms",
+    "source_id": "biceps/dumbbell-biceps-curl",
+    "image_url": "/exercises/dumbbell-biceps-curl.webp",
+    "media_urls": [
+      "/exercises/dumbbell-biceps-curl.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/biceps/dumbbell-biceps-curl.gif"
+  },
+  "dumbbell-hammer-curl": {
+    "group": "Arms",
+    "source_id": "biceps/dumbbell-hammer-curl",
+    "image_url": "/exercises/dumbbell-hammer-curl.webp",
+    "media_urls": [
+      "/exercises/dumbbell-hammer-curl.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/biceps/dumbbell-hammer-curl.gif"
+  },
+  "cable-curl": {
+    "group": "Arms",
+    "source_id": "biceps/cable-curl",
+    "image_url": "/exercises/cable-curl.webp",
+    "media_urls": [
+      "/exercises/cable-curl.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/biceps/cable-curl.gif"
+  },
+  "dumbbell-preacher-curl": {
+    "group": "Arms",
+    "source_id": "biceps/dumbbell-preacher-curl",
+    "image_url": "/exercises/dumbbell-preacher-curl.webp",
+    "media_urls": [
+      "/exercises/dumbbell-preacher-curl.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/biceps/dumbbell-preacher-curl.gif"
+  },
+  "cable-pushdown-with-rope-attachment": {
+    "group": "Arms",
+    "source_id": "triceps/cable-pushdown-with-rope-attachment",
+    "image_url": "/exercises/cable-pushdown-with-rope-attachment.webp",
+    "media_urls": [
+      "/exercises/cable-pushdown-with-rope-attachment.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/triceps/cable-pushdown-with-rope-attachment.gif"
+  },
+  "cable-overhead-triceps-extension-rope-attachment": {
+    "group": "Arms",
+    "source_id": "triceps/cable-overhead-triceps-extension-rope-attachment",
+    "image_url": "/exercises/cable-overhead-triceps-extension-rope-attachment.webp",
+    "media_urls": [
+      "/exercises/cable-overhead-triceps-extension-rope-attachment.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/triceps/cable-overhead-triceps-extension-rope-attachment.gif"
+  },
+  "barbell-close-grip-bench-press": {
+    "group": "Arms",
+    "source_id": "triceps/barbell-close-grip-bench-press",
+    "image_url": "/exercises/barbell-close-grip-bench-press.webp",
+    "media_urls": [
+      "/exercises/barbell-close-grip-bench-press.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/triceps/barbell-close-grip-bench-press.gif"
+  },
+  "dumbbell-lying-triceps-extension": {
+    "group": "Arms",
+    "source_id": "triceps/dumbbell-lying-triceps-extension",
+    "image_url": "/exercises/dumbbell-lying-triceps-extension.webp",
+    "media_urls": [
+      "/exercises/dumbbell-lying-triceps-extension.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/triceps/dumbbell-lying-triceps-extension.gif"
+  },
+  "dumbbell-kickback": {
+    "group": "Arms",
+    "source_id": "triceps/dumbbell-kickback",
+    "image_url": "/exercises/dumbbell-kickback.webp",
+    "media_urls": [
+      "/exercises/dumbbell-kickback.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/triceps/dumbbell-kickback.gif"
+  },
+  "dumbbell-incline-biceps-curl": {
+    "group": "Arms",
+    "source_id": "biceps/dumbbell-incline-biceps-curl",
+    "image_url": "/exercises/dumbbell-incline-biceps-curl.webp",
+    "media_urls": [
+      "/exercises/dumbbell-incline-biceps-curl.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/biceps/dumbbell-incline-biceps-curl.gif"
+  },
+  "dumbbell-concentration-curl": {
+    "group": "Arms",
+    "source_id": "biceps/dumbbell-concentration-curl",
+    "image_url": "/exercises/dumbbell-concentration-curl.webp",
+    "media_urls": [
+      "/exercises/dumbbell-concentration-curl.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/biceps/dumbbell-concentration-curl.gif"
+  },
+  "ez-barbell-curl": {
+    "group": "Arms",
+    "source_id": "biceps/ez-barbell-curl",
+    "image_url": "/exercises/ez-barbell-curl.webp",
+    "media_urls": [
+      "/exercises/ez-barbell-curl.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/biceps/ez-barbell-curl.gif"
+  },
+  "barbell-reverse-curl": {
+    "group": "Arms",
+    "source_id": "biceps/barbell-reverse-curl",
+    "image_url": "/exercises/barbell-reverse-curl.webp",
+    "media_urls": [
+      "/exercises/barbell-reverse-curl.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/biceps/barbell-reverse-curl.gif"
+  },
+  "cable-one-arm-tricep-pushdown": {
+    "group": "Arms",
+    "source_id": "triceps/cable-one-arm-tricep-pushdown",
+    "image_url": "/exercises/cable-one-arm-tricep-pushdown.webp",
+    "media_urls": [
+      "/exercises/cable-one-arm-tricep-pushdown.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/triceps/cable-one-arm-tricep-pushdown.gif"
+  },
+  "diamond-push-up": {
+    "group": "Arms",
+    "source_id": "triceps/diamond-push-up",
+    "image_url": "/exercises/diamond-push-up.webp",
+    "media_urls": [
+      "/exercises/diamond-push-up.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/triceps/diamond-push-up.gif"
+  },
+  "dumbbells-seated-triceps-extension": {
+    "group": "Arms",
+    "source_id": "triceps/dumbbells-seated-triceps-extension",
+    "image_url": "/exercises/dumbbells-seated-triceps-extension.webp",
+    "media_urls": [
+      "/exercises/dumbbells-seated-triceps-extension.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/triceps/dumbbells-seated-triceps-extension.gif"
+  },
+  "overhead-triceps-stretch": {
+    "group": "Arms",
+    "source_id": "triceps/overhead-triceps-stretch",
+    "image_url": "/exercises/overhead-triceps-stretch.webp",
+    "media_urls": [
+      "/exercises/overhead-triceps-stretch.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/triceps/overhead-triceps-stretch.gif"
+  },
+  "dead-bug": {
+    "group": "Core/Cardio",
+    "source_id": "abs/dead-bug",
+    "image_url": "/exercises/dead-bug.webp",
+    "media_urls": [
+      "/exercises/dead-bug.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/abs/dead-bug.gif"
+  },
+  "reverse-crunch": {
+    "group": "Core/Cardio",
+    "source_id": "abs/reverse-crunch",
+    "image_url": "/exercises/reverse-crunch.webp",
+    "media_urls": [
+      "/exercises/reverse-crunch.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/abs/reverse-crunch.gif"
+  },
+  "crunch-floor": {
+    "group": "Core/Cardio",
+    "source_id": "abs/crunch-floor",
+    "image_url": "/exercises/crunch-floor.webp",
+    "media_urls": [
+      "/exercises/crunch-floor.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/abs/crunch-floor.gif"
+  },
+  "side-bridge-v-2": {
+    "group": "Core/Cardio",
+    "source_id": "abs/side-bridge-v-2",
+    "image_url": "/exercises/side-bridge-v-2.webp",
+    "media_urls": [
+      "/exercises/side-bridge-v-2.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/abs/side-bridge-v-2.gif"
+  },
+  "band-horizontal-pallof-press": {
+    "group": "Core/Cardio",
+    "source_id": "abs/band-horizontal-pallof-press",
+    "image_url": "/exercises/band-horizontal-pallof-press.webp",
+    "media_urls": [
+      "/exercises/band-horizontal-pallof-press.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/abs/band-horizontal-pallof-press.gif"
+  },
+  "shoulder-tap": {
+    "group": "Core/Cardio",
+    "source_id": "abs/shoulder-tap",
+    "image_url": "/exercises/shoulder-tap.webp",
+    "media_urls": [
+      "/exercises/shoulder-tap.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/abs/shoulder-tap.gif"
+  },
+  "mountain-climber": {
+    "group": "Core/Cardio",
+    "source_id": "cardio/mountain-climber",
+    "image_url": "/exercises/mountain-climber.webp",
+    "media_urls": [
+      "/exercises/mountain-climber.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/cardio/mountain-climber.gif"
+  },
+  "jack-jump-male": {
+    "group": "Core/Cardio",
+    "source_id": "cardio/jack-jump-male",
+    "image_url": "/exercises/jack-jump-male.webp",
+    "media_urls": [
+      "/exercises/jack-jump-male.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/cardio/jack-jump-male.gif"
+  },
+  "jump-rope": {
+    "group": "Core/Cardio",
+    "source_id": "cardio/jump-rope",
+    "image_url": "/exercises/jump-rope.webp",
+    "media_urls": [
+      "/exercises/jump-rope.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/cardio/jump-rope.gif"
+  },
+  "stationary-bike-walk": {
+    "group": "Core/Cardio",
+    "source_id": "cardio/stationary-bike-walk",
+    "image_url": "/exercises/stationary-bike-walk.webp",
+    "media_urls": [
+      "/exercises/stationary-bike-walk.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/cardio/stationary-bike-walk.gif"
+  },
+  "hanging-leg-raise": {
+    "group": "Core/Cardio",
+    "source_id": "abs/hanging-leg-raise",
+    "image_url": "/exercises/hanging-leg-raise.webp",
+    "media_urls": [
+      "/exercises/hanging-leg-raise.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/abs/hanging-leg-raise.gif"
+  },
+  "russian-twist": {
+    "group": "Core/Cardio",
+    "source_id": "abs/russian-twist",
+    "image_url": "/exercises/russian-twist.webp",
+    "media_urls": [
+      "/exercises/russian-twist.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/abs/russian-twist.gif"
+  },
+  "weighted-front-plank": {
+    "group": "Core/Cardio",
+    "source_id": "abs/weighted-front-plank",
+    "image_url": "/exercises/weighted-front-plank.webp",
+    "media_urls": [
+      "/exercises/weighted-front-plank.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/abs/weighted-front-plank.gif"
+  },
+  "burpee": {
+    "group": "Core/Cardio",
+    "source_id": "cardio/burpee",
+    "image_url": "/exercises/burpee.webp",
+    "media_urls": [
+      "/exercises/burpee.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/cardio/burpee.gif"
+  },
+  "walk-elliptical-cross-trainer": {
+    "group": "Core/Cardio",
+    "source_id": "cardio/walk-elliptical-cross-trainer",
+    "image_url": "/exercises/walk-elliptical-cross-trainer.webp",
+    "media_urls": [
+      "/exercises/walk-elliptical-cross-trainer.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/cardio/walk-elliptical-cross-trainer.gif"
+  },
+  "walking-on-incline-treadmill": {
+    "group": "Core/Cardio",
+    "source_id": "cardio/walking-on-incline-treadmill",
+    "image_url": "/exercises/walking-on-incline-treadmill.webp",
+    "media_urls": [
+      "/exercises/walking-on-incline-treadmill.gif"
+    ],
+    "source_media_url": "https://raw.githubusercontent.com/JahelCuadrado/ExerciseGymGifsDB/f6d16e977fbee3c04295311c44cb8374ca8ff182/cardio/walking-on-incline-treadmill.gif"
+  }
+}

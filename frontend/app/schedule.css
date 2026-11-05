@@ -1,0 +1,92 @@
+.theme-default .session-section { position: relative; isolation: isolate; margin-inline: calc(-1 * var(--page-gutter)); padding: 26px var(--page-gutter) 48px; }
+.theme-default .session-section::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: -18px;
+  bottom: -30px;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  background:
+    repeating-linear-gradient(0deg, transparent 0 47px, #b58a2717 47px 48px),
+    repeating-linear-gradient(90deg, transparent 0 47px, #b58a2717 47px 48px),
+    radial-gradient(ellipse at 100% 6%, #ef9a4d99, transparent 35%),
+    radial-gradient(ellipse at 0 90%, #f0ab4273, transparent 35%),
+    linear-gradient(105deg, #ffe77c, #fff1af 75%);
+  box-shadow: none;
+  mask:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 24' preserveAspectRatio='none'%3E%3Cpath d='M0 6C180 22 290 20 460 9S790 0 1000 14V24H0Z'/%3E%3C/svg%3E") top / 100% 24px no-repeat,
+    linear-gradient(#000, #000) bottom / 100% calc(100% - 23px) no-repeat;
+  pointer-events: none;
+}
+.theme-default .session-section > .plan-section-header { margin-top: 0; }
+.theme-default .session-timeline { padding-left: 0; gap: 12px; }
+.theme-default .session-timeline .session-entry { position: relative; display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 16px; padding: 0; border: 0; border-radius: 0; background: transparent; box-shadow: none; }
+.session-time { position: relative; padding: 8px 15px 0 0; text-align: right; }
+.session-time::before { content: ''; position: absolute; top: 12px; bottom: -24px; right: 0; width: 1px; background: #d3d3c8; }
+.session-entry:last-child .session-time::before { bottom: 8px; }
+.session-time::after { content: ''; position: absolute; top: 12px; right: -3px; width: 7px; height: 7px; border: 2px solid #fffefa; border-radius: 50%; background: #a3aa9c; }
+.session-time .time-editor { position: relative; display: block; margin: 0; font-size: 12px; color: #363a34; line-height: 1.2; }
+.session-time .time-editor::after { display: block; margin-top: 4px; font-size: 8px; }
+.session-time .time-editor input { inset: 0; width: 100%; height: 100%; cursor: pointer; }
+.session-time .time-editor:focus-within { outline: 2px solid #187454; outline-offset: 4px; border-radius: 4px; }
+.session-time > small { display: block; margin-top: 5px; font-size: 9px; color: #92958a; }
+.session-paper { --session-fill: #cfdef9; --session-border: #9eb6df; min-width: 0; padding: clamp(16px, 2vw, 24px); border: 1px solid var(--session-border); border-radius: 22px; background: var(--session-fill); }
+.session-tone-0 { --session-fill: #cfdef9; --session-border: #9eb6df; }
+.session-tone-1 { --session-fill: #e0d1f5; --session-border: #b8a2d5; }
+.session-tone-2 { --session-fill: #bde6df; --session-border: #88bdb2; }
+.session-tone-3 { --session-fill: #f3c9da; --session-border: #d29cb3; }
+.session-tone-4 { --session-fill: #c9cef2; --session-border: #9ea6d5; }
+.session-tone-5 { --session-fill: #bde4f1; --session-border: #86b9cc; }
+.session-tone-6 { --session-fill: #c6e6d0; --session-border: #91bda0; }
+.session-tone-7 { --session-fill: #edcdec; --session-border: #c89fc5; }
+.session-tone-8 { --session-fill: #cbdadf; --session-border: #9bb2bb; }
+.session-tone-9 { --session-fill: #edbfc7; --session-border: #cb939e; }
+.session-kicker { color: #515344; font-size: 9px; font-weight: 700; letter-spacing: .08em; }
+.session-paper h3 { margin: 8px 0 22px; max-width: 650px; font-size: clamp(18px, 2.3vw, 28px); line-height: 1.15; font-weight: 800; letter-spacing: -.04em; color: #20231f; }
+.session-footer { display: flex; align-items: center; gap: 10px; }
+.theme-default .session-footer .plan-item-icon { width: 34px; height: 34px; border: 1px solid #ffffff9c; border-radius: 11px; background: #ffffff9c; color: #63522b; }
+.session-footer > span { flex: 1; min-width: 0; font-size: 11px; line-height: 1.5; color: #6c6f66; }
+.session-arrow { display: grid; place-items: center; flex-shrink: 0; width: 38px; height: 38px; border-radius: 50%; background: #20231f; color: #fff; }
+.session-arrow:hover { background: #3e463a; }
+.session-arrow.is-done { background: #187454; }
+.theme-default .session-paper .plan-item-actions { margin: 14px 0 0; padding-top: 12px; border-color: #30382d12; gap: 6px; }
+.theme-default .session-paper .plan-item-actions button { min-height: 30px; padding: 5px 10px; border: 1px solid #30382d12; border-radius: 9px; background: #ffffff66; font-size: 10px; color: #5d6357; }
+.theme-default .session-paper .plan-item-actions button:hover { background: #fff; }
+.session-entry.is-complete .session-paper { border-color: #5b9a75; box-shadow: inset 3px 0 0 #187454; }
+.session-entry.is-complete .session-time::after { background: #187454; }
+.theme-default .plan-bottom-grid {
+  position: relative;
+  isolation: isolate;
+  margin: 30px calc(-1 * var(--page-gutter)) 0;
+  padding: 34px var(--page-gutter) 28px;
+}
+.theme-default .plan-bottom-grid::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  border-radius: 0;
+  background: radial-gradient(ellipse at 100% 100%, #454329, transparent 66%), #1b1d1b;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 300' preserveAspectRatio='none'%3E%3Cpath d='M0 20Q250 0 500 10T1000 0V300H0Z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  pointer-events: none;
+}
+.theme-default .plan-bottom-grid > :is(.recovery-card, .water-card-plan) { border: 1px solid #ffffff94; box-shadow: 0 8px 20px #00000014; }
+.theme-default .session-section + .plan-bottom-grid { margin-top: -12px; }
+@media (max-width: 600px) {
+  .theme-default .plan-bottom-grid { padding-top: 30px; padding-bottom: 22px; }
+  .theme-default .session-timeline .session-entry { grid-template-columns: 43px minmax(0, 1fr); gap: 10px; }
+  .session-time { padding-right: 10px; }
+  .session-time .time-editor { font-size: 10px; }
+  .session-paper { padding: 14px; border-radius: 18px; }
+  .session-paper h3 { font-size: 20px; margin-bottom: 18px; }
+  .session-footer { gap: 7px; }
+  .session-footer > span { font-size: 10px; }
+  .theme-default .session-footer .plan-item-icon { width: 28px; height: 28px; }
+  .session-arrow { width: 34px; height: 34px; }
+}

@@ -6,7 +6,7 @@
   .auth-page {
     position: relative;
     isolation: isolate;
-    background: #fffcf5;
+    background: var(--page-surface);
   }
   .auth-page::before { content: ''; position: fixed; inset: 0; z-index: -2; pointer-events: none; background: radial-gradient(ellipse at 105% -10%, #ccebe766, transparent 48%), radial-gradient(ellipse at -10% 85%, #ffe17c99, transparent 52%), radial-gradient(ellipse at 95% 105%, #ffd04d8c, transparent 48%), radial-gradient(ellipse at 95% 68%, #ffcca35c, transparent 40%), radial-gradient(ellipse at 45% 110%, #fff4bcaa, transparent 58%); }
   .auth-page::after { content: ''; position: fixed; inset: 0; z-index: -1; pointer-events: none; background-image: linear-gradient(#a17a3040 1px, transparent 1px), linear-gradient(90deg, #a17a3040 1px, transparent 1px); background-size: 44px 44px; mask-image: linear-gradient(#0008, #000d 25%, #000 80%, #000b); }
