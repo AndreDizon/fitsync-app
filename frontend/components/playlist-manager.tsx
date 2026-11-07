@@ -74,7 +74,7 @@ export function PlaylistManager({ kind }: { kind: PlaylistKind }) {
     setBusy(true); setError(''); setNotice('')
     try {
       const saved = await savePlaylist(draft, base)
-      setBase(saved); setDraft(draftOf(saved)); setCollection(items => [saved, ...items.filter(item => item.id !== saved.id)]); setNotice(saved.syncStatus === 'synced' ? 'Synced to your account and saved for offline use.' : 'Saved on this device. Changes are queued for syncing when connected.')
+      closeEditor(); setCollection(items => [saved, ...items.filter(item => item.id !== saved.id)]); setNotice(saved.syncStatus === 'synced' ? 'Playlist saved to your account and available offline.' : 'Playlist saved on this device. Changes are queued for syncing when connected.')
     } catch (error) { setError((error as Error).message); void listPlaylists(kind).then(setCollection).catch(() => {}) } finally { setBusy(false) }
   }
   const useAccountVersion = async () => {

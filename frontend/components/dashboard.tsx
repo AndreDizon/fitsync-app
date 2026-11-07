@@ -5,17 +5,16 @@ import { supabase } from '@/lib/supabase'
 import { CoachChat } from '@/components/coach-chat'
 import { Wordmark } from '@/components/wordmark'
 import { PlaylistAccountProvider } from '@/lib/playlist-account'
-import { clearOfflinePlaylists } from '@/lib/playlists'
 import { PlaylistNavigationProvider, usePlaylistNavigation } from '@/lib/playlist-navigation'
 import { PlaylistManager } from '@/components/playlist-manager'
 import { NutritionWorkspace } from '@/components/nutrition-workspace'
 import { MyPlanWorkspace } from '@/components/my-plan-workspace'
-import { clearDailyPlanCopies } from '@/lib/daily-plans'
 import { ExerciseLibrary } from '@/components/exercise-library'
-import { PlanningProfileContext } from '@/lib/planning-profile'
+import { PlanningProfileProvider } from '@/lib/planning-profile'
+import { ProgressWorkspace } from './progress-workspace'
 import type { OnboardingProfile } from '../../shared/onboarding'
 import '@/app/coach-chat.css'
-import { signOut } from '@/app/auth/actions'
+import { PlanSignout } from './plan-signout'
 import {
   Activity,
   Apple,
@@ -151,7 +150,7 @@ function App({ userName, userEmail }: { userName: string; userEmail: string }) {
         {active === 'plans' && <PlansWorkspace tab={planTab} setTab={setPlanTab} />}
         {active === 'library' && <LibraryView />}
         {active === 'social' && <SocialView />}
-        {active === 'progress' && <ProgressView />}
+        {active === 'progress' && <ProgressWorkspace />}
         {active === 'settings' && <SettingsView userName={userName} userEmail={userEmail} initials={initials} />}
         <AppFooter onNavigate={(section) => { navigate(section); setNavHidden(false); window.scrollTo(0, 0) }} onPlaylist={() => { setPlanTab('playlist'); navigate('plans'); setNavHidden(false); window.scrollTo(0, 0) }} />
       </section>
@@ -280,11 +279,10 @@ function SocialView() {
   </div>
 }
 
-function ProgressView() { return <div className="page"><p className="eyebrow">YOUR JOURNEY</p><h1>Progress log</h1><p className="muted intro">Consistency is your superpower.</p><div className="progress-summary"><div><span>Current streak</span><strong>12 days</strong><small>Personal best: 18 days</small></div><div className="ring"><strong>76%</strong><span>this week</span></div></div><div className="section-heading"><h2>Activity overview</h2><button>September <ChevronRight size={15} /></button></div><div className="chart-card"><div className="chart-labels"><span>5h</span><span>4h</span><span>3h</span><span>2h</span><span>1h</span></div><div className="bars">{[38,58,44,72,52,84,35].map((height, i) => <div key={i}><i style={{ height: `${height}%` }} /><span>{['M','T','W','T','F','S','S'][i]}</span></div>)}</div></div><div className="metric-grid"><div><Flame size={17} /><strong>4.2</strong><span>workouts / week</span></div><div><Activity size={17} /><strong>96 min</strong><span>time invested</span></div><div><HeartPulse size={17} /><strong>68.4 kg</strong><span>current weight</span></div></div><button className="primary full"><Plus size={16} /> Log a measurement</button></div> }
 
-function SettingsView({ userName, userEmail, initials }: { userName: string; userEmail: string; initials: string }) { return <div className="page"><p className="eyebrow">ACCOUNT</p><h1>Settings</h1><p className="muted intro">Make <Wordmark /> work for you.</p><div className="settings-profile"><div className="avatar">{initials}</div><div><strong>{userName}</strong><span>{userEmail}</span></div><button>Edit</button></div><div className="settings-group"><p>Preferences</p><button onClick={() => window.location.assign('/onboarding')}><span><Flag size={17} />Goals &amp; planning preferences</span><small>Edit <ChevronRight size={16} /></small></button><button><span><Sparkles size={17} />Notifications</span><small>On <ChevronRight size={16} /></small></button><div className="default-theme-setting"><div><Palette size={17} /><span>Theme</span></div><div className="default-theme-preview"><span className="theme-colors" aria-hidden="true"><i /><i /><i /></span><strong>Fox Energy</strong><small>Default</small><Check size={15} /></div><p>Vibrant, sporty daytime. Built for your next move.</p></div><button><span><MapPin size={17} />Offline mode</span><small>Off <ChevronRight size={16} /></small></button></div><div className="settings-group"><p>Data & account</p><button><span><DownloadIcon />Export your data</span><ChevronRight size={16} /></button><button><span><UserRound size={17} />Contact the team</span><ChevronRight size={16} /></button></div><form action={async () => { clearDailyPlanCopies(); await clearOfflinePlaylists().catch(() => {}); await signOut() }}><button className="signout" type="submit">Sign out</button></form></div> }
+function SettingsView({ userName, userEmail, initials }: { userName: string; userEmail: string; initials: string }) { return <div className="page"><p className="eyebrow">ACCOUNT</p><h1>Settings</h1><p className="muted intro">Make <Wordmark /> work for you.</p><div className="settings-profile"><div className="avatar">{initials}</div><div><strong>{userName}</strong><span>{userEmail}</span></div><button>Edit</button></div><div className="settings-group"><p>Preferences</p><button onClick={() => window.location.assign('/onboarding')}><span><Flag size={17} />Goals &amp; planning preferences</span><small>Edit <ChevronRight size={16} /></small></button><button><span><Sparkles size={17} />Notifications</span><small>On <ChevronRight size={16} /></small></button><div className="default-theme-setting"><div><Palette size={17} /><span>Theme</span></div><div className="default-theme-preview"><span className="theme-colors" aria-hidden="true"><i /><i /><i /></span><strong>Fox Energy</strong><small>Default</small><Check size={15} /></div><p>Vibrant, sporty daytime. Built for your next move.</p></div><button><span><MapPin size={17} />Offline mode</span><small>Off <ChevronRight size={16} /></small></button></div><div className="settings-group"><p>Data & account</p><button><span><DownloadIcon />Export your data</span><ChevronRight size={16} /></button><button><span><UserRound size={17} />Contact the team</span><ChevronRight size={16} /></button></div><PlanSignout /></div> }
 function MoonIcon() { return <span className="tiny-icon">☾</span> } function DownloadIcon() { return <span className="tiny-icon">↓</span> }
 
 export default function Dashboard({ profile, accountId = null, ...props }: { userName: string; userEmail: string; accountId?: string | null; profile: OnboardingProfile }) {
-  return <PlaylistAccountProvider id={accountId}><PlaylistNavigationProvider><PlanningProfileContext.Provider value={profile}><App {...props} /></PlanningProfileContext.Provider></PlaylistNavigationProvider></PlaylistAccountProvider>
+  return <PlaylistAccountProvider id={accountId} timeZone={profile.timeZone}><PlaylistNavigationProvider><PlanningProfileProvider profile={profile}><App {...props} /></PlanningProfileProvider></PlaylistNavigationProvider></PlaylistAccountProvider>
 }

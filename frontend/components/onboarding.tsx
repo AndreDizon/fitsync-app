@@ -38,6 +38,13 @@ function Choices({ legend, options, value, onChange, multiple = false, hint }: {
 }
 export function Onboarding({ name, profile }: { name: string; profile: OnboardingProfile | null }) {
   const [draft, setDraft] = useState<OnboardingDraft>(() => profile ? { ...profile } : { ...emptyOnboarding })
+  const [timeZones, setTimeZones] = useState<string[]>(['Asia/Manila', 'UTC'])
+  useEffect(() => {
+    const detected = Intl.DateTimeFormat().resolvedOptions().timeZone
+    const supported = (Intl as typeof Intl & { supportedValuesOf?: (key: string) => string[] }).supportedValuesOf?.('timeZone') ?? ['Asia/Manila', 'UTC', 'America/New_York', 'Europe/London', 'Asia/Tokyo', 'Australia/Sydney']
+    setTimeZones([...new Set([...supported, detected, profile?.timeZone || 'Asia/Manila', 'UTC'])].sort())
+    if (!profile) setDraft(previous => ({ ...previous, timeZone: detected }))
+  }, [profile])
   const [step, setStep] = useState(0)
   const [errors, setErrors] = useState<string[]>([])
   const [state, action, pending] = useActionState(saveOnboarding, {})
@@ -90,8 +97,8 @@ export function Onboarding({ name, profile }: { name: string; profile: Onboardin
               return <label className={`onb-goal ${draft.goal === key ? 'selected' : ''}`} key={key}><input type="radio" name="goal" value={key} checked={draft.goal === key} onChange={() => update('goal', key)} /><span className="onb-goal-number"><GoalIcon size={20} aria-hidden="true" /></span><span><strong>{label}</strong><small>{description}</small></span><span className="onb-goal-check">{draft.goal === key && <Check size={15} />}</span></label>
             })}</div><section className="onb-focus-section" aria-label="Choose body focus"><BodyFocusMap selected={draft.focusAreas} /><Choices legend="Primary focus areas" options={focusOptions} value={draft.focusAreas} onChange={toggleFocus} multiple hint="Choose Overall for a balanced routine, or select several areas you want to prioritize." /></section></>}
             {step === 1 && <>
-              <label className="onb-check"><input type="checkbox" checked={draft.adult} onChange={event => update('adult', event.target.checked)} /><span>I’m 18 or older.</span></label>
-              <label className="onb-input">Age in years<input type="number" inputMode="numeric" min={18} max={120} step={1} placeholder="e.g. 25" value={draft.age} onChange={event => update('age', event.target.value)} /></label>
+              <label className="onb-input">Time zone<select value={draft.timeZone} onChange={event => update('timeZone', event.target.value)}>{timeZones.map(zone => <option key={zone} value={zone}>{zone.replaceAll('_', ' ')}</option>)}</select><small>Your plan dates and scheduled times follow this time zone, including daylight-saving changes.</small></label>
+              <label className="onb-input">Age in years<input type="number" inputMode="numeric" min={1} max={120} step={1} placeholder="e.g. 25" value={draft.age} onChange={event => update('age', event.target.value)} /></label>
               <Choices legend="Gender" options={genderOptions} value={draft.gender} onChange={value => update('gender', value)} hint="Choose Prefer not to say if you’d rather keep this private." />
               <Choices legend="Activity outside workouts" options={['Mostly seated', 'Lightly active', 'Moderately active', 'Very active']} value={draft.activity} onChange={value => update('activity', value)} hint="Think about your usual work, study, walking and daily errands." />
               <div className="onb-input-row"><label>Height in cm <small>Optional</small><input type="number" inputMode="decimal" min={100} max={250} placeholder="e.g. 165" value={draft.heightCm} onChange={event => update('heightCm', event.target.value)} /></label><label>Current weight in kg <small>Optional</small><input type="number" inputMode="decimal" min={20} max={350} step="0.1" placeholder="e.g. 70" value={draft.weightKg} onChange={event => update('weightKg', event.target.value)} /></label></div>
@@ -104,7 +111,6 @@ export function Onboarding({ name, profile }: { name: string; profile: Onboardin
               <Choices legend="Minutes per session" options={['15', '20', '30', '45', '60']} value={draft.sessionMinutes} onChange={value => update('sessionMinutes', value)} />
               <Choices legend="Equipment available" options={equipmentOptions} value={draft.equipment} onChange={value => toggle('equipment', value)} multiple />
               <Choices legend="Movement preferences" options={adjustmentOptions} value={draft.adjustments} onChange={value => toggle('adjustments', value)} multiple hint="Optional. Select anything a future plan should accommodate." />
-              {draft.adjustments.includes('Need professional guidance') && <p className="onb-note">We’ll save this preference. An exercise professional should help adapt a plan before you start if you have an injury, symptoms or a condition affecting exercise.</p>}
             </>}
             {step === 3 && <>
               <Choices legend="Eating preference" options={dietOptions} value={draft.diet} onChange={value => update('diet', value)} />
@@ -119,7 +125,7 @@ export function Onboarding({ name, profile }: { name: string; profile: Onboardin
               <div className="onb-summary-goal"><Flag size={24} /><div><small>YOUR MAIN GOAL</small><h2>{goalLabel}</h2></div></div>
               <div className="onb-summary-grid">{[
                 { icon: Flag, title: 'Focus areas', edit: 0, rows: [draft.focusAreas.join(', ')] },
-                { icon: UserRound, title: 'Starting point', edit: 1, rows: [draft.age ? `${draft.age} years · ${draft.gender}` : draft.ageRange, draft.activity, [draft.heightCm && `${draft.heightCm} cm`, draft.weightKg && `${draft.weightKg} kg`].filter(Boolean).join(' · ') || 'Measurements not provided', draft.targetWeightKg ? `Target weight: ${draft.targetWeightKg} kg` : 'No target weight set'] },
+                { icon: UserRound, title: 'Starting point', edit: 1, rows: [draft.timeZone.replaceAll('_', ' '), draft.age ? `${draft.age} years · ${draft.gender}` : draft.ageRange, draft.activity, [draft.heightCm && `${draft.heightCm} cm`, draft.weightKg && `${draft.weightKg} kg`].filter(Boolean).join(' · ') || 'Measurements not provided', draft.targetWeightKg ? `Target weight: ${draft.targetWeightKg} kg` : 'No target weight set'] },
                 { icon: Dumbbell, title: 'Movement', edit: 2, rows: [draft.experience, `${days.filter(day => draft.days.includes(day)).join(', ')} · ${draft.sessionMinutes} min`, draft.equipment.join(', '), draft.adjustments.join(', ') || 'No movement preferences selected'] },
                 { icon: Utensils, title: 'Food preferences', edit: 3, rows: [draft.diet, `${draft.mealsPerDay} meals · ${draft.cookingMinutes} min cooking`, draft.budget, draft.allergies.length ? `Allergies: ${draft.allergies.join(', ')}${draft.otherAllergy ? ` (${draft.otherAllergy})` : ''}` : 'No known food allergies', draft.dislikes ? `Avoid: ${draft.dislikes}` : 'No food dislikes added'] },
               ].map(({ icon: Icon, title, edit, rows }) => <article key={title}><div><Icon size={19} /><h3>{title}</h3><button type="button" onClick={() => move(edit)}>Edit</button></div>{rows.map((row, index) => <p key={index}>{row}</p>)}</article>)}</div>
