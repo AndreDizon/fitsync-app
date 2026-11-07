@@ -4,6 +4,13 @@ import { useState, useRef, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 import { CoachChat } from '@/components/coach-chat'
 import { Wordmark } from '@/components/wordmark'
+import { PlaylistAccountProvider } from '@/lib/playlist-account'
+import { clearOfflinePlaylists } from '@/lib/playlists'
+import { PlaylistNavigationProvider, usePlaylistNavigation } from '@/lib/playlist-navigation'
+import { PlaylistManager } from '@/components/playlist-manager'
+import { NutritionWorkspace } from '@/components/nutrition-workspace'
+import { MyPlanWorkspace } from '@/components/my-plan-workspace'
+import { clearDailyPlanCopies } from '@/lib/daily-plans'
 import { ExerciseLibrary } from '@/components/exercise-library'
 import { PlanningProfileContext } from '@/lib/planning-profile'
 import type { OnboardingProfile } from '../../shared/onboarding'
@@ -68,8 +75,11 @@ function Logo() {
 function App({ userName, userEmail }: { userName: string; userEmail: string }) {
   const firstName = userName.split(/\s+/)[0]
   const initials = userName.split(/\s+/).slice(0, 2).map(part => part[0]).join('').toUpperCase()
-  const [active, setActive] = useState<Section>('home')
-  const [planTab, setPlanTab] = useState<PlanTab>('plan')
+  const navigation = usePlaylistNavigation()
+  const [active, setActiveState] = useState<Section>('home')
+  const [planTab, setPlanTabState] = useState<PlanTab>('plan')
+  const setActive = (section: Section) => { if (section !== active && (navigation?.current() ?? true)) setActiveState(section) }
+  const setPlanTab = (tab: PlanTab) => { if (tab !== planTab && (navigation?.current() ?? true)) setPlanTabState(tab) }
   const [water, setWater] = useState(4)
   const [done, setDone] = useState<string[]>([])
 
@@ -138,7 +148,7 @@ function App({ userName, userEmail }: { userName: string; userEmail: string }) {
         <header className="topbar"><div className="header-brand"><button className="menu-toggle" ref={menuButtonRef} onClick={() => setNavOpen(true)} aria-label="Open navigation" aria-expanded={navOpen} aria-controls="left-navigation"><Menu size={22} /></button><div className="mobile-brand"><Logo /><Wordmark /></div></div><div className="top-actions"><button aria-label="Search"><Search size={19} /></button><button className="profile-button" onClick={() => setActive('settings')}><div className="avatar small">{initials}</div><span>{firstName}</span><ChevronRight size={15} /></button></div></header>
 
         {active === 'home' && <HomeView displayName={firstName} water={water} setWater={setWater} done={done} toggleDone={toggleDone} onNavigate={setActive} focusMode={focusMode} setFocusMode={setFocusMode} />}
-        {active === 'plans' && <PlansWorkspace done={done} toggleDone={toggleDone} tab={planTab} setTab={setPlanTab} />}
+        {active === 'plans' && <PlansWorkspace tab={planTab} setTab={setPlanTab} />}
         {active === 'library' && <LibraryView />}
         {active === 'social' && <SocialView />}
         {active === 'progress' && <ProgressView />}
@@ -180,23 +190,10 @@ function HomeView({ displayName, water, setWater, done, toggleDone, onNavigate, 
   </div>
 }
 
-function PlansWorkspace({ done, toggleDone, tab, setTab }: { done: string[]; toggleDone: (s: string) => void; tab: PlanTab; setTab: (tab: PlanTab) => void }) {
-  const [mode, setMode] = useState<'nutrition' | 'workout'>('workout')
-  const [day, setDay] = useState(2)
-  const [saved, setSaved] = useState(false)
-  const [tabSearch, setTabSearch] = useState('')
-  const [water, setWater] = useState(4)
-  const [itemTimes, setItemTimes] = useState<Record<string, string>>({})
-  const week = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
-  const workoutItems = [
-    { title: 'Lower body strength', meta: '28 min · Beginner', icon: Dumbbell, tone: 'peach' },
-    { title: 'Core & mobility flow', meta: '18 min · All levels', icon: Activity, tone: 'lavender' },
-    { title: 'Low-impact full body', meta: '24 min · Beginner', icon: Zap, tone: 'mint' },
-  ]
-  const nutritionItems = meals.map((meal) => ({ title: meal.name, meta: meal.meta, icon: meal.icon, tone: meal.color }))
-  const items = mode === 'workout' ? workoutItems : nutritionItems
-  const filteredItems = items.filter((item) => `${item.title} ${item.meta}`.toLowerCase().includes(tabSearch.toLowerCase().trim()))
-  const completed = (title: string) => done.includes(title)
+function PlansWorkspace({ tab, setTab }: { tab: PlanTab; setTab: (tab: PlanTab) => void }) {
+  const navigation = usePlaylistNavigation()
+  const [mode, setModeState] = useState<'nutrition' | 'workout'>('workout')
+  const setMode = (next: 'nutrition' | 'workout') => { if (next !== mode && (navigation?.current() ?? true)) setModeState(next) }
   return <div className="page plans-page plan-workspace">
     <div className="plan-hero-frame"><div className="plans-hero plans-mascot-hero">
       <svg className="plan-hero-lines" viewBox="0 0 600 240" preserveAspectRatio="xMidYMid slice" fill="none" aria-hidden="true"><g stroke="currentColor" strokeWidth="1">{[0, 18, 36, 54, 72].map(offset => <path key={offset} d={`M${40 + offset} 0L${140 + offset} 88Q${152 + offset} 100 ${172 + offset} 100H${320 + offset}Q${340 + offset} 100 ${352 + offset} 88L${450 + offset} 0M${40 + offset} 240L${140 + offset} 152Q${152 + offset} 140 ${172 + offset} 140H${320 + offset}Q${340 + offset} 140 ${352 + offset} 152L${450 + offset} 240`} />)}</g></svg>
@@ -204,29 +201,8 @@ function PlansWorkspace({ done, toggleDone, tab, setTab }: { done: string[]; tog
       <div className="plan-hero-mascot"><img src={mode === 'workout' ? '/mascot/fox-plan-workout.png' : '/mascot/fox-plan-nutrition.png'} alt={mode === 'workout' ? 'FitSync fox lifting a dumbbell' : 'FitSync fox enjoying an apple'} width="1254" height="1254" /></div>
       <div className={`plan-mode-switch ${mode}`} role="group" aria-label="Plan mode"><button className={mode === 'workout' ? 'active' : ''} aria-pressed={mode === 'workout'} onClick={() => setMode('workout')}><Dumbbell size={15} />Workout</button><button className={mode === 'nutrition' ? 'active' : ''} aria-pressed={mode === 'nutrition'} onClick={() => setMode('nutrition')}><Apple size={15} />Nutrition</button></div>
     </div>
-    <div className="plan-tabs" role="tablist" aria-label="Plan sections">{([{ id: 'plan', label: 'My plan', icon: CalendarDays }, { id: 'playlist', label: 'Playlist', icon: Play }, { id: 'library', label: 'Library', icon: BookOpen }] as const).map(({ id, label, icon: Icon }) => <button key={id} className={tab === id ? 'selected' : ''} onClick={() => setTab(id)} role="tab" aria-selected={tab === id}><Icon size={16} />{label}</button>)}</div></div>
-    <div className="plan-folder-content">{tab === 'plan' && <>
-      <div className="plan-summary"><div className="plan-summary-top"><div className="ai-badge"><Sparkles size={16} />AI COACHED</div><span className="plan-status"><Check size={13} /> {mode === 'workout' ? '3 sessions' : '4 meals'} planned</span></div><h2>{mode === 'workout' ? 'A stronger week starts here.' : 'Balanced fuel, made simple.'}</h2><p>{mode === 'workout' ? '70 min planned · Recovery-aware · Beginner friendly' : '1,840 kcal · 128g protein · 210g carbs · 58g fat'}</p><div className="plan-progress"><span style={{ width: mode === 'workout' ? '38%' : '52%' }} /></div><small>{mode === 'workout' ? '1 of 3 sessions complete' : '2 of 4 meals complete'}</small></div>
-      <section className="day-selector-section" aria-label="Weekly day selector"><div className="plan-section-header"><div><p className="eyebrow">WEEK AT A GLANCE</p><h2>Choose a day</h2></div><button className="outline-action"><DownloadIcon />Export week</button></div><div className="week-row plan-week">{week.map((name, index) => <button key={name} className={day === index ? 'today' : ''} aria-pressed={day === index} aria-label={`Select ${name}, day ${index + 1}`} onClick={() => setDay(index)}><span>{name}</span><strong>{index + 1}</strong><small>{index === day ? 'Today' : index < day ? 'Done' : 'Open'}</small></button>)}</div></section>
-      <section className="session-section" aria-label="Daily schedule"><div className="plan-section-header"><div><p className="eyebrow">{week[day].toUpperCase()} FOCUS</p><h2>{mode === 'workout' ? "Today's movement" : "Today's nourishment"}</h2></div><button className="text-action" onClick={() => setSaved(!saved)}>{saved ? 'Saved' : 'Save week'} <Check size={15} /></button></div>
-      <div className="plan-items timeline-items session-timeline">{items.map((item, index) => {
-        const time = itemTimes[item.title] || `${String(index + 8).padStart(2, '0')}:00`
-        const hour = Number(time.split(':')[0])
-        const timeLabel = `${hour % 12 || 12}:${time.split(':')[1]}`
-        return <article className={`plan-item timeline-item session-entry ${completed(item.title) ? 'is-complete' : ''}`} key={item.title}>
-          <div className="session-time"><label className="time-editor"><span>{timeLabel}</span><input type="time" aria-label={`Set time for ${item.title}`} value={time} onChange={(event) => setItemTimes({ ...itemTimes, [item.title]: event.target.value })} /></label><small>{hour < 12 ? 'AM' : 'PM'}</small></div>
-          <div className={`session-paper session-tone-${index % 10}`}>
-            <p className="session-kicker">{mode === 'workout' ? 'WORKOUT SESSION' : 'NUTRITION PLAN'}</p>
-            <h3>{item.title}</h3>
-            <div className="session-footer"><div className={`plan-item-icon ${item.tone}`}><item.icon size={20} /></div><span>{item.meta}</span><button className={`session-arrow ${completed(item.title) ? 'is-done' : ''}`} onClick={() => toggleDone(item.title)} aria-label={`${completed(item.title) ? 'Undo' : 'Mark'} ${item.title} complete`}>{completed(item.title) ? <Check size={19} /> : <ArrowUpRight size={20} />}</button></div>
-            <div className="plan-item-actions"><button onClick={() => toggleDone(item.title)}>{completed(item.title) ? 'Completed' : 'Mark done'}</button><button>Swap</button><button onClick={() => setSaved(true)}>Save</button></div>
-          </div>
-        </article>
-      })}</div></section>
-      <div className="plan-bottom-grid"><div className="recovery-card"><div className="card-icon"><HeartPulse size={19} /></div><div><p className="eyebrow">RECOVERY NOTE</p><h3>{mode === 'workout' ? 'Rest is part of training.' : 'Hydration supports every goal.'}</h3><p>{mode === 'workout' ? 'Take a slower day when your body asks for it. Light mobility still counts.' : 'Track your water throughout the day and keep your energy steady.'}</p></div></div><div className="water-card-plan"><div className="water-check-heading"><div><p className="eyebrow">WATER CHECK</p><strong>{water} / 8 glasses</strong><span className="water-hint">Tap a droplet to log water</span></div></div><div className="water-droplets" role="group" aria-label="Water glasses"><div className="water-droplet-grid">{Array.from({ length: 8 }, (_, index) => <button key={index} className={`water-droplet ${index < water ? 'filled' : ''}`} onClick={() => setWater(index < water ? index : index + 1)} aria-label={`${index < water ? 'Remove' : 'Mark'} glass ${index + 1}`} aria-pressed={index < water}><Droplet size={22} fill="currentColor" /><span className="sr-only">{index + 1}</span></button>)}</div></div></div></div>
-    </>}
-    {tab === 'playlist' && <div className="tab-content"><div className="tab-search"><Search size={17} /><input aria-label="Search playlist" value={tabSearch} onChange={(event) => setTabSearch(event.target.value)} placeholder="Search your playlist..." /><span>{filteredItems.length} matches</span></div>{tabSearch ? <div className="plan-library-grid">{filteredItems.map((item) => <div className="plan-library-card" key={item.title}><div className={`plan-item-icon ${item.tone}`}><item.icon size={20} /></div><strong>{item.title}</strong><span>{item.meta}</span><button onClick={() => toggleDone(item.title)}>{completed(item.title) ? 'Completed' : 'Mark done'}</button></div>)}</div> : <div className="empty-plan-state"><div className="state-icon"><Play size={24} /></div><p className="eyebrow">YOUR PLAYLIST</p><h2>{saved ? 'Week saved offline.' : 'Build your rhythm.'}</h2><p className="muted">Save a full week or add favorites from the library. Your choices stay ready when you are.</p><button className="primary" onClick={() => setSaved(true)}><Plus size={16} />Create playlist</button></div>}</div>}
-    {tab === 'library' && <LibraryView />}</div>
+    <div className="plan-tabs" role="tablist" aria-label="Plan sections">{([{ id: 'plan', label: mode === 'nutrition' ? 'My meal plan' : 'My plan', icon: CalendarDays }, { id: 'playlist', label: 'Playlist', icon: Play }, { id: 'library', label: mode === 'nutrition' ? 'Food library' : 'Library', icon: BookOpen }] as const).map(({ id, label, icon: Icon }) => <button key={id} className={tab === id ? 'selected' : ''} onClick={() => setTab(id)} role="tab" aria-selected={tab === id}><Icon size={16} />{label}</button>)}</div></div>
+    <div className="plan-folder-content">{tab === 'plan' ? <MyPlanWorkspace kind={mode} /> : tab === 'playlist' ? <PlaylistManager key={mode} kind={mode} /> : mode === 'nutrition' ? <NutritionWorkspace tab="library" setTab={setTab} /> : <LibraryView />}</div>
   </div>
 }
 
@@ -306,9 +282,9 @@ function SocialView() {
 
 function ProgressView() { return <div className="page"><p className="eyebrow">YOUR JOURNEY</p><h1>Progress log</h1><p className="muted intro">Consistency is your superpower.</p><div className="progress-summary"><div><span>Current streak</span><strong>12 days</strong><small>Personal best: 18 days</small></div><div className="ring"><strong>76%</strong><span>this week</span></div></div><div className="section-heading"><h2>Activity overview</h2><button>September <ChevronRight size={15} /></button></div><div className="chart-card"><div className="chart-labels"><span>5h</span><span>4h</span><span>3h</span><span>2h</span><span>1h</span></div><div className="bars">{[38,58,44,72,52,84,35].map((height, i) => <div key={i}><i style={{ height: `${height}%` }} /><span>{['M','T','W','T','F','S','S'][i]}</span></div>)}</div></div><div className="metric-grid"><div><Flame size={17} /><strong>4.2</strong><span>workouts / week</span></div><div><Activity size={17} /><strong>96 min</strong><span>time invested</span></div><div><HeartPulse size={17} /><strong>68.4 kg</strong><span>current weight</span></div></div><button className="primary full"><Plus size={16} /> Log a measurement</button></div> }
 
-function SettingsView({ userName, userEmail, initials }: { userName: string; userEmail: string; initials: string }) { return <div className="page"><p className="eyebrow">ACCOUNT</p><h1>Settings</h1><p className="muted intro">Make <Wordmark /> work for you.</p><div className="settings-profile"><div className="avatar">{initials}</div><div><strong>{userName}</strong><span>{userEmail}</span></div><button>Edit</button></div><div className="settings-group"><p>Preferences</p><button onClick={() => window.location.assign('/onboarding')}><span><Flag size={17} />Goals &amp; planning preferences</span><small>Edit <ChevronRight size={16} /></small></button><button><span><Sparkles size={17} />Notifications</span><small>On <ChevronRight size={16} /></small></button><div className="default-theme-setting"><div><Palette size={17} /><span>Theme</span></div><div className="default-theme-preview"><span className="theme-colors" aria-hidden="true"><i /><i /><i /></span><strong>Fox Energy</strong><small>Default</small><Check size={15} /></div><p>Vibrant, sporty daytime. Built for your next move.</p></div><button><span><MapPin size={17} />Offline mode</span><small>Off <ChevronRight size={16} /></small></button></div><div className="settings-group"><p>Data & account</p><button><span><DownloadIcon />Export your data</span><ChevronRight size={16} /></button><button><span><UserRound size={17} />Contact the team</span><ChevronRight size={16} /></button></div><form action={signOut}><button className="signout" type="submit">Sign out</button></form></div> }
+function SettingsView({ userName, userEmail, initials }: { userName: string; userEmail: string; initials: string }) { return <div className="page"><p className="eyebrow">ACCOUNT</p><h1>Settings</h1><p className="muted intro">Make <Wordmark /> work for you.</p><div className="settings-profile"><div className="avatar">{initials}</div><div><strong>{userName}</strong><span>{userEmail}</span></div><button>Edit</button></div><div className="settings-group"><p>Preferences</p><button onClick={() => window.location.assign('/onboarding')}><span><Flag size={17} />Goals &amp; planning preferences</span><small>Edit <ChevronRight size={16} /></small></button><button><span><Sparkles size={17} />Notifications</span><small>On <ChevronRight size={16} /></small></button><div className="default-theme-setting"><div><Palette size={17} /><span>Theme</span></div><div className="default-theme-preview"><span className="theme-colors" aria-hidden="true"><i /><i /><i /></span><strong>Fox Energy</strong><small>Default</small><Check size={15} /></div><p>Vibrant, sporty daytime. Built for your next move.</p></div><button><span><MapPin size={17} />Offline mode</span><small>Off <ChevronRight size={16} /></small></button></div><div className="settings-group"><p>Data & account</p><button><span><DownloadIcon />Export your data</span><ChevronRight size={16} /></button><button><span><UserRound size={17} />Contact the team</span><ChevronRight size={16} /></button></div><form action={async () => { clearDailyPlanCopies(); await clearOfflinePlaylists().catch(() => {}); await signOut() }}><button className="signout" type="submit">Sign out</button></form></div> }
 function MoonIcon() { return <span className="tiny-icon">☾</span> } function DownloadIcon() { return <span className="tiny-icon">↓</span> }
 
-export default function Dashboard({ profile, ...props }: { userName: string; userEmail: string; profile: OnboardingProfile }) {
-  return <PlanningProfileContext.Provider value={profile}><App {...props} /></PlanningProfileContext.Provider>
+export default function Dashboard({ profile, accountId = null, ...props }: { userName: string; userEmail: string; accountId?: string | null; profile: OnboardingProfile }) {
+  return <PlaylistAccountProvider id={accountId}><PlaylistNavigationProvider><PlanningProfileContext.Provider value={profile}><App {...props} /></PlanningProfileContext.Provider></PlaylistNavigationProvider></PlaylistAccountProvider>
 }

@@ -1,5 +1,6 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises'
 import path from 'node:path'
+import sharp from 'sharp'
 import { curatedExercises, curatedGroups } from './curated-exercises.mjs'
 
 const revision = 'f6d16e977fbee3c04295311c44cb8374ca8ff182'
@@ -26,8 +27,8 @@ await Promise.all(Array.from({ length: 6 }, async () => {
     const matches = catalog.exercises.filter(item => item.slug === exercise.id)
     if (matches.length !== 1) throw new Error(`Expected one exact media match for ${exercise.id}, got ${matches.length}`)
     const item = matches[0]
-    const thumbFile = item.file.replace(/\.gif$/, '.thumb.webp')
-    const [gif, thumb] = await Promise.all([load(item.file), load(thumbFile)])
+    const gif = await load(item.file)
+    const thumb = await sharp(gif, { page: 0, pages: 1 }).webp({ lossless: true }).toBuffer()
     if (gif.subarray(0, 3).toString() !== 'GIF' || thumb.subarray(8, 12).toString() !== 'WEBP') throw new Error(`Invalid source media: ${item.id}`)
     await Promise.all([writeFile(path.join(assets, `${exercise.id}.gif`), gif), writeFile(path.join(assets, `${exercise.id}.webp`), thumb)])
     manifest[exercise.id] = {

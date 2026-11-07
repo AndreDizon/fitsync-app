@@ -1,7 +1,9 @@
 {
   "name": "fitsync",
   "private": true,
-  "engines": { "node": "24.x" },
+  "engines": {
+    "node": "24.x"
+  },
   "workspaces": [
     "frontend",
     "backend"
@@ -13,9 +15,13 @@
     "dev:frontend": "npm run dev --workspace frontend",
     "dev:backend": "npm run dev --workspace backend",
     "build": "npm run build --workspaces",
-    "typecheck": "npm run typecheck --workspaces"
+    "typecheck": "npm run typecheck --workspaces",
+    "seed:foods": "node scripts/seed-foods.mjs",
+    "seed:demo": "node scripts/seed-demo.mjs"
   },
   "devDependencies": {
-    "esbuild": "^0.28.2"
+    "@electric-sql/pglite": "0.5.15",
+    "esbuild": "^0.28.2",
+    "sharp": "0.35.5"
   }
 }

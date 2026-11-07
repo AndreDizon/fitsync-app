@@ -19,5 +19,5 @@ export default async function HomePage() {
   if (!user) redirect('/login')
   const profile = readCompletedOnboarding(user.user_metadata.fitsync_onboarding)
   if (!profile) redirect('/onboarding')
-  return <Dashboard userName={String(user.user_metadata.display_name || user.user_metadata.full_name || 'You')} userEmail={user.email ?? ''} profile={profile} />
+  return <Dashboard userName={String(user.user_metadata.display_name || user.user_metadata.full_name || 'You')} userEmail={user.email ?? ''} accountId={user.id} profile={profile} />
 }

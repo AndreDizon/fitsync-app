@@ -9,6 +9,10 @@ For the two Vercel projects and their environment variables, see
 
 Run `npm run seed:tester` to create/rotate a local tester password. The command
 prints the credentials and saves them to ignored `logs/tester-credentials.json`.
+The main form accepts email addresses only. Expand **Local tester access** below
+the Google button to use the development username/password shortcut. This keeps
+the real account flow separate from the device-only preview.
+
 Only a salted scrypt hash and a session-signing secret go into the ignored
 `frontend/.env.local`. Sign in at `http://localhost:3000/login`.
 
@@ -21,6 +25,29 @@ from Settings. Set `DEV_TEST_AUTH=false` and restart to disable the account;
 rerunning the seed command also invalidates previous tester sessions.
 
 ## Project connection
+
+### Real demo user
+
+`npm run seed:demo` creates a regular, email-confirmed Supabase Auth user, with
+`demo@fit.test` / `Demo1234567!` as the demo credentials. This is a database-backed
+account with a normal user ID and access token, not the local admin bypass.
+The reserved `.test` address is for demonstration and cannot receive email.
+
+Before running it, set `NEXT_PUBLIC_SUPABASE_URL` and `SUPABASE_SECRET_KEY` (or
+the legacy `SUPABASE_SERVICE_ROLE_KEY`) in ignored `backend/.env.local`.
+Get the server-side secret key from your Supabase project's API Keys settings.
+Never place it in frontend environment files or share it in chat. The app itself
+still uses the public Supabase key; the admin secret is only for this manual seed.
+The script does not change existing users or their passwords if the email exists.
+Optional `DEMO_USER_EMAIL` and `DEMO_USER_PASSWORD` override the demo credentials.
+
+The seed verifies password login when a public key is configured and saves the
+resulting demo credentials in ignored `logs/demo-credentials.json`. It does not
+grant admin privileges or insert a fake onboarding profile. Complete onboarding
+after sign-in; apply the playlist migration in `PLAYLISTS_SETUP.md` for playlist saves.
+
+If you prefer to avoid a local admin secret, create the same user through
+Supabase → Authentication → Users → Add user, with email confirmation enabled.
 
 Keep the existing `BACKEND_URL` in `frontend/.env.local` and add:
 
@@ -105,6 +132,23 @@ access.
   referrer/permissions policies, and production HSTS headers.
 
 ## Verification after configuration
+
+Run `node scripts/check-auth-connection.mjs` to check both local environment files
+and read the Supabase Auth provider settings without creating accounts or sending
+email. It never prints keys. This requires the Supabase Project URL and public
+publishable/anon key, not either Vercel deployment URL. The two apps must use the
+same Supabase project. Add `NEXT_PUBLIC_SITE_URL=http://localhost:3000` locally.
+
+The forms use email/name/current-password/new-password autocomplete, explicit
+labels, visible password placeholders, a show/hide control and matching-password
+validation. Google follows the password form on desktop and mobile. Passwords
+are not returned in action state or logged. Server-side field validation remains
+authoritative; generic sign-in and recovery replies avoid exposing account status.
+
+`node scripts/validate-auth.mjs` exercises the actual Supabase SSR SDK against an
+isolated HTTP auth fixture: signup, login cookies, password recovery/update,
+global sign-out, Google PKCE and callback allowlists. It does not contact the
+live project or create a live account.
 
 Test email confirmation, rejected invalid credentials, Google first-time signup
 and returning login, expired callback links, password reset, and sign-out using

@@ -1,4 +1,5 @@
 import { queryExercises, type ExerciseSearchRecord } from '../../shared/exercise-query'
+import seeded from '../public/offline/exercises.json'
 
 export type ExerciseGoal = 'general_fitness' | 'fat_loss' | 'muscle_gain' | 'strength' | 'endurance' | 'mobility'
 export type ExerciseEstimates = {
@@ -16,6 +17,7 @@ export type SeedExercise = ExerciseSearchRecord & {
   estimates: ExerciseEstimates;
 }
 type Seed = { data: SeedExercise[]; source: { groups: Record<string, number> } }
+export const seedExerciseById = (id: string) => (seeded.data as unknown as SeedExercise[]).find(exercise => exercise.id === id)
 let catalog: Promise<Seed> | undefined
 
 // The public seed is the primary data source online and offline. Load it once;

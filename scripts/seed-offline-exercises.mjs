@@ -30,3 +30,5 @@ await mkdir('frontend/public/offline', { recursive: true })
 await writeFile('frontend/public/offline/exercises.json', payload + '\n')
 await writeFile('frontend/public/offline/exercise-manifest.json', JSON.stringify({ version, count: data.length, totalBytes, resources }, null, 2) + '\n')
 console.log(`Offline seed: ${data.length} exercises, ${resources.length} resources, ${(totalBytes / 1024 / 1024).toFixed(1)} MB (${version})`)
+
+await import('./seed-foods.mjs')

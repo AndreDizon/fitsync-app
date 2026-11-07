@@ -4,8 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { ArrowLeft, ArrowRight, Dumbbell, Search, SlidersHorizontal, X, Check, ChevronDown } from 'lucide-react'
 import '@/app/exercise-library.css'
 import { OfflineLibraryStatus } from '@/components/offline-library-status'
-import { loadExerciseCatalog, type SeedExercise, type ExerciseGoal } from '@/lib/exercise-offline'
-import { usePlanningProfile } from '@/lib/planning-profile'
+import { loadExerciseCatalog, type SeedExercise } from '@/lib/exercise-offline'
 
 type Exercise = SeedExercise
 type FilterKey = 'category' | 'target_muscle' | 'difficulty' | 'movementPattern'
@@ -27,18 +26,13 @@ function ExerciseMedia({ exercise, animated = false }: { exercise: Exercise; ani
   </div>
 }
 
-function ExerciseDetails({ exercise, onClose }: { exercise: Exercise; onClose: () => void }) {
-  const profile = usePlanningProfile()
+export function ExerciseDetails({ exercise, onClose }: { exercise: Exercise; onClose: () => void }) {
   const dialog = useRef<HTMLDialogElement>(null)
   const [expanded, setExpanded] = useState(false)
   const [animate, setAnimate] = useState(false)
-  const [goal, setGoal] = useState<ExerciseGoal>(profile?.goal ?? 'general_fitness')
-  const [weight, setWeight] = useState(profile?.weightKg ?? '')
   const estimates = exercise.estimates
-  const enteredWeight = Number(weight)
-  const validWeight = weight !== '' && Number.isFinite(enteredWeight) && enteredWeight >= 20 && enteredWeight <= 350
-  const referenceWeight = validWeight ? enteredWeight : 70
-  const burn = estimates?.estimatedBurnKcalAt70Kg.map(value => Math.round(value * referenceWeight / 70))
+  const referenceWeight = 70
+  const burn = estimates?.estimatedBurnKcalAt70Kg
   useEffect(() => {
     const previousOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
@@ -61,15 +55,10 @@ function ExerciseDetails({ exercise, onClose }: { exercise: Exercise; onClose: (
       <div className="exercise-default-target"><span>Suggested starting target</span><strong>{exercise.defaultTarget}</strong></div>
       {estimates && <section className="exercise-estimates" aria-labelledby="exercise-estimates-title">
         <h3 id="exercise-estimates-title">Plan your effort</h3>
-        <div className="exercise-estimate-controls">
-          <label>Goal preview<select value={goal} onChange={event => setGoal(event.target.value as ExerciseGoal)}>{Object.entries(estimates.goals).map(([key, value]) => <option key={key} value={key}>{value.label}</option>)}</select></label>
-          <label>Weight in kg (optional)<input type="number" inputMode="decimal" min="20" max="350" step="0.1" placeholder="70 kg reference" value={weight} onChange={event => setWeight(event.target.value)} aria-invalid={weight !== '' && !validWeight} /></label>
-        </div>
-        {weight !== '' && !validWeight && <p role="status">Enter 20–350 kg to adjust the estimate. Showing the 70 kg reference for now.</p>}
         <dl><div><dt>Estimated time</dt><dd>{estimates.estimatedMinutes.join('–')} min</dd></div><div><dt>Estimated burn</dt><dd>{burn?.join('–')} kcal</dd></div></dl>
-        <p>For {estimates.prescription.toLowerCase()}, including between-set rest; setup and warm-up excluded. Burn uses {referenceWeight} kg{validWeight ? ' entered weight' : ' as an example, not your profile'}.</p>
-        <p className="exercise-goal-benefit">{estimates.goals[goal].benefit}</p>
-        <small>Planning estimates, not measured results. Burn includes resting energy; pace, load and rest change it. Muscle or body-weight gain cannot be predicted per exercise. Changes here are previews. Edit your saved goal and weight in Settings → Goals & planning preferences. Based on activity classes in the <a href="https://pacompendium.com/" target="_blank" rel="noreferrer">Physical Activity Compendium</a>.</small>
+        <p>For {estimates.prescription.toLowerCase()}, including between-set rest; setup and warm-up excluded. Burn uses {referenceWeight} kg as a fixed reference, not a personal target.</p>
+        <details className="exercise-default-benefits"><summary>How this movement supports different goals</summary>{Object.values(estimates.goals).map(value => <p key={value.label}><strong>{value.label}:</strong> {value.benefit}</p>)}</details>
+        <small>Planning estimates, not measured results. Burn includes resting energy; pace, load and rest change it. Muscle or body-weight gain cannot be predicted per exercise. Library information is the same for every user and does not change with onboarding. Based on activity classes in the <a href="https://pacompendium.com/" target="_blank" rel="noreferrer">Physical Activity Compendium</a>.</small>
       </section>}
       <section className="exercise-instructions"><h3>Instructions</h3>
         <ol id="exercise-guidance">{(expanded ? instructions : instructions.slice(0, 3)).map((text, index) => <li key={index}>{text}</li>)}</ol>
@@ -162,7 +151,7 @@ export function ExerciseLibrary() {
         <button className="exercise-media-button" data-exercise-id={exercise.id} onClick={event => open(exercise, event.currentTarget)} aria-label={`View ${exercise.name}`}><ExerciseMedia exercise={exercise} /></button>
         <div className="exercise-card-body"><p className="eyebrow">{exercise.group} · {exercise.difficulty}</p><h3>{exercise.name}</h3><div className="exercise-tags"><span title="Target muscle">{exercise.target_muscle}</span><span title="Equipment">{exercise.equipment}</span></div><button className="exercise-view-details" data-exercise-id={exercise.id} onClick={event => open(exercise, event.currentTarget)} aria-label={`View details for ${exercise.name}`}>View details <ArrowRight size={15} /></button></div>
       </article>)}</div>
-      <nav className="exercise-pagination" aria-label="Exercise pages"><button disabled={page <= 1} onClick={() => changePage(page - 1)}><ArrowLeft size={15} /> Previous</button><span>Page {data.page} of {data.totalPages}</span><button disabled={page >= data.totalPages} onClick={() => changePage(page + 1)}>Next <ArrowRight size={15} /></button></nav>
+      <nav className="exercise-pagination" aria-label="Exercise pages"><button disabled={page <= 1} onClick={() => changePage(page - 1)}><ArrowLeft size={15} /> Previous</button><span>Page {data.page} of {data.totalPages}</span><div className="exercise-page-numbers">{Array.from({ length: data.totalPages }, (_, index) => index + 1).map(number => <button key={number} aria-label={`Exercise page ${number}`} aria-current={number === data.page ? 'page' : undefined} onClick={() => changePage(number)}>{number}</button>)}</div><button disabled={page >= data.totalPages} onClick={() => changePage(page + 1)}>Next <ArrowRight size={15} /></button></nav>
     </>}
     <p className="exercise-source-credit">100 exercises curated for FitSync · Demonstrations from <a href="https://github.com/JahelCuadrado/ExerciseGymGifsDB" target="_blank" rel="noreferrer">JahelCuadrado / ExerciseGymGifsDB</a></p>
     {selected && <ExerciseDetails key={selected.id} exercise={selected} onClose={close} />}
