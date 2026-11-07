@@ -1,12 +1,13 @@
 # FitSync
 
 Authentication setup (including Google sign-in): [AUTH_SETUP.md](AUTH_SETUP.md).
+Vercel frontend/backend setup and troubleshooting: [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md).
 
 - `frontend/`: Next.js UI, components, public assets, and Supabase browser client.
 - `backend/`: Next.js API service, including the streaming AI coach and health endpoint.
 - `scripts/`: shared development launcher.
 
-Install Node.js LTS, then from this folder run:
+Install Node.js 24 LTS (the version used on Vercel), then from this folder run:
 
 ```sh
 npm install

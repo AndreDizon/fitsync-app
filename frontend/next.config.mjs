@@ -1,5 +1,11 @@
+import { fileURLToPath } from 'node:url'
+import { backendOrigin } from '../shared/deployment.mjs'
+
+const workspaceRoot = fileURLToPath(new URL('../', import.meta.url))
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  outputFileTracingRoot: workspaceRoot,
+  turbopack: { root: workspaceRoot },
   async headers() {
     return [{ source: '/exercise-library-sw.js', headers: [
       { key: 'Cache-Control', value: 'no-cache, no-store, must-revalidate' },
@@ -13,11 +19,8 @@ const nextConfig = {
     ] }]
   },
   async rewrites() {
-    const backendUrl = process.env.BACKEND_URL || 'http://127.0.0.1:3001'
+    const backendUrl = backendOrigin()
     return [{ source: '/api/:path*', destination: `${backendUrl}/api/:path*` }]
-  },
-  typescript: {
-    ignoreBuildErrors: true,
   },
   images: {
     unoptimized: true,

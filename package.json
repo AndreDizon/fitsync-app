@@ -1,6 +1,7 @@
 {
   "name": "fitsync",
   "private": true,
+  "engines": { "node": "24.x" },
   "workspaces": [
     "frontend",
     "backend"

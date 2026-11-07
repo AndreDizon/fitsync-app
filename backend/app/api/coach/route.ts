@@ -5,7 +5,7 @@ export async function POST(request: Request) {
   const auth = await authenticate(request)
   if (auth.response) return auth.response
   if (!process.env.AI_GATEWAY_API_KEY) {
-    return Response.json({ error: 'Configure AI_GATEWAY_API_KEY in backend/.env.local to use the AI coach.' }, { status: 503 })
+    return Response.json({ error: 'Configure AI_GATEWAY_API_KEY in the backend environment to use the AI coach.' }, { status: 503 })
   }
   let body
   try {

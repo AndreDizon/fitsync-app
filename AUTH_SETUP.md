@@ -2,6 +2,8 @@
 
 The login, signup, Google OAuth, confirmation, password reset, and sign-out flows
 use Supabase Auth.
+For the two Vercel projects and their environment variables, see
+[VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md).
 
 ## Local UI tester
 
@@ -86,10 +88,10 @@ access.
 - Server-side `getUser()` checks protect the dashboard and password update route.
 - Proxy refreshes cookie sessions and sends only verified access tokens to the
   backend. Auth responses use `private, no-store` caching.
-- Backend coach/exercise routes independently validate Bearer tokens with
+- The backend coach route independently validates Bearer tokens with
   Supabase; direct access to port 3001 cannot bypass authentication.
-- The exercise client uses the caller's JWT. Enable Row Level Security on
-  `exercises`, `social_posts`, `social_likes`, and `gyms`; use authenticated read
+- The exercise library reads the bundled seed without an exercise API or JWT.
+  Enable Row Level Security on `social_posts`, `social_likes`, and `gyms`; use authenticated read
   policies where appropriate and ownership checks such as `auth.uid() = author_id`
   for writes. Authentication alone does not provide table-level authorization.
 - OAuth callback destinations are restricted to `/` and `/reset-password`.
@@ -107,7 +109,8 @@ access.
 Test email confirmation, rejected invalid credentials, Google first-time signup
 and returning login, expired callback links, password reset, and sign-out using
 test accounts. An anonymous `/` request must redirect to `/login`; anonymous or
-invalid-token `/api/coach` and `/api/exercises` calls must return 401. Check that a
+invalid-token `/api/coach` calls must return 401. The backend `/api/exercises`
+endpoint was removed and returns 404. Check that a
 second user cannot read or change another user's private database rows.
 
 Local UI/route checks do not replace these live provider and database tests.
