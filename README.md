@@ -1,105 +1,59 @@
-# FitSync
+﻿# FitSync
 
-Authentication setup (including Google sign-in): [AUTH_SETUP.md](AUTH_SETUP.md).
-Vercel frontend/backend setup and troubleshooting: [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md).
+A fox-themed fitness and nutrition companion with onboarding-based planning, reference libraries, private playlists, daily to-dos, and progress tracking.
 
-- `frontend/`: Next.js UI, components, public assets, and Supabase browser client.
-- `backend/`: Next.js API service, including the streaming AI coach and health endpoint.
-- `scripts/`: shared development launcher.
+**New AI assistant or developer? Start with [AI_HANDOFF.md](AI_HANDOFF.md).** It links page relationships, architecture, data contracts, offline behavior, operations, design rules and known gaps.
 
-Install Node.js 24 LTS (the version used on Vercel), then from this folder run:
+## Run locally
+
+Use Node.js **24.x**. From repository root:
 
 ```sh
-npm install
+npm ci
 npm run dev
 ```
 
-Frontend: http://localhost:3000
-Backend health: http://localhost:3001/api/health
+- Frontend: http://localhost:3000
+- Backend health: http://localhost:3001/api/health
+- Two npm workspaces: `frontend/` and `backend/`; domain logic in `shared/`.
+- Copy workspace `.env.example` files to `.env.local` and configure privately. Frontend proxies `/api/*` to `BACKEND_URL` (local default http://127.0.0.1:3001).
 
-The frontend proxies `/api/*` to the backend. Set `BACKEND_URL` in
-`frontend/.env.local` to change its default of `http://127.0.0.1:3001`.
+## Features
 
-Copy `backend/.env.example` to `backend/.env.local` and provide an
-`AI_GATEWAY_API_KEY` for the AI coach. Copy `frontend/.env.example` to
-`frontend/.env.local` and provide your Supabase project values to enable the
-existing authentication and social database features. These require the
-project's existing Supabase tables and policies. The app opens at `/login` and
-requires a verified session before the dashboard is accessible.
+- Supabase email/password and Google authentication, separate five-step onboarding.
+- Plans has Workout/Nutrition modes, each with My Plan, Playlist and Library tabs.
+- Libraries: 100 exercises and 100 generic foods, detailed views, filters, numbered pagination, static thumbnails/manual demonstrations and public offline caches.
+- Playlists: manually customize one day or a full week with times/quantities/workout rest days; account-backed with private offline copies.
+- My Plan: calculate daily suggestions from onboarding, import playlists, add/replace library items, mark completion, record actual sets/water, sync account-owned weekly documents. Formulation runs locally online/offline; it is not generative AI.
+- Progress: Analytics, Documentation and Achievements, real plan/visit statistics, editable body/wellness records, private photos and conditional weight-trend outlook.
+- AI coach: separate authenticated AI Gateway stream. Home/Social/Settings also contain prototype/sample UI; see handoff before assuming complete backend integration.
 
-The exercise library uses a bundled, read-only catalog
-of 100 foundational exercises with demonstration media from
-JahelCuadrado/ExerciseGymGifsDB. It works without Supabase
-configuration. The seeded catalog is its primary source online and offline;
-search, focus/muscle/equipment/type/level/movement filters, sorting, and pagination
-run on the device without exercise API requests. Equipment supports
-multiple choices, option counts reflect other active filters, and search accepts
-common aliases such as DB, BB, pecs, and pushups. The UI displays 24 cards per page and opens details
-with locally hosted demonstrations, specific execution steps, suggested targets,
-and fox coach tips. The collection includes 16 Chest, 16 Back, 20 Legs,
-14 Shoulders, 18 Arms, and 16 Core/Cardio exercises. The strict JSON array is in
-[backend/data/exercises.json](backend/data/exercises.json).
-See [catalog provenance and import instructions](backend/data/README.md) for
-field mappings and media availability.
+Offline features require opening/signing in online and relevant data downloads first. Full offline cold-start/login is not implemented. Public service worker never caches private data; Progress journal/photo writes need internet.
 
-The exercise library automatically saves all 100 records, thumbnails, and GIFs
-on the device after its first visit (about 32 MB). Keep it open until it says
-**the offline-ready note appears**. The same library supports search,
-filters, sorting, pagination, instructions, and demonstrations without a network
-connection while the app is open. Reloading or launching the full app still requires its server;
-there is no separate offline-mode button. The first download
-requires a network connection and HTTPS or localhost. Clearing the browser's
-site storage removes its offline copy.
+## Guides
 
-Run `npm run seed:offline` to rebuild the offline package. This also runs before
-frontend development/build commands and after importing the exercise catalog.
-Only public exercise data and media are cached;
-authenticated dashboard HTML, credentials, and personal API responses are not.
-There is no exercise API endpoint; the library reads the seeded catalog directly.
+| Topic | Document |
+| --- | --- |
+| Full AI handoff | [AI_HANDOFF.md](AI_HANDOFF.md) |
+| Auth and Google | [AUTH_SETUP.md](AUTH_SETUP.md) |
+| Two-project Vercel deployment | [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md) |
+| My Plan and calculations | [MY_PLAN_SETUP.md](MY_PLAN_SETUP.md) |
+| Playlists and sync | [PLAYLISTS_SETUP.md](PLAYLISTS_SETUP.md) |
+| Progress storage/definitions | [PROGRESS_SETUP.md](PROGRESS_SETUP.md) |
+| Food provenance/measurements | [NUTRITION_LIBRARY.md](NUTRITION_LIBRARY.md) |
+| Exercise provenance | [backend/data/README.md](backend/data/README.md) |
 
-Run each service separately with `npm run dev:frontend` or `npm run dev:backend`.
+Database migrations are in `backend/migrations/`; apply in filename order. Running SQL applies changes; saving SQL editor text is optional. Local validators do not migrate production.
 
-### Onboarding and planning preferences
+## Checks
 
-After sign-in, accounts without a valid completed profile go to `/onboarding`.
-Five steps collect a primary goal, multiple focus areas (or Overall), exact adult
-age, gender (including Prefer not to say), activity level, optional height/current
-weight/target weight, training days/experience/equipment/movement preferences, food
-preferences/allergies/cooking time/budget, and a final review. The shared
-allowlist and validation live in `shared/onboarding.ts`; all saves recheck
-authentication and validate on the server. Settings → Goals & planning
-preferences opens the flow again. Unfinished answers remain in component memory;
-they are not persisted as a draft and are lost on refresh.
+```sh
+npm run typecheck
+node scripts/validate-onboarding.mjs
+node scripts/validate-playlists.mjs
+node scripts/validate-daily-plans.mjs
+node scripts/validate-progress.mjs
+npm run build
+```
 
-Successful saves open `/plan-preparation`, an authenticated fox-themed setup
-animation that summarizes the saved goal, exercise and meal preferences before
-returning to the dashboard. It runs for approximately 5.4 visible seconds, waits
-for the app-opening overlay to finish, pauses while the browser tab is hidden,
-and respects reduced-motion preferences. The progress represents this setup
-animation, not a server plan-generation job. Copy explicitly states that plan
-generation is not connected yet; a completed profile is required to open it.
-
-Real accounts save versioned preferences to their own Supabase Auth user
-metadata under `fitsync_onboarding`; no additional database migration is needed.
-Version 2 includes the new biometric and focus fields. Earlier version-1 profiles
-keep their existing answers; editing them asks for exact age and gender before
-saving the upgraded profile. Age range is now derived from exact age. Gender is
-self-described profile information and is not treated as biological sex for an
-energy equation. Target weight is a preference, not an automatically prescribed
-healthy weight or a promised outcome.
-This is preference data, never an authorization or administrator flag. The local
-tester uses a signed, HttpOnly, localhost-only preference cookie for 30 days;
-it does not write a real Supabase account. These personal preferences are not
-included in public exercise seeds or service-worker caches.
-
-Completed profiles supply the exercise-detail goal and optional weight defaults.
-Exercise/meal-plan generation is not connected yet: existing plan examples are
-not generated from this intake. A future planner must consume the validated
-profile, honor selected training days/equipment, treat food allergies as hard
-exclusions (including cross-contact considerations), and route requests needing
-professional guidance for review. The meal/food library is still to be built.
-
-Checks: `node scripts/validate-onboarding.mjs` and `npm run typecheck`.
-Run `npm run typecheck` to check both projects and `npm run build` to build both.
-For production, run `npm run start --workspace frontend` and
-`npm run start --workspace backend` in separate terminals after building.
+More catalog/auth/deployment commands: [Operations](docs/ai/OPERATIONS.md). Avoid builds while dev processes use the same `.next` directories. Never commit credentials or environment files.
