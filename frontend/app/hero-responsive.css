@@ -1147,6 +1147,89 @@
   }
 }
 
+@media (max-width: 1024px) {
+  .theme-default .progress-workspace .pr-hero .pr-streak-card {
+    display: none;
+  }
+}
+
+.theme-default .plan-workspace .plan-hero-frame > .plan-tabs,
+.theme-default .progress-workspace .pr-tabs-bar [role=tablist] {
+  height: clamp(38px, 5cqw, 52px);
+}
+
+.theme-default .progress-workspace .pr-tabs-bar {
+  box-sizing: border-box;
+  padding: 0;
+  gap: 0;
+}
+
+.theme-default .progress-workspace .pr-tabs-bar [role=tablist] {
+  min-width: 0;
+  min-height: 0;
+  margin: 0;
+}
+
+.theme-default .progress-workspace .pr-tabs-bar [role=tab] {
+  height: 100%;
+  min-height: 0;
+  padding-block: 0;
+  font-size: clamp(9px, 1.3cqw, 14px);
+}
+
+.theme-default .progress-workspace .pr-tabs-bar .pr-refresh {
+  position: absolute;
+  top: 50%;
+  left: calc(100% + 8px);
+  margin: 0;
+  transform: translateY(-50%);
+}
+
+@media (max-width: 767px) {
+  .theme-default .progress-workspace .pr-tabs-bar {
+    width: min(680px, calc(100% - 50px));
+    margin-left: calc(-1 * var(--page-gutter));
+    margin-right: 0;
+  }
+
+  .theme-default .progress-workspace .pr-tabs-bar [role=tablist] {
+    flex: 0 0 100%;
+    width: 100%;
+  }
+
+  .theme-default .plan-workspace .plan-hero-frame > .plan-tabs button,
+  .theme-default .progress-workspace .pr-tabs-bar [role=tab] {
+    margin-right: -12px;
+    font-size: 10px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .theme-default .progress-workspace .pr-tabs-bar {
+    width: 620px;
+    margin-left: calc(-1 * var(--page-gutter));
+    margin-right: 0;
+  }
+
+  .theme-default .progress-workspace .pr-tabs-bar [role=tablist] {
+    flex: 0 0 100%;
+    width: 100%;
+  }
+}
+
+@media (min-width: 1025px) {
+  .theme-default .progress-workspace .pr-tabs-bar {
+    width: min(calc(70cqw + var(--page-gutter)), 780px);
+    margin-left: calc(-1 * var(--page-gutter));
+    margin-right: 0;
+  }
+
+  .theme-default .progress-workspace .pr-tabs-bar [role=tablist] {
+    flex: 0 0 100%;
+    width: 100%;
+  }
+}
+
 .theme-default .hero-card-art {
   filter: drop-shadow(0 12px 10px #815a252b) drop-shadow(0 0 14px #f7c74850);
   pointer-events: none;
