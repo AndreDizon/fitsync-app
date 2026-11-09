@@ -117,7 +117,7 @@ export function ExerciseLibrary() {
   const equipmentOptions = data?.facets.equipment ?? []
   const allGroupCount = Object.values(data?.facetCounts.group ?? {}).reduce((sum, number) => sum + number, 0)
   return <div className="page library-page exercise-library-page">
-    <p className="eyebrow">YOUR LIBRARY</p><h1>Find your next move</h1><p className="muted intro">100 essentials. Find your focus, pick your equipment, and make your next move count.</p>
+    <header className="plan-tab-page-heading exercise-library-heading"><div><p className="eyebrow">YOUR LIBRARY</p><h2>Find your next move</h2><p>100 essentials. Find your focus, pick your equipment, and make your next move count.</p></div></header>
     <OfflineLibraryStatus onDownloadingChange={setDownloading} />
     <section className="exercise-filter-studio" aria-label="Find exercises">
       <div className="exercise-search-row">

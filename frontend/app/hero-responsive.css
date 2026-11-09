@@ -1,4 +1,4 @@
-/* One proportional hero composition at every viewport width. */
+/* Keep the desktop composition intact; tablet and phone layouts are defined below. */
 
   .theme-default .home-page { padding-top: 0; }
   .theme-default .home-page .home-greeting-frame .greeting-with-mascot::before { top: 0; }
@@ -45,12 +45,11 @@
   .theme-default .plans-mascot-hero .plan-hero-copy .intro,
   .theme-default .social-hero-card .social-intro .intro { font-size: 2cqw; line-height: 1.6; }
   .theme-default :is(.plans-mascot-hero, .social-hero-card) .plan-title-highlight { -webkit-text-stroke-width: .12cqw; }
-  .theme-default .plans-mascot-hero .plan-hero-lines { width: 65%; }
   .theme-default .plans-mascot-hero .plan-hero-mascot { position: absolute; inset: 0 17% 0 auto; width: 30%; min-height: 0; }
   .theme-default .plan-hero-mascot img { width: 30.4cqw; height: 30.4cqw; left: 50%; bottom: 0; }
   .theme-default .plans-mascot-hero .plan-mode-switch {
     display: grid;
-    position: absolute; left: 3cqw; bottom: 2cqw; margin: 0;
+    position: static; inset: auto; margin: 2cqw auto 0 0; justify-self: start;
     width: 25cqw; min-height: 0; height: 6.2cqw; padding: .6cqw; gap: .4cqw;
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -105,14 +104,1051 @@
 }
 /* Tabs must scale with the hero too, rather than consuming its bottom gap. */
 @media (width < 768px) {
-  .theme-default .plan-hero-frame { height: 43cqw; }
-  .theme-default .plan-hero-frame > .plan-tabs { width: calc(100% + var(--page-gutter) - 12px); height: 8cqw; min-height: 0; }
-  .theme-default .plan-hero-frame > .plan-tabs button {
-    height: 8cqw;
+  .theme-default .plan-hero-frame {
+    height: auto;
     min-height: 0;
-    padding: 0 2cqw;
-    gap: 1cqw;
-    font-size: clamp(9px, 2cqw, 13px);
+    padding-top: clamp(16px, 4cqw, 28px);
+  }
+  .theme-default .plan-workspace .plans-mascot-hero {
+    position: relative;
+    height: clamp(220px, 35cqw, 280px);
+    min-height: 220px;
+    padding: clamp(16px, 3cqw, 24px);
+    border-radius: clamp(18px, 3cqw, 24px);
+  }
+  .theme-default .plans-mascot-hero .plan-hero-copy {
+    position: relative;
+    z-index: 2;
+    width: 68%;
+  }
+  .theme-default .plans-mascot-hero .plan-hero-copy .eyebrow {
+    font-size: clamp(10px, 1.8cqw, 13px);
+    line-height: 1.4;
+  }
+  .theme-default .plans-mascot-hero .plan-hero-copy h1 {
+    margin: 10px 0;
+    font-size: clamp(25px, 5.2cqw, 38px);
+    line-height: 1.08;
+    white-space: normal;
+  }
+  .theme-default .plans-mascot-hero .plan-hero-copy .intro {
+    max-width: 100%;
+    font-size: clamp(12px, 2.4cqw, 17px);
+    line-height: 1.45;
+    white-space: normal;
+  }
+  .theme-default .plans-mascot-hero .plan-hero-lines { width: 100%; }
+  .theme-default .plans-mascot-hero .plan-hero-mascot {
+    position: absolute;
+    inset: auto 3% 0 auto;
+    width: 44%;
+    height: 72%;
+    min-height: 0;
+  }
+  .theme-default .plans-mascot-hero .plan-hero-mascot img {
+    left: 50%;
+    bottom: 0;
+    width: min(44cqw, 250px);
+    height: min(44cqw, 250px);
+  }
+  .theme-default .plans-mascot-hero .plan-mode-switch {
+    position: static;
+    inset: auto;
+    width: min(100%, 250px);
+    height: 42px;
+    min-height: 0;
+    margin: 14px auto 0 0;
+    justify-self: start;
+    padding: 4px;
+    gap: 3px;
+  }
+  .theme-default .plans-mascot-hero .plan-mode-switch button {
+    height: 34px;
+    padding: 0 8px;
+    gap: 6px;
+    font-size: 11px;
+  }
+  .theme-default .plans-mascot-hero .plan-mode-switch button svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .theme-default .plan-hero-frame > .plan-tabs {
+    width: calc(100% + var(--page-gutter) - 12px);
+    height: clamp(42px, 8cqw, 52px);
+    min-height: 0;
+    margin-top: 12px;
+  }
+  .theme-default .plan-hero-frame > .plan-tabs button {
+    height: 100%;
+    min-height: 0;
+    padding: 0 clamp(5px, 2cqw, 12px);
+    gap: clamp(3px, 1cqw, 7px);
+    font-size: clamp(10px, 2cqw, 13px);
   }
   .theme-default .plan-hero-frame > .plan-tabs button svg { width: clamp(12px, 2.6cqw, 18px); height: clamp(12px, 2.6cqw, 18px); }
+  .theme-default .plan-folder-content { padding-top: clamp(16px, 4cqw, 24px); }
+  .theme-default .my-plan-workspace { padding-top: 12px; }
+  .theme-default .my-plan-heading { gap: 8px; margin-bottom: 16px; }
+  .theme-default .my-plan-stats { gap: 10px; margin: 14px 0; }
+  .theme-default .day-selector-section { margin-top: 16px; }
+  .theme-default .my-plan-todo,
+  .theme-default .my-plan-water { margin-top: 18px; }
+}
+@media (min-width: 768px) and (max-width: 900px) {
+  .theme-default .plan-hero-frame {
+    height: auto;
+    min-height: 0;
+    padding-top: 5cqw;
+  }
+  .theme-default .plan-workspace .plans-mascot-hero {
+    height: max(28.4cqw, 220px);
+    min-height: 220px;
+  }
+  .theme-default .plan-hero-frame > .plan-tabs {
+    height: clamp(44px, 5.8cqw, 56px);
+    margin-top: 14px;
+  }
+}
+
+.theme-default .plan-hero-frame > .plan-tabs {
+  isolation: isolate;
+  overflow: visible;
+  background: transparent;
+}
+.theme-default .plan-hero-frame > .plan-tabs::before { display: none; }
+.theme-default .plan-hero-frame > .plan-tabs button {
+  position: relative;
+  z-index: 0;
+  margin-right: -18px;
+  border: 0;
+  border-radius: 0;
+  background: #f3e8c2;
+  color: #746b50;
+  box-shadow: none;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 54' preserveAspectRatio='none'%3E%3Cpath d='M0 54V20Q0 0 20 0H155Q177 0 184 24L200 54Z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 54' preserveAspectRatio='none'%3E%3Cpath d='M0 54V20Q0 0 20 0H155Q177 0 184 24L200 54Z'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+}
+.theme-default .plan-hero-frame > .plan-tabs button:nth-child(1) { z-index: 1; }
+.theme-default .plan-hero-frame > .plan-tabs button:nth-child(2) { z-index: 2; }
+.theme-default .plan-hero-frame > .plan-tabs button:nth-child(3) { z-index: 3; }
+.theme-default .plan-hero-frame > .plan-tabs button.selected {
+  z-index: 5;
+  border: 0;
+  border-radius: 0;
+  background: var(--page-surface);
+  color: #292d23;
+  box-shadow: none;
+}
+.theme-default .plan-hero-frame > .plan-tabs button:nth-child(2) { background: #eddda9; }
+.theme-default .plan-hero-frame > .plan-tabs button:nth-child(3) { background: #e6d39a; }
+.theme-default .plan-hero-frame > .plan-tabs button.selected[aria-selected="true"] {
+  background: var(--page-surface);
+  color: #292d23;
+}
+.theme-default .plan-hero-frame > .plan-tabs button:not(.selected):hover { background: #fff8e4; color: #292d23; }
+.theme-default .plan-hero-frame > .plan-tabs button::after,
+.theme-default .plan-hero-frame > .plan-tabs button.selected::after,
+.theme-default .plan-hero-frame > .plan-tabs button:last-child::after { content: none; }
+.theme-default .plan-hero-frame > .plan-tabs button:focus-visible { outline-offset: -4px; }
+
+.theme-default :is(
+  .home-page .home-greeting-frame .greeting-with-mascot,
+  .plan-hero-frame,
+  .social-hero-frame,
+  .progress-workspace .pr-hero-frame
+)::before {
+  background-image:
+    repeating-linear-gradient(0deg, transparent 0 4.7cqw, #b58a2717 4.7cqw 4.8cqw),
+    repeating-linear-gradient(90deg, transparent 0 4.7cqw, #b58a2717 4.7cqw 4.8cqw),
+    radial-gradient(ellipse at 100% 6%, #ef9a4d99, transparent 35%),
+    radial-gradient(ellipse at 0 90%, #f0ab4273, transparent 35%),
+    linear-gradient(105deg, #ffe77c, #fff1af 75%);
+}
+
+.theme-default .plans-mascot-hero .plan-hero-lines {
+  inset: 0 0 0 auto;
+  width: 100%;
+  height: 100%;
+  background-image: none;
+  color: #a77a21;
+  opacity: .26;
+}
+
+.theme-default .plans-mascot-hero .plan-hero-copy,
+.theme-default .plans-mascot-hero .plan-mode-switch {
+  position: relative;
+  z-index: 2;
+}
+
+.theme-default .plans-mascot-hero .plan-hero-mascot {
+  z-index: 1;
+}
+
+.theme-default .social-hero-card .social-hero-line-art {
+  z-index: 0;
+  opacity: .2;
+}
+
+.theme-default .hero-card-art {
+  display: none;
+}
+
+.theme-default .plan-folder-content .plan-tab-page-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  margin: 8px 0 28px;
+  padding: 8px 2px 0;
+  text-align: left;
+}
+.theme-default .plan-folder-content > :is(.my-plan-workspace, .playlist-workspace, .food-library) {
+  padding-top: 0;
+}
+.theme-default .plan-folder-content .plan-tab-page-heading > div {
+  min-width: 0;
+}
+.theme-default .plan-folder-content .plan-tab-page-heading :is(h1, h2) {
+  margin: 8px 0 10px;
+  font-size: clamp(24px, 3vw, 32px);
+  font-family: inherit;
+  font-weight: 750;
+  letter-spacing: -.035em;
+  line-height: 1.2;
+}
+.theme-default .plan-folder-content .plan-tab-page-heading :is(.eyebrow, .playlist-eyebrow, .food-kicker) {
+  margin: 0;
+  font-family: inherit;
+  color: #88754d;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: .16em;
+  line-height: 1.5;
+}
+.theme-default .plan-folder-content .plan-tab-page-heading p:not(:is(.eyebrow, .playlist-eyebrow, .food-kicker)) {
+  max-width: 620px;
+  margin: 0;
+  font-family: inherit;
+  color: #787763;
+  font-size: 12px;
+  line-height: 1.8;
+}
+.theme-default .plan-folder-content .plan-tab-page-heading > :is(.my-plan-sync, .playlist-primary, .playlist-editing-label, .food-preview-badge) {
+  flex-shrink: 0;
+  margin-top: 8px;
+}
+@media (width < 768px) {
+  .theme-default .plan-folder-content .plan-tab-page-heading {
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 22px;
+  }
+  .theme-default .plan-folder-content .plan-tab-page-heading > :is(.my-plan-sync, .playlist-primary, .playlist-editing-label, .food-preview-badge) {
+    margin-top: 0;
+  }
+}
+
+.theme-default .home-page .home-greeting-frame .greeting-with-mascot,
+.theme-default .plan-workspace .plan-hero-frame,
+.theme-default .social-flow .social-hero-frame,
+.theme-default .progress-workspace .pr-hero-frame {
+  box-sizing: border-box;
+  height: clamp(420px, 43cqw, 500px);
+  min-height: 0;
+}
+
+.theme-default .home-page .home-greeting-frame .greeting-with-mascot {
+  margin-bottom: 0;
+}
+
+.theme-default .home-page > .hero-card {
+  margin-top: clamp(14px, 1.8vw, 24px);
+}
+
+.theme-default .plan-hero-frame > .plan-tabs,
+.theme-default .progress-workspace .pr-tabs-bar {
+  margin-top: auto;
+}
+
+@media (width < 768px) {
+  .theme-default .plan-workspace .plan-hero-frame,
+  .theme-default .social-flow .social-hero-frame,
+  .theme-default .progress-workspace .pr-hero-frame {
+    min-height: 420px;
+  }
+
+  .theme-default .social-flow .social-hero-frame {
+    padding: 16px var(--page-gutter);
+  }
+
+  .theme-default .social-hero-card {
+    width: 100%;
+  }
+
+  .theme-default .progress-workspace .pr-hero-frame {
+    padding-top: 20px;
+  }
+
+  .theme-default .progress-workspace .pr-hero {
+    height: 320px;
+    min-height: 320px;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+  .theme-default .home-page .home-greeting-frame .greeting-with-mascot,
+  .theme-default .plan-workspace .plan-hero-frame,
+  .theme-default .social-flow .social-hero-frame,
+  .theme-default .progress-workspace .pr-hero-frame {
+    height: 360px;
+    min-height: 0;
+  }
+
+  .theme-default .home-page .home-greeting-frame .greeting-with-mascot {
+    margin-bottom: 0;
+  }
+
+  .theme-default .home-page .home-greeting-frame .greeting-with-mascot::before {
+    top: 0;
+    bottom: 0;
+  }
+
+  .theme-default .home-page .home-greeting-frame .greeting-with-mascot::after {
+    content: none;
+  }
+
+  .theme-default .home-page .home-greeting-frame .greeting-copy {
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 260px;
+    padding: 22px 24px;
+    transform: translateY(-50%);
+  }
+
+  .theme-default .home-page .home-greeting-frame .greeting-copy :is(.eyebrow, h1, .muted) {
+    max-width: calc(100% - 220px);
+  }
+
+  .theme-default .home-page .home-greeting-frame .home-card-art {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    right: clamp(48px, 7vw, 76px);
+    width: clamp(150px, 18vw, 184px);
+    height: clamp(150px, 18vw, 184px);
+    object-fit: contain;
+    transform: translateY(-50%);
+  }
+
+  .theme-default .home-page .home-greeting-frame .greeting-copy::before {
+    inset: 0;
+    border-radius: 22px;
+  }
+
+  .theme-default .home-page .home-greeting-frame .greeting-with-mascot h1 {
+    margin: 12px 0;
+    font-size: clamp(32px, 4vw, 40px);
+    line-height: 1.12;
+    white-space: normal;
+  }
+
+  .theme-default .home-page .home-greeting-frame .greeting-copy .eyebrow {
+    font-size: 11px;
+  }
+
+  .theme-default .home-page .home-greeting-frame .greeting-with-mascot .muted {
+    max-width: 560px;
+    font-size: 16px;
+    white-space: normal;
+  }
+
+  .theme-default .home-page .greeting-fox-stage,
+  .theme-default .home-page .greeting-with-mascot .streak,
+  .theme-default .home-page .greeting-trend-art,
+  .theme-default .plans-mascot-hero .plan-hero-mascot,
+  .theme-default .plans-mascot-hero .plan-hero-lines,
+  .theme-default .social-hero-art,
+  .theme-default .social-hero-line-art,
+  .theme-default .social-connection-card,
+  .theme-default .progress-workspace .pr-hero-mascot,
+  .theme-default .progress-workspace .pr-hero-line-art {
+    display: none;
+  }
+
+  .theme-default .plan-workspace .plan-hero-frame,
+  .theme-default .social-flow .social-hero-frame,
+  .theme-default .progress-workspace .pr-hero-frame {
+    padding: 16px var(--page-gutter) 0;
+  }
+
+  .theme-default .plan-workspace .plan-hero-frame,
+  .theme-default .progress-workspace .pr-hero-frame {
+    padding-top: 50px;
+  }
+
+  .theme-default .plan-workspace .plans-mascot-hero,
+  .theme-default .social-flow .social-hero-card,
+  .theme-default .progress-workspace .pr-hero {
+    box-sizing: border-box;
+    width: 100%;
+    height: 260px;
+    min-height: 260px;
+    max-height: 260px;
+    border-radius: 22px;
+  }
+
+  .theme-default .plan-workspace .plans-mascot-hero,
+  .theme-default .progress-workspace .pr-hero {
+    height: 248px;
+    min-height: 248px;
+    max-height: 248px;
+  }
+
+  .theme-default .plan-workspace .plans-mascot-hero {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 22px 24px;
+  }
+
+  .theme-default .plan-workspace .plans-mascot-hero .plan-mode-art {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    right: clamp(48px, 7vw, 76px);
+    width: clamp(150px, 18vw, 184px);
+    height: clamp(150px, 18vw, 184px);
+    object-fit: contain;
+    transform: translateY(-50%);
+  }
+
+  .theme-default .plans-mascot-hero .plan-hero-copy {
+    align-self: flex-start;
+    width: calc(100% - 250px);
+  }
+
+  .theme-default .plans-mascot-hero .plan-hero-copy .eyebrow,
+  .theme-default .social-hero-card .eyebrow {
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  .theme-default .plans-mascot-hero .plan-hero-copy h1,
+  .theme-default .social-hero-card .social-intro h1 {
+    margin: 12px 0;
+    font-size: clamp(32px, 4vw, 40px);
+    line-height: 1.12;
+    white-space: normal;
+  }
+
+  .theme-default .plans-mascot-hero .plan-hero-copy .intro,
+  .theme-default .social-hero-card .social-intro .intro {
+    max-width: 560px;
+    font-size: 15px;
+    line-height: 1.5;
+    white-space: normal;
+  }
+
+  .theme-default .plans-mascot-hero .plan-mode-switch {
+    width: min(100%, 260px);
+    height: 40px;
+    margin: 12px 0 0;
+    padding: 3px;
+    gap: 3px;
+  }
+
+  .theme-default .plans-mascot-hero .plan-mode-switch button {
+    height: 34px;
+    font-size: 12px;
+  }
+
+  .theme-default .social-flow .social-hero-frame {
+    display: flex;
+    align-items: center;
+    padding-bottom: 0;
+  }
+
+  .theme-default .social-flow .social-hero-card {
+    justify-content: center;
+    padding: 22px 24px;
+  }
+
+  .theme-default .social-flow .social-hero-card .social-card-art {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    right: clamp(48px, 7vw, 70px);
+    width: clamp(150px, 16vw, 164px);
+    height: 194px;
+    object-fit: contain;
+    transform: translateY(-50%);
+  }
+
+  .theme-default .social-hero-card .social-intro {
+    width: calc(100% - 250px);
+  }
+
+  .theme-default .social-hero-card .social-date-filter {
+    margin-top: 16px;
+  }
+
+  .theme-default .progress-workspace .pr-hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+    padding: 22px 24px;
+    overflow: hidden;
+  }
+
+  .theme-default .progress-workspace .pr-hero .progress-card-art {
+    display: block;
+    position: absolute;
+    z-index: 0;
+    top: 50%;
+    right: clamp(48px, 7vw, 70px);
+    width: clamp(150px, 16vw, 168px);
+    height: 180px;
+    object-fit: contain;
+    transform: translateY(-50%);
+  }
+
+  .theme-default .progress-workspace .pr-hero-copy {
+    align-self: stretch;
+    max-width: calc(100% - 250px);
+    min-height: 0;
+  }
+
+  .theme-default .progress-workspace .pr-hero aside {
+    max-width: calc(100% - 250px);
+  }
+
+  .theme-default .progress-workspace .pr-hero-copy h1 {
+    margin: 10px 0;
+    font-size: 38px;
+    line-height: 1.08;
+  }
+
+  .theme-default .progress-workspace .pr-hero-copy > p:last-child {
+    font-size: 15px;
+  }
+
+  .theme-default .progress-workspace .pr-hero aside {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 2px 10px;
+    width: 100%;
+    min-height: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+
+  .theme-default .progress-workspace .pr-hero aside > svg {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+  }
+
+  .theme-default .progress-workspace .pr-hero aside > strong {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0;
+    font-size: 24px;
+  }
+
+  .theme-default .progress-workspace .pr-hero aside > strong small {
+    display: inline;
+    margin-left: 5px;
+    font-size: 11px;
+  }
+
+  .theme-default .progress-workspace .pr-hero aside p,
+  .theme-default .progress-workspace .pr-hero aside span {
+    grid-column: 2;
+    margin: 0;
+    font-size: 10px;
+  }
+
+  .theme-default .progress-workspace .pr-tabs-bar {
+    height: 50px;
+    padding-left: 0;
+  }
+
+  .theme-default .progress-workspace .pr-tabs-bar [role=tablist] {
+    flex: 0 0 620px;
+    height: 100%;
+  }
+
+  .theme-default .progress-workspace .pr-tabs-bar [role=tab] {
+    min-height: 0;
+    height: 100%;
+    font-size: 12px;
+  }
+
+  .theme-default .plan-workspace .plan-hero-frame > .plan-tabs {
+    width: 620px;
+    height: 50px;
+    margin-top: auto;
+  }
+}
+
+@media (max-width: 767px) {
+  .theme-default .home-page .home-greeting-frame .greeting-with-mascot,
+  .theme-default .plan-workspace .plan-hero-frame,
+  .theme-default .social-flow .social-hero-frame,
+  .theme-default .progress-workspace .pr-hero-frame {
+    height: 318px;
+    min-height: 0;
+  }
+
+  .theme-default .home-page .home-greeting-frame .greeting-with-mascot {
+    margin-bottom: 0;
+  }
+
+  .theme-default .home-page .home-greeting-frame .greeting-with-mascot::before {
+    top: 0;
+    bottom: 0;
+  }
+
+  .theme-default .home-page .home-greeting-frame .greeting-with-mascot::after {
+    content: none;
+  }
+
+  .theme-default .home-page .home-greeting-frame .greeting-copy {
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 228px;
+    padding: 18px 20px;
+    transform: translateY(-50%);
+  }
+
+  .theme-default .home-page .home-greeting-frame .greeting-copy :is(.eyebrow, h1, .muted) {
+    max-width: calc(100% - 122px);
+  }
+
+  .theme-default .home-page .home-greeting-frame .greeting-copy .home-card-art {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    right: clamp(12px, 4vw, 24px);
+    width: clamp(100px, 26vw, 128px);
+    height: clamp(100px, 26vw, 128px);
+    object-fit: contain;
+    transform: translateY(-50%);
+  }
+
+  .theme-default .home-page .home-greeting-frame .greeting-copy::before {
+    inset: 0;
+    border-radius: 20px;
+  }
+
+  .theme-default .home-page .home-greeting-frame .greeting-with-mascot h1 {
+    margin: 10px 0;
+    font-size: clamp(25px, 7vw, 32px);
+    line-height: 1.1;
+    white-space: normal;
+  }
+
+  .theme-default .home-page .home-greeting-frame .greeting-copy .eyebrow {
+    font-size: 10px;
+  }
+
+  .theme-default .home-page .home-greeting-frame .greeting-with-mascot .muted {
+    max-width: 100%;
+    font-size: 13px;
+    line-height: 1.45;
+    white-space: normal;
+  }
+
+  .theme-default .home-page .greeting-fox-stage,
+  .theme-default .home-page .greeting-with-mascot .streak,
+  .theme-default .home-page .greeting-trend-art,
+  .theme-default .plans-mascot-hero .plan-hero-mascot,
+  .theme-default .plans-mascot-hero .plan-hero-lines,
+  .theme-default .social-hero-art,
+  .theme-default .social-hero-line-art,
+  .theme-default .social-connection-card,
+  .theme-default .progress-workspace .pr-hero-mascot,
+  .theme-default .progress-workspace .pr-hero-line-art {
+    display: none;
+  }
+
+  .theme-default .plan-workspace .plan-hero-frame,
+  .theme-default .social-flow .social-hero-frame,
+  .theme-default .progress-workspace .pr-hero-frame {
+    padding: 14px var(--page-gutter) 0;
+  }
+
+  .theme-default .plan-workspace .plan-hero-frame,
+  .theme-default .progress-workspace .pr-hero-frame {
+    padding-top: 45px;
+  }
+
+  .theme-default .plan-workspace .plans-mascot-hero,
+  .theme-default .social-flow .social-hero-card,
+  .theme-default .progress-workspace .pr-hero {
+    box-sizing: border-box;
+    width: 100%;
+    height: 228px;
+    min-height: 228px;
+    max-height: 228px;
+    border-radius: 20px;
+  }
+
+  .theme-default .plan-workspace .plans-mascot-hero,
+  .theme-default .progress-workspace .pr-hero {
+    height: 216px;
+    min-height: 216px;
+    max-height: 216px;
+  }
+
+  .theme-default .plan-workspace .plans-mascot-hero {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 18px 20px;
+  }
+
+  .theme-default .plan-workspace .plans-mascot-hero .plan-mode-art {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    right: clamp(16px, 5vw, 36px);
+    width: clamp(108px, 30vw, 140px);
+    height: clamp(120px, 32vw, 150px);
+    object-fit: contain;
+    transform: translateY(-50%);
+  }
+
+  .theme-default .plans-mascot-hero .plan-hero-copy {
+    align-self: flex-start;
+    width: calc(100% - clamp(160px, 28vw, 220px));
+  }
+
+  .theme-default .plans-mascot-hero .plan-hero-copy .eyebrow,
+  .theme-default .social-hero-card .eyebrow {
+    font-size: 10px;
+    line-height: 1.5;
+  }
+
+  .theme-default .plans-mascot-hero .plan-hero-copy h1,
+  .theme-default .social-hero-card .social-intro h1 {
+    margin: 10px 0;
+    font-size: clamp(27px, 7vw, 34px);
+    line-height: 1.1;
+    white-space: normal;
+  }
+
+  .theme-default .plans-mascot-hero .plan-hero-copy .intro,
+  .theme-default .social-hero-card .social-intro .intro {
+    max-width: 100%;
+    font-size: 13px;
+    line-height: 1.45;
+    white-space: normal;
+  }
+
+  .theme-default .plans-mascot-hero .plan-mode-switch {
+    width: min(100%, 190px);
+    height: 38px;
+    margin: 10px 0 0;
+    padding: 3px;
+    gap: 2px;
+  }
+
+  .theme-default .plans-mascot-hero .plan-mode-switch button {
+    height: 32px;
+    font-size: 11px;
+  }
+
+  .theme-default .plan-workspace .plan-hero-frame > .plan-tabs {
+    width: min(680px, calc(100% - 50px));
+    height: 45px;
+    margin-top: auto;
+  }
+
+  .theme-default .plan-hero-frame > .plan-tabs button {
+    margin-right: -12px;
+    padding-inline: 5px;
+    gap: 3px;
+    font-size: 10px;
+  }
+
+  .theme-default .plan-hero-frame > .plan-tabs button svg {
+    width: 13px;
+    height: 13px;
+  }
+
+  .theme-default .social-flow .social-hero-frame {
+    display: flex;
+    align-items: center;
+    padding-bottom: 0;
+  }
+
+  .theme-default .social-flow .social-hero-card {
+    justify-content: center;
+    padding: 18px 20px;
+  }
+
+  .theme-default .social-flow .social-hero-card .social-card-art {
+    display: block;
+    position: absolute;
+    z-index: 1;
+    top: 50%;
+    right: clamp(16px, 5vw, 36px);
+    width: clamp(100px, 20vw, 132px);
+    height: clamp(160px, 33vw, 200px);
+    object-fit: contain;
+    transform: translateY(-50%);
+  }
+
+  .theme-default .social-hero-card .social-intro {
+    width: calc(100% - clamp(140px, 28vw, 220px));
+  }
+
+  .theme-default .social-hero-card .social-date-filter {
+    width: max-content;
+    margin-top: 12px;
+  }
+
+  .theme-default .social-hero-card .social-date-filter label {
+    font-size: 11px;
+  }
+
+  .theme-default .social-hero-card .social-date-filter input {
+    width: 160px;
+    height: 36px;
+    font-size: 12px;
+  }
+
+  .theme-default .progress-workspace .pr-hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 9px;
+    padding: 18px 20px;
+    overflow: hidden;
+  }
+
+  .theme-default .progress-workspace .pr-hero .progress-card-art {
+    display: block;
+    position: absolute;
+    z-index: 0;
+    top: 50%;
+    right: clamp(16px, 5vw, 36px);
+    width: clamp(108px, 24vw, 148px);
+    height: clamp(140px, 34vw, 200px);
+    object-fit: contain;
+    transform: translateY(-50%);
+  }
+
+  .theme-default .progress-workspace .pr-hero-copy {
+    align-self: stretch;
+    max-width: calc(100% - clamp(140px, 28vw, 220px));
+    min-height: 0;
+  }
+
+  .theme-default .progress-workspace .pr-hero aside {
+    max-width: calc(100% - clamp(140px, 28vw, 220px));
+  }
+
+  .theme-default .progress-workspace .pr-hero-copy .pr-eyebrow {
+    font-size: 9px;
+  }
+
+  .theme-default .progress-workspace .pr-hero-copy h1 {
+    margin: 8px 0;
+    font-size: clamp(27px, 7vw, 32px);
+    line-height: 1.08;
+  }
+
+  .theme-default .progress-workspace .pr-hero-copy > p:last-child {
+    font-size: 13px;
+    line-height: 1.4;
+  }
+
+  .theme-default .progress-workspace .pr-hero aside {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: 1px 8px;
+    width: 100%;
+    min-height: 0;
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+  }
+
+  .theme-default .progress-workspace .pr-hero aside > svg {
+    grid-column: 1;
+    grid-row: 1 / span 2;
+    width: 20px;
+    height: 20px;
+  }
+
+  .theme-default .progress-workspace .pr-hero aside > strong {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0;
+    font-size: 21px;
+  }
+
+  .theme-default .progress-workspace .pr-hero aside > strong small {
+    display: inline;
+    margin-left: 4px;
+    font-size: 10px;
+  }
+
+  .theme-default .progress-workspace .pr-hero aside p,
+  .theme-default .progress-workspace .pr-hero aside span {
+    grid-column: 2;
+    margin: 0;
+    font-size: 9px;
+  }
+
+  .theme-default .progress-workspace .pr-tabs-bar {
+    height: 45px;
+    gap: 4px;
+    padding-left: 0;
+  }
+
+  .theme-default .progress-workspace .pr-tabs-bar [role=tablist] {
+    flex: 0 0 min(calc(100% - var(--page-gutter) - 50px), 680px);
+    height: 100%;
+  }
+
+  .theme-default .progress-workspace .pr-tabs-bar [role=tab] {
+    min-height: 0;
+    height: 100%;
+    margin-right: -12px;
+    padding-inline: 5px;
+    font-size: 10px;
+  }
+
+  .theme-default .progress-workspace .pr-refresh {
+    padding: 7px;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1024px) {
+  .theme-default .home-page .home-greeting-frame .home-card-art,
+  .theme-default .plan-workspace .plans-mascot-hero .plan-mode-art,
+  .theme-default .social-flow .social-hero-card .social-card-art,
+  .theme-default .progress-workspace .pr-hero .progress-card-art {
+    left: 75%;
+    right: auto;
+    transform: translate(-50%, -50%);
+  }
+
+  .theme-default .home-page .home-greeting-frame .greeting-copy :is(.eyebrow, h1, .muted),
+  .theme-default .plans-mascot-hero .plan-hero-copy,
+  .theme-default .social-hero-card .social-intro,
+  .theme-default .progress-workspace .pr-hero-copy,
+  .theme-default .progress-workspace .pr-hero aside {
+    width: 56%;
+    max-width: 56%;
+  }
+}
+
+@media (max-width: 380px) {
+  .theme-default .home-page .home-greeting-frame .greeting-with-mascot,
+  .theme-default .plan-workspace .plan-hero-frame,
+  .theme-default .social-flow .social-hero-frame,
+  .theme-default .progress-workspace .pr-hero-frame {
+    height: calc(100vw + 55px);
+    min-height: 0;
+  }
+
+  .theme-default .home-page .home-greeting-frame .greeting-with-mascot {
+    margin-bottom: 0;
+  }
+
+  .theme-default .home-page .home-greeting-frame .greeting-copy {
+    height: calc(100vw - 47px);
+    aspect-ratio: 1;
+  }
+
+  .theme-default .home-page .home-greeting-frame .greeting-copy::before {
+    border-radius: 28px;
+  }
+
+  .theme-default .plan-workspace .plans-mascot-hero,
+  .theme-default .social-flow .social-hero-card,
+  .theme-default .progress-workspace .pr-hero {
+    height: calc(100vw - 47px);
+    min-height: 0;
+    max-height: none;
+    aspect-ratio: 1;
+  }
+
+  .theme-default .home-page .home-greeting-frame .greeting-copy .home-card-art,
+  .theme-default .plan-workspace .plans-mascot-hero .plan-mode-art,
+  .theme-default .social-flow .social-hero-card .social-card-art,
+  .theme-default .progress-workspace .pr-hero .progress-card-art {
+    display: none;
+  }
+
+  .theme-default .home-page .home-greeting-frame .greeting-copy :is(.eyebrow, h1, .muted),
+  .theme-default .plan-workspace .plans-mascot-hero .plan-hero-copy,
+  .theme-default .social-hero-card .social-intro,
+  .theme-default .progress-workspace .pr-hero-copy,
+  .theme-default .progress-workspace .pr-hero aside {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .theme-default .home-page .home-greeting-frame .greeting-copy,
+  .theme-default .plan-workspace .plans-mascot-hero,
+  .theme-default .social-flow .social-hero-card,
+  .theme-default .progress-workspace .pr-hero {
+    border-radius: 28px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .theme-default .social-flow .social-hero-frame {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+.theme-default .hero-card-art {
+  filter: drop-shadow(0 12px 10px #815a252b) drop-shadow(0 0 14px #f7c74850);
+  pointer-events: none;
+}
+
+@media (min-width: 1025px) {
+  .theme-default .home-page .home-greeting-frame .greeting-copy {
+    top: 5cqw;
+    bottom: 5cqw;
+    width: 78cqw;
+    height: auto;
+  }
+
+  .theme-default .social-flow .social-hero-frame {
+    height: 43cqw;
+    min-height: 0;
+    padding-top: 5cqw;
+    padding-bottom: 5cqw;
+  }
+
+  .theme-default .social-flow .social-hero-card {
+    width: 78cqw;
+    height: 33cqw;
+    min-height: 0;
+  }
 }

@@ -1,4 +1,4 @@
-/* Scale the reference composition together instead of rearranging it on phones. */
+/* Desktop-sized greeting composition; tablet and phone layouts live in hero-responsive.css. */
 .home-greeting-frame { container-type: inline-size; width: 100%; }
 .theme-default .home-page .home-greeting-frame .greeting-with-mascot {
   display: block;
