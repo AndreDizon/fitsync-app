@@ -3,5 +3,6 @@
   "framework": "nextjs",
   "installCommand": "npm ci --include=dev --prefix ..",
   "buildCommand": "npm run build",
-  "outputDirectory": ".next"
+  "outputDirectory": ".next",
+  "crons": [{ "path": "/api/social/cleanup", "schedule": "0 3 * * *" }]
 }

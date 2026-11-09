@@ -26,7 +26,7 @@ flowchart TD
   Check -->|Yes| Dashboard
   Dashboard --> Home[Home]
   Dashboard --> Plans[Plans: Workout or Nutrition]
-  Dashboard --> Social[Social and AI coach]
+  Dashboard --> Social[Forum, coaches/buddies and gyms]
   Dashboard --> Progress[Progress]
   Dashboard --> Settings[Settings]
   Settings --> Onboarding
@@ -126,6 +126,6 @@ Forecast uses observed weight trend only when sufficient reliable adult data exi
 
 **Home:** personalized name, design and navigation work. Date, 12-day streak, calorie/movement figures and example tasks include hardcoded data; water/completion state here is not yet the canonical My Plan data. Do not call Home fully data-driven.
 
-**Social:** styled earth/phone mascot hero, date-filtered preview feed, people, gyms, compose/like affordances, AI coach. It starts with in-memory sample data and a hardcoded 12,840 count. Some writes attempt direct Supabase `social_posts`, `social_likes`, `gyms`; no complete fetch/pagination/schema implementation exists in current migrations. Likes use preview IDs. Connect/comments/GPS indicators are prototype behavior, not working real social/location services.
+**Social:** existing earth/phone mascot hero above one overview with three preview sections: Open forum, Coaches & gym buddies, Gyms & facilities. View more opens the selected section and Back to community returns to the overview. `SocialWorkspace` provides real account-backed CRUD, forum hearts, comments, own-post filters, search and pagination through `/api/social` and `community_action`. SQL enforces two new forum/gym posts per UTC day and one active introduction. Posts expire together every calendar quarter; daily backend cron purges data and queued images. GPS + Leaflet/OpenStreetMap nearby search is opt-in, with free Overpass fallback endpoints and external walking directions. Requires `20261111_social.sql`; cron needs backend-only secrets. The hero community count remains decorative legacy content. See `SOCIAL_SETUP.md`.
 
 **Settings:** real account display, onboarding link, default theme and signout exist. Many edit/notification/offline/export/delete controls are placeholders. There is no complete account deletion workflow or real contact page.

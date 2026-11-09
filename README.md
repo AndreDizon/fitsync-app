@@ -26,7 +26,7 @@ npm run dev
 - Playlists: manually customize one day or a full week with times/quantities/workout rest days; account-backed with private offline copies.
 - My Plan: calculate daily suggestions from onboarding, import playlists, add/replace library items, mark completion, record actual sets/water, sync account-owned weekly documents. Formulation runs locally online/offline; it is not generative AI.
 - Progress: Analytics, Documentation and Achievements, real plan/visit statistics, editable body/wellness records, private photos and conditional weight-trend outlook.
-- AI coach: separate authenticated AI Gateway stream. Home/Social/Settings also contain prototype/sample UI; see handoff before assuming complete backend integration.
+- AI coach: separate authenticated AI Gateway stream. Home/Settings still contain prototype/sample UI. Social now has account-backed community sections; see [SOCIAL_SETUP.md](SOCIAL_SETUP.md) for the migration, cleanup cron and nearby map setup.
 
 Offline features require opening/signing in online and relevant data downloads first. Full offline cold-start/login is not implemented. Public service worker never caches private data; Progress journal/photo writes need internet.
 

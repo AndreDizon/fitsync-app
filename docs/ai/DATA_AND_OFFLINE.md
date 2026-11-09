@@ -69,7 +69,7 @@ Browser calls same-origin frontend `/api`; proxy supplies verified Bearer token 
 | `/api/progress/photo` | POST multipart | Bounded image processing + private upload/metadata |
 | `/api/progress/profile` | PATCH | Own targetWeightKg metadata update |
 
-There is no exercise/food browsing API. Social has some direct Supabase writes, not a complete backend social graph/feed. Private responses are no-store; authentication failures 401 and conflicts 409 must not become silent success. Plan/playlist bodies are bounded around 256 KiB and parsers constrain counts/amounts. Progress loads up to 1,000 entries/visits/weeks per type and signals a limit.
+There is no exercise/food browsing API. Social uses authenticated backend RPCs, a private image bucket and quarterly purge; see `SOCIAL_SETUP.md`. Social publishing and nearby maps require a connection. Private responses are no-store; authentication failures 401 and conflicts 409 must not become silent success. Plan/playlist bodies are bounded around 256 KiB and parsers constrain counts/amounts. Progress loads up to 1,000 entries/visits/weeks per type and signals a limit.
 
 ## Offline matrix
 

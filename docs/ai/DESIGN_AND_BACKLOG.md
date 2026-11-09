@@ -20,7 +20,7 @@ One default theme: Fox Energy, vibrant daytime yellow/white/black with warm crea
 | Area | Current limitation |
 | --- | --- |
 | Home | Fixed date/sample streak/calorie/movement/examples; toggles not canonical My Plan |
-| Social | Hardcoded community count/people/gyms, in-memory preview posts, partial writes, preview like IDs |
+| Social | Three account-backed overview sections and full detail views implemented; hosted migration and cron secrets need setup. Hero count remains decorative. Moderation/reporting and verified credentials are future work. |
 | Settings | Some inert edit/notification/offline/export/delete controls |
 | Contact | Footer coming soon only |
 | Preparation animation | Copy says generation will be connected next although daily formulation exists |
@@ -30,7 +30,7 @@ One default theme: Fox Energy, vibrant daytime yellow/white/black with warm crea
 Further considerations:
 
 1. Use canonical plan/progress data when wiring Home; do not create another independent tracker.
-2. Social needs schema/RLS and real fetch/pagination/update/delete/IDs before being called integrated. GPS display is not a location service; connect/comments are previews.
+2. Social now has schema/RLS, real post IDs, CRUD, comments, hearts, pagination and opt-in GPS facility search. Run the migration and configure cleanup as documented in `SOCIAL_SETUP.md`. Moderation/reporting and verified credentials are still needed before a broad public launch.
 3. Weight logs do not silently rewrite onboarding. Profile changes do not retroactively regenerate schedules.
 4. Progress awards are personal self-tracking, not tamper-proof rewards. Owner policies permit award inserts. Strong scoring needs privileged eligibility enforcement.
 5. Totals derive from current historical plans, not immutable completion events; replacement/unmarking can change them. Already earned awards persist.
@@ -47,4 +47,4 @@ Read shared type/parser, API, SQL and cache layers before changing private data 
 
 Catalogs stay informational. Reuse full details in pickers, freeze thumbnails until play, retain preparation states and gram-backed portions, avoid invented source values. Planning and forecast heuristics do not promise medical outcomes, precise body-fat loss or muscle gain. Coach AI and deterministic planner are separate features.
 
-Suggested priorities (not additional authorization): live real-account plan-to-progress smoke test; canonical Home metrics; preparation-copy cleanup; real Social schema; contact/export/delete-account flows; committed responsive tab UI checks. Do not implement these solely because this document lists them.
+Suggested priorities (not additional authorization): live real-account plan-to-progress smoke test; canonical Home metrics; preparation-copy cleanup; Social moderation and live migration verification; contact/export/delete-account flows; committed responsive tab UI checks. Do not implement these solely because this document lists them.

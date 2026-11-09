@@ -23,7 +23,10 @@ Backend independently verifies Bearer tokens with Supabase `auth.getUser(token)`
 | Files | Responsibility |
 | --- | --- |
 | `frontend/app/page.tsx` | Auth/onboarding gate and account props to dashboard |
-| `frontend/components/dashboard.tsx` | Shell, section state, Home, PlansWorkspace, Social, Settings, footer |
+| `frontend/components/dashboard.tsx` | Shell, section state, Home, PlansWorkspace, Social hero, Settings, footer |
+| `frontend/components/social-workspace.tsx` | Forum, coaches/buddies and gym posts, comments, filters and editor |
+| `frontend/components/social-facilities.tsx` | GPS permission, Leaflet map, nearest facility results and walking directions |
+| `backend/app/api/social/` | Authenticated community RPC, images, nearby search and protected cleanup cron |
 | `frontend/components/auth-screen.tsx`, `frontend/app/auth/actions.ts` | Shared auth form UI and server mutations |
 | `frontend/lib/auth/*` | Server clients, validation, localhost tester, tester onboarding |
 | `frontend/components/onboarding.tsx`, `body-focus-map.tsx` | Preferences wizard and highlighted body areas |

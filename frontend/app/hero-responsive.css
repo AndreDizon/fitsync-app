@@ -399,7 +399,7 @@
   }
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 768px) and (width < 1025px) {
   .theme-default .home-page .home-greeting-frame .greeting-with-mascot,
   .theme-default .plan-workspace .plan-hero-frame,
   .theme-default .social-flow .social-hero-frame,
@@ -713,7 +713,7 @@
   }
 }
 
-@media (max-width: 767px) {
+@media (width < 768px) {
   .theme-default .home-page .home-greeting-frame .greeting-with-mascot,
   .theme-default .plan-workspace .plan-hero-frame,
   .theme-default .social-flow .social-hero-frame,
@@ -1065,7 +1065,7 @@
   }
 }
 
-@media (min-width: 900px) and (max-width: 1024px) {
+@media (min-width: 900px) and (width < 1025px) {
   .theme-default .home-page .home-greeting-frame .home-card-art,
   .theme-default .plan-workspace .plans-mascot-hero .plan-mode-art,
   .theme-default .social-flow .social-hero-card .social-card-art,
@@ -1085,7 +1085,7 @@
   }
 }
 
-@media (max-width: 380px) {
+@media (width < 381px) {
   .theme-default .home-page .home-greeting-frame .greeting-with-mascot,
   .theme-default .plan-workspace .plan-hero-frame,
   .theme-default .social-flow .social-hero-frame,
@@ -1140,14 +1140,14 @@
   }
 }
 
-@media (max-width: 1024px) {
+@media (width < 1025px) {
   .theme-default .social-flow .social-hero-frame {
     padding-top: 0;
     padding-bottom: 0;
   }
 }
 
-@media (max-width: 1024px) {
+@media (width < 1025px) {
   .theme-default .progress-workspace .pr-hero .pr-streak-card {
     display: none;
   }
@@ -1185,7 +1185,7 @@
   transform: translateY(-50%);
 }
 
-@media (max-width: 767px) {
+@media (width < 768px) {
   .theme-default .progress-workspace .pr-tabs-bar {
     width: min(680px, calc(100% - 50px));
     margin-left: calc(-1 * var(--page-gutter));
@@ -1204,7 +1204,7 @@
   }
 }
 
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (min-width: 768px) and (width < 1025px) {
   .theme-default .progress-workspace .pr-tabs-bar {
     width: 620px;
     margin-left: calc(-1 * var(--page-gutter));
@@ -1275,4 +1275,237 @@
   height: 100%;
   min-height: 0;
   padding-block: 0;
+}
+
+/* Scale the Social date control with its hero instead of keeping phone-sized fixed widths. */
+.theme-default .social-hero-card .social-date-filter {
+  box-sizing: border-box;
+  width: fit-content;
+  max-width: 100%;
+  min-width: 0;
+  flex-wrap: nowrap;
+  gap: clamp(5px, 1.4cqw, 14px);
+  padding: clamp(6px, 1.2cqw, 12px) clamp(8px, 1.6cqw, 16px);
+  border-radius: clamp(10px, 2cqw, 20px);
+}
+.theme-default .social-hero-card .social-date-filter label {
+  flex: 0 0 auto;
+  font-size: clamp(8px, 1.3cqw, 13px);
+}
+.theme-default .social-hero-card .social-date-filter input {
+  box-sizing: border-box;
+  flex: 1 1 auto;
+  width: clamp(96px, 17cqw, 170px);
+  max-width: 100%;
+  min-width: 0;
+  min-height: 0;
+  height: clamp(26px, 4.2cqw, 42px);
+  padding: clamp(4px, .7cqw, 7px) clamp(5px, 1cqw, 10px);
+  font-size: clamp(9px, 1.3cqw, 13px);
+  border-radius: clamp(7px, 1.2cqw, 12px);
+}
+.theme-default .social-hero-card .social-date-filter input::-webkit-calendar-picker-indicator {
+  width: clamp(10px, 1.5cqw, 15px);
+  height: clamp(10px, 1.5cqw, 15px);
+  padding: 0;
+  margin-left: clamp(2px, .4cqw, 4px);
+}
+.theme-default .social-hero-card .social-date-filter input::-webkit-date-and-time-value {
+  min-width: 0;
+  text-align: left;
+}
+
+
+/* Shared compact hero typography. Keep controls and artwork page-specific. */
+@media (width < 1025px) {
+  .theme-default :is(.home-greeting-frame, .plan-workspace, .social-flow, .progress-workspace) {
+    --hero-copy-inset: clamp(18px, 3cqw, 28px);
+    --hero-heading-size: clamp(21px, 4.1cqw, 38px);
+    --hero-label-size: clamp(8px, 1.25cqw, 11px);
+    --hero-subtitle-size: clamp(12px, 1.8cqw, 16px);
+    --hero-copy-gap: clamp(9px, 1.5cqw, 14px);
+    --hero-art-reserve: clamp(112px, 25cqw, 220px);
+  }
+  .theme-default .home-page .home-greeting-frame .greeting-copy,
+  .theme-default .plan-workspace .plans-mascot-hero .plan-hero-copy,
+  .theme-default .social-flow .social-hero-card .social-intro,
+  .theme-default .progress-workspace .pr-hero .pr-hero-copy {
+    box-sizing: border-box;
+    align-self: flex-start;
+    min-height: 0;
+    text-align: left;
+  }
+  .theme-default .plan-workspace .plans-mascot-hero .plan-hero-copy,
+  .theme-default .social-flow .social-hero-card .social-intro,
+  .theme-default .progress-workspace .pr-hero .pr-hero-copy {
+    width: calc(100% - var(--hero-art-reserve));
+    max-width: calc(100% - var(--hero-art-reserve));
+  }
+  .theme-default .home-page .home-greeting-frame .greeting-copy,
+  .theme-default .plan-workspace .plans-mascot-hero,
+  .theme-default .social-flow .social-hero-card,
+  .theme-default .progress-workspace .pr-hero {
+    padding: var(--hero-copy-inset);
+    justify-content: flex-start;
+  }
+  .theme-default .home-page .home-greeting-frame .greeting-copy :is(.eyebrow, h1, .muted) {
+    width: calc(100% - var(--hero-art-reserve));
+    max-width: calc(100% - var(--hero-art-reserve));
+  }
+  .theme-default .home-page .home-greeting-frame .greeting-copy > .eyebrow,
+  .theme-default .plan-workspace .plans-mascot-hero .plan-hero-copy .eyebrow,
+  .theme-default .social-flow .social-hero-card .social-intro .eyebrow,
+  .theme-default .progress-workspace .pr-hero .pr-hero-copy .pr-eyebrow {
+    margin: 0;
+    font-family: Inter, ui-sans-serif, sans-serif;
+    font-size: var(--hero-label-size);
+    font-weight: 800;
+    line-height: 1.5;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: #7c704e;
+    transform: none;
+  }
+  .theme-default .home-page .home-greeting-frame .greeting-copy h1,
+  .theme-default .plan-workspace .plans-mascot-hero .plan-hero-copy h1,
+  .theme-default .social-flow .social-hero-card .social-intro h1,
+  .theme-default .progress-workspace .pr-hero .pr-hero-copy h1 {
+    margin: var(--hero-copy-gap) 0;
+    font-size: var(--hero-heading-size);
+    font-weight: 750;
+    line-height: 1.12;
+    letter-spacing: -.045em;
+    white-space: normal;
+    text-shadow: 2px 3px 2px #e9822652, 4px 6px 8px #e982262e;
+  }
+  .theme-default .home-page .home-greeting-frame .greeting-with-mascot .greeting-copy > .muted,
+  .theme-default .plan-workspace .plans-mascot-hero .plan-hero-copy > .intro,
+  .theme-default .social-flow .social-hero-card .social-intro > div > .intro,
+  .theme-default .progress-workspace .pr-hero .pr-hero-copy > p:last-child {
+    margin: 0;
+    max-width: 100%;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: var(--hero-subtitle-size);
+    font-weight: 400;
+    font-style: italic;
+    line-height: 1.5;
+    letter-spacing: -.01em;
+    color: #5f543d;
+    white-space: normal;
+    transform: none;
+  }
+  .theme-default .social-flow .social-hero-card .social-subtitle-ending {display: inline;}
+  .theme-default .plan-workspace .plans-mascot-hero .plan-mode-switch,
+  .theme-default .social-flow .social-hero-card .social-date-filter {
+    margin-top: var(--hero-copy-gap);
+  }
+}
+@media (width < 381px) {
+  .theme-default .plan-workspace .plans-mascot-hero .plan-hero-copy,
+  .theme-default .social-flow .social-hero-card .social-intro,
+  .theme-default .progress-workspace .pr-hero .pr-hero-copy ,
+  .theme-default .home-page .home-greeting-frame .greeting-copy :is(.eyebrow, h1, .muted) {
+    width: 100%;
+    max-width: 100%;
+  }
+}
+
+@media (width < 1025px) {
+  .theme-default .home-page .home-greeting-frame .greeting-copy :is(.greeting-salutation, .greeting-progress),
+  .theme-default .plan-workspace .plans-mascot-hero .plan-title-highlight,
+  .theme-default .social-flow .social-hero-card .plan-title-highlight,
+  .theme-default .progress-workspace .pr-hero-copy h1 > span {
+    color: #fff;
+    -webkit-text-stroke: clamp(.5px, .09cqw, .85px) #95731d;
+    paint-order: stroke fill;
+  }
+}
+
+/* Compact hero content: a tighter composition with an editorial detail strip. */
+.theme-default .compact-hero-detail {display: none;}
+@media (width < 1025px) {
+  .theme-default .home-page .home-greeting-frame .greeting-copy,
+  .theme-default .plan-workspace .plans-mascot-hero,
+  .theme-default .social-flow .social-hero-card,
+  .theme-default .progress-workspace .pr-hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-bottom: 48px;
+  }
+  .theme-default .plan-workspace .plans-mascot-hero,
+  .theme-default .progress-workspace .pr-hero {gap: 0;}
+  .theme-default .home-page .home-greeting-frame .greeting-copy .compact-hero-detail,
+  .theme-default .plan-workspace .plans-mascot-hero .compact-hero-detail,
+  .theme-default .social-flow .social-hero-card .compact-hero-detail,
+  .theme-default .progress-workspace .pr-hero .compact-hero-detail {
+    display: flex;
+    position: absolute;
+    z-index: 2;
+    inset: auto var(--hero-copy-inset) 12px;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    height: 24px;
+    padding-top: 9px;
+    border-top: 1px solid #bd96352b;
+    color: #9b772b;
+    pointer-events: none;
+  }
+  .theme-default .compact-hero-detail > div {display: flex;align-items: center;gap: 9px;}
+  .theme-default .compact-hero-detail span {font-family: Inter, sans-serif;font-size: clamp(7px, .95cqw, 9px);font-weight: 750;letter-spacing: .1em;white-space: nowrap;}
+  .theme-default .compact-hero-detail span + span::before {content: '';display: inline-block;width: 3px;height: 3px;margin: 0 9px 2px 0;border-radius: 50%;background: #df9d35;}
+  .theme-default .compact-hero-detail svg {width: clamp(52px, 15cqw, 140px);height: 22px;opacity: .65;}
+  .theme-default .social-flow .detail-social svg {stroke-dasharray: 3 4;}
+  .theme-default .plan-workspace .detail-plans svg {transform: skewX(-12deg);}
+  .theme-default .home-page .home-greeting-frame .greeting-copy .home-card-art,
+  .theme-default .plan-workspace .plans-mascot-hero .plan-mode-art,
+  .theme-default .social-flow .social-hero-card .social-card-art,
+  .theme-default .progress-workspace .pr-hero .progress-card-art {top: calc(50% - 12px);}
+}
+@media (768px <= width < 1025px) {
+  .theme-default .home-page .home-greeting-frame .greeting-copy,
+  .theme-default .plan-workspace .plans-mascot-hero,
+  .theme-default .social-flow .social-hero-card,
+  .theme-default .progress-workspace .pr-hero {height: 240px;min-height: 240px;max-height: 240px;}
+  .theme-default .home-page .home-greeting-frame .greeting-copy {top: 50px;transform: none;}
+  .theme-default .social-flow .social-hero-frame {align-items: flex-start;padding-top: 50px;}
+}
+@media (width < 381px) {
+  .theme-default .home-page .home-greeting-frame .greeting-copy,
+  .theme-default .plan-workspace .plans-mascot-hero,
+  .theme-default .social-flow .social-hero-card,
+  .theme-default .progress-workspace .pr-hero {height: 240px;min-height: 240px;max-height: 240px;aspect-ratio: auto;}
+  .theme-default .home-page .home-greeting-frame .greeting-with-mascot,
+  .theme-default .plan-workspace .plan-hero-frame,
+  .theme-default .social-flow .social-hero-frame,
+  .theme-default .progress-workspace .pr-hero-frame {height: 330px;}
+  .theme-default .home-page .home-greeting-frame .greeting-copy {top: 45px;transform: none;}
+  .theme-default .social-flow .social-hero-frame {align-items: flex-start;padding-top: 45px;}
+}
+
+/* A compact date toolbar within the tablet hero. */
+@media (768px <= width < 1025px) {
+  .theme-default .social-flow .social-hero-card .social-date-filter {
+    padding: 5px 8px;
+    gap: 8px;
+    border-radius: 12px;
+    margin-top: 10px;
+  }
+  .theme-default .social-flow .social-hero-card .social-date-filter label {
+    font-size: 10px;
+    line-height: 1.3;
+  }
+  .theme-default .social-flow .social-hero-card .social-date-filter input {
+    flex: 0 1 132px;
+    width: 132px;
+    height: 32px;
+    padding: 4px 7px;
+    font-size: 11px;
+    border-radius: 8px;
+  }
+  .theme-default .social-flow .social-hero-card .social-date-filter input::-webkit-calendar-picker-indicator {
+    width: 12px;
+    height: 12px;
+  }
 }
