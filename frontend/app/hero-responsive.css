@@ -1182,3 +1182,14 @@
     min-height: 0;
   }
 }
+
+.theme-default .plan-workspace .plan-hero-frame > .plan-tabs {
+  height: clamp(38px, 5cqw, 52px);
+  min-height: 0;
+}
+
+.theme-default .plan-workspace .plan-hero-frame > .plan-tabs button {
+  height: 100%;
+  min-height: 0;
+  padding-block: 0;
+}
