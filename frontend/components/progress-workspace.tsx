@@ -30,12 +30,12 @@ function TrendChart({ points, label, unit, color = '#597bb4', entries = [], metr
   </svg><figcaption>{label} · {unit} · {sorted.length} entries</figcaption>{manageTable}</figure>
 }
 
-export function ProgressWorkspace() {
+export function ProgressWorkspace({ initialTab = 'analytics' }: { initialTab?: 'analytics' | 'documentation' | 'achievements' }) {
   const owner = usePlanAccount(), profile = usePlanningProfile(), zone = profile?.timeZone || 'Asia/Manila'
   const [clock,setClock] = useState(()=>new Date()), today = dateInZone(zone,clock), lastDate = useRef(today)
   const [snapshot,setSnapshot] = useState<ProgressSnapshot|null>(null), [error,setError] = useState(''), [notice,setNotice] = useState(''), [loading,setLoading] = useState(true), [busy,setBusy] = useState(false), [version,setVersion] = useState(0)
   const [appStreak,setAppStreak] = useState<number|null>(null), [streakUnavailable,setStreakUnavailable] = useState(false)
-  const [tab,setTab] = useState('analytics')
+  const [tab,setTab] = useState<string>(initialTab)
   const [range,setRange] = useState(84), [calendarMode,setCalendarMode] = useState('completion'), [bodyMetric,setBodyMetric] = useState('weightKg'), [wellnessMetric,setWellnessMetric] = useState('energy')
   const [editor,setEditor] = useState<{kind:ProgressKind;entry?:ProgressEntry}|null>(null), [entryId,setEntryId] = useState(''), [form,setForm] = useState<Record<string,string>>({}), [photo,setPhoto] = useState<File|null>(null), [formError,setFormError] = useState('')
   const [compare,setCompare] = useState<string[]>([])

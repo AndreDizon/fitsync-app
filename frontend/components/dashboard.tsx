@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 import { SocialWorkspace } from '@/components/social-workspace'
+import { HomeDashboard, type HomeDestination } from '@/components/home-dashboard'
 import { HeroDetail } from '@/components/hero-detail'
 import { Wordmark } from '@/components/wordmark'
 import { PlaylistAccountProvider } from '@/lib/playlist-account'
@@ -82,15 +83,13 @@ function App({ userName, userEmail }: { userName: string; userEmail: string }) {
   const navigation = usePlaylistNavigation()
   const [active, setActiveState] = useState<Section>('home')
   const [planTab, setPlanTabState] = useState<PlanTab>('plan')
-  const setActive = (section: Section) => { if (section !== active && (navigation?.current() ?? true)) setActiveState(section) }
+  const setActive = (section: Section) => { if (section !== active && (navigation?.current() ?? true)) { setHomeTarget(null); setActiveState(section) } }
   const setPlanTab = (tab: PlanTab) => { if (tab !== planTab && (navigation?.current() ?? true)) setPlanTabState(tab) }
-  const [water, setWater] = useState(4)
-  const [done, setDone] = useState<string[]>([])
+  const [homeTarget, setHomeTarget] = useState<HomeDestination | null>(null)
 
   const [navOpen, setNavOpen] = useState(false)
   const menuButtonRef = useRef<HTMLButtonElement>(null)
   const drawerRef = useRef<HTMLElement>(null)
-  const [focusMode, setFocusMode] = useState(false)
   const [navHidden, setNavHidden] = useState(false)
 
   useEffect(() => {
@@ -136,7 +135,11 @@ function App({ userName, userEmail }: { userName: string; userEmail: string }) {
 
   const navigate = (section: Section) => { setActive(section); setNavOpen(false) }
 
-  const toggleDone = (item: string) => setDone((current) => current.includes(item) ? current.filter((x) => x !== item) : [...current, item])
+  const openFromHome = (target: HomeDestination) => {
+    if (!(navigation?.current() ?? true)) return
+    setHomeTarget(target); setPlanTabState(target.tab || 'plan'); setActiveState(target.page)
+    window.scrollTo({ top: 0, behavior: 'instant' })
+  }
 
   return (
     <main className="app-shell theme-default">
@@ -151,11 +154,11 @@ function App({ userName, userEmail }: { userName: string; userEmail: string }) {
       <section className="content-wrap" inert={navOpen}>
         <header className="topbar"><div className="header-brand"><button className="menu-toggle" ref={menuButtonRef} onClick={() => setNavOpen(true)} aria-label="Open navigation" aria-expanded={navOpen} aria-controls="left-navigation"><Menu size={22} /></button><div className="mobile-brand"><Logo /><Wordmark /></div></div><div className="top-actions"><button aria-label="Search"><Search size={19} /></button><button className="profile-button" onClick={() => setActive('settings')}><div className="avatar small">{initials}</div><span>{firstName}</span><ChevronRight size={15} /></button></div></header>
 
-        {active === 'home' && <HomeView displayName={firstName} timeZone={timeZone} water={water} setWater={setWater} done={done} toggleDone={toggleDone} onNavigate={setActive} focusMode={focusMode} setFocusMode={setFocusMode} />}
-        {active === 'plans' && <PlansWorkspace tab={planTab} setTab={setPlanTab} />}
+        {active === 'home' && <HomeView displayName={firstName} timeZone={timeZone} onOpen={openFromHome} />}
+        {active === 'plans' && <PlansWorkspace tab={planTab} setTab={setPlanTab} initialMode={homeTarget?.mode} focusWater={homeTarget?.water} />}
         {active === 'library' && <LibraryView />}
-        {active === 'social' && <SocialView />}
-        {active === 'progress' && <ProgressWorkspace />}
+        {active === 'social' && <SocialView initialSection={homeTarget?.socialSection} />}
+        {active === 'progress' && <ProgressWorkspace initialTab={homeTarget?.progressTab} />}
         {active === 'settings' && <SettingsView userName={userName} userEmail={userEmail} initials={initials} />}
         <AppFooter onNavigate={(section) => { navigate(section); setNavHidden(false); window.scrollTo(0, 0) }} onPlaylist={() => { setPlanTab('playlist'); navigate('plans'); setNavHidden(false); window.scrollTo(0, 0) }} />
       </section>
@@ -181,7 +184,7 @@ function AppFooter({ onNavigate, onPlaylist }: { onNavigate: (section: Section) 
   </footer>
 }
 
-function HomeView({ displayName, timeZone, water, setWater, done, toggleDone, onNavigate, focusMode, setFocusMode }: { displayName: string; timeZone: string; water: number; setWater: (v: number) => void; done: string[]; toggleDone: (s: string) => void; onNavigate: (s: Section) => void; focusMode: boolean; setFocusMode: (value: boolean) => void }) {
+function HomeView({ displayName, timeZone, onOpen }: { displayName: string; timeZone: string; onOpen: (destination: HomeDestination) => void }) {
   const owner = usePlanAccount()
   const [now, setNow] = useState(() => new Date())
   const [streak, setStreak] = useState<number | null>(null)
@@ -222,22 +225,15 @@ function HomeView({ displayName, timeZone, water, setWater, done, toggleDone, on
       document.removeEventListener('visibilitychange', updateWhenVisible)
     }
   }, [owner, timeZone])
-  const dailyWins = ['Lower body strength', 'Greek yogurt parfait'].filter((item) => done.includes(item)).length
   const dateLabel = new Intl.DateTimeFormat('en-US', { weekday: 'long', month: 'long', day: 'numeric', timeZone }).format(now)
-  return <div className={`page home-page ${focusMode ? 'focus-mode' : ''}`}><div className="ambient-shape shape-one" aria-hidden="true" /><div className="ambient-shape shape-two" aria-hidden="true" /><div className="home-greeting-frame"><div className="greeting greeting-with-mascot"><div className="greeting-copy"><p className="eyebrow home-date-eyebrow"><span>{timeZone}</span><span aria-hidden="true"> · </span><span>{dateLabel}</span></p><h1><span className="greeting-title-line"><span className="greeting-salutation">Good morning,</span> <span className="greeting-name">{displayName} <Sparkles className="greeting-spark" size={18} /></span></span><span className="greeting-title-line greeting-progress-line">today is for <span className="greeting-progress">Progress</span></span></h1><p className="muted">Every small step is a huge leap tommorow.</p><svg className="greeting-trend-art" viewBox="-88 -3 728 82" preserveAspectRatio="none" fill="none" aria-hidden="true" focusable="false"><defs><linearGradient id="greeting-trend-fill" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="125"><stop stopColor="#b28b46" stopOpacity=".28" /><stop offset=".55" stopColor="#bc8e37" stopOpacity=".13" /><stop offset="1" stopColor="#bc8e37" stopOpacity="0" /></linearGradient></defs><g fill="#70603c" fontFamily="Arial, Helvetica, sans-serif" fontSize="13" fontWeight="400" textAnchor="start">{[[8,"80 units"],[28,"50 units"],[48,"20 units"],[68,"0 units"]].map(([y,label]) => <text key={label} x="-84" y={Number(y) + 4}>{label}</text>)}</g><g stroke="#a88a49" strokeOpacity=".48" strokeWidth="1.2" strokeDasharray="4 4">{[8, 28, 48, 68].map((y) => <path key={y} d={`M-26 ${y}H637`} />)}</g><path d="M-26 86C-16 80 -6 74 3 68C25 50 40 45 60 45S100 52 120 52S160 38 180 38S225 56 245 56S305 25 330 25S385 45 410 45S465 14 485 14S515 28 535 28S585 8 610 8H632V125H-26Z" fill="url(#greeting-trend-fill)" /><path d="M-26 86C-16 80 -6 74 3 68C25 50 40 45 60 45S100 52 120 52S160 38 180 38S225 56 245 56S305 25 330 25S385 45 410 45S465 14 485 14S515 28 535 28S585 8 610 8H632" stroke="#ac8544" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" /><g fill="#ac8544" stroke="#fff7d9" strokeWidth="2.5">{[[60,45],[120,52],[180,38],[245,56],[330,25],[410,45],[485,14],[535,28]].map(([cx,cy]) => <circle key={cx} cx={cx} cy={cy} r="4.5" />)}</g><circle cx="632" cy="8" r="10" fill="#c99c48" fillOpacity=".14" /><circle cx="632" cy="8" r="6" fill="#ac8544" stroke="#fff7d9" strokeWidth="3" /></svg><HeroDetail variant="home" /><img className="hero-card-art home-card-art" src="/mascot/hero-fox-head.png" alt="" aria-hidden="true" /></div><div className="greeting-fox-stage"><img className="greeting-fox" src="/mascot/fox-greeting.png" alt="FitSync fox giving a thumbs-up" width={1138} height={1355} fetchPriority="high" /></div><div className="streak"><Flame size={19} fill="currentColor" /><strong>{streak ?? '—'}</strong><span>{streakUnavailable ? 'streak unavailable' : 'day streak'}</span></div></div></div>
-    <div className="hero-card"><svg className="home-hero-line-art" viewBox="0 0 280 180" fill="none" aria-hidden="true"><path d="M8 112h48l20-28 20 48 30-78 24 48h44l18-22h60" /><path d="M38 145h36m112-66h48" /><circle cx="126" cy="54" r="5" /><circle cx="194" cy="102" r="5" /></svg><div><p className="eyebrow light">YOUR DAILY FOCUS</p><h2>Move with intention.</h2><p>Complete your plan to keep your momentum going.</p><button className="light-button" onClick={() => onNavigate('plans')}>View today&apos;s plan <ArrowRight size={15} /></button></div><button className={`hero-orb ${focusMode ? 'is-focused' : ''}`} onClick={() => setFocusMode(!focusMode)} aria-pressed={focusMode} aria-label={focusMode ? 'Turn off focus mode' : 'Start focus mode'}><Dumbbell size={43} /><span>{focusMode ? 'Locked in' : 'Tap to focus'}</span></button></div>
-    <div className="daily-momentum"><div className="momentum-mascot" aria-hidden="true"><Logo /><span><Zap size={15} fill="currentColor" /></span></div><div className="momentum-copy"><p className="eyebrow">TODAY'S MOMENTUM</p><h2>Small wins. Big energy.</h2><p>Move a little. Fuel well. Make it yours.</p></div><div className="momentum-score"><strong>{dailyWins}<span> / 2</span></strong><span>daily wins</span><progress value={dailyWins} max={2} aria-label="Daily plan completion" /></div></div>
-    <div className="section-heading"><h2>Today at a glance</h2><button onClick={() => onNavigate('progress')}>See progress <ArrowRight size={15} /></button></div>
-    <div className="stats-grid"><div className="stat-card"><div className="stat-icon peach"><Flame size={18} /></div><strong>1,240</strong><span>kcal remaining</span><div className="progress-line"><i style={{ width: '46%' }} /></div></div><div className="stat-card"><div className="stat-icon mint"><Dumbbell size={18} /></div><strong>24 <small>min</small></strong><span>movement today</span><div className="progress-line mint-line"><i style={{ width: '65%' }} /></div></div><div className="stat-card water-card"><div className="stat-icon blue"><Activity size={18} /></div><strong>{water}<small>/ 8 glasses</small></strong><span>water tracker</span><button className="water-add" onClick={() => setWater(water >= 8 ? 0 : water + 1)}><Plus size={14} />Add glass</button></div></div>
-    <div className="section-heading"><h2>Tuesday&apos;s plan</h2><button onClick={() => onNavigate('plans')}>Full schedule <ArrowRight size={15} /></button></div>
-    <div className="plan-list">{[{ title: 'Lower body strength', meta: 'Workout · 28 min · Beginner', icon: Dumbbell, tone: 'peach' }, { title: 'Greek yogurt parfait', meta: 'Breakfast · 380 kcal', icon: Utensils, tone: 'mint' }].map((item) => <div className="plan-row" key={item.title}><div className={`row-icon ${item.tone}`}><item.icon size={19} /></div><div className="row-copy"><strong>{item.title}</strong><span>{item.meta}</span></div><button className={`check ${done.includes(item.title) ? 'checked' : ''}`} onClick={() => toggleDone(item.title)}>{done.includes(item.title) ? <Check size={16} /> : <span />}</button></div>)}</div>
-    <div className="section-heading"><h2>Explore <Wordmark /></h2></div><div className="explore-grid"><button onClick={() => onNavigate('social')}><MessageCircle size={20} /><strong>Ask AI coach</strong><span>Personalized answers</span></button><button onClick={() => onNavigate('library')}><BookOpen size={20} /><strong>Browse library</strong><span>Find your next move</span></button><button onClick={() => onNavigate('progress')}><Trophy size={20} /><strong>Progress log</strong><span>Celebrate your wins</span></button></div>
+  return <div className="page home-page"><div className="ambient-shape shape-one" aria-hidden="true" /><div className="ambient-shape shape-two" aria-hidden="true" /><div className="home-greeting-frame"><div className="greeting greeting-with-mascot"><div className="greeting-copy"><p className="eyebrow home-date-eyebrow"><span>{timeZone}</span><span aria-hidden="true"> · </span><span>{dateLabel}</span></p><h1><span className="greeting-title-line"><span className="greeting-salutation">Good morning,</span> <span className="greeting-name">{displayName} <Sparkles className="greeting-spark" size={18} /></span></span><span className="greeting-title-line greeting-progress-line">today is for <span className="greeting-progress">Progress</span></span></h1><p className="muted">Every small step is a huge leap tommorow.</p><svg className="greeting-trend-art" viewBox="-88 -3 728 82" preserveAspectRatio="none" fill="none" aria-hidden="true" focusable="false"><defs><linearGradient id="greeting-trend-fill" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="125"><stop stopColor="#b28b46" stopOpacity=".28" /><stop offset=".55" stopColor="#bc8e37" stopOpacity=".13" /><stop offset="1" stopColor="#bc8e37" stopOpacity="0" /></linearGradient></defs><g fill="#70603c" fontFamily="Arial, Helvetica, sans-serif" fontSize="13" fontWeight="400" textAnchor="start">{[[8,"80 units"],[28,"50 units"],[48,"20 units"],[68,"0 units"]].map(([y,label]) => <text key={label} x="-84" y={Number(y) + 4}>{label}</text>)}</g><g stroke="#a88a49" strokeOpacity=".48" strokeWidth="1.2" strokeDasharray="4 4">{[8, 28, 48, 68].map((y) => <path key={y} d={`M-26 ${y}H637`} />)}</g><path d="M-26 86C-16 80 -6 74 3 68C25 50 40 45 60 45S100 52 120 52S160 38 180 38S225 56 245 56S305 25 330 25S385 45 410 45S465 14 485 14S515 28 535 28S585 8 610 8H632V125H-26Z" fill="url(#greeting-trend-fill)" /><path d="M-26 86C-16 80 -6 74 3 68C25 50 40 45 60 45S100 52 120 52S160 38 180 38S225 56 245 56S305 25 330 25S385 45 410 45S465 14 485 14S515 28 535 28S585 8 610 8H632" stroke="#ac8544" strokeWidth="2.8" strokeLinecap="round" strokeLinejoin="round" /><g fill="#ac8544" stroke="#fff7d9" strokeWidth="2.5">{[[60,45],[120,52],[180,38],[245,56],[330,25],[410,45],[485,14],[535,28]].map(([cx,cy]) => <circle key={cx} cx={cx} cy={cy} r="4.5" />)}</g><circle cx="632" cy="8" r="10" fill="#c99c48" fillOpacity=".14" /><circle cx="632" cy="8" r="6" fill="#ac8544" stroke="#fff7d9" strokeWidth="3" /></svg><HeroDetail variant="home" /><img className="hero-card-art home-card-art" src="/mascot/hero-fox-head.png" alt="" aria-hidden="true" /></div><div className="greeting-fox-stage"><img className="greeting-fox" src="/mascot/fox-greeting.png" alt="FitSync fox giving a thumbs-up" width={1138} height={1355} fetchPriority="high" /></div><div className="streak"><Flame size={19} fill="currentColor" /><strong>{streak ?? '—'}</strong><span>{streakUnavailable ? 'streak unavailable' : 'day streak'}</span></div></div></div>
+    <HomeDashboard onOpen={onOpen} />
   </div>
 }
 
-function PlansWorkspace({ tab, setTab }: { tab: PlanTab; setTab: (tab: PlanTab) => void }) {
+function PlansWorkspace({ tab, setTab, initialMode = 'workout', focusWater = false }: { tab: PlanTab; setTab: (tab: PlanTab) => void; initialMode?: 'workout' | 'nutrition'; focusWater?: boolean }) {
   const navigation = usePlaylistNavigation()
-  const [mode, setModeState] = useState<'nutrition' | 'workout'>('workout')
+  const [mode, setModeState] = useState<'nutrition' | 'workout'>(initialMode)
   const setMode = (next: 'nutrition' | 'workout') => { if (next !== mode && (navigation?.current() ?? true)) setModeState(next) }
   return <div className="page plans-page plan-workspace">
     <div className="plan-hero-frame"><div className={`plans-hero plans-mascot-hero ${mode}`}><img className="hero-card-art plan-mode-art" src={mode === 'workout' ? '/mascot/hero-dumbbell.png' : '/mascot/hero-apple.png'} alt="" aria-hidden="true" />
@@ -246,7 +242,7 @@ function PlansWorkspace({ tab, setTab }: { tab: PlanTab; setTab: (tab: PlanTab) 
       <div className="plan-hero-mascot"><img src={mode === 'workout' ? '/mascot/fox-plan-workout.png' : '/mascot/fox-plan-nutrition.png'} alt={mode === 'workout' ? 'FitSync fox lifting a dumbbell' : 'FitSync fox enjoying an apple'} width="1254" height="1254" /></div>
     </div>
     <div className="plan-tabs" role="tablist" aria-label="Plan sections">{([{ id: 'plan', label: 'My plan', icon: CalendarDays }, { id: 'playlist', label: 'Playlist', icon: Play }, { id: 'library', label: 'Library', icon: BookOpen }] as const).map(({ id, label, icon: Icon }) => <button key={id} className={tab === id ? 'selected' : ''} onClick={() => setTab(id)} role="tab" aria-selected={tab === id}><Icon size={16} />{label}</button>)}</div></div>
-    <div className="plan-folder-content">{tab === 'plan' ? <MyPlanWorkspace kind={mode} /> : tab === 'playlist' ? <PlaylistManager key={mode} kind={mode} /> : mode === 'nutrition' ? <NutritionWorkspace tab="library" setTab={setTab} /> : <LibraryView />}</div>
+    <div className="plan-folder-content">{tab === 'plan' ? <MyPlanWorkspace kind={mode} focusWater={focusWater} /> : tab === 'playlist' ? <PlaylistManager key={mode} kind={mode} /> : mode === 'nutrition' ? <NutritionWorkspace tab="library" setTab={setTab} /> : <LibraryView />}</div>
   </div>
 }
 
@@ -263,10 +259,10 @@ function SocialHeroArtwork() {
     <img className="social-phone-fox" src="/mascot/fox-social-phone.png" width="1254" height="1254" alt="" />
   </div>
 }
-function SocialView() {
+function SocialView({ initialSection }: { initialSection?: 'forum' | 'people' | 'gym' }) {
   const [selectedDate, setSelectedDate] = useState('')
   return <div className="page social-page social-flow"><div className="social-hero-frame"><div className="social-hero-card"><HeroDetail variant="social" /><img className="hero-card-art social-card-art" src="/mascot/hero-social-phone.png" alt="" aria-hidden="true" /><svg className="social-hero-line-art" viewBox="0 0 800 350" preserveAspectRatio="none" fill="none" aria-hidden="true"><g stroke="currentColor" strokeWidth=".9"><path d="M0 58H170Q196 58 210 78L244 126Q258 146 286 146H800"/><path d="M0 74H160Q184 74 198 94L232 142Q246 162 274 162H800"/><path d="M0 90H150Q172 90 186 110L220 158Q234 178 262 178H800"/><path d="M0 286H200Q228 286 246 264L302 204Q320 186 348 186H800"/><path d="M0 302H212Q240 302 258 280L314 220Q332 202 360 202H800"/><path d="M0 318H224Q252 318 270 296L326 236Q344 218 372 218H800"/></g></svg><SocialHeroArtwork /><div className="social-intro"><div><p className="eyebrow">COMMUNITY · 12,840 MEMBERS</p><h1>Your support <span className="plan-title-highlight">circle</span></h1><p className="muted intro">A place to ask, share, and keep showing <span className="social-subtitle-ending">up together.</span></p></div><div className="community-orb" aria-hidden="true"><Users size={27} /></div></div><div className="social-date-filter"><label htmlFor="social-date">Show posts for:</label><input id="social-date" type="date" value={selectedDate} onChange={(event) => setSelectedDate(event.target.value)} /></div></div><aside className="social-connection-card"><Users size={24} aria-hidden="true" /><p>GLOBAL CONNECTION</p><strong>12,840</strong><span>community members</span></aside></div>
-    <SocialWorkspace date={selectedDate}/>
+    <SocialWorkspace date={selectedDate} initialSection={initialSection}/>
   </div>
 }
 

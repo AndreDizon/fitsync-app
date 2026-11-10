@@ -33,8 +33,8 @@ function SocialCover({kind}:{kind:Kind}){
   <aside className="sc-cover-art" aria-hidden="true"><div className="sc-cover-art-icon">{kind==='forum'?<MessageCircle size={42}/>:kind==='people'?<Users size={42}/>:<Dumbbell size={42}/>}</div><span>{kind==='forum'?'A LITTLE CHEER.':kind==='people'?'YOUR KIND':'FIND YOUR'}</span><strong>{kind==='forum'?'Big energy.':kind==='people'?'of people.':'happy place.'}</strong><div className="sc-cover-art-pills"><i/>{kind==='forum'?'Share your story':kind==='people'?'Grow together':'Move locally'}</div></aside>
  </div>
 }
-export function SocialWorkspace({date=''}:{date?:string}){
- const owner=usePlanAccount(),[active,setActive]=useState<Kind|null>(null),[previews,setPreviews]=useState<Partial<Record<Kind,Post[]>>>({}),[errors,setErrors]=useState<Partial<Record<Kind,string>>>({}),[loading,setLoading]=useState(true),[refresh,setRefresh]=useState(0)
+export function SocialWorkspace({date='',initialSection}:{date?:string;initialSection?:Kind}){
+ const owner=usePlanAccount(),[active,setActive]=useState<Kind|null>(initialSection ?? null),[previews,setPreviews]=useState<Partial<Record<Kind,Post[]>>>({}),[errors,setErrors]=useState<Partial<Record<Kind,string>>>({}),[loading,setLoading]=useState(true),[refresh,setRefresh]=useState(0)
  const root=useRef<HTMLDivElement>(null),lastSection=useRef<Kind|null>(null),previousOwner=useRef(owner)
  useEffect(()=>{if(previousOwner.current!==owner){setPreviews({});setErrors({});setActive(null);previousOwner.current=owner}},[owner])
  useEffect(()=>{if(active!==null)return;let live=true;setLoading(true);setErrors({});if(!owner){setPreviews({});setLoading(false);return}Promise.allSettled(sections.map(section=>api('list',{kind:section.id,date,page:0}))).then(results=>{if(!live)return;const next:Partial<Record<Kind,Post[]>>={},failed:Partial<Record<Kind,string>>={};results.forEach((result,index)=>{const key=sections[index].id;if(result.status==='fulfilled')next[key]=result.value.posts.slice(0,3);else failed[key]=result.reason?.message||'Could not load this section.'});setPreviews(next);setErrors(failed);setLoading(false)});return()=>{live=false}},[active,owner,date,refresh])
