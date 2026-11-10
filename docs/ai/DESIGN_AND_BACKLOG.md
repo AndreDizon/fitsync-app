@@ -19,7 +19,7 @@ One default theme: Fox Energy, vibrant daytime yellow/white/black with warm crea
 
 | Area | Current limitation |
 | --- | --- |
-| Home | Fixed date/sample streak/calorie/movement/examples; toggles not canonical My Plan |
+| Home/chat | Summaries use saved account data; AI chat needs an OpenRouter key and internet. No persisted chat history. |
 | Social | Three account-backed overview sections and full detail views implemented; hosted migration and cron secrets need setup. Hero count remains decorative. Moderation/reporting and verified credentials are future work. |
 | Settings | Some inert edit/notification/offline/export/delete controls |
 | Contact | Footer coming soon only |
@@ -29,7 +29,7 @@ One default theme: Fox Energy, vibrant daytime yellow/white/black with warm crea
 
 Further considerations:
 
-1. Use canonical plan/progress data when wiring Home; do not create another independent tracker.
+1. Home uses canonical plan/progress data; preserve this shared source instead of introducing independent trackers.
 2. Social now has schema/RLS, real post IDs, CRUD, comments, hearts, pagination and opt-in GPS facility search. Run the migration and configure cleanup as documented in `SOCIAL_SETUP.md`. Moderation/reporting and verified credentials are still needed before a broad public launch.
 3. Weight logs do not silently rewrite onboarding. Profile changes do not retroactively regenerate schedules.
 4. Progress awards are personal self-tracking, not tamper-proof rewards. Owner policies permit award inserts. Strong scoring needs privileged eligibility enforcement.
@@ -47,4 +47,12 @@ Read shared type/parser, API, SQL and cache layers before changing private data 
 
 Catalogs stay informational. Reuse full details in pickers, freeze thumbnails until play, retain preparation states and gram-backed portions, avoid invented source values. Planning and forecast heuristics do not promise medical outcomes, precise body-fat loss or muscle gain. Coach AI and deterministic planner are separate features.
 
-Suggested priorities (not additional authorization): live real-account plan-to-progress smoke test; canonical Home metrics; preparation-copy cleanup; Social moderation and live migration verification; contact/export/delete-account flows; committed responsive tab UI checks. Do not implement these solely because this document lists them.
+Suggested priorities (not additional authorization): live real-account plan-to-progress smoke test; preparation-copy cleanup; Social moderation and live migration verification; contact/export/delete-account flows; committed responsive tab UI checks. Do not implement these solely because this document lists them.
+
+## UI implementation guide
+
+Design workflow informed by Anthropic?s Apache-2.0 frontend-design skill: https://github.com/anthropics/skills/tree/main/skills/frontend-design. User preferences always win over generic skill advice.
+
+Keep the existing typefaces and hero treatments. Core colors: yellow `#FFDC38`, page `#FAF8F3`, paper `#FFFEFA`, charcoal `#23261E`, supporting blue `#E4EDF9`, and nutrition green `#E7EDDF`. Use labels/icons alongside color to communicate meaning.
+
+Phone Home prioritizes a full-width daily plan and water tracker, two compact stats, navigation summaries and swipeable tips. Libraries share three columns above 760px, two from 351?760px, and one at 350px and below. Food cards retain portion/nutrient information. Review screenshots with real long names, loaded/empty/error states and actual app padding. Preserve keyboard focus, usable touch controls and reduced motion. Do not change shared hero styling during body-only work.

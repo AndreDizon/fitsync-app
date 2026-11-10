@@ -40,7 +40,8 @@ Backend independently verifies Bearer tokens with Supabase `auth.getUser(token)`
 | `frontend/components/plan-time-input.tsx` | Editable time field with native picker behavior |
 | `frontend/components/progress-workspace.tsx` | Three Progress tabs and journal/photo/goal actions |
 | `frontend/components/plan-signout.tsx` | Pending private data signout dialog |
-| `frontend/components/coach-chat.tsx` | Streaming chat client |
+| `frontend/components/coach-chat.tsx` | Authenticated form/dialog chat client; tab-local conversation |
+| `frontend/components/home-dashboard.tsx` | Account summaries and page/tab shortcuts |
 | `frontend/components/wordmark.tsx` | Shared FitSync branding; reuse rather than restyling text individually |
 
 ## Shared domain modules
@@ -77,7 +78,7 @@ Global imports are in `frontend/app/layout.tsx`; feature components may also imp
 - `exercise-library.css`, `food-library.css`: public references.
 - `progress.css`: tab layout, charts, cards, journal, photos, awards, editor.
 - `day-selector.css`, `schedule.css`: older plan schedule design; inspect whether current component actually uses a rule before editing it.
-- `footer.css`, `coach-chat.css`: shared footer and chat.
+- `footer.css`: shared footer. `home-dashboard.css`: Home body and current chat dialog.
 
 ## Assets and generated artifacts
 

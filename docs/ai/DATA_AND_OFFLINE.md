@@ -21,6 +21,7 @@ Apply migrations in order:
 2. `backend/migrations/20261108_playlist_schedule.sql`: weekdays/rest days/times, validation and backfill.
 3. `backend/migrations/20261109_daily_plans.sql`: weekly schedules/water/revisions; clears old nutrition rest flags.
 4. `backend/migrations/20261110_progress.sql`: journal/visit/award tables and private photo policies.
+5. `backend/migrations/20261111_social.sql`: community posts, comments, hearts, posting limits, private images and cleanup.
 
 Run SQL contents, not filenames. Success with no returned rows is normal. Saving editor text is optional; running applies DB changes. Local migration tests do not migrate hosted production. The live handoff probe confirmed three Progress tables exist and reject anonymous access, not every policy/bucket setting.
 
@@ -57,7 +58,7 @@ Browser calls same-origin frontend `/api`; proxy supplies verified Bearer token 
 | Endpoint | Methods | Purpose |
 | --- | --- | --- |
 | `/api/health` | GET | Public reachability |
-| `/api/coach` | POST | Authenticated streaming AI Gateway chat |
+| `/api/coach` | POST | Authenticated JSON chat through OpenRouter, up to five verified free models |
 | `/api/playlists` | GET, POST | Collection and create |
 | `/api/playlists/[id]` | PUT, DELETE | Owner/revision protected mutation |
 | `/api/plans?week=YYYY-MM-DD` | GET | User Monday-start week |

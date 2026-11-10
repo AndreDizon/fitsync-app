@@ -23,7 +23,7 @@ Copy each `.env.example` to `.env.local`, populate privately, never commit. Do n
 | Both | NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY | Public key; legacy ANON variable supported |
 | Frontend | BACKEND_URL | Backend origin only, no /api |
 | Frontend | NEXT_PUBLIC_SITE_URL | App origin for auth callbacks |
-| Backend | AI_GATEWAY_API_KEY | Secret coach credential |
+| Backend | OPENROUTER_API_KEY | Optional secret chat credential; see HOME_SETUP.md |
 | Frontend localhost only | DEV_TEST_* | Signed tester settings; inspect AUTH_SETUP.md |
 
 Public key is not service role. Never put service-role/secret key in NEXT_PUBLIC variables. Normal app APIs use user tokens, not administrative credentials. Demo-account maintenance script needs separately authorized privileged credentials; existence of a seed script does not mean the demo account was created.

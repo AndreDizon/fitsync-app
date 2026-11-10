@@ -124,7 +124,7 @@ Forecast uses observed weight trend only when sufficient reliable adult data exi
 
 ## Partially implemented sections
 
-**Home:** personalized name, design and navigation work. Date, 12-day streak, calorie/movement figures and example tasks include hardcoded data; water/completion state here is not yet the canonical My Plan data. Do not call Home fully data-driven.
+**Home:** reads the canonical saved daily plan, water tracker, progress, playlists and recent community counts. Shortcuts open matching modes/tabs. See the Home section below and `HOME_SETUP.md`.
 
 **Social:** existing earth/phone mascot hero above one overview with three preview sections: Open forum, Coaches & gym buddies, Gyms & facilities. View more opens the selected section and Back to community returns to the overview. `SocialWorkspace` provides real account-backed CRUD, forum hearts, comments, own-post filters, search and pagination through `/api/social` and `community_action`. SQL enforces two new forum/gym posts per UTC day and one active introduction. Posts expire together every calendar quarter; daily backend cron purges data and queued images. GPS + Leaflet/OpenStreetMap nearby search is opt-in, with free Overpass fallback endpoints and external walking directions. Requires `20261111_social.sql`; cron needs backend-only secrets. The hero community count remains decorative legacy content. See `SOCIAL_SETUP.md`.
 

@@ -1,6 +1,6 @@
 # Social community setup
 
-The Social body has one overview with three preview sections: Open forum, Coaches & gym buddies, and Gyms & facilities. Each View more button replaces the body with that section?s full feed and tools. Back to community returns to its overview section. The existing hero stays in place. These are real account-backed features, not the old preview posts. A regular Supabase account is required; the local admin tester cannot publish.
+The Social body has one overview with three preview sections: Open forum, Coaches & gym buddies, and Gyms & facilities. The Explore forum, Find your people and Explore gyms buttons each open their respective full feed and tools. Back to community returns to its overview section. The existing hero stays in place. These are real account-backed features, not the old preview posts. A regular Supabase account is required; the local admin tester cannot publish.
 
 ## Enable the database
 

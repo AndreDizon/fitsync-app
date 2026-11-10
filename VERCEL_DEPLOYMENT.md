@@ -43,7 +43,7 @@ Use actual values in Vercel; do not commit `.env.local` files.
 | --- | --- |
 | `NEXT_PUBLIC_SUPABASE_URL` | Your Supabase project HTTPS URL |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | The same public publishable key used by the frontend |
-| `AI_GATEWAY_API_KEY` | Your AI Gateway key, needed for the coach |
+| `OPENROUTER_API_KEY` | Your OpenRouter key for optional fitness chat; see HOME_SETUP.md |
 
 The legacy `NEXT_PUBLIC_SUPABASE_ANON_KEY` can replace the publishable-key variable.
 Never use a Supabase service-role/secret key in a `NEXT_PUBLIC_*` variable.

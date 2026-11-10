@@ -2,7 +2,7 @@
 
 A fox-themed fitness and nutrition companion with onboarding-based planning, reference libraries, private playlists, daily to-dos, and progress tracking.
 
-**New AI assistant or developer? Start with [AI_HANDOFF.md](AI_HANDOFF.md).** It links page relationships, architecture, data contracts, offline behavior, operations, design rules and known gaps.
+**New developer or AI assistant?** Read the architecture, feature flows, data contracts, operations and design notes linked below. Inspect current source and Git status before editing.
 
 ## Run locally
 
@@ -26,7 +26,8 @@ npm run dev
 - Playlists: manually customize one day or a full week with times/quantities/workout rest days; account-backed with private offline copies.
 - My Plan: calculate daily suggestions from onboarding, import playlists, add/replace library items, mark completion, record actual sets/water, sync account-owned weekly documents. Formulation runs locally online/offline; it is not generative AI.
 - Progress: Analytics, Documentation and Achievements, real plan/visit statistics, editable body/wellness records, private photos and conditional weight-trend outlook.
-- AI coach: separate authenticated AI Gateway stream. Home/Settings still contain prototype/sample UI. Social now has account-backed community sections; see [SOCIAL_SETUP.md](SOCIAL_SETUP.md) for the migration, cleanup cron and nearby map setup.
+- Home: account-driven daily summaries, page/tab shortcuts, water status and educational tip cards. Optional authenticated OpenRouter chat uses up to five free-model attempts; see [HOME_SETUP.md](HOME_SETUP.md).
+- Social: account-backed community sections, reviews and nearby facilities; see [SOCIAL_SETUP.md](SOCIAL_SETUP.md). Settings still contains some unfinished controls.
 
 Offline features require opening/signing in online and relevant data downloads first. Full offline cold-start/login is not implemented. Public service worker never caches private data; Progress journal/photo writes need internet.
 
@@ -34,7 +35,13 @@ Offline features require opening/signing in online and relevant data downloads f
 
 | Topic | Document |
 | --- | --- |
-| Full AI handoff | [AI_HANDOFF.md](AI_HANDOFF.md) |
+| Features and page relationships | [Features and flows](docs/ai/FEATURES_AND_FLOWS.md) |
+| Architecture and source map | [Architecture](docs/ai/ARCHITECTURE.md) |
+| Data and offline contracts | [Data and offline](docs/ai/DATA_AND_OFFLINE.md) |
+| Operations and validation | [Operations](docs/ai/OPERATIONS.md) |
+| Design and remaining work | [Design and backlog](docs/ai/DESIGN_AND_BACKLOG.md) |
+| Home and chatbot setup | [HOME_SETUP.md](HOME_SETUP.md) |
+| Community setup | [SOCIAL_SETUP.md](SOCIAL_SETUP.md) |
 | Auth and Google | [AUTH_SETUP.md](AUTH_SETUP.md) |
 | Two-project Vercel deployment | [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md) |
 | My Plan and calculations | [MY_PLAN_SETUP.md](MY_PLAN_SETUP.md) |
@@ -57,3 +64,7 @@ npm run build
 ```
 
 More catalog/auth/deployment commands: [Operations](docs/ai/OPERATIONS.md). Avoid builds while dev processes use the same `.next` directories. Never commit credentials or environment files.
+
+## Working conventions
+
+Read workspace `AGENTS.md` instructions and the installed Next.js documentation before implementation. Preserve account ownership, RLS, revisions and offline conflict handling. Libraries are public reference catalogs; playlists are reusable manual templates; My Plan is the dated completion schedule; Progress derives analytics and stores private documentation. The local tester is not a database account. Never commit credentials or claim hosted deployment/migration success from local checks alone. Keep UTF-8 text intact and preserve uncommitted user work.
