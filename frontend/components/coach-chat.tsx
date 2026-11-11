@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 import { ArrowRight, Send, Sparkles, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { usePlanAccount } from '@/lib/playlist-account'
@@ -39,9 +39,10 @@ export function CoachChat() {
         {messages.map((message, index) => <article className={'hb-chat-message ' + message.role} key={index}><small>{message.role === 'user' ? 'You' : 'FitSync fox'}</small><p>{message.content}</p></article>)}
         {busy && <p role="status">The fox is thinking. Trying a free model…</p>}<div ref={end}/>
       </div>
-      {!owner && <p className="hb-chat-error">Sign in with a regular account to use AI chat. Local tester access does not include this service.</p>}
+      {!owner && <p className="hb-chat-error">Sign in to use chat.</p>}
       {error && <p className="hb-chat-error" role="alert">{error}{retryAt && <span> Provider suggests retrying at {new Date(retryAt).toLocaleString()}.</span>}</p>}
       <form onSubmit={submit}><label htmlFor="hb-question">Your fitness or nutrition question</label><textarea id="hb-question" rows={2} maxLength={3000} value={input} onChange={e => setInput(e.target.value)} placeholder="For example: how do I build a workout habit?"/><div><button type="button" disabled={busy} onClick={() => { setMessages([]); setError(''); setRetryAt(null) }}>New chat</button><button type="submit" disabled={busy || !owner || !input.trim()}><Send size={16}/>Send</button></div></form>
     </dialog>
   </>
 }
+

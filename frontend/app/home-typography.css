@@ -1,0 +1,36 @@
+/* Carry the Home body type system into its surrounding chrome only on Home. */
+.app-shell[data-section='home'] :is(.topbar,.home-greeting-frame,.fitsync-footer){
+  font-family:'Archivo FitSync',Arial,sans-serif;
+}
+.app-shell[data-section='home'] :is(.topbar,.home-greeting-frame,.fitsync-footer) :is(button,input,p,span,strong,h1,h2){
+  font-family:'Archivo FitSync',Arial,sans-serif!important;
+}
+.app-shell[data-section='home'] .home-greeting-frame .greeting-copy h1{
+  font-weight:900;
+  letter-spacing:-.045em;
+}
+.app-shell[data-section='home'] .home-greeting-frame .greeting-copy>.muted{
+  font-style:normal!important;
+  font-weight:500!important;
+  letter-spacing:-.015em!important;
+}
+.app-shell[data-section='home'] :is(.topbar,.fitsync-footer) .fitsync-wordmark{
+  font-style:normal;
+  font-weight:900;
+  letter-spacing:-.045em;
+}
+.app-shell[data-section='home'] :is(.topbar,.fitsync-footer) .wordmark-letter{
+  font-style:normal;
+  font-weight:900;
+}
+.app-shell[data-section='home'] .fitsync-footer h2{
+  font-weight:800;
+  letter-spacing:-.045em;
+}
+.app-shell[data-section='home'] .fitsync-footer p{font-style:normal;font-weight:500}
+.app-shell[data-section='home'] :is(.topbar,.fitsync-footer) button{font-weight:700}
+.app-shell[data-section='home'] .home-greeting-frame .streak strong{font-weight:800;font-variant-numeric:tabular-nums}
+
+/* Preserve the official FitSync logo font wherever the wordmark appears. */
+.app-shell[data-section='home'] :is(.topbar,.fitsync-footer) .fitsync-wordmark,
+.app-shell[data-section='home'] :is(.topbar,.fitsync-footer) .wordmark-letter{font-family:Georgia,'Times New Roman',serif!important;font-style:italic;font-weight:900;letter-spacing:-.05em}

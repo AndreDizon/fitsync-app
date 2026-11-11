@@ -1,0 +1,228 @@
+﻿/* Home's read-only performance desk. All chart values come from saved user records. */
+.hi-workspace{margin-top:26px;min-width:0}
+.hi-heading{display:flex;justify-content:space-between;align-items:end;gap:20px;margin:0 0 20px}
+.hi-heading>div>span{font-size:11px;font-weight:750;color:#696a5f;letter-spacing:.04em}
+.home-energy .hi-heading h2{font-size:clamp(26px,3vw,38px);line-height:1.05;margin:8px 0 0;font-weight:800;max-width:16ch}
+.hi-heading>p{text-align:right;font-weight:750;font-size:13px;margin:0;max-width:35ch}
+.hi-heading small{display:block;font-size:11px;font-weight:450;line-height:1.5;margin-top:6px;color:#63695f}
+.hi-grid{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:18px;align-items:start}
+.hi-panel{position:relative;isolation:isolate;min-width:0;padding:24px;border:1px solid #c7cbc2;border-radius:14px;background:#f8f8f3;overflow:hidden;box-shadow:0 5px 16px #27352c08}
+.hi-panel>header{display:flex;justify-content:space-between;align-items:start;gap:12px;margin-bottom:22px}
+.hi-panel>header>svg{flex-shrink:0;color:#b16e2c}
+.hi-eyebrow{display:block;color:#687268;font-size:10px;font-weight:750;letter-spacing:.06em}
+.home-energy .hi-panel h3{font-weight:750;font-size:23px;line-height:1.13;margin:8px 0 0;letter-spacing:-.04em}
+.hi-caption{font-size:11px;line-height:1.65;color:#687268;margin:16px 0 0;max-width:70ch}
+.hi-week{grid-column:span 7;background:radial-gradient(ellipse at 95% 0,#ffc44915,transparent 65%),#22292c;color:#fff;border-color:#3e4847;border-radius:14px 42px 14px 14px}
+.hi-week .hi-eyebrow{color:#c6b17a}.hi-week header>svg{color:#e6bd62}
+.hi-week-numbers{display:flex;gap:24px;flex-wrap:wrap;border-bottom:1px solid #ffffff1a;padding-bottom:20px}
+.hi-week-numbers>div{flex:1;min-width:100px}
+.home-energy .hi-week-numbers strong{font-size:35px;font-variant-numeric:tabular-nums;line-height:1}
+.hi-week-numbers strong>small{font-size:17px;color:#a6b5ba}
+.hi-week-numbers span{display:block;font-size:10px;color:#bec9cc;line-height:1.5;max-width:17ch;margin-top:7px}
+.hi-chart-controls{display:flex;gap:6px;margin:19px 0 10px}
+.hi-chart-controls button{min-height:38px;padding:8px 12px;border:1px solid #ffffff30;border-radius:6px;background:transparent;color:#c6ced1;font-size:11px;font-weight:650}
+.hi-chart-controls button[aria-pressed=true]{background:#ecbe55;border-color:#ecbe55;color:#242a29}
+.hi-bars{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:7px;margin:12px 0 16px}
+.hi-bars button{display:flex;flex-direction:column;align-items:center;gap:8px;min-width:0;padding:8px 5px;border:1px solid transparent;border-radius:8px;background:transparent;color:#d9e3e5;font-size:11px}
+.hi-bars button[aria-pressed=true]{background:#ffffff0d;border-color:#d5b46499}
+.hi-bar-value{font-size:12px;font-weight:700}.hi-bar-well{position:relative;display:block;width:min(100%,35px);height:94px;border-bottom:1px solid #a6c5cd44}
+.hi-bar-well i{position:absolute;bottom:0;left:0;right:0;border-radius:5px 5px 0 0;transition:height .25s ease;min-height:0}
+.hi-bar-planned{background:#52626888;border:1px dashed #b4c1c355}.hi-bar-done{background:linear-gradient(0deg,#dc6b31,#ffc478);box-shadow:0 0 14px #ff88251a}
+.hi-bars button small{font-size:9px;min-height:12px;color:#b4c4c9}
+.hi-week footer{display:flex;gap:15px;flex-wrap:wrap;font-size:10px;color:#bfcbcd;line-height:1.5;border-top:1px solid #ffffff15;padding-top:13px}
+.hi-week footer>span{display:flex;align-items:center;gap:6px}.hi-week footer i{width:8px;height:8px;display:block;background:#f89b56;border-radius:2px}.hi-week footer>span:nth-child(2) i{background:#65777c}.hi-week footer small{flex-basis:100%;font-size:10px}
+.hi-fuel{grid-column:span 5;margin-top:28px;background:linear-gradient(145deg,#f5e9c7,#f3d58f);border-color:#dac388;border-radius:35px 14px 14px 14px}
+.hi-fuel:after{content:'';position:absolute;right:-65px;top:80px;width:145px;height:145px;border:1px solid #93713022;border-radius:50%;box-shadow:0 0 0 18px #93713006,0 0 0 19px #93713012;z-index:-1}
+.hi-energy{display:flex;align-items:center;gap:14px;margin:8px 0 26px}
+.home-energy .hi-energy>strong{font-size:49px;font-variant-numeric:tabular-nums;line-height:1}
+.hi-energy>span{font-size:12px;font-weight:700}.hi-energy small{display:block;font-size:10px;color:#76643d;font-weight:400;margin-top:5px}
+.hi-macros{display:grid;gap:15px}
+.hi-macro>div{display:flex;justify-content:space-between;gap:12px;font-size:12px;margin-bottom:7px}.hi-macro b{font-size:13px}.hi-macro b small{font-size:10px;font-weight:450;color:#746343}
+.hi-macro progress{display:block;appearance:none;width:100%;height:7px;border:0;border-radius:8px;overflow:hidden;background:#fff8;accent-color:#c36235}
+.hi-macro progress::-webkit-progress-bar{background:#fff8}.hi-macro progress::-webkit-progress-value{background:#c36235;border-radius:8px}.hi-macro progress::-moz-progress-bar{background:#c36235}
+.hi-macro.carbs progress{accent-color:#617d9f}.hi-macro.carbs progress::-webkit-progress-value{background:#617d9f}.hi-macro.carbs progress::-moz-progress-bar{background:#617d9f}
+.hi-macro.fat progress{accent-color:#9b7aac}.hi-macro.fat progress::-webkit-progress-value{background:#9b7aac}.hi-macro.fat progress::-moz-progress-bar{background:#9b7aac}
+.hi-meals{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin-top:24px;border-top:1px solid #8f753c30;padding-top:17px}
+.hi-meals>div{min-width:0}.hi-meals span{font-size:10px}.hi-meals b{display:block;font-size:19px;margin:6px 0}.hi-meals small{font-size:9px;color:#756543}.hi-fuel .hi-caption{color:#6a5f43}
+.hi-session{grid-column:span 8;background:linear-gradient(135deg,#edf0ed,#f8f8f3);border-radius:14px 14px 35px 14px}
+.hi-session-summary{display:flex;gap:15px;flex-wrap:wrap;padding:0 0 16px;border-bottom:1px solid #293b2c1a;margin-bottom:5px}
+.hi-session-summary>span{font-size:10px;color:#6b746d}.hi-session-summary b{font-size:16px;color:#27332c;margin-right:3px}
+.hi-session-list{max-height:330px;overflow-y:auto;scrollbar-width:thin;scrollbar-color:#a1b4a7 transparent;padding-right:3px}
+.hi-session-list>div{display:grid;grid-template-columns:20px minmax(0,1fr) auto;gap:6px 12px;padding:15px 0;border-bottom:1px solid #293b2c12;align-items:center}
+.hi-task-dot{width:17px;height:17px;border:1px solid #b3bdb3;border-radius:50%;display:grid;place-items:center;font-size:10px}.hi-task-dot.done{background:#426b55;border-color:#426b55;color:#fff}
+.hi-session-list strong{font-size:13px;line-height:1.4}.hi-session-list small{display:block;font-size:10px;color:#727c73;margin-top:4px;text-transform:capitalize}
+.hi-session-list>div>span:last-child{grid-column:2;font-size:10px;color:#687466}.hi-session-time{font-size:11px;font-weight:700;grid-column:3;grid-row:1}
+.hi-empty-session{display:flex;align-items:center;gap:20px;min-height:150px}.hi-empty-session>.home-topic-art{width:150px;flex-shrink:0}.hi-empty-session p{font-size:13px;color:#697769;max-width:28ch;line-height:1.7}
+.hi-wellness{grid-column:span 4;margin-top:20px;background:linear-gradient(150deg,#c8dcd3,#e4ebdb);border-color:#b4c9bb;border-radius:14px 35px 14px 14px}
+.hi-wellness header>svg{color:#4e7465}.hi-log-date{font-size:11px;color:#5b7264;margin:0 0 15px}
+.hi-wellness dl{margin:0;display:grid;grid-template-columns:1fr 1fr;gap:17px 12px}.hi-wellness dt{font-size:11px;color:#536a5c}.hi-wellness dd{font-size:25px;font-weight:750;margin:5px 0 0}.hi-wellness dd small{font-size:10px;font-weight:400;color:#536a5c}
+.hi-wellness-empty>.home-topic-art{height:100px}.hi-wellness-empty p{font-size:13px;font-weight:650}.hi-wellness-empty>small{font-size:11px;line-height:1.65;display:block;color:#566d5e}
+.hi-trend{grid-column:span 6;background:#f5f3ee;border-radius:35px 14px 14px 14px}
+.hi-data-tag{font-size:10px;padding:6px 9px;border:1px solid #bfc8be;border-radius:5px;white-space:nowrap}
+.hi-weight-number{display:flex;gap:16px;align-items:center}.home-energy .hi-weight-number strong{font-size:39px}.hi-weight-number strong small{font-size:16px}.hi-weight-number>span{font-size:11px;color:#5f6b60}.hi-weight-number>span small{display:block;font-size:10px;margin-top:5px}
+.hi-weight-chart{display:block;width:100%;height:130px;margin:20px 0 0;color:#657164}
+.hi-trend-dates{display:flex;justify-content:space-between;font-size:10px;color:#687268;margin-top:6px}
+.hi-profile-strip{display:grid;grid-template-columns:1fr 1fr;gap:15px;border-top:1px solid #263b281a;padding-top:14px;margin-top:20px}
+.hi-profile-strip>span{font-size:10px;color:#687268}.hi-profile-strip b{font-size:13px;display:block;margin-top:7px;color:#27362b;line-height:1.5}
+.hi-trend-empty{display:flex;gap:15px;align-items:center;min-height:130px}.hi-trend-empty>.home-topic-art{width:110px;flex-shrink:0}.hi-trend-empty p{font-size:13px;font-weight:650;line-height:1.5}.hi-trend-empty small{font-size:11px;color:#687268;line-height:1.6;display:block}
+.hi-milestones{grid-column:span 6;margin-top:20px;background:radial-gradient(#ffffff12 .8px,transparent 1px) 0 0/13px 13px,linear-gradient(130deg,#36313f,#292932);color:#f7f5ef;border-color:#55475e;border-radius:14px 14px 35px 14px}
+.hi-milestones .hi-eyebrow{color:#baadc6}.hi-milestones header>svg{color:#efc779}
+.hi-award-count{display:flex;gap:15px;align-items:center;margin-bottom:20px}.home-energy .hi-award-count>strong{font-size:45px;color:#f7d389}.hi-award-count>span{font-size:12px}.hi-award-count small{display:block;font-size:10px;color:#c1b6cc;margin-top:6px;line-height:1.5}
+.hi-badges{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.hi-badges>div{display:flex;align-items:center;flex-direction:column;gap:7px;border:1px solid #ffffff1a;border-radius:9px;padding:12px 5px;text-align:center;background:#ffffff03;min-width:0}
+.hi-badges>div>svg{color:#b4a9be}.hi-badges span{font-size:9px;line-height:1.4;color:#c7bfce;min-height:26px}.hi-badges small{font-size:8px;color:#b2a7be}
+.hi-badges .unlocked{background:#dfaa4b18;border-color:#dca14766}.hi-badges .unlocked>svg{color:#f6c877;filter:drop-shadow(0 0 5px #f6c87733)}.hi-badges .unlocked span{color:#f1e1c8}
+.hi-next-milestone{border-top:1px solid #ffffff18;margin:20px 0 0;padding-top:14px}.hi-next-milestone span{font-size:9px;color:#bdafc7;display:block}.hi-next-milestone strong{display:block;font-size:16px;margin-top:6px}.hi-next-milestone small{font-size:10px;color:#c4b9cf;display:block;margin-top:5px}
+@media(max-width:1000px){.hi-grid{gap:14px}.hi-panel{padding:19px}.hi-week{grid-column:span 7}.hi-fuel{grid-column:span 5}.hi-week-numbers{gap:14px}.hi-session{grid-column:span 7}.hi-wellness{grid-column:span 5}.hi-meals{grid-template-columns:1fr 1fr;gap:12px}.hi-energy{flex-wrap:wrap}.hi-badges{grid-template-columns:repeat(2,minmax(0,1fr))}.hi-badges span{min-height:0}.hi-panel h3{font-size:21px}}
+@media(max-width:740px){.hi-heading{align-items:start;gap:12px}.hi-heading>p{max-width:18ch;font-size:11px}.hi-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.hi-week,.hi-session{grid-column:1/-1}.hi-fuel,.hi-wellness,.hi-trend,.hi-milestones{grid-column:span 1;margin-top:0}.hi-trend{grid-column:1/-1}.hi-milestones{grid-column:1/-1}.hi-wellness{grid-row:2}.hi-fuel{grid-row:2}.hi-badges{grid-template-columns:repeat(4,minmax(0,1fr))}.hi-session{grid-row:3}.hi-week-numbers>div{min-width:70px}.hi-wellness dl{grid-template-columns:1fr}.hi-wellness-empty>.home-topic-art{height:85px}.hi-panel>header{margin-bottom:16px}.home-energy .hi-panel h3{font-size:20px}.hi-fuel .hi-energy>strong{font-size:35px}.hi-caption{font-size:10px}.hi-energy{gap:6px;margin-bottom:18px}.hi-energy>span{font-size:10px}.hi-energy small{font-size:9px}.hi-macro>div{flex-wrap:wrap;gap:4px;font-size:10px}.hi-macro b{font-size:12px}.hi-meals span{font-size:9px}}
+@media(max-width:480px){.hi-workspace{margin-top:24px}.hi-heading{flex-wrap:wrap}.hi-heading>p{text-align:left;max-width:100%;margin-top:4px}.hi-heading small{display:inline;margin-left:8px}.home-energy .hi-heading h2{font-size:29px}.hi-panel{padding:17px}.hi-fuel,.hi-wellness{grid-column:1/-1;grid-row:auto}.hi-week{grid-row:1}.hi-session{grid-row:2}.hi-fuel{grid-row:3}.hi-wellness{grid-row:4}.hi-wellness dl{grid-template-columns:repeat(2,minmax(0,1fr))}.hi-meals{grid-template-columns:repeat(4,minmax(0,1fr));gap:6px}.hi-macro>div{font-size:12px}.hi-macros{gap:13px}.hi-energy{flex-wrap:nowrap;gap:12px}.hi-energy>span{font-size:12px}.hi-energy small{font-size:10px}.hi-fuel .hi-energy>strong{font-size:45px}.hi-week-numbers{gap:12px}.home-energy .hi-week-numbers strong{font-size:30px}.hi-week-numbers span{font-size:9px}.hi-bars{gap:2px}.hi-bars button{padding:6px 2px;font-size:10px}.hi-bar-well{width:22px;height:85px}.hi-bars button small{font-size:8px}.hi-chart-controls button{min-height:44px;font-size:10px}.hi-session-list>div{gap:6px 8px}.hi-session-list strong{font-size:12px}.hi-session-time{font-size:10px}.hi-session-summary{gap:12px}.hi-empty-session{gap:12px;min-height:125px}.hi-empty-session>.home-topic-art{width:100px}.hi-empty-session p{font-size:12px}.hi-trend-empty>.home-topic-art{width:85px}.hi-badges{gap:6px}.hi-badges>div{padding:10px 3px}.hi-badges span{font-size:8px}.hi-badges small{font-size:8px}.hi-profile-strip b{font-size:12px}.hi-session-list{max-height:310px}}
+@media(prefers-reduced-motion:reduce){.hi-bar-well i{transition:none}}
+
+/* Match the instrument cards above: consistent outlines, surfaces and topic art. */
+.home-energy .hi-grid{align-items:stretch}
+.home-energy .hi-panel{margin-top:0;border-radius:13px;border:1px solid #aab2ae;box-shadow:inset 0 1px #ffffff30,0 4px 0 #27323720;display:flex;flex-direction:column}
+.home-energy .hi-panel:before{content:'';position:absolute;inset:0;background:radial-gradient(currentColor .7px,transparent 1px) 0 0/13px 13px;opacity:.11;mask-image:linear-gradient(115deg,transparent 35%,#000);z-index:-1;pointer-events:none}
+.home-energy .hi-panel:after{content:'';position:absolute;top:55px;right:-20px;width:75px;height:4px;background:#ed934c50;transform:skewX(-25deg);box-shadow:0 10px #ed934c30,0 20px #ed934c14;pointer-events:none;z-index:-1}
+.home-energy .hi-panel>header{margin-bottom:20px}
+.home-energy .hi-eyebrow{display:inline-block;padding:5px 8px;border-radius:4px;background:#ffffff70;color:#4c5b60;font-size:9px;font-weight:750;letter-spacing:.06em}
+.home-energy .hi-panel h3{font-size:22px;font-weight:780;margin-top:11px}
+.home-energy .hi-card-filler{position:absolute;bottom:-12px;right:-30px;width:200px;height:145px;opacity:.1;z-index:-1;pointer-events:none;transform:rotate(-12deg)}
+.home-energy .hi-card-filler>.home-topic-art{width:100%;height:100%}
+.home-energy .hi-week{background:radial-gradient(ellipse at 0 0,#e4c14e1c,transparent 65%),linear-gradient(145deg,#272a2a,#191d21);border-color:#3c4045;color:#fff;box-shadow:inset 0 1px #ffffff10,0 6px 14px #1c242018}
+.home-energy .hi-week .hi-eyebrow{background:#ffdb6915;color:#e0c782}
+.home-energy .hi-week .hi-card-filler{opacity:.08;bottom:8px;width:225px}
+.home-energy .hi-week footer{margin-top:auto}
+.home-energy .hi-fuel{background:radial-gradient(ellipse at 100% 0,#8054c139,transparent 75%),linear-gradient(145deg,#25282d,#23212d);border-color:#45434d;color:#f3f3f6;box-shadow:inset 0 1px #ffffff10,0 6px 14px #1c242018}
+.home-energy .hi-fuel .hi-eyebrow{background:#bd96f41a;color:#d1b7f0}
+.home-energy .hi-fuel>header>svg{color:#cfb0ff}
+.home-energy .hi-fuel .hi-energy small,.home-energy .hi-fuel .hi-macro b small,.home-energy .hi-fuel .hi-meals small,.home-energy .hi-fuel .hi-caption{color:#bcb9cd}
+.home-energy .hi-fuel .hi-macro progress{background:#ffffff15}
+.home-energy .hi-fuel .hi-macro progress::-webkit-progress-bar{background:#ffffff15}
+.home-energy .hi-fuel .hi-macro progress::-webkit-progress-value{background:linear-gradient(90deg,#e17d42,#ffb56a);box-shadow:0 0 9px #f98d3c40}
+.home-energy .hi-fuel .hi-macro.carbs progress::-webkit-progress-value{background:linear-gradient(90deg,#3978e8,#8cbaff)}
+.home-energy .hi-fuel .hi-macro.fat progress::-webkit-progress-value{background:linear-gradient(90deg,#9b59db,#d1a7ff)}
+.home-energy .hi-fuel .hi-macro progress::-moz-progress-bar{background:#ee9c61}.home-energy .hi-fuel .hi-macro.carbs progress::-moz-progress-bar{background:#79a9f7}.home-energy .hi-fuel .hi-macro.fat progress::-moz-progress-bar{background:#c08cf1}
+.home-energy .hi-fuel .hi-meals{border-color:#ffffff1c;margin-top:auto;padding-top:19px}
+.home-energy .hi-fuel .hi-macros{margin-bottom:23px}
+.home-energy .hi-fuel .hi-card-filler{opacity:.17;right:-25px;bottom:12px;width:170px}
+.home-energy .hi-session{background:linear-gradient(135deg,#e2e9ed,#c3d5df);border-color:#acbdc6}
+.home-energy .hi-session .hi-caption{margin-top:auto;padding-top:17px}
+.home-energy .hi-session-list{margin-bottom:18px}
+.home-energy .hi-session .hi-card-filler{width:215px;height:150px;right:8px;bottom:25px;opacity:.085}
+.home-energy .hi-empty-session{flex:1}
+.home-energy .hi-session .hi-eyebrow{background:#ffffff88;color:#476079}
+.home-energy .hi-wellness{background:radial-gradient(ellipse at 100% 100%,#287cf435,transparent 75%),linear-gradient(150deg,#22282d,#182126);color:#f3f6fa;border-color:#3a4c5a;box-shadow:inset 0 1px #ffffff10,0 6px 14px #1c242018}
+.home-energy .hi-wellness .hi-eyebrow{background:#4382df1c;color:#a9c5ef}
+.home-energy .hi-wellness header>svg{color:#83b7ff}
+.home-energy .hi-wellness :is(.hi-log-date,dt,dd small,.hi-caption,.hi-wellness-empty>small){color:#b5c6d6}
+.home-energy .hi-wellness .hi-caption{margin-top:auto;padding-top:20px}
+.home-energy .hi-wellness .hi-card-filler{right:-55px;bottom:36px;width:215px;opacity:.14;transform:rotate(8deg)}
+.home-energy .hi-wellness-empty{flex:1}
+.home-energy .hi-trend{background:linear-gradient(145deg,#ffedaa,#e8d27e);border-color:#c6b368}
+.home-energy .hi-trend .hi-eyebrow{background:#ffffff60;color:#71613a}
+.home-energy .hi-trend .hi-profile-strip{margin-top:auto;padding-top:17px}
+.home-energy .hi-trend .hi-trend-dates{margin-bottom:20px}
+.home-energy .hi-trend .hi-card-filler{width:170px;right:-15px;bottom:65px;opacity:.08}
+.home-energy .hi-milestones{background:radial-gradient(ellipse at 100% 0,#8054c13d,transparent 75%),linear-gradient(145deg,#25282d,#282330);border-color:#45434d;box-shadow:inset 0 1px #ffffff10,0 6px 14px #1c242018}
+.home-energy .hi-milestones .hi-eyebrow{background:#eac57e16;color:#e5c891}
+.home-energy .hi-milestones .hi-next-milestone{margin-top:auto;padding-top:17px}
+.home-energy .hi-milestones .hi-badges{margin-bottom:22px}
+.home-energy .hi-milestones .hi-card-filler{bottom:0;opacity:.08;width:170px;right:-45px}
+.home-energy .hi-badges>div{background:#ffffff04;border-radius:7px;box-shadow:inset 0 1px #ffffff05}
+.home-energy .hi-badges .unlocked{background:linear-gradient(140deg,#ffe08926,#a7742020);box-shadow:inset 0 1px #ffdc7240,0 0 15px #f6c8770a}
+@media(max-width:740px){.home-energy .hi-panel{padding:18px}.home-energy .hi-panel h3{font-size:20px}.home-energy .hi-card-filler{width:150px;opacity:.07}.home-energy .hi-panel .hi-caption{padding-top:12px}.home-energy .hi-fuel .hi-macros{margin-bottom:18px}}
+@media(max-width:480px){.home-energy .hi-panel{padding:17px}.home-energy .hi-eyebrow{font-size:8px}.home-energy .hi-card-filler{width:145px;height:110px}.home-energy .hi-session .hi-card-filler{width:155px;right:-18px;bottom:30px}.home-energy .hi-wellness .hi-card-filler{width:165px;right:-25px}.home-energy .hi-fuel .hi-card-filler{width:135px;right:-30px}.home-energy .hi-panel>header{margin-bottom:17px}}
+
+/* Content-sized sports desk: no card stretches to a neighbour's content. */
+.home-energy .hi-grid{align-items:start;gap:16px}
+.home-energy .hi-grid.hi-masonry{grid-auto-rows:8px;grid-auto-flow:row dense}
+.home-energy .hi-panel{grid-column:span 6;align-self:start;height:auto;min-height:0;margin:0;padding:21px;border-width:2px;border-color:#30383b;border-radius:13px;box-shadow:0 3px 0 #28313530}
+.home-energy .hi-panel>header{margin-bottom:17px}
+.home-energy .hi-heading h2{font-family:inherit;font-size:clamp(25px,2.6vw,32px);font-weight:800;letter-spacing:-.045em;max-width:none}
+.home-energy .hi-heading{margin-bottom:17px}
+.home-energy .hi-panel h3{font-family:inherit;font-size:22px;font-weight:800;letter-spacing:-.04em;line-height:1.15}
+.home-energy .hi-heading>div>span{font-weight:750;color:#555f5a}
+.home-energy .hi-panel .hi-eyebrow{font-family:inherit;font-size:10px;font-weight:750;letter-spacing:.045em;padding:5px 8px;border:1px solid #ffffff18}
+.home-energy .hi-panel .hi-caption{margin:13px 0 0;padding-top:0;font-size:11px;line-height:1.6}
+.home-energy .hi-panel .hi-profile-strip,.home-energy .hi-panel .hi-next-milestone{margin-top:17px;padding-top:14px}
+.home-energy .hi-panel .hi-badges{margin-bottom:0}
+.home-energy .hi-panel .hi-meals{margin-top:18px;padding-top:15px}
+.home-energy .hi-panel .hi-macros{margin-bottom:0}
+.home-energy .hi-panel footer{margin-top:13px}
+.home-energy .hi-empty-session{flex:0 0 auto;min-height:100px;gap:18px;padding:8px 0}
+.home-energy .hi-empty-session>.home-topic-art{width:100px;height:90px}
+.home-energy .hi-trend-empty{min-height:100px;gap:14px;padding:4px 0}
+.home-energy .hi-trend-empty>.home-topic-art{width:90px;height:90px}
+.home-energy .hi-wellness-empty{display:grid;grid-template-columns:100px minmax(0,1fr);gap:6px 15px;align-items:center;flex:0 0 auto;min-height:100px}
+.home-energy .hi-wellness-empty>.home-topic-art{grid-row:1/3;width:100px;height:90px}
+.home-energy .hi-wellness-empty p{align-self:end;margin:0;font-size:13px}
+.home-energy .hi-wellness-empty>small{align-self:start;font-size:11px}
+.home-energy .hi-session-list{max-height:300px;margin:0}
+.home-energy .hi-session-list>div{padding-block:12px}
+.home-energy .hi-session-summary{gap:12px;margin-bottom:7px;padding-bottom:13px}
+.home-energy .hi-session-summary>span{font-size:11px}
+.home-energy .hi-week-numbers{gap:15px;padding-bottom:17px}
+.home-energy .hi-week-numbers>div{min-width:80px}
+.home-energy .hi-week-numbers span{font-size:11px;max-width:18ch}
+.home-energy .hi-bars{margin-block:8px 10px}
+.home-energy .hi-bar-well{height:80px}
+.home-energy .hi-week{background:radial-gradient(ellipse at 0 0,#f2cf5125,transparent 70%),linear-gradient(145deg,#272a2a,#191d21);border-color:#30383b}
+.home-energy .hi-week:after{top:34px;width:90px;background:#ffc13766;box-shadow:0 11px #ffc13740,0 22px #ffc13718}
+.home-energy .hi-week:before{opacity:.18;background-size:10px 10px}
+.home-energy .hi-week .hi-eyebrow{background:#f3ce59;color:#242b2d;border-color:#f3ce59}
+.home-energy .hi-chart-controls button[aria-pressed=true]{background:#ffb24c;color:#23282a;border:1px solid #ffb24c;box-shadow:0 2px 0 #111a1e}
+.home-energy .hi-fuel{background:radial-gradient(ellipse at 100% 0,#7d36c755,transparent 80%),linear-gradient(140deg,#24262c,#30243b)}
+.home-energy .hi-fuel .hi-eyebrow{background:#d2b4fa;color:#292032;border-color:#d2b4fa}
+.home-energy .hi-session{background:linear-gradient(130deg,#dbe8fc,#bacff0);border-color:#455b77}
+.home-energy .hi-session .hi-eyebrow{background:#2f65bd;color:#fff;border-color:#2f65bd}
+.home-energy .hi-session:after{background:#3271cf50;box-shadow:0 10px #3271cf30,0 20px #3271cf14}
+.home-energy .hi-wellness{background:radial-gradient(ellipse at 100% 100%,#2b7df043,transparent 75%),linear-gradient(145deg,#22282d,#192b3b)}
+.home-energy .hi-wellness .hi-eyebrow{background:#93c4ff;color:#172c40;border-color:#93c4ff}
+.home-energy .hi-trend{background:linear-gradient(145deg,#ffec8d,#f0d273);border-color:#83713c}
+.home-energy .hi-trend .hi-eyebrow{background:#293238;color:#ffdd6c;border-color:#293238}
+.home-energy .hi-trend:before{opacity:.18;background-size:9px 9px}
+.home-energy .hi-milestones{background:radial-gradient(ellipse at 100% 0,#a053d750,transparent 80%),linear-gradient(145deg,#2b2837,#252932)}
+.home-energy .hi-milestones .hi-eyebrow{background:#f5ca6d;color:#2b2830;border-color:#f5ca6d}
+.home-energy .hi-badges{gap:7px}
+.home-energy .hi-badges>div{padding:10px 5px;border:1px solid #ffffff25;border-radius:7px}
+.home-energy .hi-badges span{font-size:10px;min-height:26px}
+.home-energy .hi-badges small{font-size:9px}
+.home-energy .hi-card-filler{opacity:.085;max-width:33%}
+.home-energy .hi-week .hi-card-filler{opacity:.09;bottom:-22px}
+.home-energy .hi-data-tag{background:#ffffff60;border:1px solid #7b6f4540}
+@media(max-width:1000px) and (min-width:741px){.home-energy .hi-panel{padding:17px}.home-energy .hi-panel h3{font-size:21px}.home-energy .hi-week-numbers strong{font-size:30px}.home-energy .hi-week-numbers>div{min-width:65px}.home-energy .hi-week-numbers span{font-size:10px}.home-energy .hi-meals{grid-template-columns:repeat(2,minmax(0,1fr))}.home-energy .hi-badges{grid-template-columns:repeat(2,minmax(0,1fr))}.home-energy .hi-badges span{min-height:0}.home-energy .hi-wellness-empty{grid-template-columns:70px minmax(0,1fr);gap:6px 12px}.home-energy .hi-wellness-empty>.home-topic-art{width:70px;height:80px}}
+@media(max-width:740px){
+ .home-energy .hi-grid{display:flex;flex-direction:column;gap:14px}
+ .home-energy .hi-panel{width:100%;grid-row-end:auto!important;padding:18px}
+ .home-energy .hi-panel h3{font-size:21px}
+ .home-energy .hi-week{order:0}.home-energy .hi-session{order:1}.home-energy .hi-fuel{order:2}.home-energy .hi-wellness{order:3}.home-energy .hi-trend{order:4}.home-energy .hi-milestones{order:5}
+ .home-energy .hi-meals{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .home-energy .hi-wellness dl{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .home-energy .hi-badges{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .home-energy .hi-macro>div{flex-wrap:nowrap;font-size:12px}
+ .home-energy .hi-energy{flex-wrap:nowrap;gap:12px}
+ .home-energy .hi-fuel .hi-energy>strong{font-size:42px}
+ .home-energy .hi-energy>span{font-size:12px}.home-energy .hi-energy small{font-size:10px}
+}
+@media(max-width:480px){.home-energy .hi-panel{padding:16px}.home-energy .hi-heading h2{font-size:27px}.home-energy .hi-panel .hi-eyebrow{font-size:9px}.home-energy .hi-week-numbers strong{font-size:29px}.home-energy .hi-week-numbers span{font-size:10px}.home-energy .hi-badges span{font-size:9px}.home-energy .hi-badges small{font-size:8px}.home-energy .hi-badges>div{padding:10px 3px}.home-energy .hi-wellness-empty{grid-template-columns:75px minmax(0,1fr);gap:6px 12px}.home-energy .hi-wellness-empty>.home-topic-art{width:75px;height:80px}.home-energy .hi-empty-session{gap:13px}.home-energy .hi-empty-session>.home-topic-art{width:85px}.home-energy .hi-bar-well{height:75px}.home-energy .hi-session-summary{gap:10px}.home-energy .hi-session-summary>span{font-size:10px}}
+
+/* Decorative brand signature uses only the spare tail of the shorter column. */
+.hi-grid{position:relative}
+.home-energy .hi-brand-space{position:absolute;width:calc(50% - 8px);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;pointer-events:none;overflow:hidden;color:#795338;opacity:.8}
+.home-energy .hi-brand-space[hidden]{display:none}
+.home-energy .hi-brand-space>img{width:clamp(80px,12vw,145px);height:auto;max-height:46%;object-fit:contain;filter:drop-shadow(0 7px 12px #b7772420)}
+.home-energy .hi-brand-space>span{font-family:'Archivo FitSync',Arial,sans-serif;font-size:clamp(30px,5vw,65px);font-weight:900;letter-spacing:-.065em;line-height:1.1}
+.home-energy .hi-brand-dot{color:#ef853d}
+.home-energy .hi-brand-space>small{font-size:11px;font-weight:600;letter-spacing:.02em}
+.home-energy .hi-brand-space[data-full=false]>img,.home-energy .hi-brand-space[data-full=false]>small{display:none}
+@media(max-width:740px){.home-energy .hi-brand-space{display:none}}
+
+/* Official brand lettering stays distinct from the interface's Archivo type. */
+.home-energy .hi-brand-space{opacity:1;isolation:isolate;gap:12px}
+.home-energy .hi-brand-space:before{content:'';position:absolute;z-index:-1;inset:5% 4%;background:radial-gradient(ellipse,#ffdc6366 0%,#ffc67525 40%,transparent 72%);pointer-events:none}
+.home-energy .hi-brand-space>img{width:var(--brand-mascot-size,145px);max-height:48%;flex-shrink:0}
+.home-energy .hi-brand-space>.fitsync-wordmark{font-family:Georgia,'Times New Roman',serif;font-style:italic;font-weight:900;font-size:var(--brand-size,60px);letter-spacing:-.05em;line-height:1.15;flex-shrink:0}
+.home-energy .hi-brand-space>.fitsync-wordmark>.wordmark-letter{font-family:inherit;font-style:inherit}
+.home-energy .hi-brand-space>small{font-size:clamp(10px,1vw,14px);color:#795338}
+
+.home-energy .hi-session-list{overflow-y:auto;overscroll-behavior-y:contain;scrollbar-width:thin;scrollbar-color:#ae8b52 transparent}.home-energy .hi-session-list:focus-visible{outline:2px solid #b78e32;outline-offset:3px}

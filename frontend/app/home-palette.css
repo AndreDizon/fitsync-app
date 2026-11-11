@@ -1,0 +1,96 @@
+/* Home palette: pulse yellow actions, white surfaces, orange and brown accents. */
+.app-shell[data-section='home'] .home-page .home-greeting-frame .greeting-copy::before{box-shadow:none}
+.app-shell[data-section='home'] .home-page .home-greeting-frame .greeting-trend-art{overflow:hidden;clip-path:inset(0)}
+/* Let the body surface show through the hero's spacing, including preview textures. */
+.app-shell[data-section='home'] .home-page .home-greeting-frame .greeting-with-mascot::after{background:transparent}
+.app-shell[data-section='home']{
+  --home-orange:#f77732;
+  --home-orange-light:#ffe2cd;
+  --home-charcoal:#232529;
+}
+.app-shell[data-section='home'] .home-energy{--hx-orange:var(--home-orange);--hx-yellow:#ffd760;--hx-blue:#5685d4;--hx-purple:#9b7cc0}
+.app-shell[data-section='home'] .topbar{background:linear-gradient(180deg,#fff,#fffaf6)}
+.app-shell[data-section='home'] .topbar :is(.menu-toggle,.profile-button){background:#fff0e4;border-color:#f0c8ab;box-shadow:0 3px 0 #e4c2a9}
+.app-shell[data-section='home'] .home-greeting-frame .greeting-spark{color:#cf591c}
+.app-shell[data-section='home'] .home-greeting-frame .streak{background:linear-gradient(150deg,#fffaf5,#ffdfbf);color:#ae4d17;border-color:#fff}
+.app-shell[data-section='home'] .home-energy .hb-today{background:radial-gradient(ellipse at 0 0,#f7773225,transparent 75%),linear-gradient(145deg,#29292b,#191d21)}
+.app-shell[data-section='home'] .home-energy .hx-ring-value{stroke:#ff974f;filter:drop-shadow(0 0 5px #f7773240)}
+.app-shell[data-section='home'] .home-energy .hx-ring.orange .hx-ring-value{stroke:#f77732}
+.app-shell[data-section='home'] .home-energy :is(.hb-today>button,.hb-chat-launch,.hb-facts-toolbar button){background:linear-gradient(125deg,#ffac6a,#f77732);color:#202326;border-color:#d96a2b}
+.app-shell[data-section='home'] .home-energy .hb-next-panel button{background:#ffa567;color:#202326}
+.app-shell[data-section='home'] .home-energy .hb-next-label{color:#ffb682}
+.app-shell[data-section='home'] .home-energy .hi-week{background:radial-gradient(ellipse at 0 0,#f7773228,transparent 70%),linear-gradient(145deg,#292a2c,#191d21)}
+.app-shell[data-section='home'] .home-energy .hi-week .hi-eyebrow{background:#ffac70;border-color:#ffac70;color:#252529}
+.app-shell[data-section='home'] .home-energy .hi-chart-controls button[aria-pressed=true]{background:#ffad73;border-color:#ffad73;color:#252529}
+.app-shell[data-section='home'] .home-energy .hi-fuel{background:radial-gradient(ellipse at 100% 0,#9b7cc026,transparent 80%),linear-gradient(140deg,#26262c,#302a36)}
+.app-shell[data-section='home'] .home-energy .hi-session{background:linear-gradient(130deg,#fff0e5,#ffdcc2);border-color:#b98f71}
+.app-shell[data-section='home'] .home-energy .hi-session .hi-eyebrow{background:#ffad73;color:#29272a;border-color:#ffad73}
+.app-shell[data-section='home'] .home-energy .hi-session:after{background:#dd772f40;box-shadow:0 10px #dd772f25,0 20px #dd772f12}
+.app-shell[data-section='home'] .home-energy .hi-trend{background:linear-gradient(145deg,#fff0b7,#f6dd96)}
+.app-shell[data-section='home'] .home-energy .hi-milestones{background:radial-gradient(ellipse at 100% 0,#9b7cc02d,transparent 80%),linear-gradient(145deg,#2c2933,#252932)}
+.app-shell[data-section='home'] .home-energy .hb-tip.tip-0{background-color:#ffe0c7}
+.app-shell[data-section='home'] .home-energy .hb-tip.tip-1{background-color:#ffe9ad}
+.app-shell[data-section='home'] .home-energy .hb-tip.tip-2{background-color:#ddd3ec}
+.app-shell[data-section='home'] .home-energy .hb-tip.tip-3{background-color:#cedef5}
+.app-shell[data-section='home'] .home-energy .hb-tip.tip-4{background-color:#f4d4df}
+.app-shell[data-section='home'] .home-energy .hb-tip.tip-5{background-color:#d4e4f5}
+.app-shell[data-section='home'] .home-energy .hb-tip.tip-6{background-color:#ffe4d1}
+.app-shell[data-section='home'] .home-energy .hb-tip.tip-7{background-color:#e2d8ef}
+.app-shell[data-section='home'] .home-energy .hb-tip.tip-8{background-color:#fff0c4}
+.app-shell[data-section='home'] .home-energy .hb-tip.tip-9{background-color:#ffd7be}
+.app-shell[data-section='home'] .fitsync-footer:before{background:linear-gradient(120deg,#f99855,#ffc47d)}
+.app-shell[data-section='home'] .footer-panel{background:#fffdfb;border-color:#fff;box-shadow:inset 0 2px #fff,0 12px 32px #864b2012}
+.app-shell[data-section='home'] .footer-contact-row>button{background:#ffe0c7;border-color:#edbb96;color:#623c26}
+.app-shell[data-section='home'] .mobile-nav button.active{background:#ffad70;color:#232529}
+.app-shell[data-section='home'] .nav-playlist{background:#f88a42;color:#232529}
+
+/* Fact covers cycle through the secondary hues: orange, green and violet. */
+.app-shell[data-section='home'] .home-energy .hb-tip:is(.tip-0,.tip-3,.tip-6,.tip-9){background-color:#ffc38c;background-image:linear-gradient(135deg,#fff5,transparent 70%);border-color:#80532f}
+.app-shell[data-section='home'] .home-energy .hb-tip:is(.tip-1,.tip-4,.tip-7){background-color:#c2dea0;background-image:linear-gradient(135deg,#fff5,transparent 70%);border-color:#526d3b}
+.app-shell[data-section='home'] .home-energy .hb-tip:is(.tip-2,.tip-5,.tip-8){background-color:#d3b9ee;background-image:linear-gradient(135deg,#fff5,transparent 70%);border-color:#70538b}
+.app-shell[data-section='home'] .home-energy .hb-tip :is(h3,p,.hb-tip-action,.hb-tip-source){color:#252529}
+
+/* Pulse edition: yellow actions, white surfaces, selective charcoal anchors. */
+.app-shell[data-section='home']{--home-pulse:#ffdf32;--home-orange:#f77732;--home-brown:#795338}
+.app-shell[data-section='home'] .topbar :is(.menu-toggle,.profile-button){background:#fff0a3;border-color:#e9cf71;box-shadow:0 3px 0 #deca80;color:#232529}
+.app-shell[data-section='home'] .fitsync-footer:before{background:linear-gradient(120deg,#ffdf32,#fff099)}
+.app-shell[data-section='home'] .footer-contact-row>button{background:#ffdf32;border-color:#dfc34c;color:#232529}
+.app-shell[data-section='home'] .mobile-nav button.active,.app-shell[data-section='home'] .mobile-nav .nav-playlist{background:#ffdf32;color:#232529}
+.app-shell[data-section='home'] .home-energy{--hx-yellow:#ffdf32}
+.app-shell[data-section='home'] .home-energy :is(.hb-today>button,.hb-chat-launch,.hb-facts-toolbar button,.hb-next-panel button){background:linear-gradient(130deg,#ffe966,#ffdf32);border-color:#dbc146;color:#232529;box-shadow:0 3px 0 #8e712e}
+.app-shell[data-section='home'] .home-energy .hi-chart-controls button[aria-pressed=true]{background:#ffdf32;border-color:#ffdf32;color:#232529}
+.app-shell[data-section='home'] .home-energy .hx-ring-value{stroke:#ffdf32;filter:drop-shadow(0 0 5px #ffdf3240)}
+.app-shell[data-section='home'] .home-energy .hx-ring.orange .hx-ring-value{stroke:#f77732}
+.app-shell[data-section='home'] .home-energy .hb-water{background:radial-gradient(ellipse at 100% 100%,#a7d4fb55,transparent 80%),#edf6ff;color:#243e57;border-color:#a7bed2}
+.app-shell[data-section='home'] .home-energy .hb-water :is(.hb-kicker,p,.hb-water-link,small){color:#415c71}
+.app-shell[data-section='home'] .home-energy .hb-water>strong{color:#243e57}
+.app-shell[data-section='home'] .home-energy .hb-water:before{opacity:.18}
+.app-shell[data-section='home'] .home-energy .hb-water-drops svg{color:#8097ad}
+.app-shell[data-section='home'] .home-energy .hb-water-drops .filled{color:#357cce}
+.app-shell[data-section='home'] .home-energy .hb-small-stat.food{background:radial-gradient(#a26d9416 .8px,transparent 1px) 0 0/13px 13px,linear-gradient(140deg,#fff9fc,#f4dce8);color:#392c37;border-color:#cfb2c4}
+.app-shell[data-section='home'] .home-energy .hb-small-stat.food :is(.hb-kicker,p,strong small){color:#6a4c60}
+.app-shell[data-section='home'] .home-energy .hb-small-stat.food>strong{color:#392c37}
+.app-shell[data-section='home'] .home-energy .hi-fuel{background:radial-gradient(ellipse at 100% 0,#edd7ef66,transparent 80%),linear-gradient(140deg,#fff,#f9eff6);color:#382b36;border-color:#c6aebf}
+.app-shell[data-section='home'] .home-energy .hi-fuel :is(.hi-energy small,.hi-macro b small,.hi-meals small,.hi-caption){color:#70576a}
+.app-shell[data-section='home'] .home-energy .hi-fuel .hi-macro progress,.app-shell[data-section='home'] .home-energy .hi-fuel .hi-macro progress::-webkit-progress-bar{background:#decfda}
+.app-shell[data-section='home'] .home-energy .hi-fuel .hi-meals{border-color:#b995af55}
+.app-shell[data-section='home'] .home-energy .hi-wellness{background:radial-gradient(ellipse at 100% 100%,#cedcf955,transparent 75%),linear-gradient(145deg,#fff,#eff5ff);color:#293c55;border-color:#a8bbd2}
+.app-shell[data-section='home'] .home-energy .hi-wellness :is(.hi-log-date,dt,dd small,.hi-caption,.hi-wellness-empty>small){color:#53677f}
+.app-shell[data-section='home'] .home-energy .hi-wellness header>svg{color:#477abb}
+.app-shell[data-section='home'] .home-energy .hi-week .hi-eyebrow,.app-shell[data-section='home'] .home-energy .hi-session .hi-eyebrow{background:#ffdf32;color:#232529;border-color:#ffdf32}
+.app-shell[data-section='home'] .home-energy .hi-trend{background:linear-gradient(145deg,#fffbed,#ffeeb4);border-color:#c7b67f}
+
+
+/* Ten distinct topic palettes, repeated consistently through the carousel loop. */
+.app-shell[data-section='home'] .home-energy .hb-tip.tip-0{--fact-color:#ffd2ac;--fact-edge:#9a6134;--fact-art:#ffac55}
+.app-shell[data-section='home'] .home-energy .hb-tip.tip-1{--fact-color:#cce4ab;--fact-edge:#687f49;--fact-art:#a9cf72}
+.app-shell[data-section='home'] .home-energy .hb-tip.tip-2{--fact-color:#d6c8f0;--fact-edge:#7d679f;--fact-art:#b6a0dc}
+.app-shell[data-section='home'] .home-energy .hb-tip.tip-3{--fact-color:#b9d3f4;--fact-edge:#557ba4;--fact-art:#8ab5ed}
+.app-shell[data-section='home'] .home-energy .hb-tip.tip-4{--fact-color:#f2c7da;--fact-edge:#a66684;--fact-art:#e8a2bf}
+.app-shell[data-section='home'] .home-energy .hb-tip.tip-5{--fact-color:#bde5ed;--fact-edge:#578b98;--fact-art:#87ccdc}
+.app-shell[data-section='home'] .home-energy .hb-tip.tip-6{--fact-color:#f6b8ac;--fact-edge:#a36455;--fact-art:#ef907c}
+.app-shell[data-section='home'] .home-energy .hb-tip.tip-7{--fact-color:#f5dfa0;--fact-edge:#9b834a;--fact-art:#f1c454}
+.app-shell[data-section='home'] .home-energy .hb-tip.tip-8{--fact-color:#c5e2d3;--fact-edge:#648775;--fact-art:#96c6af}
+.app-shell[data-section='home'] .home-energy .hb-tip.tip-9{--fact-color:#dfcdbb;--fact-edge:#8d725c;--fact-art:#c9aa8e}
+.app-shell[data-section='home'] .home-energy .hb-tip[class*='tip-']{background-color:var(--fact-color);background-image:linear-gradient(135deg,#ffffff55,transparent 70%);border-color:var(--fact-edge)}
+.app-shell[data-section='home'] .home-energy .hb-tip .hb-tip-illustration:before{background:linear-gradient(135deg,#ffffff77,var(--fact-art));box-shadow:4px 4px 0 var(--fact-edge)}

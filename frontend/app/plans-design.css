@@ -1,0 +1,433 @@
+/* Plans: a fieldbook of training tickets, distinct from Home's editorial bento. */
+.app-shell[data-section='plans'] :is(.my-plan-workspace,.playlist-workspace,.exercise-library-page,.food-library){font-family:'Archivo FitSync',Arial,sans-serif}
+.app-shell[data-section='plans'] :is(.my-plan-stats>article,.my-plan-task-list>article,.my-plan-water,.playlist-collection-card,.exercise-card,.food-card){box-shadow:inset 0 2px 2px #ffffffa0,0 3px 0 #28313920,0 12px 28px #2831390d;transition:box-shadow .22s ease,border-color .22s ease}
+.app-shell[data-section='plans'] .my-plan-stats>article{position:relative;isolation:isolate;overflow:hidden;border:1px solid #424b51;border-radius:20px;background:linear-gradient(125deg,#253039,#171d22);color:#fff;padding:24px}
+.app-shell[data-section='plans'] .my-plan-stats>article:nth-child(even){background:linear-gradient(125deg,#e9d9ff,#f6eeff);border-color:#c4addb;color:#30213d}
+.app-shell[data-section='plans'] .my-plan-stats>article:after{content:'';position:absolute;z-index:-1;width:150px;height:150px;right:-65px;top:-65px;border:20px solid #ffdc3230;border-radius:50%;box-shadow:0 0 0 18px #ffdc3210}
+.app-shell[data-section='plans'] .my-plan-stats :is(span,p,small){color:inherit;opacity:.8}
+.app-shell[data-section='plans'] .my-plan-stats strong{font-size:clamp(27px,3vw,40px);letter-spacing:-.045em}
+.app-shell[data-section='plans'] .my-plan-stats progress{height:8px;border:0;border-radius:9px;overflow:hidden;accent-color:#ffda32;background:#ffffff28}
+.app-shell[data-section='plans'] .my-plan-stats progress::-webkit-progress-bar{background:#ffffff28;border-radius:9px}
+.app-shell[data-section='plans'] .my-plan-stats progress::-webkit-progress-value{background:#ffda32;border-radius:9px}
+.app-shell[data-section='plans'] .my-plan-days button{border:1px solid #c9cdd0;background:#fff;border-radius:14px;box-shadow:0 3px 0 #c9cdd050}
+.app-shell[data-section='plans'] .my-plan-days button[aria-pressed='true']{background:#ffdf32;border-color:#bfa32c;color:#232529;box-shadow:0 4px 0 #bfa32c}
+.app-shell[data-section='plans'] .my-plan-todo{border:1px solid #d5d7d8;border-radius:24px;background:#fff;box-shadow:0 8px 30px #25303908}
+.app-shell[data-section='plans'] .my-plan-task-list>article{--ticket:#e3edfa;--ticket-edge:#7e9bc0;position:relative;background:linear-gradient(115deg,#ffffff90,transparent 70%),var(--ticket);border:1px solid color-mix(in srgb,var(--ticket-edge) 45%,white);border-left:5px solid var(--ticket-edge);border-radius:16px;padding:20px;gap:16px}
+.app-shell[data-section='plans'] .nutrition .my-plan-task-list>article{--ticket:#fbe6d8;--ticket-edge:#c08a60}
+.app-shell[data-section='plans'] .my-plan-task-list>article:nth-child(3n+2){--ticket:#ece3f7;--ticket-edge:#9c80b9}
+.app-shell[data-section='plans'] .my-plan-task-list>article:nth-child(3n){--ticket:#dcf0ea;--ticket-edge:#6b9c8c}
+.app-shell[data-section='plans'] .my-plan-task-list>article.is-done{--ticket:#e7efdb;--ticket-edge:#7f9c5c}
+.app-shell[data-section='plans'] .my-plan-task-heading{padding-bottom:12px;border-bottom:1px dashed #576a7938}
+.app-shell[data-section='plans'] .my-plan-task-thumbnail{background:#fff;border-color:#ffffff;border-radius:13px;box-shadow:0 3px 0 #28313917}
+.app-shell[data-section='plans'] .my-plan-task-fields>label{color:#526170}
+.app-shell[data-section='plans'] .my-plan-task-links button{color:#394c65;font-weight:600;text-underline-offset:3px}
+.app-shell[data-section='plans'] .my-plan-preparation{background:linear-gradient(110deg,#fff3bf,#fffaf0);border-color:#dfc777;border-left:4px solid #e8993c}
+.app-shell[data-section='plans'] :is(.my-plan-generate,.playlist-primary){background:#ffdf32;color:#232529;border:1px solid #c3a62f;box-shadow:inset 0 2px 0 #ffffff80,0 4px 0 #bca337;border-radius:13px}
+.app-shell[data-section='plans'] .my-plan-water{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(125deg,#244c76,#386c9b);border:1px solid #25496b;color:white}
+.app-shell[data-section='plans'] .my-plan-water:after{content:'';position:absolute;z-index:-1;width:140%;height:130px;left:-20%;bottom:-90px;border-radius:50%;background:#8dcde833;box-shadow:0 -22px 0 #8dcde81a}
+.app-shell[data-section='plans'] .my-plan-water :is(.eyebrow,p:not(.eyebrow)){color:#e0effb}
+.app-shell[data-section='plans'] .my-plan-water-grid>label{background:#f4faff;border-color:#b7d2e7;box-shadow:0 3px 0 #102c4930}
+.app-shell[data-section='plans'] .my-plan-water-grid>label.is-done{background:#b4e0fa;border-color:#8bc8ed}
+.app-shell[data-section='plans'] .my-plan-water-grid>label>span{color:#294b67}
+.app-shell[data-section='plans'] .playlist-collection-card{border:1px solid #c8c6be;border-radius:20px;background:linear-gradient(135deg,#fff,#fff6de)}
+.app-shell[data-section='plans'] .playlist-collection-card:nth-child(3n+2){background:linear-gradient(135deg,#fff,#e7edfc)}
+.app-shell[data-section='plans'] .playlist-collection-card:nth-child(3n){background:linear-gradient(135deg,#fff,#f4e6ef)}
+.app-shell[data-section='plans'] :is(.playlist-build-step,.playlist-editor){border-color:#ccd2d8;border-radius:20px}
+.app-shell[data-section='plans'] :is(.exercise-card,.food-card){border-color:#bcc6ce;border-radius:18px}
+.app-shell[data-section='plans'] :is(.exercise-card-body,.food-card-body){background-image:radial-gradient(#586c8210 .7px,transparent .7px);background-size:9px 9px}
+.app-shell[data-section='plans'] :is(.exercise-card,.food-card):nth-child(3n+2){border-color:#ccb6d7}
+@media(max-width:600px){.app-shell[data-section='plans'] .my-plan-stats>article{padding:16px}.app-shell[data-section='plans'] .my-plan-task-list>article{padding:13px;gap:10px}.app-shell[data-section='plans'] .my-plan-todo{border-radius:18px}.app-shell[data-section='plans'] .my-plan-days button{min-height:62px}}
+@media(prefers-reduced-motion:reduce){.app-shell[data-section='plans'] :is(.my-plan-stats>article,.my-plan-task-list>article,.my-plan-water,.playlist-collection-card,.exercise-card,.food-card){transition:none}}
+
+/* Editable schedule rail sits outside each task ticket. */
+.app-shell[data-section='plans'] .my-plan-task-list>article{display:grid;grid-template-columns:126px minmax(0,1fr);align-items:stretch;gap:20px;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;overflow:visible}
+.app-shell[data-section='plans'] .my-plan-task-card{display:flex;align-items:flex-start;gap:12px;min-width:0;padding:20px;background:linear-gradient(115deg,#ffffff90,transparent 70%),var(--ticket);border:1px solid color-mix(in srgb,var(--ticket-edge) 45%,white);border-left:4px solid var(--ticket-edge);border-radius:16px;box-shadow:inset 0 2px 2px #ffffffa0,0 3px 0 #28313920,0 9px 24px #2831390b}
+.app-shell[data-section='plans'] .my-plan-timeline-rail{position:relative;display:flex;flex-direction:column;gap:12px;align-items:stretch;padding:12px 18px 18px 0;min-width:0}
+.app-shell[data-section='plans'] .my-plan-timeline-rail:after{content:'';position:absolute;right:0;top:0;bottom:-14px;width:3px;border-radius:3px;background:#ffe994}
+.app-shell[data-section='plans'] .is-done>.my-plan-timeline-rail:after{background:#edbd00;box-shadow:0 0 8px #ffdf3250}
+.app-shell[data-section='plans'] .my-plan-task-list>article:last-child .my-plan-timeline-rail:after{bottom:0}
+.app-shell[data-section='plans'] .my-plan-timeline-rail:before{content:'';position:absolute;z-index:1;right:-4px;top:23px;width:11px;height:11px;border:2px solid #d4a900;border-radius:50%;background:#fff}
+.app-shell[data-section='plans'] .is-done>.my-plan-timeline-rail:before{background:#ffdf32}
+.app-shell[data-section='plans'] .my-plan-timeline-rail>label:first-child{display:grid;gap:6px;font-size:11px;font-weight:700;color:#4a5156}
+.app-shell[data-section='plans'] .my-plan-timeline-rail input[type=time]{width:100%;min-width:0;padding:8px 3px;border:1px solid #d9d8ce;border-radius:9px;background:#fff;color:#232529;font-size:12px}
+.app-shell[data-section='plans'] .my-plan-timeline-rail .my-plan-check{display:flex;align-items:center;justify-content:center;gap:6px;padding:9px 5px;border:1px solid #d4b735;border-radius:10px;background:#fff3ae;color:#3b3624;font-size:10px;cursor:pointer}
+.app-shell[data-section='plans'] .my-plan-check input{accent-color:#a48200;width:17px;height:17px}
+.app-shell[data-section='plans'] .my-plan-task-fields{grid-template-columns:repeat(2,minmax(0,1fr));max-width:440px}
+@media(max-width:600px){.app-shell[data-section='plans'] .my-plan-task-list>article{grid-template-columns:92px minmax(0,1fr);gap:12px}.app-shell[data-section='plans'] .my-plan-task-card{padding:12px;gap:5px;flex-wrap:wrap}.app-shell[data-section='plans'] .my-plan-timeline-rail{padding-right:12px}.app-shell[data-section='plans'] .my-plan-task-card .my-plan-task-main{flex-basis:100%}.app-shell[data-section='plans'] .my-plan-timeline-rail .my-plan-check{flex-wrap:wrap}.app-shell[data-section='plans'] .my-plan-task-heading{flex-wrap:wrap}.app-shell[data-section='plans'] .my-plan-task-fields{grid-template-columns:1fr}}
+
+/* Home's Archivo typography, consistently carried through the Plans workspace. */
+.app-shell[data-section='plans']{font-family:'Archivo FitSync',Arial,sans-serif}
+.app-shell[data-section='plans'] :is(.topbar,.plan-workspace,.fitsync-footer,.mobile-nav) :is(h1,h2,h3,h4,p,span,strong,small,label,button,input,select,textarea,summary,td,th){font-family:'Archivo FitSync',Arial,sans-serif!important}
+.app-shell[data-section='plans'] :is(.my-plan-heading,.playlist-heading,.exercise-library-heading,.food-library-heading) h2{font-size:clamp(26px,3vw,38px);line-height:1.08;font-weight:800;letter-spacing:-.045em;margin-block:8px 12px}
+.app-shell[data-section='plans'] :is(.my-plan-todo,.playlist-editor,.exercise-card,.food-card) :is(h3,h4){font-weight:800;letter-spacing:-.03em;line-height:1.2}
+.app-shell[data-section='plans'] :is(.my-plan-task-heading strong,.playlist-collection-card h3){font-weight:750;letter-spacing:-.025em;line-height:1.3}
+.app-shell[data-section='plans'] :is(.my-plan-heading,.playlist-heading,.food-library-heading,.exercise-library-heading)>div>p:not(.eyebrow):not(.playlist-eyebrow){font-size:14px;line-height:1.65;font-weight:450}
+.app-shell[data-section='plans'] :is(button,summary){font-weight:650}
+.app-shell[data-section='plans'] :is(.my-plan-task-fields label,.my-plan-timeline-rail>label,.playlist-item-fields label){font-weight:550;line-height:1.45}
+.app-shell[data-section='plans'] :is(.my-plan-stats strong,.my-plan-task-fields input,.my-plan-timeline-rail input){font-variant-numeric:tabular-nums}
+.app-shell[data-section='plans'] .plan-hero :is(h1,h2){font-family:'Archivo FitSync',Arial,sans-serif;font-weight:900;letter-spacing:-.045em}
+.app-shell[data-section='plans'] .fitsync-footer h2{font-weight:800;letter-spacing:-.045em}
+.app-shell[data-section='plans'] :is(.topbar,.fitsync-footer) :is(.fitsync-wordmark,.wordmark-letter){font-family:Georgia,'Times New Roman',serif!important;font-style:italic;font-weight:900;letter-spacing:-.05em}
+
+/* Hanging calendar strip: existing weekdays and task counts remain the content. */
+.app-shell[data-section='plans'] .my-plan-calendar-section{position:relative;isolation:isolate;overflow:hidden;padding:34px 22px 30px;margin:24px 0;border-radius:20px;background:linear-gradient(110deg,#2e487b,#577fb3);border:1px solid #45689b;box-shadow:inset 0 1px #ffffff30}
+.app-shell[data-section='plans'] .my-plan-calendar-section:before{content:'';position:absolute;z-index:-1;width:130%;height:210px;right:-30%;top:-140px;border:1px solid #d4e7ff30;border-radius:50%;box-shadow:0 20px 0 -19px #d4e7ff40,0 40px 0 -39px #d4e7ff40}
+.app-shell[data-section='plans'] .my-plan-calendar-section:after{content:'';position:absolute;z-index:-1;inset:0;background:radial-gradient(ellipse 70px 45px at 2% 100%,#a6c7ef33 98%,transparent),radial-gradient(ellipse 85px 45px at 8% 112%,#a6c7ef33 98%,transparent),radial-gradient(ellipse 70px 40px at 99% 12%,#a6c7ef30 98%,transparent),radial-gradient(ellipse 46px 38px at 94% 1%,#a6c7ef30 98%,transparent),radial-gradient(ellipse 64px 42px at 99% 102%,#a6c7ef30 98%,transparent)}
+.app-shell[data-section='plans'] .my-plan-days{position:relative;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:clamp(8px,1.6vw,20px);margin:0;padding-top:8px;border-top:2px solid #d7e7fcaa}
+.app-shell[data-section='plans'] .my-plan-days button{position:relative;display:flex;flex-direction:column;justify-content:flex-start;align-items:stretch;gap:0;padding:0;min-width:0;min-height:108px;border-radius:14px;border:1px solid #bdd0ea;background:#dce7f5;color:#24354b;box-shadow:0 4px 0 #a4bbda;overflow:visible;font-size:12px}
+.app-shell[data-section='plans'] .my-plan-days button:before,.app-shell[data-section='plans'] .my-plan-days button:after{content:'';position:absolute;top:-7px;width:5px;height:15px;background:#fff;border-radius:3px;box-shadow:0 2px 2px #142b4b22}
+.app-shell[data-section='plans'] .my-plan-days button:before{left:25%}.app-shell[data-section='plans'] .my-plan-days button:after{right:25%}
+.app-shell[data-section='plans'] .my-plan-calendar-name{display:flex;align-items:center;justify-content:center;min-height:39px;padding:11px 3px 8px;background:#aec6e5;border-radius:13px 13px 0 0;font-weight:750;font-size:clamp(9px,1.1vw,13px)}
+.app-shell[data-section='plans'] .my-plan-days button small{display:flex;align-items:center;justify-content:center;flex:1;margin:0;padding:16px 3px;color:#425e7a;font-size:11px;line-height:1.4}
+.app-shell[data-section='plans'] .my-plan-days button[aria-pressed='true']{background:#fff8f4;border-color:#ed7675;box-shadow:0 4px 0 #bb343b;color:#fff}
+.app-shell[data-section='plans'] .my-plan-days button[aria-pressed='true'] .my-plan-calendar-name{background:#e94f54;color:#fff}
+.app-shell[data-section='plans'] .my-plan-days button[aria-pressed='true'] small{color:#ae2e37;font-weight:650}
+@media(max-width:600px){.app-shell[data-section='plans'] .my-plan-calendar-section{padding:27px 12px 24px;border-radius:16px}.app-shell[data-section='plans'] .my-plan-days{grid-template-columns:repeat(7,minmax(74px,1fr));gap:10px;overflow-x:auto;padding-bottom:7px;scrollbar-width:thin;scrollbar-color:#b8ceeb transparent}.app-shell[data-section='plans'] .my-plan-days button{min-height:100px}.app-shell[data-section='plans'] .my-plan-calendar-name{font-size:10px}.app-shell[data-section='plans'] .my-plan-days button small{font-size:10px}}
+
+/* Topic-specific target cards, with decorative field diagrams and glowing values. */
+.app-shell[data-section='plans'] .my-plan-stats>article{--metric-accent:#ffdf32;--metric-glow:#ffdf3260;background:radial-gradient(ellipse at 100% 0,#e9ad3c20,transparent 70%),linear-gradient(125deg,#253039,#171d22);color:#fff;border-color:#58616a;min-height:205px}
+.app-shell[data-section='plans'] .my-plan-stats>article:after{width:170px;height:100%;right:0;top:0;border:0;border-radius:0;box-shadow:none;background:radial-gradient(var(--metric-glow) .8px,transparent 1px);background-size:10px 10px;mask-image:linear-gradient(90deg,transparent,#000);opacity:.35}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Exercises']{--metric-accent:#a27cf3;--metric-glow:#a27cf360;background:linear-gradient(130deg,#f5edff,#e6d9fc);color:#30213d;border-color:#c2a8e2}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Protein']{--metric-accent:#7950c2;--metric-glow:#9e74d850;background:linear-gradient(130deg,#f4eaff,#e6d7f8);color:#38284e;border-color:#c2a7d9}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Carbohydrates']{--metric-accent:#d6892a;--metric-glow:#edac4150;background:linear-gradient(130deg,#fff2d7,#f9dfa8);color:#4c351c;border-color:#d7b77a}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Fat']{--metric-accent:#357e9b;--metric-glow:#5bb9dc50;background:linear-gradient(130deg,#e2f3f8,#c4e2ee);color:#234657;border-color:#96bece}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Energy']{--metric-accent:#ff974b;--metric-glow:#ff974b65;background:radial-gradient(ellipse at 100% 0,#bd582f40,transparent 75%),#24272d}
+.app-shell[data-section='plans'] .plan-metric-art{position:absolute;right:14px;top:22px;width:clamp(68px,7vw,100px);height:100px;color:var(--metric-accent);opacity:.24;pointer-events:none;filter:drop-shadow(0 0 10px var(--metric-glow));z-index:-1}
+.app-shell[data-section='plans'] .my-plan-stats>article>span{display:block;padding-right:55px;min-height:26px;font-weight:650}
+.app-shell[data-section='plans'] .plan-metric-number{font:inherit;font-weight:850;text-shadow:0 0 16px var(--metric-glow),0 0 32px var(--metric-glow)}
+.app-shell[data-section='plans'] .my-plan-stats strong small{font-size:12px;font-weight:500;letter-spacing:-.01em;text-shadow:none}
+.app-shell[data-section='plans'] .my-plan-stats progress{margin-top:16px}
+.app-shell[data-section='plans'] .my-plan-stats progress::-webkit-progress-value{background:var(--metric-accent);box-shadow:0 0 8px var(--metric-glow)}
+.app-shell[data-section='plans'] .my-plan-stats progress::-moz-progress-bar{background:var(--metric-accent)}
+@media(max-width:600px){.app-shell[data-section='plans'] .my-plan-stats>article{min-height:180px}.app-shell[data-section='plans'] .plan-metric-art{width:65px;height:75px;right:8px;top:18px}.app-shell[data-section='plans'] .my-plan-stats>article>span{padding-right:35px;font-size:11px}}
+
+/* Hydration artwork stays decorative: no changes to checkpoint dimensions. */
+.app-shell[data-section='plans'] .my-plan-water:before{content:'';position:absolute;z-index:-1;pointer-events:none;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 420' fill='none'%3E%3Cg stroke='%23b9e4f5' stroke-opacity='.17'%3E%3Cpath d='M620-65C640 65 770-15 820 80s150 35 230 130M650-75C670 45 795-25 845 65s150 35 230 130M680-85C700 25 820-35 870 50s150 35 230 130'/%3E%3Ccircle cx='860' cy='90' r='102'/%3E%3Ccircle cx='860' cy='90' r='125'/%3E%3C/g%3E%3Cg fill='%23c4eaff' fill-opacity='.2'%3E%3Ccircle cx='567' cy='70' r='3'/%3E%3Ccircle cx='605' cy='110' r='5'/%3E%3Ccircle cx='941' cy='183' r='4'/%3E%3C/g%3E%3C/svg%3E");background-repeat:no-repeat;background-position:top right;background-size:100% auto}
+.app-shell[data-section='plans'] .my-plan-water:after{height:160px;bottom:-105px;left:-15%;width:135%;transform:rotate(-3deg);background:#8dcde826;box-shadow:0 -14px 0 #8dcde816,0 -30px 0 #8dcde80c}
+.app-shell[data-section='plans'] .my-plan-water-grid>label{position:relative;isolation:isolate;overflow:hidden;background-image:linear-gradient(125deg,#ffffff80,transparent 65%);transition:background-color .25s,border-color .25s}
+.app-shell[data-section='plans'] .my-plan-water-grid>label:after{content:'';position:absolute;z-index:-1;pointer-events:none;right:-18px;top:-22px;width:64px;height:64px;border:1px solid #629bc025;border-radius:50%;box-shadow:0 0 0 10px #629bc00a,0 0 0 20px #629bc008}
+.app-shell[data-section='plans'] .my-plan-water-grid>label>span svg{filter:drop-shadow(0 2px 2px #477e9e25)}
+.app-shell[data-section='plans'] .my-plan-water-grid>label.is-done:after{border-color:#398bb44a;box-shadow:0 0 0 10px #398bb412,0 0 0 20px #398bb40a}
+.app-shell[data-section='plans'] .my-plan-water-grid>label.is-done>span svg{filter:drop-shadow(0 0 5px #4eafe060)}
+@media(prefers-reduced-motion:reduce){.app-shell[data-section='plans'] .my-plan-water-grid>label{transition:none}}
+
+/* Hydration field notes: illustrated water, printed texture, tactile checkpoints. */
+.app-shell[data-section='plans'] .my-plan-water{background-image:radial-gradient(ellipse at 70% 15%,#6bb9e324,transparent 42%),linear-gradient(125deg,#244c76,#386c9b)}
+.plan-hydration-art{position:absolute;width:200px;height:125px;top:4px;left:53%;pointer-events:none;opacity:.9;z-index:-1}
+.app-shell[data-section='plans'] .my-plan-water:before{background-image:radial-gradient(#b9e4f522 .8px,transparent .8px);background-size:10px 10px;mask-image:linear-gradient(90deg,transparent 35%,#000 90%)}
+.app-shell[data-section='plans'] .my-plan-water:after{height:150px;bottom:-105px;left:-10%;width:125%;background:#8dcde833;box-shadow:0 -16px 0 #8dcde81a,0 -33px 0 #8dcde810;transform:rotate(-3deg)}
+.app-shell[data-section='plans'] .my-plan-water-grid>label{background-image:linear-gradient(120deg,#fff8,transparent 58%);border-radius:14px;border-left:3px solid #83b6d6;box-shadow:inset 0 2px 1px #fff,0 3px 0 #163d5b45}
+.app-shell[data-section='plans'] .my-plan-water-grid>label:after{width:92px;height:92px;top:-31px;right:-30px;border:1px solid #5f9abe33;box-shadow:0 0 0 9px #8bbbd51a,0 0 0 19px #8bbbd511}
+.app-shell[data-section='plans'] .my-plan-water-grid>label:before{content:'';position:absolute;right:11px;top:13px;width:30px;height:12px;pointer-events:none;background:repeating-linear-gradient(90deg,#5286a64a 0 2px,transparent 2px 5px);transform:skew(-18deg)}
+.app-shell[data-section='plans'] .my-plan-water-grid>label>span{height:20px;position:relative}
+.app-shell[data-section='plans'] .water-checkpoint-number{font-size:14px;font-weight:800;font-variant-numeric:tabular-nums}
+.app-shell[data-section='plans'] .my-plan-water-grid>label>span svg{stroke-width:2.2;filter:drop-shadow(0 2px 0 #8fbed540)}
+.app-shell[data-section='plans'] .my-plan-water-grid input[type=time]{position:relative;background:#ffffffda;box-shadow:inset 0 1px 2px #2953750a;border-color:#b8d3e8}
+.app-shell[data-section='plans'] .my-plan-water-grid>label.is-done{background-color:#b4e0fa;border-left-color:#3189b8;box-shadow:inset 0 2px 1px #ffffffa0,0 3px 0 #163d5b45}
+.app-shell[data-section='plans'] .my-plan-water-grid>label.is-done:before{background:repeating-linear-gradient(90deg,#2784b280 0 2px,transparent 2px 5px)}
+.app-shell[data-section='plans'] .my-plan-water h3{text-shadow:0 0 18px #9fdfff35}
+@media(max-width:800px){.plan-hydration-art{left:auto;right:18%;width:150px;opacity:.55}}
+@media(max-width:600px){.plan-hydration-art{right:-20px;top:5px;width:160px;opacity:.2}}
+
+.my-plan-water>.plan-hydration-art+div{display:flex;justify-content:space-between;align-items:center;gap:18px}
+@media(max-width:450px){.my-plan-water>.plan-hydration-art+div{flex-direction:column;align-items:flex-start}}
+
+
+/* One continuous surface reaches the page edge, with soft adjoining cutouts. */
+.app-shell[data-section='plans'] .my-plan-calendar-section{--calendar-join:clamp(30px,4vw,56px);--calendar-cap:100px;overflow:visible;background:transparent;border-color:transparent;border-radius:0;box-shadow:none}
+.app-shell[data-section='plans'] .my-plan-calendar-section:before{inset:calc(-1 * var(--calendar-join)) calc(-1 * var(--calendar-bleed,5vw)) calc(-1 * var(--calendar-join)) 0;width:auto;height:auto;border:0;border-radius:0;box-shadow:none;pointer-events:none;background:radial-gradient(ellipse 100px 60px at 95% 10%,#a6c7ef30 98%,transparent),linear-gradient(110deg,#2e487b,#577fb3);clip-path:shape(from 0 50%,curve to var(--calendar-cap) var(--calendar-join) with 0 var(--calendar-join),line to calc(100% - var(--calendar-join)) var(--calendar-join),curve to 100% 0 with 100% var(--calendar-join),line to 100% 100%,curve to calc(100% - var(--calendar-join)) calc(100% - var(--calendar-join)) with 100% calc(100% - var(--calendar-join)),line to var(--calendar-cap) calc(100% - var(--calendar-join)),curve to 0 50% with 0 calc(100% - var(--calendar-join)),close)}
+.app-shell[data-section='plans'] .my-plan-calendar-section:after{inset:0 calc(-1 * var(--calendar-bleed,5vw)) 0 0;border-radius:100px 0 0 100px;pointer-events:none;background:radial-gradient(ellipse 90px 50px at 5% 110%,#a6c7ef33 98%,transparent)}
+@media(max-width:600px){.app-shell[data-section='plans'] .my-plan-calendar-section{--calendar-cap:52px}.app-shell[data-section='plans'] .my-plan-calendar-section:after{border-radius:52px 0 0 52px}}
+
+/* Broader, gently leaning half-pill transitions beside the calendar. */
+.app-shell[data-section='plans'] .my-plan-calendar-section{--calendar-join:clamp(44px,6vw,76px)}
+.app-shell[data-section='plans'] .my-plan-calendar-section:before{clip-path:shape(from 0 50%,curve to var(--calendar-cap) var(--calendar-join) with 0 var(--calendar-join),line to calc(100% - var(--calendar-join)) var(--calendar-join),curve to 100% 0 with calc(100% - 12px) var(--calendar-join) / 100% calc(var(--calendar-join) * .45),line to 100% 100%,curve to calc(100% - var(--calendar-join)) calc(100% - var(--calendar-join)) with 100% calc(100% - var(--calendar-join) * .45) / calc(100% - 12px) calc(100% - var(--calendar-join)),line to var(--calendar-cap) calc(100% - var(--calendar-join)),curve to 0 50% with 0 calc(100% - var(--calendar-join)),close)}
+@media(max-width:600px){.app-shell[data-section='plans'] .my-plan-calendar-section{--calendar-join:36px}}
+
+/* Water log shares the calendar's capsule and seamless page-edge transitions. */
+.app-shell[data-section='plans'] .my-plan-water{--calendar-join:clamp(44px,6vw,76px);--calendar-cap:100px;overflow:visible;background:transparent;border-color:transparent;border-radius:0;box-shadow:none}
+.app-shell[data-section='plans'] .my-plan-water:before{z-index:-2;inset:calc(-1 * var(--calendar-join)) calc(-1 * var(--calendar-bleed,5vw)) calc(-1 * var(--calendar-join)) 0;width:auto;height:auto;border:0;border-radius:0;mask-image:none;background:radial-gradient(#b9e4f519 .8px,transparent .8px) 0 0/10px 10px,linear-gradient(125deg,#244c76,#386c9b);pointer-events:none}
+.app-shell[data-section='plans'] .my-plan-water:before{clip-path:shape(from 0 50%,curve to var(--calendar-cap) var(--calendar-join) with 0 var(--calendar-join),line to calc(100% - var(--calendar-join)) var(--calendar-join),curve to 100% 0 with calc(100% - 12px) var(--calendar-join) / 100% calc(var(--calendar-join) * .45),line to 100% 100%,curve to calc(100% - var(--calendar-join)) calc(100% - var(--calendar-join)) with 100% calc(100% - var(--calendar-join) * .45) / calc(100% - 12px) calc(100% - var(--calendar-join)),line to var(--calendar-cap) calc(100% - var(--calendar-join)),curve to 0 50% with 0 calc(100% - var(--calendar-join)),close)}
+.app-shell[data-section='plans'] .my-plan-water:after{display:none}
+@media(max-width:600px){.app-shell[data-section='plans'] .my-plan-water{--calendar-join:36px;--calendar-cap:52px}}
+
+/* Keep the water log's sculpted background free of rectangular outlines. */
+.app-shell[data-section='plans'] .my-plan-water{border:0;outline:0;box-shadow:none!important}
+
+/* Bleed both painted surfaces to the left while retaining their pill silhouette. */
+.app-shell[data-section='plans'] :is(.my-plan-calendar-section,.my-plan-water):before{left:calc(-1 * var(--calendar-bleed-left,5vw))}
+.app-shell[data-section='plans'] .my-plan-calendar-section:after{left:calc(-1 * var(--calendar-bleed-left,5vw))}
+
+/* Wide elliptical joins give the neighboring sections a soft half-pill edge. */
+.app-shell[data-section='plans'] :is(.my-plan-calendar-section,.my-plan-water){--calendar-join:clamp(48px,6vw,80px);--calendar-join-width:clamp(80px,11vw,150px)}
+.app-shell[data-section='plans'] :is(.my-plan-calendar-section,.my-plan-water):before{clip-path:shape(from 0 50%,curve to var(--calendar-cap) var(--calendar-join) with 0 var(--calendar-join),line to calc(100% - var(--calendar-join-width)) var(--calendar-join),curve to 100% 0 with calc(100% - var(--calendar-join-width) * .3) var(--calendar-join) / 100% calc(var(--calendar-join) * .6),line to 100% 100%,curve to calc(100% - var(--calendar-join-width)) calc(100% - var(--calendar-join)) with 100% calc(100% - var(--calendar-join) * .6) / calc(100% - var(--calendar-join-width) * .3) calc(100% - var(--calendar-join)),line to var(--calendar-cap) calc(100% - var(--calendar-join)),curve to 0 50% with 0 calc(100% - var(--calendar-join)),close)}
+@media(max-width:600px){.app-shell[data-section='plans'] :is(.my-plan-calendar-section,.my-plan-water){--calendar-join:36px;--calendar-join-width:72px}}
+
+/* Daily tasks sit directly on the page; individual task tickets remain intact. */
+.app-shell[data-section='plans'] .my-plan-todo{background:transparent;border:0;border-radius:0;box-shadow:none;padding-inline:0}
+
+/* Library picking is a dismissible overlay rather than an inline page section. */
+.my-plan-picker.my-plan-picker-dialog{position:fixed;inset:0;margin:auto;width:min(960px,calc(100% - 32px));max-width:960px;max-height:85dvh;padding:22px;border:1px solid #cbd9ed;border-radius:22px;background:#f0f5fc;color:#26313b;box-shadow:0 24px 90px #0004;overflow:hidden}
+.my-plan-picker-dialog::backdrop{background:#1118208c;backdrop-filter:blur(5px)}
+.my-plan-picker-dialog[open]{display:flex;flex-direction:column;gap:14px}
+.my-plan-picker-dialog>header{flex:none;margin:0}
+.my-plan-picker-dialog>input{flex:none;width:100%;max-width:none;box-sizing:border-box;margin:0}
+.my-plan-picker-dialog .my-plan-picker-items{flex:1;min-height:0;max-height:55dvh;overflow:auto;overscroll-behavior:contain;margin:0;padding:2px 5px 4px 0}
+.my-plan-picker-dialog>header>button{padding:8px;border-radius:10px}
+.my-plan-picker-dialog>header>button:focus-visible{outline:3px solid #e1b829;outline-offset:2px}
+@media(max-width:600px){.my-plan-picker.my-plan-picker-dialog{padding:16px;width:calc(100% - 20px);max-height:88dvh;border-radius:18px}.my-plan-picker-dialog .my-plan-picker-items{max-height:65dvh;grid-template-columns:1fr}}
+
+/* Topic-led target cards: athletic field graphics with readable live metrics. */
+.app-shell[data-section='plans'] .my-plan-stats>article{padding:22px;min-height:230px;box-shadow:inset 0 2px 2px #ffffff90,0 4px 0 #28313918,0 12px 28px #28313910}
+.app-shell[data-section='plans'] .my-plan-stats>article>span{font-size:14px;font-weight:800;opacity:1;display:block;padding-right:52px}
+.app-shell[data-section='plans'] .plan-metric-purpose{display:block;max-width:70%;margin-top:5px;font-size:10px;line-height:1.5;opacity:.8;min-height:30px}
+.app-shell[data-section='plans'] .my-plan-stats strong{margin:10px 0 17px;position:relative;z-index:1}
+.app-shell[data-section='plans'] .plan-metric-art{top:22px;right:14px;opacity:.58;width:90px;height:90px;fill:color-mix(in srgb,var(--metric-accent) 13%,transparent);stroke-width:2.4;transform:rotate(-8deg);filter:drop-shadow(3px 4px 0 #0000000d)}
+.app-shell[data-section='plans'] .my-plan-stats>article:before{content:'';position:absolute;z-index:-1;right:-35px;top:-40px;width:180px;height:180px;border:1px solid color-mix(in srgb,var(--metric-accent) 25%,transparent);border-radius:50%;box-shadow:0 0 0 16px color-mix(in srgb,var(--metric-accent) 6%,transparent),0 0 0 34px color-mix(in srgb,var(--metric-accent) 4%,transparent);pointer-events:none}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Movement time']{--metric-accent:#ffd64f;--metric-glow:#ffd64f50;background:radial-gradient(at 100% 0,#417f8360,transparent 70%),linear-gradient(130deg,#20333c,#16262e)}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Exercises']{--metric-accent:#5353b8;--metric-glow:#8f7ced55;background:linear-gradient(125deg,#e8e8ff,#d6cdf7);color:#302754;border-color:#b8a7dd}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Energy']{--metric-accent:#e86b28;--metric-glow:#ffad5850;background:radial-gradient(at 100% 10%,#ffe19a,transparent 75%),linear-gradient(135deg,#fff0dd,#ffc49b);color:#542b1c;border-color:#dc9c73}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Protein']{--metric-accent:#9c4277;--metric-glow:#d96b9c45;background:linear-gradient(135deg,#fff0f6,#efd0e9);color:#542c47;border-color:#d6a1bf}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Carbohydrates']{--metric-accent:#617d32;--metric-glow:#a8c45150;background:linear-gradient(135deg,#f3f7de,#dce8ae);color:#354725;border-color:#b7c888}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Fat']{--metric-accent:#267b98;--metric-glow:#58c5d650;background:linear-gradient(135deg,#e6f8fb,#b9e1e5);color:#244c58;border-color:#89bdc7}
+.app-shell[data-section='plans'] .plan-metric-track-label{display:flex;justify-content:space-between;align-items:center;font-size:10px;margin-bottom:6px}
+.app-shell[data-section='plans'] .plan-metric-track-label b{font-size:11px;color:inherit}
+.app-shell[data-section='plans'] .my-plan-stats progress{display:block;width:100%;height:8px;background:#24334417}
+.app-shell[data-section='plans'] .my-plan-stats progress::-webkit-progress-bar{background:#24334417}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Movement time'] progress::-webkit-progress-bar{background:#ffffff26}
+.app-shell[data-section='plans'] .my-plan-stats>article>p{border-top:1px solid #78838b22;padding-top:9px;margin-top:10px;font-size:10px;opacity:.85}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Exercises']:after{background:repeating-linear-gradient(-40deg,transparent 0 12px,#6156aa16 12px 14px);opacity:.5}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Protein']:after{background:radial-gradient(#9c42773b 1px,transparent 1px) 0 0/9px 9px}
+@media(max-width:600px){.app-shell[data-section='plans'] .my-plan-stats>article{padding:16px;min-height:224px}.app-shell[data-section='plans'] .plan-metric-art{width:63px;height:70px;right:4px;top:24px}.app-shell[data-section='plans'] .plan-metric-purpose{max-width:75%;font-size:10px}.app-shell[data-section='plans'] .my-plan-stats strong{font-size:28px}.app-shell[data-section='plans'] .my-plan-stats>article>span{font-size:12px;padding-right:30px}}
+
+/* Six different visual stories rather than one repeated pastel template. */
+.app-shell[data-section='plans'] .my-plan-stats>article .plan-metric-purpose{max-width:66%;position:relative;z-index:1}
+.app-shell[data-section='plans'] .my-plan-stats>article .plan-metric-art{opacity:.8;stroke-width:2.6;fill:color-mix(in srgb,var(--metric-accent) 18%,transparent)}
+.app-shell[data-section='plans'] .my-plan-stats>article:before{box-shadow:none;border:0;border-radius:0}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Energy']{--metric-accent:#b83e14;--metric-glow:#ff872c65;color:#512813;background:radial-gradient(ellipse at 85% 12%,#ffe888 0,transparent 65%),linear-gradient(145deg,#fff1c3,#ffb06e)}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Energy']:before{inset:-25px -40px auto auto;width:185px;height:185px;background:repeating-conic-gradient(from 12deg,#ed72252b 0deg 9deg,transparent 9deg 26deg);clip-path:polygon(50% 0,60% 23%,86% 8%,79% 37%,100% 50%,77% 59%,93% 89%,64% 80%,50% 100%,39% 78%,10% 95%,22% 65%,0 50%,24% 39%,9% 11%,39% 24%)}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Energy']:after{background:repeating-linear-gradient(-25deg,transparent 0 17px,#e76b1918 17px 19px);mask-image:linear-gradient(0deg,#000,transparent);width:100%;opacity:.7}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Protein']{--metric-accent:#ffa3dc;--metric-glow:#f168c455;background:radial-gradient(at 100% 0,#9e428a,transparent 75%),linear-gradient(140deg,#512b62,#35233f);color:#fff3fa;border-color:#a16b9b}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Protein']:before{inset:0;background:radial-gradient(circle at 73% 23%,#f2a8d352 0 5px,transparent 6px),radial-gradient(circle at 95% 40%,#b8a2ff65 0 7px,transparent 8px),radial-gradient(circle at 60% 47%,#ffba8055 0 4px,transparent 5px);width:100%;height:100%}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Protein']:after{background:repeating-linear-gradient(35deg,transparent 0 39px,#f0b6e21a 39px 40px);width:100%;opacity:.7;mask-image:linear-gradient(90deg,transparent,#000)}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Carbohydrates']{--metric-accent:#7b511c;--metric-glow:#ffe08170;background:linear-gradient(135deg,#fff5c5,#f4cc56);color:#4f3816;border-color:#d3ad4a}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Carbohydrates']:before{right:-35px;top:-10px;width:150px;height:180px;border-radius:70% 20% 60% 40%;background:repeating-linear-gradient(65deg,#5c8c6930 0 12px,transparent 12px 25px);transform:rotate(22deg)}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Carbohydrates']:after{width:100%;background:radial-gradient(ellipse,#9b692e30 1px,transparent 2px) 0 0/13px 8px;mask-image:linear-gradient(0deg,#000,transparent 65%);opacity:.55}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Fat']{--metric-accent:#91f2eb;--metric-glow:#66dadc65;color:#efffff;background:linear-gradient(135deg,#206a80,#2548a0);border-color:#4f99b4}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Fat']:before{width:230px;height:230px;right:-100px;top:-95px;border-radius:44% 56% 65% 35%;background:#65e0d32b;transform:rotate(25deg);box-shadow:-20px 24px 0 #7aaeff24,-40px 48px 0 #b8c4ff16}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Fat']:after{width:150%;height:100px;top:auto;bottom:-65px;right:-20%;border-radius:50%;background:#86e8e345;box-shadow:0 -16px 0 #74b8fb22;mask-image:none;opacity:1}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Movement time']{--metric-accent:#ffe23a;--metric-glow:#ffe23a55;background:radial-gradient(at 100% 0,#34777e,transparent 75%),#182c35}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Movement time']:before{right:-40px;top:-100px;width:250px;height:250px;border:2px solid #ffdf3240;border-radius:42%;box-shadow:0 0 0 14px #34bac42b,0 0 0 29px #ffdf321c,0 0 0 44px #34bac41a;transform:rotate(-25deg)}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Exercises']{--metric-accent:#3c4b9e;--metric-glow:#8098ff65;color:#25355a;background:linear-gradient(120deg,#eef3ff,#cddcff);border-color:#a1b4dd}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Exercises']:before{width:145px;height:110px;right:-20px;top:8px;background:repeating-linear-gradient(0deg,#627edc20 0 15px,transparent 15px 25px);transform:rotate(-14deg);border-radius:16px}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Exercises']:after{width:90px;height:160px;right:10px;top:60px;background:repeating-linear-gradient(-35deg,#fa9c5430 0 8px,transparent 8px 21px);mask-image:linear-gradient(0deg,transparent,#000);opacity:.65}
+.app-shell[data-section='plans'] .my-plan-stats>article:is([data-metric='Protein'],[data-metric='Fat']) progress::-webkit-progress-bar{background:#ffffff30}
+@media(max-width:600px){.app-shell[data-section='plans'] .my-plan-stats>article .plan-metric-purpose{max-width:70%}.app-shell[data-section='plans'] .my-plan-stats>article .plan-metric-art{opacity:.55}}
+
+/* More distinct hues across the six daily metrics. */
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Energy']{--metric-accent:#8e261d;--metric-glow:#ffdd8c80;background:linear-gradient(135deg,#ffdf9e,#ff8875);color:#54251e;border-color:#d57658}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Protein']{--metric-accent:#ead0ff;--metric-glow:#d692ff70;background:radial-gradient(at 100% 0,#aa5be2,transparent 75%),linear-gradient(135deg,#7043a5,#493278);color:#fff5ff;border-color:#ad80d2}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Carbohydrates']{--metric-accent:#42602a;--metric-glow:#f3ff9b90;background:linear-gradient(135deg,#eff7a1,#aad584);color:#2c4424;border-color:#92b766}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Fat']{--metric-accent:#135873;--metric-glow:#bafff4a0;background:linear-gradient(135deg,#b3f5e9,#72cce4);color:#184353;border-color:#56aebf}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Movement time']{--metric-accent:#ffe34a;--metric-glow:#7eaeff80;background:radial-gradient(at 100% 0,#457bea,transparent 75%),linear-gradient(135deg,#193575,#233f94);color:#f6f9ff;border-color:#6287bd}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Exercises']{--metric-accent:#913d1b;--metric-glow:#ffdc8e80;background:linear-gradient(135deg,#ffe0a5,#f7a36a);color:#56311e;border-color:#d78e56}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Fat'] progress::-webkit-progress-bar{background:#24334417}
+
+/* My Plan fieldbook: sporting tickets, recovery notes, and hydration stamps. */
+.app-shell[data-section='plans'] .my-plan-task-card{position:relative;isolation:isolate;overflow:hidden;background-image:radial-gradient(ellipse at 0 0,#ffffffd9,transparent 75%),linear-gradient(120deg,#ffffff55,transparent 70%);border-left-width:5px}
+.app-shell[data-section='plans'] .my-plan-task-card:before{content:'';position:absolute;z-index:-1;pointer-events:none;right:-30px;top:-20px;width:170px;height:145px;background:repeating-linear-gradient(-35deg,transparent 0 18px,color-mix(in srgb,var(--ticket-edge) 14%,transparent) 18px 21px);mask-image:linear-gradient(90deg,transparent,#000)}
+.app-shell[data-section='plans'] .nutrition .my-plan-task-card:before{background:radial-gradient(ellipse at center,transparent 40%,color-mix(in srgb,var(--ticket-edge) 16%,transparent) 41% 43%,transparent 44% 55%,color-mix(in srgb,var(--ticket-edge) 12%,transparent) 56% 58%,transparent 59%);transform:rotate(-20deg)}
+.app-shell[data-section='plans'] .my-plan-task-card:after{content:'';position:absolute;z-index:-1;right:14px;bottom:13px;width:75px;height:24px;pointer-events:none;background:radial-gradient(var(--ticket-edge) .8px,transparent 1px) 0 0/7px 7px;opacity:.25}
+.app-shell[data-section='plans'] .my-plan-task-heading strong{font-size:clamp(16px,1.7vw,21px);color:#26333c}
+.app-shell[data-section='plans'] .my-plan-task-thumbnail{transform:rotate(-3deg);box-shadow:2px 4px 0 color-mix(in srgb,var(--ticket-edge) 20%,transparent)}
+.app-shell[data-section='plans'] .my-plan-task-fields input,.app-shell[data-section='plans'] .my-plan-task-fields select{background:#ffffffdc;border-color:color-mix(in srgb,var(--ticket-edge) 30%,white);box-shadow:inset 0 2px 3px #26333c05}
+.app-shell[data-section='plans'] .my-plan-task-links{padding-top:5px;gap:8px}
+.app-shell[data-section='plans'] .my-plan-task-links button{padding:6px 9px;border:1px solid color-mix(in srgb,var(--ticket-edge) 30%,white);border-radius:8px;background:#ffffff85;text-decoration:none;color:#334854;line-height:1.4}
+.app-shell[data-section='plans'] .my-plan-task-links button:first-child{background:#fff5bd;border-color:#dcc866;color:#514317}
+.app-shell[data-section='plans'] .my-plan-task-list>article.is-done .my-plan-task-card{background-color:#e2f0d9;border-left-color:#74a35c}
+.app-shell[data-section='plans'] .my-plan-actual-log{background:#ffffff80;border:1px solid #ffffffb0;border-radius:12px}
+.app-shell[data-section='plans'] .my-plan-meal-heading{position:relative;isolation:isolate;overflow:hidden;padding:18px 20px;border:1px solid #b6cfa6;border-left:5px solid #6d9860;border-radius:16px;background:linear-gradient(115deg,#f2f9e5,#e1efcd);color:#31482e;box-shadow:0 3px 0 #344b2410}
+.app-shell[data-section='plans'] .my-plan-meal-heading:after{content:'';position:absolute;z-index:-1;right:0;inset-block:0;width:200px;background:repeating-linear-gradient(-35deg,transparent 0 16px,#78a15e15 16px 20px);pointer-events:none}
+.app-shell[data-section='plans'] .my-plan-meal-heading button{background:#fff4b0;border-color:#d2bb51;color:#4d431c;box-shadow:0 3px 0 #bba64445;border-radius:10px}
+.app-shell[data-section='plans'] .my-plan-preparation{position:relative;isolation:isolate;overflow:hidden;border-radius:16px;padding:18px 20px;border-left:5px solid #e99b32;background:linear-gradient(120deg,#fff4bd,#fff9e9);color:#5a4928}
+.app-shell[data-section='plans'] .my-plan-preparation:after{content:'';position:absolute;z-index:-1;right:-20px;top:-35px;width:150px;height:150px;border:18px solid #edb4451a;border-radius:50%;box-shadow:0 0 0 14px #edb4450e;pointer-events:none}
+.app-shell[data-section='plans'] .my-plan-preparation strong{font-size:14px;font-weight:800}
+.app-shell[data-section='plans'] .my-plan-empty{position:relative;overflow:hidden;padding:32px 25px;background:linear-gradient(120deg,#f1f4ff,#e2ebf7);border:1px dashed #a5b8d2;border-radius:18px;color:#475b75;font-weight:550}
+.app-shell[data-section='plans'] .my-plan-empty:after{content:'';position:absolute;pointer-events:none;inset:0;background:repeating-linear-gradient(-40deg,transparent 0 35px,#6081ac08 35px 38px)}
+.app-shell[data-section='plans'] .my-plan-picker-items article{position:relative;overflow:hidden;background:linear-gradient(120deg,#fff,#f1f6fd);border-left:3px solid #749ac6;box-shadow:0 2px 0 #26333c0a;border-radius:13px}
+.app-shell[data-section='plans'] .nutrition .my-plan-picker-items article{border-left-color:#83a66d;background:linear-gradient(120deg,#fff,#f2f7e9)}
+.app-shell[data-section='plans'] .my-plan-picker-items article>button{background:#ffe151;color:#433b1c;border-color:#d2b83e;box-shadow:0 2px 0 #bfa63055;font-weight:750}
+.app-shell[data-section='plans'] .my-plan-notes,.app-shell[data-section='plans'] .my-plan-warning{border-left:4px solid #d2a737;background-image:linear-gradient(110deg,#ffffff60,transparent);border-radius:12px}
+.app-shell[data-section='plans'] .my-plan-water-grid>label:nth-child(2n){background-color:#e5f4ff}
+.app-shell[data-section='plans'] .my-plan-water-grid>label:nth-child(3n){background-color:#dbf1f3}
+.app-shell[data-section='plans'] .my-plan-water-grid>label.is-done{background-color:#aee0f6}
+.app-shell[data-section='plans'] .my-plan-water-grid>label.is-done .water-checkpoint-number{color:#125477}
+@media(max-width:600px){.app-shell[data-section='plans'] .my-plan-task-links button{font-size:10px;padding:6px 8px}.app-shell[data-section='plans'] .my-plan-meal-heading,.app-shell[data-section='plans'] .my-plan-preparation{padding:15px}.app-shell[data-section='plans'] .my-plan-task-heading strong{font-size:16px}}
+
+/* Contained sky and water cards replace the edge-bleed experiment. */
+.app-shell[data-section='plans'] :is(.my-plan-calendar-section,.my-plan-water){overflow:hidden;border:1px solid #45689b;border-radius:24px;background:linear-gradient(110deg,#2e487b,#577fb3);box-shadow:inset 0 1px 2px #ffffff45,0 3px 0 #20395420}
+.app-shell[data-section='plans'] :is(.my-plan-calendar-section,.my-plan-water):before{inset:0;width:auto;height:auto;clip-path:none;border:0;border-radius:0;transform:none;box-shadow:none;mask-image:none}
+.app-shell[data-section='plans'] .my-plan-calendar-section:before{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 260'%3E%3Cg fill='%23b8d6fa' fill-opacity='.32'%3E%3Cpath d='M780 40c-6-25 15-42 36-34 9-34 64-35 78 0 24-10 48 8 45 30h61v30H754c-2-16 9-27 26-26Z'/%3E%3Cpath d='M0 211c20-25 47-18 53 0 10-37 63-39 79-7 26-14 56 4 55 26 28-2 40 12 43 30H0Z'/%3E%3Cpath d='M903 228c0-23 24-37 44-24 8-28 38-36 53-22v78H871c0-19 13-32 32-32Z'/%3E%3C/g%3E%3Cpath d='M650-20Q615 35 790 70T1040 150M673-20Q638 35 813 70T1063 150' fill='none' stroke='%23cee5ff' stroke-opacity='.2'/%3E%3C/svg%3E") center/100% 100% no-repeat}
+.app-shell[data-section='plans'] .my-plan-calendar-section:after{display:none}
+.app-shell[data-section='plans'] .my-plan-water:before{background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 400' preserveAspectRatio='none'%3E%3Cpath d='M0 335Q150 285 300 335T600 335T900 335T1200 335V400H0Z' fill='%238bcde9' fill-opacity='.18'/%3E%3Cpath d='M0 360Q150 310 300 360T600 360T900 360T1200 360V400H0Z' fill='%23afe3f6' fill-opacity='.22'/%3E%3Cpath d='M0 335Q150 285 300 335T600 335T900 335T1200 335' fill='none' stroke='%23c6edff' stroke-opacity='.35' stroke-width='2'/%3E%3Cg fill='none' stroke='%23b8e6ff' stroke-opacity='.28'%3E%3Ccircle cx='940' cy='58' r='7'/%3E%3Ccircle cx='910' cy='94' r='4'/%3E%3Ccircle cx='970' cy='120' r='11'/%3E%3Ccircle cx='37' cy='270' r='7'/%3E%3C/g%3E%3C/svg%3E") center/100% 100% no-repeat}
+.app-shell[data-section='plans'] .my-plan-water:after{display:none}
+@media(max-width:600px){.app-shell[data-section='plans'] :is(.my-plan-calendar-section,.my-plan-water){border-radius:18px}}
+
+/* Home's performance-desk chapter, carried into the daily to-do canvas. */
+.app-shell[data-section='plans'] .my-plan-todo{position:relative;isolation:isolate;--todo-curve:clamp(40px,6vw,88px);padding-block:32px 36px;margin-block:32px;background:transparent;border:0;box-shadow:none;overflow:visible}
+.app-shell[data-section='plans'] .my-plan-todo:before{content:'';position:absolute;z-index:-2;pointer-events:none;top:calc(-1 * var(--todo-curve));bottom:calc(-1 * var(--todo-curve));left:calc(-1 * var(--calendar-bleed-left,5vw));right:calc(-1 * var(--calendar-bleed,5vw));background:repeating-linear-gradient(0deg,transparent 0 59px,#b58a2717 59px 60px),repeating-linear-gradient(90deg,transparent 0 59px,#b58a2717 59px 60px),radial-gradient(ellipse at 100% 6%,#ef9a4d99,transparent 35%),radial-gradient(ellipse at 0 90%,#f0ab4273,transparent 35%),linear-gradient(105deg,#ffe77c,#fff1af 75%);clip-path:shape(from 0 calc(2 * var(--todo-curve)),curve to var(--todo-curve) var(--todo-curve) with 0 var(--todo-curve),line to calc(100% - var(--todo-curve)) var(--todo-curve),curve to 100% 0 with 100% var(--todo-curve),line to 100% calc(100% - 2 * var(--todo-curve)),curve to calc(100% - var(--todo-curve)) calc(100% - var(--todo-curve)) with 100% calc(100% - var(--todo-curve)),line to var(--todo-curve) calc(100% - var(--todo-curve)),curve to 0 100% with 0 calc(100% - var(--todo-curve)),close)}
+.app-shell[data-section='plans'] .my-plan-todo :is(.my-plan-day-top h3,.my-plan-day-top p,.my-plan-day-top>label,.my-plan-hint,.my-plan-phase-title,.my-plan-timeline-rail>label:first-child){color:#493c29}
+@media(max-width:600px){.app-shell[data-section='plans'] .my-plan-todo{padding-block:25px 30px}}
+
+/* Sport-tech instruments: clear data, luminous signals, technical field graphics. */
+.app-shell[data-section='plans'] .my-plan-stats>article{border-radius:18px 7px 18px 7px;border-width:1px;padding:22px;box-shadow:inset 0 1px 0 #ffffff50,0 5px 0 #101a2422,0 12px 30px #101a2412;--metric-accent:#65f4d5;--metric-glow:#65f4d550}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Movement time']{--metric-accent:#6df8dc;--metric-glow:#4cf2d460;background:radial-gradient(at 100% 0,#226f7850,transparent 70%),linear-gradient(135deg,#152f3c,#101e2c);border-color:#437782;color:#f0fffc}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Exercises']{--metric-accent:#263b69;--metric-glow:#ffffff90;background:linear-gradient(130deg,#e8ff90,#b7ec59);border-color:#97bf4e;color:#22361e}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Energy']{--metric-accent:#ff9877;--metric-glow:#ff754b65;background:radial-gradient(at 100% 0,#9b3a3c55,transparent 70%),linear-gradient(140deg,#3c2531,#221c2b);border-color:#91505b;color:#fff4ee}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Protein']{--metric-accent:#4642ac;--metric-glow:#b89aff80;background:linear-gradient(130deg,#eee7ff,#b9b5f2);border-color:#9995d3;color:#302851}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Carbohydrates']{--metric-accent:#ffdc63;--metric-glow:#ffcd5355;background:radial-gradient(at 100% 0,#6d5c2355,transparent 70%),linear-gradient(135deg,#30352b,#1e2929);border-color:#69715a;color:#fffbe7}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Fat']{--metric-accent:#11617b;--metric-glow:#c4ffff90;background:linear-gradient(135deg,#c0f5ff,#73cbf0);border-color:#65b1cf;color:#174355}
+.app-shell[data-section='plans'] .my-plan-stats>article:before{inset:12px 12px auto auto;width:100px;height:100px;background:repeating-conic-gradient(from 0deg,var(--metric-accent) 0deg 1deg,transparent 1deg 15deg);border:0;border-radius:50%;box-shadow:none;transform:none;opacity:.24;mask-image:radial-gradient(circle,transparent 56%,#000 57% 62%,transparent 63%)}
+.app-shell[data-section='plans'] .my-plan-stats>article:after{inset:0;width:auto;height:auto;transform:none;border-radius:0;box-shadow:none;background:linear-gradient(90deg,transparent calc(100% - 1px),color-mix(in srgb,var(--metric-accent) 12%,transparent) 0) 0 0/24px 24px,linear-gradient(0deg,transparent calc(100% - 1px),color-mix(in srgb,var(--metric-accent) 12%,transparent) 0) 0 0/24px 24px;mask-image:linear-gradient(110deg,transparent 25%,#000);opacity:.5}
+.app-shell[data-section='plans'] .my-plan-stats>article .plan-metric-art{width:68px;height:68px;right:28px;top:28px;transform:none;opacity:.8;stroke-width:2;fill:none;filter:drop-shadow(0 0 7px var(--metric-glow))}
+.app-shell[data-section='plans'] .my-plan-stats>article>span{font-weight:800;letter-spacing:-.025em}
+.app-shell[data-section='plans'] .my-plan-stats .plan-metric-number{font-weight:900;letter-spacing:-.06em;font-size:1.12em;text-shadow:0 0 22px var(--metric-glow)}
+.app-shell[data-section='plans'] .my-plan-stats progress{height:7px;border-radius:2px;background:#22334420}
+.app-shell[data-section='plans'] .my-plan-stats progress::-webkit-progress-bar{border-radius:2px;background:#22334420}
+.app-shell[data-section='plans'] .my-plan-stats progress::-webkit-progress-value{border-radius:2px;background:var(--metric-accent);box-shadow:0 0 10px var(--metric-glow)}
+.app-shell[data-section='plans'] .my-plan-stats>article:is([data-metric='Movement time'],[data-metric='Energy'],[data-metric='Carbohydrates']) progress::-webkit-progress-bar{background:#ffffff26}
+.app-shell[data-section='plans'] .my-plan-stats>article>p{border-top-style:dashed;border-top-color:color-mix(in srgb,var(--metric-accent) 25%,transparent);padding-top:10px}
+.app-shell[data-section='plans'] .plan-metric-track-label b{font-variant-numeric:tabular-nums;border:1px solid color-mix(in srgb,var(--metric-accent) 25%,transparent);padding:2px 6px;border-radius:4px;background:color-mix(in srgb,var(--metric-accent) 8%,transparent)}
+@media(max-width:600px){.app-shell[data-section='plans'] .my-plan-stats>article{padding:16px}.app-shell[data-section='plans'] .my-plan-stats>article .plan-metric-art{width:49px;height:49px;right:12px;top:23px;opacity:.6}.app-shell[data-section='plans'] .my-plan-stats>article:before{width:76px;height:76px;top:9px;right:0}}
+
+/* My Plan surfaces: soft clay depth with translucent glass highlights. */
+.app-shell[data-section='plans'] .my-plan-workspace :is(.my-plan-stats>article,.my-plan-task-card,.my-plan-meal-heading,.my-plan-preparation,.my-plan-empty,.my-plan-picker-items article,.my-plan-water,.my-plan-calendar-section,.my-plan-water-grid>label){box-shadow:inset 2px 3px 5px #ffffffa0,inset -3px -5px 10px #23354b12,0 4px 4px #20303c12,0 12px 25px #20303c14!important;backdrop-filter:blur(10px) saturate(115%);-webkit-backdrop-filter:blur(10px) saturate(115%);border-top-color:#ffffffb0;border-right-color:#ffffff70;transition:box-shadow .25s ease,border-color .25s ease}
+.app-shell[data-section='plans'] .my-plan-workspace :is(.my-plan-stats>article,.my-plan-task-card){border-radius:22px}
+.app-shell[data-section='plans'] .my-plan-workspace .my-plan-stats>article:is([data-metric='Movement time'],[data-metric='Energy'],[data-metric='Carbohydrates']){box-shadow:inset 1px 2px 4px #ffffff65,inset -4px -5px 12px #06121f30,0 4px 4px #20303c15,0 12px 25px #20303c20!important}
+.app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-card{background-image:linear-gradient(120deg,#ffffffa0,transparent 65%),linear-gradient(0deg,#ffffff10,#ffffff10)}
+.app-shell[data-section='plans'] .my-plan-workspace :is(.my-plan-task-thumbnail,.my-plan-check,.my-plan-meal-heading button,.my-plan-generate,.my-plan-options>button,.my-plan-water>div>button){box-shadow:inset 1px 2px 3px #ffffffb0,inset -2px -3px 5px #7c66351a,0 3px 0 #383d411f,0 6px 12px #2831390d;border-radius:13px}
+.app-shell[data-section='plans'] .my-plan-workspace :is(.my-plan-task-fields input,.my-plan-task-fields select,.my-plan-water-grid input[type=time],.my-plan-timeline-rail input[type=time]){background:#ffffffd9;box-shadow:inset 1px 2px 4px #30445c10,0 1px 0 #ffffffa0;border-color:#cbd8e6b0;border-radius:10px}
+.app-shell[data-section='plans'] .my-plan-workspace .my-plan-actual-log{background:#ffffff80;border-color:#ffffffb0;backdrop-filter:blur(8px);box-shadow:inset 0 1px 2px #fff,0 3px 9px #25303906}
+.app-shell[data-section='plans'] .my-plan-workspace .my-plan-days button{box-shadow:inset 1px 2px 3px #ffffffa0,inset -2px -4px 6px #42658715,0 4px 0 #9bb4d6,0 8px 13px #142b4515}
+.app-shell[data-section='plans'] .my-plan-workspace .my-plan-days button[aria-pressed=true]{box-shadow:inset 1px 2px 3px #ffffff90,inset -2px -4px 5px #a3282520,0 4px 0 #c9313b,0 8px 13px #142b451a}
+.app-shell[data-section='plans'] .my-plan-workspace .my-plan-water-grid>label{border-radius:16px}
+@media(prefers-reduced-motion:reduce){.app-shell[data-section='plans'] .my-plan-workspace :is(.my-plan-stats>article,.my-plan-task-card,.my-plan-meal-heading,.my-plan-preparation,.my-plan-empty,.my-plan-picker-items article,.my-plan-water,.my-plan-calendar-section,.my-plan-water-grid>label){transition:none}}
+
+/* Complete cloud silhouettes sit inside the sky card, without cut-off edges. */
+.app-shell[data-section='plans'] .my-plan-calendar-section:before{background:url("data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%201200%20300%22%20preserveAspectRatio%3D%22none%22%3E%3Cdefs%3E%3Cpath%20id%3D%22cloud%22%20d%3D%22M14%2043C-3%2043-3%2020%2014%2019C18%202%2042-3%2053%2012C68%200%2088%2010%2088%2025C110%2020%20115%2043%2096%2043Z%22%2F%3E%3C%2Fdefs%3E%3Cg%20fill%3D%22%23c1dcff%22%20fill-opacity%3D%22.3%22%3E%3Cuse%20href%3D%22%23cloud%22%20transform%3D%22translate(800%2010)%20scale(1.45%20.85)%22%2F%3E%3Cuse%20href%3D%22%23cloud%22%20transform%3D%22translate(1010%20221)%20scale(1.2%201.2)%22%2F%3E%3Cuse%20href%3D%22%23cloud%22%20transform%3D%22translate(90%20232)%20scale(1.4%201.1)%22%2F%3E%3C%2Fg%3E%3Cg%20fill%3D%22%23c1dcff%22%20fill-opacity%3D%22.18%22%3E%3Cuse%20href%3D%22%23cloud%22%20transform%3D%22translate(410%2010)%20scale(.8%20.7)%22%2F%3E%3Cuse%20href%3D%22%23cloud%22%20transform%3D%22translate(610%20250)%20scale(1%20.75)%22%2F%3E%3Cuse%20href%3D%22%23cloud%22%20transform%3D%22translate(25%209)%20scale(.85%20.7)%22%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22M700%208Q670%2035%20880%2059T1180%20126M725%208Q695%2035%20905%2059T1190%20115%22%20fill%3D%22none%22%20stroke%3D%22%23cee5ff%22%20stroke-opacity%3D%22.15%22%2F%3E%3C%2Fsvg%3E") center/100% 100% no-repeat}
+
+/* Warm performance signals and a quieter, calendar-like hydration surface. */
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Movement time']{--metric-accent:#ffb56f;--metric-glow:#ff953c65;background:radial-gradient(at 100% 0,#ba612e60,transparent 75%),linear-gradient(135deg,#4a3029,#2c2729);border-color:#a27658;color:#fff6ed}
+.app-shell[data-section='plans'] .my-plan-stats>article[data-metric='Energy']{--metric-accent:#ffae70;--metric-glow:#ff8f3d65;background:radial-gradient(at 100% 0,#d87d3860,transparent 70%),linear-gradient(140deg,#73432c,#382b29);border-color:#b98661;color:#fff6ed}
+.app-shell[data-section='plans'] .my-plan-water .plan-hydration-art{display:none}
+.app-shell[data-section='plans'] .my-plan-water-grid>label:nth-child(n){background:#edf5fc;border:1px solid #b4cbe0;border-left-width:1px;border-radius:14px;box-shadow:inset 0 1px 2px #ffffffc0,0 3px 0 #23456725!important}
+.app-shell[data-section='plans'] .my-plan-water-grid>label:before,.app-shell[data-section='plans'] .my-plan-water-grid>label:after{display:none}
+.app-shell[data-section='plans'] .my-plan-water-grid>label>span{color:#315372}
+.app-shell[data-section='plans'] .my-plan-water-grid>label>span svg{filter:none;stroke-width:1.8}
+.app-shell[data-section='plans'] .my-plan-water-grid .water-checkpoint-number{font-size:12px;font-weight:650}
+.app-shell[data-section='plans'] .my-plan-water-grid input[type=time]{background:#ffffffd9;border:1px solid #c1d4e5;border-radius:8px;box-shadow:none;font-weight:500}
+.app-shell[data-section='plans'] .my-plan-water-grid>label.is-done{background:#c8e3f3;border-color:#91bedb;box-shadow:inset 0 1px 2px #ffffffa0,0 3px 0 #23456725!important}
+.app-shell[data-section='plans'] .my-plan-water-grid>label.is-done .water-checkpoint-number{color:#245778}
+.app-shell[data-section='plans'] .my-plan-water h3{text-shadow:none}
+.app-shell[data-section='plans'] .my-plan-water>div>button{border-radius:12px;box-shadow:inset 0 1px #fff,0 3px 0 #294d6a25}
+
+/* Match Home's clay-and-glass material across My Plan, without changing its palette. */
+.app-shell[data-section='plans'] .my-plan-workspace :is(.my-plan-stats>article,.my-plan-task-card,.my-plan-meal-heading,.my-plan-preparation,.my-plan-empty,.my-plan-picker-items article,.my-plan-water,.my-plan-calendar-section,.my-plan-water-grid>label){--clay-highlight:#ffffffa6;--clay-shade:#70503220;border-radius:22px;background-clip:padding-box;box-shadow:inset 2px 3px 5px var(--clay-highlight),inset -3px -4px 8px var(--clay-shade),0 3px 2px #34322d0a,0 10px 24px #34322d14!important;backdrop-filter:blur(12px) saturate(110%);-webkit-backdrop-filter:blur(12px) saturate(110%);border-top-color:#ffffffa0;border-right-color:#ffffff70}
+.app-shell[data-section='plans'] .my-plan-workspace :is(.my-plan-water,.my-plan-calendar-section),.app-shell[data-section='plans'] .my-plan-stats>article:is([data-metric='Movement time'],[data-metric='Energy'],[data-metric='Carbohydrates']){--clay-highlight:#ffffff20;--clay-shade:#00000050;box-shadow:inset 1px 2px 4px var(--clay-highlight),inset -3px -5px 10px var(--clay-shade),0 4px 4px #181b2010,0 12px 26px #181b2020!important}
+.app-shell[data-section='plans'] .my-plan-task-card:after{width:46%;height:100%;inset:0 0 0 auto;background:radial-gradient(color-mix(in srgb,var(--ticket-edge) 40%,transparent) .8px,transparent 1px) 0 0/9px 9px;mask-image:linear-gradient(120deg,transparent 15%,#000);opacity:.38}
+.app-shell[data-section='plans'] .my-plan-preparation:before,.app-shell[data-section='plans'] .my-plan-meal-heading:before{content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;background:radial-gradient(#836c3222 .8px,transparent 1px) 0 0/9px 9px;mask-image:linear-gradient(90deg,transparent 45%,#000)}
+.app-shell[data-section='plans'] .my-plan-workspace :is(.my-plan-options>button,.my-plan-meal-heading button,.my-plan-water>div>button,.my-plan-check){border-radius:14px;box-shadow:inset 1px 2px 3px #ffffffa0,inset -1px -3px 5px #8b66252b,0 3px 5px #34322d18}
+.app-shell[data-section='plans'] .my-plan-workspace .my-plan-actual-log{background:linear-gradient(135deg,#ffffffa0,#ffffff60);border-color:#ffffffb0;box-shadow:inset 1px 1px 2px #fff,inset -1px -2px 4px #26333c09;backdrop-filter:blur(8px)}
+@media(max-width:600px){.app-shell[data-section='plans'] .my-plan-workspace :is(.my-plan-stats>article,.my-plan-task-card,.my-plan-meal-heading,.my-plan-preparation,.my-plan-empty,.my-plan-picker-items article,.my-plan-water,.my-plan-calendar-section,.my-plan-water-grid>label){border-radius:18px;backdrop-filter:blur(7px) saturate(110%);-webkit-backdrop-filter:blur(7px) saturate(110%)}}
+
+/* Calendar states: selected takes priority, followed by rest and today. */
+.app-shell[data-section='plans'] .my-plan-workspace .my-plan-days button{background:#fff;border-color:#e0e4e9;box-shadow:inset 1px 2px 3px #fff,inset -2px -4px 6px #42658710,0 4px 0 #becbdc,0 8px 13px #142b4515}
+.app-shell[data-section='plans'] .my-plan-days button .my-plan-calendar-name{background:#f7f8fa;color:#293745}
+.app-shell[data-section='plans'] .my-plan-days button small{color:#536575}
+.app-shell[data-section='plans'] .my-plan-days button[data-today=true]{background:#fff0d9;border-color:#ffb45d}
+.app-shell[data-section='plans'] .my-plan-days button[data-today=true] .my-plan-calendar-name{background:#ff922e;color:#342015}
+.app-shell[data-section='plans'] .my-plan-days button[data-today=true] small{color:#8e4216}
+.app-shell[data-section='plans'] .my-plan-days button[data-rest=true]{background:linear-gradient(150deg,#303033,#191a1d);border-color:#67503f}
+.app-shell[data-section='plans'] .my-plan-days button[data-rest=true] .my-plan-calendar-name{background:repeating-linear-gradient(135deg,transparent 0 12px,#ff973224 12px 17px),linear-gradient(120deg,#453327,#27272a);color:#ffc48b}
+.app-shell[data-section='plans'] .my-plan-days button[data-rest=true] small{background:radial-gradient(ellipse at 100% 100%,#fb8a273b,transparent 75%);color:#ffcfaa}
+.app-shell[data-section='plans'] .my-plan-workspace .my-plan-days button[aria-pressed=true]{background:#fff8f4;border-color:#ed7675;box-shadow:inset 1px 2px 3px #ffffff90,inset -2px -4px 5px #a3282520,0 4px 0 #c9313b,0 8px 13px #142b451a}
+.app-shell[data-section='plans'] .my-plan-days button[aria-pressed=true] .my-plan-calendar-name{background:#e94f54;color:#fff}
+.app-shell[data-section='plans'] .my-plan-days button[aria-pressed=true] small{background:none;color:#ae2e37}
+
+/* Keep calendar paper white; distinguish rest days with a quiet darker header. */
+.app-shell[data-section='plans'] .my-plan-workspace .my-plan-days button[data-rest=true]{background:#fff;border-color:#a9b5c4}
+.app-shell[data-section='plans'] .my-plan-days button[data-rest=true] .my-plan-calendar-name{background:#798b9f;color:#fff}
+.app-shell[data-section='plans'] .my-plan-days button[data-rest=true] small{background:#fff;color:#536575}
+.app-shell[data-section='plans'] .my-plan-workspace .my-plan-days button[data-today=true],
+.app-shell[data-section='plans'] .my-plan-workspace .my-plan-days button[aria-pressed=true]{background:#fff}
+.app-shell[data-section='plans'] .my-plan-days button[aria-pressed=true] .my-plan-calendar-name{background:#e94f54;color:#fff}
+.app-shell[data-section='plans'] .my-plan-days button[aria-pressed=true] small{background:#fff;color:#ae2e37}
+
+/* Round the paper itself without clipping the binder pins above the card. */
+.app-shell[data-section='plans'] .my-plan-days button small{border-radius:0 0 13px 13px}
+
+/* Yellow completion rail with a single text-only toggle. */
+.app-shell[data-section='plans'] .my-plan-timeline-rail:after{background:#ffda1f;width:4px;box-shadow:0 0 7px #ffdc3240}
+.app-shell[data-section='plans'] .my-plan-timeline-rail:before{background:#ffdf32;border-color:#d9ac00}
+.app-shell[data-section='plans'] .my-plan-timeline-rail .my-plan-check{background:#ffdf32;color:#292718;border-color:#d9b52a;font-size:12px;font-weight:750;min-height:40px}
+.app-shell[data-section='plans'] .my-plan-timeline-rail .my-plan-check[aria-pressed=true]{background:#f3c916;border-color:#aa8400;box-shadow:inset 0 2px 4px #80600035,0 1px 0 #ffffff70}
+.app-shell[data-section='plans'] .my-plan-timeline-rail .my-plan-check:focus-visible{outline:3px solid #514200;outline-offset:3px}
+
+/* Match the water bulk action to the yellow completion controls. */
+.app-shell[data-section='plans'] .my-plan-water>div>button{background:#ffdf32;color:#302b18;border:1px solid #d6b329;box-shadow:inset 1px 2px 3px #fff6af,inset -1px -3px 5px #a47d242b,0 3px 5px #21374d25}
+
+/* Pending timeline uses orange and charcoal; completed segments remain yellow. */
+.app-shell[data-section='plans'] .my-plan-task-list>article:not(.is-done)>.my-plan-timeline-rail:after{background:#191a1b;box-shadow:none}
+.app-shell[data-section='plans'] .my-plan-task-list>article:not(.is-done)>.my-plan-timeline-rail:before{background:#191a1b;border-color:#191a1b}
+
+/* Timeline completion states: charcoal/orange pending, yellow completed. */
+.app-shell[data-section='plans'] .my-plan-timeline-rail:after{background:linear-gradient(90deg,#292522 0 50%,#ed8830 50% 100%);box-shadow:none}
+.app-shell[data-section='plans'] .my-plan-timeline-rail:before{background:#302a25;border-color:#ee8d34}
+.app-shell[data-section='plans'] .is-done>.my-plan-timeline-rail:after{background:#ffdf32;box-shadow:0 0 8px #ffdf3250}
+.app-shell[data-section='plans'] .is-done>.my-plan-timeline-rail:before{background:#ffdf32;border-color:#d4a900}
+
+/* Unfinished timeline segments use solid black. */
+.app-shell[data-section='plans'] .my-plan-timeline-rail:after{background:#191a1b;box-shadow:none}
+.app-shell[data-section='plans'] .is-done>.my-plan-timeline-rail:after{background:#ffdf32;box-shadow:0 0 8px #ffdf3250}
+
+/* Softer status rail: slate pending, warm gold completed. */
+.app-shell[data-section='plans'] .my-plan-task-list>article:not(.is-done)>.my-plan-timeline-rail:after{background:#8794a3;box-shadow:none}
+.app-shell[data-section='plans'] .my-plan-task-list>article:not(.is-done)>.my-plan-timeline-rail:before{background:#fff7d8;border-color:#8794a3;box-shadow:none}
+.app-shell[data-section='plans'] .my-plan-task-list>article.is-done>.my-plan-timeline-rail:after{background:#e6ad00;box-shadow:0 0 6px #e6ad0030}
+.app-shell[data-section='plans'] .my-plan-task-list>article.is-done>.my-plan-timeline-rail:before{background:#e6ad00;border-color:#c69400;box-shadow:0 0 6px #e6ad0030}
+
+/* Task tickets: framed media, readable targets, and a distinct action shelf. */
+.app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-card{padding:clamp(16px,2vw,25px);gap:14px;border-left-width:4px;background-image:linear-gradient(130deg,#fffffff0,transparent 62%);box-shadow:inset 0 2px 3px #ffffffc0,inset 0 -2px 5px #334a5210,0 4px 0 #334a5214,0 12px 26px #334a5210!important}
+.app-shell[data-section='plans'] .my-plan-task-card:before{right:-35px;top:-35px;width:230px;height:170px;opacity:.7;transform:rotate(-8deg)}
+.app-shell[data-section='plans'] .my-plan-task-card:after{width:35%;opacity:.2}
+.app-shell[data-section='plans'] .my-plan-task-card .my-plan-task-heading{padding:0 30px 17px 0;border-bottom:1px solid color-mix(in srgb,var(--ticket-edge) 22%,transparent);gap:16px;min-height:86px}
+.app-shell[data-section='plans'] .my-plan-task-card .my-plan-task-heading strong{font-size:clamp(17px,1.7vw,22px);line-height:1.25;letter-spacing:-.035em}
+.app-shell[data-section='plans'] .my-plan-task-card .my-plan-task-state{margin-top:7px;font-size:12px;color:#526772}
+.app-shell[data-section='plans'] .my-plan-task-card .my-plan-task-thumbnail{transform:none;flex:0 0 72px;width:72px;height:72px;border-radius:17px;background:#ffffffed;border:1px solid #fff;box-shadow:0 4px 0 color-mix(in srgb,var(--ticket-edge) 18%,white),0 6px 15px #26333c0c;transition:transform .18s ease}
+.app-shell[data-section='plans'] .my-plan-task-card .my-plan-task-thumbnail:hover{transform:translateY(-2px)}
+.app-shell[data-section='plans'] .my-plan-task-card .my-plan-task-fields{max-width:560px;gap:12px;margin:17px 0}
+.app-shell[data-section='plans'] .my-plan-task-card .my-plan-task-fields>label{padding:10px 12px;background:#ffffff60;border:1px solid #ffffffa0;border-radius:13px;gap:7px;color:#475b65;font-size:11px;font-weight:650}
+.app-shell[data-section='plans'] .my-plan-task-card .my-plan-task-fields :is(input,select){font-size:15px;font-weight:650;color:#273d48;min-height:42px;padding:9px 11px;border-radius:8px;background:#ffffffdf;box-shadow:inset 0 1px 3px #31444e09}
+.app-shell[data-section='plans'] .my-plan-task-card .my-plan-actual-log{margin:14px 0;padding:13px 15px;border-radius:13px;background:#ffffff70;box-shadow:none}
+.app-shell[data-section='plans'] .my-plan-task-card .my-plan-actual-log summary{font-size:12px;color:#304750}
+.app-shell[data-section='plans'] .my-plan-task-card .my-plan-actual-log summary span{font-size:11px;line-height:1.5;margin-top:6px}
+.app-shell[data-section='plans'] .my-plan-task-card .my-plan-task-links{align-items:center;border-top:1px solid color-mix(in srgb,var(--ticket-edge) 18%,transparent);padding-top:14px;margin-top:15px;gap:8px}
+.app-shell[data-section='plans'] .my-plan-task-card .my-plan-task-links button{min-height:36px;padding:8px 12px;border-radius:10px;font-size:11px;font-weight:650;background:#ffffffa0;color:#334c58}
+.app-shell[data-section='plans'] .my-plan-task-card .my-plan-task-links button:first-child{background:#ffdf32;color:#302a15;border-color:#d3b52d;box-shadow:0 2px 0 #bca12d35}
+.app-shell[data-section='plans'] .my-plan-task-card .my-plan-remove{border-radius:50%;width:30px;height:30px;display:grid;place-items:center;background:#ffffff80;color:#886657;flex-shrink:0}
+@media(max-width:600px){
+ .app-shell[data-section='plans'] .my-plan-task-card .my-plan-task-heading{padding-right:18px;gap:10px;align-items:flex-start;flex-wrap:nowrap;min-height:0;padding-bottom:13px}
+ .app-shell[data-section='plans'] .my-plan-task-card .my-plan-task-thumbnail{flex-basis:48px;width:48px;height:48px;border-radius:12px}
+ .app-shell[data-section='plans'] .my-plan-task-card .my-plan-task-heading strong{font-size:16px}
+ .app-shell[data-section='plans'] .my-plan-task-card .my-plan-task-fields{gap:9px;margin:13px 0}
+ .app-shell[data-section='plans'] .my-plan-task-card .my-plan-task-fields>label{padding:8px}
+ .app-shell[data-section='plans'] .my-plan-task-card .my-plan-task-links button{flex:1 1 auto;padding:8px;font-size:10px}
+ .app-shell[data-section='plans'] .my-plan-task-card .my-plan-remove{position:absolute;right:8px;top:8px;width:25px;height:25px}
+}
+@media(prefers-reduced-motion:reduce){.app-shell[data-section='plans'] .my-plan-task-card .my-plan-task-thumbnail{transition:none}}
+
+/* Workout phases share the meal heading material, without bulk actions. */
+.app-shell[data-section='plans'] .my-plan-workout-heading{min-height:68px;margin:24px 0 10px;padding:18px 22px;background:linear-gradient(120deg,#edf4ff,#e0ebf8);border-color:#bbcee4;border-left:4px solid #7896bd;color:#2b435d}
+.app-shell[data-section='plans'] .my-plan-workout-heading h4{margin:0;color:#2b435d;font-size:18px;letter-spacing:-.025em}
+.app-shell[data-section='plans'] .my-plan-workout-heading:after{background:repeating-linear-gradient(-35deg,transparent 0 16px,#527aa015 16px 20px)}
+@media(max-width:600px){.app-shell[data-section='plans'] .my-plan-workout-heading{min-height:58px;padding:15px 18px}.app-shell[data-section='plans'] .my-plan-workout-heading h4{font-size:17px}}

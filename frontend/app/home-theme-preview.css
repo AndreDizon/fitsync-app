@@ -1,0 +1,77 @@
+.app-shell[data-home-preview]>.content-wrap{background-color:var(--preview-base);background-image:var(--preview-image);background-size:var(--preview-size);color:#232529}
+.app-shell[data-home-preview] .topbar{background:var(--preview-header)}
+.app-shell[data-home-preview] .home-page,.app-shell[data-home-preview] .hb-root{background:transparent}
+.app-shell[data-section='home'][data-home-preview-dark='true'] .home-energy .hb-section-heading{border-color:#ffffff25}
+.app-shell[data-home-header-dark='true'] .topbar{border-color:#ffffff20;color:#fff}
+
+.home-theme-setting{padding:20px;border-top:1px solid #e8e1d4;display:grid;gap:10px}.home-theme-setting label{font-weight:700}.home-theme-setting select{width:100%;max-width:340px;min-height:48px;border:1px solid #b9b2a6;border-radius:12px;padding:10px 14px;background:#fff;color:#232529;font:inherit}.home-theme-setting p{margin:0;font-size:13px;color:#69665e}.home-theme-setting select:focus-visible{outline:3px solid #ffcf32;outline-offset:3px}
+.app-shell[data-section='home'][data-home-preview-dark='true'] .home-energy :is(.hb-heading h2,.hb-heading h2 em,.hb-heading .hb-kicker,.hb-section-heading h2,.hb-section-heading>span,.hb-section-heading .hb-kicker,.hb-facts-toolbar>span){color:#fff}
+.app-shell[data-section='home'][data-home-preview-dark='true'] .home-energy .hb-band-brown :is(.hb-section-heading h2,.hb-section-heading>span,.hb-section-heading .hb-kicker,.hb-facts-toolbar>span){color:#fff}
+
+/* The saved theme follows navigation; cards retain their own palette. */
+.app-shell[data-home-preview]{background:var(--preview-base)}
+.app-shell[data-home-preview]>.content-wrap>:is(.page,.plan-workspace,.progress-workspace),
+.app-shell[data-home-preview] :is(.plan-folder-content,.exercise-library-page,.nutrition-workspace,.food-library,.my-plan-workspace,.playlist-workspace,.social-workspace){background-color:transparent;background-image:none}
+.app-shell[data-home-preview-dark='true'] :is(.plan-tab-page-heading,.food-library-heading,.exercise-library-heading,.playlist-heading,.my-plan-heading,.social-workspace-heading) :is(h1,h2,p,span,small){color:#fff!important}
+.app-shell[data-home-preview-dark='true'] :is(.food-results-heading,.exercise-results-heading,.playlist-collection-heading,.my-plan-method,.my-plan-phase-title){color:#fff}
+.app-shell[data-home-preview-dark='true'] .content-wrap>.page> :is(h1,h2,p),
+.app-shell[data-home-preview-dark='true'] .home-theme-setting>label,
+.app-shell[data-home-preview-dark='true'] .home-theme-setting>p{color:#fff}
+.app-shell[data-home-preview-dark='true'] .settings-group{color:#232529}
+.app-shell[data-home-preview-dark='true'] .home-theme-setting{background:#24282d;border-color:#ffffff25}
+
+/* Active folder tabs merge into the selected page surface in every plan mode. */
+.app-shell[data-home-preview] .plan-workspace .plan-hero-frame>.plan-tabs button.selected[aria-selected='true']{
+ background:var(--preview-base)!important;color:#232529!important;
+}
+.app-shell[data-home-preview-dark='true'] .plan-workspace .plan-hero-frame>.plan-tabs button.selected[aria-selected='true']{color:#fff!important}
+.app-shell[data-home-preview] .plan-tabs button.selected::after{background:var(--preview-base)!important}
+.app-shell[data-home-preview] .plan-tabs:has(button:first-child.selected)::before{background:var(--preview-base)!important}
+
+/* Paint the page and active flap in the same viewport coordinate space. */
+.app-shell[data-home-preview]>.content-wrap{
+ background-attachment:fixed;
+ background-position:0 0;
+ background-size:100vw 100vh;
+}
+.app-shell[data-home-preview] .plan-workspace .plan-hero-frame>.plan-tabs button.selected[aria-selected='true']{
+ background-color:var(--preview-base)!important;
+ background-image:var(--preview-image)!important;
+ background-attachment:fixed!important;
+ background-position:0 0!important;
+ background-size:100vw 100vh!important;
+ box-shadow:none!important;
+ transition:color .15s ease;
+ height:calc(100% + 1px);
+}
+.app-shell[data-home-preview] .plan-workspace .plan-hero-frame>.plan-tabs{position:relative;z-index:2}
+.app-shell[data-home-preview] .plan-workspace .plan-hero-frame>.plan-tabs button.selected:hover,
+.app-shell[data-home-preview] .plan-workspace .plan-hero-frame>.plan-tabs button.selected:active{filter:none;transform:none}
+
+/* Progress panels and their active folder share the same selected surface. */
+.app-shell[data-home-preview] .progress-workspace [role=tabpanel]{background:transparent}
+.app-shell[data-home-preview] .progress-workspace .pr-tabs-bar [role=tab][aria-selected=true]{color:#232529;background:transparent;box-shadow:none}
+.app-shell[data-home-preview] .progress-workspace .pr-tabs-bar [role=tab][aria-selected=true]::after{
+ background-color:var(--preview-base);background-image:var(--preview-image);
+ background-attachment:fixed;background-position:0 0;background-size:100vw 100vh;bottom:-1px;
+}
+.app-shell[data-home-preview-dark='true'] .progress-workspace .pr-tabs-bar [role=tab][aria-selected=true]{color:#fff}
+.app-shell[data-home-preview-dark='true'] .progress-workspace :is(.pr-tab-intro>div>h2,.pr-tab-intro>div>p,.pr-group-label>h3,.pr-group-label>p){color:#fff!important}
+.app-shell[data-home-preview-dark='true'] .progress-workspace [role=tabpanel]>.pr-caption{color:#e8e8e8}
+
+/* Neutral outer surround stays consistent while the inner canvas follows the theme. */
+.app-shell.theme-default[data-home-preview]{background:#eeede9}
+
+/* Dark folder stacks retain distinct inactive shades in Plans and Progress. */
+.app-shell[data-home-preview-dark='true'] :is(.plan-tabs,.pr-tabs-bar){--folder-inactive:#34383e;--folder-hover:#50545d}
+.app-shell[data-home-preview-dark='true'] :is(.plan-tabs button,.pr-tabs-bar [role=tab]):nth-child(2){--folder-inactive:#41444b}
+.app-shell[data-home-preview-dark='true'] :is(.plan-tabs button,.pr-tabs-bar [role=tab]):nth-child(3){--folder-inactive:#4b4c53}
+.app-shell[data-home-preview-dark='true'] .plan-workspace .plan-hero-frame>.plan-tabs button:not(.selected){background:var(--folder-inactive)!important;color:#e3e5e9!important}
+.app-shell[data-home-preview-dark='true'] .plan-tabs:has(button:first-child:not(.selected))::before{background:#34383e!important}
+.app-shell[data-home-preview-dark='true'] .progress-workspace .pr-tabs-bar [role=tab]:not([aria-selected=true]){background:transparent;color:#e3e5e9}
+.app-shell[data-home-preview-dark='true'] .progress-workspace .pr-tabs-bar [role=tab]:not([aria-selected=true])::after{background:var(--folder-inactive)}
+@media(hover:hover){
+.app-shell[data-home-preview-dark='true'] .plan-workspace .plan-hero-frame>.plan-tabs button:not(.selected):hover{background:var(--folder-hover)!important;color:#fff!important}
+.app-shell[data-home-preview-dark='true'] .progress-workspace .pr-tabs-bar [role=tab]:not([aria-selected=true]):hover::after{background:var(--folder-hover)}
+.app-shell[data-home-preview-dark='true'] .progress-workspace .pr-tabs-bar [role=tab]:not([aria-selected=true]):hover{color:#fff}
+}

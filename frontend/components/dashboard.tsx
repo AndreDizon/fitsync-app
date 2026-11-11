@@ -18,6 +18,12 @@ import { usePlanAccount } from '@/lib/playlist-account'
 import { ProgressWorkspace } from './progress-workspace'
 import type { OnboardingProfile } from '../../shared/onboarding'
 import '@/app/coach-chat.css'
+import '@/app/home-typography.css'
+import '@/app/home-palette.css'
+import '@/app/home-surfaces.css'
+import '@/app/plans-design.css'
+import '@/app/shared-app-design.css'
+import { HomeThemeSettings, useHomeTheme } from './home-theme-preview'
 import { PlanSignout } from './plan-signout'
 import {
   Activity,
@@ -76,6 +82,7 @@ function Logo() {
 }
 
 function App({ userName, userEmail }: { userName: string; userEmail: string }) {
+  const { theme, setTheme, themeStyle } = useHomeTheme()
   const firstName = userName.split(/\s+/)[0]
   const initials = userName.split(/\s+/).slice(0, 2).map(part => part[0]).join('').toUpperCase()
   const profile = usePlanningProfile()
@@ -142,7 +149,7 @@ function App({ userName, userEmail }: { userName: string; userEmail: string }) {
   }
 
   return (
-    <main className="app-shell theme-default">
+    <main className="app-shell theme-default" data-section={active} data-home-preview="true" data-home-preview-dark={theme !== 'clean-sporty'} data-home-header-dark={theme !== 'clean-sporty'} style={themeStyle}>
       {navOpen && <><div className="navigation-backdrop" onClick={() => setNavOpen(false)} aria-hidden="true" />
       <aside className="desktop-sidebar navigation-drawer" id="left-navigation" ref={drawerRef} role="dialog" aria-modal="true" aria-label="Main navigation">
         <div className="drawer-heading"><div className="brand"><Logo /><Wordmark /></div><button className="menu-toggle" onClick={() => setNavOpen(false)} aria-label="Close navigation"><X size={22} /></button></div>
@@ -154,12 +161,12 @@ function App({ userName, userEmail }: { userName: string; userEmail: string }) {
       <section className="content-wrap" inert={navOpen}>
         <header className="topbar"><div className="header-brand"><button className="menu-toggle" ref={menuButtonRef} onClick={() => setNavOpen(true)} aria-label="Open navigation" aria-expanded={navOpen} aria-controls="left-navigation"><Menu size={22} /></button><div className="mobile-brand"><Logo /><Wordmark /></div></div><div className="top-actions"><button aria-label="Search"><Search size={19} /></button><button className="profile-button" onClick={() => setActive('settings')}><div className="avatar small">{initials}</div><span>{firstName}</span><ChevronRight size={15} /></button></div></header>
 
-        {active === 'home' && <HomeView displayName={firstName} timeZone={timeZone} onOpen={openFromHome} />}
+        {active === 'home' && <><HomeView displayName={firstName} timeZone={timeZone} onOpen={openFromHome} /></>}
         {active === 'plans' && <PlansWorkspace tab={planTab} setTab={setPlanTab} initialMode={homeTarget?.mode} focusWater={homeTarget?.water} />}
         {active === 'library' && <LibraryView />}
         {active === 'social' && <SocialView initialSection={homeTarget?.socialSection} />}
         {active === 'progress' && <ProgressWorkspace initialTab={homeTarget?.progressTab} />}
-        {active === 'settings' && <SettingsView userName={userName} userEmail={userEmail} initials={initials} />}
+        {active === 'settings' && <SettingsView userName={userName} userEmail={userEmail} initials={initials} theme={theme} setTheme={setTheme} />}
         <AppFooter onNavigate={(section) => { navigate(section); setNavHidden(false); window.scrollTo(0, 0) }} onPlaylist={() => { setPlanTab('playlist'); navigate('plans'); setNavHidden(false); window.scrollTo(0, 0) }} />
       </section>
 
@@ -267,7 +274,7 @@ function SocialView({ initialSection }: { initialSection?: 'forum' | 'people' | 
 }
 
 
-function SettingsView({ userName, userEmail, initials }: { userName: string; userEmail: string; initials: string }) { return <div className="page"><p className="eyebrow">ACCOUNT</p><h1>Settings</h1><p className="muted intro">Make <Wordmark /> work for you.</p><div className="settings-profile"><div className="avatar">{initials}</div><div><strong>{userName}</strong><span>{userEmail}</span></div><button>Edit</button></div><div className="settings-group"><p>Preferences</p><button onClick={() => window.location.assign('/onboarding')}><span><Flag size={17} />Goals &amp; planning preferences</span><small>Edit <ChevronRight size={16} /></small></button><button><span><Sparkles size={17} />Notifications</span><small>On <ChevronRight size={16} /></small></button><div className="default-theme-setting"><div><Palette size={17} /><span>Theme</span></div><div className="default-theme-preview"><span className="theme-colors" aria-hidden="true"><i /><i /><i /></span><strong>Fox Energy</strong><small>Default</small><Check size={15} /></div><p>Vibrant, sporty daytime. Built for your next move.</p></div><button><span><MapPin size={17} />Offline mode</span><small>Off <ChevronRight size={16} /></small></button></div><div className="settings-group"><p>Data & account</p><button><span><DownloadIcon />Export your data</span><ChevronRight size={16} /></button><button><span><UserRound size={17} />Contact the team</span><ChevronRight size={16} /></button></div><PlanSignout /></div> }
+function SettingsView({ userName, userEmail, initials, theme, setTheme }: { userName: string; userEmail: string; initials: string; theme: import('./home-theme-preview').HomeTheme; setTheme: (theme: import('./home-theme-preview').HomeTheme) => void }) { return <div className="page"><p className="eyebrow">ACCOUNT</p><h1>Settings</h1><p className="muted intro">Make <Wordmark /> work for you.</p><div className="settings-profile"><div className="avatar">{initials}</div><div><strong>{userName}</strong><span>{userEmail}</span></div><button>Edit</button></div><div className="settings-group"><p>Preferences</p><button onClick={() => window.location.assign('/onboarding')}><span><Flag size={17} />Goals &amp; planning preferences</span><small>Edit <ChevronRight size={16} /></small></button><button><span><Sparkles size={17} />Notifications</span><small>On <ChevronRight size={16} /></small></button><HomeThemeSettings theme={theme} onChange={setTheme} /><button><span><MapPin size={17} />Offline mode</span><small>Off <ChevronRight size={16} /></small></button></div><div className="settings-group"><p>Data & account</p><button><span><DownloadIcon />Export your data</span><ChevronRight size={16} /></button><button><span><UserRound size={17} />Contact the team</span><ChevronRight size={16} /></button></div><PlanSignout /></div> }
 function MoonIcon() { return <span className="tiny-icon">☾</span> } function DownloadIcon() { return <span className="tiny-icon">↓</span> }
 
 export default function Dashboard({ profile, accountId = null, ...props }: { userName: string; userEmail: string; accountId?: string | null; profile: OnboardingProfile }) {

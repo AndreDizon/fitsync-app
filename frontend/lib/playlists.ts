@@ -1,4 +1,4 @@
-﻿import { isUUID, parsePlaylist, type Playlist, type PlaylistInput, type PlaylistKind } from '../../shared/playlists'
+import { isUUID, parsePlaylist, type Playlist, type PlaylistInput, type PlaylistKind } from '../../shared/playlists'
 import { offlinePlaylists, playlistContent } from './playlist-offline'
 
 let account: string | null = null
@@ -12,7 +12,7 @@ export async function playlistRequest(path: string, method = 'GET', body?: unkno
   try { response = await fetch(`/api/playlists${path}`, { method, cache: 'no-store', signal: AbortSignal.timeout(15000), headers: body ? { 'Content-Type': 'application/json' } : undefined, body: body ? JSON.stringify(body) : undefined }) }
   catch { throw new RequestError('Offline or unreachable. Your device copy is kept for syncing.', 0) }
   const result = await response.json().catch(() => null)
-  if (!response.ok) throw new RequestError(response.status === 401 ? 'Sign in with a real FitSync account to sync playlists. The local admin tester is not a database account.' : result?.error || 'Playlist request failed. Please retry.', response.status)
+  if (!response.ok) throw new RequestError(response.status === 401 ? 'Sign in to sync playlists.' : result?.error || 'Playlist request failed. Please retry.', response.status)
   if (isUUID(result?.userId)) {
     if (account && account !== result.userId || startedAs && startedAs !== account) throw new RequestError('The signed-in account changed. Reload before continuing.', 401)
     account = result.userId
@@ -29,7 +29,7 @@ async function remoteCollection(kind: PlaylistKind): Promise<Playlist[]> {
   }
   throw new RequestError('This collection is too large to download in one session.', 503)
 }
-function requireAccount() { if (!account) throw new Error('Sign in with a real FitSync account before saving offline playlists. The local admin tester has no database identity.'); return account }
+function requireAccount() { if (!account) throw new Error('Sign in to save playlists.'); return account }
 function sameAccount(owner: string) { if (account !== owner) throw new RequestError('Account changed. Reload before syncing.', 401) }
 async function remoteFor(row: { playlist: Playlist }) { return (await remoteCollection(row.playlist.kind)).find(item => item.id === row.playlist.id) ?? null }
 export async function syncPlaylists() {
@@ -109,3 +109,4 @@ export async function reloadAccountPlaylist(playlist: Playlist) {
   const remote = (await remoteCollection(playlist.kind)).find(item => item.id === playlist.id) ?? null
   sameAccount(owner); await offlinePlaylists.replace(owner, playlist.id, remote)
 }
+
