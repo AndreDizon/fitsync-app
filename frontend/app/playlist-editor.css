@@ -1,0 +1,114 @@
+/* A fieldbook builder: white identity card, charcoal workbench, warm save receipt. */
+.app-shell .playlist-workspace .playlist-review-content{min-width:0}
+.app-shell .playlist-workspace .playlist-review-identity{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;padding-bottom:20px;border-bottom:1px dashed #bda585}
+.app-shell .playlist-workspace .playlist-review-identity>div{min-width:0}
+.app-shell .playlist-workspace .playlist-review-label{color:#7b6752;font-size:11px}
+.app-shell .playlist-workspace .playlist-review-identity h4{font-size:25px;line-height:1.2;letter-spacing:-.04em;margin:6px 0 0;color:#4a3525;overflow-wrap:anywhere}
+.app-shell .playlist-workspace .playlist-review-identity p{font-size:12px;line-height:1.7;color:#74614d;overflow-wrap:anywhere;margin-top:10px}
+.app-shell .playlist-workspace .playlist-review-link{flex-shrink:0;padding:10px 12px;border:1px solid #bda02c;border-radius:9px;background:#ffdf32;color:#302a1f;font-size:11px;font-weight:700;min-height:40px}
+.app-shell .playlist-workspace .playlist-review-facts{display:flex;flex-wrap:wrap;gap:20px;margin:20px 0;padding-bottom:20px;border-bottom:1px solid #d8c7af}
+.app-shell .playlist-workspace .playlist-review-facts>div{flex:1;min-width:72px}
+.app-shell .playlist-workspace .playlist-review-facts dt{font-size:10px;color:#7b6752;margin-bottom:7px}
+.app-shell .playlist-workspace .playlist-review-facts dd{font-size:19px;font-weight:750;color:#4a3525;margin:0;letter-spacing:-.03em}
+.app-shell .playlist-workspace .playlist-review-agenda h4,.app-shell .playlist-workspace .playlist-review-save h4{font-size:15px;font-weight:750;color:#4a3525;margin:0 0 7px}
+.app-shell .playlist-workspace .playlist-review-agenda>p,.app-shell .playlist-workspace .playlist-review-save p{font-size:11px;line-height:1.8;color:#74614d;margin:0 0 14px}
+.app-shell .playlist-workspace .playlist-review-day{display:grid;grid-template-columns:1fr 1fr;gap:5px 12px;width:100%;text-align:left;border:0;border-bottom:1px solid #d8c7af;padding:12px 0;background:transparent;color:#4a3525}
+.app-shell .playlist-workspace .playlist-review-day strong{font-size:12px;font-weight:700}
+.app-shell .playlist-workspace .playlist-review-day span{font-size:11px;text-align:right}
+.app-shell .playlist-workspace .playlist-review-day small{grid-column:1/-1;font-size:10px;color:#846846}
+.app-shell .playlist-workspace .playlist-review-day:hover{background:#ffffff55}
+.app-shell .playlist-workspace .playlist-review-save{margin-top:24px;padding:20px;background:#fffdf7;border:1px solid #dfd2bd;border-radius:14px}
+.app-shell .playlist-workspace .playlist-review-save .playlist-primary{width:100%;margin:0 0 14px}
+.app-shell .playlist-workspace .playlist-review-save p.playlist-review-storage{font-size:10px;margin:0;color:#7d715e}
+.app-shell .playlist-workspace .playlist-duration-choice{grid-column:1/-1;border:0;padding:0;margin:0;min-width:0}
+.app-shell .playlist-workspace .playlist-duration-choice legend{font-size:12px;font-weight:650;color:#5d554b;margin-bottom:10px}
+.app-shell .playlist-workspace .playlist-duration-choice>div{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.app-shell .playlist-workspace .playlist-duration-choice button{display:grid;gap:6px;text-align:left;min-height:70px;padding:14px 16px;background:#f7f6f2;border:1px solid #d5d2ca;border-radius:12px;color:#232529;font-size:14px;font-weight:750}
+.app-shell .playlist-workspace .playlist-duration-choice button small{font-size:11px;font-weight:400;color:#6b604e}
+.app-shell .playlist-workspace .playlist-duration-choice button[aria-pressed='true']{background:#ffdf32;border-color:#bda02c;box-shadow:inset 0 2px 2px #ffffff80,0 2px 0 #bda02c40}
+.app-shell .playlist-workspace .playlist-duration-choice button:disabled{opacity:.5}
+.app-shell .playlist-workspace .playlist-duration-choice>p{font-size:11px;line-height:1.8;color:#79603e;margin:12px 0 0;max-width:70ch}
+.app-shell .playlist-workspace .playlist-week-help{color:#c5c0b8;font-size:12px;line-height:1.8;margin:0 0 14px;max-width:75ch}
+.app-shell .playlist-workspace .playlist-week-picker{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;margin:0 0 24px}
+.app-shell .playlist-workspace .playlist-week-picker button{display:flex;flex-direction:column;align-items:flex-start;gap:10px;min-width:0;min-height:78px;padding:14px 10px;border:1px solid #656059;border-radius:12px;background:#343432;color:#f3eee4;text-align:left;box-shadow:inset 0 1px #ffffff0a}
+.app-shell .playlist-workspace .playlist-week-picker button>span{font-size:12px;font-weight:750;letter-spacing:-.02em}
+.app-shell .playlist-workspace .playlist-week-picker button>small{font-size:10px;color:#c4bfb5;line-height:1.4}
+.app-shell .playlist-workspace .playlist-week-picker button[aria-pressed='true']{background:#ffdf32;color:#232529;border-color:#ffdf32;box-shadow:inset 0 2px 2px #ffffff70,0 3px 0 #9b8129}
+.app-shell .playlist-workspace .playlist-week-picker button[aria-pressed='true']>small{color:#5d4e22}
+.app-shell .playlist-workspace .playlist-week-picker button:disabled{opacity:.5}
+.app-shell .playlist-workspace .playlist-day-heading h3{margin:0;font-size:22px;font-weight:750;letter-spacing:-.03em}
+.app-shell .playlist-workspace .playlist-day-heading p,.app-shell .playlist-workspace .playlist-day-help,.app-shell .playlist-workspace .playlist-entry-help{font-size:11px;line-height:1.8;color:#c5c0b8;margin:5px 0 0}
+.app-shell .playlist-workspace .playlist-day-help{margin:0 0 16px}
+.app-shell .playlist-workspace .playlist-entry-help{margin:16px 0 0;max-width:85ch}
+.app-shell .playlist-workspace .playlist-table-rest{padding:9px 12px;border:1px solid #686052;border-radius:9px;background:#ffffff08}
+@media(max-width:900px){.app-shell .playlist-workspace .playlist-week-picker{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media(max-width:450px){.app-shell .playlist-workspace .playlist-week-picker{gap:6px}.app-shell .playlist-workspace .playlist-week-picker button{min-height:70px;padding:10px 7px;gap:8px}.app-shell .playlist-workspace .playlist-week-picker button>span{font-size:10px}.app-shell .playlist-workspace .playlist-week-picker button>small{font-size:9px}.app-shell .playlist-workspace .playlist-schedule-top{align-items:flex-start}}
+.app-shell .playlist-workspace .playlist-editor{--builder-yellow:#ffdf32;--builder-ink:#232529;--builder-orange:#fb681f;padding:0;background:transparent;border:0;border-radius:0;box-shadow:none}
+.app-shell .playlist-workspace .playlist-editor-top{border:0;padding:0;margin:24px 0 20px}
+.app-shell .playlist-workspace .playlist-text-button{color:#665d51;font-weight:650;text-underline-offset:4px}
+.app-shell[data-home-preview-dark='true'] .playlist-editor-top .playlist-text-button{color:#eee8dc}
+.app-shell .playlist-workspace .playlist-build-step{position:relative;isolation:isolate;margin-top:22px;padding:30px;border:1px solid #d8d5cd;border-radius:22px;background:#fff;color:#232529;box-shadow:inset 0 2px 3px #ffffff80,0 4px 0 #2325290a,0 12px 26px #2325290a}
+.app-shell .playlist-workspace .playlist-step-title{gap:12px;align-items:flex-start;margin-bottom:24px;min-height:0}
+.app-shell .playlist-workspace .playlist-step-title>div{min-width:0;flex:1}
+.app-shell .playlist-workspace .playlist-step-title>span{display:grid;place-items:center;flex:0 0 28px;height:28px;border-radius:50%;background:#ffdf32;color:#232529;font-size:12px;font-weight:800}
+.app-shell .playlist-workspace .playlist-step-title h3{font-size:clamp(25px,2.6vw,34px);font-weight:850;letter-spacing:-.05em;line-height:1.1;margin:0 0 12px;color:#232529}
+.app-shell .playlist-workspace .playlist-step-title p{font-size:12px;line-height:1.8;color:#746b5f;max-width:42ch}
+/* Identity: an illustrated left margin, with the actual form in a clear right column. */
+.app-shell .playlist-workspace .playlist-step-setup{display:grid;grid-template-columns:minmax(190px,.8fr) minmax(0,1.5fr);column-gap:40px;padding:34px;background:linear-gradient(90deg,#f8f5ed 0 33%,#fff 33%);border-top:4px solid #ffdf32}
+.app-shell .playlist-workspace .playlist-step-setup .playlist-step-title{grid-column:1;grid-row:1/3;display:grid;grid-template-columns:28px minmax(0,1fr);align-content:start;gap:12px;margin:0}
+.app-shell .playlist-workspace .playlist-step-title>.home-topic-art{display:block;grid-column:1/-1;width:min(100%,210px);height:auto;margin:16px auto 0;filter:drop-shadow(4px 6px 0 #6a4d2914);pointer-events:none}
+.app-shell .playlist-workspace .playlist-title-fields{grid-column:2;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px 16px}
+.app-shell .playlist-workspace .playlist-title-fields>label:first-child{grid-column:1/-1}
+.app-shell .playlist-workspace .playlist-title-fields label{font-size:12px;font-weight:650;color:#5d554b;gap:9px}
+.app-shell .playlist-workspace .playlist-title-fields :is(input,select),.app-shell .playlist-workspace .playlist-optional-description textarea{width:100%;min-height:48px;padding:12px 14px;border:1px solid #d5d2ca;border-radius:11px;background:#fcfcfa;color:#232529;box-shadow:inset 0 2px 3px #23252904}
+.app-shell .playlist-workspace .playlist-title-fields label:first-child input{font-size:21px;font-weight:700;letter-spacing:-.025em}
+.app-shell .playlist-workspace .playlist-title-fields small{font-weight:400;font-size:11px;color:#80766b}
+.app-shell .playlist-workspace .playlist-optional-description{grid-column:2;margin-top:22px;padding-top:16px;border-top:1px solid #e6e2da;color:#6e6252;font-size:12px}
+.app-shell .playlist-workspace .playlist-optional-description textarea{margin-top:10px}
+/* Schedule: a dark frame holds the white, editable schedule rather than another pastel slab. */
+.app-shell .playlist-workspace .playlist-step-items{background:radial-gradient(ellipse at 100% 0,#fb681f14,transparent 55%),#232529;border-color:#3c3f42;box-shadow:inset 0 1px 2px #ffffff20,0 10px 24px #23252918}
+.app-shell .playlist-workspace .playlist-step-items .playlist-step-title{padding-bottom:20px;border-bottom:1px solid #ffffff20}
+.app-shell .playlist-workspace .playlist-step-items .playlist-step-title h3{color:#fff}
+.app-shell .playlist-workspace .playlist-step-items .playlist-step-title p{color:#c5c0b8;max-width:65ch}
+.app-shell .playlist-workspace .playlist-step-items .playlist-schedule-top h3,.app-shell .playlist-workspace .playlist-step-items :is(.playlist-table-day,.playlist-table-rest){color:#ece8e0}
+.app-shell .playlist-workspace .playlist-table-rest input{accent-color:#ffdf32}
+.app-shell .playlist-workspace .playlist-table-day select{background:#fff;border-color:#dbd7ce;color:#232529;min-height:42px}
+.app-shell .playlist-workspace .playlist-schedule-wrap{background:#fff;border:1px solid #d8d5ce;border-radius:12px;box-shadow:none}
+.app-shell .playlist-workspace .playlist-schedule-table th{background:#f4f1e9;color:#635643;padding:15px 12px;border-color:#ddd6ca}
+.app-shell .playlist-workspace .playlist-schedule-table td{background:#fff;padding:14px 12px;border-color:#eae6de}
+.app-shell .playlist-workspace .playlist-schedule-table :is(input,select){background:#fcfcfa;border-color:#d5d3cd;border-radius:8px;min-height:42px;color:#232529}
+.app-shell .playlist-workspace .playlist-blank-row td{background:#fffbea}
+.app-shell .playlist-workspace .playlist-blank-row select{border-color:#c6ae46;color:#756224!important}
+.app-shell .playlist-workspace .playlist-blank-note{color:#84735c}
+.app-shell .playlist-workspace .playlist-table-targets{color:#61513e}
+.app-shell .playlist-workspace .playlist-table-targets summary span,.app-shell .playlist-workspace .playlist-details-button{color:#875122!important}
+/* Finish: a compact receipt with a warm edge and a yellow save action. */
+.app-shell .playlist-workspace .playlist-step-review{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:0 30px;background:#f6eee2;border:1px solid #d9c8af;border-left:5px solid #a7794b;border-radius:12px 22px 22px 12px;padding:26px 30px}
+.app-shell .playlist-workspace .playlist-step-review .playlist-step-title{grid-column:1;grid-row:1/4;margin:0}
+.app-shell .playlist-workspace .playlist-step-review .playlist-step-title h3{font-size:27px;color:#4a3525}
+.app-shell .playlist-workspace .playlist-step-review .playlist-step-title>span{background:#e9d6b9;color:#69492e}
+.app-shell .playlist-workspace .playlist-review-summary{grid-column:2;border:0;border-bottom:1px dashed #b89a74;padding:0 0 18px;margin:0 0 18px}
+.app-shell .playlist-workspace .playlist-review-summary strong{color:#4a3525;font-size:22px;letter-spacing:-.03em}
+.app-shell .playlist-workspace .playlist-review-summary span{color:#7d674f;font-size:11px;line-height:1.8}
+.app-shell .playlist-workspace .playlist-step-review>:not(.playlist-step-title){grid-column:2}
+.app-shell .playlist-workspace .playlist-step-review .playlist-primary{background:#ffdf32;border:1px solid #bea12d;border-radius:12px;box-shadow:inset 0 2px 2px #ffffff90,0 3px 0 #bea12d70;color:#232529;min-height:46px;padding:12px 24px}
+.app-shell .playlist-workspace .playlist-save-explainer{color:#7b6752;font-size:11px;line-height:1.7}
+.app-shell .playlist-workspace .playlist-save-hint{color:#805724;font-size:12px}
+.app-shell .playlist-workspace .playlist-extra-options{border-color:#d8c7af;color:#755a3f}
+.app-shell .playlist-workspace .playlist-build-step :is(input,select,textarea,button):focus-visible{outline:3px solid #df8700;outline-offset:3px}
+@media(max-width:700px){.app-shell .playlist-workspace .playlist-step-setup{grid-template-columns:1fr;background:#fff;padding:24px}.app-shell .playlist-workspace .playlist-step-setup .playlist-step-title{grid-column:1;grid-row:auto;grid-template-columns:28px minmax(0,1fr) 90px;margin-bottom:24px}.app-shell .playlist-workspace .playlist-step-title>.home-topic-art{grid-column:3;grid-row:1/2;width:90px;margin:0;align-self:center}.app-shell .playlist-workspace .playlist-title-fields,.app-shell .playlist-workspace .playlist-optional-description{grid-column:1}.app-shell .playlist-workspace .playlist-build-step{padding:24px 18px}.app-shell .playlist-workspace .playlist-step-review{grid-template-columns:1fr;gap:18px}.app-shell .playlist-workspace .playlist-step-review .playlist-step-title{grid-column:1;grid-row:auto}.app-shell .playlist-workspace .playlist-step-review>:not(.playlist-step-title){grid-column:1}.app-shell .playlist-workspace .playlist-schedule-table td{padding:6px 0}.app-shell .playlist-workspace .playlist-schedule-table tr{background:#fff}.app-shell .playlist-workspace .playlist-schedule-table .playlist-blank-row{background:#fffbea}}
+@media(max-width:380px){.app-shell .playlist-workspace .playlist-step-setup .playlist-step-title{grid-template-columns:28px minmax(0,1fr)}.app-shell .playlist-workspace .playlist-step-title>.home-topic-art{display:none}.app-shell .playlist-workspace .playlist-title-fields{grid-template-columns:1fr}}
+
+/* Review stays inside its card: agenda left, playlist details and saving right. */
+.app-shell .playlist-workspace .playlist-step-review>.playlist-review-overview{grid-column:1;grid-row:1/4;min-width:0;padding-right:24px;border-right:1px solid #d8c7af}
+.app-shell .playlist-workspace .playlist-review-overview .playlist-step-title{margin-bottom:28px}
+.app-shell .playlist-workspace .playlist-review-overview .playlist-review-agenda{margin-left:40px}
+.app-shell .playlist-workspace .playlist-step-review>.playlist-review-content{grid-column:2;min-width:0}
+/* The cream surface belongs to the title column, rather than a fixed percentage. */
+.app-shell .playlist-workspace .playlist-step-setup{background:#fff;column-gap:26px}
+.app-shell .playlist-workspace .playlist-step-setup .playlist-step-title{background:#f8f5ed;padding:20px;border-radius:14px;align-self:stretch;min-width:0;align-content:start}
+.app-shell .playlist-workspace .playlist-step-setup .playlist-step-title>div{min-width:0}
+.app-shell .playlist-workspace .playlist-step-setup .playlist-step-title h3{overflow-wrap:anywhere}
+.app-shell .playlist-workspace .playlist-step-setup .playlist-step-title p{max-width:100%;overflow-wrap:anywhere}
+.app-shell .playlist-workspace .playlist-step-setup .playlist-step-title>.home-topic-art{max-width:100%}
+@media(max-width:700px){.app-shell .playlist-workspace .playlist-step-review>.playlist-review-overview{grid-column:1;grid-row:auto;border-right:0;border-bottom:1px solid #d8c7af;padding:0 0 22px}.app-shell .playlist-workspace .playlist-step-review>.playlist-review-content{grid-column:1}.app-shell .playlist-workspace .playlist-review-overview .playlist-review-agenda{margin-left:0}.app-shell .playlist-workspace .playlist-step-setup .playlist-step-title{grid-template-columns:28px minmax(0,1fr);padding:18px}.app-shell .playlist-workspace .playlist-step-setup .playlist-step-title>.home-topic-art{grid-column:1/-1;grid-row:auto;width:130px;justify-self:center}}
