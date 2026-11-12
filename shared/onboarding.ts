@@ -14,6 +14,7 @@ export const adjustmentOptions = ['Low impact / no jumping', 'Avoid overhead mov
 export const focusOptions = ['Overall', 'Chest', 'Back', 'Legs', 'Shoulders', 'Arms', 'Core', 'Cardio'] as const
 export const genderOptions = ['Woman', 'Man', 'Non-binary', 'Prefer not to say'] as const
 export type Goal = typeof goalOptions[number][0]
+export const sessionMinuteOptions = ['30', '45', '60', '75', '90']
 export type OnboardingDraft = {
   goal: Goal | ''; timeZone: string; ageRange: string; age: string; gender: string; heightCm: string; weightKg: string; targetWeightKg: string; focusAreas: string[];
   activity: string; experience: string; days: string[]; sessionMinutes: string;
@@ -49,7 +50,7 @@ export function validateOnboarding(value: OnboardingDraft, step?: number, legacy
   if (check(2)) {
     if (!oneOf(value.experience, ['Beginner', 'Intermediate', 'Advanced'])) errors.push('Choose your training experience.')
     if (value.days.length < 1 || value.days.length > 6 || !value.days.every(day => oneOf(day, days))) errors.push('Choose 1–6 training days, leaving at least one rest day.')
-    if (!oneOf(value.sessionMinutes, ['15', '20', '30', '45', '60'])) errors.push('Choose a session length.')
+    if (!oneOf(value.sessionMinutes, [...sessionMinuteOptions, '15', '20'])) errors.push('Choose a session length.')
     if (!value.equipment.length || !value.equipment.every(item => oneOf(item, equipmentOptions))) errors.push('Choose the equipment you can use, including bodyweight if you have none.')
     if (!value.adjustments.every(item => oneOf(item, adjustmentOptions))) errors.push('Choose a valid movement preference.')
   }

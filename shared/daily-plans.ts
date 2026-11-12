@@ -4,7 +4,8 @@ import { defaultMealTime, newPlaylistItem, parsePlaylist, type PlaylistItem, typ
 import type { OnboardingProfile } from './onboarding'
 
 export type ActualSet = { amount: number; weightKg: number }
-export type PlanTask = PlaylistItem & { done: boolean; actualSets?: ActualSet[] }
+export type SessionPreparation = { warmupSeconds: number; cooldownSeconds: number; transitionSeconds: number }
+export type PlanTask = PlaylistItem & { done: boolean; actualSets?: ActualSet[]; preparation?: SessionPreparation; secondsPerRep?: number }
 export type DaySchedule = { items: PlanTask[]; rest: boolean; source: string; variation: number }
 export type PlanDay = { workout: DaySchedule; nutrition: DaySchedule; water: { time: string; done: boolean }[] }
 export type PlanWeek = { version: 1; week: string; days: PlanDay[]; revision: number }
@@ -37,7 +38,9 @@ export function parsePlanWeek(value: unknown): PlanWeek | null {
       const parsed = parsePlaylist({ id: '11111111-1111-4111-8111-111111111111', kind, name: 'Daily plan', description: '', duration: 'day', selectedDay: day, restDays: kind === 'workout' && schedule.rest ? [day] : [], items: schedule.items })
       if (!parsed.data || schedule.items.some(item => typeof item.done !== 'boolean' || item.actualSets !== undefined && (kind !== 'workout'))) return null
       for (const task of schedule.items) if (task.actualSets !== undefined && (!Array.isArray(task.actualSets) || task.actualSets.length > 20 || task.actualSets.some(set => !set || !Number.isInteger(set.amount) || set.amount < 0 || set.amount > (('targetType' in task && task.targetType === 'time') ? 3600 : 100) || !Number.isFinite(set.weightKg) || set.weightKg < 0 || set.weightKg > 1000))) return null
-      result.days[day][kind] = { source: schedule.source, variation: schedule.variation, rest: kind === 'workout' && schedule.rest, items: parsed.data.items.map((item, i) => ({ ...item, done: schedule.items[i].done, ...(schedule.items[i].actualSets ? { actualSets: schedule.items[i].actualSets!.map(set => ({ amount: set.amount, weightKg: set.weightKg })) } : {}) })) }
+      for (const task of schedule.items) if (task.preparation !== undefined && (kind !== 'workout' || !task.preparation || typeof task.preparation !== 'object' || ['warmupSeconds','cooldownSeconds','transitionSeconds'].some(key => { const seconds = task.preparation![key as keyof SessionPreparation]; return !Number.isInteger(seconds) || seconds < 0 || seconds > 600 }))) return null
+      for (const task of schedule.items) if (task.secondsPerRep !== undefined && (kind !== 'workout' || !Number.isInteger(task.secondsPerRep) || task.secondsPerRep < 1 || task.secondsPerRep > 10)) return null
+      result.days[day][kind] = { source: schedule.source, variation: schedule.variation, rest: kind === 'workout' && schedule.rest, items: parsed.data.items.map((item, i) => ({ ...item, done: schedule.items[i].done, ...(schedule.items[i].secondsPerRep !== undefined ? { secondsPerRep: schedule.items[i].secondsPerRep } : {}), ...(schedule.items[i].preparation ? { preparation: { ...schedule.items[i].preparation! } } : {}), ...(schedule.items[i].actualSets ? { actualSets: schedule.items[i].actualSets!.map(set => ({ amount: set.amount, weightKg: set.weightKg })) } : {}) })) }
     }
   }
   result.revision = Number.isSafeInteger(raw.revision) && raw.revision >= 0 ? raw.revision : 0
@@ -71,7 +74,12 @@ export function workoutPhase(item: PlanTask): string {
   if (exercise && ['Squat','Hinge','Push','Pull'].includes(exercise.movementPattern) && !/biceps|triceps|delts|calves|forearms/i.test(exercise.target)) return 'Main movements'
   return 'Accessories & core'
 }
-export function taskMinutes(item: PlaylistItem) { if ('foodId' in item) return 0; return Math.round((item.sets * (item.targetType === 'time' ? item.target : item.target * 3) + Math.max(0, item.sets - 1) * item.restSeconds) / 60 * 10) / 10 }
+export function taskSeconds(item: PlaylistItem & { secondsPerRep?: number }) { if ('foodId' in item) return 0; return item.sets * (item.targetType === 'time' ? item.target : item.target * (item.secondsPerRep ?? 3)) + Math.max(0, item.sets - 1) * item.restSeconds }
+export function taskMinutes(item: PlaylistItem & { preparation?: SessionPreparation; secondsPerRep?: number }) {
+  if ('foodId' in item) return 0
+  const extra = item.preparation
+  return (taskSeconds(item) + (extra ? extra.warmupSeconds + extra.cooldownSeconds + extra.transitionSeconds : 0)) / 60
+}
 export function foodTotals(items: PlanTask[]) {
   return items.reduce((sum, item) => { if ('foodId' in item) { const food = foods.find(food => food.id === item.foodId); if (food) { sum.energy += (food.nutrients.energyKcal ?? 0) * item.grams / 100; sum.protein += (food.nutrients.proteinG ?? 0) * item.grams / 100; sum.carbs += (food.nutrients.carbsG ?? 0) * item.grams / 100; sum.fat += (food.nutrients.fatG ?? 0) * item.grams / 100 } } return sum }, { energy: 0, protein: 0, carbs: 0, fat: 0 })
 }
@@ -102,33 +110,87 @@ export function formulateDay(profile: OnboardingProfile, kind: PlaylistKind, day
     if (schedule.rest) return { schedule, notes: ['Recovery day from your onboarding schedule.'] }
     const prefer = profile.goal === 'mobility' ? 'stretching' : ['endurance','fat_loss'].includes(profile.goal) ? 'cardio' : 'strength'
     const candidates = shuffle(eligibleExercises(profile).filter(e => !exclude.includes(e.id)), day * 997 + variation * 31).sort((a,b) => Number(b.category === prefer) - Number(a.category === prefer))
-    const duration = Number(profile.sessionMinutes), count = Math.min(6, Math.max(2, Math.floor(duration / 6)))
-    const preparationMinutes = alternative ? 0 : 7
-    const available = Math.max(1, duration - preparationMinutes)
-    let used = 0
+    const duration = Number(profile.sessionMinutes)
+    const warmup = duration < 30 ? 180 : 300, cooldown = warmup
+    let remaining = duration * 60 - warmup - cooldown
+    const count = Math.min(10, Math.max(2, Math.ceil(duration / (prefer === 'stretching' ? 5 : 10))))
+    const compound = (exercise: typeof exercises[number]) => exercise.category === 'strength' && ['Squat','Hinge','Push','Pull'].includes(exercise.movementPattern) && !/biceps|triceps|delts|calves|forearms/i.test(exercise.target)
+    const heavy = (exercise: typeof exercises[number]) => compound(exercise) && exercise.equipment === 'barbell'
     const patterns = new Set<string>()
-    const balanced = [...candidates.filter(e => { if (patterns.has(e.movementPattern)) return false; patterns.add(e.movementPattern); return true }), ...candidates]
+    const preferred = candidates.filter(exercise => exercise.category === prefer)
+    const balanced = [...preferred.filter(exercise => { if (patterns.has(exercise.movementPattern)) return false; patterns.add(exercise.movementPattern); return true }), ...candidates]
     for (const exercise of balanced) {
       if (schedule.items.length >= count) break
       if (schedule.items.some(item => 'exerciseId' in item && item.exerciseId === exercise.id)) continue
-      const item = newPlaylistItem('workout', exercise.id, day)
+      const item = newPlaylistItem('workout', exercise.id, day) as PlanTask
       if (!('exerciseId' in item)) continue
-      item.sets = profile.experience === 'Beginner' ? 2 : 3; item.target = profile.goal === 'strength' ? 6 : profile.goal === 'endurance' ? 15 : 10
-      item.restSeconds = profile.goal === 'strength' ? 90 : 60
-      if (exercise.category === 'cardio' || exercise.category === 'stretching') { item.sets = 1; item.targetType = 'time'; item.target = exercise.category === 'stretching' ? 30 : Math.min(300, duration * 20); item.restSeconds = 0 }
-      const minutes = taskMinutes(item)
-      if (used + minutes + (schedule.items.length ? 1 : 0) > available) continue
-      if (schedule.items.length) used += 1
-      item.time = clock(480 + (alternative ? 0 : 4) + Math.ceil(used)); used += minutes
-      schedule.items.push({ ...item, done: false })
+      item.done = false
+      item.sets = heavy(exercise) ? 3 : profile.experience === 'Beginner' ? 2 : 3
+      item.target = profile.goal === 'strength' ? 6 : /deadlift/i.test(exercise.name) ? 8 : profile.goal === 'endurance' ? 12 : 10
+      item.secondsPerRep = heavy(exercise) ? 5 : 4
+      item.restSeconds = heavy(exercise) ? 180 : compound(exercise) ? 120 : 75
+      let setup = heavy(exercise) ? 120 : compound(exercise) ? 60 : 30
+      if (exercise.category === 'cardio' || exercise.category === 'stretching') {
+        item.sets = exercise.category === 'stretching' ? 2 : 1; item.targetType = 'time'
+        item.target = exercise.category === 'stretching' ? 30 : 300
+        item.restSeconds = exercise.category === 'stretching' ? 30 : 0
+        setup = 30
+      }
+      item.preparation = { warmupSeconds: 0, cooldownSeconds: 0, transitionSeconds: setup + (schedule.items.length ? 60 : 0) }
+      const cost = Math.round(taskMinutes(item) * 60)
+      // Keep natural set/rest prescriptions; choose fewer exercises instead of compressing a lift.
+      if (cost > remaining) continue
+      schedule.items.push(item); remaining -= cost
     }
     const rank = (item: PlanTask) => ['Main movements','Accessories & core','Conditioning','Mobility'].indexOf(workoutPhase(item))
     schedule.items.sort((a,b) => rank(a)-rank(b))
-    let elapsed = alternative ? 0 : 4
-    for (const item of schedule.items) { item.time = clock(480 + Math.ceil(elapsed)); elapsed += taskMinutes(item) + 1 }
+    if (!alternative && schedule.items.length) {
+      schedule.items[0].preparation!.warmupSeconds = warmup
+      schedule.items[schedule.items.length - 1].preparation!.cooldownSeconds = cooldown
+      // Grow work within bounded prescriptions before using any additional recovery/setup.
+      let changed = true
+      while (changed) {
+        changed = false
+        for (const item of schedule.items) {
+          if (!('exerciseId' in item)) continue
+          const exercise = workoutCatalog.find(exercise => exercise.id === item.exerciseId)!
+          const maxSets = exercise.category === 'stretching' ? 4 : profile.experience === 'Beginner' ? 3 : 4
+          const cost = (item.targetType === 'time' ? item.target : item.target * (item.secondsPerRep ?? 4)) + item.restSeconds
+          if (exercise.category !== 'cardio' && item.sets < maxSets && cost <= remaining) { item.sets++; remaining -= cost; changed = true }
+        }
+      }
+      // Conditioning has a continuous duration; longer sessions can support a longer block.
+      const cardio = schedule.items.find(item => 'exerciseId' in item && workoutCatalog.find(e => e.id === item.exerciseId)?.category === 'cardio')
+      if (cardio && 'exerciseId' in cardio) { const extra = Math.min(remaining, 1200 - cardio.target); cardio.target += extra; remaining -= extra }
+      changed = true
+      while (changed) {
+        changed = false
+        for (const item of schedule.items) {
+          if (!('exerciseId' in item) || item.sets < 2) continue
+          const exercise = workoutCatalog.find(exercise => exercise.id === item.exerciseId)!
+          const cap = exercise.category === 'stretching' ? 30 : heavy(exercise) ? (profile.goal === 'strength' ? 300 : 240) : compound(exercise) ? 180 : 120
+          const cost = item.sets - 1
+          if (item.restSeconds < cap && remaining >= cost) { item.restSeconds++; remaining -= cost; changed = true }
+        }
+      }
+      // Explicit equipment/loading and preparation, with strict limits, never invented repetitions.
+      for (const item of schedule.items) {
+        if (!('exerciseId' in item)) continue
+        const exercise = workoutCatalog.find(e => e.id === item.exerciseId)!
+        const cap = (heavy(exercise) ? 180 : 90) + (item.preparation!.transitionSeconds >= 90 ? 60 : 0)
+        const extra = Math.min(remaining, Math.max(0, cap - item.preparation!.transitionSeconds))
+        item.preparation!.transitionSeconds += extra; remaining -= extra
+      }
+      for (const [item,key] of [[schedule.items[0],'warmupSeconds'],[schedule.items[schedule.items.length-1],'cooldownSeconds']] as const) {
+        const extra = Math.min(remaining, 600 - item.preparation![key]); item.preparation![key] += extra; remaining -= extra
+      }
+      if (remaining > 0) notes.push('Your eligible exercise selection supports a shorter session (' + Math.round((duration * 60 - remaining) / 60) + ' minutes). Add suitable exercises or broaden your equipment/focus preferences; extra time is not filled with excessive sets or rest.')
+    }
+    let elapsed = 0
+    for (const item of schedule.items) { item.time = clock(480 + Math.floor(elapsed / 60)); elapsed += Math.round(taskMinutes(item) * 60) }
     notes.push(weekDays[day] + ': ' + duration + '-minute ' + profile.experience.toLowerCase() + ' session for ' + (profile.focusAreas?.join(', ') || 'overall fitness') + ', using ' + profile.equipment.join(', ') + '. Your selected goal guides exercise type, sets and rest.')
     if (!schedule.items.length) notes.push('No eligible alternatives match your equipment, focus and movement preferences. Adjust onboarding or pick manually.')
-    notes.push('The session budget reserves 4 minutes to warm up, 3 minutes to cool down and 1 minute between exercises. Start with easy, comfortable movement and finish by gradually slowing down. Estimates are a starting point; adjust to your pace.')
+    notes.push(alternative ? 'Alternative exercises use their own set and rest estimates; replacing an item can change the session total.' : 'Session minutes include work, between-set rests, warm-up, cooldown and setup/transitions. Preparation is credited with its attached task when you mark it done. These are scheduled estimates, not stopwatch measurements; editing or replacing tasks can change the total.')
   } else {
     notes.push('Built around your ' + profile.diet.toLowerCase() + ' eating preference, ' + profile.mealsPerDay + ' meals, available preparation time and saved ingredient exclusions.')
     const target = planTargets(profile).energy

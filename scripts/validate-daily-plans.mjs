@@ -7,6 +7,10 @@ const engine = await import('data:text/javascript;base64,' + Buffer.from(built.o
 const profile = { goal:'muscle_gain',adult:true,age:'28',ageRange:'25–34',gender:'Man',heightCm:'175',weightKg:'75',targetWeightKg:'80',focusAreas:['Overall'],activity:'Lightly active',experience:'Beginner',days:['Mon','Wed','Fri'],sessionMinutes:'30',equipment:['Bodyweight','Dumbbells'],adjustments:[],diet:'Vegan',allergiesReviewed:true,allergies:['Peanuts'],otherAllergy:'',dislikes:'',mealsPerDay:'3',cookingMinutes:'60',budget:'Flexible',version:2,completedAt:new Date().toISOString() }
 const onboardingBuild = await build({ entryPoints: ['shared/onboarding.ts'], bundle: true, write: false, platform: 'node', format: 'esm' })
 const onboarding = await import('data:text/javascript;base64,' + Buffer.from(onboardingBuild.outputFiles[0].text).toString('base64'))
+assert.deepEqual(onboarding.sessionMinuteOptions, ['30','45','60','75','90'])
+for (const sessionMinutes of [...onboarding.sessionMinuteOptions, '15', '20']) {
+  assert.deepEqual(onboarding.validateOnboarding(onboarding.parseOnboarding({...profile,sessionMinutes}),2), [], 'Session choice must validate: ' + sessionMinutes)
+}
 assert(!onboarding.adjustmentOptions.includes('Need professional guidance'))
 const existingProfile = onboarding.readCompletedOnboarding({...profile,adjustments:['Low impact / no jumping','Need professional guidance']})
 assert(existingProfile, 'Existing profiles must remain valid after removing the option')
@@ -27,7 +31,7 @@ assert(target.energy > 2000 && target.energy < 3000);assert(target.energyRange[0
 assert.equal(engine.planTargets({...profile,heightCm:'bad'}).energy,null)
 assert.equal(engine.currentWeek(new Date('2026-11-08T16:01:00Z')),'2026-11-09')
 const workout = engine.formulateDay(profile,'workout',0,1).schedule
-assert(workout.items.length > 0);assert(workout.items.every(item => !item.done && item.day===0));assert(workout.items.reduce((sum,item)=>sum+engine.taskMinutes(item),0)<=30)
+assert(workout.items.length > 0);assert(workout.items.every(item => !item.done && item.day===0));assert.equal(Math.round(workout.items.reduce((sum,item)=>sum+engine.taskMinutes(item),0)*60),30*60)
 assert(workout.items.every(item => engine.eligibleExercises(profile).some(exercise=>exercise.id===item.exerciseId)))
 assert.equal(engine.formulateDay(profile,'workout',1,1).schedule.rest,true)
 assert(engine.formulateDay(profile,'workout',1,1,[],true).schedule.items.length>0,'Manual/playlist task alternatives must work on a non-onboarding training day')
@@ -44,7 +48,38 @@ const week=engine.blankWeek('2026-11-02');week.days[0].workout=workout;week.days
 week.days[0].workout.items[0].actualSets=[{amount:8,weightKg:12.5},{amount:7,weightKg:12.5}]
 assert.deepEqual(engine.parsePlanWeek(week).days[0].workout.items[0].actualSets,[{amount:8,weightKg:12.5},{amount:7,weightKg:12.5}])
 const badLog=structuredClone(week);badLog.days[0].workout.items[0].actualSets[0].weightKg=-1;assert.equal(engine.parsePlanWeek(badLog),null)
-assert(workout.items.reduce((sum,item)=>sum+engine.taskMinutes(item),0)+7+Math.max(0,workout.items.length-1)<=30,'Warmup/cooldown/transitions must fit the budget')
+assert.equal(workout.items.reduce((sum,item)=>sum+Math.round(engine.taskMinutes(item)*60),0),30*60,'Work, rest and preparation must fill the session budget exactly')
+for (const duration of ['30','45','60','75','90']) for (const goal of ['general_fitness','muscle_gain','strength','endurance','fat_loss','mobility']) for (const experience of ['Beginner','Intermediate','Advanced']) {
+ const plan=engine.formulateDay({...profile,sessionMinutes:duration,goal,experience,equipment:onboarding.equipmentOptions},'workout',0,3).schedule
+ assert(plan.items.length>0)
+ assert.equal(plan.items.reduce((sum,item)=>sum+Math.round(engine.taskMinutes(item)*60),0),Number(duration)*60,`${goal}/${experience}/${duration} must fill its scheduled session`)
+ const saved=engine.blankWeek('2026-11-02');saved.days[0].workout=plan
+ const parsed=engine.parsePlanWeek(saved);assert(parsed)
+ assert.equal(parsed.days[0].workout.items.reduce((sum,item)=>sum+Math.round(engine.taskMinutes(item)*60),0),Number(duration)*60,'Offline/database round trip preserves timing')
+ let elapsed=480*60
+ for(const item of plan.items){assert.equal(item.time,`${String(Math.floor(elapsed/3600)).padStart(2,'0')}:${String(Math.floor(elapsed/60)%60).padStart(2,'0')}`);elapsed+=Math.round(engine.taskMinutes(item)*60)}
+ const finished=plan.items.map(item=>({...item,done:true}));assert.equal(Math.round(finished.filter(item=>item.done).reduce((sum,item)=>sum+engine.taskMinutes(item),0)),Number(duration))
+}
+const badPreparation=structuredClone(week);badPreparation.days[0].workout.items[0].preparation.transitionSeconds=-1;assert.equal(engine.parsePlanWeek(badPreparation),null)
+// Regeneration must keep realistic lift-specific recovery rather than equal time slots.
+for (let variation=1; variation<=30; variation++) {
+ const result=engine.formulateDay({...profile,sessionMinutes:'60',experience:'Advanced',equipment:onboarding.equipmentOptions},'workout',3,variation)
+ // Thursday is explicitly enabled for this regeneration regression.
+ const plan=engine.formulateDay({...profile,days:['Thu'],sessionMinutes:'60',experience:'Advanced',equipment:onboarding.equipmentOptions},'workout',3,variation).schedule
+ assert.equal(plan.items[0].time,'08:00','Every regenerated day starts at 8 AM')
+ assert.equal(Math.round(plan.items.reduce((sum,item)=>sum+engine.taskMinutes(item)*60,0)),3600)
+ for (const item of plan.items) {
+  if (item.exerciseId==='barbell-deadlift') {
+   assert(item.restSeconds>=180,'Deadlifts require a longer recovery allowance')
+   assert(item.secondsPerRep>=4)
+   assert(engine.taskMinutes(item)>=8,'Deadlift blocks include work, recovery and loading/setup')
+  }
+ }
+ assert(result.schedule.rest,'Generation still respects an actual rest day')
+}
+const tempoPlan=engine.parsePlanWeek(week);assert.equal(tempoPlan.days[0].workout.items[0].secondsPerRep,workout.items[0].secondsPerRep)
+const invalidTempo=structuredClone(week);invalidTempo.days[0].workout.items[0].secondsPerRep=-1;assert.equal(engine.parsePlanWeek(invalidTempo),null)
+assert.equal(engine.taskSeconds({exerciseId:'barbell-deadlift',sets:3,targetType:'reps',target:10,secondsPerRep:5,restSeconds:180}),510,'Three deadlift sets already need 8.5 minutes before equipment setup or warm-up')
 assert(engine.formulateDay(profile,'workout',0,1).notes.some(note=>note.includes('beginner')))
 assert(engine.parsePlanWeek(week));const bad=structuredClone(week);bad.days[0].water[0].time='25:00';assert.equal(engine.parsePlanWeek(bad),null)
 const invalid=structuredClone(week);invalid.days[0].workout.items[0].exerciseId='forged';assert.equal(engine.parsePlanWeek(invalid),null)

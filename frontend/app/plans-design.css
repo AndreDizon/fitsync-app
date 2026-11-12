@@ -340,28 +340,18 @@
 .app-shell[data-section='plans'] .my-plan-workspace .my-plan-actual-log{background:linear-gradient(135deg,#ffffffa0,#ffffff60);border-color:#ffffffb0;box-shadow:inset 1px 1px 2px #fff,inset -1px -2px 4px #26333c09;backdrop-filter:blur(8px)}
 @media(max-width:600px){.app-shell[data-section='plans'] .my-plan-workspace :is(.my-plan-stats>article,.my-plan-task-card,.my-plan-meal-heading,.my-plan-preparation,.my-plan-empty,.my-plan-picker-items article,.my-plan-water,.my-plan-calendar-section,.my-plan-water-grid>label){border-radius:18px;backdrop-filter:blur(7px) saturate(110%);-webkit-backdrop-filter:blur(7px) saturate(110%)}}
 
-/* Calendar states: selected takes priority, followed by rest and today. */
-.app-shell[data-section='plans'] .my-plan-workspace .my-plan-days button{background:#fff;border-color:#e0e4e9;box-shadow:inset 1px 2px 3px #fff,inset -2px -4px 6px #42658710,0 4px 0 #becbdc,0 8px 13px #142b4515}
-.app-shell[data-section='plans'] .my-plan-days button .my-plan-calendar-name{background:#f7f8fa;color:#293745}
-.app-shell[data-section='plans'] .my-plan-days button small{color:#536575}
-.app-shell[data-section='plans'] .my-plan-days button[data-today=true]{background:#fff0d9;border-color:#ffb45d}
-.app-shell[data-section='plans'] .my-plan-days button[data-today=true] .my-plan-calendar-name{background:#ff922e;color:#342015}
-.app-shell[data-section='plans'] .my-plan-days button[data-today=true] small{color:#8e4216}
-.app-shell[data-section='plans'] .my-plan-days button[data-rest=true]{background:linear-gradient(150deg,#303033,#191a1d);border-color:#67503f}
-.app-shell[data-section='plans'] .my-plan-days button[data-rest=true] .my-plan-calendar-name{background:repeating-linear-gradient(135deg,transparent 0 12px,#ff973224 12px 17px),linear-gradient(120deg,#453327,#27272a);color:#ffc48b}
-.app-shell[data-section='plans'] .my-plan-days button[data-rest=true] small{background:radial-gradient(ellipse at 100% 100%,#fb8a273b,transparent 75%);color:#ffcfaa}
-.app-shell[data-section='plans'] .my-plan-workspace .my-plan-days button[aria-pressed=true]{background:#fff8f4;border-color:#ed7675;box-shadow:inset 1px 2px 3px #ffffff90,inset -2px -4px 5px #a3282520,0 4px 0 #c9313b,0 8px 13px #142b451a}
-.app-shell[data-section='plans'] .my-plan-days button[aria-pressed=true] .my-plan-calendar-name{background:#e94f54;color:#fff}
-.app-shell[data-section='plans'] .my-plan-days button[aria-pressed=true] small{background:none;color:#ae2e37}
-
-/* Keep calendar paper white; distinguish rest days with a quiet darker header. */
-.app-shell[data-section='plans'] .my-plan-workspace .my-plan-days button[data-rest=true]{background:#fff;border-color:#a9b5c4}
-.app-shell[data-section='plans'] .my-plan-days button[data-rest=true] .my-plan-calendar-name{background:#798b9f;color:#fff}
-.app-shell[data-section='plans'] .my-plan-days button[data-rest=true] small{background:#fff;color:#536575}
-.app-shell[data-section='plans'] .my-plan-workspace .my-plan-days button[data-today=true],
-.app-shell[data-section='plans'] .my-plan-workspace .my-plan-days button[aria-pressed=true]{background:#fff}
-.app-shell[data-section='plans'] .my-plan-days button[aria-pressed=true] .my-plan-calendar-name{background:#e94f54;color:#fff}
-.app-shell[data-section='plans'] .my-plan-days button[aria-pressed=true] small{background:#fff;color:#ae2e37}
+/* Four calendar inks; selected takes priority over rest and today. */
+.app-shell[data-section='plans'] .my-plan-workspace .my-plan-days button{
+ --calendar-ink:#157c80;--calendar-text:#fff;--calendar-edge:#0c6266;
+ background:#fff;border-color:color-mix(in srgb,var(--calendar-ink) 45%,#fff);
+ box-shadow:inset 1px 2px 3px #fff,inset -2px -4px 6px #42658710,0 4px 0 var(--calendar-edge),0 8px 13px #142b4515;
+}
+.app-shell[data-section='plans'] .my-plan-workspace .my-plan-days button[data-today=true]{--calendar-ink:#ffd83d;--calendar-text:#30280c;--calendar-edge:#af8917}
+.app-shell[data-section='plans'] .my-plan-workspace .my-plan-days button[data-rest=true]{--calendar-ink:#454b56;--calendar-text:#fff;--calendar-edge:#303641}
+.app-shell[data-section='plans'] .my-plan-workspace .my-plan-days button[aria-pressed=true]{--calendar-ink:#6944ba;--calendar-text:#fff;--calendar-edge:#4e2f91}
+.app-shell[data-section='plans'] .my-plan-workspace .my-plan-days button .my-plan-calendar-name{background:var(--calendar-ink);color:var(--calendar-text)}
+.app-shell[data-section='plans'] .my-plan-workspace .my-plan-days button small{background:#fff;color:#435567}
+.app-shell[data-section='plans'] .my-plan-workspace .my-plan-days button[aria-pressed=true] small{color:#593698;font-weight:700}
 
 /* Round the paper itself without clipping the binder pins above the card. */
 .app-shell[data-section='plans'] .my-plan-days button small{border-radius:0 0 13px 13px}
@@ -426,8 +416,173 @@
 }
 @media(prefers-reduced-motion:reduce){.app-shell[data-section='plans'] .my-plan-task-card .my-plan-task-thumbnail{transition:none}}
 
+.app-shell[data-section='plans'] .my-plan-options>button.my-plan-delete-day{background:#c63742;color:#fff;border:1px solid #a82330;box-shadow:inset 0 2px 2px #ffffff38,0 3px 0 #8d1f2b;gap:7px}
+.app-shell[data-section='plans'] .my-plan-options>button.my-plan-delete-day:hover:not(:disabled){background:#af2935}
+
+/* Each rail ends in a node; only the first task also has a starting node. */
+.app-shell[data-section='plans'] .my-plan-task-list>article>.my-plan-timeline-rail:before{top:auto;bottom:-19px;right:-3.5px;width:11px;height:11px;box-sizing:border-box}
+.app-shell[data-section='plans'] .my-plan-task-list>article:last-child>.my-plan-timeline-rail:before{bottom:-5px}
+.app-shell[data-section='plans'] .my-plan-timeline-start{position:absolute;z-index:1;right:-3.5px;top:-5px;width:11px;height:11px;box-sizing:border-box;border:2px solid #8794a3;border-radius:50%;background:#fff7d8;pointer-events:none}
+.app-shell[data-section='plans'] .is-done>.my-plan-timeline-rail>.my-plan-timeline-start{background:#e6ad00;border-color:#c69400;box-shadow:0 0 6px #e6ad0030}
+
+/* Progress flag follows the completed prefix of the day's timeline. */
+.app-shell[data-section='plans'] .my-plan-timeline-start{background:#ffdf32;border-color:#bb8f00}
+.app-shell[data-section='plans'] .my-plan-timeline-flag{position:absolute;z-index:3;right:-23px;top:-28px;width:25px;height:28px;color:#ffdf32;filter:drop-shadow(0 1px 1px #694a00);pointer-events:none;animation:plan-flag-arrive .25s ease-out}
+.app-shell[data-section='plans'] .my-plan-timeline-flag.at-end{top:auto;bottom:-16px}
+.app-shell[data-section='plans'] .my-plan-task-list>article:last-child .my-plan-timeline-flag.at-end{bottom:-2px}
+.app-shell[data-section='plans'] .my-plan-finish-fox{position:absolute;bottom:0;right:18px;width:clamp(96px,12vw,132px);max-width:none;height:auto;aspect-ratio:4/5;object-fit:contain;pointer-events:none;filter:drop-shadow(0 4px 3px #75552620)}
+@keyframes plan-flag-arrive{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+.app-shell[data-section='plans'] .my-plan-timeline-rail:has(>.my-plan-finish-fox){min-height:300px}
+@media(prefers-reduced-motion:reduce){.app-shell[data-section='plans'] .my-plan-timeline-flag{animation:none}}
+
 /* Workout phases share the meal heading material, without bulk actions. */
-.app-shell[data-section='plans'] .my-plan-workout-heading{min-height:68px;margin:24px 0 10px;padding:18px 22px;background:linear-gradient(120deg,#edf4ff,#e0ebf8);border-color:#bbcee4;border-left:4px solid #7896bd;color:#2b435d}
+.app-shell[data-section='plans'] .my-plan-workout-heading{min-height:68px;margin:24px 0 26px;padding:18px 22px;background:linear-gradient(120deg,#edf4ff,#e0ebf8);border-color:#bbcee4;border-left:4px solid #7896bd;color:#2b435d}
 .app-shell[data-section='plans'] .my-plan-workout-heading h4{margin:0;color:#2b435d;font-size:18px;letter-spacing:-.025em}
 .app-shell[data-section='plans'] .my-plan-workout-heading:after{background:repeating-linear-gradient(-35deg,transparent 0 16px,#527aa015 16px 20px)}
 @media(max-width:600px){.app-shell[data-section='plans'] .my-plan-workout-heading{min-height:58px;padding:15px 18px}.app-shell[data-section='plans'] .my-plan-workout-heading h4{font-size:17px}}
+/* Clear starting clearance and a pole anchored directly over each progress node. */
+.app-shell[data-section='plans'] .my-plan-timeline-rail:has(>.my-plan-timeline-start):after{top:22px}
+.app-shell[data-section='plans'] .my-plan-timeline-start{top:17px}
+.app-shell[data-section='plans'] .my-plan-timeline-flag{right:-30px;top:-12px;width:36px;height:36px;animation:none;filter:drop-shadow(0 2px 1px #805c0070)}
+.app-shell[data-section='plans'] .my-plan-timeline-flag svg{display:block;width:36px;height:36px;stroke:#a87900;stroke-width:1.6;transform-origin:8px 30px}
+.app-shell[data-section='plans'] .my-plan-timeline-flag.at-end{top:auto;bottom:-15px}
+.app-shell[data-section='plans'] .my-plan-task-list>article:last-child .my-plan-timeline-flag.at-end{bottom:-1px}
+.app-shell[data-section='plans'] .my-plan-task-list>article>.my-plan-timeline-rail:after{background:linear-gradient(#e6ad00,#ffdf32) top/100% var(--rail-fill,0%) no-repeat,#8794a3;transition:background-size .65s cubic-bezier(.22,1,.36,1);box-shadow:none}
+.app-shell[data-section='plans'] .my-plan-task-list>article.is-done>.my-plan-timeline-rail:after{--rail-fill:100%}
+.app-shell[data-section='plans'] .my-plan-task-list>article.is-done .my-plan-timeline-flag svg{animation:plan-flag-wave .65s ease-in-out}
+@keyframes plan-flag-wave{0%,100%{transform:rotate(0)}30%{transform:rotate(-13deg)}65%{transform:rotate(9deg)}}
+@media(prefers-reduced-motion:reduce){.app-shell[data-section='plans'] .my-plan-task-list>article>.my-plan-timeline-rail:after{transition:none}.app-shell[data-section='plans'] .my-plan-task-list>article.is-done .my-plan-timeline-flag svg{animation:none}}
+
+/* A light instrument-panel finish in the existing yellow, sky and fox palette. */
+.app-shell[data-section='plans'] .my-plan-workspace{
+ --plan-tech-ink:#315372;
+ --plan-tech-line:#7896bd38;
+ --plan-tech-gold:#e6ad00;
+}
+.app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-card{
+ border-radius:18px;
+ border-top-color:#fff;
+ border-right-color:#9bb8d06b;
+ background-image:linear-gradient(115deg,#ffffffb0,transparent 68%);
+ box-shadow:inset 0 1px 0 #fff,inset 0 -1px 0 #7896bd24,0 3px 0 #526f8c12,0 9px 22px #354d6712!important;
+}
+.app-shell[data-section='plans'] .my-plan-task-card:before{
+ inset:16px 16px auto auto;
+ width:116px;height:40px;transform:none;opacity:.65;
+ background:radial-gradient(circle at 5px 5px,#7896bd 0 2px,transparent 2.5px),linear-gradient(#7896bd55,#7896bd55) 5px 4px/65px 1px no-repeat,linear-gradient(#7896bd55,#7896bd55) 70px 4px/1px 26px no-repeat,linear-gradient(#7896bd55,#7896bd55) 70px 29px/40px 1px no-repeat;
+ mask-image:none;
+}
+.app-shell[data-section='plans'] .nutrition .my-plan-task-card:before{
+ background:radial-gradient(circle at 5px 5px,#c08a60 0 2px,transparent 2.5px),linear-gradient(#c08a6055,#c08a6055) 5px 4px/65px 1px no-repeat,linear-gradient(#c08a6055,#c08a6055) 70px 4px/1px 26px no-repeat,linear-gradient(#c08a6055,#c08a6055) 70px 29px/40px 1px no-repeat;
+ transform:none;
+}
+.app-shell[data-section='plans'] .my-plan-task-card:after{
+ width:38%;opacity:.25;
+ background:linear-gradient(#7896bd24 1px,transparent 1px) 0 0/22px 22px,linear-gradient(90deg,#7896bd24 1px,transparent 1px) 0 0/22px 22px;
+}
+.app-shell[data-section='plans'] .my-plan-workspace .my-plan-meal-heading{
+ border-radius:14px;
+ border-bottom:1px solid #7896bd60;
+}
+.app-shell[data-section='plans'] .my-plan-workout-heading:after{
+ width:clamp(64px,16vw,180px);
+ background:linear-gradient(90deg,#7896bd50 1px,transparent 1px) center/12px 10px repeat-x;
+ mask-image:linear-gradient(90deg,transparent,#000 45%,transparent);
+}
+.app-shell[data-section='plans'] .my-plan-task-card .my-plan-task-fields>label{
+ border-radius:10px;border-color:#9bb8d04d;
+ border-top-color:#fff;
+ background:linear-gradient(145deg,#ffffffa0,#edf4fc66);
+}
+.app-shell[data-section='plans'] .my-plan-workspace :is(.my-plan-task-fields input,.my-plan-task-fields select,.my-plan-timeline-rail input[type=time]){
+ border-radius:7px;border-color:#9bb8d080;
+ box-shadow:inset 0 2px 4px #3153720a,0 1px 0 #fff;
+ font-variant-numeric:tabular-nums;
+}
+.app-shell[data-section='plans'] .my-plan-workspace :is(.my-plan-task-fields input,.my-plan-task-fields select,.my-plan-timeline-rail input[type=time]):focus-visible{
+ outline:2px solid #527aa0;outline-offset:3px;
+}
+.app-shell[data-section='plans'] .my-plan-workspace .my-plan-actual-log{
+ border-radius:10px;border:1px solid #9bb8d059;
+ border-left:3px solid #7896bd;
+}
+.app-shell[data-section='plans'] .my-plan-task-heading{
+ border-bottom:1px solid #7896bd38;
+}
+.app-shell[data-section='plans'] .my-plan-workspace .my-plan-check{
+ border-radius:9px;
+ background-image:linear-gradient(180deg,#ffffff35,transparent 60%);
+}
+.app-shell[data-section='plans'] .my-plan-workspace .my-plan-check[aria-pressed=true]{
+ box-shadow:inset 0 1px 3px #80600026,0 0 0 2px #e6ad0026;
+}
+.app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-links button{
+ border-radius:7px;
+}
+@media(max-width:600px){
+ .app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-card{border-radius:14px}
+ .app-shell[data-section='plans'] .my-plan-task-card:before{width:72px;opacity:.35}
+ .app-shell[data-section='plans'] .my-plan-task-card:after{width:28%;opacity:.16}
+}
+/* Mature clay-and-glass workout cards, retaining the existing plan palette. */
+.app-shell[data-section='plans'] .my-plan-workspace.workout .my-plan-task-card{
+ border:1px solid #b8c9d9;border-left:3px solid #829ab3;border-top-color:#ffffffd9;
+ border-radius:20px;
+ background:linear-gradient(135deg,#ffffffc7,#f0f5fbab 70%),#e3edfa;
+ box-shadow:inset 2px 3px 5px #ffffffbd,inset -3px -4px 9px #566d8514,0 3px 3px #34485d0b,0 12px 26px #34485d12!important;
+ backdrop-filter:blur(12px) saturate(108%);-webkit-backdrop-filter:blur(12px) saturate(108%);
+}
+.app-shell[data-section='plans'] .my-plan-workspace.workout .is-done .my-plan-task-card{
+ background:linear-gradient(135deg,#ffffffe0,#e5eddfb3 75%),#e0ead9;
+ border-color:#b8c9b0;border-top-color:#ffffffd9;border-left-color:#819a74;
+}
+.app-shell[data-section='plans'] .my-plan-workspace.workout .my-plan-task-card:before{display:none}
+.app-shell[data-section='plans'] .my-plan-workspace.workout .my-plan-task-card:after{
+ inset:0 0 auto auto;width:35%;height:100%;opacity:.1;
+ background:radial-gradient(#6e8399 .7px,transparent 1px) 0 0/12px 12px;
+ mask-image:linear-gradient(120deg,transparent 20%,#000);
+}
+.app-shell[data-section='plans'] .my-plan-workspace.workout .my-plan-task-card .my-plan-task-heading{
+ border-bottom:1px solid #829ab32b;gap:16px;
+}
+.app-shell[data-section='plans'] .my-plan-workspace.workout .my-plan-task-card .my-plan-task-heading strong{
+ font-weight:650;letter-spacing:-.025em;color:#2e3d49;
+}
+.app-shell[data-section='plans'] .my-plan-workspace.workout .my-plan-task-card .my-plan-task-thumbnail{
+ transform:none;border:1px solid #ffffffdb;border-radius:15px;background:#ffffffd9;
+ box-shadow:inset 1px 2px 3px #fff,inset -1px -2px 4px #53657512,0 3px 2px #53657516,0 7px 14px #5365750b;
+}
+.app-shell[data-section='plans'] .my-plan-workspace.workout .my-plan-task-card .my-plan-task-fields>label{
+ background:linear-gradient(140deg,#ffffff94,#ffffff40);border:1px solid #ffffffba;
+ border-bottom-color:#b8c9d957;border-radius:12px;color:#536575;font-weight:550;
+ box-shadow:inset 0 1px 2px #ffffffb3,0 2px 5px #53657505;
+}
+.app-shell[data-section='plans'] .my-plan-workspace.workout .my-plan-task-card .my-plan-task-fields :is(input,select){
+ background:#ffffffb8;border:1px solid #b7c7d578;border-radius:8px;
+ color:#304553;font-weight:600;box-shadow:inset 0 2px 4px #53657509,0 1px 0 #ffffffa6;
+}
+.app-shell[data-section='plans'] .my-plan-workspace.workout .my-plan-task-card .my-plan-actual-log{
+ background:#ffffff59;border:1px solid #ffffffa6;border-left:2px solid #91a9bf;
+ border-radius:12px;box-shadow:inset 0 1px 2px #ffffffa6,0 2px 6px #53657505;
+ backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+}
+.app-shell[data-section='plans'] .my-plan-workspace.workout .my-plan-task-card .my-plan-task-links{
+ border-top:1px solid #829ab326;
+}
+.app-shell[data-section='plans'] .my-plan-workspace.workout .my-plan-task-card .my-plan-task-links button{
+ background:#ffffff91;color:#42596b;border:1px solid #ffffffd4;border-bottom-color:#b8c9d970;
+ border-radius:10px;font-weight:600;
+ box-shadow:inset 0 1px 2px #ffffffb3,0 2px 4px #5365750c;
+}
+.app-shell[data-section='plans'] .my-plan-workspace.workout .my-plan-task-card .my-plan-task-links button:first-child{
+ background:linear-gradient(135deg,#ffe981,#f5d75c);border-color:#d5b84f66;border-top-color:#fff1b0;
+ color:#4a4024;box-shadow:inset 1px 2px 3px #ffffff70,inset -1px -2px 4px #94742612,0 3px 5px #94742612;
+}
+.app-shell[data-section='plans'] .my-plan-workspace.workout .my-plan-task-card .my-plan-remove{
+ background:#ffffff6b;color:#7c756b;border:1px solid #ffffff80;
+}
+@media(max-width:600px){
+ .app-shell[data-section='plans'] .my-plan-workspace.workout .my-plan-task-card{border-radius:16px;backdrop-filter:blur(7px);-webkit-backdrop-filter:blur(7px)}
+ .app-shell[data-section='plans'] .my-plan-workspace.workout .my-plan-task-card .my-plan-task-heading{gap:10px}
+ .app-shell[data-section='plans'] .my-plan-workspace.workout .my-plan-task-card .my-plan-task-links button{min-height:44px}
+}

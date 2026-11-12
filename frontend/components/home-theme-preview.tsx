@@ -1,11 +1,12 @@
 'use client'
 import { useEffect, useState, type CSSProperties } from 'react'
 import '@/app/home-theme-preview.css'
-export type HomeTheme = 'clean-sporty' | 'midnight-orange' | 'night-training'
+export type HomeTheme = 'clean-sporty' | 'midnight-orange' | 'night-training' | 'matte-black'
 const themes = [
  {id:'clean-sporty',name:'Clean sporty',header:'#fff',base:'#fff',image:'none'},
  {id:'midnight-orange',name:'Midnight orange',header:'#202124',base:'#191b1f',image:'radial-gradient(ellipse at 0 0,#b8512638,transparent 55%),radial-gradient(ellipse at 100% 80%,#395c9820,transparent 50%)'},
  {id:'night-training',name:'Night training',header:'#232529',base:'#17191c',image:'none'},
+ {id:'matte-black',name:'Matte Black',header:'#151515',base:'#101010',image:'none'},
 ] as const
 export function useHomeTheme(){
  const [theme,setThemeState]=useState<HomeTheme>('clean-sporty')

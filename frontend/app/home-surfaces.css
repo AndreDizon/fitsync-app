@@ -1,5 +1,20 @@
 /* Home body only: tactile clay edges with a restrained frosted finish.
    Keep each topic's existing artwork, halftone, colors and data intact. */
+.app-shell[data-section='home'] .home-energy :is(.hb-movement-summary,.hb-food-summary){gap:10px;text-align:left}
+.app-shell[data-section='home'] .home-energy .hb-movement-summary .hx-ring{width:110px;margin:8px auto 0}
+.app-shell[data-section='home'] .home-energy .hb-food-summary>strong{margin:12px 0 0;text-shadow:none}
+.app-shell[data-section='home'] .home-energy .hb-stat-unit{font-size:11px;line-height:1.5;position:relative}
+.app-shell[data-section='home'] .home-energy .hb-movement-summary .hb-stat-unit{text-align:center}
+.app-shell[data-section='home'] .home-energy .hb-stat-details{display:grid;gap:9px;margin:auto 0 0;padding-top:12px;border-top:1px solid currentColor;position:relative}
+.app-shell[data-section='home'] .home-energy .hb-stat-details>div{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:11px}
+.app-shell[data-section='home'] .home-energy .hb-stat-details dt{opacity:.8}
+.app-shell[data-section='home'] .home-energy .hb-stat-details dd{font-size:14px;font-weight:750;margin:0;white-space:nowrap;font-variant-numeric:tabular-nums}
+.app-shell[data-section='home'] .home-energy :is(.hb-movement-summary,.hb-food-summary)>.home-topic-art{opacity:.12;bottom:0}
+.app-shell[data-section='home'] .home-energy :is(.hb-movement-summary,.hb-food-summary)>p{font-size:10px;line-height:1.5;margin:0;position:relative}
+@media(max-width:380px){
+ .app-shell[data-section='home'] .home-energy .hb-stat-details>div{flex-wrap:wrap;gap:2px 8px}
+ .app-shell[data-section='home'] .home-energy .hb-stat-details dd{font-size:13px}
+}
 .app-shell[data-section='home'] .home-energy :is(.hb-today,.hb-water,.hb-small-stat,.hb-next-panel,.hi-panel,.hb-tip){
   --clay-highlight:#ffffffa6;
   --clay-shade:#70503220;
@@ -137,4 +152,67 @@
  .app-shell[data-section='home'] .home-energy .hb-water-visuals .hb-water-drops{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));grid-column:1;grid-row:1;align-items:center;justify-content:center;gap:14px 12px;width:100%;max-width:none;margin:0}
  .app-shell[data-section='home'] .home-energy .hb-water-visuals .hb-water-drops svg{width:100%;max-width:25px;height:29px}
  .app-shell[data-section='home'] .home-energy .hb-water-visuals .hb-bottle{position:relative;grid-column:2;grid-row:1;inset:auto;align-self:center;justify-self:center;margin:0}
+}
+
+/* Scale the entire hydration row to the card, keeping four droplets per row. */
+@container hydration-card (max-width:420px){
+ .app-shell[data-section='home'] .home-energy .hb-water-visuals{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:clamp(8px,4cqw,16px);min-height:0;margin:14px 0;width:100%}
+ .app-shell[data-section='home'] .home-energy .hb-water-visuals .hb-water-drops{display:grid;grid-column:1;grid-row:1;grid-template-columns:repeat(4,minmax(0,1fr));justify-items:center;align-content:center;gap:clamp(8px,4cqw,14px) clamp(3px,3cqw,12px);width:100%;max-width:none;margin:0}
+ .app-shell[data-section='home'] .home-energy .hb-water-visuals .hb-water-drops svg{width:clamp(14px,6cqw,25px);height:auto;max-width:100%}
+ .app-shell[data-section='home'] .home-energy .hb-water-visuals .hb-bottle{position:relative;grid-column:2;grid-row:1;inset:auto;align-self:center;margin:0;width:clamp(28px,12cqw,45px);height:auto}
+ .app-shell[data-section='home'] .home-energy .hb-water-visuals .hb-bottle-body{box-sizing:border-box;width:100%;height:auto;aspect-ratio:45 / 108}
+ .app-shell[data-section='home'] .home-energy .hb-water-visuals .hb-bottle-cap{box-sizing:border-box;width:56%;height:clamp(7px,3cqw,11px)}
+}
+
+/* Keep the two daily summaries short, with one supporting line. */
+.app-shell[data-section="home"] .home-energy :is(.hb-movement-summary,.hb-food-summary){min-height:250px;gap:8px}
+.app-shell[data-section="home"] .home-energy .hb-movement-summary .hx-ring{margin:auto}
+.app-shell[data-section="home"] .home-energy .hb-food-summary>strong{margin:auto 0}
+.app-shell[data-section="home"] .home-energy :is(.hb-movement-summary,.hb-food-summary)>p{margin-top:auto;font-size:11px}
+
+/* Matching metric anchors, independent of the decorative artwork. */
+.app-shell[data-section='home'] .home-energy :is(.hb-water,.hb-food-summary){text-align:left;align-items:stretch;gap:8px}
+.app-shell[data-section='home'] .home-energy .hb-water>.hb-card-top{min-height:20px}
+.app-shell[data-section='home'] .home-energy .hb-food-summary>.hb-kicker{display:flex;align-items:center;min-height:20px;order:-1}
+.app-shell[data-section='home'] .home-energy :is(.hb-water,.hb-food-summary)>strong{display:block;align-self:flex-start;font-size:42px;line-height:1.3;letter-spacing:-.06em;margin:12px 0 0;text-shadow:none}
+.app-shell[data-section='home'] .home-energy .hb-food-summary>.hb-stat-unit{margin:0;font-size:12px;line-height:1.5}
+.app-shell[data-section='home'] .home-energy .hb-water-visuals{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:14px;width:100%;min-height:110px;margin:16px 0}
+.app-shell[data-section='home'] .home-energy .hb-water-visuals .hb-water-drops{grid-column:1;grid-row:1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));justify-items:center;align-content:center;gap:16px 6px;width:100%;max-width:none;margin:0}
+.app-shell[data-section='home'] .home-energy .hb-water-visuals .hb-water-drops svg{width:clamp(17px,8cqw,25px);height:auto;max-width:100%;stroke-width:1.8;color:#6d95b2;filter:drop-shadow(0 2px 2px #ffffffaa)}
+.app-shell[data-section='home'] .home-energy .hb-water-visuals .hb-water-drops svg.filled{color:#288cdd;filter:drop-shadow(0 2px 4px #288cdd44)}
+.app-shell[data-section='home'] .home-energy .hb-water-visuals .hb-bottle{position:relative;grid-column:2;grid-row:1;inset:auto;width:clamp(30px,18cqw,48px);height:auto;margin:0;filter:drop-shadow(0 5px 7px #3e7fad20)}
+.app-shell[data-section='home'] .home-energy .hb-water-visuals .hb-bottle-body{box-sizing:border-box;width:100%;height:auto;aspect-ratio:45 / 108;border:1.5px solid #82b5ed;border-radius:13px 13px 10px 10px;background:linear-gradient(110deg,#ffffffbb,#d6eeff55 45%,#abd8ff55);box-shadow:inset 3px 0 5px #ffffffaa,inset -2px 0 4px #609ee51a}
+.app-shell[data-section='home'] .home-energy .hb-water-visuals .hb-bottle-cap{box-sizing:border-box;width:56%;height:9px;margin:0 auto 2px;border-radius:4px 4px 1px 1px;border:1px solid #76aaf0;background:repeating-linear-gradient(90deg,#347af1 0 3px,#5e99f8 3px 4px)}
+.app-shell[data-section='home'] .home-energy .hb-water-visuals .hb-bottle-body>span{font-size:10px;color:#245d88;text-shadow:0 1px 2px #fff}
+.app-shell[data-section='home'] .home-energy .hb-water-visuals .hb-bottle-body>i{background:#699bc255;width:22%}
+@media(max-width:600px){
+ .app-shell[data-section='home'] .home-energy :is(.hb-water,.hb-food-summary)>strong{font-size:35px;margin-top:8px}
+ .app-shell[data-section='home'] .home-energy .hb-food-summary>.hb-stat-unit{font-size:10px}
+ .app-shell[data-section='home'] .home-energy .hb-water-visuals{gap:9px;min-height:95px;margin:12px 0}
+}
+
+/* One compact footprint for all four daily cards. */
+.app-shell[data-section='home'] .home-energy .hb-food-macros{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:auto 0;position:relative;z-index:1}
+.app-shell[data-section='home'] .home-energy .hb-food-macro{--macro-color:#9761c6;display:grid;justify-items:center;gap:4px;font-size:10px;color:#66475e}
+.app-shell[data-section='home'] .home-energy .hb-food-macro.carbs{--macro-color:#df903b}
+.app-shell[data-section='home'] .home-energy .hb-food-macro.fat{--macro-color:#42979b}
+.app-shell[data-section='home'] .home-energy .hb-macro-meter{display:flex;align-items:flex-end;width:22px;height:32px;border-radius:7px;background:#ffffff99;border:1px solid color-mix(in srgb,var(--macro-color) 35%,transparent);overflow:hidden;box-shadow:inset 0 2px 3px #7855680b}
+.app-shell[data-section='home'] .home-energy .hb-macro-meter i{width:100%;background:var(--macro-color);border-radius:4px;transition:height .3s ease}
+.app-shell[data-section='home'] .home-energy .hb-food-macro strong{font-size:14px;line-height:1.2;font-variant-numeric:tabular-nums;color:#392c37}
+.app-shell[data-section='home'] .home-energy .hb-food-macro strong small{font-size:9px;font-weight:500;margin-left:2px}
+@media(max-width:380px){.app-shell[data-section='home'] .home-energy .hb-food-macros{gap:3px}.app-shell[data-section='home'] .home-energy .hb-food-macro{font-size:8px}}
+.app-shell[data-section='home'] .home-energy .hb-overview> :is(article,button){box-sizing:border-box;height:280px;min-height:280px;gap:6px}
+.app-shell[data-section='home'] .home-energy .hb-today .hb-completion{margin:0;flex:none}
+.app-shell[data-section='home'] .home-energy .hb-today .hb-daily-track{height:82px;width:100%;margin:0 auto}
+.app-shell[data-section='home'] .home-energy .hb-today p{min-height:0;margin:4px 0;font-size:11px;line-height:1.5}
+.app-shell[data-section='home'] .home-energy .hb-today>button{margin-top:auto;padding:9px 12px;min-height:38px}
+.app-shell[data-section='home'] .home-energy .hb-water-visuals{min-height:0;flex:1;margin:6px 0;gap:10px}
+.app-shell[data-section='home'] .home-energy .hb-water-visuals .hb-bottle{width:34px}
+.app-shell[data-section='home'] .home-energy .hb-water-link{margin-top:auto}
+@media(max-width:600px){
+ .app-shell[data-section='home'] .home-energy .hb-overview> :is(article,button){height:250px;min-height:250px;gap:5px}
+ .app-shell[data-section='home'] .home-energy .hb-today .hb-daily-track{height:67px}
+ .app-shell[data-section='home'] .home-energy .hb-today p{font-size:10px}
+ .app-shell[data-section='home'] .home-energy .hb-water-visuals .hb-bottle{width:28px}
+ .app-shell[data-section='home'] .home-energy .hb-water-visuals .hb-water-drops{gap:12px 4px}
 }

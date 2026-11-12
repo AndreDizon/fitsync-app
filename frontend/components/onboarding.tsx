@@ -7,7 +7,7 @@ import { Wordmark } from './wordmark'
 import { BodyFocusMap } from './body-focus-map'
 import { signOut } from '@/app/auth/actions'
 import { saveOnboarding } from '@/app/onboarding/actions'
-import { goalOptions, focusOptions, genderOptions, days, equipmentOptions, dietOptions, allergyOptions, adjustmentOptions, emptyOnboarding, validateOnboarding, type OnboardingDraft, type OnboardingProfile } from '../../shared/onboarding'
+import { sessionMinuteOptions, goalOptions, focusOptions, genderOptions, days, equipmentOptions, dietOptions, allergyOptions, adjustmentOptions, emptyOnboarding, validateOnboarding, type OnboardingDraft, type OnboardingProfile } from '../../shared/onboarding'
 
 const steps = [
   { label: 'Your goal', title: 'What are we working toward?', note: 'Choose one main goal. You can update it as your priorities change.', icon: Flag },
@@ -108,7 +108,7 @@ export function Onboarding({ name, profile }: { name: string; profile: Onboardin
             {step === 2 && <>
               <Choices legend="Training experience" options={['Beginner', 'Intermediate', 'Advanced']} value={draft.experience} onChange={value => update('experience', value)} />
               <Choices legend="Preferred training days" options={days} value={draft.days} onChange={value => toggle('days', value)} multiple hint="Pick 1–6 days. Keep at least one day for recovery." />
-              <Choices legend="Minutes per session" options={['15', '20', '30', '45', '60']} value={draft.sessionMinutes} onChange={value => update('sessionMinutes', value)} />
+              <p className="muted">Choose your total session time, including warm-up, exercise, rest and cooldown. 30 minutes is a compact session; 45?60 gives more room for gym training; 75?90 is an extended session. Shorter activity still counts.</p><Choices legend="Minutes per session" options={sessionMinuteOptions} value={draft.sessionMinutes} onChange={value => update('sessionMinutes', value)} />
               <Choices legend="Equipment available" options={equipmentOptions} value={draft.equipment} onChange={value => toggle('equipment', value)} multiple />
               <Choices legend="Movement preferences" options={adjustmentOptions} value={draft.adjustments} onChange={value => toggle('adjustments', value)} multiple hint="Optional. Select anything a future plan should accommodate." />
             </>}
