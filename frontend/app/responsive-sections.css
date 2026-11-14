@@ -1,0 +1,32 @@
+/* Section surfaces follow document flow, including stacked cards and wrapped text. */
+.app-shell :is(.hb-body-band,.my-plan-todo,.my-plan-calendar-section,.my-plan-water){min-width:0;box-sizing:border-box;display:flow-root}
+.app-shell :is(.hb-body-band,.my-plan-todo) :is(.hi-workspace,.hi-grid,.hi-panel,.my-plan-task-groups,.my-plan-task-list,.my-plan-task-card){min-width:0;max-width:100%;box-sizing:border-box}
+.app-shell[data-section='plans'] .my-plan-todo:before{left:calc(-1 * var(--calendar-bleed-left,0px));right:calc(-1 * var(--calendar-bleed,0px))}
+@media(max-width:740px){
+  /* Desktop cutouts borrow space from adjacent chapters. Mobile chapters own
+     their entire painted rectangle so no card can land in a cutout. */
+  .app-shell[data-section='home'] .home-energy .hb-body-band{padding-block:28px;min-height:0;height:auto}
+  .app-shell[data-section='home'] .home-energy .hb-band-orange:before{top:0;bottom:0;height:auto;clip-path:none;border-radius:28px 0 28px 0}
+  .app-shell[data-section='home'] .home-energy :is(.hb-band-white,.hb-band-brown):before{border-radius:0;clip-path:none}
+  .app-shell[data-section='home'] .home-energy .hb-body-band:after{display:none}
+  .app-shell[data-section='home'] .home-energy .hi-grid{display:flex;flex-direction:column;min-height:0;height:auto;grid-auto-rows:auto}
+  .app-shell[data-section='home'] .home-energy .hi-grid>.hi-panel{flex:0 0 auto;width:100%;height:auto;min-width:0;grid-row-end:auto!important}
+  .app-shell[data-section='home'] .home-energy .hi-brand-space{display:none}
+  .app-shell[data-section='home'] .home-energy .hi-heading{align-items:flex-start;flex-direction:column;gap:12px}
+  .app-shell[data-section='home'] .home-energy .hi-heading>p{text-align:left;max-width:100%}
+  .app-shell[data-section='plans'] .my-plan-todo{padding-block:28px;margin-block:24px;height:auto;min-height:0}
+  .app-shell[data-section='plans'] .my-plan-todo:before{top:0;bottom:0;left:calc(-1 * var(--calendar-bleed-left,0px));right:calc(-1 * var(--calendar-bleed,0px));height:auto;clip-path:none;border-radius:28px 0 28px 0}
+  .app-shell[data-section='plans'] .my-plan-todo>.my-plan-recovery{margin-bottom:0}
+  .app-shell[data-section='plans'] .my-plan-day-top{flex-wrap:wrap;align-items:flex-start}
+  .app-shell[data-section='plans'] .my-plan-day-top>div{min-width:0;flex:1 1 180px}
+  .app-shell[data-section='plans'] .my-plan-recovery{box-sizing:border-box;max-width:100%;min-width:0;flex-wrap:wrap}
+  .app-shell[data-section='plans'] .my-plan-recovery>div{flex:1 1 240px}
+  .app-shell[data-section='plans'] .my-plan-recovery img{max-width:100%;margin-inline:auto}
+  .app-shell[data-section='plans'] .my-plan-water-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .app-shell :is(.pc-start-copy,.pc-rhythm,.playlist-step-title>div,.hi-heading,.my-plan-day-top,.my-plan-recovery) :is(h2,h3,h4,p,small){overflow-wrap:anywhere}
+}
+@media(max-width:480px){
+  .app-shell[data-section='home'] .home-energy .hi-meals,.app-shell[data-section='home'] .home-energy .hi-badges{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .app-shell[data-section='home'] .home-energy :is(.hi-chart-controls,.hi-session-summary){flex-wrap:wrap}
+  .app-shell[data-section='plans'] .my-plan-water>.plan-hydration-art+div{flex-wrap:wrap}
+}

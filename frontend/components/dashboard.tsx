@@ -23,6 +23,7 @@ import '@/app/home-palette.css'
 import '@/app/home-surfaces.css'
 import '@/app/plans-design.css'
 import '@/app/shared-app-design.css'
+import '@/app/responsive-sections.css'
 import { HomeThemeSettings, useHomeTheme } from './home-theme-preview'
 import { PlanSignout } from './plan-signout'
 import {
