@@ -1,4 +1,4 @@
-/* Calendar palettes follow the four app themes; state is also shown in text. */
+/* Fixed sky palette stays independent of the surrounding page theme. */
 .plan-week-calendar-wrap{margin:32px 0 24px}
 .app-shell .plan-week-calendar{
  --week-bg:#304d7e;--week-sky:#527bad;--week-cloud:#bddcf7;--week-ink:#fff;--week-muted:#e0ecff;--week-line:#a8c1df;--week-day:#edf5ff;--week-day-ink:#24354b;--week-day-muted:#45617b;--week-day-heading:#d6e6f8;--week-hover:#e4f0ff;--week-selected:#ffdf32;--week-selected-ink:#332b19;--week-focus:#ffdf32;
@@ -8,13 +8,6 @@
 .app-shell .plan-week-calendar:before{left:24px}.app-shell .plan-week-calendar:after{right:24px}
 .app-shell .pwc-sky{position:absolute;z-index:-1;inset:0;overflow:hidden;border-radius:19px;pointer-events:none}
 .app-shell .pwc-sky svg{display:block;width:100%;height:100%;color:var(--week-cloud);opacity:.18}
-.app-shell[data-home-theme='midnight-orange'] .plan-week-calendar{--week-sky:#523525;--week-cloud:#eaae78}
-.app-shell[data-home-theme='night-training'] .plan-week-calendar{--week-sky:#304d70;--week-cloud:#badbff}
-.app-shell[data-home-theme='matte-black'] .plan-week-calendar{--week-sky:#473459;--week-cloud:#dabbf5}
-.app-shell[data-home-theme='midnight-orange'] .plan-week-calendar{--week-bg:#38271f;--week-ink:#fff8f1;--week-muted:#edc2a5;--week-line:#79533c;--week-day:#473126;--week-hover:#61402b;--week-selected:#ffb16e;--week-selected-ink:#3c2412;--week-focus:#ffd3a8}
-.app-shell[data-home-theme='night-training'] .plan-week-calendar{--week-bg:#1f3046;--week-ink:#f5f9ff;--week-muted:#bdd2ed;--week-line:#4e6b90;--week-day:#293e57;--week-hover:#35516f;--week-selected:#b9daff;--week-selected-ink:#162e4b;--week-focus:#dcecff}
-.app-shell[data-home-theme='matte-black'] .plan-week-calendar{--week-bg:#2b2435;--week-ink:#fcf7ff;--week-muted:#d6c2e9;--week-line:#6b547f;--week-day:#382e45;--week-hover:#4c3a60;--week-selected:#ddbdff;--week-selected-ink:#352046;--week-focus:#ecd8ff}
-.app-shell[data-home-preview-dark='true'] .plan-week-calendar{--week-day:#edf5ff;--week-day-ink:#24354b;--week-day-muted:#45617b;--week-day-heading:#d6e6f8;--week-hover:#e4f0ff}
 .app-shell .pwc-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:115px;margin:0;padding:26px 24px 22px;border-bottom:1px solid var(--week-line)}
 .app-shell .pwc-heading h3{margin:0 0 4px;color:var(--week-ink);font-size:22px;line-height:1.25;letter-spacing:-.025em}
 .app-shell .pwc-heading p{margin:0;color:var(--week-muted);font-size:12px;line-height:1.6;font-variant-numeric:tabular-nums}
@@ -36,7 +29,7 @@
 .app-shell .pwc-day[aria-current=date]{--week-focus:#814516;background:#ffe0bd;color:#67360e;border-color:#ce955f}
 .app-shell .pwc-day[aria-current=date] .pwc-weekday{background:#ffd2a1;color:#67360e;border-color:#ce955f}
 .app-shell .pwc-day[aria-current=date] .pwc-day-status{color:#75451e}
-.app-shell .pwc-day[aria-current=date] .pwc-current-marker{padding:2px 5px;border-radius:4px;background:#67360e;color:#fff4e6}
+.app-shell .pwc-day[aria-current=date] .pwc-current-marker{padding:2px 5px;background:transparent;color:inherit}
 .app-shell .pwc-day[aria-current=date][aria-pressed=true]{background:#ffc98b;color:#67360e;border-color:#814516;box-shadow:inset 0 0 0 2px #814516}
 /* Recovery remains identifiable in every palette, even when selected. */
 .app-shell .pwc-day[data-rest=true]{--week-focus:#254e39;background:#e0f1e6;color:#254e39;border-color:#8bb89b}
@@ -44,7 +37,7 @@
 .app-shell .pwc-day[data-rest=true] .pwc-day-status{color:#36624a}
 .app-shell .pwc-day[data-rest=true][aria-pressed=true]{background:#c1e6cf;color:#254e39;border-color:#254e39;box-shadow:inset 0 0 0 2px #254e39}
 .app-shell .pwc-day[data-rest=true][aria-pressed=true] .pwc-weekday{background:#b0d9c0;border-color:#254e39}
-.app-shell .pwc-day[data-rest=true][aria-current=date] .pwc-current-marker{background:#254e39;color:#f0fff5}
+.app-shell .pwc-day[data-rest=true][aria-current=date] .pwc-current-marker{background:transparent;color:inherit}
 .app-shell .pwc-complete{position:absolute;right:-14px;top:-3px}
 .app-shell .pwc-summary{display:flex;align-items:baseline;justify-content:space-between;gap:8px 20px;flex-wrap:wrap;margin:18px 24px 22px;padding-top:16px;border-top:1px solid var(--week-line);font-size:12px;line-height:1.6}
 .app-shell .pwc-summary strong{color:var(--week-ink)}

@@ -1,13 +1,13 @@
 /* FitSync task tickets: white content, charcoal metrics, pulse-yellow actions. */
-.app-shell[data-section='plans'] .my-plan-workspace:is(.workout,.nutrition) .my-plan-task-list .my-plan-task-card{--task-ink:#27292a;--task-muted:#625c51;position:relative;display:block;min-width:0;padding:22px;border:1px solid #c5cdd3;border-top-color:#ffffffeb;border-radius:18px;background:linear-gradient(135deg,#fffffff5,#ffffffd9);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);box-shadow:inset 2px 3px 5px #ffffffd9,inset -2px -3px 6px #2637470a,0 4px 7px #26374708,0 10px 20px #2637470c!important}
+.app-shell[data-section='plans'] .my-plan-workspace:is(.workout,.nutrition) .my-plan-task-list .my-plan-task-card{--task-ink:#27292a;--task-muted:#625c51;position:relative;display:block;min-width:0;padding:22px;border:1px solid #c4c7c9;border-top-color:#ffffffed;border-right-color:#d7dbde;border-radius:18px;background:linear-gradient(145deg,#fffffff5,#f5f7f9eb);backdrop-filter:blur(10px) saturate(108%);-webkit-backdrop-filter:blur(10px) saturate(108%);box-shadow:inset 2px 3px 5px #fff,inset -2px -3px 6px #29333d0a,2px 3px 0 #30343829,0 7px 15px #222a330b!important}
 .app-shell[data-section='plans'] .my-plan-workspace:is(.workout,.nutrition) .my-plan-task-list .my-plan-task-card:before,.app-shell[data-section='plans'] .my-plan-workspace:is(.workout,.nutrition) .my-plan-task-list .my-plan-task-card:after{display:none}
 .app-shell[data-section='plans'] .my-plan-workspace:is(.workout,.nutrition) .my-plan-task-list .is-done .my-plan-task-card{background:linear-gradient(135deg,#fffffff5,#edf8f0e6);border-color:#b9cfbf;border-top-color:#ffffffeb}
 .app-shell[data-section='plans'] .my-plan-workspace:is(.workout,.nutrition) .my-plan-task-list .my-plan-task-card .my-plan-task-heading{min-height:0;display:flex;flex-wrap:nowrap;align-items:center;gap:14px;padding:0 0 14px;border:0;border-bottom:1px solid #d8dde299}
 .app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-list .my-plan-task-heading strong{display:block;font-size:19px;font-weight:750;letter-spacing:-.025em;line-height:1.3;color:#27292a;overflow-wrap:anywhere}
 .app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-list .my-plan-task-heading .my-plan-task-state{font-size:11px;color:#6f6250;margin:5px 0 0}
-.app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-list .my-plan-task-thumbnail{width:62px;height:62px;flex:0 0 62px;border:1px solid #e6e1d6;border-radius:12px;padding:6px;background:#fff;box-shadow:none;transform:none}
+.app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-list .my-plan-task-thumbnail{width:62px;height:62px;flex:0 0 62px;border:1px solid #e6e1d6;border-radius:12px;padding:6px;background:#fff;box-shadow:inset 0 1px 2px #fff,1px 2px 0 #3034381a;transform:none}
 .app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-card .plan-task-preview{display:block;margin:20px 0 0}
-.app-shell[data-section='plans'] .my-plan-workspace .plan-task-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;padding:14px 0;margin:0;background:#27292a;border-radius:10px;color:#fffdf5}
+.app-shell[data-section='plans'] .my-plan-workspace .plan-task-metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;padding:14px 0;margin:0;background:#27292a;border-radius:10px;color:#fffdf5;box-shadow:inset 0 1px 2px #ffffff18,1px 2px 0 #1c1f2029}
 .plan-task-metrics>div{min-width:0;padding:0 16px}
 .plan-task-metrics>div+div{border-left:1px solid #ffffff25}
 .plan-task-metrics dt{font-size:10px;font-weight:500;line-height:1.5;color:#d3cec3;margin-bottom:6px}
@@ -40,6 +40,9 @@
 .app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-list .my-plan-task-card .my-plan-task-links .my-plan-reorder>button{display:grid;place-items:center;width:44px;min-height:44px;padding:8px;border:1px solid #cbd1d7;background:#ffffffd9;color:#344c60;box-shadow:inset 0 1px 2px #fff}
 .app-shell[data-section='plans'] .my-plan-workspace .my-plan-reorder>button:disabled{opacity:.35;cursor:default}
 .app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-card :is(.my-plan-view-details,[data-task-move]):focus-visible{outline:3px solid #977015;outline-offset:3px}
+.app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-list .my-plan-task-card .my-plan-task-heading .my-plan-view-details,
+.app-shell[data-section='plans'] .my-plan-workspace .plan-task-disclosure>summary>svg:last-child{box-shadow:inset 0 2px 2px #ffffff80,inset 0 -2px 3px #7359000a,1px 2px 0 #443b2029}
+.app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-list .my-plan-task-card .my-plan-task-links button{box-shadow:inset 0 1px 2px #ffffffb3,1px 2px 0 #30343818}
 .my-plan-order-notice{position:absolute;width:1px;height:1px;margin:-1px;padding:0;border:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 .app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-list .my-plan-task-card .my-plan-task-links .my-plan-delete-task{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;background:#fff1e8;color:#873f27;border-color:#dfbba9}
 .app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-list .my-plan-check{min-height:44px;background:#ffdf32;border-color:#c2a12b;color:#332b19;box-shadow:inset 0 1px 2px #ffffff80;font-size:12px;font-weight:750;transition:background .15s ease-out}
@@ -57,17 +60,27 @@
  .app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-list .my-plan-task-card .my-plan-task-links button{min-height:44px}
 }
 @media(max-width:450px){
- .app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-list>article{grid-template-columns:minmax(0,1fr);gap:8px}
- .app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-list>article>.my-plan-timeline-rail{display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:12px;padding:0;min-width:0}
- .app-shell[data-section='plans'] .my-plan-workspace .my-plan-timeline-rail>label{flex:1;max-width:155px;min-width:0;display:flex;align-items:center;gap:8px;font-size:11px}
+ .app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-list>article{grid-template-columns:82px minmax(0,1fr);gap:12px}
+ .app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-list>article>.my-plan-timeline-rail{display:flex;flex-direction:column;align-items:stretch;justify-content:flex-start;gap:10px;padding:0 8px 0 0;min-width:0}
+ .app-shell[data-section='plans'] .my-plan-workspace .my-plan-timeline-rail>label{min-width:0;display:grid;gap:6px;font-size:11px}
  .app-shell[data-section='plans'] .my-plan-workspace .my-plan-timeline-rail input{min-width:0;width:100%;min-height:44px}
- .app-shell[data-section='plans'] .my-plan-workspace .my-plan-timeline-rail>.my-plan-check{min-height:44px;min-width:112px;padding:9px 12px;margin:0;font-size:12px}
- .app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-list>article>.my-plan-timeline-rail::before,.app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-list>article>.my-plan-timeline-rail::after,.app-shell[data-section='plans'] .my-plan-workspace .my-plan-timeline-rail>:is(.my-plan-timeline-start,.my-plan-timeline-flag,.my-plan-finish-fox){display:none}
+ .app-shell[data-section='plans'] .my-plan-workspace .my-plan-timeline-rail>.my-plan-check{min-height:44px;min-width:0;width:100%;padding:8px 4px;margin:0;font-size:10px;white-space:normal}
+ .app-shell[data-section='plans'] .my-plan-workspace .my-plan-timeline-rail>.my-plan-finish-fox{display:none}
  .app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-card{width:100%;min-width:0}
+ .app-shell[data-section='plans'] .my-plan-workspace:is(.workout,.nutrition) .my-plan-task-list .my-plan-task-card{padding:12px}
+ .app-shell[data-section='plans'] .my-plan-workspace:is(.workout,.nutrition) .my-plan-task-list .my-plan-task-card .my-plan-task-heading{display:grid;grid-template-columns:32px minmax(0,1fr);gap:8px}
+ .app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-list .my-plan-task-thumbnail{width:32px;height:38px;min-width:0;padding:3px}
+ .app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-list .my-plan-task-heading strong{font-size:13px}
+ .app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-list .my-plan-task-heading .my-plan-view-details{grid-column:1/-1;justify-self:end}
+ .app-shell[data-section='plans'] .my-plan-workspace .plan-task-metrics>div{padding:0 5px}
+ .app-shell[data-section='plans'] .my-plan-workspace .plan-task-metrics dd{font-size:17px}
+ .app-shell[data-section='plans'] .my-plan-workspace .plan-task-metrics :is(dt,dd small){font-size:9px;overflow-wrap:anywhere}
+ .app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-list .my-plan-task-card .my-plan-task-fields{grid-template-columns:1fr}
+ .app-shell[data-section='plans'] .my-plan-workspace .my-plan-timeline-rail input[type=time]{padding:7px 3px;font-size:10px}
 }
 @media(prefers-reduced-motion:reduce){.app-shell[data-section='plans'] .my-plan-workspace .plan-task-disclosure>summary>svg:last-child{transition:none}}
 @media(max-width:380px){
  .app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-list .my-plan-task-card .my-plan-task-heading{gap:8px}
- .app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-list .my-plan-task-thumbnail{width:40px;height:40px;flex-basis:40px}
+ .app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-list .my-plan-task-thumbnail{width:32px;height:38px;flex-basis:32px}
  .app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-list .my-plan-task-heading .my-plan-view-details{padding:6px 8px;font-size:10px}
 }

@@ -13,7 +13,31 @@
  background:linear-gradient(135deg,#303336f5,#252729f5);border-color:#4c5054;border-top-color:#ffffff36;border-right-color:#ffffff20;
  box-shadow:inset 1px 2px 3px #ffffff18,inset -2px -3px 6px #00000015,0 6px 18px #00000010;
 }
+.app-shell[data-section='plans'] .pc-root .pc-collection-placeholder{position:relative;isolation:isolate;overflow:hidden;background:linear-gradient(125deg,#ffe978,#ffdf32);border-color:#d6b532;border-top-color:#fff3ae;box-shadow:inset 2px 3px 5px #fff4b380,inset -2px -3px 6px #8d6c150d,0 6px 18px #3d30100c;color:#29291f}
+.app-shell[data-section='plans'] .pc-root .pc-collection-placeholder:before{content:'';position:absolute;z-index:-1;inset:0;pointer-events:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 300' fill='none'%3E%3Cg stroke='%23cc631b' stroke-width='1.2' opacity='.23'%3E%3Cpath d='M785-40C673 33 1070 56 942 164S896 278 1253 283M803-40C691 33 1088 56 960 164S914 278 1271 283M821-40C709 33 1106 56 978 164S932 278 1289 283'/%3E%3C/g%3E%3Cg fill='%23d77920' opacity='.12'%3E%3Cpath d='M1100 27h105v8h-110Zm-12 17h117v7h-122Zm-12 17h129v6h-134Z'/%3E%3C/g%3E%3Cpath d='M-20 275C188 193 286 349 494 278S771 243 884 325' stroke='%23fff8ca' stroke-width='2' opacity='.45'/%3E%3C/svg%3E") right center/auto 100% no-repeat}
+.app-shell[data-section='plans'] .pc-root .pc-collection-placeholder:after{content:'';position:absolute;z-index:-1;top:0;right:0;width:36%;height:100%;pointer-events:none;background:radial-gradient(#9f5a252b .65px,transparent .95px) 0 0/12px 12px;mask-image:linear-gradient(90deg,transparent,#000);opacity:.45}
+.app-shell[data-section='plans'] .pc-root .pc-collection-placeholder :is(h3,p){color:#29291f}
+.app-shell[data-section='plans'] .pc-root .pc-collection-placeholder>div:last-child>span{color:#625020}
+@media(min-width:1000px){
+ .app-shell[data-section='plans'] .pc-root .pc-collection-placeholder{justify-content:flex-start;gap:36px;padding:32px 40px}
+ .app-shell[data-section='plans'] .pc-root .pc-collection-placeholder>div:last-child{flex:1;max-width:none}
+ .app-shell[data-section='plans'] .pc-root .pc-collection-placeholder h3{font-size:clamp(28px,2.5vw,38px);line-height:1.15;letter-spacing:-.03em;margin-bottom:14px}
+ .app-shell[data-section='plans'] .pc-root .pc-collection-placeholder p{max-width:64ch;font-size:16px;line-height:1.7;margin-bottom:18px}
+ .app-shell[data-section='plans'] .pc-root .pc-collection-placeholder>div:last-child>span{font-size:13px;line-height:1.6}
+ .app-shell[data-section='plans'] .pc-root .pc-mascot-frame{flex-basis:176px;width:176px;height:184px}
+}
+.app-shell[data-section='plans'] .pc-root .pc-start{isolation:isolate}
+.app-shell[data-section='plans'] .pc-root .pc-start:before{content:'';position:absolute;z-index:-1;inset:0;border-radius:inherit;pointer-events:none;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 720 300' fill='none'%3E%3Cg stroke='%23e87722' stroke-width='1.1' opacity='.16'%3E%3Cpath d='M438-28C365 46 514 71 485 152S413 247 493 328M456-28C383 46 532 71 503 152S431 247 511 328M474-28C401 46 550 71 521 152S449 247 529 328'/%3E%3Cpath d='M606-24C558 29 663 63 632 122S582 216 743 247' opacity='.65'/%3E%3C/g%3E%3C/svg%3E") right center/auto 100% no-repeat}
 .app-shell[data-section='plans'] .plan-folder-content :is(.exercise-card,.food-card) :is(.exercise-card-body,.food-card-body){background:transparent}
+.app-shell[data-section='plans'] .plan-folder-content :is(.exercise-card,.food-card){
+ border-color:#c4c7c9;border-top-color:#ffffffed;border-right-color:#d7dbde;
+ background:linear-gradient(145deg,#fffffff5,#f5f7f9eb);
+ box-shadow:inset 2px 3px 5px #fff,inset -2px -3px 6px #29333d0a,2px 3px 0 #30343829,0 7px 15px #222a330b;
+ backdrop-filter:blur(10px) saturate(108%);-webkit-backdrop-filter:blur(10px) saturate(108%);
+}
+.app-shell[data-section='plans'] .plan-folder-content :is(.exercise-card,.food-card) :is(.exercise-tags,.food-card-tags)>span{border:1px solid #33333312;box-shadow:1px 1px 0 #33333312}
+.app-shell[data-section='plans'] .plan-folder-content :is(.exercise-card,.food-card) :is(.exercise-view-details,.food-view-details){border-color:#ac9226;box-shadow:inset 0 2px 2px #ffffff80,inset 0 -2px 3px #7359000a,1px 2px 0 #443b2029}
+.app-shell[data-section='plans'] .plan-folder-content .food-card .food-card-macros{box-shadow:inset 0 1px 2px #ffffff18,1px 2px 0 #1c1f2029}
 .app-shell[data-section='plans'] .pc-root :is(.pc-search,.pc-filter){background:#ffffffeb;border-color:#cbd1d7;box-shadow:inset 0 2px 3px #26374706,0 1px 1px #ffffffb3}
 .app-shell[data-section='plans'] .pc-root .pc-create,
 .app-shell[data-section='plans'] .plan-folder-content :is(.exercise-view-details,.food-view-details){
@@ -21,24 +45,34 @@
 }
 .app-shell[data-section='plans'] .my-plan-workspace .plan-task-metrics{box-shadow:inset 0 1px 2px #ffffff16,inset 0 -2px 4px #00000012}
 .app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-list .my-plan-task-thumbnail{border-top-color:#fff;background:#ffffffeb;box-shadow:inset 0 1px 2px #fff,0 3px 6px #2637470b}
-/* Library filters use the core palette; yellow consistently means selected. */
-.app-shell[data-section='plans'] .plan-folder-content :is(.exercise-filter-studio,.food-filters){background:linear-gradient(135deg,#fffffff7,#fffffff0);border-color:#d5d3cc;border-top-color:#fff}
-.app-shell[data-section='plans'] .exercise-filter-studio .exercise-focus-heading{color:#27292a}
-.app-shell[data-section='plans'] :is(.exercise-filter-studio,.food-filters) :is(.exercise-focus-filters,.exercise-equipment-options,.food-category-filters)>button[aria-pressed=false]{background:#fff;color:#33312b;border-color:#d5d1c7;box-shadow:inset 0 1px 2px #fff,0 1px 2px #302b1d06}
-.app-shell[data-section='plans'] :is(.exercise-equipment-filters,.exercise-more-filters,.food-more-filters){border-top-color:#dedbd3}
-.app-shell[data-section='plans'] :is(.exercise-equipment-filters,.exercise-more-filters,.food-more-filters)>summary{color:#38352f}
-.app-shell[data-section='plans'] :is(.exercise-equipment-filters,.exercise-more-filters)>summary>svg:first-child{color:#a75b20}
-.app-shell[data-section='plans'] :is(.exercise-advanced-grid,.food-classification-filters) label{color:#62513d}
-.app-shell[data-section='plans'] .food-filters :is(.food-sort-filter,.food-diet-filter){color:#62513d}
-.app-shell[data-section='plans'] .food-filters .food-allergen-filters{border-top-color:#dedbd3;color:#7b4b2f}
-.app-shell[data-section='plans'] .exercise-filter-studio :is(.library-filter-help,.exercise-sort){color:#6b5b43}
-.app-shell[data-section='plans'] .food-filters :is(.food-group-hint,.food-allergen-filters p){color:#6b5b43}
-.app-shell[data-section='plans'] :is(.exercise-active-filters,.food-active-filters){border-top-color:#dedbd3}
+/* Performance-card materials from Home, with decoration behind the controls. */
+.app-shell[data-section='plans'] .plan-folder-content :is(.exercise-filter-studio,.food-filters){position:relative;isolation:isolate;background:linear-gradient(125deg,#49372e 0%,#252a2c 43%,#1b2022 100%);border-color:#43484a;border-top-color:#ffffff40;border-right-color:#ffffff1f;color:#fffdf5;box-shadow:inset 1px 2px 4px #ffffff16,inset -2px -4px 8px #00000020,0 4px 6px #1317190c,0 12px 24px #13171916}
+.app-shell[data-section='plans'] .plan-folder-content :is(.exercise-filter-studio,.food-filters):before{
+ content:'';position:absolute;z-index:-1;inset:1px;border-radius:inherit;pointer-events:none;
+ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 400' fill='none'%3E%3Cg stroke='%23ded5c5' stroke-width='1' opacity='.12'%3E%3Cpath d='M1030 267H860C804 267 781 337 724 337H492M1030 279H864C809 279 788 349 729 349H515M1030 291H868C816 291 795 361 735 361H538'/%3E%3Cpath d='M733-10V20L768 55H1020' opacity='.7'/%3E%3C/g%3E%3Ccircle cx='768' cy='55' r='2.5' fill='%23ffdf32' opacity='.25'/%3E%3Cg stroke='%23ff942e' stroke-width='1' opacity='.18'%3E%3Cpath d='M32 347H98M32 353H76M32 359H54'/%3E%3C/g%3E%3C/svg%3E");
+ background-size:cover;background-position:center;opacity:1;
+}
+.app-shell[data-section='plans'] .plan-folder-content :is(.exercise-filter-studio,.food-filters):after{content:'';position:absolute;z-index:-1;top:18px;right:0;width:82px;height:23px;pointer-events:none;background:linear-gradient(to bottom,#ff801f 0 4px,transparent 4px 9px,#b87329 9px 13px,transparent 13px 18px,#79602b 18px 22px,transparent 22px);clip-path:polygon(13% 0,100% 0,100% 100%,0 100%);opacity:.45}
+.app-shell[data-section='plans'] .exercise-filter-studio .exercise-focus-heading{color:#fffdf5}
+.app-shell[data-section='plans'] .exercise-filter-studio .exercise-focus-heading>span:first-child{color:#e1d8c8}
+.app-shell[data-section='plans'] :is(.exercise-filter-studio,.food-filters) :is(.exercise-focus-filters,.exercise-equipment-options,.food-category-filters)>button[aria-pressed=false]{background:#ffffff0a;color:#fffdf5;border-color:#ffffff36;box-shadow:inset 0 1px 2px #ffffff12}
+.app-shell[data-section='plans'] :is(.exercise-equipment-filters,.exercise-more-filters,.food-more-filters){border-top-color:#ffffff25}
+.app-shell[data-section='plans'] :is(.exercise-equipment-filters,.exercise-more-filters,.food-more-filters)>summary{color:#fffdf5}
+.app-shell[data-section='plans'] :is(.exercise-equipment-filters,.exercise-more-filters)>summary>svg:first-child{color:#ffac70}
+.app-shell[data-section='plans'] :is(.exercise-advanced-grid,.food-classification-filters) label{color:#e1d8c8}
+.app-shell[data-section='plans'] .food-filters :is(.food-sort-filter,.food-diet-filter){color:#e1d8c8}
+.app-shell[data-section='plans'] .food-filters .food-allergen-filters{border-top-color:#ffffff25;color:#e1d8c8}
+.app-shell[data-section='plans'] .exercise-filter-studio :is(.library-filter-help,.exercise-sort,.exercise-equipment-heading,.exercise-active-label),
+.app-shell[data-section='plans'] .food-filters :is(.food-group-hint,.food-allergen-filters p),
+.app-shell[data-section='plans'] .exercise-filter-studio .exercise-focus-heading>span:last-child{color:#d6cdbd}
+.app-shell[data-section='plans'] :is(.exercise-active-filters,.food-active-filters){border-top-color:#ffffff25}
 .app-shell[data-section='plans'] :is(.exercise-filter-studio,.food-filters) :is(input,select){background-color:#fff;color:#332e24}
 .app-shell[data-section='plans'] .food-filters .food-search{background:#fff}
 @media(hover:hover){
- .app-shell[data-section='plans'] :is(.exercise-filter-studio,.food-filters) :is(.exercise-focus-filters,.exercise-equipment-options,.food-category-filters)>button[aria-pressed=false]:hover{background:#fff4d2;border-color:#c5a654;color:#5a431f}
+ .app-shell[data-section='plans'] :is(.exercise-filter-studio,.food-filters) :is(.exercise-focus-filters,.exercise-equipment-options,.food-category-filters)>button[aria-pressed=false]:hover{background:#4b4c49;border-color:#c5a654;color:#fff4bd}
 }
+.app-shell[data-section='plans'] :is(.exercise-filter-studio,.food-filters) :is(button,input,select,summary):focus-visible{outline:3px solid #ffdf32;outline-offset:3px}
+.app-shell[data-section='plans'] .food-filters .food-search:focus-within{outline-color:#ffdf32}
 @media(hover:hover){
  .app-shell[data-section='plans'] .pc-root .pc-playlist-row:hover{border-color:#b0b9c3;background:#fffffff5}
 }
