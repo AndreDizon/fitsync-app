@@ -1,0 +1,58 @@
+import assert from 'node:assert/strict'
+import { build } from 'esbuild'
+
+const built = await build({ stdin: { contents: "export * from './shared/plan-analytics'; export * from './shared/daily-plans'; export * from './shared/playlists'; export {emptyOnboarding} from './shared/onboarding'", resolveDir: process.cwd() }, bundle: true, write: false, platform: 'node', format: 'esm' })
+const { planAnalytics, blankWeek, newPlaylistItem, foodCatalog, foodTotals, workoutCatalog, taskMinutes, emptyOnboarding } = await import('data:text/javascript;base64,' + Buffer.from(built.outputFiles[0].text).toString('base64'))
+const today = '2026-11-17'
+const profile = { ...emptyOnboarding, goal: 'strength', age: '28', heightCm: '175', weightKg: '75', activity: 'Lightly active', version: 2, completedAt: today }
+const week = blankWeek('2026-11-16')
+const exercise = { ...newPlaylistItem('workout', workoutCatalog[0].id, 0), done: true, actualSets: [{ amount: 10, weightKg: 20 }, { amount: 8, weightKg: 25 }] }
+const food = { ...newPlaylistItem('nutrition', foodCatalog[0].id, 0), done: true, grams: 100 }
+week.days[0].workout.items.push(exercise)
+week.days[0].nutrition.items.push(food, { ...food, id: crypto.randomUUID(), done: false })
+week.days[0].water.forEach(glass => { glass.done = true })
+week.days[1].workout.items.push({ ...exercise, id: crypto.randomUUID(), day: 1, done: false, actualSets: [{ amount: 5, weightKg: 10 }] })
+week.days[1].nutrition.items.push({ ...food, id: crypto.randomUUID(), day: 1, done: false })
+// Future completed tasks must never count, nor must future visits.
+week.days[2].workout.items.push({ ...exercise, id: crypto.randomUUID(), day: 2 })
+week.days[2].nutrition.items.push({ ...food, id: crypto.randomUUID(), day: 2 })
+const result = planAnalytics([week, week], ['2026-11-16', '2026-11-16', '2026-11-18'], profile, today)
+assert.equal(result.workoutTotal, 2)
+assert.equal(result.workoutDone, 1)
+assert.equal(result.foodTotal, 3)
+assert.equal(result.foodDone, 1)
+assert.equal(result.foodDays, 1, 'Unlogged days must not dilute food averages')
+assert.deepEqual(result.nutrition, foodTotals([food]))
+assert.equal(result.minutes, taskMinutes(exercise))
+assert.equal(result.finishedDays, 1)
+assert.equal(result.actualSets, 3, 'Actual logs count independently of task completion')
+assert.equal(result.reps, 23)
+assert.equal(result.volume, 450)
+assert.equal(result.water, 8)
+assert.equal(result.waterGoalDays, 1)
+assert.equal(result.visitSet.size, 1)
+assert.equal(result.streak, 1, 'Today can still be in progress')
+assert.equal(result.best, 1)
+assert.equal(result.loadedDays, 2)
+assert(result.targets.energyRange)
+assert.equal(planAnalytics([week], [], { ...profile, age: '16' }, today).targets.energy, null)
+const timed = structuredClone(week)
+timed.days[1].workout.items[0].targetType = 'time'
+timed.days[1].workout.items[0].actualSets = [{ amount: 60, weightKg: 100 }]
+const timedResult = planAnalytics([timed], [], null, today, 7)
+assert.equal(timedResult.reps, 18)
+assert.equal(timedResult.volume, 400, 'Timed seconds must never become load volume')
+assert.equal(timedResult.timedSeconds, 60)
+const empty = planAnalytics([], [], null, today, 7)
+assert.equal(empty.total, 0)
+assert.equal(empty.loadedDays, 0)
+assert.equal(empty.foodDays, 0)
+assert.equal(empty.best, 0)
+assert.equal(empty.days.length, 7)
+assert.equal(empty.days.at(-1).date, today)
+assert.equal(planAnalytics([{ ...week, week: 'invalid' }], [], null, today).done, 0)
+const older = blankWeek('2026-11-02')
+older.days[0].workout.items.push(exercise)
+assert.equal(planAnalytics([older], [], null, today, 7).workoutDone, 0)
+assert.equal(planAnalytics([older], [], null, today, 28).workoutDone, 1)
+console.log('PASS analytics: completed vs planned, dates, duplicate weeks, partial food logs, targets, hydration, actual sets and empty history')
