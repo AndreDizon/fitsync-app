@@ -1,0 +1,63 @@
+.plan-water-section{margin:28px 0;min-width:0}
+.app-shell .water-check-card{position:relative;isolation:isolate;overflow:hidden;display:flex;flex-direction:column;min-height:364px;border:1px solid #8caed1;border-radius:20px;background:linear-gradient(110deg,#304d7e,#527bad);color:#fff;box-shadow:inset 0 2px 3px #ffffff50,inset 0 -3px 6px #00000012,0 6px 18px #00000012}
+.app-shell .wc-water-art{position:absolute;z-index:-1;inset:0;width:100%;height:100%;pointer-events:none}
+.app-shell .wc-header{display:flex;justify-content:space-between;align-items:center;gap:16px;min-height:115px;padding:26px 24px 22px;border-bottom:1px solid #ffffff30}
+.app-shell .wc-header h3{margin:0;color:#fff;font-size:22px;line-height:1.25;font-weight:750;letter-spacing:-.025em}
+.app-shell .wc-header p{margin:4px 0 0;color:#e0ecff;font-size:12px;line-height:1.6}
+.app-shell .wc-log{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px;padding:10px 15px;border:1px solid #c8a923;border-radius:10px;background:#ffdf32;color:#332b19;font-size:12px;font-weight:700;box-shadow:inset 0 2px 2px #ffffff80,inset 0 -2px 3px #0000000c,0 3px 6px #00000012;cursor:pointer;flex-shrink:0}
+.app-shell .wc-log:disabled{background:#dbf0e4;color:#25513a;border-color:#b7d7c5;opacity:1;cursor:default}
+.app-shell .wc-body{display:flex;flex:1;flex-direction:column;justify-content:center;gap:16px;padding:16px 24px}
+.app-shell .wc-progress>div{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:4px 12px;margin-bottom:10px}
+.app-shell .wc-progress strong{font-size:30px;line-height:1.2;letter-spacing:-.03em;color:#fff;font-variant-numeric:tabular-nums}
+.app-shell .wc-progress strong>span{font-size:14px;font-weight:500;letter-spacing:0;color:#e0edff}
+.app-shell .wc-progress>div>span{font-size:11px;color:#e0edff;font-variant-numeric:tabular-nums}
+.app-shell .wc-progress progress{display:block;width:100%;height:6px;border:0;border-radius:8px;background:#203b604d;overflow:hidden;appearance:none}
+.app-shell .wc-progress progress::-webkit-progress-bar{background:#203b604d;border-radius:8px}
+.app-shell .wc-progress progress::-webkit-progress-value{background:#ffdf32;border-radius:8px}
+.app-shell .wc-progress progress::-moz-progress-bar{background:#ffdf32;border-radius:8px}
+.app-shell .wc-glasses{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px;padding:6px;border:1px solid #ffffff40;border-radius:14px;background:#ffffff12;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+.app-shell .wc-glass{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-width:0;min-height:68px;padding:8px 3px;border:1px solid #ffffffb3;border-radius:9px;background:#edf5ff;color:#294c6b;box-shadow:inset 0 2px 3px #fff,inset 0 -3px 6px #243f5e0a,0 2px 3px #0000000a;cursor:pointer;transition:background .15s,border-color .15s}
+.app-shell .wc-glass-art{position:relative;display:block;height:26px}
+.app-shell .wc-glass-check{position:absolute;right:-6px;top:-2px;padding:1px;background:#25543c;border-radius:50%;color:#fff;box-sizing:content-box}
+.app-shell .wc-glass>strong{font-size:11px;font-weight:700;line-height:1.4;color:inherit}
+.app-shell .wc-glass[aria-pressed=true]{background:#d0ecdd;border-color:#b0d6c0;color:#25543c}
+.app-shell .wc-glass[aria-pressed=true] .wc-glass-art>svg:first-child{fill:#a3d6bd}
+.app-shell .wc-footer{position:relative;margin:0 24px 18px;border-top:1px solid #ffffff30}
+.app-shell .wc-footer>p{position:absolute;top:13px;left:0;margin:0;color:#e0edff;font-size:11px;line-height:1.6}
+.app-shell .wc-footer>p>span{white-space:nowrap}
+.app-shell .wc-times>summary{display:flex;align-items:center;justify-content:space-between;gap:8px;width:max-content;max-width:100%;min-height:44px;margin-left:auto;font-size:11px;font-weight:650;color:#fff;cursor:pointer;list-style:none}
+.app-shell .wc-times>summary::-webkit-details-marker{display:none}
+.app-shell .wc-times[open]>summary>svg{transform:rotate(180deg)}
+.app-shell .wc-detail-content{padding:4px 0 0}
+.app-shell .wc-tools{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px 16px;margin-bottom:12px;font-size:11px;line-height:1.7;color:#e0edff}
+.app-shell .wc-tools>p{margin:0}
+.app-shell .wc-tools>button{min-height:44px;padding:8px 0;background:transparent;border:0;color:#ffec86;text-decoration:underline;text-underline-offset:4px;font-size:11px;font-weight:650;cursor:pointer}
+.app-shell .wc-time-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.app-shell .wc-time-grid label{display:grid;gap:6px;min-width:0;font-size:11px;color:#e0edff}
+.app-shell .wc-time-grid input{width:100%;min-width:0;min-height:44px;padding:10px;border:1px solid #b8cfe3;border-radius:8px;background:#f5faff;color:#294c6b;font:inherit;color-scheme:light;font-variant-numeric:tabular-nums}
+.app-shell .wc-note{margin:14px 0 0;max-width:72ch;font-size:11px;line-height:1.7;color:#e0edff}
+.app-shell .water-check-card :is(button,summary,input):focus-visible{outline:3px solid #ffdf32;outline-offset:3px}
+.app-shell .wc-glass:focus-visible{outline-color:#fff2a7}
+.app-shell .water-check-card ::selection{background:#ffdf32;color:#332b19}
+@media(hover:hover){.app-shell .wc-glass:hover{background:#e1efff}.app-shell .wc-glass[aria-pressed=true]:hover{background:#bde3ce}.app-shell .wc-log:not(:disabled):hover{background:#ffe86b}.app-shell .wc-tools>button:hover{color:#fff4b7}}
+@media(max-width:700px){
+ .app-shell .water-check-card{min-height:324px}
+ .app-shell .wc-header{min-height:100px;padding:18px 14px}
+ .app-shell .wc-body{padding:8px 14px;gap:8px}
+ .app-shell .wc-glasses{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px;padding:5px}
+ .app-shell .wc-glass{flex-direction:row;min-height:44px;gap:6px;padding:7px 3px}
+ .app-shell .wc-glass-art,.app-shell .wc-glass-art>svg:first-child{width:21px;height:21px}
+ .app-shell .wc-glass-prefix{display:none}
+ .app-shell .wc-glass>strong{font-size:12px}
+ .app-shell .wc-progress strong{font-size:20px}
+ .app-shell .wc-progress>div{margin-bottom:8px}
+ .app-shell .wc-progress strong>span{font-size:12px}
+ .app-shell .wc-progress>div>span{font-size:10px}
+ .app-shell .wc-footer{margin:0 14px 10px}
+ .app-shell .wc-footer>p{font-size:10px}
+ .app-shell .wc-footer>p>span{display:none}
+ .app-shell .wc-time-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .app-shell .wc-log{font-size:11px;padding:10px}
+}
+@media(max-width:380px){.app-shell .water-check-card{min-height:312px}.app-shell .wc-header{min-height:92px}.app-shell .wc-header h3{font-size:20px}.app-shell .wc-log{font-size:10px;gap:4px;padding:10px 8px}.app-shell .wc-progress strong>span{font-size:11px}.app-shell .wc-progress>div>span{font-size:9px}.app-shell .wc-body{padding:8px 10px}.app-shell .wc-footer{margin-bottom:8px}.app-shell .wc-glasses{gap:4px;padding:4px}.app-shell .wc-glass{gap:5px}}
+@media(prefers-reduced-motion:reduce){.app-shell .wc-glass{transition:none}}

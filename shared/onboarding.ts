@@ -15,16 +15,17 @@ export const focusOptions = ['Overall', 'Chest', 'Back', 'Legs', 'Shoulders', 'A
 export const genderOptions = ['Woman', 'Man', 'Non-binary', 'Prefer not to say'] as const
 export type Goal = typeof goalOptions[number][0]
 export const sessionMinuteOptions = ['30', '45', '60', '75', '90']
+export const defaultWorkoutStartTime = '08:00'
 export type OnboardingDraft = {
   goal: Goal | ''; timeZone: string; ageRange: string; age: string; gender: string; heightCm: string; weightKg: string; targetWeightKg: string; focusAreas: string[];
-  activity: string; experience: string; days: string[]; sessionMinutes: string;
+  activity: string; experience: string; days: string[]; workoutStartTime: string; sessionMinutes: string;
   equipment: string[]; adjustments: string[]; diet: string; allergies: string[];
   allergiesReviewed: boolean; otherAllergy: string; dislikes: string; mealsPerDay: string; cookingMinutes: string; budget: string;
 }
 export type OnboardingProfile = OnboardingDraft & { goal: Goal; version: 1 | 2; completedAt: string }
 export const emptyOnboarding: OnboardingDraft = {
   goal: '', timeZone: 'Asia/Manila', ageRange: '', age: '', gender: '', heightCm: '', weightKg: '', targetWeightKg: '', focusAreas: ['Overall'], activity: '', experience: '',
-  days: [], sessionMinutes: '', equipment: [], adjustments: [], diet: '', allergies: [],
+  days: [], workoutStartTime: defaultWorkoutStartTime, sessionMinutes: '', equipment: [], adjustments: [], diet: '', allergies: [],
   allergiesReviewed: false, otherAllergy: '', dislikes: '', mealsPerDay: '', cookingMinutes: '', budget: '',
 }
 export function validTimeZone(value: string): boolean { try { if (!value || value.length > 80) return false; new Intl.DateTimeFormat('en', { timeZone: value }); return true } catch { return false } }
@@ -51,6 +52,11 @@ export function validateOnboarding(value: OnboardingDraft, step?: number, legacy
     if (!oneOf(value.experience, ['Beginner', 'Intermediate', 'Advanced'])) errors.push('Choose your training experience.')
     if (value.days.length < 1 || value.days.length > 6 || !value.days.every(day => oneOf(day, days))) errors.push('Choose 1–6 training days, leaving at least one rest day.')
     if (!oneOf(value.sessionMinutes, [...sessionMinuteOptions, '15', '20'])) errors.push('Choose a session length.')
+    if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(value.workoutStartTime)) errors.push('Choose a valid workout start time.')
+    else {
+      const [hours, minutes] = value.workoutStartTime.split(':').map(Number)
+      if (hours * 60 + minutes + Number(value.sessionMinutes) > 1440) errors.push('Choose an earlier start time or a shorter session so your workout finishes by midnight.')
+    }
     if (!value.equipment.length || !value.equipment.every(item => oneOf(item, equipmentOptions))) errors.push('Choose the equipment you can use, including bodyweight if you have none.')
     if (!value.adjustments.every(item => oneOf(item, adjustmentOptions))) errors.push('Choose a valid movement preference.')
   }
@@ -73,7 +79,7 @@ export function parseOnboarding(input: unknown): OnboardingDraft | null {
   const draft = { ...emptyOnboarding }
   for (const key of Object.keys(emptyOnboarding) as (keyof OnboardingDraft)[]) {
     // Earlier profiles did not contain these fields. Preserve their existing answers.
-    const value = raw[key] === undefined && ['age', 'gender', 'targetWeightKg', 'focusAreas', 'timeZone'].includes(key) ? emptyOnboarding[key] : raw[key]
+    const value = raw[key] === undefined && ['age', 'gender', 'targetWeightKg', 'focusAreas', 'timeZone', 'workoutStartTime'].includes(key) ? emptyOnboarding[key] : raw[key]
     if (key === 'allergiesReviewed') { if (typeof value !== 'boolean') return null; draft[key] = value }
     else if (key === 'days' || key === 'equipment' || key === 'adjustments' || key === 'allergies' || key === 'focusAreas') {
       if (!Array.isArray(value) || value.length > 12 || value.some(item => typeof item !== 'string' || item.length > 80) || new Set(value).size !== value.length) return null

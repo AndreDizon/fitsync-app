@@ -1,0 +1,69 @@
+/* Shared library workspace: topic imagery, restrained white cards and yellow actions. */
+.app-shell[data-section='plans'] :is(.exercise-filter-studio,.food-filters){padding:22px;border:1px solid #d8d3c7;border-radius:16px;background:#fffefb;box-shadow:inset 0 1px #fff,0 5px 18px #382e1a0a;color:#27292a}
+.app-shell :is(.exercise-library-heading,.food-library-heading)>div>:is(.eyebrow,.food-kicker){display:none}
+.app-shell :is(.exercise-search-row,.food-search-row){display:flex;gap:12px;align-items:stretch;flex-wrap:wrap;margin-bottom:18px}
+.app-shell :is(.exercise-search-field,.food-search){display:flex;align-items:center;flex:1 1 230px;min-width:0;gap:10px;min-height:48px;padding:0 14px;border:1px solid #d5cebe;border-radius:10px;background:#fff;color:#7b684a}
+.app-shell :is(.exercise-search-field,.food-search)>input{width:100%;min-width:0;flex:1;min-height:46px;padding:10px 0;background:transparent;border:0;outline:0;color:#332e24;font-size:14px}
+.app-shell :is(.exercise-search-field,.food-search)>button{width:40px;height:40px;display:grid;place-items:center;border:0;background:transparent;color:#7b684a;flex-shrink:0}
+.app-shell :is(.exercise-sort,.food-diet-filter,.food-sort-filter){display:grid;align-content:start;gap:7px;font-size:10px;font-weight:600;color:#6b5b43;flex:0 1 180px;max-width:100%}
+.app-shell :is(.exercise-sort,.food-diet-filter,.food-sort-filter)>select{width:100%;min-width:0;max-width:100%;min-height:44px;border:1px solid #d5cebe;border-radius:9px;padding:10px;background:#fff;color:#393126;font-size:12px}
+.app-shell :is(.exercise-focus-heading,.exercise-equipment-heading){color:#61543f;letter-spacing:0;text-transform:none;font-size:12px;margin:14px 0 10px}
+.app-shell :is(.exercise-focus-filters,.exercise-equipment-options,.food-category-filters){display:flex;flex-wrap:wrap;gap:8px}
+.app-shell :is(.exercise-focus-filters,.exercise-equipment-options,.food-category-filters)>button{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px;padding:10px 13px;border:1px solid #ddd5c6;border-radius:9px;background:#f8f5ed;color:#62533b;font-size:11px;font-weight:600;box-shadow:none;white-space:nowrap}
+.app-shell :is(.exercise-focus-filters,.exercise-equipment-options,.food-category-filters)>button[aria-pressed=true]{background:#ffdf32;border-color:#c3a32b;color:#332b19;box-shadow:inset 0 1px #ffffff80}
+.app-shell :is(.exercise-focus-filters,.exercise-equipment-options,.food-category-filters)>button:disabled{opacity:.4;cursor:not-allowed}
+.app-shell :is(.exercise-focus-filters,.exercise-equipment-options,.food-category-filters)>button :is(span,small){font-size:10px;color:inherit;opacity:.8;background:transparent;border:0}
+/* Keep the selected surface and its count together across legacy filter styles. */
+.app-shell[data-section='plans'] :is(.exercise-filter-studio,.food-filters) :is(.exercise-focus-filters,.exercise-equipment-options,.food-category-filters)>button[aria-pressed=true]{background:#ffdf32;border-color:#c3a32b;color:#332b19}
+.app-shell[data-section='plans'] :is(.exercise-filter-studio,.food-filters) :is(.exercise-focus-filters,.exercise-equipment-options,.food-category-filters)>button[aria-pressed=true] :is(span,small){background:transparent;color:#332b19;opacity:1}
+.app-shell .exercise-focus-heading>span{letter-spacing:0;text-transform:none}
+.app-shell :is(.exercise-equipment-filters,.exercise-more-filters,.food-more-filters){margin-top:16px;border:0;border-top:1px solid #e3ddce;border-radius:0;padding:0;background:transparent}
+.app-shell :is(.exercise-equipment-filters,.exercise-more-filters,.food-more-filters)>summary{display:flex;align-items:center;gap:8px;min-height:48px;padding:13px 0;cursor:pointer;list-style:none;font-size:12px;font-weight:700;color:#544731}
+.app-shell :is(.exercise-equipment-filters,.exercise-more-filters)>summary>svg:last-child{margin-left:auto}
+.app-shell :is(.exercise-equipment-filters,.exercise-more-filters,.food-more-filters)>summary::-webkit-details-marker{display:none}
+.app-shell :is(.library-filter-help,.food-group-hint){font-size:11px;line-height:1.75;color:#766346;margin:10px 0;max-width:72ch}
+.app-shell :is(.exercise-advanced-grid,.food-classification-filters){display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:12px 0}
+.app-shell :is(.exercise-advanced-grid,.food-classification-filters) label{display:grid;gap:7px;min-width:0;font-size:11px;color:#62533b}
+.app-shell :is(.exercise-advanced-grid,.food-classification-filters) select{width:100%;min-width:0;min-height:44px;background:#fff;border:1px solid #d5cebe;border-radius:9px;padding:10px;font-size:12px;color:#393126}
+.app-shell .food-allergen-filters{display:flex;flex-wrap:wrap;gap:6px 18px;border:0;border-top:1px solid #e3ddce;padding:16px 0 0;margin-top:18px;color:#62533b}
+.app-shell .food-allergen-filters legend{font-size:12px;font-weight:700;padding:0 0 10px}.app-shell .food-allergen-filters label{display:flex;align-items:center;gap:8px;min-height:44px;font-size:12px}.food-allergen-filters input{accent-color:#a88310}
+.app-shell :is(.exercise-active-filters,.food-active-filters){display:flex;align-items:center;flex-wrap:wrap;gap:8px;border:0;border-top:1px solid #e3ddce;padding-top:16px;margin-top:16px;background:transparent}
+.app-shell :is(.exercise-active-filters,.food-active-filters)>button{display:flex;align-items:center;gap:7px;min-height:40px;max-width:100%;padding:9px 11px;border:1px solid #d6c792;border-radius:8px;background:#fff4b9;color:#66501e;font-size:11px;text-align:left;overflow-wrap:anywhere}
+.app-shell :is(.exercise-active-filters,.food-active-filters)>button>svg{flex-shrink:0}
+.app-shell :is(.exercise-reset-filters,.food-clear-filters){background:#ffdf32!important;border-color:#c3a32b!important;color:#332b19!important;font-weight:700}
+.app-shell :is(.exercise-results-heading,.food-results-heading){display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;margin:24px 0 16px;font-size:12px}
+.app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) :is(.exercise-catalog-grid,.food-grid){display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.app-shell[data-section='plans'] :is(.exercise-card,.food-card){display:flex;flex-direction:column;min-width:0;overflow:hidden;border:1px solid #d8d3c7;border-radius:16px;background:#fffefb;box-shadow:inset 0 1px #fff,0 4px 16px #382e1a08;color:#27292a}
+.app-shell :is(.exercise-card-body,.food-card-body){display:flex;flex-direction:column;flex:1;min-width:0;padding:20px;background:#fffefb;background-image:none!important}
+.app-shell :is(.exercise-card,.food-card) h3{font-size:19px;font-weight:750;letter-spacing:-.025em;line-height:1.3;margin:5px 0 12px;overflow-wrap:anywhere;color:#27292a}
+.app-shell :is(.exercise-media-button,.food-media-button){display:block;min-width:0;width:100%;border:0;padding:0;background:#fff;cursor:pointer}
+.app-shell .exercise-card .exercise-library-media{height:170px;min-height:0;border-radius:0;background:#fff;aspect-ratio:auto}.app-shell .exercise-card .exercise-library-media img{width:100%;height:100%;object-fit:contain}
+.app-shell .food-card .food-card-art{display:grid;place-items:center;height:96px;min-height:0;aspect-ratio:auto;background:#faf7ee;overflow:hidden}.app-shell .food-card .food-card-art .food-art{width:110px;height:90px;margin:0}
+.app-shell .food-library .food-card-body{gap:8px;padding:18px}
+.app-shell .food-library .food-card-body h3{margin:0 0 4px;font-size:19px;line-height:1.3}
+.app-shell .food-library .food-card-tags{margin:0}
+.app-shell .food-library .food-card-portion{margin:0;font-size:11px}
+.app-shell .food-library .food-card-macros{padding:10px 12px;margin:2px 0;border:0}
+.app-shell .food-library .food-card-benefit{flex:none;margin:0 0 4px;padding:0;font-size:11px}
+.app-shell .food-library .food-view-details{min-height:44px;margin-top:auto}
+.app-shell :is(.exercise-card-body>.eyebrow,.food-card-body>.food-kicker){font-size:10px;letter-spacing:0;line-height:1.6;text-transform:none;color:#776449;margin:0}
+.app-shell :is(.exercise-tags,.food-card-tags){display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}.app-shell :is(.exercise-tags,.food-card-tags)>span{font-size:10px;line-height:1.5;padding:4px 7px;background:#f3eee2;color:#6b583a;border:0;border-radius:5px}
+.app-shell .food-card-portion{font-size:11px;color:#6b583a;line-height:1.7;margin:0 0 10px}.app-shell .food-card-macros{display:flex;gap:18px;padding:12px;border-radius:9px;background:#27292a;color:#fffdf5;margin:0 0 12px}.app-shell .food-card-macros span{font-size:10px;color:#e1d8c6}.app-shell .food-card-macros strong{font-size:20px;color:#fffdf5;letter-spacing:-.02em}.app-shell .food-card-macros span:first-child strong{color:#ffdf32}.app-shell .food-card-benefit{font-size:11px;line-height:1.7;color:#6b583a;margin:0 0 14px}
+.app-shell :is(.exercise-view-details,.food-view-details){display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:44px;width:100%;margin-top:auto;padding:11px 13px;background:#ffdf32;color:#332b19;border:1px solid #c3a32b;border-radius:9px;font-size:12px;font-weight:700;box-shadow:inset 0 1px #ffffff80}
+.app-shell :is(.exercise-pagination,.food-pagination){flex-wrap:wrap;gap:10px}.app-shell :is(.exercise-pagination,.food-pagination) button{min-height:44px;border-radius:9px;background:#fffefb;border:1px solid #d5cebe;color:#62533b}.app-shell :is(.exercise-pagination,.food-pagination) button[aria-current=page]{background:#ffdf32;color:#332b19}.app-shell :is(.exercise-pagination,.food-pagination) button:disabled{opacity:.45}
+.app-shell :is(.exercise-filter-studio,.food-filters) :is(button,input,select,summary):focus-visible,.app-shell :is(.exercise-card,.food-card) button:focus-visible{outline:3px solid #a16e12;outline-offset:3px}
+.app-shell :is(.exercise-filter-studio,.food-filters) :is(button,select){cursor:pointer}
+@media(max-width:760px){.app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) :is(.exercise-catalog-grid,.food-grid){grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:600px){
+ .app-shell[data-section='plans'] :is(.exercise-filter-studio,.food-filters){padding:18px}
+ .app-shell :is(.exercise-search-field,.food-search){flex-basis:100%}.app-shell :is(.food-diet-filter,.food-sort-filter){flex:1 1 100px;min-width:0}.app-shell .exercise-sort{flex:1 1 100%;display:flex;align-items:center;gap:12px}.app-shell .exercise-sort>select{flex:1}
+ .app-shell :is(.exercise-focus-filters,.food-category-filters){flex-wrap:nowrap;overflow-x:auto;max-width:100%;padding:3px 3px 10px;scrollbar-width:thin}.app-shell :is(.exercise-focus-filters,.food-category-filters)>button{flex-shrink:0}
+ .app-shell :is(.exercise-advanced-grid,.food-classification-filters){grid-template-columns:1fr}
+ .app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) :is(.exercise-catalog-grid,.food-grid){grid-template-columns:1fr;gap:12px}
+ .app-shell[data-section='plans'] :is(.exercise-card,.food-card){display:grid;grid-template-columns:100px minmax(0,1fr);align-items:start}
+ .app-shell :is(.exercise-media-button,.food-media-button){margin-top:16px}.app-shell .exercise-card .exercise-library-media{height:100px}.app-shell .food-card .food-card-art{height:90px;background:#fff}.app-shell .food-card .food-card-art .food-art{width:90px;height:80px}
+ .app-shell .food-library .food-card-body{padding:16px 16px 16px 0}
+ .app-shell :is(.exercise-card-body,.food-card-body){padding:16px 16px 16px 0}.app-shell :is(.exercise-card,.food-card) h3{font-size:17px;margin-bottom:10px}.app-shell .food-card-benefit{display:none}.app-shell .food-card-tags{margin-bottom:10px}.app-shell .food-card-tags>span:nth-child(n+3){display:none}.app-shell :is(.exercise-tags,.food-card-tags){gap:4px}.app-shell .food-card-macros{gap:12px;flex-wrap:wrap;padding:10px}.app-shell .food-card-macros strong{font-size:18px}
+ .app-shell .food-page-numbers,.app-shell .exercise-page-numbers{display:none}
+}
+@media(max-width:360px){.app-shell[data-section='plans'] :is(.exercise-card,.food-card){grid-template-columns:76px minmax(0,1fr)}.app-shell .exercise-card .exercise-library-media{height:80px}.app-shell .food-card .food-card-art .food-art{width:76px;height:76px}}

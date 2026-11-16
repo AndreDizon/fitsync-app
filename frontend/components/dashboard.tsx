@@ -24,6 +24,7 @@ import '@/app/home-surfaces.css'
 import '@/app/plans-design.css'
 import '@/app/shared-app-design.css'
 import '@/app/responsive-sections.css'
+import '@/app/plan-card-materials.css'
 import { HomeThemeSettings, useHomeTheme } from './home-theme-preview'
 import { PlanSignout } from './plan-signout'
 import {
@@ -150,7 +151,7 @@ function App({ userName, userEmail }: { userName: string; userEmail: string }) {
   }
 
   return (
-    <main className="app-shell theme-default" data-section={active} data-home-preview="true" data-home-preview-dark={theme !== 'clean-sporty'} data-home-header-dark={theme !== 'clean-sporty'} style={themeStyle}>
+    <main className="app-shell theme-default" data-section={active} data-home-preview="true" data-home-theme={theme} data-home-preview-dark={theme !== 'clean-sporty'} data-home-header-dark={theme !== 'clean-sporty'} style={themeStyle}>
       {navOpen && <><div className="navigation-backdrop" onClick={() => setNavOpen(false)} aria-hidden="true" />
       <aside className="desktop-sidebar navigation-drawer" id="left-navigation" ref={drawerRef} role="dialog" aria-modal="true" aria-label="Main navigation">
         <div className="drawer-heading"><div className="brand"><Logo /><Wordmark /></div><button className="menu-toggle" onClick={() => setNavOpen(false)} aria-label="Close navigation"><X size={22} /></button></div>

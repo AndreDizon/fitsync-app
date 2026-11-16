@@ -1,0 +1,48 @@
+/* Restrained clay depth and frosted white surfaces for the Plans workspace. */
+.app-shell[data-section='plans']{
+ --plan-card-white:linear-gradient(135deg,#fffffff5,#ffffffdf);
+ --plan-card-depth:inset 2px 3px 5px #ffffffd9,inset -2px -3px 6px #26374709,0 4px 7px #26374706,0 10px 20px #2637470b;
+ --plan-card-edge:#cbd1d7;
+}
+.app-shell[data-section='plans'] .pc-root :is(.pc-surface,.pc-playlist-row,.pc-collection-placeholder),
+.app-shell[data-section='plans'] .plan-folder-content :is(.exercise-filter-studio,.food-filters,.exercise-card,.food-card){
+ background:var(--plan-card-white);border:1px solid var(--plan-card-edge);border-top-color:#ffffffed;border-right-color:#e4e8ec;border-radius:18px;
+ box-shadow:var(--plan-card-depth);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+}
+.app-shell[data-section='plans'] .pc-root .pc-rhythm{
+ background:linear-gradient(135deg,#303336f5,#252729f5);border-color:#4c5054;border-top-color:#ffffff36;border-right-color:#ffffff20;
+ box-shadow:inset 1px 2px 3px #ffffff18,inset -2px -3px 6px #00000015,0 6px 18px #00000010;
+}
+.app-shell[data-section='plans'] .plan-folder-content :is(.exercise-card,.food-card) :is(.exercise-card-body,.food-card-body){background:transparent}
+.app-shell[data-section='plans'] .pc-root :is(.pc-search,.pc-filter){background:#ffffffeb;border-color:#cbd1d7;box-shadow:inset 0 2px 3px #26374706,0 1px 1px #ffffffb3}
+.app-shell[data-section='plans'] .pc-root .pc-create,
+.app-shell[data-section='plans'] .plan-folder-content :is(.exercise-view-details,.food-view-details){
+ background:#ffdf32;box-shadow:inset 0 2px 2px #ffffff80,inset 0 -2px 3px #7359000a,0 2px 4px #2637470a;
+}
+.app-shell[data-section='plans'] .my-plan-workspace .plan-task-metrics{box-shadow:inset 0 1px 2px #ffffff16,inset 0 -2px 4px #00000012}
+.app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-list .my-plan-task-thumbnail{border-top-color:#fff;background:#ffffffeb;box-shadow:inset 0 1px 2px #fff,0 3px 6px #2637470b}
+/* Library filters use the core palette; yellow consistently means selected. */
+.app-shell[data-section='plans'] .plan-folder-content :is(.exercise-filter-studio,.food-filters){background:linear-gradient(135deg,#fffffff7,#fffffff0);border-color:#d5d3cc;border-top-color:#fff}
+.app-shell[data-section='plans'] .exercise-filter-studio .exercise-focus-heading{color:#27292a}
+.app-shell[data-section='plans'] :is(.exercise-filter-studio,.food-filters) :is(.exercise-focus-filters,.exercise-equipment-options,.food-category-filters)>button[aria-pressed=false]{background:#fff;color:#33312b;border-color:#d5d1c7;box-shadow:inset 0 1px 2px #fff,0 1px 2px #302b1d06}
+.app-shell[data-section='plans'] :is(.exercise-equipment-filters,.exercise-more-filters,.food-more-filters){border-top-color:#dedbd3}
+.app-shell[data-section='plans'] :is(.exercise-equipment-filters,.exercise-more-filters,.food-more-filters)>summary{color:#38352f}
+.app-shell[data-section='plans'] :is(.exercise-equipment-filters,.exercise-more-filters)>summary>svg:first-child{color:#a75b20}
+.app-shell[data-section='plans'] :is(.exercise-advanced-grid,.food-classification-filters) label{color:#62513d}
+.app-shell[data-section='plans'] .food-filters :is(.food-sort-filter,.food-diet-filter){color:#62513d}
+.app-shell[data-section='plans'] .food-filters .food-allergen-filters{border-top-color:#dedbd3;color:#7b4b2f}
+.app-shell[data-section='plans'] .exercise-filter-studio :is(.library-filter-help,.exercise-sort){color:#6b5b43}
+.app-shell[data-section='plans'] .food-filters :is(.food-group-hint,.food-allergen-filters p){color:#6b5b43}
+.app-shell[data-section='plans'] :is(.exercise-active-filters,.food-active-filters){border-top-color:#dedbd3}
+.app-shell[data-section='plans'] :is(.exercise-filter-studio,.food-filters) :is(input,select){background-color:#fff;color:#332e24}
+.app-shell[data-section='plans'] .food-filters .food-search{background:#fff}
+@media(hover:hover){
+ .app-shell[data-section='plans'] :is(.exercise-filter-studio,.food-filters) :is(.exercise-focus-filters,.exercise-equipment-options,.food-category-filters)>button[aria-pressed=false]:hover{background:#fff4d2;border-color:#c5a654;color:#5a431f}
+}
+@media(hover:hover){
+ .app-shell[data-section='plans'] .pc-root .pc-playlist-row:hover{border-color:#b0b9c3;background:#fffffff5}
+}
+@media(max-width:600px){
+ .app-shell[data-section='plans'] .pc-root :is(.pc-surface,.pc-playlist-row,.pc-collection-placeholder),
+ .app-shell[data-section='plans'] .plan-folder-content :is(.exercise-filter-studio,.food-filters,.exercise-card,.food-card){border-radius:16px;backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px)}
+}

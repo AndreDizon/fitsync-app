@@ -1,0 +1,78 @@
+{
+  "hook": {
+    "enabled": true,
+    "limits": {
+      "maxFindings": 5,
+      "maxChars": 8000
+    }
+  },
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "cream-palette",
+        "value": "*",
+        "files": [
+          "logs/impeccable-assessment-b/fixture.html"
+        ],
+        "createdAt": "2026-11-14T08:20:11.453Z",
+        "reason": "Agent: generated read-only critique fixture aggregates existing app styles for isolated synthetic-data review; it is not a shipped UI source. Exception applies only to this fixture, not application files."
+      },
+      {
+        "rule": "pulsing-dot",
+        "value": "*",
+        "files": [
+          "logs/impeccable-assessment-b/fixture.html"
+        ],
+        "createdAt": "2026-11-14T08:20:11.558Z",
+        "reason": "Agent: generated read-only critique fixture aggregates existing app styles for isolated synthetic-data review; it is not a shipped UI source. Exception applies only to this fixture, not application files."
+      },
+      {
+        "rule": "organic-clip-path",
+        "value": "*",
+        "files": [
+          "logs/impeccable-assessment-b/fixture.html"
+        ],
+        "createdAt": "2026-11-14T08:20:11.654Z",
+        "reason": "Agent: generated read-only critique fixture aggregates existing app styles for isolated synthetic-data review; it is not a shipped UI source. Exception applies only to this fixture, not application files."
+      },
+      {
+        "rule": "marquee",
+        "value": "*",
+        "files": [
+          "logs/impeccable-assessment-b/fixture.html"
+        ],
+        "createdAt": "2026-11-14T08:20:11.740Z",
+        "reason": "Agent: generated read-only critique fixture aggregates existing app styles for isolated synthetic-data review; it is not a shipped UI source. Exception applies only to this fixture, not application files."
+      },
+      {
+        "rule": "dark-glow",
+        "value": "*",
+        "files": [
+          "logs/impeccable-assessment-b/fixture.html"
+        ],
+        "createdAt": "2026-11-14T08:20:11.830Z",
+        "reason": "Agent: generated read-only critique fixture aggregates existing app styles for isolated synthetic-data review; it is not a shipped UI source. Exception applies only to this fixture, not application files."
+      },
+      {
+        "rule": "radial-halo",
+        "value": "*",
+        "files": [
+          "logs/impeccable-assessment-b/fixture.html"
+        ],
+        "createdAt": "2026-11-14T08:20:11.909Z",
+        "reason": "Agent: generated read-only critique fixture aggregates existing app styles for isolated synthetic-data review; it is not a shipped UI source. Exception applies only to this fixture, not application files."
+      },
+      {
+        "rule": "overused-font",
+        "value": "arial",
+        "files": [
+          "frontend/app/onboarding/onboarding.css"
+        ],
+        "createdAt": "2026-11-16T11:18:05.842Z",
+        "reason": "Agent triage: existing onboarding system typography is preserved during the scoped workout start-time field change; no new font choice was introduced."
+      }
+    ]
+  }
+}

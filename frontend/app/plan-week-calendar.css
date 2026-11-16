@@ -1,0 +1,86 @@
+/* Calendar palettes follow the four app themes; state is also shown in text. */
+.plan-week-calendar-wrap{margin:32px 0 24px}
+.app-shell .plan-week-calendar{
+ --week-bg:#304d7e;--week-sky:#527bad;--week-cloud:#bddcf7;--week-ink:#fff;--week-muted:#e0ecff;--week-line:#a8c1df;--week-day:#edf5ff;--week-day-ink:#24354b;--week-day-muted:#45617b;--week-day-heading:#d6e6f8;--week-hover:#e4f0ff;--week-selected:#ffdf32;--week-selected-ink:#332b19;--week-focus:#ffdf32;
+ position:relative;isolation:isolate;padding:0;border:1px solid var(--week-line);border-radius:20px;background:linear-gradient(110deg,var(--week-bg),var(--week-sky));color:var(--week-ink);box-shadow:0 6px 18px #00000012;
+}
+.app-shell .plan-week-calendar:before,.app-shell .plan-week-calendar:after{content:'';position:absolute;top:-11px;z-index:2;width:10px;height:29px;border:1px solid #20252c;border-radius:6px;background:#414a56;box-shadow:inset 2px 0 #ffffff55,0 2px 2px #00000015;pointer-events:none}
+.app-shell .plan-week-calendar:before{left:24px}.app-shell .plan-week-calendar:after{right:24px}
+.app-shell .pwc-sky{position:absolute;z-index:-1;inset:0;overflow:hidden;border-radius:19px;pointer-events:none}
+.app-shell .pwc-sky svg{display:block;width:100%;height:100%;color:var(--week-cloud);opacity:.18}
+.app-shell[data-home-theme='midnight-orange'] .plan-week-calendar{--week-sky:#523525;--week-cloud:#eaae78}
+.app-shell[data-home-theme='night-training'] .plan-week-calendar{--week-sky:#304d70;--week-cloud:#badbff}
+.app-shell[data-home-theme='matte-black'] .plan-week-calendar{--week-sky:#473459;--week-cloud:#dabbf5}
+.app-shell[data-home-theme='midnight-orange'] .plan-week-calendar{--week-bg:#38271f;--week-ink:#fff8f1;--week-muted:#edc2a5;--week-line:#79533c;--week-day:#473126;--week-hover:#61402b;--week-selected:#ffb16e;--week-selected-ink:#3c2412;--week-focus:#ffd3a8}
+.app-shell[data-home-theme='night-training'] .plan-week-calendar{--week-bg:#1f3046;--week-ink:#f5f9ff;--week-muted:#bdd2ed;--week-line:#4e6b90;--week-day:#293e57;--week-hover:#35516f;--week-selected:#b9daff;--week-selected-ink:#162e4b;--week-focus:#dcecff}
+.app-shell[data-home-theme='matte-black'] .plan-week-calendar{--week-bg:#2b2435;--week-ink:#fcf7ff;--week-muted:#d6c2e9;--week-line:#6b547f;--week-day:#382e45;--week-hover:#4c3a60;--week-selected:#ddbdff;--week-selected-ink:#352046;--week-focus:#ecd8ff}
+.app-shell[data-home-preview-dark='true'] .plan-week-calendar{--week-day:#edf5ff;--week-day-ink:#24354b;--week-day-muted:#45617b;--week-day-heading:#d6e6f8;--week-hover:#e4f0ff}
+.app-shell .pwc-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;min-height:115px;margin:0;padding:26px 24px 22px;border-bottom:1px solid var(--week-line)}
+.app-shell .pwc-heading h3{margin:0 0 4px;color:var(--week-ink);font-size:22px;line-height:1.25;letter-spacing:-.025em}
+.app-shell .pwc-heading p{margin:0;color:var(--week-muted);font-size:12px;line-height:1.6;font-variant-numeric:tabular-nums}
+.app-shell .pwc-today{display:inline-flex;align-items:center;justify-content:center;gap:7px;min-height:44px;border:1px solid #bfa32c;border-radius:9px;padding:10px 16px;background:#ffdf32;color:#332b19;font-size:12px;font-weight:700;cursor:pointer}
+.app-shell .pwc-today[data-current=true]{background:#ffdf32;color:#332b19;border-color:#bfa32c}
+.app-shell .pwc-today:disabled{background:transparent;border-color:var(--week-line);color:var(--week-muted);cursor:default}
+.app-shell .pwc-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:0;margin:20px 24px 0;border:1px solid var(--week-line);border-radius:12px;overflow:hidden}
+.app-shell .pwc-day{position:relative;display:flex;align-items:center;flex-direction:column;gap:8px;min-width:0;padding:14px 3px 10px;border:1px solid var(--week-line);border-radius:12px;background:var(--week-day);color:var(--week-day-ink);cursor:pointer;transition:background .15s,border-color .15s}
+.app-shell .pwc-day{border:0;border-right:1px solid var(--week-line);border-radius:0;padding-top:0}
+.app-shell .pwc-day:last-child{border-right:0}
+.app-shell .pwc-weekday{align-self:stretch;padding:9px 1px;border-bottom:1px solid var(--week-line);background:var(--week-day-heading);font-size:11px;font-weight:600;line-height:1.4}
+.app-shell .pwc-short-name{display:none}
+.app-shell .pwc-date{position:relative;font-size:30px;line-height:1.2;font-weight:750;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.app-shell .pwc-day-status{font-size:10px;line-height:1.5;color:var(--week-day-muted)}
+.app-shell .pwc-current-marker{font-size:9px;line-height:1.3;font-weight:700;min-height:12px}
+.app-shell .pwc-day[aria-pressed=true]{--week-focus:#675000;background:#ffdf32;border-color:#ac8d1b;color:#332b19;box-shadow:inset 0 0 0 2px #675000}
+.app-shell .pwc-day[aria-pressed=true] .pwc-day-status{color:#332b19}
+.app-shell .pwc-day[aria-pressed=true] .pwc-weekday{background:#ffdf32;border-color:#ac8d1b}
+.app-shell .pwc-day[aria-current=date]{--week-focus:#814516;background:#ffe0bd;color:#67360e;border-color:#ce955f}
+.app-shell .pwc-day[aria-current=date] .pwc-weekday{background:#ffd2a1;color:#67360e;border-color:#ce955f}
+.app-shell .pwc-day[aria-current=date] .pwc-day-status{color:#75451e}
+.app-shell .pwc-day[aria-current=date] .pwc-current-marker{padding:2px 5px;border-radius:4px;background:#67360e;color:#fff4e6}
+.app-shell .pwc-day[aria-current=date][aria-pressed=true]{background:#ffc98b;color:#67360e;border-color:#814516;box-shadow:inset 0 0 0 2px #814516}
+/* Recovery remains identifiable in every palette, even when selected. */
+.app-shell .pwc-day[data-rest=true]{--week-focus:#254e39;background:#e0f1e6;color:#254e39;border-color:#8bb89b}
+.app-shell .pwc-day[data-rest=true] .pwc-weekday{background:#cbe5d4;color:#254e39}
+.app-shell .pwc-day[data-rest=true] .pwc-day-status{color:#36624a}
+.app-shell .pwc-day[data-rest=true][aria-pressed=true]{background:#c1e6cf;color:#254e39;border-color:#254e39;box-shadow:inset 0 0 0 2px #254e39}
+.app-shell .pwc-day[data-rest=true][aria-pressed=true] .pwc-weekday{background:#b0d9c0;border-color:#254e39}
+.app-shell .pwc-day[data-rest=true][aria-current=date] .pwc-current-marker{background:#254e39;color:#f0fff5}
+.app-shell .pwc-complete{position:absolute;right:-14px;top:-3px}
+.app-shell .pwc-summary{display:flex;align-items:baseline;justify-content:space-between;gap:8px 20px;flex-wrap:wrap;margin:18px 24px 22px;padding-top:16px;border-top:1px solid var(--week-line);font-size:12px;line-height:1.6}
+.app-shell .pwc-summary strong{color:var(--week-ink)}
+.app-shell .pwc-summary>span{color:var(--week-muted)}
+.app-shell .plan-week-calendar button:focus-visible{outline:3px solid var(--week-focus);outline-offset:3px}
+.app-shell .pwc-days button:focus-visible{outline-offset:-3px;z-index:1}
+.app-shell .plan-week-calendar ::selection{background:var(--week-selected);color:var(--week-selected-ink)}
+/* Frosted surfaces and soft clay depth retain the calendar's state colors. */
+.app-shell .plan-week-calendar{box-shadow:inset 0 2px 3px #ffffff65,inset 0 -3px 6px #00000012,0 6px 18px #00000012}
+.app-shell .pwc-heading{border-bottom-color:#ffffff30;background:#ffffff05;border-radius:19px 19px 0 0}
+.app-shell .pwc-days{gap:5px;padding:6px;border:1px solid #ffffff50;background:#ffffff14;box-shadow:inset 0 1px 2px #ffffff30,0 5px 12px #00000012;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-radius:16px}
+.app-shell .pwc-day{border:1px solid #ffffff85;border-radius:10px;overflow:hidden;box-shadow:inset 0 2px 3px #ffffff90,inset 0 -3px 6px #00000009,0 2px 3px #0000000c;background-image:linear-gradient(150deg,#ffffff24,#ffffff00 70%)}
+.app-shell .pwc-weekday{background:transparent!important;border-bottom-color:#20344b1a!important}
+.app-shell .pwc-day[aria-pressed=true]{box-shadow:inset 0 0 0 2px #675000,inset 0 3px 6px #ffffff80,0 2px 4px #00000015}
+/* Selection takes priority over Today and recovery colors in every theme. */
+.app-shell .pwc-day[aria-pressed=true],
+.app-shell .pwc-day[aria-current=date][aria-pressed=true],
+.app-shell .pwc-day[data-rest=true][aria-pressed=true]{--week-focus:#675000;background:#ffdf32;border-color:#ac8d1b;color:#332b19;box-shadow:inset 0 0 0 2px #675000,inset 0 3px 6px #ffffff80,0 2px 4px #00000015}
+.app-shell .pwc-day[aria-pressed=true] .pwc-weekday,
+.app-shell .pwc-day[aria-pressed=true] .pwc-day-status{color:#332b19}
+.app-shell .pwc-today{box-shadow:inset 0 2px 2px #ffffff90,inset 0 -2px 3px #0000000c,0 3px 6px #00000012}
+.app-shell .pwc-current-marker{letter-spacing:.01em}
+@supports(background:color-mix(in srgb,white 90%,transparent)){
+ .app-shell .pwc-day:not([data-rest=true]):not([aria-current=date]):not([aria-pressed=true]){background-color:color-mix(in srgb,var(--week-day) 93%,transparent)}
+}
+@media(hover:hover){.app-shell .pwc-day:not([aria-pressed=true]):hover{background:var(--week-hover)}.app-shell .pwc-today:not(:disabled):hover{background:#ffe86b}.app-shell .pwc-today[data-current=true]:hover{background:#ffe86b}.app-shell .pwc-day[aria-current=date]:not([aria-pressed=true]):hover{background:#ffd2a1}}
+@media(hover:hover){.app-shell .pwc-day[data-rest=true]:not([aria-pressed=true]):hover{background:#cde9d8}}
+/* The week stays visible as one row, with the selected day's details below. */
+@media(max-width:700px){
+ .app-shell .pwc-heading{padding:24px 14px 18px}
+ .app-shell .pwc-days{margin:16px 14px 0}
+ .app-shell .pwc-summary{margin:16px 14px 18px}
+ .app-shell .pwc-full-name{display:none}.app-shell .pwc-short-name{display:inline}
+ .app-shell .pwc-date{font-size:26px}
+ .app-shell .pwc-day-status{display:none}.app-shell .pwc-day{padding:0 0 8px;border-radius:7px}
+ .app-shell .pwc-complete{right:-8px;top:-5px;width:10px}
+}
+@media(max-width:380px){.app-shell .pwc-days{margin-inline:10px;gap:2px;padding:4px}.app-shell .pwc-weekday{font-size:9px}.app-shell .pwc-date{font-size:23px}.app-shell .pwc-current-marker{font-size:8px}.app-shell .pwc-summary{font-size:11px}}
+@media(prefers-reduced-motion:reduce){.app-shell .pwc-day{transition:none}}

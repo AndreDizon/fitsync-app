@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { ArrowLeft, ArrowRight, Dumbbell, Search, SlidersHorizontal, X, Check, ChevronDown } from 'lucide-react'
 import '@/app/exercise-library.css'
+import '@/app/library-workspace.css'
 import { OfflineLibraryStatus } from '@/components/offline-library-status'
 import { loadExerciseCatalog, type SeedExercise } from '@/lib/exercise-offline'
 
@@ -80,7 +81,7 @@ export function ExerciseLibrary() {
   const [page, setPage] = useState(1)
   const [data, setData] = useState<Catalog | null>(null)
   const [loading, setLoading] = useState(true)
-  const [downloading, setDownloading] = useState(true)
+
   const [error, setError] = useState('')
   const [retry, setRetry] = useState(0)
   const [selected, setSelected] = useState<Exercise | null>(null)
@@ -104,7 +105,7 @@ export function ExerciseLibrary() {
     }).catch(err => { if (!controller.signal.aborted) setError(err.message) }).finally(() => { if (!controller.signal.aborted) setLoading(false) })
     return () => controller.abort()
   }, [search, filters, equipment, group, sort, page, retry])
-  const reset = () => { setQuery(''); setSearch(''); setFilters(emptyFilters); setEquipment([]); setGroup(''); setPage(1) }
+  const reset = () => { setQuery(''); setSearch(''); setFilters(emptyFilters); setEquipment([]); setGroup(''); setSort('relevance'); setPage(1) }
   const clearSearch = () => { setQuery(''); setSearch(''); setPage(1) }
   const setFilter = (key: FilterKey, value: string) => { setFilters(previous => ({ ...previous, [key]: value })); setPage(1) }
   const toggleEquipment = (value: string) => { setEquipment(previous => previous.includes(value) ? previous.filter(item => item !== value) : [...previous, value]); setPage(1) }
@@ -113,28 +114,28 @@ export function ExerciseLibrary() {
   const changePage = (next: number) => { setPage(next); results.current?.scrollIntoView({ block: 'start', behavior: 'instant' }) }
   const advancedCount = Object.values(filters).filter(Boolean).length
   const count = advancedCount + equipment.length + Number(!!group) + Number(!!query.trim())
-  const pending = loading || downloading || query.trim() !== search
+  const pending = loading || query.trim() !== search
   const equipmentOptions = data?.facets.equipment ?? []
   const allGroupCount = Object.values(data?.facetCounts.group ?? {}).reduce((sum, number) => sum + number, 0)
   return <div className="page library-page exercise-library-page">
     <header className="plan-tab-page-heading exercise-library-heading"><div><p className="eyebrow">YOUR LIBRARY</p><h2>Find your next move</h2><p>100 essentials. Find your focus, pick your equipment, and make your next move count.</p></div></header>
-    <OfflineLibraryStatus onDownloadingChange={setDownloading} />
+    <OfflineLibraryStatus />
     <section className="exercise-filter-studio" aria-label="Find exercises">
       <div className="exercise-search-row">
         <div className="exercise-search-field"><Search size={20} aria-hidden="true" /><input value={query} onChange={event => setQuery(event.target.value)} placeholder="Try bench press, DB row, or abs…" aria-label="Search exercises" autoComplete="off" spellCheck={false} />{query && <button onClick={clearSearch} aria-label="Clear exercise search"><X size={17} /></button>}</div>
         <label className="exercise-sort"><span>Sort</span><select value={sort} aria-label="Sort exercises" onChange={event => { setSort(event.target.value); setPage(1) }}><option value="relevance">Best match</option><option value="name">Name: A–Z</option><option value="name-desc">Name: Z–A</option><option value="beginner">Beginner first</option></select></label>
       </div>
-      <div className="exercise-focus-heading"><span>YOUR FOCUS</span><span>Choose an area to explore</span></div>
+      <div className="exercise-focus-heading"><span>Focus area</span><span>Choose an area to explore</span></div>
       <div className="exercise-focus-filters" role="group" aria-label="Exercise focus"><button aria-pressed={!group} onClick={() => { setGroup(''); setPage(1) }}>All <span>{data ? allGroupCount : 100}</span></button>{Object.entries(data?.source.groups ?? {}).map(([name]) => {
         const available = data?.facetCounts.group[name] ?? 0
         return <button key={name} aria-pressed={group === name} disabled={!available && group !== name} onClick={() => { setGroup(group === name ? '' : name); setPage(1) }}>{name} <span>{available}</span></button>
       })}</div>
-      <div className="exercise-equipment-heading"><Dumbbell size={16} aria-hidden="true" /><span>Available equipment</span><small>Select one or more</small></div>
+      <details className="exercise-equipment-filters"><summary><Dumbbell size={16} aria-hidden="true" />Equipment {equipment.length > 0 && <span className="exercise-filter-badge">{equipment.length}</span>}<ChevronDown size={16} aria-hidden="true" /></summary><p className="library-filter-help">Select the equipment you can use. Results match any selected equipment; focus and other filters also apply.</p><div className="exercise-equipment-heading"><Dumbbell size={16} aria-hidden="true" /><span>Available equipment</span><small>Matches any selected</small></div>
       <div className="exercise-equipment-options" role="group" aria-label="Available equipment"><button aria-pressed={!equipment.length} onClick={() => { setEquipment([]); setPage(1) }}>Any equipment</button>{equipmentOptions.map(value => {
         const active = equipment.includes(value), available = data?.facetCounts.equipment[value] ?? 0
         return <button key={value} aria-pressed={active} disabled={!active && !available} onClick={() => toggleEquipment(value)}>{active && <Check size={13} aria-hidden="true" />}{displayLabel(value)} <span>{available}</span></button>
       })}</div>
-      <details className="exercise-more-filters"><summary><SlidersHorizontal size={16} aria-hidden="true" />More filters {advancedCount > 0 && <span className="exercise-filter-badge">{advancedCount}</span>}<ChevronDown size={16} className="exercise-filter-chevron" aria-hidden="true" /></summary>
+      </details><details className="exercise-more-filters"><summary><SlidersHorizontal size={16} aria-hidden="true" />More filters {advancedCount > 0 && <span className="exercise-filter-badge">{advancedCount}</span>}<ChevronDown size={16} className="exercise-filter-chevron" aria-hidden="true" /></summary>
         <div className="exercise-advanced-grid">{(Object.keys(filterLabels) as FilterKey[]).map(key => <label key={key}><span>{filterLabels[key]}</span><select value={filters[key]} onChange={event => setFilter(key, event.target.value)} aria-label={`Filter by ${filterLabels[key].toLowerCase()}`}><option value="">Any {filterLabels[key].toLowerCase()}</option>{(data?.facets[key] ?? []).map(value => { const available = data?.facetCounts[key][value] ?? 0; return <option key={value} value={value} disabled={!available && filters[key] !== value}>{displayLabel(value)} ({available})</option> })}</select></label>)}</div>
       </details>
       {count > 0 && <div className="exercise-active-filters" aria-label="Active exercise filters"><span className="exercise-active-label">Active {count}</span>

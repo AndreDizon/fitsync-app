@@ -12,13 +12,35 @@
 .app-shell[data-home-preview]{background:var(--preview-base)}
 .app-shell[data-home-preview]>.content-wrap>:is(.page,.plan-workspace,.progress-workspace),
 .app-shell[data-home-preview] :is(.plan-folder-content,.exercise-library-page,.nutrition-workspace,.food-library,.my-plan-workspace,.playlist-workspace,.social-workspace){background-color:transparent;background-image:none}
-.app-shell[data-home-preview-dark='true'] :is(.plan-tab-page-heading,.food-library-heading,.exercise-library-heading,.playlist-heading,.my-plan-heading,.social-workspace-heading) :is(h1,h2,p,span,small){color:#fff!important}
+.app-shell[data-home-preview-dark='true'] :is(.plan-tab-page-heading,.food-library-heading,.exercise-library-heading,.playlist-heading,.my-plan-heading,.social-workspace-heading)>div :is(h1,h2,p,small){color:#fff!important}
 .app-shell[data-home-preview-dark='true'] :is(.food-results-heading,.exercise-results-heading,.playlist-collection-heading,.my-plan-method,.my-plan-phase-title){color:#fff}
 .app-shell[data-home-preview-dark='true'] .content-wrap>.page> :is(h1,h2,p),
 .app-shell[data-home-preview-dark='true'] .home-theme-setting>label,
 .app-shell[data-home-preview-dark='true'] .home-theme-setting>p{color:#fff}
 .app-shell[data-home-preview-dark='true'] .settings-group{color:#232529}
 .app-shell[data-home-preview-dark='true'] .home-theme-setting{background:#24282d;border-color:#ffffff25}
+
+/* Exposed page copy uses white ink. Scope to unpainted regions so light cards,
+   count badges, controls and the yellow training sections retain their own ink. */
+.app-shell[data-home-preview-dark='true'] :is(.exercise-results-heading,.food-results-heading),
+.app-shell[data-home-preview-dark='true'] :is(.exercise-results-heading,.food-results-heading) :is(p,span,strong),
+.app-shell[data-home-preview-dark='true'] :is(.exercise-library-page>.exercise-source-credit,.food-library>.food-library-credit),
+.app-shell[data-home-preview-dark='true'] :is(.exercise-library-page>.exercise-source-credit,.food-library>.food-library-credit) a,
+.app-shell[data-home-preview-dark='true'] :is(.exercise-library-page,.food-library)>.exercise-offline-status.is-ready,
+.app-shell[data-home-preview-dark='true'] :is(.exercise-library-page,.food-library)>.exercise-offline-status.is-ready :is(span,strong,svg),
+.app-shell[data-home-preview-dark='true'] :is(.exercise-pagination,.food-pagination,.sc-pagination)>span,
+.app-shell[data-home-preview-dark='true'] .playlist-sync-details>summary,
+.app-shell[data-home-preview-dark='true'] .playlist-editor-top>.playlist-text-button,
+.app-shell[data-home-preview-dark='true'] :is(.playlist-notice,.pc-saved-label,.pc-result-count,.pc-loading,.my-plan-loading),
+.app-shell[data-home-preview-dark='true'] .pc-heading h3,
+.app-shell[data-home-preview-dark='true'] .pc-heading>div>p,
+.app-shell[data-home-preview-dark='true'] .my-plan-method :is(summary,p,a),
+.app-shell[data-home-preview-dark='true'] :is(.sc-overview-heading,.sc-heading)>div :is(h2,p),
+.app-shell[data-home-preview-dark='true'] .sc-workspace>.sc-muted,
+.app-shell[data-home-preview-dark='true'] .sc-workspace>.sc-back,
+.app-shell[data-home-preview-dark='true'] .progress-workspace .pr-forecast-note,
+.app-shell[data-home-preview-dark='true'] .progress-workspace .pr-forecast-note strong,
+.app-shell[data-home-preview-dark='true'] .pr-awards>.pr-caption{color:#fff!important}
 
 /* Active folder tabs merge into the selected page surface in every plan mode. */
 .app-shell[data-home-preview] .plan-workspace .plan-hero-frame>.plan-tabs button.selected[aria-selected='true']{

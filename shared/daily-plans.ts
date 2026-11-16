@@ -1,5 +1,6 @@
 import exercises from '../backend/data/exercises.json'
 import foods from '../backend/data/foods.json'
+import { defaultWorkoutStartTime } from './onboarding'
 import { defaultMealTime, newPlaylistItem, parsePlaylist, type PlaylistItem, type PlaylistKind } from './playlists'
 import type { OnboardingProfile } from './onboarding'
 
@@ -111,6 +112,11 @@ export function formulateDay(profile: OnboardingProfile, kind: PlaylistKind, day
     const prefer = profile.goal === 'mobility' ? 'stretching' : ['endurance','fat_loss'].includes(profile.goal) ? 'cardio' : 'strength'
     const candidates = shuffle(eligibleExercises(profile).filter(e => !exclude.includes(e.id)), day * 997 + variation * 31).sort((a,b) => Number(b.category === prefer) - Number(a.category === prefer))
     const duration = Number(profile.sessionMinutes)
+    const startTime = profile.workoutStartTime ?? defaultWorkoutStartTime
+    if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(startTime)) return { schedule, notes: ['Choose a valid workout start time in your planning preferences.'] }
+    const [startHour, startMinute] = startTime.split(':').map(Number)
+    const startMinutes = startHour * 60 + startMinute
+    if (startMinutes + duration > 1440) return { schedule, notes: ['Choose an earlier workout start time or a shorter session to finish by midnight.'] }
     const warmup = duration < 30 ? 180 : 300, cooldown = warmup
     let remaining = duration * 60 - warmup - cooldown
     const count = Math.min(10, Math.max(2, Math.ceil(duration / (prefer === 'stretching' ? 5 : 10))))
@@ -187,7 +193,7 @@ export function formulateDay(profile: OnboardingProfile, kind: PlaylistKind, day
       if (remaining > 0) notes.push('Your eligible exercise selection supports a shorter session (' + Math.round((duration * 60 - remaining) / 60) + ' minutes). Add suitable exercises or broaden your equipment/focus preferences; extra time is not filled with excessive sets or rest.')
     }
     let elapsed = 0
-    for (const item of schedule.items) { item.time = clock(480 + Math.floor(elapsed / 60)); elapsed += Math.round(taskMinutes(item) * 60) }
+    for (const item of schedule.items) { item.time = clock(startMinutes + Math.floor(elapsed / 60)); elapsed += Math.round(taskMinutes(item) * 60) }
     notes.push(weekDays[day] + ': ' + duration + '-minute ' + profile.experience.toLowerCase() + ' session for ' + (profile.focusAreas?.join(', ') || 'overall fitness') + ', using ' + profile.equipment.join(', ') + '. Your selected goal guides exercise type, sets and rest.')
     if (!schedule.items.length) notes.push('No eligible alternatives match your equipment, focus and movement preferences. Adjust onboarding or pick manually.')
     notes.push(alternative ? 'Alternative exercises use their own set and rest estimates; replacing an item can change the session total.' : 'Session minutes include work, between-set rests, warm-up, cooldown and setup/transitions. Preparation is credited with its attached task when you mark it done. These are scheduled estimates, not stopwatch measurements; editing or replacing tasks can change the total.')

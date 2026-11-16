@@ -21,7 +21,7 @@ const integer = (value: string | null, fallback: number, max: number) => {
 
 export function queryExercises<T extends ExerciseSearchRecord>(exercises: T[], params: URLSearchParams) {
   const facets = Object.fromEntries(filterKeys.map(key => [key, [...new Set(exercises.map(item => item[key]))].sort()])) as Record<FacetKey, string[]>
-  const searchable = new Map(exercises.map(item => [item.id, tokens([item.name, item.category, item.target, item.equipment, item.bodyPart, item.group, item.movementPattern, ...item.secondaryMuscles].join(' ')).join(' ')]))
+  const searchable = new Map(exercises.map(item => [item.id, tokens([item.name, item.category, item.target, item.target_muscle, item.equipment, item.bodyPart, item.group, item.movementPattern, ...item.secondaryMuscles].join(' ')).join(' ')]))
   const query = (params.get('q') || '').trim().slice(0, 200)
   const terms = tokens(query)
   const selections = Object.fromEntries(filterKeys.map(key => [key, [...new Set(params.getAll(key).flatMap(value => value.split(',')).map(value => value.trim().toLowerCase()).filter(Boolean))]]))

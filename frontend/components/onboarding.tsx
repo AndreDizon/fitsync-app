@@ -1,6 +1,6 @@
 'use client'
 
-import { useActionState, useEffect, useRef, useState } from 'react'
+import { useActionState, useEffect, useRef, useState, type MouseEvent } from 'react'
 import Link from 'next/link'
 import { ArrowLeft, ArrowRight, Check, Dumbbell, Utensils, ShieldCheck, Clock3, Flag, UserRound, ClipboardCheck, Activity, Flame, Trophy, HeartPulse, Move } from 'lucide-react'
 import { Wordmark } from './wordmark'
@@ -13,7 +13,7 @@ const steps = [
   { label: 'Your goal', title: 'What are we working toward?', note: 'Choose one main goal. You can update it as your priorities change.', icon: Flag },
   { label: 'Your starting point', title: 'A little about you.', note: 'Help us understand your starting point, beyond a number on the scale.', icon: UserRound },
   { label: 'Your movement', title: 'Make room for movement.', note: 'A routine should fit your life. Tell us what a realistic week looks like.', icon: Dumbbell },
-  { label: 'Your food', title: 'Fuel it your way.', note: 'Your food preferences will help shape meal planning when our meal library is ready.', icon: Utensils },
+  { label: 'Your food', title: 'Fuel it your way.', note: 'Your food preferences help shape the meal plans you generate in My Plan.', icon: Utensils },
   { label: 'Your blueprint', title: 'A little more you.', note: 'Review your preferences before saving. You can come back and change them anytime.', icon: ClipboardCheck },
 ]
 const goalIcons = [Activity, Flame, Dumbbell, Trophy, HeartPulse, Move]
@@ -37,7 +37,7 @@ function Choices({ legend, options, value, onChange, multiple = false, hint }: {
   })}</div></fieldset>
 }
 export function Onboarding({ name, profile }: { name: string; profile: OnboardingProfile | null }) {
-  const [draft, setDraft] = useState<OnboardingDraft>(() => profile ? { ...profile } : { ...emptyOnboarding })
+  const [draft, setDraft] = useState<OnboardingDraft>(() => ({ ...emptyOnboarding, ...profile }))
   const [timeZones, setTimeZones] = useState<string[]>(['Asia/Manila', 'UTC'])
   useEffect(() => {
     const detected = Intl.DateTimeFormat().resolvedOptions().timeZone
@@ -66,11 +66,20 @@ export function Onboarding({ name, profile }: { name: string; profile: Onboardin
     setDraft(previous => ({ ...previous, focusAreas: area === 'Overall' ? ['Overall'] : previous.focusAreas.includes(area) ? previous.focusAreas.filter(item => item !== area) : [...previous.focusAreas.filter(item => item !== 'Overall'), area] }))
   }
   const next = () => { const problems = validateOnboarding(draft, step); if (problems.length) setErrors(problems); else move(step + 1) }
+  const checkBeforeReturning = (event: MouseEvent<HTMLAnchorElement>) => {
+    if (pending) { event.preventDefault(); return }
+    const problems = validateOnboarding(draft)
+    if (!problems.length) return
+    event.preventDefault()
+    const missingStep = [0, 1, 2, 3].find(index => validateOnboarding(draft, index).length > 0)
+    setStep(missingStep ?? step)
+    setErrors(['Please complete the required information before returning to the app.', ...problems])
+  }
   const current = steps[step]
   const CurrentIcon = current.icon
   const goalLabel = goalOptions.find(([key]) => key === draft.goal)?.[1] ?? 'Choose a goal'
   return <main className="onboarding-page">
-    <header className="onb-header"><Link href={profile ? '/' : '/onboarding'} className="onb-brand" aria-label="FitSync"><img src="/mascot/fox-logo.png" width={36} height={36} alt="" /><Wordmark /></Link><span>YOUR NEXT CHAPTER</span>{profile ? <Link href="/">Back to app</Link> : <form action={signOut}><button type="submit">Sign out</button></form>}</header>
+    <header className="onb-header"><Link href={profile ? '/' : '/onboarding'} className="onb-brand" aria-label="FitSync"><img src="/mascot/fox-logo.png" width={36} height={36} alt="" /><Wordmark /></Link><span>YOUR NEXT CHAPTER</span>{profile ? <Link href="/" className="onb-return" aria-disabled={pending} onClick={checkBeforeReturning}>Back to app</Link> : <form action={signOut}><button type="submit">Sign out</button></form>}</header>
     <div className="onb-layout">
       <aside className="onb-story">
         <svg className="onb-story-lines" viewBox="0 0 400 700" fill="none" aria-hidden="true"><path d="M-80 65C310-40 420 130 185 275S-60 550 450 590M-80 90C310-15 440 150 205 295S-40 570 470 610M-80 115C310 10 460 170 225 315S-20 590 490 630" /></svg>
@@ -108,9 +117,11 @@ export function Onboarding({ name, profile }: { name: string; profile: Onboardin
             {step === 2 && <>
               <Choices legend="Training experience" options={['Beginner', 'Intermediate', 'Advanced']} value={draft.experience} onChange={value => update('experience', value)} />
               <Choices legend="Preferred training days" options={days} value={draft.days} onChange={value => toggle('days', value)} multiple hint="Pick 1–6 days. Keep at least one day for recovery." />
-              <p className="muted">Choose your total session time, including warm-up, exercise, rest and cooldown. 30 minutes is a compact session; 45?60 gives more room for gym training; 75?90 is an extended session. Shorter activity still counts.</p><Choices legend="Minutes per session" options={sessionMinuteOptions} value={draft.sessionMinutes} onChange={value => update('sessionMinutes', value)} />
+              <div className="onb-input onb-workout-start"><label htmlFor="workout-start-time">What time would you like to start your workout?</label><small id="workout-start-help">Your first exercise starts here. Later exercises follow using their estimated durations. Local time in {draft.timeZone.replaceAll('_', ' ')}. Applies when you generate a new day.</small><input id="workout-start-time" type="time" step={60} value={draft.workoutStartTime} aria-describedby="workout-start-help" onClick={event => { if (event.currentTarget.showPicker) { event.preventDefault(); event.currentTarget.focus(); try { event.currentTarget.showPicker() } catch { /* Native text editing remains available. */ } } }} onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); try { event.currentTarget.showPicker?.() } catch { event.currentTarget.focus() } } }} onChange={event => update('workoutStartTime', event.target.value)} /></div>
+              <Choices legend="Minutes per session" options={sessionMinuteOptions} value={draft.sessionMinutes} onChange={value => update('sessionMinutes', value)} hint="Include warm-up, exercise, rest and cooldown. Choose 30 minutes for a compact session, 45–60 for more training time, or 75–90 for an extended session. Shorter activity still counts." />
               <Choices legend="Equipment available" options={equipmentOptions} value={draft.equipment} onChange={value => toggle('equipment', value)} multiple />
-              <Choices legend="Movement preferences" options={adjustmentOptions} value={draft.adjustments} onChange={value => toggle('adjustments', value)} multiple hint="Optional. Select anything a future plan should accommodate." />
+              <Choices legend="Movement preferences" options={adjustmentOptions} value={draft.adjustments} onChange={value => toggle('adjustments', value)} multiple hint="Optional. Select anything your workout plan should accommodate." />
+              <p className="onb-note">These preferences guide the workouts you generate in My Plan, including your training days, start time, session length and available equipment. You can adjust exercises, times and targets there.</p>
             </>}
             {step === 3 && <>
               <Choices legend="Eating preference" options={dietOptions} value={draft.diet} onChange={value => update('diet', value)} />
@@ -119,17 +130,17 @@ export function Onboarding({ name, profile }: { name: string; profile: Onboardin
               <label className="onb-input">Foods you prefer to avoid <small>Optional</small><input maxLength={200} value={draft.dislikes} onChange={event => update('dislikes', event.target.value)} placeholder="e.g. mushrooms, olives" /></label>
               <div className="onb-input-row"><Choices legend="Meals per day" options={['2', '3', '4', '5']} value={draft.mealsPerDay} onChange={value => update('mealsPerDay', value)} /><Choices legend="Cooking minutes per meal" options={['15', '30', '45', '60']} value={draft.cookingMinutes} onChange={value => update('cookingMinutes', value)} /></div>
               <Choices legend="Food budget" options={['Budget-friendly', 'Moderate', 'Flexible']} value={draft.budget} onChange={value => update('budget', value)} />
-              <p className="onb-note">Meal planning is coming after the food library. We’ll save these preferences now. Always check food labels and cross-contact information for allergies.</p>
+              <p className="onb-note">These preferences guide the meal plans you generate in My Plan. You can adjust foods and portions there. Always check food labels and cross-contact information for allergies.</p>
             </>}
             {step === 4 && <>
               <div className="onb-summary-goal"><Flag size={24} /><div><small>YOUR MAIN GOAL</small><h2>{goalLabel}</h2></div></div>
               <div className="onb-summary-grid">{[
                 { icon: Flag, title: 'Focus areas', edit: 0, rows: [draft.focusAreas.join(', ')] },
                 { icon: UserRound, title: 'Starting point', edit: 1, rows: [draft.timeZone.replaceAll('_', ' '), draft.age ? `${draft.age} years · ${draft.gender}` : draft.ageRange, draft.activity, [draft.heightCm && `${draft.heightCm} cm`, draft.weightKg && `${draft.weightKg} kg`].filter(Boolean).join(' · ') || 'Measurements not provided', draft.targetWeightKg ? `Target weight: ${draft.targetWeightKg} kg` : 'No target weight set'] },
-                { icon: Dumbbell, title: 'Movement', edit: 2, rows: [draft.experience, `${days.filter(day => draft.days.includes(day)).join(', ')} · ${draft.sessionMinutes} min`, draft.equipment.join(', '), draft.adjustments.join(', ') || 'No movement preferences selected'] },
+                { icon: Dumbbell, title: 'Movement', edit: 2, rows: [draft.experience, 'Workout starts at ' + draft.workoutStartTime + ' (' + draft.timeZone + ')', `${days.filter(day => draft.days.includes(day)).join(', ')} · ${draft.sessionMinutes} min`, draft.equipment.join(', '), draft.adjustments.join(', ') || 'No movement preferences selected'] },
                 { icon: Utensils, title: 'Food preferences', edit: 3, rows: [draft.diet, `${draft.mealsPerDay} meals · ${draft.cookingMinutes} min cooking`, draft.budget, draft.allergies.length ? `Allergies: ${draft.allergies.join(', ')}${draft.otherAllergy ? ` (${draft.otherAllergy})` : ''}` : 'No known food allergies', draft.dislikes ? `Avoid: ${draft.dislikes}` : 'No food dislikes added'] },
               ].map(({ icon: Icon, title, edit, rows }) => <article key={title}><div><Icon size={19} /><h3>{title}</h3><button type="button" onClick={() => move(edit)}>Edit</button></div>{rows.map((row, index) => <p key={index}>{row}</p>)}</article>)}</div>
-              <p className="onb-note"><Clock3 size={18} />This saves your planning blueprint. Exercise and meal-plan generation will use it when those features are connected; saving does not generate a plan yet.</p>
+              <p className="onb-note"><Clock3 size={18} />Your workout start time and session length guide new exercise schedules. You can edit individual times in My Plan.</p>
             </>}
           </fieldset>
           {(errors.length > 0 || state.error) && <div className="onb-errors" role="alert" tabIndex={-1} ref={errorBox}>{errors.length ? <><strong>A few things to check</strong><ul>{errors.map(error => <li key={error}>{error}</li>)}</ul></> : state.error}</div>}
