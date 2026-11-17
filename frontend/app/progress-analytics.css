@@ -21,22 +21,22 @@
 .pa-section-head{position:relative;isolation:isolate;display:flex;gap:15px;align-items:flex-start;margin-bottom:0;padding:25px 28px;background:linear-gradient(115deg,#dce8fa,#edf3ff);color:#282a24;border-radius:22px 22px 0 0;box-shadow:inset 0 2px 3px #fff8;overflow:hidden}
 .pa-section-head>svg:not(.pa-section-art){margin-top:0;flex-shrink:0;color:#355b91;box-sizing:content-box;padding:11px;background:#ffffffb3;border:1px solid #fff8;border-radius:13px;box-shadow:inset 0 2px 3px #fff9,0 3px 7px #25282a0e}
 .pa-section-head>div{position:relative;z-index:1;max-width:85%}
-.pa-section-art{position:absolute;z-index:0;right:-15px;bottom:-5px;width:275px;height:110px;color:#355b91;opacity:.13;pointer-events:none}
+.pa-section-art{position:absolute;z-index:0;inset:0 0 0 auto;width:390px;max-width:48%;height:100%;color:#355b91;opacity:.16;pointer-events:none;mask-image:linear-gradient(90deg,transparent,#000 30%);-webkit-mask-image:linear-gradient(90deg,transparent,#000 30%)}
 .pa-section-head p{margin-top:8px;color:var(--pa-muted);max-width:72ch}
-.pa-surface{padding:28px;background:linear-gradient(125deg,#fafcff,#fff 80%);border-radius:0 0 22px 22px;box-shadow:inset 1px 0 2px #fff,inset -1px -2px 3px #75879b14;color:var(--pa-ink);min-width:0}
-.pa-consistency-section{--pa-line:#d1dce7;--pa-meter:#5276b6;--pa-consistency-finish:linear-gradient(115deg,#365d8b,#243b55 70%)}
-.pa-nutrition-section{--pa-meter:#cf590b;--pa-line:#e9d7cd;--pa-nutrition-orange:linear-gradient(110deg,#ffad66 0%,#ffd39a 45%,#fff0b5 100%)}
+.pa-surface{padding:28px;background:var(--pa-section-wash,#fff);border-radius:0 0 22px 22px;box-shadow:inset 1px 0 2px #fff,inset -1px -2px 3px #75879b14;color:var(--pa-ink);min-width:0}
+.pa-consistency-section{--pa-line:#d1dce7;--pa-meter:#5276b6;--pa-consistency-finish:linear-gradient(115deg,#365d8b,#243b55 70%);--pa-section-wash:linear-gradient(125deg,#f0f5fc,#fcfdff 85%)}
+.pa-nutrition-section{--pa-meter:#cf590b;--pa-line:#e9d7cd;--pa-nutrition-orange:linear-gradient(110deg,#ffad66 0%,#ffd39a 45%,#fff0b5 100%);--pa-section-wash:linear-gradient(125deg,#fff4e9,#fffcf8 85%)}
 .pa-nutrition-section .pa-section-head{background:var(--pa-nutrition-orange);color:#432819}
 .pa-nutrition-section .pa-section-head p{color:#633d24}
 .pa-nutrition-section .pa-section-head>svg:not(.pa-section-art){background:#ffe135;color:#292c28;border-color:#ffe56b;box-shadow:inset 0 2px 3px #fffa,0 3px 8px #0002}
 .pa-nutrition-section .pa-section-art{color:#7d390e}
-.pa-activity-section{--pa-meter:#3761be;--pa-line:#d1dce7}
+.pa-activity-section{--pa-meter:#3761be;--pa-line:#d1dce7;--pa-section-wash:linear-gradient(125deg,#f3efeb,#fcfbfa 85%)}
 :is(.pa-consistency-section,.pa-activity-section) .pa-section-head{background:linear-gradient(115deg,#4b352b,#252c30 70%);color:#fff;box-shadow:inset 0 2px 3px #ffffff30}
 .pa-consistency-section .pa-section-head{background:var(--pa-consistency-finish)}
 :is(.pa-consistency-section,.pa-activity-section) .pa-section-head p{color:#e0e6e9}
 :is(.pa-consistency-section,.pa-activity-section) .pa-section-head>svg:not(.pa-section-art){background:#ffe135;color:#292c28;border-color:#ffe56b;box-shadow:inset 0 2px 3px #fffa,0 3px 8px #0002}
 :is(.pa-consistency-section,.pa-activity-section) .pa-section-art{color:#ffc86e;opacity:.2}
-:is(.pa-consistency-section,.pa-activity-section) .pa-surface{background:#fff;box-shadow:inset 1px 0 2px #fff,inset -1px -2px 3px #25282a0a}
+:is(.pa-consistency-section,.pa-activity-section) .pa-surface{background:var(--pa-section-wash);box-shadow:inset 1px 0 2px #fff,inset -1px -2px 3px #25282a0a}
 .pa-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;padding-bottom:25px;border-bottom:1px solid var(--pa-line);margin-bottom:26px!important}
 .pa-stat{padding:0 18px;min-width:0;border-inline-start:1px solid var(--pa-line)}
 .pa-stat:first-child{border-inline-start:0;padding-left:0}
@@ -75,7 +75,7 @@
 .pa-table-wrap caption{text-align:left;color:#5c6268;white-space:normal;padding:0 0 10px}
 .pa-table-wrap :is(th,td){padding:10px 12px;border-bottom:1px solid var(--pa-line)}
 .pa-table-wrap th{font-weight:700}.pa-table-wrap thead{background:#f0f2f3}
-.pa-nutrition{background:#fff}
+.pa-nutrition{background:var(--pa-section-wash)}
 .pa-tag{font-size:12px;padding:7px 12px;border-radius:8px;background:#fff5c7;color:#594b24;font-weight:700}
 .pa-macros{padding:23px 6px!important;border:0;background:linear-gradient(110deg,#40332c,#272b2d 65%);border-radius:14px;color:#fff;box-shadow:inset 0 2px 3px #ffffff26,0 5px 12px #25282a12}
 .pa-macros .pa-stat{padding:0 18px;border-color:#ffffff26}
@@ -88,7 +88,7 @@
 .pa-macro-legend{display:flex;gap:12px;flex-wrap:wrap;list-style:none;padding:0;margin:12px 0 0;font-size:11px;color:#553c31}
 .pa-macro-legend li{display:flex;align-items:center;gap:5px}.pa-macro-legend i{width:10px;height:10px;border-radius:3px}.pa-macro-legend strong{font-weight:750}
 .pa-nutrition-grid{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:32px;align-items:start}
-.pa-energy-panel{padding:22px;border-radius:14px;background:var(--pa-nutrition-orange);color:#432819;box-shadow:inset 0 2px 3px #fff8,0 4px 10px #25282a0c}
+.pa-energy-panel{padding:22px;border-radius:14px;background:linear-gradient(110deg,#ffe5cb,#fff2dc);color:#432819;box-shadow:inset 0 2px 3px #fff8,0 4px 10px #25282a0c}
 .plan-analytics .pa-energy-panel .pa-note,.pa-energy-panel .pa-chart-key{color:#633d24}
 .pa-energy-panel .pa-energy-planned{background:#fff4e480;border-color:#87502c}
 .pa-energy-panel .pa-energy-track{border-bottom-color:#87502c}
@@ -106,7 +106,7 @@
 .pa-targets>p{font-size:12px;margin-top:10px}.pa-targets dl{display:flex;gap:15px;flex-wrap:wrap;margin-top:18px}
 .pa-targets dt{font-size:11px}.pa-targets dd{font-size:16px;font-weight:750;margin-top:4px}
 .pa-targets .pa-note{color:#66562b}
-.pa-water{display:flex;align-items:center;gap:15px;padding:20px;margin-top:24px;color:#294f71;background:linear-gradient(110deg,#dfedff,#eff7ff);border-radius:13px;box-shadow:inset 0 2px 3px #fffc,0 3px 8px #25282a0a}
+.pa-water{display:flex;align-items:center;gap:15px;padding:20px;margin-top:24px;color:#294f71;background:linear-gradient(110deg,#eaf3ff,#f5faff);border-radius:13px;box-shadow:inset 0 2px 3px #fffc,0 3px 8px #25282a0a}
 .pa-water>svg{flex-shrink:0}.pa-water p{font-size:12px;margin-top:6px}
 .pa-water dl{margin-left:auto;display:flex;gap:24px;flex-wrap:wrap}.pa-water dt{font-size:11px}.pa-water dd{font-size:21px;font-weight:750;margin-top:5px}
 .pa-training-chart{background:linear-gradient(135deg,#46332b,#20272b 75%);color:#fff;padding:24px;border-radius:14px;min-width:0;box-shadow:inset 0 2px 3px #ffffff24,0 5px 12px #25282a14}
@@ -134,6 +134,17 @@
 @supports(backdrop-filter:blur(6px)){.pa-distribution{background:#fff9dce6;backdrop-filter:blur(6px)}}
 @media(max-width:1000px){.pa-stats{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px 0}.pa-stat:nth-child(3){border-left:0;padding-left:0}.pa-macros .pa-stat:nth-child(3){padding-left:18px}.pa-behavior-grid,.pa-workout-grid,.pa-nutrition-grid{gap:24px;grid-template-columns:repeat(2,minmax(0,1fr))}.pa-water{flex-wrap:wrap}.pa-water dl{margin-left:40px}.pa-stat dd{font-size:27px}}
 @media(min-width:701px) and (max-width:900px){.pa-nutrition-grid{grid-template-columns:1fr}.pa-targets dl{gap:28px}}
-@media(max-width:700px){.pa-toolbar{align-items:flex-start;flex-direction:column;gap:14px}.plan-analytics h2{font-size:21px}.pa-surface{padding:21px}.pa-behavior-grid,.pa-nutrition-grid,.pa-workout-grid,.pa-macro-split{grid-template-columns:1fr;gap:25px}.pa-followthrough{padding-top:20px;border-top:1px solid var(--pa-line)}.pa-section{margin-top:30px}.pa-section-head{gap:10px;padding:22px 21px}.pa-section-head>svg:not(.pa-section-art){padding:8px;width:20px;height:20px;border-radius:10px}.pa-section-head>div{max-width:100%;min-width:0}.pa-section-art{width:180px;opacity:.09}.pa-calendar-grid>span{min-height:32px}.pa-water dl{margin-left:0;gap:20px}.pa-preferences{grid-template-columns:1fr}.pa-training-chart{padding:19px}.pa-calendar,.pa-distribution{padding:14px}.pa-jump{margin-bottom:28px}.pa-jump a{padding:8px 12px}.pa-jump a svg{width:14px;height:14px}}
+@media(max-width:700px){.pa-toolbar{align-items:flex-start;flex-direction:column;gap:14px}.plan-analytics h2{font-size:21px}.pa-surface{padding:21px}.pa-behavior-grid,.pa-nutrition-grid,.pa-workout-grid,.pa-macro-split{grid-template-columns:1fr;gap:25px}.pa-followthrough{padding-top:20px;border-top:1px solid var(--pa-line)}.pa-section{margin-top:30px}.pa-section-head{gap:10px;padding:22px 21px}.pa-section-head>svg:not(.pa-section-art){padding:8px;width:20px;height:20px;border-radius:10px}.pa-section-head>div{max-width:100%;min-width:0}.pa-section-art{width:170px;max-width:40%;opacity:.09}.pa-calendar-grid>span{min-height:32px}.pa-water dl{margin-left:0;gap:20px}.pa-preferences{grid-template-columns:1fr}.pa-training-chart{padding:19px}.pa-calendar,.pa-distribution{padding:14px}.pa-jump{margin-bottom:28px}.pa-jump a{padding:8px 12px}.pa-jump a svg{width:14px;height:14px}}
 @media(prefers-reduced-motion:no-preference){.plan-analytics progress::-webkit-progress-value{transition:width .2s ease-out}}
 @media(max-width:700px){.pa-training-trend:not(.is-dense) text{font-size:20px}.pa-training-trend:not(.is-dense) .pa-trend-value{font-size:19px}.pa-training-trend:not(.is-dense) svg{min-height:150px}}
+
+/* Section-colored wayfinding: keep explanations neutral and emphasize key data. */
+.pa-consistency-section .pa-stats .pa-stat dd{color:#28578a}
+.pa-activity-section .pa-stats .pa-stat dd{color:#9b461d}
+.pa-consistency-section .pa-followthrough>h3{color:#28578a}
+.pa-nutrition-section :is(.pa-macro-split h3,.pa-energy-panel h3){color:#87431d}
+.pa-distribution h3{color:#78570e}
+.pa-insight strong,.pa-targets h3{color:#71540c}
+.pa-water :is(h3,dd){color:#245a87}
+.pa-section details>summary{color:#80501e;font-weight:700}
+.pa-calendar details>summary{color:#fff0ae}

@@ -1,4 +1,4 @@
-﻿'use client'
+'use client'
 
 import { useEffect, useRef, useState } from 'react'
 import { Activity, Dumbbell, Heart, Trophy, Utensils } from 'lucide-react'
@@ -151,7 +151,7 @@ export function HomeInsights({ week, progress, profile, today }: { week: PlanWee
         <div className="hi-card-filler" aria-hidden="true"><HomeCardArt subject="achievements"/></div>
         <header><div><span className="hi-eyebrow">Earned, not estimated</span><h3>Milestones in motion.</h3></div><Trophy size={22}/></header>
         <div className="hi-award-count"><strong>{progress ? awards.size : '\u2014'}</strong><span>achievements unlocked<small>{progress?'From your saved account achievements':'Sign in and sync progress to see achievements'}</small></span></div>
-        <div className="hi-badges">{milestones.map(m=><div key={m.code} className={awards.has(m.code)?'unlocked':'locked'} title={m.description}><Trophy size={18}/><span>{m.name}</span><small>{awards.has(m.code)?'Unlocked':'Locked'}</small></div>)}</div>
+        <div className="hi-badges">{milestones.slice(0,8).map(m=><div key={m.code} className={awards.has(m.code)?'unlocked':'locked'} title={m.description}><Trophy size={18}/><span>{m.name}</span><small>{awards.has(m.code)?'Unlocked':'Locked'}</small></div>)}</div>
         {nextMilestone&&<p className="hi-next-milestone"><span>A milestone to work toward</span><strong>{nextMilestone.name}</strong><small>{nextMilestone.description}</small></p>}
       </article>
       <div ref={brandFiller} className="hi-brand-space" hidden aria-hidden="true"><img src="/mascot/hero-fox-head.png" alt="" width="160" height="160"/><Wordmark/><small>Move. Fuel. Feel good.</small></div>

@@ -17,10 +17,28 @@ function Meter({ label, done, total, unit = 'entries' }: { label: string; done: 
   return <div className="pa-meter"><div><span>{label}</span><strong>{n(done)} / {n(total)} <small>{unit}</small></strong></div><progress value={done} max={total || 1} aria-label={label + ': ' + n(done) + ' of ' + n(total) + ' ' + unit}/></div>
 }
 
-function SectionArt() {
-  return <svg className="pa-section-art" viewBox="0 0 320 120" fill="none" aria-hidden="true"><g stroke="currentColor" strokeWidth="1.5"><path d="M-30 108H85c58 0 73-81 131-81h134M-30 94H79c58 0 73-81 131-81h140M-30 80H73c58 0 73-81 131-81h146"/></g><g fill="currentColor"><path d="m250 88 7-14h59l-7 14ZM237 110l7-14h59l-7 14Z"/></g></svg>
+/** Decorative section artwork, independent of the user's recorded data. */
+function SectionArt({ variant }: { variant: 'consistency' | 'nutrition' | 'activity' }) {
+  return <svg className={'pa-section-art pa-section-art-' + variant} viewBox="0 0 440 120" preserveAspectRatio="xMaxYMid slice" fill="none" aria-hidden="true">
+    <g stroke="currentColor" strokeWidth="1.3" strokeLinecap="round" strokeLinejoin="round">
+      {variant === 'consistency' && <>
+        <path d="M460 17H358c-81 0-91 79-172 79H-20M460 32H364c-81 0-91 79-172 79H-20"/>
+        <path d="M460 2H352c-81 0-91 79-172 79H-20" opacity=".55"/>
+        <path d="m360 83-8 13h108M346 105l-8 13h122" opacity=".75"/>
+      </>}
+      {variant === 'nutrition' && <>
+        <path d="M460 28H360c-68 0-88 65-156 65H-20M460 44H366c-68 0-88 65-156 65H-20"/>
+        <path d="M460 98H380c-64 0-84-66-148-66H-20" opacity=".65"/>
+        <path d="M355 67h66M370 77h51M385 87h36"/>
+      </>}
+      {variant === 'activity' && <>
+        <path d="M460 36H359c-20 0-27 9-37 23l-26 37c-8 11-17 9-22-4l-25-65c-5-13-14-15-22-4l-35 48c-10 14-18 19-37 19H-20"/>
+        <path d="M460 51H365c-20 0-27 9-37 23l-26 37c-8 11-17 9-22-4l-25-65c-5-13-14-15-22-4l-35 48c-10 14-18 19-37 19H-20" opacity=".7"/>
+        <path d="m387 83-8 13h65M402 100l-8 13h50"/>
+      </>}
+    </g>
+  </svg>
 }
-
 function TrainingTrend({ weeks }: { weeks: { start: string; minutes: number; finished: number; hasPlan: boolean }[] }) {
   const highest = Math.max(1, ...weeks.map(week => week.minutes))
   const x = (index: number) => weeks.length === 1 ? 280 : 40 + index / (weeks.length - 1) * 480
@@ -63,7 +81,7 @@ export function ProgressAnalytics({ weeks, visits, profile, today, loading, weig
     <nav className="pa-jump" aria-label="Analytics sections"><a href="#progress-habits"><CalendarDays size={16}/>Consistency</a><a href="#progress-nutrition"><Utensils size={16}/>Nutrition</a><a href="#progress-activity"><Activity size={16}/>Workouts</a></nav>
 
     <section id="progress-habits" className="pa-section pa-consistency-section" aria-labelledby="pa-behavior-title">
-      <header className="pa-section-head"><CalendarDays size={24}/><div><h2 id="pa-behavior-title">Behavioral &amp; Consistency Insights</h2><p>How often you show up, and what you follow through on.</p></div><SectionArt/></header>
+      <header className="pa-section-head"><CalendarDays size={24}/><div><h2 id="pa-behavior-title">Behavioral &amp; Consistency Insights</h2><p>How often you show up, and what you follow through on.</p></div><SectionArt variant="consistency"/></header>
       <div className="pa-surface">
         <dl className="pa-stats"><Stat label="Plan follow-through" value={completion === null ? '—' : completion + '%'} detail={data.done + ' of ' + data.total + ' exercise and food entries done'}/><Stat label="Days with completed tasks" value={data.activeDays} detail={data.scheduledDays + ' days have scheduled tasks'}/><Stat label="Current task streak" value={data.streak + ' days'} detail={'Best in this period: ' + data.best + ' days'}/><Stat label="Recorded app visits" value={data.visitSet.size} detail="Visits and completed tasks are tracked separately"/></dl>
         <div className="pa-behavior-grid"><div className="pa-calendar"><div className="pa-panel-heading"><h3>Consistency calendar</h3><label><span className="pa-sr">Calendar activity</span><select value={calendarMode} onChange={event => setCalendarMode(event.target.value)}><option value="tasks">Task completion</option><option value="visits">App visits</option></select></label></div>
@@ -80,7 +98,7 @@ export function ProgressAnalytics({ weeks, visits, profile, today, loading, weig
     </section>
 
     <section id="progress-nutrition" className="pa-section pa-nutrition-section" aria-labelledby="pa-nutrition-title">
-      <header className="pa-section-head"><Utensils size={24}/><div><h2 id="pa-nutrition-title">Nutrition &amp; Calorie Analysis</h2><p>Food marked done, portion-based nutrients, and your water log.</p></div><SectionArt/></header>
+      <header className="pa-section-head"><Utensils size={24}/><div><h2 id="pa-nutrition-title">Nutrition &amp; Calorie Analysis</h2><p>Food marked done, portion-based nutrients, and your water log.</p></div><SectionArt variant="nutrition"/></header>
       <div className="pa-surface pa-nutrition">
         <div className="pa-panel-heading"><div><h3>Your food log</h3><p className="pa-note">{data.foodDays} days with food marked done · {data.foodDone} of {data.foodTotal} food entries completed</p></div><span className="pa-tag">{profile?.diet || 'Eating preference not set'}</span></div>
         <dl className="pa-stats pa-macros"><Stat label="Average energy" value={<>{average('energy')} <small>kcal</small></>} detail="Per day with at least one completed food entry"/><Stat label="Average protein" value={<>{average('protein')} <small>g</small></>} detail="From completed portions"/><Stat label="Average carbohydrates" value={<>{average('carbs')} <small>g</small></>} detail="From completed portions"/><Stat label="Average fat" value={<>{average('fat')} <small>g</small></>} detail="From completed portions"/></dl>
@@ -94,7 +112,7 @@ export function ProgressAnalytics({ weeks, visits, profile, today, loading, weig
     </section>
 
     <section id="progress-activity" className="pa-section pa-activity-section" aria-labelledby="pa-activity-title">
-      <header className="pa-section-head"><Activity size={24}/><div><h2 id="pa-activity-title">Physical Activity &amp; Workout Analytics</h2><p>Your completed movement, logged sets, and training preferences.</p></div><SectionArt/></header>
+      <header className="pa-section-head"><Activity size={24}/><div><h2 id="pa-activity-title">Physical Activity &amp; Workout Analytics</h2><p>Your completed movement, logged sets, and training preferences.</p></div><SectionArt variant="activity"/></header>
       <div className="pa-surface">
         <dl className="pa-stats"><Stat label="Exercises completed" value={data.workoutDone} detail={'Of ' + data.workoutTotal + ' scheduled exercises'}/><Stat label="Workout days finished" value={data.finishedDays} detail={'All exercises done on ' + data.finishedDays + ' of ' + data.workoutDays + ' planned workout days'}/><Stat label="Estimated completed time" value={<>{n(data.minutes)} <small>min</small></>} detail={'Of ' + n(data.plannedMinutes) + ' scheduled minutes; not a stopwatch total'}/><Stat label="Rest days in your plan" value={data.restDays} detail="Days explicitly marked for rest with no exercises"/></dl>
         <div className="pa-workout-grid"><div className="pa-training-chart"><h3>Training time across this period</h3><p>Estimated minutes from exercises marked done</p><TrainingTrend weeks={frequencies}/><p className="pa-note">Each point is a 7-day block starting {dateLabel(data.start)}. Gaps mean no workout plan is available. Includes saved rest, tempo and preparation times. No calorie-burn estimate is inferred.</p></div><div className="pa-distribution"><h3>Where you trained</h3><p className="pa-note">Completed exercises by primary body area. Counts are entries, not sets.</p>{data.groups.length ? data.groups.map(group => <Meter key={group.name} label={group.name} done={group.count} total={data.workoutDone}/>) : <p className="pa-empty">Complete an exercise to see your training distribution.</p>}</div></div>

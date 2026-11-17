@@ -167,7 +167,7 @@ function App({ userName, userEmail }: { userName: string; userEmail: string }) {
         {active === 'plans' && <PlansWorkspace tab={planTab} setTab={setPlanTab} initialMode={homeTarget?.mode} focusWater={homeTarget?.water} />}
         {active === 'library' && <LibraryView />}
         {active === 'social' && <SocialView initialSection={homeTarget?.socialSection} />}
-        {active === 'progress' && <ProgressWorkspace initialTab={homeTarget?.progressTab} />}
+        {active === 'progress' && <ProgressWorkspace initialTab={homeTarget?.progressTab} userName={userName} />}
         {active === 'settings' && <SettingsView userName={userName} userEmail={userEmail} initials={initials} theme={theme} setTheme={setTheme} />}
         <AppFooter onNavigate={(section) => { navigate(section); setNavHidden(false); window.scrollTo(0, 0) }} onPlaylist={() => { setPlanTab('playlist'); navigate('plans'); setNavHidden(false); window.scrollTo(0, 0) }} />
       </section>
