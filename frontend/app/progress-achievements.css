@@ -140,3 +140,38 @@
 .ach-category>header>.ach-category-art{position:absolute;z-index:0;inset:0 0 0 auto;width:390px;max-width:58%;height:100%;color:#ffd18a;opacity:.22;pointer-events:none;mask-image:linear-gradient(90deg,transparent,#000 40%);-webkit-mask-image:linear-gradient(90deg,transparent,#000 40%)}
 .ach-category>header>span{background:#ffffff0f;color:#fff4d9;border-color:#ffffff35;padding:7px 10px;box-shadow:inset 0 1px 2px #ffffff0d}
 @media(max-width:600px){.ach-category>header{padding:18px;gap:11px}.ach-category>header>svg:not(.ach-category-art){padding:8px;width:20px;height:20px}.ach-category>header>div{min-width:140px}.ach-category>header>span{margin-left:51px;font-size:10px}.ach-category>header>.ach-category-art{width:230px;max-width:70%;opacity:.16}}
+.ach-filter-heading .ach-ready-indicator{display:inline-flex;align-items:center;min-height:36px;padding:7px 12px;border:1px solid #d1b62b;border-radius:8px;background:#ffe135;color:#292c28;font:750 12px/1.4 'Archivo FitSync',Arial,sans-serif;white-space:nowrap;box-shadow:inset 0 1px 2px #ffffff70}
+@media(max-width:600px){.ach-filter-heading .ach-ready-indicator{font-size:11px;padding:7px 9px}}
+.ach-category>header>span{background:#ffe135;color:#292c28;border-color:#d1b62b;box-shadow:inset 0 1px 2px #ffffff70}
+/* Flow-sized achievement chapters use the same grid and curved joins as My Plan. */
+.ach-section-band{position:relative;isolation:isolate;display:flow-root;min-width:0;box-sizing:border-box;padding-block:24px}
+.ach-section-band>.ach-category:first-child{margin-top:0}
+.ach-section-orange{--ach-section-curve:clamp(32px,5vw,72px);margin-block:var(--ach-section-curve);padding-block:32px}
+.ach-section-orange::before{content:'';position:absolute;z-index:-1;pointer-events:none;left:50%;width:100%;width:100cqw;transform:translateX(-50%);top:0;bottom:0;height:auto;border-radius:var(--ach-section-curve) 0 var(--ach-section-curve) 0;background:repeating-linear-gradient(0deg,transparent 0 59px,#b58a2717 59px 60px),repeating-linear-gradient(90deg,transparent 0 59px,#b58a2717 59px 60px),radial-gradient(ellipse at 100% 6%,#ef9a4d99,transparent 35%),radial-gradient(ellipse at 0 90%,#f0ab4273,transparent 35%),linear-gradient(105deg,#ffe77c,#fff1af 75%)}
+@supports(clip-path:shape(from 0 0,line to 100% 0,line to 100% 100%,close)){
+ .ach-section-orange::before{top:calc(-1 * var(--ach-section-curve));bottom:calc(-1 * var(--ach-section-curve));border-radius:0;clip-path:shape(from 0 calc(2 * var(--ach-section-curve)),curve to var(--ach-section-curve) var(--ach-section-curve) with 0 var(--ach-section-curve),line to calc(100% - var(--ach-section-curve)) var(--ach-section-curve),curve to 100% 0 with 100% var(--ach-section-curve),line to 100% calc(100% - 2 * var(--ach-section-curve)),curve to calc(100% - var(--ach-section-curve)) calc(100% - var(--ach-section-curve)) with 100% calc(100% - var(--ach-section-curve)),line to var(--ach-section-curve) calc(100% - var(--ach-section-curve)),curve to 0 100% with 0 calc(100% - var(--ach-section-curve)),close)}
+}
+.ach-section-orange>.ach-category{margin-bottom:24px}
+.ach-section-orange>.ach-category:last-child{margin-bottom:0}
+.ach-section-white{padding-top:0}
+@media(max-width:740px){.ach-section-band{padding-block:22px;min-height:0;height:auto}.ach-section-white{padding-top:0}.ach-section-orange{margin-block:24px;padding-block:28px}.ach-section-orange::before{top:0;bottom:0;height:auto;clip-path:none;border-radius:28px 0 28px 0}}
+/* Match My Plan: the painted chapter spans the page, with content inset. */
+.ach-section-orange::before{left:calc(-1 * var(--ach-bleed-left,0px));right:calc(-1 * var(--ach-bleed-right,0px));width:auto;transform:none}
+.ach-section-orange{padding-block:clamp(30px,3vw,44px)}
+@media(max-width:740px){.ach-section-orange{padding-block:28px}.ach-section-orange::before{left:calc(-1 * var(--ach-bleed-left,0px));right:calc(-1 * var(--ach-bleed-right,0px));top:0;bottom:0;height:auto;clip-path:none;border-radius:28px 0 28px 0}}
+/* Compact collectibles keep their requirements visible on narrow screens. */
+.ach-action-compact{display:none}
+@media(max-width:600px){
+ .ach-grid{align-items:start}
+ .ach-grid article{padding:14px 11px}
+ .ach-grid .ach-badge{width:76px;height:85px;margin-bottom:10px}
+ .ach-state{margin-bottom:5px;flex-wrap:wrap;line-height:1.4}
+ .ach-grid h4{font-size:15px;line-height:1.3}
+ .ach-grid article>p{margin-top:6px;margin-bottom:12px;line-height:1.5}
+ .ach-card-footer{margin-top:0}
+ .ach-card-footer>span{margin-top:5px}
+ .ach-card-footer>.ach-earned-date{display:none}
+ .ach-claim{margin-top:10px;min-height:44px;padding:9px 8px}
+ .ach-action-full{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+ .ach-action-compact{display:inline}
+}

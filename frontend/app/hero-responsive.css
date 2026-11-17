@@ -1626,3 +1626,50 @@
     -webkit-text-stroke-width: clamp(.5px, .09cqw, .85px);
   }
 }
+
+/* Social uses Home's two-line greeting scale now that filters live in feeds. */
+.theme-default .social-flow .social-hero-card .social-intro{align-items:flex-start}
+.theme-default .social-flow .social-hero-card .social-intro h1{font-size:5.4cqw;line-height:1.15;margin:2cqw 0 2.2cqw;letter-spacing:-.045em;white-space:normal}
+.theme-default .social-flow .social-hero-card .social-intro .eyebrow{font-size:1.4cqw;letter-spacing:.1em;line-height:1.5}
+.theme-default .social-flow .social-hero-card .social-intro .intro{font:italic 400 2.3cqw/1.5 Georgia,'Times New Roman',serif;color:#5f543d;letter-spacing:-.01em;white-space:normal;max-width:32ch;margin:0}
+@media(width < 1025px){
+ .theme-default .social-flow .social-hero-card .social-intro h1{font-size:var(--hero-heading-size);line-height:1.12;margin:var(--hero-copy-gap) 0}
+ .theme-default .social-flow .social-hero-card .social-intro .eyebrow{font-size:var(--hero-label-size)}
+ .theme-default .social-flow .social-hero-card .social-intro .intro{font-size:var(--hero-subtitle-size);line-height:1.5;max-width:min(100%,25ch)}
+}
+.theme-default .social-connection-card strong{font-size:clamp(14px,2cqw,26px);line-height:1.2;overflow-wrap:anywhere}
+/* Keep the full Plans fox on compact screens; scale its existing asset. */
+@media(width < 1025px){
+ .theme-default .plan-workspace .plans-mascot-hero .plan-mode-art{display:none}
+ .theme-default .plan-workspace .plans-mascot-hero .plan-hero-mascot{display:block;position:absolute;z-index:1;inset:auto 1.5% 28px auto;width:36%;height:calc(100% - 44px);min-height:0;pointer-events:none}
+ .theme-default .plan-workspace .plans-mascot-hero .plan-hero-mascot img{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:contain;object-position:center bottom;transform:none;filter:drop-shadow(0 5px 5px #b37a2220)}
+ .theme-default .plan-workspace .plans-mascot-hero .plan-hero-copy{position:relative;z-index:2;width:62%;max-width:62%}
+ .theme-default .plan-workspace .plans-mascot-hero .plan-hero-lines{display:none}
+}
+@media(width < 381px){
+ .theme-default .plan-workspace .plans-mascot-hero .plan-hero-mascot{right:0;width:35%;bottom:39px;height:66%}
+ .theme-default .plan-workspace .plans-mascot-hero .plan-hero-copy{width:65%;max-width:65%}
+}
+/* Reuse the connected-earth artwork in every compact Social hero. */
+@media(width < 1025px){
+ .theme-default .social-flow .social-hero-card .social-card-art{display:none}
+ .theme-default .social-flow .social-hero-card .social-hero-art{display:block;position:absolute;z-index:1;inset:auto 0 28px auto;width:42%;height:calc(100% - 45px);pointer-events:none}
+ .theme-default .social-flow .social-hero-card .social-hero-art .social-world{display:block;position:absolute;inset:0;width:100%;height:100%;max-width:none;max-height:none;object-fit:contain;object-position:center;transform:none;filter:drop-shadow(0 5px 6px #315b7520)}
+ .theme-default .social-flow .social-hero-card .social-hero-art :is(.social-phone-fox,.social-phone-signal){display:none}
+ .theme-default .social-flow .social-hero-card .social-intro{position:relative;z-index:2;width:58%;max-width:58%}
+}
+@media(width < 381px){
+ .theme-default .social-flow .social-hero-card .social-hero-art{width:37%;right:0;bottom:38px;height:58%}
+ .theme-default .social-flow .social-hero-card .social-intro{width:64%;max-width:64%}
+}
+/* Align compact artwork with Home's mascot center, with optical size balance. */
+@media(381px <= width < 1025px){
+ .theme-default .plan-workspace .plans-mascot-hero .plan-hero-mascot,
+ .theme-default .social-flow .social-hero-card .social-hero-art{left:calc(100% - clamp(12px,4vw,24px) - clamp(100px,26vw,128px) / 2);right:auto;top:50%;bottom:auto;transform:translate(-50%,-50%);width:36%;height:78%}
+ .theme-default .social-flow .social-hero-card .social-hero-art{width:42%;height:calc(100% - 45px)}
+ .theme-default .plan-workspace .plans-mascot-hero .plan-hero-mascot img{object-position:center}
+}
+@media(540px <= width < 1025px){
+ .theme-default .plan-workspace .plans-mascot-hero .plan-hero-mascot,
+ .theme-default .social-flow .social-hero-card .social-hero-art{left:75%}
+}

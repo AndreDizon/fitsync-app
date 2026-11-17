@@ -213,3 +213,9 @@
   .progress-workspace .pr-hero>div.pr-hero-mascot{width:42%;height:48%;right:0;top:5%}
   .progress-workspace .pr-hero-mascot img{inset:auto -7% -6px;width:114%;height:100%;transform:translateY(-11px) scale(1.12)}
 }
+
+/* Match Plans folder tabs with compact, decorative section icons. */
+.pr-tabs-bar [role=tab]{display:flex;align-items:center;justify-content:center;gap:clamp(4px,.8vw,8px)}
+.pr-tabs-bar [role=tab]>svg{flex-shrink:0;width:17px;height:17px}
+@media(max-width:600px){.pr-tabs-bar [role=tab]>svg{width:14px;height:14px}}
+@media(max-width:380px){.pr-tabs-bar [role=tab]{gap:3px}.pr-tabs-bar [role=tab]>svg{width:12px;height:12px}}
