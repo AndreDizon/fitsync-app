@@ -73,7 +73,7 @@ async function seed() {
   }
   const manifest = await manifestResponse.clone().json()
   if (manifest.count !== 100 || !/^[a-f0-9]{20}$/.test(manifest.version) || !Array.isArray(manifest.resources)) throw new Error('Invalid offline catalog manifest.')
-  const allowed = url => typeof url === 'string' && (/^\/exercises\/[a-z0-9-]+\.(gif|webp)$/.test(url) || ['/offline/exercises.json', '/mascot/fox-logo.png'].includes(url))
+  const allowed = url => typeof url === 'string' && (/^\/exercises\/[a-z0-9-]+\.(gif|webp)$/.test(url) || ['/offline/exercises.json', '/mascot/fox-logo.png', '/mascot/optimized/fox-logo-192.webp'].includes(url))
   if (!manifest.resources.every(allowed)) throw new Error('Unexpected resource in offline catalog.')
   const cache = await caches.open(PREFIX + manifest.version)
   const meta = await caches.open(META)
@@ -123,7 +123,7 @@ self.addEventListener('fetch', event => {
     })())
     return
   }
-  const publicResource = url.pathname.startsWith('/exercises/') || url.pathname.startsWith('/offline/') || ['/mascot/fox-logo.png', '/mascot/fox-opening.jpg'].includes(url.pathname)
+  const publicResource = url.pathname.startsWith('/exercises/') || url.pathname.startsWith('/offline/') || ['/mascot/fox-logo.png', '/mascot/optimized/fox-logo-192.webp', '/mascot/fox-opening.jpg'].includes(url.pathname)
   if (publicResource) {
     event.respondWith((async () => {
       const cache = await currentCache()

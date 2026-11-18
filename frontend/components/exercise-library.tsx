@@ -65,7 +65,7 @@ export function ExerciseDetails({ exercise, onClose }: { exercise: Exercise; onC
         <ol id="exercise-guidance">{(expanded ? instructions : instructions.slice(0, 3)).map((text, index) => <li key={index}>{text}</li>)}</ol>
         {instructions.length > 3 && <button className="exercise-read-more" aria-expanded={expanded} aria-controls="exercise-guidance" onClick={() => setExpanded(!expanded)}>{expanded ? 'Read less' : 'Read more…'}</button>}
       </section>
-      <aside className="exercise-coach-tip"><div><img src="/mascot/fox-logo.png" alt="" width={32} height={32} /><h3>Your fox coach says</h3></div><p>{exercise.coachTip}</p></aside>
+      <aside className="exercise-coach-tip"><div><img src="/mascot/optimized/fox-logo-192.webp" alt="" width={32} height={32} /><h3>Your fox coach says</h3></div><p>{exercise.coachTip}</p></aside>
       <p className="exercise-source-credit">Guidance: FitSync. Demonstration media: <a href="https://github.com/JahelCuadrado/ExerciseGymGifsDB" target="_blank" rel="noreferrer">JahelCuadrado / ExerciseGymGifsDB</a>{exercise.source_media_url && <> · <a href={exercise.source_media_url} target="_blank" rel="noreferrer">Original demonstration</a></>}</p>
     </div>
   </dialog>

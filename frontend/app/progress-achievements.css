@@ -40,7 +40,6 @@
 .ach-export-emblem{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);pointer-events:none}
 @keyframes ach-claim-reveal{from{opacity:.5;transform:translateY(14px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
 @keyframes ach-badge-reveal{from{transform:translateY(8px) rotate(-7deg)}to{transform:translateY(0) rotate(0)}}
-@media(prefers-reduced-motion:no-preference){.ach-share[open]{animation:ach-claim-reveal .3s cubic-bezier(.16,1,.3,1) both}.ach-share[open] .ach-share-image{animation:ach-badge-reveal .4s cubic-bezier(.16,1,.3,1) both}}
 @media(hover:hover){.ach-grid article:has(.ach-claim:hover){transform:translateY(-2px);box-shadow:0 6px 12px #25282a10}.ach-claim:not(:disabled):active{transform:translateY(1px)}}
 @media(max-width:850px){.ach-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:600px){.ach-grid article{padding:17px 12px}.ach-grid h4{font-size:15px}.ach-badge{width:76px;height:85px}.ach-filters{flex-direction:row;flex-wrap:wrap;align-items:end}.ach-filters label{min-width:0;flex:1 1 140px}.ach-share{padding:18px}.ach-share-image{width:min(100%,280px)}}
@@ -184,3 +183,23 @@ dialog.ach-share{position:fixed;box-sizing:border-box;inset:0;margin:auto;width:
 .ach-share-error>button{min-height:44px;margin-top:12px;padding:10px 14px;border:1px solid #c6ad28;border-radius:9px;background:#ffe135;color:#292c28;font-size:12px;font-weight:700;cursor:pointer}
 @media(max-width:600px){dialog.ach-share{padding:18px}.ach-share h2{font-size:21px}.ach-share footer{flex-wrap:wrap}.ach-share footer button{flex:1 1 110px}}
 @media(max-height:600px){dialog.ach-share{max-height:calc(100dvh - 16px)}.ach-share-image{width:min(100%,220px)}}
+/* Reveal the finished share card from its loading reverse; no dialog entrance motion. */
+.ach-share[open]{animation:none}
+.ach-flip-scene{position:relative;perspective:1100px;width:min(100%,330px);aspect-ratio:4/5;margin:18px auto;isolation:isolate}
+.ach-flip-card{position:relative;width:100%;height:100%;transform-style:preserve-3d;transition:transform .78s cubic-bezier(.22,.68,.16,1)}
+.ach-flip-scene.is-ready .ach-flip-card{transform:rotateY(180deg)}
+.ach-flip-back,.ach-flip-front{position:absolute;inset:0;border-radius:12px;backface-visibility:hidden;-webkit-backface-visibility:hidden;overflow:hidden;background:#252c30;box-shadow:0 5px 14px #25282a20}
+.ach-flip-back{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:22px;padding:24px;color:#fff;text-align:center;border:1px solid #4d565c;background:repeating-linear-gradient(135deg,transparent 0 45px,#ffffff04 45px 46px),#252c30}
+.ach-flip-back>svg{color:#ffe135}.ach-card-brand{color:#ffe135;font-size:22px;font-weight:800}.ach-flip-back strong{font-size:14px}.ach-share .ach-flip-back p{font-size:12px;color:#dce3e8;margin-top:8px}.ach-card-back-caption{font-size:9px;letter-spacing:.1em;color:#ffbd83}
+.ach-flip-front{transform:rotateY(180deg)}
+.ach-share[open] .ach-flip-front .ach-share-image{width:100%;height:100%;margin:0;border-radius:12px;box-shadow:none;animation:none}
+.ach-emblem-shine{position:absolute;left:32.4074%;top:14.4444%;width:35.1852%;height:31.4815%;pointer-events:none}
+.ach-shine-band{animation:ach-emblem-sweep 1.05s .85s ease-in-out both}
+@keyframes ach-emblem-sweep{from{transform:translateY(0)}to{transform:translateY(225px)}}
+.ach-card-confetti{position:absolute;inset:-12px -10px;overflow:hidden;pointer-events:none;z-index:2}
+.ach-card-confetti i{position:absolute;top:8%;left:var(--piece-x);width:6px;height:10px;border-radius:1px;background:var(--piece-color);opacity:0;animation:ach-confetti-fall 1.65s calc(.8s + var(--piece-delay)) cubic-bezier(.16,.64,.38,1) both}
+.ach-card-confetti i:nth-child(3n){width:5px;height:5px;border-radius:50%}
+@keyframes ach-confetti-fall{0%{opacity:0;transform:translate(0,-15px) rotate(0)}12%{opacity:1}76%{opacity:.85}100%{opacity:0;transform:translate(var(--piece-drift),340px) rotate(var(--piece-turn))}}
+@media(max-width:600px){.ach-flip-scene{width:min(100%,280px)}}
+@media(max-height:600px){.ach-flip-scene{width:min(100%,220px)}}
+@media(prefers-reduced-motion:reduce){.ach-flip-card{transition:none}.ach-shine-band,.ach-card-confetti{display:none}.ach-flip-scene.is-ready .ach-flip-card{transform:none}.ach-flip-scene.is-ready .ach-flip-front{transform:none}.ach-flip-scene.is-ready .ach-flip-back{visibility:hidden}}

@@ -33,7 +33,7 @@ export function PlanPreparation({ profile }: { profile: OnboardingProfile }) {
     return () => window.clearInterval(timer)
   }, [router])
   return <main className="plan-preparation">
-    <div className="prep-brand"><img src="/mascot/fox-logo.png" alt="" width={36} height={36} /><Wordmark /></div>
+    <div className="prep-brand"><img src="/mascot/optimized/fox-logo-192.webp" alt="" width={36} height={36} /><Wordmark /></div>
     <section className="prep-content" aria-labelledby="prep-title">
       <div className="prep-mascot-stage" aria-hidden="true"><span className="prep-glow" /><span className="prep-orbit prep-workout"><Dumbbell size={25} /></span><span className="prep-orbit prep-food"><Utensils size={25} /></span><img src="/mascot/fox-greeting.png" width={1143} height={1358} alt="" /><span className="prep-fox-shadow" /></div>
       <p className="prep-eyebrow">EXERCISE + MEAL PLAN SETUP</p>

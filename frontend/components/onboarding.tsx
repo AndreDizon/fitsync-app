@@ -79,7 +79,7 @@ export function Onboarding({ name, profile }: { name: string; profile: Onboardin
   const CurrentIcon = current.icon
   const goalLabel = goalOptions.find(([key]) => key === draft.goal)?.[1] ?? 'Choose a goal'
   return <main className="onboarding-page">
-    <header className="onb-header"><Link href={profile ? '/' : '/onboarding'} className="onb-brand" aria-label="FitSync"><img src="/mascot/fox-logo.png" width={36} height={36} alt="" /><Wordmark /></Link><span>YOUR NEXT CHAPTER</span>{profile ? <Link href="/" className="onb-return" aria-disabled={pending} onClick={checkBeforeReturning}>Back to app</Link> : <form action={signOut}><button type="submit">Sign out</button></form>}</header>
+    <header className="onb-header"><Link href={profile ? '/' : '/onboarding'} className="onb-brand" aria-label="FitSync"><img src="/mascot/optimized/fox-logo-192.webp" width={36} height={36} alt="" /><Wordmark /></Link><span>YOUR NEXT CHAPTER</span>{profile ? <Link href="/" className="onb-return" aria-disabled={pending} onClick={checkBeforeReturning}>Back to app</Link> : <form action={signOut}><button type="submit">Sign out</button></form>}</header>
     <div className="onb-layout">
       <aside className="onb-story">
         <svg className="onb-story-lines" viewBox="0 0 400 700" fill="none" aria-hidden="true"><path d="M-80 65C310-40 420 130 185 275S-60 550 450 590M-80 90C310-15 440 150 205 295S-40 570 470 610M-80 115C310 10 460 170 225 315S-20 590 490 630" /></svg>

@@ -19,7 +19,7 @@ export const achievementMascots: Partial<Record<Category, readonly string[]>> = 
   journal: Array.from({ length: 6 }, (_, index) => '/mascot/achievements/optimized/journal-' + (index + 1) + '.webp'),
 }
 
-function frameShape(category: Category) {
+export function achievementFrameShape(category: Category) {
   if (category === 'consistency') return 'M70 7 123 25v48c0 31-23 49-53 66-30-17-53-35-53-66V25Z'
   if (category === 'training') return 'm70 7 55 31v62l-55 37-55-37V38Z'
   if (category === 'nutrition') return 'M70 9a59 59 0 1 1 0 118 59 59 0 1 1 0-118Z'
@@ -33,7 +33,7 @@ function frameShape(category: Category) {
 export function AchievementEmblem({ category, tier, earned = false, mascotSrc, eager = false }: { category: Category; tier: number; earned?: boolean; mascotSrc?: string; eager?: boolean }) {
   const uid = useId().replace(/:/g, '')
   const { ink, deep, light, Icon } = finishes[category]
-  const rank = Math.max(1, Math.min(6, tier)), shape = frameShape(category)
+  const rank = Math.max(1, Math.min(6, tier)), shape = achievementFrameShape(category)
   const source = mascotSrc || achievementMascots[category]?.[rank - 1]
   const root = useRef<SVGSVGElement>(null), [visible, setVisible] = useState(eager)
   useEffect(() => {

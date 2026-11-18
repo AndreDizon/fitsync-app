@@ -16,7 +16,7 @@ await writeFile('backend/data/exercises-estimates.json', JSON.stringify({ method
 const data = curated.map(item => ({ ...item, ...media[item.id], estimates: estimates[item.id], target_muscle: item.target, body_part: item.bodyPart, secondary_muscles: item.secondaryMuscles, instructions: item.specificInstructions }))
 if (data.length !== 100 || new Set(data.map(item => item.id)).size !== 100) throw new Error('Offline seed must contain 100 unique exercises')
 const payload = JSON.stringify({ data, source, estimateMethod })
-const resources = ['/offline/exercises.json', '/mascot/fox-logo.png', ...data.flatMap(item => [item.image_url, ...item.media_urls])]
+const resources = ['/offline/exercises.json', '/mascot/optimized/fox-logo-192.webp', ...data.flatMap(item => [item.image_url, ...item.media_urls])]
 const hash = createHash('sha256').update(payload)
 for (const file of ['shared/exercise-query.ts', 'frontend/public/exercise-library-sw.js', 'frontend/components/exercise-library.tsx', 'frontend/components/offline-library-status.tsx', 'frontend/app/exercise-library.css', 'frontend/app/layout.tsx']) hash.update(await readFile(file))
 let totalBytes = Buffer.byteLength(payload)

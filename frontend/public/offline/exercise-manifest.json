@@ -1,10 +1,10 @@
 {
-  "version": "62254298adf247c70d2c",
+  "version": "4d424c472b548eba3aa5",
   "count": 100,
-  "totalBytes": 33395023,
+  "totalBytes": 31511413,
   "resources": [
     "/offline/exercises.json",
-    "/mascot/fox-logo.png",
+    "/mascot/optimized/fox-logo-192.webp",
     "/exercises/barbell-bench-press.webp",
     "/exercises/barbell-bench-press.gif",
     "/exercises/barbell-incline-bench-press.webp",
