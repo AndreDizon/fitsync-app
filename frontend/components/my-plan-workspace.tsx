@@ -97,7 +97,9 @@ export function MyPlanWorkspace({ kind, focusWater = false, initialDate }: { kin
   const generation = useRef(0)
   const nutrition = kind === 'nutrition'
   latest.current = record
-  useEffect(() => {
+  // Read the small device snapshot before paint so navigation never flashes
+  // the empty loading layout while the saved week is already available.
+  useLayoutEffect(() => {
     let active = true
     const initialRest = (record: StoredWeek) => {
       for (let i = 0; i < 7; i++) if (profile && record.document.days[i].workout.source === 'Not planned') { record.document.days[i].workout.rest = !profile.days.some(name => name.slice(0,3).toLowerCase() === weekDays[i].slice(0,3).toLowerCase()); record.document.days[i].workout.source = 'Onboarding schedule' }

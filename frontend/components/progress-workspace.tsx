@@ -1,5 +1,6 @@
 'use client'
 import { heroImage } from '@/lib/hero-images'
+import { HeroImagePreloads } from '@/components/hero-asset-loading'
 import { ActionNotice } from './action-notice'
 import { SyncStatus } from './sync-status'
 import { ProgressPhotoTimeline } from './progress-photo-timeline'
@@ -81,13 +82,13 @@ export function ProgressWorkspace({ initialTab = 'analytics', userName = '' }: {
     return result.data
   }
   async function remove(entry:ProgressEntry){if(!owner||!window.confirm('Delete this progress entry'+(entry.kind==='photo'?' and its photo':'')+'?'))return;setBusy(true);setError('');const run=generation.current;try{const result=await progressRequest('?id='+entry.id+'&revision='+entry.revision,'DELETE');if(run!==generation.current)return;if(result.userId!==owner)throw new Error('Account changed. Reload this page.');setNotice(result.warning||'Progress entry deleted.');setVersion(n=>n+1)}catch(e){if(run===generation.current)setError((e as Error).message)}finally{if(run===generation.current)setBusy(false)}}
-  return <div className="page progress-workspace">
+  return <div className="page progress-workspace"><HeroImagePreloads page="progress" />
     <div className="pr-hero-frame">
     <header className="pr-hero">
       <img className="hero-card-art progress-card-art" {...heroImage('hero-progress-document')} alt="" aria-hidden="true" />
       <svg className="pr-hero-line-art" viewBox="0 0 360 240" preserveAspectRatio="none" fill="none" aria-hidden="true"><g stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M24 190H338M34 198V28" /><path d="M48 166c28-2 33-37 60-37s34 22 58 22 28-58 55-58 29 27 49 27 29-34 53-42" /><path d="M48 176c28-2 33-37 60-37s34 22 58 22 28-58 55-58 29 27 49 27 29-34 53-42" opacity=".45" /><circle cx="108" cy="129" r="5" /><circle cx="176" cy="151" r="5" /><circle cx="221" cy="93" r="5" /><circle cx="270" cy="120" r="5" /><circle cx="323" cy="78" r="5" /></g></svg>
       <HeroDetail variant="progress" /><div className="pr-hero-copy"><p className="pr-eyebrow">YOUR JOURNEY, IN YOUR NUMBERS</p><h1>Small steps.<br/><span className="plan-title-highlight">Visible progress.</span></h1><p>Your habits, measurements and personal milestones in one place.</p></div>
-      <div className="pr-hero-mascot"><img src="/mascot/fox-progress.png" alt="FitSync fox reviewing progress on a clipboard" width="768" height="768" /></div>
+      <div className="pr-hero-mascot"><img {...heroImage('fox-progress')} alt="FitSync fox reviewing progress on a clipboard" width="768" height="768" /></div>
       <aside className="pr-streak-card"><Flame size={29}/><strong>{appStreak ?? '—'}<small>{streakUnavailable?'streak unavailable':'day app streak'}</small></strong><p>Best recorded streak: {stats.best} days</p></aside>
     </header>
     {error&&<p className="pr-error" role="alert">{error}</p>}{notice&&<ActionNotice message={notice} onClose={()=>setNotice('')}/>}{snapshot?.offline&&<p className="pr-status">Saved snapshot; live sync is unavailable. Plan totals include available device edits. Journal writes and private photo access need a connection.</p>}{snapshot?.limited&&<p className="pr-status">Showing the latest 1,000 records per history type. Totals and projections cover this loaded history.</p>}{snapshot?.awardWarning&&<p className="pr-status">{snapshot.awardWarning}</p>}

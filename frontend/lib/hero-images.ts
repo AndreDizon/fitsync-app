@@ -1,3 +1,10 @@
+import { heroAssetVersions } from './hero-asset-versions'
+
+export function heroAssetUrl(file: string) {
+  const version = heroAssetVersions[file]
+  return (file === 'fox-progress.png' ? '/mascot/' : '/mascot/optimized/') + file + (version ? '?v=' + version : '')
+}
+
 /** Transparent hero artwork, with retina-sized desktop and smaller mobile sources. */
 const heroWidths = {
   'fox-greeting': 960,
@@ -12,11 +19,12 @@ const heroWidths = {
   'hero-progress-document': 768,
 } as const
 
-export function heroImage(name: keyof typeof heroWidths) {
-  const prefix = '/mascot/optimized/' + name
+export type HeroImageName = keyof typeof heroWidths | 'fox-progress'
+export function heroImage(name: HeroImageName) {
+  if (name === 'fox-progress') return { src: heroAssetUrl('fox-progress.png'), decoding: 'async' as const }
   return {
-    src: prefix + '-' + heroWidths[name] + '.webp',
-    srcSet: prefix + '-480.webp 480w, ' + prefix + '-' + heroWidths[name] + '.webp ' + heroWidths[name] + 'w',
+    src: heroAssetUrl(name + '-' + heroWidths[name] + '.webp'),
+    srcSet: heroAssetUrl(name + '-480.webp') + ' 480w, ' + heroAssetUrl(name + '-' + heroWidths[name] + '.webp') + ' ' + heroWidths[name] + 'w',
     sizes: '(max-width: 600px) 40vw, (max-width: 1100px) 36vw, 480px',
     decoding: 'async' as const,
   }

@@ -7,7 +7,9 @@ const nextConfig = {
   outputFileTracingRoot: workspaceRoot,
   turbopack: { root: workspaceRoot },
   async headers() {
-    return [{ source: '/exercise-library-sw.js', headers: [
+    return [{ source: '/mascot/:asset*', has: [{ type: 'query', key: 'v', value: '[a-f0-9]{12}' }], headers: [
+      { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+    ] }, { source: '/exercise-library-sw.js', headers: [
       { key: 'Cache-Control', value: 'no-cache, no-store, must-revalidate' },
       { key: 'Service-Worker-Allowed', value: '/' },
     ] }, { source: '/:path*', headers: [

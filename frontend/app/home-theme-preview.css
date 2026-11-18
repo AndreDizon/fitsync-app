@@ -96,16 +96,23 @@
 /* Neutral outer surround stays consistent while the inner canvas follows the theme. */
 .app-shell.theme-default[data-home-preview]{background:#eeede9}
 
-/* Dark folder stacks retain distinct inactive shades in Plans and Progress. */
-.app-shell[data-home-preview-dark='true'] :is(.plan-tabs,.pr-tabs-bar){--folder-inactive:#34383e;--folder-hover:#50545d}
-.app-shell[data-home-preview-dark='true'] :is(.plan-tabs button,.pr-tabs-bar [role=tab]):nth-child(2){--folder-inactive:#41444b}
-.app-shell[data-home-preview-dark='true'] :is(.plan-tabs button,.pr-tabs-bar [role=tab]):nth-child(3){--folder-inactive:#4b4c53}
-.app-shell[data-home-preview-dark='true'] .plan-workspace .plan-hero-frame>.plan-tabs button:not(.selected){background:var(--folder-inactive)!important;color:#e3e5e9!important}
-.app-shell[data-home-preview-dark='true'] .plan-tabs:has(button:first-child:not(.selected))::before{background:#34383e!important}
-.app-shell[data-home-preview-dark='true'] .progress-workspace .pr-tabs-bar [role=tab]:not([aria-selected=true]){background:transparent;color:#e3e5e9}
-.app-shell[data-home-preview-dark='true'] .progress-workspace .pr-tabs-bar [role=tab]:not([aria-selected=true])::after{background:var(--folder-inactive)}
+/* Folder stacks follow the selected page theme, with three layered shades. */
+.app-shell[data-home-preview]{--flap-first:#e8ecef;--flap-second:#dce2e6;--flap-third:#cfd7dd;--flap-ink:#344047}
+.app-shell[data-home-theme='midnight-orange']{--flap-first:#44322c;--flap-second:#553c30;--flap-third:#674834;--flap-ink:#fff3e8}
+.app-shell[data-home-theme='night-training']{--flap-first:#30363d;--flap-second:#3e4650;--flap-third:#4d5661;--flap-ink:#f5f7fa}
+.app-shell[data-home-theme='trackside']{--flap-first:#dce1e3;--flap-second:#cbd2d6;--flap-third:#b9c3c9}
+.app-shell[data-home-theme='open-sky']{--flap-first:#d6e7f6;--flap-second:#c2d8ed;--flap-third:#acc8e2}
+.app-shell[data-home-theme='sunrise']{--flap-first:#ffe1c8;--flap-second:#f5caaa;--flap-third:#edb78e}
+.app-shell[data-home-theme='recovery']{--flap-first:#dce8d9;--flap-second:#cadcc6;--flap-third:#b7cfb1}
+.app-shell[data-home-theme='pink-court']{--flap-first:#f6dce7;--flap-second:#edc6d8;--flap-third:#e1afc6}
+.app-shell[data-home-preview] :is(.plan-tabs>button,.pr-tabs-bar [role=tab]){--flap-shade:var(--flap-first)}
+.app-shell[data-home-preview] :is(.plan-tabs>button,.pr-tabs-bar [role=tab]):nth-child(2){--flap-shade:var(--flap-second)}
+.app-shell[data-home-preview] :is(.plan-tabs>button,.pr-tabs-bar [role=tab]):nth-child(3){--flap-shade:var(--flap-third)}
+.app-shell[data-home-preview] .plan-workspace .plan-hero-frame>.plan-tabs button:not(.selected){background:var(--flap-shade)!important;color:var(--flap-ink)!important}
+.app-shell[data-home-preview] .progress-workspace .pr-tabs-bar [role=tab]:not([aria-selected=true]){background:transparent;color:var(--flap-ink)}
+.app-shell[data-home-preview] .progress-workspace .pr-tabs-bar [role=tab]:not([aria-selected=true])::after{background:var(--flap-shade)}
 @media(hover:hover){
-.app-shell[data-home-preview-dark='true'] .plan-workspace .plan-hero-frame>.plan-tabs button:not(.selected):hover{background:var(--folder-hover)!important;color:#fff!important}
-.app-shell[data-home-preview-dark='true'] .progress-workspace .pr-tabs-bar [role=tab]:not([aria-selected=true]):hover::after{background:var(--folder-hover)}
-.app-shell[data-home-preview-dark='true'] .progress-workspace .pr-tabs-bar [role=tab]:not([aria-selected=true]):hover{color:#fff}
+.app-shell[data-home-preview] .plan-workspace .plan-hero-frame>.plan-tabs button:not(.selected):hover{background:color-mix(in srgb,var(--flap-shade) 85%,white)!important;color:var(--flap-ink)!important}
+.app-shell[data-home-preview] .progress-workspace .pr-tabs-bar [role=tab]:not([aria-selected=true]):hover::after{background:color-mix(in srgb,var(--flap-shade) 85%,white)}
+.app-shell[data-home-preview] .progress-workspace .pr-tabs-bar [role=tab]:not([aria-selected=true]):hover{color:var(--flap-ink)}
 }

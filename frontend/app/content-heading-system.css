@@ -38,7 +38,10 @@
 .app-shell .progress-workspace>:is(#pr-panel-analytics,#pr-panel-documentation,#pr-panel-achievements){padding-top:var(--content-start-gap)}
 .app-shell :is(.pa-toolbar,.pj-intro,.ach-intro){margin-top:0;padding-top:0;padding-inline:0}
 .app-shell :is(.exercise-library-heading,.food-library-heading)>div>:is(.eyebrow,.food-kicker){display:block!important}
-.app-shell .home-energy{padding-top:0!important;margin-top:0!important}
+.app-shell .home-energy{--home-body-inset:clamp(10px,1.5vw,22px);padding-inline:var(--home-body-inset);padding-top:0!important;margin-top:0!important}
+.app-shell .home-energy .hb-heading.sync-status-heading{margin-inline:calc(-1 * var(--home-body-inset))}
+.app-shell .home-energy .hb-heading.sync-status-heading>.sync-status-control{right:0}
+@media(max-width:600px){.app-shell .home-energy{--home-body-inset:4px}}
 .app-shell .home-energy>.hb-body-band:first-child{padding-top:var(--content-start-gap)!important}
 .app-shell .home-energy .hb-heading{margin:0 0 var(--content-heading-gap);padding:0;align-items:center;gap:24px}
 .app-shell .home-energy :is(.hb-heading,.hb-section-heading)>div>h2{font-size:var(--content-title-size)!important;font-weight:800!important;letter-spacing:-.045em!important;line-height:1.12!important;margin:8px 0 12px!important;font-stretch:normal;text-wrap:balance}
