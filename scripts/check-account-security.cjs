@@ -7,7 +7,7 @@ const { PGlite } = require('@electric-sql/pglite')
 
 function bundle(entry, overrides = {}) {
   const out = buildSync({ entryPoints: [path.resolve(entry)], bundle: true, platform: 'node', format: 'cjs', write: false, plugins: undefined,
-    external: ['server-only', 'next/headers', 'next/navigation', 'next/cache', '@supabase/supabase-js', '@supabase/ssr'],
+    external: ['server-only', 'next/server', 'next/headers', 'next/navigation', 'next/cache', '@supabase/supabase-js', '@supabase/ssr'],
   }).outputFiles[0].text
   const mod = { exports: {} }
   const localRequire = name => {
@@ -220,4 +220,29 @@ async function settingsRecoveryTests() {
   console.log('PASS signed-in recovery handles delivery failure, rate limits, network errors and account email without claiming delivery')
 }
 
-;(async () => { await policyTests(); await cookieTests(); await databaseTests(); await endpointTests(); await actionTests(); await settingsRecoveryTests() })().catch(error => { console.error(error); process.exitCode = 1 })
+async function handoffTests() {
+  const jar = new Map()
+  let user = { id: 'owner', email: 'member@example.com', email_confirmed_at: new Date().toISOString() }
+  const overrides = {
+    '@supabase/ssr': { createServerClient: () => ({ auth: { getUser: async () => ({ data: { user } }), getSession: async () => ({ data: { session: { access_token: 'recovery-session' } } }) } }) },
+    'next/headers': { cookies: async () => ({ getAll: () => [], get: key => jar.get(key), set: (key, value) => jar.set(key, { value }) }) },
+  }
+  const route = bundle('frontend/app/auth/confirmation-status/route.ts', overrides)
+  const recovery = bundle('frontend/lib/auth/recovery.ts', overrides)
+  const request = (body, origin = 'https://fitsync.test') => ({ headers: new Headers({ origin }), nextUrl: new URL('https://fitsync.test/auth/confirmation-status'), json: async () => body })
+  const status = async body => (await (await route.POST(request(body))).json()).confirmed
+  assert.equal(await status({ email: 'member@example.com' }), true)
+  assert.equal(await status({ kind: 'recovery', email: 'owner' }), false)
+  await recovery.grantRecovery('owner', 'recovery-session')
+  assert.equal(await status({ kind: 'recovery', email: 'owner' }), true)
+  assert.equal(await status({ kind: 'recovery', email: 'member@example.com' }), true)
+  assert.equal(await status({ kind: 'recovery', email: 'someone-else' }), false)
+  await recovery.grantRecovery('owner', 'different-session')
+  assert.equal(await status({ kind: 'recovery', email: 'owner' }), false)
+  assert.equal((await route.POST(request({}, 'https://attacker.test'))).status, 403)
+  user = null
+  assert.equal(await status({ email: 'member@example.com' }), false)
+  console.log('PASS tab handoff requires verified matching account and session-bound recovery grant; no credentials shared between tabs')
+}
+
+;(async () => { await policyTests(); await cookieTests(); await databaseTests(); await endpointTests(); await actionTests(); await settingsRecoveryTests(); await handoffTests() })().catch(error => { console.error(error); process.exitCode = 1 })

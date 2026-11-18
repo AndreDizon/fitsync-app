@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useActionState, useEffect, useRef, useState } from 'react'
 import { ArrowLeft, ArrowRight, Eye, EyeOff, LockKeyhole, ShieldCheck, Sparkle, Sparkles, Star, Plus, Mail, UserRound } from 'lucide-react'
 import { Wordmark } from '@/components/wordmark'
+import { useSignupConfirmation, useRecoveryHandoff } from '@/components/signup-confirmation'
 import { passwordLimits, type AuthField } from '@/lib/auth/validation'
 import { login, signup, forgotPassword, resetPassword, googleSignIn, completeAccount, signOut, type AuthState } from '@/app/auth/actions'
 
@@ -25,6 +26,8 @@ export function AuthScreen({ mode, configured, testerAvailable = false, notice, 
   const [email, setEmail] = useState('')
   const [name, setName] = useState(initialUsername)
   const [confirmation, setConfirmation] = useState('')
+  useSignupConfirmation(email, mode === 'signup' && !!state.message)
+  useRecoveryHandoff(email, mode === 'forgot' && !!state.message)
   const confirmationInput = useRef<HTMLInputElement>(null)
   const errorBox = useRef<HTMLParagraphElement>(null)
   useEffect(() => { if (state.error) errorBox.current?.focus() }, [state])

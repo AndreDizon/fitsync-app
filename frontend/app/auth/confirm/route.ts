@@ -15,7 +15,7 @@ export async function GET(request: NextRequest) {
         try { await grantRecovery(data.user.id, data.session.access_token) }
         catch { return NextResponse.redirect(new URL('/forgot-password?error=link', appOrigin())) }
       }
-      (await cookies()).delete(testerCookie); return NextResponse.redirect(new URL(type === 'recovery' ? '/reset-password' : '/', appOrigin())) }
+      (await cookies()).delete(testerCookie); return NextResponse.redirect(new URL(type === 'recovery' ? '/auth/recovered' : '/auth/confirmed', appOrigin())) }
   }
   return NextResponse.redirect(new URL('/login?error=link', appOrigin()))
 }

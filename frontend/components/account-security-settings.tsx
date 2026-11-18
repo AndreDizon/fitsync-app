@@ -11,6 +11,7 @@ import { clearOfflinePlaylists } from '@/lib/playlists'
 import { usePlanAccount } from '@/lib/playlist-account'
 import { pendingPlanEdits } from '@/lib/plan-signout'
 import { ActionNotice } from './action-notice'
+import { useRecoveryHandoff } from './signup-confirmation'
 import '@/app/account-security.css'
 
 async function clearPrivateCopies() {
@@ -23,12 +24,14 @@ export function AccountSecuritySettings() {
   const [operation, setOperation] = useState<'reset' | 'delete' | null>(null)
   const [message, setMessage] = useState(''), [error, setError] = useState(''), [busy, setBusy] = useState(false)
   const [destination, setDestination] = useState('')
+  const [awaitingRecovery, setAwaitingRecovery] = useState(false)
+  useRecoveryHandoff(owner || '', awaitingRecovery)
   async function recover() {
     setBusy(true); setError(''); setMessage('')
     try {
       const result = await requestAccountRecovery()
       if (result.error) setError(result.error)
-      else setMessage(result.message || 'Check your account email.')
+      else { setAwaitingRecovery(true); setMessage(result.message || 'Check your account email.') }
     } catch { setError('Could not request recovery. Please try again.') }
     finally { setBusy(false) }
   }
