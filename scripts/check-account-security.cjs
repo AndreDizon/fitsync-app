@@ -33,7 +33,18 @@ async function databaseTests() {
   const migration = fs.readFileSync('backend/migrations/20261118_account_security.sql', 'utf8')
   await db.exec(migration)
   await db.exec(migration) // Explicitly verify repeatability.
+  const setupMigration = fs.readFileSync('backend/migrations/20261119_account_setup_status.sql', 'utf8')
+  await db.exec(setupMigration)
+  await db.exec(setupMigration)
+  await db.exec('set role anon;')
+  await assert.rejects(db.query('select public.fitsync_has_password()'), /permission denied/)
+  await db.exec('reset role;')
   await db.exec(`select set_config('test.uid','${owner}',false);set role authenticated;`)
+  assert.equal((await db.query('select public.fitsync_has_password() as ready')).rows[0].ready, true)
+  await db.exec(`reset role;update auth.users set encrypted_password='' where id='${owner}';set role authenticated;`)
+  assert.equal((await db.query('select public.fitsync_has_password() as ready')).rows[0].ready, false)
+  await assert.rejects(db.query('select public.complete_fitsync_registration($1)', ['member.one']), /set a FitSync password/)
+  await db.exec(`reset role;update auth.users set encrypted_password='hash' where id='${owner}';set role authenticated;`)
   await assert.rejects(db.query('select public.reset_fitsync_data($1)', [other]), /permission denied/)
   await assert.rejects(db.query('select public.begin_fitsync_data_operation($1)', [other]), /permission denied/)
   await assert.rejects(db.query('select public.complete_fitsync_registration($1)', ['invalid name']), /Invalid username/)
@@ -91,18 +102,25 @@ async function policyTests() {
 }
 
 async function actionTests() {
-  let deliveriesFail = false, updates = 0
+  let deliveriesFail = false, updates = 0, hasPassword = true, registrationFails = false, registered = 0, updateError = null
   const jar = new Map()
   const user = { id: 'fixture-owner', email: 'member@example.com', email_confirmed_at: new Date().toISOString(), app_metadata: { provider: 'google', fitsync_credentials_ready: true }, user_metadata: { username: 'member.one' } }
   const client = { auth: {
     resetPasswordForEmail: async () => { if (deliveriesFail) throw new Error('provider failure'); return { error: null } },
     getUser: async () => ({ data: { user } }),
     getSession: async () => ({ data: { session: { access_token: 'fixture-token' } } }),
-    updateUser: async () => { updates++; return { error: null } },
+    updateUser: async () => { updates++; return { error: updateError } },
+    refreshSession: async () => ({ error: null }),
+    signOut: async () => ({ error: null }),
+  }, rpc: async fn => {
+    if (fn === 'consume_fitsync_recovery') return { data: true, error: null }
+    if (fn === 'fitsync_has_password') return { data: hasPassword, error: null }
+    if (fn === 'complete_fitsync_registration') { registered++; return { error: registrationFails ? {} : null } }
+    throw Error('Unexpected function ' + fn)
   } }
   const actions = bundle('frontend/app/auth/actions.ts', {
     '@supabase/ssr': { createServerClient: () => client },
-    'next/headers': { cookies: async () => ({ getAll: () => [], get: key => jar.get(key), set: (key, value) => jar.set(key, { value }) }) },
+    'next/headers': { cookies: async () => ({ getAll: () => [], get: key => jar.get(key), set: (key, value) => jar.set(key, { value }), delete: key => jar.delete(key) }) },
     'next/navigation': { redirect: value => { throw new Error('Unexpected redirect ' + value) } },
     'next/cache': { revalidatePath: () => {} },
   })
@@ -115,8 +133,32 @@ async function actionTests() {
   assert((await actions.resetPassword({}, password)).error.includes('expired'))
   assert((await actions.completeAccount({}, password)).error.includes('already complete'))
   assert.equal(updates, 0)
+  user.app_metadata.fitsync_credentials_ready = false
+  user.user_metadata.username = ''
+  const usernameOnly = form({ name: 'member.one' })
+  await assert.rejects(actions.completeAccount({}, usernameOnly), /Unexpected redirect \/$/)
+  assert.equal(updates, 0, 'A recovered password must not be set again')
+  assert.equal(registered, 1)
+  registrationFails = true
+  assert((await actions.completeAccount({}, usernameOnly)).error.includes('password is already set'))
+  assert.equal(updates, 0)
+  registrationFails = false; hasPassword = false
+  assert((await actions.completeAccount({}, usernameOnly)).fieldErrors.password)
+  assert.equal(updates, 0, 'First-time Google users must still set a valid password')
+  await assert.rejects(actions.completeAccount({}, password), /Unexpected redirect \/$/)
+  assert.equal(updates, 1)
+  const recovery = bundle('frontend/lib/auth/recovery.ts', { 'next/headers': { cookies: async () => ({ get: key => jar.get(key), set: (key, value) => jar.set(key, { value }) }) } })
+  await recovery.grantRecovery(user.id, 'fixture-token')
+  user.user_metadata.username = 'member.one'
+  updateError = { code: 'same_password' }
+  assert((await actions.resetPassword({}, password)).error.includes('different from your current password'))
+  assert.equal(registered, 3, 'Rejected password updates must not mark credentials ready')
+  updateError = null
+  await recovery.grantRecovery(user.id, 'fixture-token')
+  await assert.rejects(actions.resetPassword({}, password), /Unexpected redirect \/login\?password=updated/)
+  assert.equal(registered, 4, 'A successful reset completes existing username setup')
   assert((await actions.signup({}, form({ email: 'a@example.com', name: '<invalid>', password: 'a long fixture passphrase', confirmPassword: 'a long fixture passphrase' }))).fieldErrors.name)
-  console.log('PASS non-enumerating recovery responses, ordinary session cannot reset password, completed account cannot reuse registration action, signup validates server-side')
+  console.log('PASS generic recovery, reset authorization, username-only completion after recovery, new Google password required, setup retries preserve password, signup validation')
 }
 
 async function endpointTests() {

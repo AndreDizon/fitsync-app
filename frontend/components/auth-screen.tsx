@@ -17,13 +17,13 @@ const copy = {
   reset: { eyebrow: 'A FRESH START', title: 'New password.', subtitle: 'Choose a long, unique password for your account.', submit: 'Save password' },
 }
 
-export function AuthScreen({ mode, configured, testerAvailable = false, notice, verifiedEmail }: { mode: AuthMode; configured: boolean; testerAvailable?: boolean; notice?: string; verifiedEmail?: string }) {
+export function AuthScreen({ mode, configured, testerAvailable = false, notice, verifiedEmail, passwordRequired = true, initialUsername = '' }: { mode: AuthMode; configured: boolean; testerAvailable?: boolean; notice?: string; verifiedEmail?: string; passwordRequired?: boolean; initialUsername?: string }) {
   const [state, action, pending] = useActionState<AuthState, FormData>(actions[mode], {})
   const [googleState, googleAction, googlePending] = useActionState(googleSignIn, {})
   const [showPassword, setShowPassword] = useState(false)
   const [password, setPassword] = useState('')
   const [email, setEmail] = useState('')
-  const [name, setName] = useState('')
+  const [name, setName] = useState(initialUsername)
   const [confirmation, setConfirmation] = useState('')
   const confirmationInput = useRef<HTMLInputElement>(null)
   const errorBox = useRef<HTMLParagraphElement>(null)
@@ -32,9 +32,10 @@ export function AuthScreen({ mode, configured, testerAvailable = false, notice, 
   const fieldId = (field: AuthField) => 'auth-' + mode + '-' + field
   const errorId = (field: AuthField) => state.fieldErrors?.[field] ? fieldId(field) + '-error' : undefined
   const fieldError = (field: AuthField) => state.fieldErrors?.[field] ? <p className="auth-field-error" id={errorId(field)}>{state.fieldErrors[field]}</p> : null
-  const content = copy[mode]
+  const content = mode === 'complete' && !passwordRequired ? { ...copy.complete, subtitle: 'Your password is already set. Choose your username to finish your account.', submit: 'Save username and continue' } : mode === 'complete' ? { ...copy.complete, subtitle: 'Choose your username and a FitSync password. Your email is already verified.' } : copy[mode]
   const busy = pending || googlePending
-  const newPassword = mode === 'signup' || mode === 'reset' || mode === 'complete'
+  const newPassword = mode === 'signup' || mode === 'reset' || (mode === 'complete' && passwordRequired)
+  const showPasswordFields = mode !== 'forgot' && (mode !== 'complete' || passwordRequired)
   return <main className={`auth-page auth-mode-${mode}`}>
     <div className="auth-shell">
 
@@ -48,7 +49,7 @@ export function AuthScreen({ mode, configured, testerAvailable = false, notice, 
             <fieldset disabled={busy || !configured}>
               {(mode === 'signup' || mode === 'complete') && <div className="auth-field"><label htmlFor={fieldId('name')}>Username</label><span className="auth-input-wrap"><UserRound size={17} aria-hidden="true" /><input id={fieldId('name')} name="name" type="text" autoComplete="username" autoCapitalize="none" spellCheck={false} required minLength={3} maxLength={30} placeholder="Choose a username" value={name} onChange={event => setName(event.target.value)} aria-invalid={!!state.fieldErrors?.name} aria-describedby={errorId('name')} /></span>{fieldError('name')}</div>}
               {mode !== 'reset' && mode !== 'complete' && <div className="auth-field"><label htmlFor={fieldId('email')}>Email address</label><span className="auth-input-wrap"><Mail size={17} aria-hidden="true" /><input id={fieldId('email')} name="email" type="email" autoComplete={mode === 'login' ? 'username' : 'email'} inputMode="email" autoCapitalize="none" autoCorrect="off" spellCheck={false} required maxLength={254} placeholder="you@example.com" value={email} onChange={event => setEmail(event.target.value)} aria-invalid={!!state.fieldErrors?.email} aria-describedby={errorId('email')} /></span>{fieldError('email')}</div>}
-              {mode !== 'forgot' && <div className="auth-field"><div className="auth-label-row"><label htmlFor={fieldId('password')}>{newPassword ? 'Create password' : 'Password'}</label>{mode === 'login' && <Link href="/forgot-password">Forgot password?</Link>}</div><span className="auth-password-wrap auth-input-wrap"><LockKeyhole size={17} aria-hidden="true" /><input id={fieldId('password')} name="password" type={showPassword ? 'text' : 'password'} autoComplete={newPassword ? 'new-password' : 'current-password'} autoCapitalize="none" autoCorrect="off" spellCheck={false} minLength={newPassword ? passwordLimits.min : 1} maxLength={passwordLimits.max} required placeholder={newPassword ? 'At least ' + passwordLimits.min + ' characters' : 'Enter your password'} value={password} onChange={event => setPassword(event.target.value)} aria-invalid={!!state.fieldErrors?.password} aria-describedby={[newPassword ? 'password-help' : '', errorId('password')].filter(Boolean).join(' ') || undefined} /><button type="button" onClick={() => setShowPassword(!showPassword)} aria-label={showPassword ? 'Hide password' : 'Show password'} aria-pressed={showPassword} aria-controls={fieldId('password')}>{showPassword ? <EyeOff size={18} /> : <Eye size={18} />}</button></span>{fieldError('password')}</div>}
+              {showPasswordFields && <div className="auth-field"><div className="auth-label-row"><label htmlFor={fieldId('password')}>{newPassword ? 'Create password' : 'Password'}</label>{mode === 'login' && <Link href="/forgot-password">Forgot password?</Link>}</div><span className="auth-password-wrap auth-input-wrap"><LockKeyhole size={17} aria-hidden="true" /><input id={fieldId('password')} name="password" type={showPassword ? 'text' : 'password'} autoComplete={newPassword ? 'new-password' : 'current-password'} autoCapitalize="none" autoCorrect="off" spellCheck={false} minLength={newPassword ? passwordLimits.min : 1} maxLength={passwordLimits.max} required placeholder={newPassword ? 'At least ' + passwordLimits.min + ' characters' : 'Enter your password'} value={password} onChange={event => setPassword(event.target.value)} aria-invalid={!!state.fieldErrors?.password} aria-describedby={[newPassword ? 'password-help' : '', errorId('password')].filter(Boolean).join(' ') || undefined} /><button type="button" onClick={() => setShowPassword(!showPassword)} aria-label={showPassword ? 'Hide password' : 'Show password'} aria-pressed={showPassword} aria-controls={fieldId('password')}>{showPassword ? <EyeOff size={18} /> : <Eye size={18} />}</button></span>{fieldError('password')}</div>}
               {newPassword && <><p id="password-help" className="auth-password-help">Use 12–128 characters. A unique passphrase works well; spaces are welcome.</p><div className="auth-field"><label htmlFor={fieldId('confirmPassword')}>Confirm password</label><span className="auth-input-wrap"><LockKeyhole size={17} aria-hidden="true" /><input ref={confirmationInput} id={fieldId('confirmPassword')} name="confirmPassword" type={showPassword ? 'text' : 'password'} autoComplete="new-password" autoCapitalize="none" autoCorrect="off" spellCheck={false} placeholder="Re-enter your password" required minLength={passwordLimits.min} maxLength={passwordLimits.max} value={confirmation} onChange={event => setConfirmation(event.target.value)} aria-invalid={!!state.fieldErrors?.confirmPassword} aria-describedby={errorId('confirmPassword')} /></span>{fieldError('confirmPassword')}</div></>}
               <button className="auth-submit" type="submit">{pending ? 'Please wait…' : content.submit}<ArrowRight size={17} /></button>
             </fieldset>

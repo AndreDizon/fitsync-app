@@ -82,11 +82,15 @@ export async function resetPassword(_: AuthState, form: FormData): Promise<AuthS
     const { data: { user } } = await client.auth.getUser()
     const { data: { session } } = await client.auth.getSession()
     const grant = user && session ? await readRecovery(user.id, session.access_token) : null
-    if (!grant) return { error: 'This reset link has expired. Request a new one.' }
+    if (!user || !grant) return { error: 'This reset link has expired. Request a new one.' }
     const consumed = await client.rpc('consume_fitsync_recovery', { grant_id: grant.id, valid_until: new Date(grant.expires).toISOString() })
-    if (consumed.error || consumed.data !== true) return { error: 'This recovery link is no longer available. Request a new one.' }
+    if (consumed.error) return { error: 'Password recovery is temporarily unavailable. Your password has not changed. Please try again later.' }
+    if (consumed.data !== true) return { error: 'This recovery link has already been used. Request a new one.' }
     const { error } = await client.auth.updateUser({ password })
-    if (error) return { error: 'Unable to update your password. Try a different password or request a new link.' }
+    if (error) return { error: error.code === 'same_password' ? 'Choose a password different from your current password. Request a fresh reset link before trying again.' : error.code === 'weak_password' ? 'This password does not meet the account security requirements. Request a fresh reset link and choose a stronger password.' : 'Your password could not be updated. Request a fresh reset link before trying again.' }
+    // Legacy Google accounts with a username can finish their credential setup
+    // using the password just saved instead of prompting to create it twice.
+    if (validUsername(user.user_metadata.username)) await client.rpc('complete_fitsync_registration', { chosen_username: user.user_metadata.username })
     ;(await cookies()).delete(recoveryCookie)
     const signedOut = await client.auth.signOut({ scope: 'global' })
     if (signedOut.error) return { error: 'Your password changed, but other sessions could not be signed out. Sign in with your new password and use Sign out everywhere in Settings.' }
@@ -112,7 +116,7 @@ export async function signOut() {
 export async function completeAccount(_: AuthState, form: FormData): Promise<AuthState> {
   const username = formText(form, 'name').trim()
   const password = formText(form, 'password')
-  const fieldErrors = newPasswordErrors(password, formText(form, 'confirmPassword'))
+  const fieldErrors: FieldErrors = {}
   if (!validUsername(username)) fieldErrors.name = 'Use 3-30 letters, numbers, periods, underscores or hyphens. Start with a letter or number.'
   if (Object.keys(fieldErrors).length) return { error: 'Check the highlighted fields.', fieldErrors }
   const client = await authClient()
@@ -121,11 +125,18 @@ export async function completeAccount(_: AuthState, form: FormData): Promise<Aut
     const { data: { user } } = await client.auth.getUser()
     if (!user?.email_confirmed_at) return { error: 'Sign in with a verified email to complete your account.' }
     if (!needsAccountSetup(user)) return { error: 'Your account is already complete. Use password recovery in Settings to change your password.' }
-    const updated = await client.auth.updateUser({ password })
-    if (updated.error) return { error: 'Could not set your FitSync password. Choose a different password or request a recovery link.' }
+    const status = await client.rpc('fitsync_has_password')
+    if (status.error || typeof status.data !== 'boolean') return { error: 'Account setup is temporarily unavailable. Your password has not been changed. Please try again later.' }
+    if (!status.data) {
+      const passwordErrors = newPasswordErrors(password, formText(form, 'confirmPassword'))
+      if (Object.keys(passwordErrors).length) return { error: 'Check the highlighted fields.', fieldErrors: passwordErrors }
+      const updated = await client.auth.updateUser({ password })
+      if (updated.error) return { error: 'Could not set your FitSync password. Choose a different password or request a recovery link.' }
+    }
     const completed = await client.rpc('complete_fitsync_registration', { chosen_username: username })
-    if (completed.error) return { error: 'Account setup is temporarily unavailable. Please try again later.' }
-    await client.auth.refreshSession()
+    if (completed.error) return { error: 'Your password is already set, but your profile could not be saved. Try saving your account details again.' }
+    const refreshed = await client.auth.refreshSession()
+    if (refreshed.error) return { error: 'Your account details are saved. Sign in again to continue.' }
   } catch { return unavailable }
   revalidatePath('/', 'layout')
   redirect('/')

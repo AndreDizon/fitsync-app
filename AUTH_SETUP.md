@@ -123,6 +123,15 @@ access.
 
 ## Account setup, recovery and deletion (November 18 update)
 
+Recovery follow-up: apply `backend/migrations/20261119_account_setup_status.sql`
+after the November 18 account-security migration before deploying the updated
+account-completion form. It lets only the signed-in verified user read a boolean
+indicating whether a password exists. No hash is exposed. Recovered accounts keep
+the password they just set and supply only a missing username. New Google accounts
+without a password still create one. A retry after a profile-save failure must not
+try to overwrite the password again. Email clients may open recovery links in a
+new tab; the original tab is not remotely navigated or closed.
+
 Apply `backend/migrations/20261118_account_security.sql` **after** all previous
 migrations, including `20261118_notifications.sql`. It adds account-completion,
 one-use recovery tracking and server-only data-reset functions. The file can be
