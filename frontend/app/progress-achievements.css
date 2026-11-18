@@ -197,9 +197,15 @@ dialog.ach-share{position:fixed;box-sizing:border-box;inset:0;margin:auto;width:
 .ach-shine-band{animation:ach-emblem-sweep 1.05s .85s ease-in-out both}
 @keyframes ach-emblem-sweep{from{transform:translateY(0)}to{transform:translateY(225px)}}
 .ach-card-confetti{position:absolute;inset:-12px -10px;overflow:hidden;pointer-events:none;z-index:2}
-.ach-card-confetti i{position:absolute;top:8%;left:var(--piece-x);width:6px;height:10px;border-radius:1px;background:var(--piece-color);opacity:0;animation:ach-confetti-fall 1.65s calc(.8s + var(--piece-delay)) cubic-bezier(.16,.64,.38,1) both}
+.ach-card-confetti i{position:absolute;top:66%;left:var(--piece-x);width:6px;height:10px;border-radius:1px;background:var(--piece-color);opacity:0;animation:ach-confetti-burst 1.9s calc(.8s + var(--piece-delay)) linear both}
 .ach-card-confetti i:nth-child(3n){width:5px;height:5px;border-radius:50%}
-@keyframes ach-confetti-fall{0%{opacity:0;transform:translate(0,-15px) rotate(0)}12%{opacity:1}76%{opacity:.85}100%{opacity:0;transform:translate(var(--piece-drift),340px) rotate(var(--piece-turn))}}
+@keyframes ach-confetti-burst{
+ 0%{opacity:0;transform:translate(0,0) rotate(0);animation-timing-function:cubic-bezier(.15,.6,.3,1)}
+ 8%{opacity:1}
+ 38%{opacity:1;transform:translate(calc(var(--piece-drift) * .55),calc(var(--piece-rise) * -1)) rotate(calc(var(--piece-turn) * .4));animation-timing-function:cubic-bezier(.5,0,.8,.45)}
+ 72%{opacity:.9;transform:translate(var(--piece-drift),calc(var(--piece-rise) * -.25)) rotate(calc(var(--piece-turn) * .8));animation-timing-function:ease-in}
+ 100%{opacity:0;transform:translate(calc(var(--piece-drift) * 1.2),130px) rotate(var(--piece-turn))}
+}
 @media(max-width:600px){.ach-flip-scene{width:min(100%,280px)}}
 @media(max-height:600px){.ach-flip-scene{width:min(100%,220px)}}
 @media(prefers-reduced-motion:reduce){.ach-flip-card{transition:none}.ach-shine-band,.ach-card-confetti{display:none}.ach-flip-scene.is-ready .ach-flip-card{transform:none}.ach-flip-scene.is-ready .ach-flip-front{transform:none}.ach-flip-scene.is-ready .ach-flip-back{visibility:hidden}}
