@@ -145,7 +145,7 @@ export function Onboarding({ name, profile }: { name: string; profile: Onboardin
           </fieldset>
           {(errors.length > 0 || state.error) && <div className="onb-errors" role="alert" tabIndex={-1} ref={errorBox}>{errors.length ? <><strong>A few things to check</strong><ul>{errors.map(error => <li key={error}>{error}</li>)}</ul></> : state.error}</div>}
           <div className="onb-actions"><button type="button" className="onb-back" disabled={step === 0 || pending} onClick={() => move(step - 1)}><ArrowLeft size={17} />Back</button><button type="submit" className="onb-next" disabled={pending}>{pending ? 'Saving your preferences…' : step === 4 ? 'Save and continue' : 'Continue'}<ArrowRight size={18} /></button></div>
-          <p className="onb-private"><ShieldCheck size={14} />Preferences are saved to your signed-in account. You can edit them in Settings.</p>
+          <p className="onb-private"><ShieldCheck size={14} />You can edit these preferences in Settings.</p>
         </form>
       </section>
     </div>

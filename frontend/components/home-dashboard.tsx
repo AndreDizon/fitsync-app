@@ -1,4 +1,5 @@
 'use client'
+import { SyncStatus } from './sync-status'
 import { useEffect, useRef, useState } from 'react'
 import { ArrowLeft, ArrowRight, ArrowUpRight, Droplet, Flame, RefreshCw, Settings2 } from 'lucide-react'
 import { usePlanAccount } from '@/lib/playlist-account'
@@ -81,6 +82,7 @@ export function HomeDashboard({ onOpen }: { onOpen: (destination: HomeDestinatio
   const identity = usePlanAccount(), owner = identity || 'local-tester', profile = usePlanningProfile(), zone = profile?.timeZone || 'Asia/Manila'
   const [clock, setClock] = useState(() => new Date()), [record, setRecord] = useState<StoredWeek | null>(null), [progress, setProgress] = useState<ProgressSnapshot | null>(null)
   const [loading, setLoading] = useState(true), [notice, setNotice] = useState(''), [version, setVersion] = useState(0)
+  const refreshOwner=useRef(owner);refreshOwner.current=owner
   const week = currentWeek(clock, zone), day = currentDay(clock, zone)
   useEffect(() => { const timer = setInterval(() => setClock(new Date()), 60000); return () => clearInterval(timer) }, [])
   useEffect(() => {
@@ -107,9 +109,21 @@ export function HomeDashboard({ onOpen }: { onOpen: (destination: HomeDestinatio
   const next=all.filter(item=>!item.done).sort((a,b)=>a.time.localeCompare(b.time))[0]
   const nextName=next?('foodId' in next?foodCatalog.find(food=>food.id===next.foodId)?.name:workoutCatalog.find(exercise=>exercise.id===next.exerciseId)?.name):null
   const openPlan=(mode:'workout'|'nutrition',tab:'plan'|'playlist'|'library'='plan')=>onOpen({page:'plans',mode,tab})
+  async function refreshSummaries(){
+    if(!identity){setRecord(cachedWeek(owner,week));setNotice('');return 'Local plan summaries are refreshed.'}
+    const results=await Promise.allSettled([syncWeek(owner,week),loadProgress(identity)])
+    if(refreshOwner.current!==owner)throw new Error('Account changed. Reload before refreshing.')
+    if(results[0].status==='fulfilled')setRecord(results[0].value)
+    if(results[1].status==='fulfilled')setProgress(results[1].value)
+    const failed=results.find(result=>result.status==='rejected')
+    if(failed?.status==='rejected')throw new Error(failed.reason?.message||'Some summaries could not refresh. Saved data is kept.')
+    if(results[0].status==='fulfilled'&&results[0].value.error)throw new Error(results[0].value.error)
+    if(results[1].status==='fulfilled'&&results[1].value.offline)throw new Error('Live refresh is unavailable. Showing saved summaries.')
+    setNotice('');return 'Your latest summaries are refreshed.'
+  }
   return <div className="hb-root home-energy">
     <div className="hb-body-band hb-band-white">
-    <header className="hb-heading"><div><p className="hb-kicker">YOUR DAY, CONNECTED</p><h2>Your training.<br/><em>In focus.</em></h2></div><button className="hb-refresh" disabled={loading} onClick={()=>setVersion(v=>v+1)}><RefreshCw size={15}/>{loading?'Refreshing…':'Refresh summaries'}</button></header>
+    <header className="hb-heading sync-status-heading"><div><p className="hb-kicker">YOUR DAY, CONNECTED</p><h2>Your training. In focus.</h2><p className="hb-heading-description">Your plans, activity and everyday progress in one place.</p></div><SyncStatus key={owner} label="Dashboard information" infoOnly signedIn={!!identity} working={loading} problem={!!identity&&!!(notice||record?.error||progress?.offline)} message={identity?(notice||'These summaries use your saved plans and progress records. Refresh to check for newer changes.'):'These summaries use the plans saved in this browser. Refresh to reload your local totals.'} onRefresh={refreshSummaries}/></header>
     {notice&&<p className="hb-notice" role="status">{notice}</p>}
     <section className="hb-overview" aria-label="Today at a glance">
       <article className="hb-today"><div className="hb-card-top"><span className="hb-kicker">TODAY / YOUR MOMENTUM</span><Flame size={20}/></div><HomeCardArt subject="day"/><div className="hb-completion"><DailyTrack done={done} total={all.length}/><span>plan tasks completed</span></div><progress value={done} max={Math.max(1,all.length)} aria-label="Today's completed plan tasks"/><p>{nextName?<><b>Next in your schedule</b><br/>{next?.time} · {nextName}</>:all.length?'All planned tasks are done. Make room for recovery.':'Your day is a blank canvas. Start with a plan.'}</p><button onClick={()=>openPlan(next&&'foodId' in next?'nutrition':'workout')}>Open my day <ArrowUpRight size={18}/></button></article>

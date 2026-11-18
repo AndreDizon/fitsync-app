@@ -8,8 +8,8 @@
 .pa-toolbar p{color:var(--pa-muted);margin-top:8px}
 .pa-toolbar fieldset{border:0;padding:5px;display:flex;flex-shrink:0;gap:4px;background:#edeff0;border-radius:12px}
 .pa-toolbar legend,.pa-sr{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
-.plan-analytics .pa-toolbar button{border:0;padding:10px 15px;border-radius:9px;background:transparent;color:#41474b;font-weight:700;font-size:13px;min-height:44px}
-.plan-analytics .pa-toolbar button[aria-pressed=true]{background:var(--pa-yellow);color:#25282a;box-shadow:inset 0 1px 1px #fff9,0 2px 4px #0002}
+.plan-analytics .pa-toolbar>fieldset>button{border:0;padding:10px 15px;border-radius:9px;background:transparent;color:#41474b;font-weight:700;font-size:13px;min-height:44px}
+.plan-analytics .pa-toolbar>fieldset>button[aria-pressed=true]{background:var(--pa-yellow);color:#25282a;box-shadow:inset 0 1px 1px #fff9,0 2px 4px #0002}
 .plan-analytics :is(button,a,summary,select):focus-visible{outline:3px solid #d86a17;outline-offset:4px}
 .plan-analytics button:hover,.pa-jump a:hover{filter:brightness(.96)}
 .plan-analytics .pa-coverage{font-size:12px;color:var(--pa-muted);max-width:80ch}
@@ -150,13 +150,13 @@
 .pa-calendar details>summary{color:#fff0ae}
 /* Tactile controls match the softly raised My Plan actions. */
 .pa-toolbar fieldset{background:#f0f1f1;border:1px solid #e1e4e6;border-radius:15px;box-shadow:inset 0 2px 4px #25282a09,inset 0 -1px 1px #fff;padding:6px;gap:5px}
-.plan-analytics .pa-toolbar button{border:1px solid transparent;border-radius:11px;background:transparent;box-shadow:none;transition:transform .15s ease,box-shadow .15s ease,background-color .15s ease}
-.plan-analytics .pa-toolbar button[aria-pressed=true]{background:linear-gradient(180deg,#ffe958,#ffe135 65%,#f4d52b);border-color:#c8ac26;border-top-color:#f2dc69;box-shadow:inset 0 2px 3px #ffffffa6,inset 0 -2px 4px #94700e14,0 3px 5px #5749161a;color:#292c28}
+.plan-analytics .pa-toolbar>fieldset>button{border:1px solid transparent;border-radius:11px;background:transparent;box-shadow:none;transition:transform .15s ease,box-shadow .15s ease,background-color .15s ease}
+.plan-analytics .pa-toolbar>fieldset>button[aria-pressed=true]{background:linear-gradient(180deg,#ffe958,#ffe135 65%,#f4d52b);border-color:#c8ac26;border-top-color:#f2dc69;box-shadow:inset 0 2px 3px #ffffffa6,inset 0 -2px 4px #94700e14,0 3px 5px #5749161a;color:#292c28}
 .pa-jump{gap:10px}
 .pa-jump a{border-radius:14px;border-color:#ddd8c8;border-top-color:#eeeadf;background:linear-gradient(160deg,#fffefb,#fffdf6 65%,#f4f1e8);color:#292c28;box-shadow:inset 0 2px 3px #fff,inset 0 -3px 5px #796a3820,0 3px 5px #473f2512,0 6px 12px #473f2508;transition:transform .15s ease,box-shadow .15s ease}
-@media(hover:hover){.plan-analytics .pa-toolbar button:not([aria-pressed=true]):hover{background:#fffdf7;box-shadow:inset 0 1px 2px #fff,0 2px 4px #25282a0d}.pa-jump a:hover{filter:none;transform:translateY(-1px);box-shadow:inset 0 2px 3px #fff,inset 0 -3px 5px #796a3817,0 5px 9px #473f2517}}
-.plan-analytics .pa-toolbar button:active,.pa-jump a:active{transform:translateY(1px);filter:none;box-shadow:inset 0 2px 4px #5c502520,0 1px 2px #25282a0c}
-@media(prefers-reduced-motion:reduce){.plan-analytics .pa-toolbar button,.pa-jump a{transition:none}.pa-jump a:hover,.pa-jump a:active,.plan-analytics .pa-toolbar button:active{transform:none}}
+@media(hover:hover){.plan-analytics .pa-toolbar>fieldset>button:not([aria-pressed=true]):hover{background:#fffdf7;box-shadow:inset 0 1px 2px #fff,0 2px 4px #25282a0d}.pa-jump a:hover{filter:none;transform:translateY(-1px);box-shadow:inset 0 2px 3px #fff,inset 0 -3px 5px #796a3817,0 5px 9px #473f2517}}
+.plan-analytics .pa-toolbar>fieldset>button:active,.pa-jump a:active{transform:translateY(1px);filter:none;box-shadow:inset 0 2px 4px #5c502520,0 1px 2px #25282a0c}
+@media(prefers-reduced-motion:reduce){.plan-analytics .pa-toolbar>fieldset>button,.pa-jump a{transition:none}.pa-jump a:hover,.pa-jump a:active,.plan-analytics .pa-toolbar>fieldset>button:active{transform:none}}
 /* Page the calendar independently; analytics totals retain the full period. */
 .pa-calendar-pagination{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:14px;padding-top:12px;border-top:1px solid #ffffff30}
 .plan-analytics .pa-calendar-pagination p{font-size:12px;font-weight:650;color:#fff;line-height:1.5}
@@ -174,3 +174,9 @@
 .pa-energy-pagination nav{display:flex;gap:7px}
 .plan-analytics .pa-energy-pagination button{display:grid;place-items:center;width:44px;min-height:44px;border:1px solid #c6a62b;border-radius:9px;background:linear-gradient(#ffe96b,#ffe135);color:#292c28;box-shadow:inset 0 2px 2px #fff7}
 .plan-analytics .pa-energy-pagination button:disabled{opacity:.45;cursor:default;box-shadow:none}
+
+/* Page navigation consistently closes its card, after content and reading keys. */
+.pa-energy-pagination{margin:16px 0 0;padding-top:14px;border-top:1px solid #b8773933}
+.plan-analytics .pa-energy-pagination button{display:inline-flex;align-items:center;justify-content:center;width:auto;gap:5px;min-height:44px;padding:9px 11px;font-size:11px;font-weight:700}
+.pa-energy-pagination>nav{flex-wrap:wrap}
+@media(max-width:600px){.pa-calendar-pagination,.pa-energy-pagination{align-items:flex-start;flex-direction:column;gap:10px}.pa-calendar-pagination>nav,.pa-energy-pagination>nav{display:flex;width:100%;gap:8px}.pa-calendar-pagination>nav>button,.pa-energy-pagination>nav>button{flex:1}}

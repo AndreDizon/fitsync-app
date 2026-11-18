@@ -118,8 +118,7 @@ export function ExerciseLibrary() {
   const equipmentOptions = data?.facets.equipment ?? []
   const allGroupCount = Object.values(data?.facetCounts.group ?? {}).reduce((sum, number) => sum + number, 0)
   return <div className="page library-page exercise-library-page">
-    <header className="plan-tab-page-heading exercise-library-heading"><div><p className="eyebrow">YOUR LIBRARY</p><h2>Find your next move</h2><p>100 essentials. Find your focus, pick your equipment, and make your next move count.</p></div></header>
-    <OfflineLibraryStatus />
+    <header className="plan-tab-page-heading exercise-library-heading sync-status-heading"><div><p className="eyebrow">YOUR LIBRARY</p><h2>Find your next move</h2><p>100 essentials. Find your focus, pick your equipment, and make your next move count.</p></div><OfflineLibraryStatus compact /></header>
     <section className="exercise-filter-studio" aria-label="Find exercises">
       <div className="exercise-search-row">
         <div className="exercise-search-field"><Search size={20} aria-hidden="true" /><input value={query} onChange={event => setQuery(event.target.value)} placeholder="Try bench press, DB row, or abs…" aria-label="Search exercises" autoComplete="off" spellCheck={false} />{query && <button onClick={clearSearch} aria-label="Clear exercise search"><X size={17} /></button>}</div>

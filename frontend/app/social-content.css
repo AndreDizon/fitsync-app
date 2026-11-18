@@ -69,3 +69,14 @@
 .sc-feed-people .sc-badge{background:#f5e8f1;color:#754663;border:1px solid #e5cddd;font-size:11px}
 .sc-feed-people .sc-avatar{background:#f5e8f1;color:#82506e;border-color:#e6cbdc}
 @media(max-width:700px){.sc-designed .sc-tools>.sc-control.sc-date-control{grid-column:1/-1}.sc-designed .sc-tools>.sc-control.sc-date-control input{max-width:none;width:100%}}
+/* Feed refresh sits with the posting action; filters keep their full width. */
+.sc-designed>.sc-tools{grid-template-columns:repeat(4,minmax(0,1fr))}
+.sc-designed>.sc-tools>.sc-search{grid-column:1/-1}
+.sc-designed>.sc-tools>.sc-clear-date{grid-row:auto;grid-column:1/-1}
+@media(max-width:700px){.sc-designed>.sc-tools{grid-template-columns:repeat(2,minmax(0,1fr))}.sc-designed>.sc-tools>.sc-search{grid-column:1/-1}.sc-designed .sc-heading.sync-status-heading>.sc-primary{margin-right:0}}
+
+/* Opened community sections use in-flow actions, clear of the header artwork. */
+.sc-workspace>.sc-heading>.sc-heading-actions{display:flex;align-items:center;justify-content:flex-end;flex:0 1 auto;align-self:center;flex-wrap:wrap;gap:10px;min-width:0}
+.sc-heading-actions>button{white-space:nowrap}
+.sc-workspace .sc-heading-actions>.sc-feed-refresh{min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+@media(max-width:700px){.sc-workspace>.sc-heading>.sc-heading-actions{flex:1 1 100%;width:100%;justify-content:flex-start;align-self:stretch}.sc-heading-actions>button{min-height:44px}}

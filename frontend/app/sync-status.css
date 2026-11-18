@@ -1,0 +1,43 @@
+/* A shared status anchor aligned to every editable page's content heading. */
+.app-shell .sync-status-heading,.sync-status-heading{position:relative;overflow:visible}
+.sync-status-heading>.sync-status-control{position:absolute;right:0;top:0;z-index:25}
+.sync-status-heading>div:first-child{padding-right:52px}
+.sync-status-control{font:13px/1.6 'Archivo FitSync',Arial,sans-serif;color:#30383f}
+.app-shell .sync-status-control>.sync-status-trigger,.sync-status-control>.sync-status-trigger{display:grid;place-items:center;width:44px;min-width:44px;height:44px;min-height:44px;padding:0;border:1px solid #c6ad28;border-top-color:#edda72;border-radius:13px;background:linear-gradient(180deg,#ffe96b,#ffe135 70%,#f3d32c);color:#292c28;box-shadow:inset 0 2px 3px #ffffffa6,inset 0 -2px 3px #9b761814,0 2px 4px #57491618;cursor:pointer}
+.app-shell .sync-status-control.has-problem>.sync-status-trigger,.sync-status-control.has-problem>.sync-status-trigger{color:#b33832;background:#fff0ee;border-color:#e2a8a1}
+.app-shell .sync-status-control.is-pending>.sync-status-trigger,.sync-status-control.is-pending>.sync-status-trigger{color:#805a0d;background:linear-gradient(#fff098,#ffe135);border-color:#d1b338}
+.sync-status-bubble{position:absolute;top:54px;right:0;width:min(320px,calc(100vw - 48px));max-height:min(420px,70dvh);overflow:auto;padding:16px;background:#fff;color:#30383f;border:1px solid #d6dfe6;border-radius:13px;box-shadow:0 8px 24px #17263326;box-sizing:border-box;text-align:left}
+.sync-status-bubble header{display:flex;align-items:center;justify-content:space-between;gap:12px}.sync-status-bubble header strong{font-size:14px;line-height:1.4}
+.sync-status-control .sync-status-bubble header button{display:grid;place-items:center;min-width:40px;min-height:40px;padding:8px;border:0;border-radius:9px;background:#f1f4f6;color:#52616d;cursor:pointer}
+.sync-status-control .sync-status-bubble p{font-size:12px!important;line-height:1.7!important;color:#52616d!important;margin:10px 0 0!important;overflow-wrap:anywhere;white-space:normal}
+.sync-status-control.has-problem .sync-status-bubble p[role=status]{color:#9f342c!important}
+.sync-status-control .sync-status-action{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;min-height:44px;margin-top:14px;padding:10px;border:1px solid #c6ad28;border-radius:9px;background:linear-gradient(#ffe96b,#ffe135);color:#292c28;font-size:12px;font-weight:750;cursor:pointer;box-shadow:inset 0 2px 2px #fff8}
+.sync-status-control .sync-status-action:disabled{opacity:.6;cursor:wait}
+.sync-status-control button:focus-visible{outline:3px solid #a46016;outline-offset:3px}
+.sync-status-heading>.ach-total,.sync-status-heading>.pj-period{margin-right:56px}
+@media(max-width:900px){.sync-status-heading>.pj-period{margin-right:0}}
+@media(max-width:600px){.sync-status-heading>.ach-total{margin-right:0}.sync-status-heading>.sync-status-control{top:0}.sync-status-bubble{width:min(300px,calc(100vw - 48px))}}
+.sync-status-bubble[hidden]{display:none!important}
+.sync-status-bubble .exercise-offline-status{display:block!important;margin:12px 0 0!important;padding:12px 0!important;border:0!important;border-top:1px solid #dce2e7!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;color:#52616d}
+.sync-status-bubble .exercise-offline-status>svg{display:none}
+.sync-status-bubble .exercise-offline-status span{display:block;line-height:1.7;font-size:12px}
+.sync-status-bubble progress{display:block;width:100%;height:6px;margin-top:12px;accent-color:#ffe135}
+.sync-status-bubble .exercise-offline-status button{min-height:44px;margin-top:10px;padding:9px;border-radius:8px;background:#ffe135;color:#292c28}
+.sync-status-heading>.food-preview-badge{margin-right:56px}
+@media(max-width:600px){.sync-status-heading>.food-preview-badge{margin-right:0}}
+
+.sync-status-heading>.pa-toolbar{min-width:0}
+.sync-status-heading>fieldset{margin-right:56px}
+.app-shell .hb-heading.sync-status-heading{position:relative;overflow:visible;padding-right:0}
+.app-shell .hb-heading.sync-status-heading>.sync-status-control{position:absolute;right:0;top:0}
+.app-shell .hb-heading.sync-status-heading>div:not(.sync-status-control){padding-right:56px}
+.app-shell .sc-heading.sync-status-heading{overflow:visible}
+.sc-heading.sync-status-heading>.sc-primary{margin-right:56px}
+.sync-status-control .sync-status-refresh{background:linear-gradient(#fff,#f4f7fa);border-color:#d6dfe6;color:#354b5c}
+@media(max-width:900px){.sync-status-heading>fieldset{margin-right:0}}
+
+/* Reserve a separate slot for Analytics info, matching Documentation. */
+.app-shell .pa-toolbar.sync-status-heading{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px 24px;align-items:start}
+.app-shell .pa-toolbar.sync-status-heading>fieldset{margin:0 60px 0 0;max-width:100%;min-width:0}
+.app-shell .pa-toolbar.sync-status-heading>.sync-status-control{position:absolute;right:0;top:0}
+@media(max-width:900px){.app-shell .pa-toolbar.sync-status-heading{grid-template-columns:minmax(0,1fr)}.app-shell .pa-toolbar.sync-status-heading>fieldset{grid-row:2;margin:0;justify-self:start}}

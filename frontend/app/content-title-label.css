@@ -1,0 +1,5 @@
+/* Shared section identity, matching the My Plan and Playlist introductions. */
+.app-shell .content-title-label,.content-title-label{display:block;margin:0 0 12px;padding:0;color:#8a7042;font:800 11px/1.5 'Archivo FitSync',Arial,sans-serif;letter-spacing:.08em;text-transform:uppercase;overflow-wrap:anywhere}
+.app-shell[data-home-preview-dark='true'] :is(.pa-toolbar,.pj-intro,.ach-intro,.sc-overview-heading) .content-title-label{color:#fff}
+.sc-designed>.sc-heading .content-title-label{color:#ffe7ba}
+@media(max-width:600px){.app-shell .content-title-label,.content-title-label{font-size:10px;margin-bottom:10px;letter-spacing:.07em}.sc-designed>.sc-heading .content-title-label{color:#ffe7ba}}

@@ -175,3 +175,12 @@
  .ach-action-full{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
  .ach-action-compact{display:inline}
 }
+
+/* Share previews stay inside the visual viewport, including short landscape views. */
+dialog.ach-share{position:fixed;box-sizing:border-box;inset:0;margin:auto;width:min(540px,calc(100vw - 24px));max-width:calc(100vw - 24px);max-height:calc(100dvh - 24px);overflow-x:hidden;overflow-y:auto;scroll-padding:18px}
+.ach-share>header>div{min-width:0}.ach-share h2{overflow-wrap:anywhere}.ach-share header>button{flex-shrink:0}
+.ach-share-loading{min-height:180px;margin:18px 0;padding:24px 18px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:#f1f5fa;border-radius:12px;color:#31577b}
+.ach-share-loading strong{font-size:14px}.ach-share-loading p{font-size:12px;max-width:34ch;color:#52616f}
+.ach-share-error>button{min-height:44px;margin-top:12px;padding:10px 14px;border:1px solid #c6ad28;border-radius:9px;background:#ffe135;color:#292c28;font-size:12px;font-weight:700;cursor:pointer}
+@media(max-width:600px){dialog.ach-share{padding:18px}.ach-share h2{font-size:21px}.ach-share footer{flex-wrap:wrap}.ach-share footer button{flex:1 1 110px}}
+@media(max-height:600px){dialog.ach-share{max-height:calc(100dvh - 16px)}.ach-share-image{width:min(100%,220px)}}

@@ -1,5 +1,7 @@
 'use client'
 
+import '@/app/content-heading-system.css'
+
 import { useState, useRef, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 import { SocialWorkspace } from '@/components/social-workspace'
@@ -276,7 +278,7 @@ function SocialView({ initialSection }: { initialSection?: 'forum' | 'people' | 
 }
 
 
-function SettingsView({ userName, userEmail, initials, theme, setTheme }: { userName: string; userEmail: string; initials: string; theme: import('./home-theme-preview').HomeTheme; setTheme: (theme: import('./home-theme-preview').HomeTheme) => void }) { return <div className="page"><p className="eyebrow">ACCOUNT</p><h1>Settings</h1><p className="muted intro">Make <Wordmark /> work for you.</p><div className="settings-profile"><div className="avatar">{initials}</div><div><strong>{userName}</strong><span>{userEmail}</span></div><button>Edit</button></div><div className="settings-group"><p>Preferences</p><button onClick={() => window.location.assign('/onboarding')}><span><Flag size={17} />Goals &amp; planning preferences</span><small>Edit <ChevronRight size={16} /></small></button><button><span><Sparkles size={17} />Notifications</span><small>On <ChevronRight size={16} /></small></button><HomeThemeSettings theme={theme} onChange={setTheme} /><button><span><MapPin size={17} />Offline mode</span><small>Off <ChevronRight size={16} /></small></button></div><div className="settings-group"><p>Data & account</p><button><span><DownloadIcon />Export your data</span><ChevronRight size={16} /></button><button><span><UserRound size={17} />Contact the team</span><ChevronRight size={16} /></button></div><PlanSignout /></div> }
+function SettingsView({ userName, userEmail, initials, theme, setTheme }: { userName: string; userEmail: string; initials: string; theme: import('./home-theme-preview').HomeTheme; setTheme: (theme: import('./home-theme-preview').HomeTheme) => void }) { return <div className="page settings-page"><p className="eyebrow">ACCOUNT</p><h1>Settings</h1><p className="muted intro">Make <Wordmark /> work for you.</p><div className="settings-profile"><div className="avatar">{initials}</div><div><strong>{userName}</strong><span>{userEmail}</span></div><button>Edit</button></div><div className="settings-group"><p>Preferences</p><button onClick={() => window.location.assign('/onboarding')}><span><Flag size={17} />Goals &amp; planning preferences</span><small>Edit <ChevronRight size={16} /></small></button><button><span><Sparkles size={17} />Notifications</span><small>On <ChevronRight size={16} /></small></button><HomeThemeSettings theme={theme} onChange={setTheme} /><button><span><MapPin size={17} />Offline mode</span><small>Off <ChevronRight size={16} /></small></button></div><div className="settings-group"><p>Data & account</p><button><span><DownloadIcon />Export your data</span><ChevronRight size={16} /></button><button><span><UserRound size={17} />Contact the team</span><ChevronRight size={16} /></button></div><PlanSignout /></div> }
 function MoonIcon() { return <span className="tiny-icon">☾</span> } function DownloadIcon() { return <span className="tiny-icon">↓</span> }
 
 export default function Dashboard({ profile, accountId = null, ...props }: { userName: string; userEmail: string; accountId?: string | null; profile: OnboardingProfile }) {

@@ -150,7 +150,7 @@ export function HomeInsights({ week, progress, profile, today }: { week: PlanWee
       <article className="hi-panel hi-milestones">
         <div className="hi-card-filler" aria-hidden="true"><HomeCardArt subject="achievements"/></div>
         <header><div><span className="hi-eyebrow">Earned, not estimated</span><h3>Milestones in motion.</h3></div><Trophy size={22}/></header>
-        <div className="hi-award-count"><strong>{progress ? awards.size : '\u2014'}</strong><span>achievements unlocked<small>{progress?'From your saved account achievements':'Sign in and sync progress to see achievements'}</small></span></div>
+        <div className="hi-award-count"><strong>{progress ? awards.size : '\u2014'}</strong><span>achievements unlocked{progress&&<small>From your saved account achievements</small>}</span></div>
         <div className="hi-badges">{milestones.slice(0,8).map(m=><div key={m.code} className={awards.has(m.code)?'unlocked':'locked'} title={m.description}><Trophy size={18}/><span>{m.name}</span><small>{awards.has(m.code)?'Unlocked':'Locked'}</small></div>)}</div>
         {nextMilestone&&<p className="hi-next-milestone"><span>A milestone to work toward</span><strong>{nextMilestone.name}</strong><small>{nextMilestone.description}</small></p>}
       </article>

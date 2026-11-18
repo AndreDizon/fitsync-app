@@ -1,6 +1,8 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { ContentTitleLabel } from './content-title-label'
+
+import { useEffect, useRef, useState, type ReactNode } from 'react'
 import { AchievementEmblem } from './achievement-emblem'
 import { AchievementShare } from './achievement-share'
 import { Award, CalendarDays, Check, CheckCheck, Dumbbell, NotebookPen, Utensils, LockKeyhole, SlidersHorizontal, X } from 'lucide-react'
@@ -26,7 +28,7 @@ function CategoryHeaderArt({ category }: { category: string }) {
   </g></svg>
 }
 
-export function ProgressAchievements({ stats, awards, offline, signedIn, loading, userName, onClaim }: { stats: ReturnType<typeof achievementStats>; awards: EarnedAward[]; offline: boolean; signedIn: boolean; loading: boolean; userName: string; onClaim: (code: string) => Promise<EarnedAward> }) {
+export function ProgressAchievements({ statusControl, stats, awards, offline, signedIn, loading, userName, onClaim }: { statusControl?: ReactNode; stats: ReturnType<typeof achievementStats>; awards: EarnedAward[]; offline: boolean; signedIn: boolean; loading: boolean; userName: string; onClaim: (code: string) => Promise<EarnedAward> }) {
   const root = useRef<HTMLDivElement>(null)
   useEffect(()=>{
     const band=root.current?.querySelector<HTMLElement>('.ach-section-orange')
@@ -70,9 +72,9 @@ export function ProgressAchievements({ stats, awards, offline, signedIn, loading
   const statusNames:Record<string,string>={all:'All achievements',earned:'Unlocked',unclaimed:'Ready to claim',claimed:'Claimed',remaining:'Still to earn'}
   function resetFilters(){setCategory('all');setStatus('all');setSort('rank')}
   return <div ref={root} className="pa-achievements">
-    <header className="ach-intro"><div><h2>Make room for your wins.</h2><p>30 milestones. Five parts of your routine. Claim each win and make it yours.</p></div><div className="ach-total"><Award size={24}/><strong>{total}<small> / 30</small></strong><span>unlocked</span><progress value={total} max={30} aria-label={`${total} of 30 achievements unlocked`}/></div></header>
+    <header className="ach-intro sync-status-heading"><div><ContentTitleLabel>Your milestones · Earned by you</ContentTitleLabel><h2>Make room for your wins.</h2><p>30 milestones. Five parts of your routine. Claim each win and make it yours.</p></div><div className="ach-total"><Award size={24}/><strong>{total}<small> / 30</small></strong><span>unlocked</span><progress value={total} max={30} aria-label={`${total} of 30 achievements unlocked`}/></div>{statusControl}</header>
 
-    {(!signedIn || offline || loading) && <p className="ach-notice" role="status">{loading ? 'Loading your saved achievements…' : !signedIn ? 'Sign in to save achievements. Your collection unlocks from your saved records.' : 'Viewing saved achievements. Reconnect and refresh Progress to confirm new milestones.'}</p>}
+    {(offline || loading) && <p className="ach-notice" role="status">{loading ? 'Loading your saved achievements…' : 'Viewing saved achievements. Reconnect and refresh Progress to confirm new milestones.'}</p>}
     <section className="ach-filter-bar" aria-label="Filter achievements"><div className="ach-filter-heading"><h3><SlidersHorizontal size={17}/>Filter achievements</h3><span className="ach-ready-indicator" role="status" aria-live="polite">{readyCount} ready to claim</span></div>
       <div className="ach-filters">
         <label>Category<select aria-label="Achievement category" value={category} onChange={event => setCategory(event.target.value)}><option value="all">All categories</option>{categories.map(group => <option key={group.id} value={group.id}>{group.name}</option>)}</select></label>

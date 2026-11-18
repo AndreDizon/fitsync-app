@@ -1,15 +1,18 @@
 'use client'
+import { ActionNotice } from './action-notice'
+import { SyncStatus } from './sync-status'
 
 import { useEffect, useRef, useState } from 'react'
-import { ArrowDown, ArrowUp, ArrowLeft, Check, Copy, ListMusic, Save, Trash2 } from 'lucide-react'
+import { ArrowDown, ArrowUp, ArrowLeft, Check, Copy, Save, Trash2 } from 'lucide-react'
 import exercises from '../../backend/data/exercises.json'
 import { foods, foodById, formatNutrient, nutritionTotals } from '@/lib/nutrition'
+import { usePlanAccount } from '@/lib/playlist-account'
 import { usePlaylistNavigation } from '@/lib/playlist-navigation'
 import { FoodDetails } from './food-library'
 import { ExerciseDetails } from './exercise-library'
 import { seedExerciseById } from '@/lib/exercise-offline'
 import { OfflineLibraryStatus } from './offline-library-status'
-import { deletePlaylist, listPlaylists, savePlaylist, reloadAccountPlaylist } from '@/lib/playlists'
+import { deletePlaylist, syncPlaylists, listPlaylists, savePlaylist, reloadAccountPlaylist } from '@/lib/playlists'
 import { defaultMealTime, movePlaylistItem, newPlaylistItem, playlistDays, playlistMeals, type Playlist, type PlaylistInput, type PlaylistItem, type PlaylistKind } from '../../shared/playlists'
 import '@/app/playlists.css'
 import { PlaylistCollection } from './playlist-collection'
@@ -19,7 +22,8 @@ import '@/app/playlist-editor.css'
 const draftOf = (playlist: Playlist): PlaylistInput => ({ id: playlist.id, kind: playlist.kind, duration: playlist.duration, selectedDay: playlist.selectedDay, restDays: playlist.kind === 'nutrition' || playlist.duration === 'day' ? [] : playlist.restDays, name: playlist.name, description: playlist.description, items: playlist.items })
 const exerciseById = (id: string) => exercises.find(item => item.id === id)
 export function PlaylistManager({ kind }: { kind: PlaylistKind }) {
-  const navigation = usePlaylistNavigation()
+  const navigation = usePlaylistNavigation(), account = usePlanAccount()
+  const syncAccount = useRef(account); syncAccount.current = account
   const [collection, setCollection] = useState<Playlist[]>([])
   const [draft, setDraft] = useState<PlaylistInput | null>(null)
   const [base, setBase] = useState<Playlist | null>(null)
@@ -51,7 +55,7 @@ export function PlaylistManager({ kind }: { kind: PlaylistKind }) {
   }, [])
   useEffect(() => {
     let active = true; setLoading(true); setError('')
-    listPlaylists(kind).then(items => { if (active) { setCollection(items); const open = latest.current; const saved = items.find(item => item.id === open.draft?.id); if (!open.dirty && saved) { setBase(saved); setDraft(draftOf(saved)) } } }).catch(error => { if (active) setError(error.message) }).finally(() => { if (active) setLoading(false) })
+    listPlaylists(kind).then(items => { if (active) { setCollection(items); const open = latest.current; const saved = items.find(item => item.id === open.draft?.id); if (!open.dirty && saved) { setBase(saved); setDraft(draftOf(saved)) } } }).catch(error => { if (active) { if (error.status === 401 && error.message === 'Sign in to sync playlists.') { setCollection([]); setError('') } else setError(error.message) } }).finally(() => { if (active) setLoading(false) })
     return () => { active = false }
   }, [kind, attempt])
   useEffect(() => {
@@ -131,11 +135,10 @@ export function PlaylistManager({ kind }: { kind: PlaylistKind }) {
     }
   }
   return <section className={`playlist-workspace ${nutrition ? 'is-nutrition' : 'is-workout'}`} aria-label={`${nutrition ? 'Nutrition' : 'Workout'} playlists`}>
-    <header className="playlist-heading plan-tab-page-heading"><div className="playlist-heading-copy"><div><p className="playlist-eyebrow">MADE BY YOU · BUILT FOR YOUR DAY</p><h2>{nutrition ? 'Your food playlists.' : 'Your workout playlists.'}</h2><p>Pick your favorites. Arrange a day or a week. Make the plan yours.</p></div></div></header>
-    <details className="playlist-sync-details" open={draft ? undefined : true}><summary>{online ? 'Offline access & account sync' : 'You are offline - saved edits will sync when connected'}</summary><div className="playlist-status-row"><div className="playlist-account-note"><ListMusic size={19} /><span>{online ? 'Private account playlists with an offline device copy. Saved edits sync while connected.' : 'Offline mode. You can view and edit saved playlists; changes will sync after reconnecting.'} Sign out clears private device copies.</span><button disabled={busy || !online} onClick={() => setAttempt(value => value + 1)}>Sync now</button></div>
-    <OfflineLibraryStatus catalog={nutrition ? 'food' : 'exercise'} /></div></details>
+    <header className="playlist-heading plan-tab-page-heading sync-status-heading"><div className="playlist-heading-copy"><div><p className="playlist-eyebrow">MADE BY YOU · BUILT FOR YOUR DAY</p><h2>{nutrition ? 'Your food playlists.' : 'Your workout playlists.'}</h2><p>Pick your favorites. Arrange a day or a week. Make the plan yours.</p></div></div><SyncStatus key={account||'local'} label="Playlist sync status" details={<><p>Saved playlists have a device copy for offline access. Saved edits sync when connected. Signing out clears private device copies.</p><OfflineLibraryStatus catalog={nutrition?'food':'exercise'}/></>} signedIn={!!account} working={loading||busy} problem={!!account&&!!(error||collection.some(item=>item.syncStatus==='conflict'||item.syncError))} pending={!!account&&collection.some(item=>item.syncStatus==='pending')} message={!account?'You are viewing playlists on this device.':error||collection.find(item=>item.syncError)?.syncError||(dirty?'You have unsaved edits. Save your playlist first; Sync now only syncs saved changes.':collection.some(item=>item.syncStatus==='pending')?'Saved playlist changes are waiting to sync.':'Your saved playlists are up to date.')} onSync={async()=>{await syncPlaylists();const items=await listPlaylists(kind);if(syncAccount.current!==account)throw new Error('Account changed. Reload before syncing.');setCollection(items);const problem=items.find(item=>item.syncStatus==='conflict'||item.syncError);if(problem)throw new Error(problem.syncError||'A playlist has a sync conflict. Open it to resolve the conflict.');if(items.some(item=>item.syncStatus==='pending'))throw new Error('Some saved changes are still waiting to sync.');setError('');return dirty?'Saved playlists are synced. Your current draft still needs to be saved.':'Your saved playlists are synced.'}}/></header>
+
     {error && <div className="playlist-error" role="alert"><span>{error}</span><button onClick={() => setAttempt(value => value + 1)} disabled={loading || busy}>Retry loading collection</button>{base && <button disabled={busy} onClick={() => { if (canLeave()) { void reloadAccountPlaylist(base).then(() => { setDraft(null); setBase(null); setAttempt(value => value + 1) }).catch(error => setError(error.message)) } }}>Reload saved version</button>}</div>}
-    {notice && <p className="playlist-notice" role="status"><Check size={16} />{notice}</p>}
+    {notice && <ActionNotice message={notice} onClose={()=>setNotice('')}/>}
     {draft ? <div className="playlist-editor">
       <div className="playlist-editor-top"><button className="playlist-text-button" disabled={busy} onClick={() => { if (canLeave()) closeEditor() }}><ArrowLeft size={16} />Back to playlists</button><span className={dirty ? 'playlist-unsaved' : 'playlist-saved'}>{dirty ? 'Unsaved changes' : base?.syncStatus === 'pending' ? 'Saved on device - pending sync' : base?.syncStatus === 'conflict' ? 'Sync conflict' : 'Synced - available offline'}</span></div>
       {base?.syncError && <p className="playlist-error" role="status">Sync needs attention: {base.syncError}</p>}{base?.syncStatus === 'conflict' && <div className="playlist-error"><p>Your device edits are preserved. Make a copy to keep them as another playlist, or discard them and use the account version.</p><button disabled={busy || !online} onClick={useAccountVersion}>Use account version</button></div>}

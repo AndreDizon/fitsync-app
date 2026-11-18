@@ -10,3 +10,10 @@
 .sc-tools .sc-date-control input{box-sizing:border-box;min-height:44px;min-width:0;width:100%;max-width:180px;background:#fff;color:#30383d;border:1px solid #d5d9dd;border-radius:9px;padding:9px 10px;font:inherit}
 .sc-tools .sc-clear-date{align-self:end;min-height:44px;padding:10px 12px;font-size:12px}
 @media(max-width:767px){.sc-tools .sc-date-control{min-width:130px}.sc-tools .sc-date-control input{max-width:none}.sc-tools .sc-date-control input{font-size:16px}}
+/* The entire date control opens its native calendar, including text and padding. */
+.sc-tools .sc-date-control,.sc-tools .sc-date-control input{cursor:pointer}
+.sc-tools .sc-date-control:focus-within input{outline:3px solid #d87922;outline-offset:3px}
+.sc-workspace .sc-policy-details{display:block;border:1px solid #e9dfa9;border-radius:11px;background:#fff9dc;padding:0;margin:16px 0;color:#655321}
+.sc-workspace .sc-policy-copy{max-width:80ch;padding:0 16px 15px}
+.sc-policy-copy p{font-size:12px;line-height:1.75;margin:0 0 12px}.sc-policy-copy p:last-child{margin-bottom:0}
+.sc-policy-copy strong{font-weight:750}.sc-policy-copy .sc-reset-date{padding:10px 12px;border:1px solid #eadb9a;border-radius:8px;background:#fffdf2}

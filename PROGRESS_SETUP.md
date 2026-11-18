@@ -39,3 +39,17 @@ Journal/photo/target writes require a connection and keep the form open on failu
 Validation
 
 node scripts/validate-progress.mjs checks actual PostgreSQL migration/idempotency, owner isolation, revisions, validation, private storage policies, timezone/streak calculations, task totals and forecast edge cases. Browser tests in the ignored logs directory exercise actual Progress routes against local PostgreSQL, body/wellness create/edit/delete, private photo upload/delete, accessible dialogs and 320-1440px layouts. They create no live users or hosted records.
+
+
+Verify live photo saving
+
+1. Use the same Supabase project URL and public publishable key in frontend and backend. Configure frontend BACKEND_URL to reach your backend, as described in VERCEL_DEPLOYMENT.md. Restart local servers or redeploy after environment changes. Never put a service-role key in frontend variables.
+2. Apply missing SQL migrations in filename order: 20261107_plan_playlists.sql, 20261108_playlist_schedule.sql, 20261109_daily_plans.sql, 20261110_progress.sql, 20261111_social.sql, 20261117_progress_achievements.sql, and 20261118_achievement_claims.sql, from backend/migrations. Run each file's SQL contents in your project's SQL editor.
+3. Confirm the progress-photos Storage bucket is private. The Progress migration creates account-owner policies for both progress_entries and stored images.
+4. Sign out of Local tester access. Sign in using a normal Supabase email/password account or configured Google login, then complete onboarding. See AUTH_SETUP.md for account setup.
+5. In Progress > Documentation > Photo timeline, use Add photo, select a JPEG/PNG/WebP, choose a date inside the active period, and save. Reload the page and sign out/in; the photo should remain. Edit its caption, reload, then delete a test photo and confirm both its progress_entries row and storage object are removed.
+6. Sign in with a second regular account and confirm the first account's photos do not appear. Do not use a copied signed image URL as an isolation test: anyone possessing that temporary link may view it until expiry (10 minutes).
+
+The timeline displays six photos per page, newest first by default. Oldest first changes the chronological direction. The bottom Previous/Next controls navigate previews; changing the period or order resets the page. Compare two photos opens a separate comparison view using any photos in the selected period.
+
+Social cleanup is separate from private photos. For deployed Social post cleanup, configure backend-only CRON_SECRET and SUPABASE_SERVICE_ROLE_KEY, and deploy backend/vercel.json's daily /api/social/cleanup schedule. See SOCIAL_SETUP.md. Private progress photos remain until their owner deletes them; they are not part of Social's quarterly purge.

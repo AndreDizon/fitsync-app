@@ -1,0 +1,49 @@
+/* Main content introductions follow My Plan's type scale and spacing. */
+.app-shell{--content-title-size:clamp(26px,3vw,38px);--content-label-size:11px;--content-copy-size:14px;--content-heading-gap:28px}
+.app-shell :is(.plan-tab-page-heading,.pa-toolbar,.pj-intro,.ach-intro,.sc-overview-heading,.sc-heading)>div>h2,
+.app-shell .playlist-heading-copy>div>h2{
+ font-family:var(--app-font,'Archivo FitSync',Arial,sans-serif)!important;font-size:var(--content-title-size)!important;font-weight:800!important;letter-spacing:-.045em!important;line-height:1.12!important;margin:8px 0 12px!important;text-wrap:balance;
+}
+.app-shell :is(.plan-tab-page-heading,.pa-toolbar,.pj-intro,.ach-intro,.sc-overview-heading,.sc-heading) :is(.content-title-label,.eyebrow,.playlist-eyebrow,.food-kicker){font-size:var(--content-label-size)!important;font-weight:800!important;letter-spacing:.08em!important;line-height:1.5!important;margin:0!important;padding:0!important}
+.app-shell :is(.plan-tab-page-heading,.pa-toolbar,.pj-intro,.ach-intro,.sc-overview-heading,.sc-heading)>div>p:not(:is(.eyebrow,.playlist-eyebrow,.food-kicker)),
+.app-shell .playlist-heading-copy>div>p:not(.playlist-eyebrow),
+.app-shell .pj-intro>.pj-intro-support>p{
+ font-size:var(--content-copy-size)!important;line-height:1.65!important;font-weight:450!important;letter-spacing:-.01em!important;margin:0;max-width:68ch;
+}
+.app-shell :is(.pa-toolbar,.pj-intro,.ach-intro,.sc-overview-heading){margin:8px 0 var(--content-heading-gap);padding:8px 2px 0;align-items:start;text-align:left;min-width:0}
+.app-shell :is(.pa-toolbar,.pj-intro,.ach-intro,.sc-overview-heading)>div{min-width:0}
+.app-shell :is(.progress-records,.pa-achievements){padding-top:0}
+.app-shell .pj-intro{row-gap:16px}.app-shell .pa-toolbar{margin-bottom:16px}
+.app-shell .pa-coverage{font-size:14px;line-height:1.65;max-width:80ch}
+.app-shell .sc-designed>.sc-heading{align-items:flex-start}
+.app-shell .sc-designed>.sc-heading>div>p{max-width:65ch}
+.app-shell .sc-designed>.sc-heading>.sc-primary{align-self:center}
+@media(max-width:767px){
+ .app-shell{--content-heading-gap:22px}
+ .app-shell :is(.pa-toolbar,.pj-intro,.ach-intro,.sc-overview-heading){gap:14px}
+ .app-shell .pa-toolbar{margin-bottom:16px}
+ .app-shell .sc-designed>.sc-heading>.sc-primary{align-self:flex-start}
+}
+.app-shell .settings-page>h1{font-size:var(--content-title-size)!important;font-weight:800!important;line-height:1.12!important;letter-spacing:-.045em!important;margin:8px 0 12px!important}
+.app-shell .settings-page>p.intro{font-size:14px!important;line-height:1.65!important;font-weight:450!important;letter-spacing:-.01em!important}
+
+/* One introduction gap from the hero/folder edge, following Social's spacing. */
+.app-shell{--content-start-gap:46px}
+.app-shell .sc-workspace{padding-top:var(--content-start-gap)}
+.app-shell .sc-overview-heading{padding:0;margin-top:0;align-items:center}
+.app-shell .sc-overview-heading>div{text-align:left}
+.app-shell .plan-folder-content{padding-top:var(--content-start-gap)!important}
+.app-shell .plan-folder-content :is(.my-plan-workspace,.playlist-workspace,.food-library,.exercise-library){padding-top:0!important}
+.app-shell .plan-folder-content .plan-tab-page-heading{margin-top:0!important;padding-top:0!important;padding-inline:0!important}
+.app-shell .progress-workspace>:is(#pr-panel-analytics,#pr-panel-documentation,#pr-panel-achievements){padding-top:var(--content-start-gap)}
+.app-shell :is(.pa-toolbar,.pj-intro,.ach-intro){margin-top:0;padding-top:0;padding-inline:0}
+.app-shell :is(.exercise-library-heading,.food-library-heading)>div>:is(.eyebrow,.food-kicker){display:block!important}
+.app-shell .home-energy{padding-top:0!important;margin-top:0!important}
+.app-shell .home-energy>.hb-body-band:first-child{padding-top:var(--content-start-gap)!important}
+.app-shell .home-energy .hb-heading{margin:0 0 var(--content-heading-gap);padding:0;align-items:center;gap:24px}
+.app-shell .home-energy :is(.hb-heading,.hb-section-heading)>div>h2{font-size:var(--content-title-size)!important;font-weight:800!important;letter-spacing:-.045em!important;line-height:1.12!important;margin:8px 0 12px!important;font-stretch:normal;text-wrap:balance}
+.app-shell .home-energy :is(.hb-heading,.hb-section-heading) .hb-kicker{font-size:11px!important;font-weight:800!important;letter-spacing:.08em!important;line-height:1.5!important;margin:0!important;color:#8a7042;text-transform:uppercase}
+.app-shell .home-energy .hb-heading-description{font-size:14px!important;font-weight:450;line-height:1.65;letter-spacing:-.01em;color:#626a72;margin:0;max-width:68ch}
+.app-shell .home-energy .hb-heading>.hb-refresh{flex-shrink:0;align-self:center}
+.app-shell[data-home-preview-dark='true'] .home-energy .hb-heading :is(.hb-kicker,.hb-heading-description){color:#fff}
+@media(max-width:767px){.app-shell{--content-start-gap:36px}.app-shell .home-energy .hb-heading{align-items:flex-start;flex-wrap:wrap;gap:14px}.app-shell .home-energy .hb-heading>.hb-refresh{align-self:flex-start}}
