@@ -80,3 +80,16 @@
 .sc-heading-actions>button{white-space:nowrap}
 .sc-workspace .sc-heading-actions>.sc-feed-refresh{min-height:44px;display:inline-flex;align-items:center;justify-content:center;gap:8px}
 @media(max-width:700px){.sc-workspace>.sc-heading>.sc-heading-actions{flex:1 1 100%;width:100%;justify-content:flex-start;align-self:stretch}.sc-heading-actions>button{min-height:44px}}
+
+/* Match the standard compact actions used throughout FitSync. */
+.app-shell .sc-workspace button.sc-primary,.app-shell .sc-workspace .sc-designed-overview>header>button{min-height:44px;height:auto;padding:10px 14px;font-size:13px;font-weight:700;line-height:1.4;gap:8px;border-radius:11px}
+.app-shell .sc-workspace button.sc-primary>svg,.app-shell .sc-workspace .sc-designed-overview>header>button>svg{width:17px;height:17px;flex-shrink:0}
+.sc-workspace .sc-policy-details.sc-policy-footer{display:block;margin:22px 0 0;padding:0;border:0;border-radius:0;background:transparent;box-shadow:none;color:inherit}
+.sc-workspace .sc-policy-footer>summary{display:flex;justify-content:flex-start;align-items:center;gap:8px;width:fit-content;max-width:100%;min-height:44px;padding:8px 0;font-size:12px;font-weight:650;line-height:1.5;list-style:none;cursor:pointer}
+.sc-workspace .sc-policy-footer>summary::-webkit-details-marker{display:none}
+.sc-workspace .sc-policy-footer>summary>svg{width:15px;height:15px;flex-shrink:0;transition:transform .16s ease}
+.sc-workspace .sc-policy-footer[open]>summary>svg{transform:rotate(180deg)}
+.sc-workspace .sc-policy-footer .sc-policy-copy{padding:4px 0 0;max-width:80ch}
+.sc-workspace .sc-policy-footer .sc-reset-date{padding:0;border:0;border-radius:0;background:transparent}
+.sc-workspace .sc-policy-footer>summary:focus-visible{outline:3px solid #bd8b22;outline-offset:3px;border-radius:4px}
+@media(prefers-reduced-motion:reduce){.sc-workspace .sc-policy-footer>summary>svg{transition:none}}
