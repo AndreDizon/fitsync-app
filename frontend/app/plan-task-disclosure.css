@@ -84,3 +84,8 @@
  .app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-list .my-plan-task-thumbnail{width:32px;height:38px;flex-basis:32px}
  .app-shell[data-section='plans'] .my-plan-workspace .my-plan-task-list .my-plan-task-heading .my-plan-view-details{padding:6px 8px;font-size:10px}
 }
+
+/* Narrow individual desktop tickets without changing the timeline or section width. */
+@media(min-width:1100px){
+ .app-shell[data-section='plans'] .my-plan-workspace:is(.workout,.nutrition) .my-plan-task-list .my-plan-task-card{width:100%;max-width:900px;justify-self:start}
+}

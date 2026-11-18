@@ -1,5 +1,5 @@
 import { CalendarDays, CheckCheck, Dumbbell, NotebookPen, Utensils } from 'lucide-react'
-import { useId } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 
 const finishes = {
   consistency: { ink: '#28578a', deep: '#173b63', light: '#dcecff', Icon: CalendarDays },
@@ -12,11 +12,11 @@ type Category = keyof typeof finishes
 
 /** Add six transparent mascot paths here when a category's sheet is supplied. */
 export const achievementMascots: Partial<Record<Category, readonly string[]>> = {
-  consistency: Array.from({ length: 6 }, (_, index) => '/mascot/achievements/showing-up-' + (index + 1) + '.webp'),
-  tasks: Array.from({ length: 6 }, (_, index) => '/mascot/achievements/small-wins-' + (index + 1) + '.webp'),
-  training: Array.from({ length: 6 }, (_, index) => '/mascot/achievements/training-' + (index + 1) + '.webp'),
-  nutrition: Array.from({ length: 6 }, (_, index) => '/mascot/achievements/food-logging-' + (index + 1) + '.webp'),
-  journal: Array.from({ length: 6 }, (_, index) => '/mascot/achievements/journal-' + (index + 1) + '.webp'),
+  consistency: Array.from({ length: 6 }, (_, index) => '/mascot/achievements/optimized/showing-up-' + (index + 1) + '.webp'),
+  tasks: Array.from({ length: 6 }, (_, index) => '/mascot/achievements/optimized/small-wins-' + (index + 1) + '.webp'),
+  training: Array.from({ length: 6 }, (_, index) => '/mascot/achievements/optimized/training-' + (index + 1) + '.webp'),
+  nutrition: Array.from({ length: 6 }, (_, index) => '/mascot/achievements/optimized/food-logging-' + (index + 1) + '.webp'),
+  journal: Array.from({ length: 6 }, (_, index) => '/mascot/achievements/optimized/journal-' + (index + 1) + '.webp'),
 }
 
 function frameShape(category: Category) {
@@ -30,13 +30,21 @@ function frameShape(category: Category) {
   }).join(' ') + 'Z'
 }
 
-export function AchievementEmblem({ category, tier, earned = false, mascotSrc }: { category: Category; tier: number; earned?: boolean; mascotSrc?: string }) {
+export function AchievementEmblem({ category, tier, earned = false, mascotSrc, eager = false }: { category: Category; tier: number; earned?: boolean; mascotSrc?: string; eager?: boolean }) {
   const uid = useId().replace(/:/g, '')
   const { ink, deep, light, Icon } = finishes[category]
   const rank = Math.max(1, Math.min(6, tier)), shape = frameShape(category)
   const source = mascotSrc || achievementMascots[category]?.[rank - 1]
+  const root = useRef<SVGSVGElement>(null), [visible, setVisible] = useState(eager)
+  useEffect(() => {
+    if (eager || visible) return
+    if (!('IntersectionObserver' in window)) { setVisible(true); return }
+    const observer = new IntersectionObserver(entries => { if (entries.some(entry => entry.isIntersecting)) { setVisible(true); observer.disconnect() } }, { rootMargin: '200px' })
+    if (root.current) observer.observe(root.current)
+    return () => observer.disconnect()
+  }, [eager, visible])
   const face = rank >= 5 ? deep : light
-  return <svg className={'ach-emblem ach-rank-emblem' + (source ? ' ach-fox-emblem' : '')} viewBox="0 0 140 156" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  return <svg ref={root} className={'ach-emblem ach-rank-emblem' + (source ? ' ach-fox-emblem' : '')} viewBox="0 0 140 156" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
     <defs>
       <linearGradient id={uid + '-rim'} x1="20" y1="5" x2="110" y2="145" gradientUnits="userSpaceOnUse"><stop stopColor={light}/><stop offset=".22" stopColor={ink}/><stop offset=".5" stopColor={light}/><stop offset=".7" stopColor={ink}/><stop offset="1" stopColor={deep}/></linearGradient>
       <linearGradient id={uid + '-face'} x1="30" y1="14" x2="104" y2="132" gradientUnits="userSpaceOnUse"><stop stopColor={rank >= 5 ? ink : '#fff'}/><stop offset=".65" stopColor={face}/><stop offset="1" stopColor={rank >= 5 ? deep : light}/></linearGradient>
@@ -55,7 +63,7 @@ export function AchievementEmblem({ category, tier, earned = false, mascotSrc }:
       <path d="M4 103C40 75 91 124 139 88v65H4Z" fill={ink} opacity=".12"/>
       <ellipse cx="70" cy="83" rx="59" ry="56" fill={'url(#' + uid + '-warmth)'}/>
       <ellipse cx="70" cy="111" rx="48" ry="26" fill={'url(#' + uid + '-warmth)'}/>
-      {source ? <image href={source} x="23" y="23" width="94" height="99" preserveAspectRatio="xMidYMid meet"/> : <><circle cx="70" cy="66" r="30" fill={rank >= 5 ? '#ffffff0d' : '#ffffff80'} stroke={rank >= 5 ? light : ink} strokeWidth=".8" opacity=".8"/><Icon x="50" y="46" width="40" height="40" color={rank >= 5 ? light : ink} strokeWidth="1.6"/></>}
+      {source ? <image href={visible || eager ? source : undefined} x="23" y="23" width="94" height="99" preserveAspectRatio="xMidYMid meet"/> : <><circle cx="70" cy="66" r="30" fill={rank >= 5 ? '#ffffff0d' : '#ffffff80'} stroke={rank >= 5 ? light : ink} strokeWidth=".8" opacity=".8"/><Icon x="50" y="46" width="40" height="40" color={rank >= 5 ? light : ink} strokeWidth="1.6"/></>}
     </g>
     {rank >= 5 && <g stroke={ink} strokeWidth="2" strokeLinecap="round"><path d="m12 52-6-8m6 22-7-3m123-11 6-8m-6 22 7-3"/></g>}
     <rect x="52" y="125" width="36" height="19" rx="6" fill={deep}/>

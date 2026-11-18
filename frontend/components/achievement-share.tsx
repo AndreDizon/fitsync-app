@@ -28,23 +28,32 @@ export function AchievementShare({ badge, award, userName, total, onClose }: { b
         ctx.fillStyle = '#f0ede8'; ctx.font = '24px Arial'; ctx.fillText('A little stronger, together.', 76, 143)
         const svg = emblem.current?.querySelector('svg'); if (!svg) throw new Error('Badge artwork could not be loaded.')
         const exportSvg = svg.cloneNode(true) as SVGSVGElement
-        for (const embedded of exportSvg.querySelectorAll('image')) {
-          const source = embedded.getAttribute('href'); if (!source) continue
-          const response = await fetch(source, { signal: controller.signal }); if (!response.ok) throw new Error('Mascot artwork could not load. Try again.')
-          const data = await response.blob()
-          if (!data.type.startsWith('image/')) throw new Error('Mascot artwork is unavailable. Try again.')
-          const dataUrl = await new Promise<string>((resolve, reject) => { const reader = new FileReader(); reader.onload = () => resolve(String(reader.result)); reader.onerror = () => reject(new Error('Mascot artwork could not be prepared.')); reader.readAsDataURL(data) })
-          // Decode the raster independently before nesting it in the exported SVG.
-          const mascot = new Image(); mascot.src = dataUrl; await mascot.decode()
-          if (!active || controller.signal.aborted) return
-          const raster = document.createElement('canvas'); raster.width = mascot.naturalWidth; raster.height = mascot.naturalHeight
-          const rasterContext = raster.getContext('2d'); if (!rasterContext) throw new Error('Mascot artwork could not be prepared.')
-          rasterContext.drawImage(mascot, 0, 0)
-          embedded.setAttribute('href', raster.toDataURL('image/png'))
-        }
+        const source = exportSvg.querySelector('image')?.getAttribute('href')
+        if (!source) throw new Error('Mascot artwork could not be loaded. Try again.')
+        const response = await fetch(source, { signal: controller.signal })
+        if (!response.ok) throw new Error('Mascot artwork could not load. Try again.')
+        const data = await response.blob()
+        if (!data.type.startsWith('image/')) throw new Error('Mascot artwork is unavailable. Try again.')
+        const mascotUrl = URL.createObjectURL(data)
+        const mascot = new Image()
+        try { mascot.src = mascotUrl; await mascot.decode() } finally { URL.revokeObjectURL(mascotUrl) }
         if (!active || controller.signal.aborted) return
-        setStage('Preparing your share card…')
-        const image = new Image(); image.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(new XMLSerializer().serializeToString(exportSvg)); await image.decode(); ctx.drawImage(image, 350, 195, 380, 425)
+        setStage('Preparing your share card?')
+        // Raster images nested inside an SVG can disappear during mobile canvas export.
+        // Render the vector frame alone, then composite the decoded mascot directly.
+        exportSvg.querySelectorAll('image').forEach(image => image.remove())
+        const image = new Image()
+        image.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(new XMLSerializer().serializeToString(exportSvg))
+        await image.decode()
+        if (!active || controller.signal.aborted) return
+        ctx.drawImage(image, 350, 195, 380, 425)
+        ctx.save(); ctx.translate(350, 195); ctx.scale(380 / 140, 425 / 156)
+        const clip = exportSvg.querySelector('clipPath path')?.getAttribute('d')
+        if (clip) ctx.clip(new Path2D(clip))
+        const scale = Math.min(94 / mascot.naturalWidth, 99 / mascot.naturalHeight)
+        const width = mascot.naturalWidth * scale, height = mascot.naturalHeight * scale
+        ctx.drawImage(mascot, 23 + (94 - width) / 2, 23 + (99 - height) / 2, width, height)
+        ctx.restore()
         const fit = (text: string, size: number, y: number, color: string, weight = '700') => { ctx.fillStyle = color; do { ctx.font = weight + ' ' + size + 'px Arial'; size-- } while (ctx.measureText(text).width > 928 && size > 18); ctx.fillText(text, 76, y) }
         fit(firstName + ', this win is yours.', 42, 705, '#ffbd83')
         fit(badge.name, 68, 800, '#fff', '800')
@@ -69,5 +78,5 @@ export function AchievementShare({ badge, award, userName, total, onClose }: { b
     setBusy(true); setError('')
     try { await navigator.share({ files: [file], title: badge.name, text: 'A new FitSync milestone.' }) } catch (e) { if ((e as Error).name !== 'AbortError') setError('Sharing could not open. You can download the image instead.') } finally { setBusy(false) }
   }
-  return <dialog className="ach-share" ref={dialog} onCancel={onClose} aria-labelledby="ach-share-title"><header><div><h2 id="ach-share-title" tabIndex={-1}>Nice work, {firstName}!</h2><p>Your achievement is claimed.</p></div><button type="button" aria-label="Close share card" onClick={onClose}><X size={20}/></button></header><h3>Shareable summary card</h3><p className="ach-share-caption">1080 × 1350 PNG, ready for your feed. Only your first name and these milestone stats are included.</p><div ref={emblem} className="ach-export-emblem"><AchievementEmblem category={badge.category} tier={tier} earned/></div>{url ? <img className="ach-share-image" src={url} width={1080} height={1350} alt={firstName + ' unlocked ' + badge.name + '. ' + badge.description + '. ' + total + ' milestones unlocked.'}/> : !error && <div className="ach-share-loading" role="status" aria-live="polite"><strong>{stage}</strong><p>Your achievement is claimed. Keep this window open while the image loads.</p></div>}{error && <div className="ach-share-error"><p role="alert" className="ach-claim-error">{error}</p>{!url && <button type="button" onClick={() => setAttempt(value => value + 1)}>Try creating card again</button>}</div>}<footer><button type="button" disabled={!url || busy} onClick={download}><Download size={16}/>Download PNG</button><button type="button" disabled={!url || busy} onClick={share}><Share2 size={16}/>{busy ? 'Opening…' : 'Share card'}</button></footer><p className="ach-share-caption">Share opens your device’s share menu when supported. Otherwise, it downloads the image for you to share.</p></dialog>
+  return <dialog className="ach-share" ref={dialog} onCancel={onClose} aria-labelledby="ach-share-title"><header><div><h2 id="ach-share-title" tabIndex={-1}>Nice work, {firstName}!</h2><p>Your achievement is claimed.</p></div><button type="button" aria-label="Close share card" onClick={onClose}><X size={20}/></button></header><h3>Shareable summary card</h3><p className="ach-share-caption">1080 × 1350 PNG, ready for your feed. Only your first name and these milestone stats are included.</p><div ref={emblem} className="ach-export-emblem"><AchievementEmblem category={badge.category} tier={tier} earned eager/></div>{url ? <img className="ach-share-image" src={url} width={1080} height={1350} alt={firstName + ' unlocked ' + badge.name + '. ' + badge.description + '. ' + total + ' milestones unlocked.'}/> : !error && <div className="ach-share-loading" role="status" aria-live="polite"><strong>{stage}</strong><p>Your achievement is claimed. Keep this window open while the image loads.</p></div>}{error && <div className="ach-share-error"><p role="alert" className="ach-claim-error">{error}</p>{!url && <button type="button" onClick={() => setAttempt(value => value + 1)}>Try creating card again</button>}</div>}<footer><button type="button" disabled={!url || busy} onClick={download}><Download size={16}/>Download PNG</button><button type="button" disabled={!url || busy} onClick={share}><Share2 size={16}/>{busy ? 'Opening…' : 'Share card'}</button></footer><p className="ach-share-caption">Share opens your device’s share menu when supported. Otherwise, it downloads the image for you to share.</p></dialog>
 }

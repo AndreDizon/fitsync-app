@@ -26,3 +26,7 @@ User-supplied Wellness Journal Fox Achievement Stickers.png sliced directly with
 
 ## Your journal mascot sheet
 User-supplied Wellness Journal Fox Achievement Stickers.png sliced directly with artwork and transparency preserved; original unchanged. Assets journal-1.webp through journal-6.webp follow reading order for 1, 3, 7, 14, 30, and 60 journal days. Existing pink octagonal frames and orange glow remain.
+
+## Delivery optimization
+The original 480px WebP assets remain unchanged. Regenerate 320px transparent delivery variants in optimized/ with `node scripts/optimize-achievement-mascots.mjs` (Sharp, quality 78, alpha quality 85). The 30 variants total 646,328 bytes versus 1,769,156 bytes originally, about 63% smaller. They cover the largest share-card mascot placement (about 255px) and the smaller on-screen badge art.
+AchievementEmblem loads raster artwork within 200px of the viewport via IntersectionObserver. The hidden share-export emblem loads eagerly, independent of scrolling. Sharing fetches and decodes the raster, renders its vector frame separately, and draws the mascot directly on the canvas to avoid mobile nested-SVG raster loss. Final shared PNG dimensions remain 1080 by 1350.
