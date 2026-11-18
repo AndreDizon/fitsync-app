@@ -103,6 +103,7 @@ async function policyTests() {
 
 async function actionTests() {
   let deliveriesFail = false, updates = 0, hasPassword = true, registrationFails = false, registered = 0, updateError = null
+  const usedRecoveryGrants = new Set()
   const jar = new Map()
   const user = { id: 'fixture-owner', email: 'member@example.com', email_confirmed_at: new Date().toISOString(), app_metadata: { provider: 'google', fitsync_credentials_ready: true }, user_metadata: { username: 'member.one' } }
   const client = { auth: {
@@ -112,8 +113,12 @@ async function actionTests() {
     updateUser: async () => { updates++; return { error: updateError } },
     refreshSession: async () => ({ error: null }),
     signOut: async () => ({ error: null }),
-  }, rpc: async fn => {
-    if (fn === 'consume_fitsync_recovery') return { data: true, error: null }
+  }, rpc: async (fn, args) => {
+    if (fn === 'consume_fitsync_recovery') {
+      const unused = !usedRecoveryGrants.has(args.grant_id)
+      usedRecoveryGrants.add(args.grant_id)
+      return { data: unused, error: null }
+    }
     if (fn === 'fitsync_has_password') return { data: hasPassword, error: null }
     if (fn === 'complete_fitsync_registration') { registered++; return { error: registrationFails ? {} : null } }
     throw Error('Unexpected function ' + fn)
@@ -148,12 +153,25 @@ async function actionTests() {
   assert.equal(updates, 1)
   const recovery = bundle('frontend/lib/auth/recovery.ts', { 'next/headers': { cookies: async () => ({ get: key => jar.get(key), set: (key, value) => jar.set(key, { value }) }) } })
   await recovery.grantRecovery(user.id, 'fixture-token')
+  const originalGrant = await recovery.readRecovery(user.id, 'fixture-token')
+  const originalCookie = jar.get(recovery.recoveryCookie)
   user.user_metadata.username = 'member.one'
   updateError = { code: 'same_password' }
-  assert((await actions.resetPassword({}, password)).error.includes('different from your current password'))
+  const rejected = await actions.resetPassword({}, password)
+  assert(rejected.fieldErrors.password.includes('different from your current password'))
+  assert(!rejected.error.includes('new code'))
+  const retryGrant = await recovery.readRecovery(user.id, 'fixture-token')
+  const retryCookie = jar.get(recovery.recoveryCookie)
+  assert.notEqual(retryGrant.id, originalGrant.id, 'The consumed grant must stay consumed')
+  assert.equal(retryGrant.expires, originalGrant.expires, 'A rejected password must not extend verification')
+  jar.set(recovery.recoveryCookie, originalCookie)
+  const priorUpdates = updates
+  assert((await actions.resetPassword({}, password)).error.includes('already been used'))
+  assert.equal(updates, priorUpdates, 'A replayed grant cannot update the password')
+  // Restore the freshly issued retry cookie, without requesting another code.
+  jar.set(recovery.recoveryCookie, retryCookie)
   assert.equal(registered, 3, 'Rejected password updates must not mark credentials ready')
   updateError = null
-  await recovery.grantRecovery(user.id, 'fixture-token')
   await assert.rejects(actions.resetPassword({}, password), /Unexpected redirect \/login\?password=updated/)
   assert.equal(registered, 4, 'A successful reset completes existing username setup')
   assert((await actions.signup({}, form({ email: 'a@example.com', name: '<invalid>', password: 'a long fixture passphrase', confirmPassword: 'a long fixture passphrase' }))).fieldErrors.name)

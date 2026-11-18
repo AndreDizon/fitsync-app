@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useActionState, useEffect, useRef, useState } from 'react'
-import { ArrowLeft, ArrowRight, Eye, EyeOff, LockKeyhole, ShieldCheck, Sparkle, Sparkles, Star, Plus, Mail, UserRound } from 'lucide-react'
+import { ArrowLeft, ArrowRight, Eye, EyeOff, LockKeyhole, ShieldCheck, Mail, UserRound, Sparkle, Sparkles, Star, Plus } from 'lucide-react'
 import { Wordmark } from '@/components/wordmark'
 import { passwordLimits, type AuthField } from '@/lib/auth/validation'
 import { login, signup, forgotPassword, resetPassword, verifyEmailCode, resendEmailCode, googleSignIn, completeAccount, signOut, type AuthState } from '@/app/auth/actions'
@@ -10,12 +10,12 @@ import { login, signup, forgotPassword, resetPassword, verifyEmailCode, resendEm
 export type AuthMode = 'login' | 'signup' | 'forgot' | 'reset' | 'complete' | 'verify'
 const actions = { login, signup, forgot: forgotPassword, reset: resetPassword, complete: completeAccount, verify: verifyEmailCode }
 const copy = {
-  verify: { eyebrow: 'YOUR ACCOUNT SECURITY', title: 'Check your email.', subtitle: 'Copy the code from your latest FitSync email and enter it here. Stay in this tab to continue.', submit: 'Verify code' },
-  complete: { eyebrow: 'YOUR FITSYNC ACCOUNT', title: 'Complete your account.', subtitle: 'Choose your username and a FitSync password. Your Google email is already verified.', submit: 'Save account details' },
-  login: { eyebrow: 'YOUR NEXT CHAPTER', title: 'Welcome back.', subtitle: 'A little stronger starts with showing up.', submit: 'Sign in' },
-  signup: { eyebrow: 'ONE SMALL STEP', title: 'Find your rhythm.', subtitle: 'Create your account. Make room for a healthier you.', submit: 'Create account' },
-  forgot: { eyebrow: 'LET’S GET YOU BACK', title: 'Forgot your password?', subtitle: 'We’ll send a reset link to your email address.', submit: 'Send reset link' },
-  reset: { eyebrow: 'A FRESH START', title: 'New password.', subtitle: 'Choose a long, unique password for your account.', submit: 'Save password' },
+  verify: { title: 'Check your email.', subtitle: 'Copy the code from your latest FitSync email and enter it here. Stay in this tab to continue.', submit: 'Verify code' },
+  complete: { title: 'Complete your account.', subtitle: 'Choose your username and a FitSync password. Your Google email is already verified.', submit: 'Save account details' },
+  login: { title: 'Welcome back.', subtitle: 'A little stronger starts with showing up.', submit: 'Sign in' },
+  signup: { title: 'Create your account.', subtitle: 'Keep your workouts, meals and progress together in one place.', submit: 'Create account' },
+  forgot: { title: 'Reset your password.', subtitle: 'Enter your account email. We’ll send a code so you can choose a new password in this tab.', submit: 'Send recovery code' },
+  reset: { title: 'New password.', subtitle: 'Choose a long, unique password for your account.', submit: 'Save password' },
 }
 
 export function AuthScreen({ mode, configured, testerAvailable = false, notice, verifiedEmail, passwordRequired = true, initialUsername = '', verificationKind = 'signup' }: { mode: AuthMode; configured: boolean; testerAvailable?: boolean; notice?: string; verifiedEmail?: string; passwordRequired?: boolean; initialUsername?: string; verificationKind?: 'signup' | 'recovery' }) {
@@ -42,7 +42,7 @@ export function AuthScreen({ mode, configured, testerAvailable = false, notice, 
   const fieldId = (field: AuthField) => 'auth-' + mode + '-' + field
   const errorId = (field: AuthField) => state.fieldErrors?.[field] ? fieldId(field) + '-error' : undefined
   const fieldError = (field: AuthField) => state.fieldErrors?.[field] ? <p className="auth-field-error" id={errorId(field)}>{state.fieldErrors[field]}</p> : null
-  const content = mode === 'complete' && !passwordRequired ? { ...copy.complete, subtitle: 'Your password is already set. Choose your username to finish your account.', submit: 'Save username and continue' } : mode === 'complete' ? { ...copy.complete, subtitle: 'Choose your username and a FitSync password. Your email is already verified.' } : mode === 'forgot' ? { ...copy.forgot, subtitle: 'Get a verification code to choose a new password in this tab.', submit: 'Send recovery code' } : copy[mode]
+  const content = mode === 'complete' && !passwordRequired ? { ...copy.complete, subtitle: 'Your password is already set. Choose your username to finish your account.', submit: 'Save username and continue' } : mode === 'complete' ? { ...copy.complete, subtitle: 'Choose your username and a FitSync password. Your email is already verified.' } : copy[mode]
   const busy = pending || googlePending || resending
   const newPassword = mode === 'signup' || mode === 'reset' || (mode === 'complete' && passwordRequired)
   const showPasswordFields = mode !== 'verify' && mode !== 'forgot' && (mode !== 'complete' || passwordRequired)
@@ -50,8 +50,10 @@ export function AuthScreen({ mode, configured, testerAvailable = false, notice, 
     <div className="auth-shell">
 
       <section className="auth-form-panel" aria-labelledby="auth-title">
-        <div className="auth-phone-browser" role="note" aria-label={`Current page: ${mode === 'login' ? 'Sign in' : mode === 'signup' ? 'Sign up' : mode === 'forgot' ? 'Password recovery' : mode === 'verify' ? 'Email verification' : 'Reset password'}`}><span className="auth-window-dots" aria-hidden="true"><i /><i /><i /></span><span className="auth-browser-navigation">{mode !== 'login' ? <Link href={mode === 'reset' ? '/forgot-password' : '/login'} aria-label={mode === 'reset' ? 'Back to password recovery' : 'Back to sign in'}><ArrowLeft size={14} /></Link> : <span aria-hidden="true">‹</span>}<span aria-hidden="true">›</span></span><span className="auth-browser-address"><LockKeyhole size={10} aria-hidden="true" /><span>fitsync / {mode === 'signup' ? 'signup' : mode === 'login' ? 'login' : mode === 'forgot' ? 'recovery' : mode === 'verify' ? 'verify-email' : 'reset-password'}</span></span><span className="auth-browser-plus" aria-hidden="true">+</span></div>
-        <div className="auth-form-inner"><Link href="/login" className="auth-brand" aria-label="FitSync sign in"><img src="/mascot/optimized/fox-logo-192.webp" width="42" height="42" alt="" /><Wordmark /></Link>{mode !== 'login' && <Link className="auth-back" href={mode === 'reset' ? '/forgot-password' : '/login'}><ArrowLeft size={16} />{mode === 'reset' ? 'Back to password recovery' : 'Back to sign in'}</Link>}<div className="auth-phone-mascot"><span className="auth-phone-glow" /><Sparkles className="auth-phone-spark" aria-hidden="true" /><img src="/mascot/optimized/fox-auth-768.webp" srcSet="/mascot/optimized/fox-auth-320.webp 320w, /mascot/optimized/fox-auth-768.webp 768w" sizes="(max-width: 767px) 110px, 380px" decoding="async" width="1024" height="1536" alt="Cheerful FitSync fox holding an encouraging sign" /></div><span className="auth-form-eyebrow">{content.eyebrow}</span><h1 id="auth-title">{content.title}</h1><p className="auth-subtitle">{content.subtitle}</p>
+        <div className="auth-form-inner">
+          <div className="auth-form-top"><Link href="/login" className="auth-brand" aria-label="FitSync sign in"><img src="/mascot/optimized/fox-logo-192.webp" width="42" height="42" alt="" /><Wordmark /></Link>{mode !== 'login' && <Link className="auth-back" href={mode === 'reset' ? '/forgot-password' : '/login'}><ArrowLeft size={16} />{mode === 'reset' ? 'Recovery' : 'Sign in'}</Link>}</div>
+          <div className="auth-phone-mascot"><span className="auth-phone-glow" /><Sparkles className="auth-phone-spark" aria-hidden="true" /><img src="/mascot/optimized/fox-auth-768.webp" srcSet="/mascot/optimized/fox-auth-320.webp 320w, /mascot/optimized/fox-auth-768.webp 768w" sizes="(max-width: 767px) 110px, 380px" decoding="async" width="1024" height="1536" alt="Cheerful FitSync fox holding an encouraging sign" /></div>
+          <header className="auth-heading"><h1 id="auth-title">{content.title}</h1><p className="auth-subtitle">{content.subtitle}</p></header>
           {mode === 'complete' && <p className="auth-notice"><strong>Verified email</strong><br/>{verifiedEmail}</p>}
           {mode === 'verify' && <p className="auth-notice auth-code-recipient"><strong>{verificationKind === 'recovery' ? 'Password recovery' : 'Confirm your email'}</strong><br/>{verifiedEmail}<br/><span>If the email has not arrived, check Spam. Verification must finish within 15 minutes.</span></p>}
           {notice && <p className="auth-notice" role="status">{notice}</p>}
@@ -72,8 +74,8 @@ export function AuthScreen({ mode, configured, testerAvailable = false, notice, 
           {mode === 'complete' && <form action={signOut}><button className="auth-google" type="submit" disabled={busy}>Use a different account</button></form>}
           {(mode === 'login' || mode === 'signup') && <><div className="auth-divider"><span>or</span></div><form action={googleAction} className="auth-google-form" aria-label="Google sign in"><button type="submit" className="auth-google" disabled={busy || !configured}><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.6 12.2c0-.7-.1-1.4-.2-2.1H12v4h6a5.1 5.1 0 0 1-2.2 3.3V20h3.5c2.1-2 3.3-4.7 3.3-7.8Z"/><path fill="#34A853" d="M12 23c3 0 5.6-1 7.3-2.7l-3.5-2.9c-1 .6-2.2 1-3.8 1a6.5 6.5 0 0 1-6.1-4.5H2.3v2.8A11 11 0 0 0 12 23Z"/><path fill="#FBBC05" d="M5.9 13.9a6.7 6.7 0 0 1 0-3.8V7.3H2.3a11 11 0 0 0 0 9.4Z"/><path fill="#EA4335" d="M12 5.6c1.7 0 3.1.6 4.3 1.7l3.2-3.2A10.5 10.5 0 0 0 12 1a11 11 0 0 0-9.7 6.3l3.6 2.8A6.5 6.5 0 0 1 12 5.6Z"/></svg>{googlePending ? 'Connecting…' : 'Continue with Google'}</button></form>{googleState.error && <p className="auth-error auth-google-error" role="alert">{googleState.error}</p>}</>}
           {testerAvailable && mode === 'login' && <details className="auth-local-access"><summary>Local tester access</summary><form action={action} className="auth-fields auth-tester-fields" aria-label="Local tester sign in"><fieldset disabled={busy}><div className="auth-field"><label htmlFor="auth-tester-email">Tester username</label><input id="auth-tester-email" name="email" type="text" autoComplete="username" autoCapitalize="none" spellCheck={false} required placeholder="Tester username" maxLength={254} /></div><div className="auth-field"><label htmlFor="auth-tester-password">Tester password</label><input id="auth-tester-password" name="password" type="password" autoComplete="current-password" required placeholder="Tester password" maxLength={128} /></div><button className="auth-submit" type="submit">Open local preview</button></fieldset></form></details>}
-          <p className="auth-switch">{mode === 'login' ? <>New to FitSync? <Link href="/signup">Create an account</Link></> : mode === 'signup' ? <>Already have an account? <Link href="/login">Sign in</Link></> : <Link href="/login">Back to sign in</Link>}</p>
-          <div className="auth-security-note"><ShieldCheck size={16} /><span>Your progress starts with a private account.</span></div>
+          {(mode === 'login' || mode === 'signup' || mode === 'reset') && <p className="auth-switch">{mode === 'login' ? <>New to FitSync? <Link href="/signup">Create an account</Link></> : mode === 'signup' ? <>Already have an account? <Link href="/login">Sign in</Link></> : <Link href="/login">Back to sign in</Link>}</p>}
+          <div className="auth-security-note"><ShieldCheck size={16} aria-hidden="true" /><span>Your personal workout and nutrition account.</span></div>
           {(mode === 'login' || mode === 'signup') && <p className="auth-provider-note"><LockKeyhole size={12} />Google verifies your email. New members then choose a username and a separate FitSync password.</p>}
         </div>
       </section>

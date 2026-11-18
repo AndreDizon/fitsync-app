@@ -129,7 +129,14 @@ export async function resetPassword(_: AuthState, form: FormData): Promise<AuthS
     if (consumed.error) return { error: 'Password recovery is temporarily unavailable. Your password has not changed. Please try again later.' }
     if (consumed.data !== true) return { error: 'This recovery verification has already been used. Request a new code.' }
     const { error } = await client.auth.updateUser({ password })
-    if (error) return { error: error.code === 'same_password' ? 'Choose a password different from your current password. Request a new code before trying again.' : error.code === 'weak_password' ? 'This password does not meet the account security requirements. Request a new code and choose a stronger password.' : 'Your password could not be updated. Request a new code before trying again.' }
+    if (error?.code === 'same_password') {
+      // Supabase explicitly rejected the change. Allow another password attempt
+      // without reviving the consumed grant or extending the verified window.
+      await grantRecovery(user.id, session!.access_token, grant.expires)
+      const message = 'Choose a password different from your current password. You can try again here.'
+      return { error: message, fieldErrors: { password: message } }
+    }
+    if (error) return { error: error.code === 'weak_password' ? 'This password does not meet the account security requirements. Request a new code and choose a stronger password.' : 'Your password could not be updated. Request a new code before trying again.' }
     // Legacy Google accounts with a username can finish their credential setup
     // using the password just saved instead of prompting to create it twice.
     if (validUsername(user.user_metadata.username)) await client.rpc('complete_fitsync_registration', { chosen_username: user.user_metadata.username })

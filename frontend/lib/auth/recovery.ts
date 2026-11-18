@@ -12,10 +12,13 @@ function secret() {
 function sessionKey(token: string) {
   return createHash('sha256').update(token).digest('base64url')
 }
-export async function grantRecovery(userId: string, accessToken: string) {
-  const body = Buffer.from(JSON.stringify({ id: randomUUID(), userId, session: sessionKey(accessToken), expires: Date.now() + lifetime * 1000 })).toString('base64url')
+export async function grantRecovery(userId: string, accessToken: string, originalExpiry?: number) {
+  const now = Date.now()
+  const expires = Math.min(originalExpiry ?? now + lifetime * 1000, now + lifetime * 1000)
+  if (!Number.isFinite(expires) || expires <= now) throw new Error('Password recovery expired')
+  const body = Buffer.from(JSON.stringify({ id: randomUUID(), userId, session: sessionKey(accessToken), expires })).toString('base64url')
   const signature = createHmac('sha256', secret()).update(body).digest('base64url')
-  ;(await cookies()).set(recoveryCookie, body + '.' + signature, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'lax', path: '/', maxAge: lifetime })
+  ;(await cookies()).set(recoveryCookie, body + '.' + signature, { httpOnly: true, secure: process.env.NODE_ENV === 'production', sameSite: 'lax', path: '/', maxAge: Math.max(1, Math.floor((expires - now) / 1000)) })
 }
 export async function readRecovery(userId: string, accessToken: string): Promise<{ id: string; expires: number } | null> {
   try {
