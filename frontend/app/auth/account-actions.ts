@@ -13,8 +13,14 @@ export async function requestAccountRecovery(): Promise<AccountActionState> {
   if (!client) return { error: 'Account recovery is temporarily unavailable.' }
   const { data: { user } } = await client.auth.getUser()
   if (!user?.email_confirmed_at || !user.email) return { error: 'Sign in with a verified email to request recovery.' }
-  try { await client.auth.resetPasswordForEmail(user.email, { redirectTo: `${appOrigin()}/auth/callback?next=/reset-password` }) } catch { /* Same response regardless of delivery outcome. */ }
-  return { message: 'If email recovery is available for your account, a single-use link will arrive in your inbox. Check your spam folder too. Open it to choose a new FitSync password.' }
+  try {
+    const { error } = await client.auth.resetPasswordForEmail(user.email, { redirectTo: `${appOrigin()}/auth/callback?next=/reset-password` })
+    if (error) {
+      if (error.status === 429 || error.code === 'over_email_send_rate_limit') return { error: 'Too many recovery requests. Wait a few minutes before requesting another email. Check Spam for the latest link.' }
+      return { error: 'The email service could not send your recovery link. Please try again later. Your password has not changed.' }
+    }
+  } catch { return { error: 'Could not reach the email service. Check your connection and try again. Your password has not changed.' } }
+  return { message: `Recovery email requested for ${user.email}. Check your inbox and Spam folder. Delivery can take a few minutes. Open the latest link to choose a new FitSync password.` }
 }
 
 export async function eraseAccountData(_: AccountActionState, form: FormData): Promise<AccountActionState> {

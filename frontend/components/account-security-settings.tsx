@@ -24,7 +24,7 @@ export function AccountSecuritySettings() {
   const [message, setMessage] = useState(''), [error, setError] = useState(''), [busy, setBusy] = useState(false)
   const [destination, setDestination] = useState('')
   async function recover() {
-    setBusy(true); setError('')
+    setBusy(true); setError(''); setMessage('')
     try {
       const result = await requestAccountRecovery()
       if (result.error) setError(result.error)

@@ -193,4 +193,31 @@ async function endpointTests() {
   console.log('PASS unauthorized/incorrect confirmations/password rejected, no privileged calls before reauthentication, storage failure stops deletion, verified owner only, stale device blocked')
 }
 
-;(async () => { await policyTests(); await cookieTests(); await databaseTests(); await endpointTests(); await actionTests() })().catch(error => { console.error(error); process.exitCode = 1 })
+async function settingsRecoveryTests() {
+  let user = { email: 'member@example.com', email_confirmed_at: new Date().toISOString() }
+  let error = null, calls = 0, throws = false
+  const client = { auth: {
+    getUser: async () => ({ data: { user } }),
+    resetPasswordForEmail: async email => { calls++; assert.equal(email, 'member@example.com'); if (throws) throw new Error('network'); return { error } },
+  } }
+  const actions = bundle('frontend/app/auth/account-actions.ts', {
+    '@supabase/ssr': { createServerClient: () => client },
+    'next/headers': { cookies: async () => ({ getAll: () => [], set: () => {} }) },
+  })
+  assert.match((await actions.requestAccountRecovery()).message, /member@example.com/)
+  error = { status: 503, message: 'private provider detail' }
+  const failure = await actions.requestAccountRecovery()
+  assert(failure.error); assert.equal(failure.message, undefined)
+  assert(!failure.error.includes('private provider detail'))
+  error = { status: 429 }
+  assert.match((await actions.requestAccountRecovery()).error, /Too many/)
+  throws = true
+  assert.match((await actions.requestAccountRecovery()).error, /Could not reach/)
+  user = null
+  const before = calls
+  assert.match((await actions.requestAccountRecovery()).error, /Sign in/)
+  assert.equal(calls, before)
+  console.log('PASS signed-in recovery handles delivery failure, rate limits, network errors and account email without claiming delivery')
+}
+
+;(async () => { await policyTests(); await cookieTests(); await databaseTests(); await endpointTests(); await actionTests(); await settingsRecoveryTests() })().catch(error => { console.error(error); process.exitCode = 1 })
