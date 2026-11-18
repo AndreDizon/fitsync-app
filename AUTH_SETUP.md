@@ -5,6 +5,27 @@ use Supabase Auth.
 For the two Vercel projects and their environment variables, see
 [VERCEL_DEPLOYMENT.md](VERCEL_DEPLOYMENT.md).
 
+## Same-tab email codes
+
+Signup, Forgot password and Settings recovery now continue at `/verify-email` in
+the original tab. The Gmail hook sends a numeric code, with no confirmation/reset
+button. Google sign-in remains unchanged. Previously sent email links still work.
+
+The server stores a signed, HttpOnly pending-verification cookie for 15 minutes
+containing the email and purpose, never a password or code. Supabase validates the
+OTP, its purpose, expiry and single use. Recovery verification also creates the
+existing session-bound reset grant; signup verification cannot grant reset access.
+Settings recovery is bound to the signed-in account. Resend has a 60-second UI
+countdown and provider rate limits. Public responses do not reveal account existence.
+
+No migration or new secret is required: keep `AUTH_FLOW_SECRET` configured on the
+frontend, and deploy both the frontend and Gmail-hook backend. Request a **new**
+email after both deployments finish. Missing/expired requests must be started again.
+
+Checks: `node scripts/check-account-security.cjs`,
+`node scripts/check-email-code-sdk.cjs`, `node scripts/check-auth-email.cjs`.
+These checks use local fixtures and do not send email.
+
 ## Local UI tester
 
 Run `npm run seed:tester` to create/rotate a local tester password. The command

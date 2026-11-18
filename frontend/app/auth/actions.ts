@@ -6,7 +6,8 @@ import { authClient, appOrigin } from '@/lib/auth/server'
 import { testerLogin, testerCookie } from '@/lib/auth/tester'
 import { cookies } from 'next/headers'
 import { needsAccountSetup, validUsername } from '../../../shared/account-security'
-import { readRecovery, recoveryCookie } from '@/lib/auth/recovery'
+import { grantRecovery, readRecovery, recoveryCookie } from '@/lib/auth/recovery'
+import { beginEmailVerification, readEmailVerification, verificationCookie } from '@/lib/auth/email-verification'
 import { emailFrom, formText, validEmail, newPasswordErrors, type FieldErrors } from '@/lib/auth/validation'
 
 export type AuthState = { error?: string; message?: string; fieldErrors?: FieldErrors }
@@ -46,7 +47,8 @@ export async function signup(_: AuthState, form: FormData): Promise<AuthState> {
     session = !!data.session
   } catch { return unavailable }
   if (session) { (await cookies()).delete(testerCookie); revalidatePath('/', 'layout'); redirect('/') }
-  return { message: 'Check your inbox to confirm your email. If you already have an account, you can sign in or reset your password.' }
+  try { await beginEmailVerification(email, 'signup') } catch { return unavailable }
+  redirect('/verify-email')
 }
 
 export async function googleSignIn(_: AuthState): Promise<AuthState> {
@@ -69,7 +71,47 @@ export async function forgotPassword(_: AuthState, form: FormData): Promise<Auth
   if (!client) return unavailable
   try { await client.auth.resetPasswordForEmail(email, { redirectTo: `${appOrigin()}/auth/callback?next=/reset-password` }) }
   catch { /* Keep the response identical for registered and unregistered addresses. */ }
-  return { message: 'If an account matches that email, a password reset link will arrive shortly.' }
+  try { await beginEmailVerification(email, 'recovery') } catch { return unavailable }
+  redirect('/verify-email')
+}
+
+export async function verifyEmailCode(_: AuthState, form: FormData): Promise<AuthState> {
+  const pending = await readEmailVerification()
+  if (!pending) return { error: 'This verification request expired. Go back and request a new code.' }
+  const token = formText(form, 'code').trim()
+  if (!/^\d{6,10}$/.test(token)) return { error: 'Enter the complete numeric code from your email.', fieldErrors: { code: 'Use the 6-10 digit code shown in your email.' } }
+  const client = await authClient()
+  if (!client) return unavailable
+  try {
+    if (pending.owner) {
+      const current = (await client.auth.getUser()).data.user
+      if (current?.id !== pending.owner) return { error: 'Your signed-in account changed. Request recovery again from Settings.' }
+    }
+    const { data, error } = await client.auth.verifyOtp({ email: pending.email, token, type: pending.kind === 'recovery' ? 'recovery' : 'email' })
+    if (error || !data.session || !data.user?.email_confirmed_at || data.user.email?.toLowerCase() !== pending.email.toLowerCase() || (pending.owner && data.user.id !== pending.owner)) {
+      return { error: error?.status === 429 ? 'Too many attempts. Wait a few minutes before trying again.' : 'That code is invalid, expired or already used. Check the latest email or request a new code.' }
+    }
+    if (pending.kind === 'recovery') await grantRecovery(data.user.id, data.session.access_token)
+    ;(await cookies()).delete(verificationCookie)
+    ;(await cookies()).delete(testerCookie)
+  } catch { return { error: 'Could not verify your code. Please try again or request a new code.' } }
+  revalidatePath('/', 'layout')
+  redirect(pending.kind === 'recovery' ? '/reset-password' : '/')
+}
+
+export async function resendEmailCode(_: AuthState): Promise<AuthState> {
+  const pending = await readEmailVerification()
+  if (!pending) return { error: 'This verification request expired. Go back and request a new code.' }
+  const client = await authClient()
+  if (!client) return unavailable
+  // Anonymous resend responses stay identical for existing and unknown accounts.
+  try {
+    if (pending.owner && (await client.auth.getUser()).data.user?.id !== pending.owner) return { error: 'Your signed-in account changed. Request recovery again from Settings.' }
+    if (pending.kind === 'signup') await client.auth.resend({ type: 'signup', email: pending.email })
+    else await client.auth.resetPasswordForEmail(pending.email, { redirectTo: `${appOrigin()}/auth/callback?next=/reset-password` })
+    await beginEmailVerification(pending.email, pending.kind, pending.owner)
+  } catch { /* Keep account existence and delivery details private on public forms. */ }
+  return { message: 'If this email is eligible, a new code will arrive shortly. Check Spam and use the latest message. Allow a minute between requests.' }
 }
 
 export async function resetPassword(_: AuthState, form: FormData): Promise<AuthState> {
@@ -82,19 +124,19 @@ export async function resetPassword(_: AuthState, form: FormData): Promise<AuthS
     const { data: { user } } = await client.auth.getUser()
     const { data: { session } } = await client.auth.getSession()
     const grant = user && session ? await readRecovery(user.id, session.access_token) : null
-    if (!user || !grant) return { error: 'This reset link has expired. Request a new one.' }
+    if (!user || !grant) return { error: 'Your recovery verification has expired. Request a new code.' }
     const consumed = await client.rpc('consume_fitsync_recovery', { grant_id: grant.id, valid_until: new Date(grant.expires).toISOString() })
     if (consumed.error) return { error: 'Password recovery is temporarily unavailable. Your password has not changed. Please try again later.' }
-    if (consumed.data !== true) return { error: 'This recovery link has already been used. Request a new one.' }
+    if (consumed.data !== true) return { error: 'This recovery verification has already been used. Request a new code.' }
     const { error } = await client.auth.updateUser({ password })
-    if (error) return { error: error.code === 'same_password' ? 'Choose a password different from your current password. Request a fresh reset link before trying again.' : error.code === 'weak_password' ? 'This password does not meet the account security requirements. Request a fresh reset link and choose a stronger password.' : 'Your password could not be updated. Request a fresh reset link before trying again.' }
+    if (error) return { error: error.code === 'same_password' ? 'Choose a password different from your current password. Request a new code before trying again.' : error.code === 'weak_password' ? 'This password does not meet the account security requirements. Request a new code and choose a stronger password.' : 'Your password could not be updated. Request a new code before trying again.' }
     // Legacy Google accounts with a username can finish their credential setup
     // using the password just saved instead of prompting to create it twice.
     if (validUsername(user.user_metadata.username)) await client.rpc('complete_fitsync_registration', { chosen_username: user.user_metadata.username })
     ;(await cookies()).delete(recoveryCookie)
     const signedOut = await client.auth.signOut({ scope: 'global' })
     if (signedOut.error) return { error: 'Your password changed, but other sessions could not be signed out. Sign in with your new password and use Sign out everywhere in Settings.' }
-  } catch { return { error: 'Unable to update your password right now. Request a new link and try again.' } }
+  } catch { return { error: 'Unable to update your password right now. Request a new code and try again.' } }
   ;(await cookies()).delete(testerCookie)
   revalidatePath('/', 'layout')
   redirect('/login?password=updated')
@@ -104,6 +146,7 @@ export async function signOut() {
   ;(await cookies()).delete(testerCookie)
   const client = await authClient()
   ;(await cookies()).delete(recoveryCookie)
+  ;(await cookies()).delete(verificationCookie)
   ;(await cookies()).delete('fitsync-tester-preferences')
   if (client) {
     const { error } = await client.auth.signOut({ scope: 'local' })

@@ -5,6 +5,8 @@ import { backendOrigin } from '../../../shared/deployment.mjs'
 import { formText } from '@/lib/auth/validation'
 import { cookies } from 'next/headers'
 import { recoveryCookie } from '@/lib/auth/recovery'
+import { beginEmailVerification } from '@/lib/auth/email-verification'
+import { redirect } from 'next/navigation'
 
 export type AccountActionState = { error?: string; message?: string; completed?: 'reset' | 'delete' | 'signout' }
 
@@ -16,11 +18,13 @@ export async function requestAccountRecovery(): Promise<AccountActionState> {
   try {
     const { error } = await client.auth.resetPasswordForEmail(user.email, { redirectTo: `${appOrigin()}/auth/callback?next=/reset-password` })
     if (error) {
-      if (error.status === 429 || error.code === 'over_email_send_rate_limit') return { error: 'Too many recovery requests. Wait a few minutes before requesting another email. Check Spam for the latest link.' }
-      return { error: 'The email service could not send your recovery link. Please try again later. Your password has not changed.' }
+      if (error.status === 429 || error.code === 'over_email_send_rate_limit') return { error: 'Too many recovery requests. Wait a few minutes before requesting another email. Check Spam for the latest code.' }
+      return { error: 'The email service could not send your recovery code. Please try again later. Your password has not changed.' }
     }
   } catch { return { error: 'Could not reach the email service. Check your connection and try again. Your password has not changed.' } }
-  return { message: `Recovery email requested for ${user.email}. Check your inbox and Spam folder. Delivery can take a few minutes. Open the latest link to choose a new FitSync password.` }
+  try { await beginEmailVerification(user.email, 'recovery', user.id) }
+  catch { return { error: 'Recovery verification is unavailable. Please try again later.' } }
+  redirect('/verify-email')
 }
 
 export async function eraseAccountData(_: AccountActionState, form: FormData): Promise<AccountActionState> {

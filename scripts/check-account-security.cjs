@@ -125,10 +125,9 @@ async function actionTests() {
     'next/cache': { revalidatePath: () => {} },
   })
   const form = (values) => { const result = new FormData(); for (const [key, value] of Object.entries(values)) result.set(key, value); return result }
-  const known = await actions.forgotPassword({}, form({ email: 'member@example.com' }))
+  await assert.rejects(actions.forgotPassword({}, form({ email: 'member@example.com' })), /Unexpected redirect \/verify-email$/)
   deliveriesFail = true
-  const unknown = await actions.forgotPassword({}, form({ email: 'unknown@example.com' }))
-  assert.deepEqual(known, unknown)
+  await assert.rejects(actions.forgotPassword({}, form({ email: 'unknown@example.com' })), /Unexpected redirect \/verify-email$/)
   const password = form({ password: 'a long fixture passphrase', confirmPassword: 'a long fixture passphrase', name: 'member.one' })
   assert((await actions.resetPassword({}, password)).error.includes('expired'))
   assert((await actions.completeAccount({}, password)).error.includes('already complete'))
@@ -194,7 +193,7 @@ async function endpointTests() {
 }
 
 async function settingsRecoveryTests() {
-  let user = { email: 'member@example.com', email_confirmed_at: new Date().toISOString() }
+  let user = { id: 'owner', email: 'member@example.com', email_confirmed_at: new Date().toISOString() }
   let error = null, calls = 0, throws = false
   const client = { auth: {
     getUser: async () => ({ data: { user } }),
@@ -203,8 +202,9 @@ async function settingsRecoveryTests() {
   const actions = bundle('frontend/app/auth/account-actions.ts', {
     '@supabase/ssr': { createServerClient: () => client },
     'next/headers': { cookies: async () => ({ getAll: () => [], set: () => {} }) },
+    'next/navigation': { redirect: value => { throw new Error('Redirect ' + value) } },
   })
-  assert.match((await actions.requestAccountRecovery()).message, /member@example.com/)
+  await assert.rejects(actions.requestAccountRecovery(), /Redirect \/verify-email$/)
   error = { status: 503, message: 'private provider detail' }
   const failure = await actions.requestAccountRecovery()
   assert(failure.error); assert.equal(failure.message, undefined)
@@ -245,4 +245,65 @@ async function handoffTests() {
   console.log('PASS tab handoff requires verified matching account and session-bound recovery grant; no credentials shared between tabs')
 }
 
-;(async () => { await policyTests(); await cookieTests(); await databaseTests(); await endpointTests(); await actionTests(); await settingsRecoveryTests(); await handoffTests() })().catch(error => { console.error(error); process.exitCode = 1 })
+async function emailCodeTests() {
+  const jar = new Map()
+  let otpCalls = 0, otpError = null, used = false, deliveryFails = false
+  const user = { id: 'owner', email: 'member@example.com', email_confirmed_at: new Date().toISOString() }
+  const client = { auth: {
+    getUser: async () => ({ data: { user } }),
+    verifyOtp: async ({ email, token, type }) => {
+      otpCalls++; assert.equal(email, user.email); assert.equal(token, '123456'); assert(['email', 'recovery'].includes(type))
+      const error = otpError || (used ? { status: 403 } : null)
+      used = true
+      return { data: error ? {} : { user, session: { access_token: 'code-session' } }, error }
+    },
+    resend: async () => { if (deliveryFails) throw new Error('private provider failure'); return { error: null } },
+    resetPasswordForEmail: async () => { if (deliveryFails) throw new Error('private provider failure'); return { error: null } },
+  } }
+  const overrides = {
+    '@supabase/ssr': { createServerClient: () => client },
+    'next/headers': { cookies: async () => ({ getAll: () => [], get: key => jar.get(key), set: (key, value, options) => jar.set(key, { value, options }), delete: key => jar.delete(key) }) },
+    'next/navigation': { redirect: value => { throw new Error('Redirect ' + value) } },
+    'next/cache': { revalidatePath: () => {} },
+  }
+  const pending = bundle('frontend/lib/auth/email-verification.ts', overrides)
+  const recovery = bundle('frontend/lib/auth/recovery.ts', overrides)
+  const actions = bundle('frontend/app/auth/actions.ts', overrides)
+  const form = code => { const data = new FormData(); data.set('code', code); data.set('email', 'attacker@example.com'); data.set('kind', 'recovery'); return data }
+  assert((await actions.verifyEmailCode({}, form('123456'))).error.includes('expired'))
+  assert.equal(otpCalls, 0)
+  await pending.beginEmailVerification(user.email, 'signup')
+  const saved = jar.get(pending.verificationCookie)
+  assert.equal(saved.options.httpOnly, true)
+  assert.equal(saved.options.sameSite, 'lax')
+  jar.set(pending.verificationCookie, { value: saved.value + 'tampered' })
+  assert.equal(await pending.readEmailVerification(), null)
+  jar.set(pending.verificationCookie, saved)
+  const now = Date.now
+  try { Date.now = () => now() + 901000; assert.equal(await pending.readEmailVerification(), null) } finally { Date.now = now }
+  assert((await actions.verifyEmailCode({}, form('bad'))).fieldErrors.code)
+  assert.equal(otpCalls, 0)
+  await assert.rejects(actions.verifyEmailCode({}, form('123456')), /Redirect \/$/)
+  assert.equal(await recovery.hasRecovery(user.id, 'code-session'), false, 'Signup confirmation cannot grant password reset access')
+  assert.equal(await pending.readEmailVerification(), null)
+  await pending.beginEmailVerification(user.email, 'recovery', 'wrong-owner')
+  assert((await actions.verifyEmailCode({}, form('123456'))).error.includes('account changed'))
+  assert.equal(otpCalls, 1)
+  await pending.beginEmailVerification(user.email, 'recovery', user.id)
+  assert((await actions.verifyEmailCode({}, form('123456'))).error.includes('already used'))
+  assert.equal(await recovery.hasRecovery(user.id, 'code-session'), false)
+  used = false; otpError = { status: 429 }
+  assert((await actions.verifyEmailCode({}, form('123456'))).error.includes('Too many'))
+  used = false; otpError = null
+  await assert.rejects(actions.verifyEmailCode({}, form('123456')), /Redirect \/reset-password$/)
+  assert(await recovery.hasRecovery(user.id, 'code-session'))
+  assert.equal(await pending.readEmailVerification(), null)
+  await pending.beginEmailVerification(user.email, 'signup')
+  const sent = await actions.resendEmailCode({})
+  deliveryFails = true
+  assert.deepEqual(await actions.resendEmailCode({}), sent)
+  assert(!JSON.stringify(sent).includes('private provider'))
+  console.log('PASS email codes: signed purpose/email, tampering/expiry, single use, owner checks, recovery-only grant, generic resend and same-tab redirects')
+}
+
+;(async () => { await policyTests(); await cookieTests(); await databaseTests(); await endpointTests(); await actionTests(); await settingsRecoveryTests(); await handoffTests(); await emailCodeTests() })().catch(error => { console.error(error); process.exitCode = 1 })

@@ -17,7 +17,7 @@ Object.assign(process.env, {
 })
 const { renderAuthEmail } = bundle('backend/lib/auth-email.ts')
 const { POST } = bundle('backend/app/api/auth/email-hook/route.ts')
-const event = { user: { email: 'recipient@example.com' }, email_data: { email_action_type: 'recovery', token_hash: 'a'.repeat(64), site_url: 'https://evil.example', redirect_to: 'https://evil.example' } }
+const event = { user: { email: 'recipient@example.com' }, email_data: { email_action_type: 'recovery', token: '123456', token_hash: 'a'.repeat(64), site_url: 'https://evil.example', redirect_to: 'https://evil.example' } }
 function signed(value = event, date = new Date()) {
   const body = JSON.stringify(value)
   const id = 'event_test'
@@ -33,11 +33,14 @@ async function main() {
     return Response.json(url.includes('oauth2') ? { access_token: 'test-access' } : { id: 'test-message' })
   }
   const rendered = renderAuthEmail(event)
-  assert.match(rendered.html, /Reset password/)
-  assert.match(rendered.text, /https:\/\/fitsync-app-features\.vercel\.app\/auth\/confirm\?token_hash=/)
+  assert.match(rendered.text, /Verification code: 123456/)
+  assert.match(rendered.text, /same tab/)
+  assert.doesNotMatch(rendered.html, /token_hash|\/auth\/confirm/)
   assert.doesNotMatch(rendered.html, /evil\.example/)
   const signup = { ...event, email_data: { ...event.email_data, email_action_type: 'signup' } }
-  assert.match(renderAuthEmail(signup).text, /type=email/)
+  assert.match(renderAuthEmail(signup).text, /Verification code: 123456/)
+  assert.throws(() => renderAuthEmail({ ...event, email_data: { ...event.email_data, token: undefined } }))
+  assert.throws(() => renderAuthEmail({ ...event, email_data: { ...event.email_data, token: '<script>' } }))
   assert.match(renderAuthEmail({ ...event, email_data: { email_action_type: 'reauthentication', token: '123456' } }).text, /123456/)
   assert.match(renderAuthEmail({ ...event, email_data: { email_action_type: 'password_changed_notification' } }).subject, /password was changed/)
   assert.throws(() => renderAuthEmail({ ...event, user: { email: 'ok@example.com\r\nBcc: evil@example.com' } }))

@@ -6,7 +6,7 @@ import { testerCookie, verifyTesterSession } from '@/lib/auth/tester'
 export async function proxy(request: NextRequest) {
   const path = request.nextUrl.pathname
   const api = path.startsWith('/api/')
-  const isPublic = ['/login', '/signup', '/forgot-password'].includes(path) || path.startsWith('/auth/') || path === '/api/health'
+  const isPublic = ['/login', '/signup', '/forgot-password', '/verify-email'].includes(path) || path.startsWith('/auth/') || path === '/api/health'
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
   const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
   const requestHeaders = new Headers(request.headers)
@@ -58,4 +58,4 @@ export async function proxy(request: NextRequest) {
   return finish(response)
 }
 
-export const config = { matcher: ['/', '/onboarding', '/plan-preparation', '/complete-account', '/login', '/signup', '/forgot-password', '/reset-password', '/auth/:path*', '/api/:path*'] }
+export const config = { matcher: ['/', '/onboarding', '/plan-preparation', '/complete-account', '/login', '/signup', '/forgot-password', '/verify-email', '/reset-password', '/auth/:path*', '/api/:path*'] }

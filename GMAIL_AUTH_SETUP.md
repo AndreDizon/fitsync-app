@@ -8,6 +8,12 @@ plain-text messages with the Gmail API. Supabase SMTP settings and dashboard ema
 templates are not used while this hook is enabled. No Gmail App Password is needed.
 The emails are defined in `backend/lib/auth-email.ts`.
 
+Current signup and password-recovery messages contain numeric verification codes.
+Enter the code at `/verify-email` in the original FitSync tab; no extra browser tab
+is opened. Old confirmation/reset links remain supported. Deploy both apps for
+this change, then request a fresh message. No Supabase template or SMTP change is
+needed because the enabled hook supplies the entire email.
+
 ## 1. Authorize the Gmail account
 
 Authorize **andredizon2004@gmail.com**, the personal Gmail account chosen as

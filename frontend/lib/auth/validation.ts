@@ -1,5 +1,5 @@
 export const passwordLimits = { min: 12, max: 128 } as const
-export type AuthField = 'name' | 'email' | 'password' | 'confirmPassword'
+export type AuthField = 'name' | 'email' | 'password' | 'confirmPassword' | 'code'
 export type FieldErrors = Partial<Record<AuthField, string>>
 export const formText = (form: FormData, key: string) => { const value = form.get(key); return typeof value === 'string' ? value : '' }
 export const emailFrom = (form: FormData) => formText(form, 'email').trim().toLowerCase()

@@ -11,7 +11,6 @@ import { clearOfflinePlaylists } from '@/lib/playlists'
 import { usePlanAccount } from '@/lib/playlist-account'
 import { pendingPlanEdits } from '@/lib/plan-signout'
 import { ActionNotice } from './action-notice'
-import { useRecoveryHandoff } from './signup-confirmation'
 import '@/app/account-security.css'
 
 async function clearPrivateCopies() {
@@ -24,14 +23,12 @@ export function AccountSecuritySettings() {
   const [operation, setOperation] = useState<'reset' | 'delete' | null>(null)
   const [message, setMessage] = useState(''), [error, setError] = useState(''), [busy, setBusy] = useState(false)
   const [destination, setDestination] = useState('')
-  const [awaitingRecovery, setAwaitingRecovery] = useState(false)
-  useRecoveryHandoff(owner || '', awaitingRecovery)
   async function recover() {
     setBusy(true); setError(''); setMessage('')
     try {
       const result = await requestAccountRecovery()
       if (result.error) setError(result.error)
-      else { setAwaitingRecovery(true); setMessage(result.message || 'Check your account email.') }
+      else setMessage(result.message || 'Check your account email for a recovery code.')
     } catch { setError('Could not request recovery. Please try again.') }
     finally { setBusy(false) }
   }
@@ -49,7 +46,7 @@ export function AccountSecuritySettings() {
   return <section className="st-card st-security" id="settings-security" aria-labelledby="security-title">
     <header className="st-card-heading"><span className="st-icon"><ShieldCheck size={21}/></span><div><h2 id="security-title">Sign-in &amp; account security</h2><p>Recover access, manage sessions or start fresh.</p></div></header>
     <div className="st-card-body security-rows">
-      <div className="security-row"><KeyRound size={20}/><div><h3>Password recovery</h3><p>Send a reset link to your verified account email, including Gmail. Choose a new FitSync password after opening the link.</p><button className="security-button" disabled={!owner || busy} onClick={recover}>{busy ? 'Please wait...' : 'Send recovery email'}</button></div></div>
+      <div className="security-row"><KeyRound size={20}/><div><h3>Password recovery</h3><p>Send a code to your verified account email. Enter it in FitSync, then choose a new password in the same tab.</p><button className="security-button" disabled={!owner || busy} onClick={recover}>{busy ? 'Please wait...' : 'Send recovery code'}</button></div></div>
       <div className="security-row"><LogOut size={20}/><div><h3>Sign out on all devices</h3><p>End your sessions across devices. Unsynced changes on this device will be cleared. Sync your records first.</p><button className="security-button secondary" disabled={!owner || busy} onClick={allSessions}>Sign out everywhere</button></div></div>
       <div className="security-row danger-row"><Trash2 size={20}/><div><h3>Delete my data</h3><p>Permanently remove plans, playlists, progress, photos, achievements and community activity. Keep your account and sign-in details, then complete onboarding again.</p><button className="security-button danger" disabled={!owner || busy} onClick={() => setOperation('reset')}>Delete data &amp; start again</button></div></div>
       <div className="security-row danger-row"><Trash2 size={20}/><div><h3>Delete my account</h3><p>Permanently remove your FitSync account and its data, then sign out. This cannot be undone.</p><button className="security-button danger" disabled={!owner || busy} onClick={() => setOperation('delete')}>Delete account</button></div></div>
