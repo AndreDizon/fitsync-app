@@ -1,5 +1,6 @@
 import { Analytics } from '@vercel/analytics/next'
 import type { Metadata, Viewport } from 'next'
+import { ModalScrollManager } from '@/components/modal-scroll-manager'
 import { AppOpening } from '@/components/app-opening'
 import './globals.css'
 import './theme.css'
@@ -51,6 +52,7 @@ export default function RootLayout({
     <html lang="en">
       <head><link rel="preload" href="/mascot/fox-opening.jpg" as="image" /></head>
       <body className="antialiased">
+        <ModalScrollManager />
         <AppOpening>{children}</AppOpening>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>

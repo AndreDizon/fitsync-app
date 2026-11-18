@@ -1,5 +1,6 @@
 'use client'
 
+import { scrollToProgressSection } from '@/lib/progress-section-navigation'
 import { ContentTitleLabel } from './content-title-label'
 
 import { useMemo, useState, type ReactNode } from 'react'
@@ -85,7 +86,7 @@ export function ProgressAnalytics({ statusControl, period, onPeriodChange, weeks
   return <div className="plan-analytics" aria-busy={loading}>
     <header className="pa-toolbar sync-status-heading"><div><ContentTitleLabel>Your progress · Recorded over time</ContentTitleLabel><h2>Understand your progress</h2><p>{dateLabel(data.start)} – {dateLabel(today)} · {profile?.timeZone || 'Asia/Manila'}</p></div><fieldset><legend>Analytics period</legend>{[7, 28, 84].map(days => <button key={days} type="button" aria-pressed={range === days} onClick={() => { setRange(days); setCalendarOffset(0) }}>{days / 7} {days === 7 ? 'week' : 'weeks'}</button>)}</fieldset>{statusControl}</header>
     {loading ? <p className="pa-status" role="status">Loading your saved plans and activity…</p> : <p className="pa-coverage">Based on available saved plans · {data.loadedDays} of {range} days have a loaded plan. Missing history is not treated as missed activity.</p>}
-    <nav className="pa-jump" aria-label="Analytics sections"><a href="#progress-habits"><CalendarDays size={16}/>Consistency</a><a href="#progress-nutrition"><Utensils size={16}/>Nutrition</a><a href="#progress-activity"><Activity size={16}/>Workouts</a></nav>
+    <nav className="pa-jump" aria-label="Analytics sections" onClick={scrollToProgressSection}><a href="#progress-habits"><CalendarDays size={16}/>Consistency</a><a href="#progress-nutrition"><Utensils size={16}/>Nutrition</a><a href="#progress-activity"><Activity size={16}/>Workouts</a></nav>
 
     <section id="progress-habits" className="pa-section pa-consistency-section" aria-labelledby="pa-behavior-title">
       <header className="pa-section-head"><CalendarDays size={24}/><div><h2 id="pa-behavior-title">Behavioral &amp; Consistency Insights</h2><p>How often you show up, and what you follow through on.</p></div><SectionArt variant="consistency"/></header>

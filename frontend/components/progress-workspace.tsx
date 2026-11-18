@@ -77,6 +77,7 @@ export function ProgressWorkspace({ initialTab = 'analytics', userName = '' }: {
     if(run!==generation.current||result.userId!==owner)throw new Error('Account changed. Reload before continuing.')
     setError('')
     setSnapshot(current=>current?{...current,awards:current.awards.map(award=>award.code===code?result.data:award)}:current)
+    window.dispatchEvent(new CustomEvent('fitsync-award-claimed',{detail:code}))
     return result.data
   }
   async function remove(entry:ProgressEntry){if(!owner||!window.confirm('Delete this progress entry'+(entry.kind==='photo'?' and its photo':'')+'?'))return;setBusy(true);setError('');const run=generation.current;try{const result=await progressRequest('?id='+entry.id+'&revision='+entry.revision,'DELETE');if(run!==generation.current)return;if(result.userId!==owner)throw new Error('Account changed. Reload this page.');setNotice(result.warning||'Progress entry deleted.');setVersion(n=>n+1)}catch(e){if(run===generation.current)setError((e as Error).message)}finally{if(run===generation.current)setBusy(false)}}

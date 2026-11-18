@@ -1,5 +1,6 @@
 'use client'
 import { ActionNotice } from './action-notice'
+import { PlaylistDiscardDialog } from './playlist-discard-dialog'
 import { SyncStatus } from './sync-status'
 
 import { useEffect, useRef, useState } from 'react'
@@ -42,6 +43,15 @@ export function PlaylistManager({ kind }: { kind: PlaylistKind }) {
   const closeDetails = () => { setDetailsId(null); requestAnimationFrame(() => detailsTrigger.current?.focus()) }
   const [newTime, setNewTime] = useState('08:00')
   const [confirmDelete, setConfirmDelete] = useState(false)
+  const [discardMessage, setDiscardMessage] = useState('')
+  const discardDecision = useRef<((discard: boolean) => void) | null>(null)
+  function confirmDiscard(message = 'Your playlist has unsaved changes. Discarding removes these edits. Your saved playlists will stay as they are.') {
+    if (discardDecision.current) return Promise.resolve(false)
+    setDiscardMessage(message)
+    return new Promise<boolean>(resolve => { discardDecision.current = resolve })
+  }
+  function decideDiscard(discard: boolean) { const resolve = discardDecision.current; discardDecision.current = null; setDiscardMessage(''); resolve?.(discard) }
+  useEffect(() => () => { discardDecision.current?.(false); discardDecision.current = null }, [])
   const playlistNameInput = useRef<HTMLInputElement | null>(null)
   const nutrition = kind === 'nutrition'
   const latest = useRef({ draft, dirty: false })
@@ -66,15 +76,15 @@ export function PlaylistManager({ kind }: { kind: PlaylistKind }) {
   }, [dirty])
   useEffect(() => {
     if (!navigation) return
-    navigation.current = () => !dirty || window.confirm('Discard your unsaved playlist changes?')
+    navigation.current = () => !dirty || confirmDiscard()
     return () => { navigation.current = () => true }
   }, [dirty, navigation])
-  const canLeave = () => !dirty || window.confirm('Discard your unsaved playlist changes?')
+  const canLeave = async () => !dirty || await confirmDiscard()
   const closeEditor = () => {
     setDraft(null); setBase(null); setNewTime('08:00'); setConfirmDelete(false); setDetailsId(null); setNotice(''); setError('')
   }
-  const open = (playlist: Playlist | null) => {
-    if (!canLeave()) return
+  const open = async (playlist: Playlist | null) => {
+    if (!await canLeave()) return
     setBase(playlist); setDraft(playlist ? draftOf(playlist) : { id: crypto.randomUUID(), kind, duration: 'day', selectedDay: 0, restDays: [], name: '', description: '', items: [] }); setDay(playlist?.selectedDay ?? 0); setNewTime('08:00'); setConfirmDelete(false); setNotice(''); setError('')
   }
   const save = async () => {
@@ -86,7 +96,7 @@ export function PlaylistManager({ kind }: { kind: PlaylistKind }) {
     } catch (error) { setError((error as Error).message); void listPlaylists(kind).then(setCollection).catch(() => {}) } finally { setBusy(false) }
   }
   const useAccountVersion = async () => {
-    if (!base || !window.confirm('Discard this device’s unsynced changes and load the account version?')) return
+    if (!base || !await confirmDiscard('Discard the unsynced edits on this device and load the saved account version? Your device edits will be replaced.')) return
     setBusy(true); setError('')
     try { await reloadAccountPlaylist(base); const items = await listPlaylists(kind); setCollection(items); const saved = items.find(item => item.id === base.id); setBase(saved ?? null); setDraft(saved ? draftOf(saved) : null) }
     catch (error) { setError((error as Error).message) } finally { setBusy(false) }
@@ -137,10 +147,11 @@ export function PlaylistManager({ kind }: { kind: PlaylistKind }) {
   return <section className={`playlist-workspace ${nutrition ? 'is-nutrition' : 'is-workout'}`} aria-label={`${nutrition ? 'Nutrition' : 'Workout'} playlists`}>
     <header className="playlist-heading plan-tab-page-heading sync-status-heading"><div className="playlist-heading-copy"><div><p className="playlist-eyebrow">MADE BY YOU · BUILT FOR YOUR DAY</p><h2>{nutrition ? 'Your food playlists.' : 'Your workout playlists.'}</h2><p>Pick your favorites. Arrange a day or a week. Make the plan yours.</p></div></div><SyncStatus key={account||'local'} label="Playlist sync status" details={<><p>Saved playlists have a device copy for offline access. Saved edits sync when connected. Signing out clears private device copies.</p><OfflineLibraryStatus catalog={nutrition?'food':'exercise'}/></>} signedIn={!!account} working={loading||busy} problem={!!account&&!!(error||collection.some(item=>item.syncStatus==='conflict'||item.syncError))} pending={!!account&&collection.some(item=>item.syncStatus==='pending')} message={!account?'You are viewing playlists on this device.':error||collection.find(item=>item.syncError)?.syncError||(dirty?'You have unsaved edits. Save your playlist first; Sync now only syncs saved changes.':collection.some(item=>item.syncStatus==='pending')?'Saved playlist changes are waiting to sync.':'Your saved playlists are up to date.')} onSync={async()=>{await syncPlaylists();const items=await listPlaylists(kind);if(syncAccount.current!==account)throw new Error('Account changed. Reload before syncing.');setCollection(items);const problem=items.find(item=>item.syncStatus==='conflict'||item.syncError);if(problem)throw new Error(problem.syncError||'A playlist has a sync conflict. Open it to resolve the conflict.');if(items.some(item=>item.syncStatus==='pending'))throw new Error('Some saved changes are still waiting to sync.');setError('');return dirty?'Saved playlists are synced. Your current draft still needs to be saved.':'Your saved playlists are synced.'}}/></header>
 
-    {error && <div className="playlist-error" role="alert"><span>{error}</span><button onClick={() => setAttempt(value => value + 1)} disabled={loading || busy}>Retry loading collection</button>{base && <button disabled={busy} onClick={() => { if (canLeave()) { void reloadAccountPlaylist(base).then(() => { setDraft(null); setBase(null); setAttempt(value => value + 1) }).catch(error => setError(error.message)) } }}>Reload saved version</button>}</div>}
+    {error && <div className="playlist-error" role="alert"><span>{error}</span><button onClick={() => setAttempt(value => value + 1)} disabled={loading || busy}>Retry loading collection</button>{base && <button disabled={busy} onClick={async () => { if (await canLeave()) { void reloadAccountPlaylist(base).then(() => { setDraft(null); setBase(null); setAttempt(value => value + 1) }).catch(error => setError(error.message)) } }}>Reload saved version</button>}</div>}
+    {discardMessage && <PlaylistDiscardDialog message={discardMessage} onDecision={decideDiscard}/>}
     {notice && <ActionNotice message={notice} onClose={()=>setNotice('')}/>}
     {draft ? <div className="playlist-editor">
-      <div className="playlist-editor-top"><button className="playlist-text-button" disabled={busy} onClick={() => { if (canLeave()) closeEditor() }}><ArrowLeft size={16} />Back to playlists</button><span className={dirty ? 'playlist-unsaved' : 'playlist-saved'}>{dirty ? 'Unsaved changes' : base?.syncStatus === 'pending' ? 'Saved on device - pending sync' : base?.syncStatus === 'conflict' ? 'Sync conflict' : 'Synced - available offline'}</span></div>
+      <div className="playlist-editor-top"><button className="playlist-text-button" disabled={busy} onClick={async () => { if (await canLeave()) closeEditor() }}><ArrowLeft size={16} />Back to playlists</button><span className={dirty ? 'playlist-unsaved' : 'playlist-saved'}>{dirty ? 'Unsaved changes' : base?.syncStatus === 'pending' ? 'Saved on device - pending sync' : base?.syncStatus === 'conflict' ? 'Sync conflict' : 'Synced - available offline'}</span></div>
       {base?.syncError && <p className="playlist-error" role="status">Sync needs attention: {base.syncError}</p>}{base?.syncStatus === 'conflict' && <div className="playlist-error"><p>Your device edits are preserved. Make a copy to keep them as another playlist, or discard them and use the account version.</p><button disabled={busy || !online} onClick={useAccountVersion}>Use account version</button></div>}
 
       <div className="playlist-builder-main">

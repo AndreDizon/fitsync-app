@@ -18,10 +18,7 @@ export function FoodDetails({ food, onClose }: { food: Food; onClose: () => void
   const valid = quantity.trim() !== '' && Number.isFinite(grams) && grams >= 1 && grams <= 2000
   const nutrients = valid ? nutrientsFor(food, grams) : null
   useEffect(() => {
-    const previous = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
     dialog.current?.showModal()
-    return () => { document.body.style.overflow = previous }
   }, [])
   const close = () => { dialog.current?.close(); onClose() }
   return <dialog className="food-detail" ref={dialog} aria-labelledby="food-detail-title" onCancel={event => { event.preventDefault(); close() }} onClick={event => {

@@ -3,6 +3,7 @@ export type StoredWeek = { document: PlanWeek; pending: boolean; conflict?: bool
 const prefix = 'fitsync-private-daily-plan:'
 let epoch = 0
 const key = (owner: string, week: string) => prefix + owner + ':' + week
+const announcePlanChange = (owner:string,week:string) => { if(typeof window!=='undefined')window.dispatchEvent(new CustomEvent('fitsync-plan-updated',{detail:{owner,week}})) }
 export function clearDailyPlanCopies() { epoch++; try { for (const name of Object.keys(localStorage)) if (name.startsWith(prefix)) localStorage.removeItem(name) } catch {} }
 export function cachedWeek(owner: string, week: string): StoredWeek {
   let raw: string | null = null
@@ -18,7 +19,7 @@ export function storeWeek(owner: string, document: PlanWeek, token: string): Sto
   // Acknowledgement can advance the revision without changing this tab's content token.
   valid.revision = current.document.revision
   const saved: StoredWeek = { document: valid, pending: true, token: crypto.randomUUID() }
-  localStorage.setItem(key(owner, document.week), JSON.stringify(saved)); return saved
+  localStorage.setItem(key(owner, document.week), JSON.stringify(saved)); announcePlanChange(owner,document.week); return saved
 }
 async function request(owner: string, week: string, document?: PlanWeek) {
   const response = await fetch('/api/plans' + (document ? '' : '?week=' + week), { method: document ? 'PUT' : 'GET', cache: 'no-store', headers: document ? { 'Content-Type': 'application/json' } : undefined, body: document ? JSON.stringify(document) : undefined, signal: AbortSignal.timeout(15000) })
@@ -69,12 +70,12 @@ export async function syncWeek(owner: string, week: string): Promise<StoredWeek>
       localStorage.setItem(id, JSON.stringify(local)); return local
     }
   }
-  const work = (navigator.locks ? navigator.locks.request('daily-plan-' + id, run) : run()).finally(() => pending.delete(id)); pending.set(id, work); return work
+  const work = (navigator.locks ? navigator.locks.request('daily-plan-' + id, run) : run()).finally(() => {pending.delete(id);announcePlanChange(owner,week)}); pending.set(id, work); return work
 }
 export async function reloadWeek(owner: string, week: string) {
   const started = epoch
   const remote = await request(owner, week)
   if (started !== epoch) throw new Error('Account changed. Sign in again before loading this week.')
   const saved = { document: remote ?? blankWeek(week), pending: false, token: crypto.randomUUID() }
-  localStorage.setItem(key(owner, week), JSON.stringify(saved)); return saved
+  localStorage.setItem(key(owner, week), JSON.stringify(saved)); announcePlanChange(owner,week); return saved
 }

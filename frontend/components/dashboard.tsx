@@ -2,6 +2,8 @@
 
 import { heroImage } from '@/lib/hero-images'
 import '@/app/content-heading-system.css'
+import '@/app/footer-official.css'
+import '@/app/navigation-drawer.css'
 
 import { useState, useRef, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
@@ -28,8 +30,12 @@ import '@/app/plans-design.css'
 import '@/app/shared-app-design.css'
 import '@/app/responsive-sections.css'
 import '@/app/plan-card-materials.css'
-import { HomeThemeSettings, useHomeTheme } from './home-theme-preview'
-import { PlanSignout } from './plan-signout'
+import { useHomeTheme } from './home-theme-preview'
+import { FooterSocialIcon } from './footer-social-icon'
+import { SettingsWorkspace } from './settings-workspace'
+import { HeaderNotifications } from './header-notifications'
+import { NotificationProvider, type NotificationTarget } from '@/lib/notifications'
+import { isNotificationTarget } from '../../shared/notifications'
 import {
   Activity,
   Apple,
@@ -47,6 +53,7 @@ import {
   Flag,
   Gamepad2,
   HeartPulse,
+  Heart,
   Home,
   MapPin,
   Menu,
@@ -69,11 +76,11 @@ import {
 type Section = 'home' | 'plans' | 'library' | 'social' | 'progress' | 'settings'
 type PlanTab = 'plan' | 'playlist' | 'library'
 
-const navItems: { id: Section; label: string; icon: typeof Home }[] = [
-  { id: 'home', label: 'Home', icon: Home },
-  { id: 'plans', label: 'Plans', icon: CalendarDays },
-  { id: 'social', label: 'Social', icon: Users },
-  { id: 'progress', label: 'Progress', icon: Activity },
+const navItems: { id: Section; label: string; description: string; icon: typeof Home }[] = [
+  { id: 'home', label: 'Home', description: 'Your daily overview', icon: Home },
+  { id: 'plans', label: 'Plans', description: 'Workouts, meals & library', icon: CalendarDays },
+  { id: 'social', label: 'Social', description: 'Your community', icon: Users },
+  { id: 'progress', label: 'Progress', description: 'Records & milestones', icon: Activity },
 ]
 
 const meals = [
@@ -87,7 +94,8 @@ function Logo() {
 }
 
 function App({ userName, userEmail }: { userName: string; userEmail: string }) {
-  const { theme, setTheme, themeStyle } = useHomeTheme()
+  const { theme, setTheme, themeStyle, isDark, isHeaderDark } = useHomeTheme()
+  const notificationOwner = usePlanAccount() || 'local-tester'
   const firstName = userName.split(/\s+/)[0]
   const initials = userName.split(/\s+/).slice(0, 2).map(part => part[0]).join('').toUpperCase()
   const profile = usePlanningProfile()
@@ -95,8 +103,8 @@ function App({ userName, userEmail }: { userName: string; userEmail: string }) {
   const navigation = usePlaylistNavigation()
   const [active, setActiveState] = useState<Section>('home')
   const [planTab, setPlanTabState] = useState<PlanTab>('plan')
-  const setActive = (section: Section) => { if (section !== active && (navigation?.current() ?? true)) { setHomeTarget(null); setActiveState(section) } }
-  const setPlanTab = (tab: PlanTab) => { if (tab !== planTab && (navigation?.current() ?? true)) setPlanTabState(tab) }
+  const setActive = async (section: Section) => { if ((section !== active || notificationDestination !== null) && (await navigation?.current() ?? true)) { setHomeTarget(null); if(notificationDestination){setNotificationDestination(null);setNotificationVersion(value=>value+1)} setActiveState(section) } }
+  const setPlanTab = async (tab: PlanTab) => { if (tab !== planTab && (await navigation?.current() ?? true)) setPlanTabState(tab) }
   const [homeTarget, setHomeTarget] = useState<HomeDestination | null>(null)
 
   const [navOpen, setNavOpen] = useState(false)
@@ -147,32 +155,43 @@ function App({ userName, userEmail }: { userName: string; userEmail: string }) {
 
   const navigate = (section: Section) => { setActive(section); setNavOpen(false) }
 
-  const openFromHome = (target: HomeDestination) => {
-    if (!(navigation?.current() ?? true)) return
-    setHomeTarget(target); setPlanTabState(target.tab || 'plan'); setActiveState(target.page)
+  const [notificationDestination,setNotificationDestination] = useState<NotificationTarget|null>(null)
+  const [notificationVersion,setNotificationVersion] = useState(0)
+  useEffect(()=>{
+    const open = async (target:NotificationTarget)=>{if(!isNotificationTarget(target))return;if(!(await navigation?.current() ?? true))return;setNotificationDestination(target);setNotificationVersion(value=>value+1);if(target.page==='plans'){setPlanTabState('plan');setHomeTarget({page:'plans',mode:target.mode||'workout',water:target.water})}else if(target.page==='progress')setHomeTarget({page:'progress',progressTab:target.tab||'achievements'});setActiveState(target.page);if(target.page==='social'&&target.postId)window.dispatchEvent(new CustomEvent('fitsync-social-post-seen',{detail:{owner:notificationOwner,postId:target.postId,comments:true}}));window.scrollTo({top:0,behavior:'instant'})}
+    const event=(event:Event)=>void open((event as CustomEvent<NotificationTarget>).detail)
+    const message=(event:MessageEvent)=>{if(event.data?.type==='fitsync-notification-open')void open(event.data.target)}
+    window.addEventListener('fitsync-notification-open',event);navigator.serviceWorker?.addEventListener('message',message)
+    const params=new URLSearchParams(location.search),raw=params.get('notification');if(raw){try{void open(JSON.parse(raw));params.delete('notification');history.replaceState(null,'',location.pathname+(params.size?'?'+params:'')+location.hash)}catch{}}
+    return()=>{window.removeEventListener('fitsync-notification-open',event);navigator.serviceWorker?.removeEventListener('message',message)}
+  },[navigation,notificationOwner])
+
+  const openFromHome = async (target: HomeDestination) => {
+    if (!(await navigation?.current() ?? true)) return
+    setNotificationDestination(null); setHomeTarget(target); setPlanTabState(target.tab || 'plan'); setActiveState(target.page)
     window.scrollTo({ top: 0, behavior: 'instant' })
   }
 
   return (
-    <main className="app-shell theme-default" data-section={active} data-home-preview="true" data-home-theme={theme} data-home-preview-dark={theme !== 'clean-sporty'} data-home-header-dark={theme !== 'clean-sporty'} style={themeStyle}>
+    <main className="app-shell theme-default" data-section={active} data-home-preview="true" data-home-theme={theme} data-home-preview-dark={isDark} data-home-header-dark={isHeaderDark} style={themeStyle}>
       {navOpen && <><div className="navigation-backdrop" onClick={() => setNavOpen(false)} aria-hidden="true" />
       <aside className="desktop-sidebar navigation-drawer" id="left-navigation" ref={drawerRef} role="dialog" aria-modal="true" aria-label="Main navigation">
         <div className="drawer-heading"><div className="brand"><Logo /><Wordmark /></div><button className="menu-toggle" onClick={() => setNavOpen(false)} aria-label="Close navigation"><X size={22} /></button></div>
-        <div className="side-profile"><div className="avatar">{initials}</div><div><strong>{userName}</strong><small>Balanced beginner</small></div><ChevronRight size={16} /></div>
-        <nav className="side-nav" aria-label="Sections">{navItems.map(({ id, label, icon: Icon }) => <button key={id} className={active === id ? 'active' : ''} aria-current={active === id ? 'page' : undefined} onClick={() => navigate(id)}><Icon size={19} />{label}</button>)}</nav>
-        <div className="side-bottom"><button onClick={() => navigate('settings')}><Settings size={18} />Settings</button><div className="coach-card"><Sparkles size={18} /><strong>Ask your AI coach</strong><span>Get personalized guidance</span><button onClick={() => navigate('social')}>Start chat <ArrowRight size={14} /></button></div></div>
+        <button className="drawer-profile" onClick={() => navigate('settings')} aria-label="Account settings"><span className="avatar" aria-hidden="true">{initials}</span><span className="drawer-profile-copy"><strong>{userName}</strong><small>{userEmail || 'Your FitSync account'}</small></span><ChevronRight size={17} aria-hidden="true"/></button>
+        <nav className="side-nav" aria-label="Sections">{navItems.map(({ id, label, description, icon: Icon }) => <button key={id} className={active === id ? 'active' : ''} aria-label={label} aria-current={active === id ? 'page' : undefined} onClick={() => navigate(id)}><span className="drawer-nav-icon"><Icon size={21} aria-hidden="true"/></span><span className="drawer-nav-copy"><strong>{label}</strong><small>{description}</small></span><ChevronRight className="drawer-nav-chevron" size={16} aria-hidden="true"/></button>)}</nav>
+        <div className="side-bottom"><button className={active === 'settings' ? 'active' : ''} aria-current={active === 'settings' ? 'page' : undefined} onClick={() => navigate('settings')}><Settings size={20} aria-hidden="true"/>Settings<ChevronRight size={16} aria-hidden="true"/></button><p className="drawer-signature">Move. Fuel. Feel good.</p></div>
       </aside></>}
 
       <section className="content-wrap" inert={navOpen}>
-        <header className="topbar"><div className="header-brand"><button className="menu-toggle" ref={menuButtonRef} onClick={() => setNavOpen(true)} aria-label="Open navigation" aria-expanded={navOpen} aria-controls="left-navigation"><Menu size={22} /></button><div className="mobile-brand"><Logo /><Wordmark /></div></div><div className="top-actions"><button aria-label="Search"><Search size={19} /></button><button className="profile-button" onClick={() => setActive('settings')}><div className="avatar small">{initials}</div><span>{firstName}</span><ChevronRight size={15} /></button></div></header>
+        <header className="topbar"><div className="header-brand"><button className="menu-toggle" ref={menuButtonRef} onClick={() => setNavOpen(true)} aria-label="Open navigation" aria-expanded={navOpen} aria-controls="left-navigation"><Menu size={22} /></button><div className="mobile-brand"><Logo /><Wordmark /></div></div><div className="top-actions"><HeaderNotifications onSettings={() => { setActive('settings'); requestAnimationFrame(()=>document.getElementById('settings-notifications')?.scrollIntoView({behavior:'smooth',block:'start'})) }} /><button className="profile-button" onClick={() => setActive('settings')}><div className="avatar small">{initials}</div><span>{firstName}</span><ChevronRight size={15} /></button></div></header>
 
         {active === 'home' && <><HomeView displayName={firstName} timeZone={timeZone} onOpen={openFromHome} /></>}
-        {active === 'plans' && <PlansWorkspace tab={planTab} setTab={setPlanTab} initialMode={homeTarget?.mode} focusWater={homeTarget?.water} />}
+        {active === 'plans' && <PlansWorkspace key={notificationVersion} tab={planTab} setTab={setPlanTab} initialMode={homeTarget?.mode} focusWater={homeTarget?.water} initialDate={notificationDestination?.page==='plans'?notificationDestination.date:undefined} />}
         {active === 'library' && <LibraryView />}
-        {active === 'social' && <SocialView initialSection={homeTarget?.socialSection} />}
-        {active === 'progress' && <ProgressWorkspace initialTab={homeTarget?.progressTab} userName={userName} />}
-        {active === 'settings' && <SettingsView userName={userName} userEmail={userEmail} initials={initials} theme={theme} setTheme={setTheme} />}
-        <AppFooter onNavigate={(section) => { navigate(section); setNavHidden(false); window.scrollTo(0, 0) }} onPlaylist={() => { setPlanTab('playlist'); navigate('plans'); setNavHidden(false); window.scrollTo(0, 0) }} />
+        {active === 'social' && <SocialView key={notificationVersion} initialSection={notificationDestination?.page==='social'?notificationDestination.kind:homeTarget?.socialSection} initialPostId={notificationDestination?.page==='social'?notificationDestination.postId:undefined} />}
+        {active === 'progress' && <ProgressWorkspace key={notificationVersion} initialTab={homeTarget?.progressTab} userName={userName} />}
+        {active === 'settings' && <SettingsWorkspace userName={userName} userEmail={userEmail} initials={initials} theme={theme} setTheme={setTheme} onProgress={() => setActive('progress')} />}
+        <AppFooter onNavigate={(section) => { navigate(section); setNavHidden(false); window.scrollTo(0, 0) }} />
       </section>
 
       <nav className={`mobile-nav${navHidden ? ' nav-hidden' : ''}`} aria-label="Bottom navigation" aria-hidden={navHidden} inert={navOpen || navHidden}>{[navItems.slice(0, 2), navItems.slice(2)].map((items, index) => <div className="nav-page-group" key={index}>{items.map(({ id, label, icon: Icon }) => <button key={id} className={active === id ? 'active' : ''} aria-current={active === id ? 'page' : undefined} aria-label={label} onClick={() => setActive(id)}><Icon size={20} /><span>{label}</span></button>)}</div>)}<button className="nav-playlist" aria-label="Open playlist" title="Open playlist" onClick={() => { setPlanTab('playlist'); setActive('plans'); setNavHidden(false); window.scrollTo(0, 0) }}><Play size={23} fill="currentColor" /></button></nav>
@@ -181,18 +200,24 @@ function App({ userName, userEmail }: { userName: string; userEmail: string }) {
   )
 }
 
-function AppFooter({ onNavigate, onPlaylist }: { onNavigate: (section: Section) => void; onPlaylist: () => void }) {
-  return <footer className="fitsync-footer">
+function AppFooter({ onNavigate }: { onNavigate: (section: Section) => void }) {
+  const aboutRef = useRef<HTMLDialogElement>(null)
+  return <footer className="fitsync-footer footer-official">
     <div className="footer-mascot-peek" aria-hidden="true"><img loading="lazy" {...heroImage('fox-greeting')} width="1145" height="1374" alt="" /></div>
     <div className="footer-panel">
-      <div className="footer-main">
-        <div className="footer-brand"><button onClick={() => onNavigate('home')} aria-label="FitSync home"><Logo /><Wordmark /></button><p>Move. Fuel. Feel good.</p></div>
-        <nav className="footer-links" aria-label="Explore FitSync"><h2>Explore</h2><button onClick={() => onNavigate('plans')}>Your plans</button><button onClick={onPlaylist}>Your playlist</button><button onClick={() => onNavigate('social')}>Community</button></nav>
-        <div className="footer-action"><h2>Let’s stay in sync.</h2><p>Questions, ideas, or feedback?<br />We’d love to hear from you.</p><div className="footer-contact-row"><button disabled>Contact us <ArrowUpRight size={16} aria-hidden="true" /></button><span>Coming soon</span></div></div>
+      <div className="footer-main footer-home-main">
+        {<div className="footer-home-intro"><div className="footer-brand"><button onClick={() => onNavigate('home')} aria-label="FitSync home"><Logo /><Wordmark /></button><p>Move. Fuel. Feel good.</p></div><button className="footer-top-action" onClick={() => window.scrollTo({top:0,behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth'})}>Back to top <ArrowUpRight size={18}/></button></div>}
+        {<div className="footer-home-columns">
+          <nav className="footer-home-column" aria-label="Footer navigation"><h2>Explore</h2><button onClick={() => onNavigate('home')}>Home</button><button onClick={() => onNavigate('plans')}>Plans</button><button onClick={() => onNavigate('social')}>Social</button><button onClick={() => onNavigate('progress')}>Progress</button></nav>
+          <section className="footer-home-column"><h2>Contact &amp; Location</h2><p className="footer-home-detail"><strong>Email</strong><span>hello@fitsync.example</span></p><p className="footer-home-detail"><strong>Location</strong><span>123 Movement Street<br/>Manila, Philippines</span></p></section>
+          <section className="footer-home-column"><h2>Connect</h2><div className="footer-social-profiles" aria-label="Example social profiles">{['Facebook','Instagram','X','YouTube'].map(name=><div key={name} className="footer-social-profile"><span className={"footer-social-icon footer-social-icon-" + name.toLowerCase()} role="img" aria-label={name}><FooterSocialIcon platform={name}/></span><span><span>@fitsync.example</span></span></div>)}</div></section>
+          <section className="footer-home-column footer-home-contact-column"><div className="footer-action footer-home-contact"><h2>Let’s stay in sync.</h2><p>Questions, ideas, or feedback?<br/>We’d love to hear from you.</p><div className="footer-contact-row"><button type="button" disabled>Contact us</button><button type="button" onClick={() => aboutRef.current?.showModal()}>About us</button></div></div></section>
+        </div>}
       </div>
-      <div className="footer-bottom"><p>© {new Date().getFullYear()} FitSync</p><button onClick={() => { window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' }) }}>Back to top <ArrowUpRight size={15} aria-hidden="true" /></button></div>
+      <div className="footer-bottom footer-home-bottom">{<><div className="footer-policy-previews" aria-label="Example legal policies"><span>Terms of Use</span><span>Privacy Policy</span><span>Cookie Policy</span></div><div className="footer-home-rights"><p>© {new Date().getFullYear()} FitSync. All rights reserved.</p><p className="footer-build-credit">Built by FitSync with <Heart size={13} fill="currentColor" className="footer-credit-heart" aria-label="care" role="img"/></p></div></>}</div>
       <img className="footer-corner-fox" src="/mascot/optimized/fox-logo-192.webp" width="1254" height="1254" alt="" aria-hidden="true" />
     </div>
+    {<dialog ref={aboutRef} className="footer-about-dialog"><div className="footer-about-heading"><h2>About FitSync</h2><button onClick={() => aboutRef.current?.close()} aria-label="Close about FitSync">×</button></div><p>Move. Fuel. Feel good.</p><p>FitSync brings your workout plans, food schedules, progress records and community into one place.</p><button className="footer-about-done" onClick={() => aboutRef.current?.close()}>Got it</button></dialog>}
   </footer>
 }
 
@@ -243,10 +268,10 @@ function HomeView({ displayName, timeZone, onOpen }: { displayName: string; time
   </div>
 }
 
-function PlansWorkspace({ tab, setTab, initialMode = 'workout', focusWater = false }: { tab: PlanTab; setTab: (tab: PlanTab) => void; initialMode?: 'workout' | 'nutrition'; focusWater?: boolean }) {
+function PlansWorkspace({ tab, setTab, initialMode = 'workout', focusWater = false, initialDate }: { tab: PlanTab; setTab: (tab: PlanTab) => void; initialMode?: 'workout' | 'nutrition'; focusWater?: boolean; initialDate?: string }) {
   const navigation = usePlaylistNavigation()
   const [mode, setModeState] = useState<'nutrition' | 'workout'>(initialMode)
-  const setMode = (next: 'nutrition' | 'workout') => { if (next !== mode && (navigation?.current() ?? true)) setModeState(next) }
+  const setMode = async (next: 'nutrition' | 'workout') => { if (next !== mode && (await navigation?.current() ?? true)) setModeState(next) }
   return <div className="page plans-page plan-workspace">
     <div className="plan-hero-frame"><div className={`plans-hero plans-mascot-hero ${mode}`}><img className="hero-card-art plan-mode-art" {...heroImage(mode === 'workout' ? 'hero-dumbbell' : 'hero-apple')} alt="" aria-hidden="true" />
       <svg className="plan-hero-lines" viewBox="0 0 1000 300" preserveAspectRatio="none" fill="none" aria-hidden="true">{mode === 'workout' ? <g stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M-30 62h145c48 0 48 50 96 50h160c48 0 48-50 96-50h150c48 0 48 50 96 50h155c48 0 48-50 96-50h66" /><path d="M-30 82h135c48 0 48 50 96 50h180c48 0 48-50 96-50h130c48 0 48 50 96 50h175c48 0 48-50 96-50h66" /><path d="M-30 218h155c48 0 48-50 96-50h150c48 0 48 50 96 50h165c48 0 48-50 96-50h150c48 0 48 50 96 50h26" /><path d="M-30 238h145c48 0 48-50 96-50h170c48 0 48 50 96 50h145c48 0 48-50 96-50h170c48 0 48 50 96 50h26" /><circle cx="211" cy="112" r="2.5" fill="currentColor" stroke="none" /><circle cx="559" cy="62" r="2.5" fill="currentColor" stroke="none" /><circle cx="755" cy="168" r="2.5" fill="currentColor" stroke="none" /><circle cx="422" cy="218" r="2.5" fill="currentColor" stroke="none" /></g> : <g stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round"><path d="M-30 92c115 0 115 34 220 34s105-34 210-34 105 34 210 34 105-34 210-34 105 34 210 34 105-34 220-34" /><path d="M-30 112c115 0 115 34 220 34s105-34 210-34 105 34 210 34 105-34 210-34 105 34 210 34 105-34 220-34" /><path d="M-30 208c115 0 115-34 220-34s105 34 210 34 105-34 210-34 105 34 210 34 105-34 210-34 105 34 220 34" /><path d="M-30 228c115 0 115-34 220-34s105 34 210 34 105-34 210-34 105 34 210 34 105-34 210-34 105 34 220 34" /><circle cx="110" cy="122" r="2.5" fill="currentColor" stroke="none" /><circle cx="500" cy="122" r="2.5" fill="currentColor" stroke="none" /><circle cx="890" cy="122" r="2.5" fill="currentColor" stroke="none" /><circle cx="305" cy="180" r="2.5" fill="currentColor" stroke="none" /><circle cx="695" cy="180" r="2.5" fill="currentColor" stroke="none" /></g>}</svg>
@@ -254,7 +279,7 @@ function PlansWorkspace({ tab, setTab, initialMode = 'workout', focusWater = fal
       <div className="plan-hero-mascot"><img {...heroImage(mode === 'workout' ? 'fox-plan-workout' : 'fox-plan-nutrition')} alt={mode === 'workout' ? 'FitSync fox lifting a dumbbell' : 'FitSync fox enjoying an apple'} width="1254" height="1254" /></div>
     </div>
     <div className="plan-tabs" role="tablist" aria-label="Plan sections">{([{ id: 'plan', label: 'My plan', icon: CalendarDays }, { id: 'playlist', label: 'Playlist', icon: Play }, { id: 'library', label: 'Library', icon: BookOpen }] as const).map(({ id, label, icon: Icon }) => <button key={id} className={tab === id ? 'selected' : ''} onClick={() => setTab(id)} role="tab" aria-selected={tab === id}><Icon size={16} />{label}</button>)}</div></div>
-    <div className="plan-folder-content">{tab === 'plan' ? <MyPlanWorkspace kind={mode} focusWater={focusWater} /> : tab === 'playlist' ? <PlaylistManager key={mode} kind={mode} /> : mode === 'nutrition' ? <NutritionWorkspace tab="library" setTab={setTab} /> : <LibraryView />}</div>
+    <div className="plan-folder-content">{tab === 'plan' ? <MyPlanWorkspace kind={mode} focusWater={focusWater} initialDate={initialDate} /> : tab === 'playlist' ? <PlaylistManager key={mode} kind={mode} /> : mode === 'nutrition' ? <NutritionWorkspace tab="library" setTab={setTab} /> : <LibraryView />}</div>
   </div>
 }
 
@@ -271,17 +296,16 @@ function SocialHeroArtwork() {
     <img className="social-phone-fox" {...heroImage('fox-social-phone')} width="1254" height="1254" alt="" />
   </div>
 }
-function SocialView({ initialSection }: { initialSection?: 'forum' | 'people' | 'gym' }) {
+function SocialView({ initialSection, initialPostId }: { initialSection?: 'forum' | 'people' | 'gym'; initialPostId?: string }) {
   const [selectedDate, setSelectedDate] = useState('')
   return <div className="page social-page social-flow"><div className="social-hero-frame"><div className="social-hero-card"><HeroDetail variant="social" /><img className="hero-card-art social-card-art" {...heroImage('hero-social-phone')} alt="" aria-hidden="true" /><svg className="social-hero-line-art" viewBox="0 0 800 350" preserveAspectRatio="none" fill="none" aria-hidden="true"><g stroke="currentColor" strokeWidth=".9"><path d="M0 58H170Q196 58 210 78L244 126Q258 146 286 146H800"/><path d="M0 74H160Q184 74 198 94L232 142Q246 162 274 162H800"/><path d="M0 90H150Q172 90 186 110L220 158Q234 178 262 178H800"/><path d="M0 286H200Q228 286 246 264L302 204Q320 186 348 186H800"/><path d="M0 302H212Q240 302 258 280L314 220Q332 202 360 202H800"/><path d="M0 318H224Q252 318 270 296L326 236Q344 218 372 218H800"/></g></svg><SocialHeroArtwork /><div className="social-intro"><div><p className="eyebrow">A LITTLE SUPPORT. SHARED PROGRESS.</p><h1>Your support<br/><span className="plan-title-highlight">circle</span></h1><p className="muted intro">A place to ask, share, and keep showing <span className="social-subtitle-ending">up together.</span></p></div><div className="community-orb" aria-hidden="true"><Users size={27} /></div></div></div><aside className="social-connection-card"><Users size={24} aria-hidden="true" /><p>GLOBAL CONNECTION</p><strong>Together</strong><span>Share. Connect. Grow.</span></aside></div>
-    <SocialWorkspace initialSection={initialSection}/>
+    <SocialWorkspace initialSection={initialSection} initialPostId={initialPostId}/>
   </div>
 }
 
 
-function SettingsView({ userName, userEmail, initials, theme, setTheme }: { userName: string; userEmail: string; initials: string; theme: import('./home-theme-preview').HomeTheme; setTheme: (theme: import('./home-theme-preview').HomeTheme) => void }) { return <div className="page settings-page"><p className="eyebrow">ACCOUNT</p><h1>Settings</h1><p className="muted intro">Make <Wordmark /> work for you.</p><div className="settings-profile"><div className="avatar">{initials}</div><div><strong>{userName}</strong><span>{userEmail}</span></div><button>Edit</button></div><div className="settings-group"><p>Preferences</p><button onClick={() => window.location.assign('/onboarding')}><span><Flag size={17} />Goals &amp; planning preferences</span><small>Edit <ChevronRight size={16} /></small></button><button><span><Sparkles size={17} />Notifications</span><small>On <ChevronRight size={16} /></small></button><HomeThemeSettings theme={theme} onChange={setTheme} /><button><span><MapPin size={17} />Offline mode</span><small>Off <ChevronRight size={16} /></small></button></div><div className="settings-group"><p>Data & account</p><button><span><DownloadIcon />Export your data</span><ChevronRight size={16} /></button><button><span><UserRound size={17} />Contact the team</span><ChevronRight size={16} /></button></div><PlanSignout /></div> }
 function MoonIcon() { return <span className="tiny-icon">☾</span> } function DownloadIcon() { return <span className="tiny-icon">↓</span> }
 
 export default function Dashboard({ profile, accountId = null, ...props }: { userName: string; userEmail: string; accountId?: string | null; profile: OnboardingProfile }) {
-  return <PlaylistAccountProvider id={accountId} timeZone={profile.timeZone}><PlaylistNavigationProvider><PlanningProfileProvider profile={profile}><App {...props} /></PlanningProfileProvider></PlaylistNavigationProvider></PlaylistAccountProvider>
+  return <PlaylistAccountProvider id={accountId} timeZone={profile.timeZone}><PlaylistNavigationProvider><PlanningProfileProvider profile={profile}><NotificationProvider><App {...props} /></NotificationProvider></PlanningProfileProvider></PlaylistNavigationProvider></PlaylistAccountProvider>
 }

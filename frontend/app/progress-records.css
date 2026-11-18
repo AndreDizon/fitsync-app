@@ -108,3 +108,11 @@
 .pj-intro .pj-intro-support>p{font-size:12px;line-height:1.7;margin:0;max-width:80ch}
 .pj-intro .pj-intro-support .pj-private{padding-top:8px}
 @media(max-width:900px){.pj-intro{grid-template-columns:minmax(0,1fr);gap:14px}.pj-intro>.pj-period{grid-row:2;justify-self:start}.pj-intro>.pj-intro-support{grid-row:3}.pj-intro .pj-intro-support .pj-private{padding-top:8px}}
+
+/* Both journal cards remain visible; these links only move to each section. */
+.pj-jump-stacked .pj-section-links{display:flex;flex-wrap:wrap;gap:10px;width:100%}
+.pj-jump-stacked .pj-section-links a{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;text-decoration:none}
+.pj-jump-stacked .pj-section-links a:nth-child(1) svg{color:#a56613}
+.pj-jump-stacked .pj-section-links a:nth-child(2) svg{color:#b44e21}
+.pj-jump-count{padding:1px 5px;border-radius:4px;background:#fff4ba;color:#655321;font-size:10px}
+@media(max-width:600px){.pj-jump-stacked .pj-section-links{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.pj-jump-stacked .pj-section-links a{min-width:0}}

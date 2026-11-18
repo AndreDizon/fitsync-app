@@ -7,7 +7,7 @@ const json=(data:unknown,status=200)=>Response.json(data,{status,headers:{'Cache
 export async function GET(request:Request){
  const auth=await authenticate(request);if(auth.response)return auth.response
  const params=Object.fromEntries(new URL(request.url).searchParams)
- const result=await auth.client!.rpc('community_action',{action:params.action==='comments'?'comments':'list',doc:params})
+ const result=params.notificationPostId?await auth.client!.rpc('notification_post',{post_id:params.notificationPostId}):await auth.client!.rpc('community_action',{action:params.action==='comments'?'comments':'list',doc:params})
  if(result.error)return json({error:result.error.code==='PGRST202'?'Run the Social migration to enable community features.':result.error.message},400)
  if(result.data?.posts)for(const post of result.data.posts){if(post.image_path){const signed=await auth.client!.storage.from('community-images').createSignedUrl(post.image_path,600);post.imageUrl=signed.data?.signedUrl||null}}
  return json(result.data)

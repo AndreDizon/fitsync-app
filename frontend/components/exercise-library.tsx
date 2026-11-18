@@ -35,10 +35,7 @@ export function ExerciseDetails({ exercise, onClose }: { exercise: Exercise; onC
   const referenceWeight = 70
   const burn = estimates?.estimatedBurnKcalAt70Kg
   useEffect(() => {
-    const previousOverflow = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
     dialog.current?.showModal()
-    return () => { document.body.style.overflow = previousOverflow }
   }, [])
   const instructions = exercise.instructions ?? []
   const close = () => { dialog.current?.close(); onClose() }

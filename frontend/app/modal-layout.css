@@ -1,0 +1,25 @@
+html[data-modal-locked]{overflow:hidden!important;overscroll-behavior:none}
+html[data-modal-locked] body{position:fixed!important;top:var(--modal-page-top)!important;left:var(--modal-page-left)!important;width:100%!important;overflow:hidden!important;overscroll-behavior:none}
+html body dialog:is(.pr-editor,.hb-chat,.sc-dialog,.exercise-detail-dialog,.food-detail,.my-plan-picker-dialog,.ach-share,.action-notice,.playlist-discard-dialog){position:fixed!important;inset:0!important;margin:auto!important;box-sizing:border-box;max-width:calc(100vw - 32px)!important;max-height:calc(100dvh - 32px)!important;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#a6adb2 transparent;scroll-padding:20px}
+html body dialog:is(.pr-editor,.sc-dialog){width:min(540px,calc(100vw - 32px))!important;padding:22px;border-radius:16px}
+html body dialog.hb-chat{width:min(560px,calc(100vw - 32px))!important;border-radius:16px}
+html body dialog.hb-chat[open]{display:flex;flex-direction:column;height:min(660px,calc(100dvh - 32px));overflow:hidden}
+html body dialog.hb-chat>.hb-chat-log{flex:1 1 auto;min-height:60px;max-height:none;overflow-y:auto;overscroll-behavior:contain;padding:14px 20px}
+html body dialog.hb-chat>header{padding:18px 20px 10px;flex-shrink:0}
+html body dialog.hb-chat>:is(.hb-chat-note,.hb-chat-privacy){margin:4px 20px 8px;font-size:11px;line-height:1.6;flex-shrink:0}
+html body dialog.hb-chat>.hb-chat-note{padding:10px 12px}
+html body dialog.hb-chat>form{flex-shrink:0;padding:12px 20px 18px}
+html body dialog.hb-chat textarea{min-height:60px;max-height:110px}
+html body dialog.pr-editor header{margin-bottom:14px}
+html body dialog.pr-editor h2{font-size:23px;line-height:1.25;margin-top:5px}
+html body dialog.pr-editor label{margin:9px 0;gap:5px}
+html body dialog.pr-editor :is(input,select){min-height:44px;padding:9px 11px}
+html body dialog.pr-editor textarea{min-height:70px;max-height:140px}
+html body dialog.pr-editor footer{margin-top:16px}
+html body .plan-signout-backdrop{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;padding:16px;overflow:hidden;overscroll-behavior:contain}
+html body .plan-signout-dialog{box-sizing:border-box;width:min(490px,100%);max-height:calc(100dvh - 32px);overflow:auto;overscroll-behavior:contain;border-radius:16px}
+@media(max-width:500px){html body dialog:is(.pr-editor,.sc-dialog){padding:18px}html body dialog:is(.pr-editor,.sc-dialog,.hb-chat) :is(input,select,textarea){font-size:16px}html body dialog.hb-chat>header{padding:16px 16px 8px}html body dialog.hb-chat>:is(.hb-chat-note,.hb-chat-privacy){margin-inline:16px}html body dialog.hb-chat>form{padding:10px 16px 16px}html body dialog.hb-chat>.hb-chat-log{padding:10px 16px}}
+@media(max-height:550px){html body dialog.hb-chat[open]{overflow-y:auto;height:auto}html body dialog.hb-chat>.hb-chat-log{flex:none;min-height:150px;max-height:220px}html body dialog.pr-editor{padding:16px}}
+
+html body dialog:is(.exercise-detail-dialog,.food-detail){width:min(680px,calc(100vw - 32px))!important}
+html body dialog.my-plan-picker-dialog{width:min(620px,calc(100vw - 32px))!important}

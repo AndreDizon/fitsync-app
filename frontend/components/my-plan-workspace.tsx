@@ -12,6 +12,7 @@ import { ExerciseDetails } from './exercise-library'
 import { seedExerciseById } from '@/lib/exercise-offline'
 import { foodById } from '@/lib/nutrition'
 import { currentDay, currentWeek, eligibleFoods, foodCatalog, foodTotals, formulateDay, workoutPhase, planTargets, taskMinutes, weekDays, workoutCatalog, type DaySchedule, type PlanTask, type PlanWeek } from '../../shared/daily-plans'
+import { validDate } from '../../shared/progress'
 import { defaultMealTime, newPlaylistItem, playlistMeals, type Playlist, type PlaylistKind } from '../../shared/playlists'
 import '@/app/my-plan.css'
 import { PlanTimeInput } from './plan-time-input'
@@ -38,7 +39,7 @@ function planTaskGroups(items: PlanTask[], nutrition: boolean) {
     return groups
   }, [])
 }
-export function MyPlanWorkspace({ kind, focusWater = false }: { kind: PlaylistKind; focusWater?: boolean }) {
+export function MyPlanWorkspace({ kind, focusWater = false, initialDate }: { kind: PlaylistKind; focusWater?: boolean; initialDate?: string }) {
   const [orderNotice, setOrderNotice] = useState('')
   const previousFlag = useRef<{ x: number; y: number; scope: string } | null>(null)
   const calendarRef = useRef<HTMLDivElement>(null)
@@ -68,7 +69,7 @@ export function MyPlanWorkspace({ kind, focusWater = false }: { kind: PlaylistKi
   const syncOwner = useRef(owner); syncOwner.current = owner
   const timeZone = profile?.timeZone || 'Asia/Manila'
   const [week, setWeek] = useState(() => currentWeek(new Date(), timeZone)), [day, setDay] = useState(() => currentDay(new Date(), timeZone))
-  useEffect(() => { setWeek(currentWeek(new Date(), timeZone)); setDay(currentDay(new Date(), timeZone)) }, [timeZone])
+  useEffect(() => { if(initialDate&&validDate(initialDate)){const date=new Date(initialDate+'T12:00:00Z');setWeek(currentWeek(date,'UTC'));setDay(currentDay(date,'UTC'))}else{setWeek(currentWeek(new Date(), timeZone)); setDay(currentDay(new Date(), timeZone))} }, [timeZone,initialDate])
   const [record, setRecord] = useState<StoredWeek | null>(null), latest = useRef<StoredWeek | null>(null)
   const [message, setMessage] = useState(''), [notes, setNotes] = useState<string[]>([]), [busy, setBusy] = useState(false)
   const [chooser, setChooser] = useState<{ replace?: string } | null>(null), [query, setQuery] = useState(''), [detail, setDetail] = useState<string | null>(null)
@@ -79,9 +80,7 @@ export function MyPlanWorkspace({ kind, focusWater = false }: { kind: PlaylistKi
     const dialog = pickerRef.current
     dialog?.showModal()
     const frame = requestAnimationFrame(() => pickerSearchRef.current?.focus({ preventScroll: true }))
-    const previousOverflow = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    return () => { cancelAnimationFrame(frame); dialog?.close(); document.body.style.overflow = previousOverflow }
+    return () => { cancelAnimationFrame(frame); dialog?.close(); }
   }, [chooser])
   const waterFocused = useRef(false)
   useEffect(() => {

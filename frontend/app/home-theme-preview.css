@@ -1,5 +1,17 @@
 .app-shell[data-home-preview]>.content-wrap{background-color:var(--preview-base);background-image:var(--preview-image);background-size:var(--preview-size);color:#232529}
 .app-shell[data-home-preview] .topbar{background:var(--preview-header)}
+.app-shell[data-home-preview] .navigation-drawer{background-color:var(--preview-base);background-image:var(--preview-image);color:#252a2c;border-color:#d9dfe3}
+.app-shell[data-home-preview] .navigation-drawer :is(.side-nav button,.side-bottom>button){color:#454e53;min-height:46px}
+.app-shell[data-home-preview] .navigation-drawer :is(.side-nav button,.side-bottom>button):hover{background:#78848e16}
+.app-shell[data-home-preview] .navigation-drawer :is(.side-nav button,.side-bottom>button).active{background:#ffe135;color:#202426;box-shadow:inset 0 2px 2px #fff8,0 3px 0 #c5a729}
+.app-shell[data-home-preview] .navigation-drawer .side-profile small{color:#58636a}
+.app-shell[data-home-preview] .navigation-drawer .side-bottom>button{width:100%;margin-bottom:0}
+.app-shell[data-home-preview] .navigation-drawer :is(button):focus-visible{outline:3px solid #c6a827;outline-offset:3px}
+.app-shell[data-home-preview-dark='true'] .navigation-drawer{color:#fff;border-color:#ffffff20}
+.app-shell[data-home-preview-dark='true'] .navigation-drawer :is(.side-nav button,.side-bottom>button,.side-profile small,.side-profile>svg){color:#e1e5e9}
+.app-shell[data-home-preview-dark='true'] .navigation-drawer :is(.side-nav button,.side-bottom>button):hover{background:#ffffff12}
+.app-shell[data-home-preview-dark='true'] .navigation-drawer :is(.side-nav button,.side-bottom>button).active{background:#ffe135;color:#202426}
+.app-shell[data-home-preview-dark='true'] .navigation-drawer .fitsync-wordmark{color:#fff}
 .app-shell[data-home-preview] .home-page,.app-shell[data-home-preview] .hb-root{background:transparent}
 .app-shell[data-section='home'][data-home-preview-dark='true'] .home-energy .hb-section-heading{border-color:#ffffff25}
 .app-shell[data-home-header-dark='true'] .topbar{border-color:#ffffff20;color:#fff}

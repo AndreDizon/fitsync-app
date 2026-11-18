@@ -1,0 +1,40 @@
+/* The menu follows the selected page theme; yellow always identifies location. */
+.app-shell.theme-default[data-home-preview] .navigation-drawer{--drawer-ink:#293338;--drawer-muted:#5a666d;--drawer-line:#26343b19;--drawer-surface:#ffffff9c;--drawer-hover:#ffffff75;width:min(352px,calc(100vw - 20px));padding:26px 22px 22px;gap:0;font-family:'Archivo FitSync',Arial,sans-serif;border-right:1px solid var(--drawer-line);border-radius:0 24px 24px 0;color:var(--drawer-ink);box-shadow:12px 0 36px #121a2126}
+.app-shell.theme-default[data-home-preview-dark='true'] .navigation-drawer{--drawer-ink:#f7f8fa;--drawer-muted:#c0cad2;--drawer-line:#ffffff24;--drawer-surface:#ffffff09;--drawer-hover:#ffffff0e}
+.app-shell .navigation-drawer :is(button,strong,small,p){font-family:'Archivo FitSync',Arial,sans-serif}
+.navigation-drawer .drawer-heading{gap:14px;padding-bottom:24px;border-bottom:1px solid var(--drawer-line)}
+.navigation-drawer .drawer-heading .brand{display:flex;align-items:center;gap:8px;min-width:0}
+.navigation-drawer .drawer-heading .brand-mark{width:38px;height:38px;flex-shrink:0}
+.navigation-drawer .drawer-heading .fitsync-wordmark{font-size:32px}
+.app-shell .navigation-drawer .drawer-heading .menu-toggle{display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;min-height:42px;border:1px solid #ceb12e;border-radius:12px;background:linear-gradient(#ffec70,#ffe135);color:#252a23;box-shadow:inset 0 2px 2px #fff9,0 2px 0 #b99d3026;padding:0}
+.navigation-drawer .drawer-profile{display:flex;align-items:center;gap:12px;width:100%;min-height:78px;margin:22px 0 24px;padding:14px 12px;text-align:left;border:1px solid var(--drawer-line);border-radius:17px;background:var(--drawer-surface);color:var(--drawer-ink);box-shadow:inset 0 1px 0 #ffffff25,0 4px 10px #15202805;cursor:pointer}
+.navigation-drawer .drawer-profile .avatar{width:42px;height:42px;flex:0 0 42px;border-radius:13px;background:linear-gradient(#fff3ad,#ffe365);color:#55441a;border:1px solid #e8ce72;box-shadow:inset 0 2px 2px #fff9;font-size:13px}
+.drawer-profile-copy{display:grid;gap:5px;min-width:0;flex:1}.drawer-profile-copy strong{font-size:14px;line-height:1.4;font-weight:750;overflow-wrap:anywhere}.drawer-profile-copy small{font-size:11px;line-height:1.5;color:var(--drawer-muted);overflow-wrap:anywhere}
+.navigation-drawer .drawer-profile>svg{flex-shrink:0;color:var(--drawer-muted)}
+.navigation-drawer .side-nav{gap:8px}
+.app-shell.theme-default[data-home-preview] .navigation-drawer .side-nav button{display:flex;align-items:center;gap:13px;min-height:68px;width:100%;padding:12px;border:1px solid transparent;border-radius:15px;text-align:left;color:var(--drawer-ink);background:transparent;cursor:pointer;box-shadow:none}
+.drawer-nav-icon{display:grid;place-items:center;flex:0 0 34px;width:34px;height:34px;border-radius:10px;background:var(--drawer-surface);color:inherit}
+.drawer-nav-copy{display:grid;gap:4px;min-width:0;flex:1}.drawer-nav-copy strong{font-size:14px;line-height:1.35;font-weight:650}.drawer-nav-copy small{font-size:11px;line-height:1.5;color:var(--drawer-muted)}
+.drawer-nav-chevron{flex-shrink:0;color:var(--drawer-muted)}
+.app-shell.theme-default[data-home-preview] .navigation-drawer .side-nav button.active{background:linear-gradient(#ffea65,#ffe135);border-color:#c8ab26;color:#24291f;box-shadow:inset 0 2px 2px #fff9,0 3px 0 #b99c2533}
+.navigation-drawer .side-nav button.active .drawer-nav-icon{background:#ffffff55;box-shadow:inset 0 1px 0 #ffffff70}.navigation-drawer .side-nav button.active :is(small,.drawer-nav-chevron){color:#554919}
+.app-shell .navigation-drawer .side-bottom{padding-top:22px;margin-top:auto}
+.app-shell.theme-default[data-home-preview] .navigation-drawer .side-bottom>button{display:flex;align-items:center;gap:12px;min-height:48px;padding:12px 14px;width:100%;margin:0;border-radius:13px;border:1px solid var(--drawer-line);color:var(--drawer-ink);background:var(--drawer-surface);font-size:13px;font-weight:650;cursor:pointer}
+.navigation-drawer .side-bottom>button>svg:last-child{margin-left:auto;color:inherit}
+.navigation-drawer .drawer-signature{margin:18px 0 0;padding-top:16px;border-top:1px solid var(--drawer-line);color:var(--drawer-muted);font-size:11px;line-height:1.5}
+.app-shell.theme-default[data-home-preview] .navigation-drawer .side-bottom>button.active{background:#ffe135;border-color:#c8ab26;color:#24291f;box-shadow:inset 0 2px 2px #fff8,0 2px 0 #b99c2533}
+.app-shell.theme-default[data-home-preview] .navigation-drawer :is(.side-nav button,.side-bottom>button,.drawer-profile):hover{background:var(--drawer-hover)}
+.app-shell.theme-default[data-home-preview] .navigation-drawer :is(.side-nav button,.side-bottom>button).active:hover{background:#ffe965}
+.app-shell .navigation-drawer button:focus-visible{outline:3px solid #b99516;outline-offset:3px}
+@media(prefers-reduced-motion:no-preference){.navigation-drawer :is(.side-nav button,.drawer-profile,.side-bottom>button){transition:background-color .15s ease,transform .15s ease}.navigation-drawer :is(.side-nav button,.drawer-profile,.side-bottom>button):active{transform:translateY(1px)}}
+@media(prefers-reduced-motion:reduce){.app-shell .navigation-drawer{animation:none}}
+@media(max-width:360px){.app-shell.theme-default[data-home-preview] .navigation-drawer{padding:20px 16px}.navigation-drawer .drawer-heading .fitsync-wordmark{font-size:29px}.navigation-drawer .drawer-heading{gap:10px;padding-bottom:20px}.navigation-drawer .drawer-profile{margin:18px 0 20px}.app-shell.theme-default[data-home-preview] .navigation-drawer .side-nav button{gap:10px;padding:11px 10px}}
+@media(max-height:650px){.app-shell.theme-default[data-home-preview] .navigation-drawer{padding-block:16px}.navigation-drawer .drawer-heading{padding-bottom:16px}.navigation-drawer .drawer-profile{margin:16px 0;min-height:66px;padding-block:10px}.app-shell.theme-default[data-home-preview] .navigation-drawer .side-nav button{min-height:58px;padding-block:8px}.navigation-drawer .side-nav{gap:5px}.navigation-drawer .drawer-signature{margin-top:12px;padding-top:12px}}
+
+/* The drawer's brand bar matches the page header, independently of its body. */
+.app-shell.theme-default[data-home-preview] .navigation-drawer{--drawer-pad-x:22px;--drawer-pad-top:26px}
+.app-shell .navigation-drawer .drawer-heading{margin:calc(-1 * var(--drawer-pad-top)) calc(-1 * var(--drawer-pad-x)) 0;padding:var(--drawer-pad-top) var(--drawer-pad-x) 24px;background:var(--preview-header);color:#293338;border-bottom:1px solid #26343b19}
+.app-shell[data-home-header-dark='true'] .navigation-drawer .drawer-heading{color:#fff;border-bottom-color:#ffffff24}
+.app-shell[data-home-header-dark='true'] .navigation-drawer .drawer-heading .fitsync-wordmark{color:#fff}
+@media(max-width:360px){.app-shell.theme-default[data-home-preview] .navigation-drawer{--drawer-pad-x:16px;--drawer-pad-top:20px}.app-shell .navigation-drawer .drawer-heading{padding-bottom:20px}}
+@media(max-height:650px){.app-shell.theme-default[data-home-preview] .navigation-drawer{--drawer-pad-top:16px}.app-shell .navigation-drawer .drawer-heading{padding-bottom:16px}}

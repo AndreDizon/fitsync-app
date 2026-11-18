@@ -1,0 +1,58 @@
+.header-notifications{position:relative;display:flex;align-items:center;flex-shrink:0}
+.app-shell .header-notifications .notification-trigger{display:grid;place-items:center;width:44px;height:44px;min-height:44px;padding:0;border:1px solid #cfaf25;border-radius:14px;background:linear-gradient(#ffeb69,#ffe135);color:#262b23;box-shadow:inset 0 2px 2px #fff9,0 3px 0 #c3a52c}
+.app-shell .header-notifications .notification-trigger[aria-expanded='true']{background:#fff0a0;box-shadow:inset 0 2px 4px #bfa64725}
+.notification-panel{position:fixed;z-index:70;top:88px;right:max(18px,calc((100vw - 1600px)/2));width:min(350px,calc(100vw - 32px));max-height:calc(100dvh - 112px);overflow:auto;overscroll-behavior:contain;border:1px solid #dce1e5;border-radius:20px;background:#fff;color:#293136;box-shadow:0 12px 36px #17202929;isolation:isolate;text-align:left}
+.notification-panel>header{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:16px 18px;border-bottom:1px solid #e8e9eb}
+.notification-panel h2{margin:0;font-size:17px;font-weight:750;line-height:1.5;letter-spacing:-.025em}
+.notification-panel>header>button{display:grid;place-items:center;width:40px;height:40px;padding:0;border:1px solid #e4e7e9;border-radius:11px;background:#f1f4f6;color:#4d5c67;box-shadow:none;cursor:pointer}
+.notification-empty{display:grid;justify-items:center;gap:10px;padding:30px 22px;text-align:center}
+.notification-empty>span{display:grid;place-items:center;width:50px;height:50px;border-radius:16px;background:#fff5c5;color:#8a681b;border:1px solid #edde9f}
+.notification-empty h3{font-size:15px;line-height:1.5;margin:3px 0 0;font-weight:700}.notification-empty p{font-size:13px;line-height:1.7;margin:0;color:#5a666e}
+.header-notifications button:focus-visible{outline:3px solid #a88819;outline-offset:4px}
+@media(max-width:760px){.notification-panel{top:78px;right:16px}}
+@media(max-height:450px){.notification-panel{top:72px;max-height:calc(100dvh - 88px)}.notification-empty{padding:18px}}
+.notification-count{position:absolute;top:-6px;right:-6px;min-width:19px;height:19px;padding:0 4px;display:grid;place-items:center;border-radius:9px;background:#b93932;color:#fff;border:2px solid #fff;font-size:9px;font-weight:750}
+.notification-panel{display:flex;flex-direction:column;overflow:hidden}
+.notification-panel>header{flex-shrink:0}
+.notification-toolbar{display:flex;align-items:center;gap:10px;padding:10px 16px;border-bottom:1px solid #e8e9eb;flex-shrink:0}
+.notification-toolbar>span{margin-right:auto;font-size:12px;color:#5a666e}
+.notification-toolbar>button{display:flex;align-items:center;justify-content:center;gap:5px;min-height:36px;width:auto;height:auto;padding:7px 9px;border:1px solid #e2e5e7;border-radius:9px;background:#fff9dd;box-shadow:none;color:#343b3f;font-size:11px;cursor:pointer}
+.notification-toolbar button:disabled{opacity:.45;cursor:default}
+.notification-list{list-style:none;padding:0;margin:0;overflow-y:auto;overscroll-behavior:contain;min-height:0}
+.notification-list li{display:flex;align-items:start;gap:6px;padding:12px 10px 12px 16px;border-bottom:1px solid #e6e9ec;background:#fff9df}
+.notification-list li.is-read{background:#fff}
+.notification-list .notification-open{display:grid;align-items:start;justify-content:start;gap:5px;flex:1;min-width:0;width:auto;height:auto;padding:2px 0;background:transparent;box-shadow:none;border:0;border-radius:0;text-align:left;color:#293136;cursor:pointer}
+.notification-open strong{font-size:13px;line-height:1.6;overflow-wrap:anywhere}.notification-open>span{font-size:12px;line-height:1.7;color:#56616a}.notification-open small{display:flex;align-items:center;gap:8px;font-size:10px;line-height:1.6;color:#6a7379}
+.notification-list .notification-remove{flex:0 0 32px;display:grid;place-items:center;width:32px;height:32px;min-height:32px;padding:0;border:0;border-radius:8px;background:transparent;color:#67727b;box-shadow:none;cursor:pointer}
+.notification-retention{padding:10px 16px;margin:0;border-top:1px solid #e6e9ec;color:#626c73;font-size:10px;line-height:1.65;flex-shrink:0}
+.notification-warning{padding:10px 14px;margin:0;background:#fff3dc;font-size:11px;line-height:1.6;color:#795124;flex-shrink:0}
+.st-notifications{grid-column:1/-1}.st-notifications .st-card-heading{background:linear-gradient(110deg,#315e81,#253e55);color:#fff}
+.notification-preferences{display:grid;grid-template-columns:1fr 1fr;gap:0 28px;margin-top:20px;border-top:1px solid #e1e4e6}
+.notification-preferences label{display:flex;align-items:center;justify-content:space-between;gap:18px;padding:17px 0;border-bottom:1px solid #e1e4e6;cursor:pointer}
+.notification-preferences label>span{display:grid;gap:5px;min-width:0}.notification-preferences strong{font-size:13px;line-height:1.5}.notification-preferences small{font-size:12px;line-height:1.6;color:#56636b}
+.notification-preferences input{appearance:none;position:relative;flex:0 0 42px;width:42px;height:25px;border:1px solid #adb6bc;border-radius:14px;background:#dce1e5;cursor:pointer}
+.notification-preferences input:before{content:'';position:absolute;top:3px;left:3px;width:17px;height:17px;border-radius:50%;background:white;box-shadow:0 1px 3px #15202a35}
+.notification-preferences input:checked{background:#ffe135;border-color:#b89d28}.notification-preferences input:checked:before{left:20px;background:#292e26}.notification-preferences input:focus-visible{outline:3px solid #527ca5;outline-offset:4px}
+.notification-device{display:flex;gap:13px;padding-top:24px}.notification-device>svg{flex-shrink:0;margin-top:2px;color:#537797}.notification-device h3{font-size:15px;line-height:1.6;margin:0 0 7px}.notification-device p{font-size:12px;line-height:1.75;color:#56636b;margin:0 0 14px;max-width:75ch}.notification-device p[role='status']{font-weight:650;color:#334d61}
+@media(max-width:600px){.notification-preferences{grid-template-columns:1fr}.notification-preferences label{padding-block:15px}.notification-panel{max-height:calc(100dvh - 96px)}}
+
+.notification-panel{font-family:"Archivo FitSync",Arial,sans-serif}.notification-panel button:focus-visible{outline:3px solid #aa8919;outline-offset:2px}
+
+/* Feature groups keep the inbox compact until the user opens a category. */
+.app-shell .header-notifications .notification-trigger{position:relative;overflow:visible}
+.notification-count{width:23px;height:23px;min-width:23px;padding:0;border-radius:50%;top:-7px;right:-7px;font-size:9px;line-height:1;font-weight:800;box-shadow:0 2px 3px #17202915}
+.notification-groups{min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#adb6bc #f2f4f6;scrollbar-gutter:stable;max-height:min(480px,calc(100dvh - 270px))}
+.notification-groups::-webkit-scrollbar{width:6px}.notification-groups::-webkit-scrollbar-track{background:#f2f4f6}.notification-groups::-webkit-scrollbar-thumb{background:#adb6bc;border-radius:8px}
+.notification-group{border-bottom:1px solid #e5e8ea}
+.notification-group:last-child{border-bottom:0}
+.notification-group>summary{display:flex;align-items:center;gap:10px;padding:13px 14px;min-height:64px;cursor:pointer;list-style:none;background:#fff}
+.notification-group>summary::-webkit-details-marker{display:none}
+.notification-group>summary:hover{background:#faf9f2}
+.notification-group>summary:focus-visible{outline:3px solid #b29425;outline-offset:-3px;border-radius:6px}
+.notification-group-icon{display:grid;place-items:center;flex:0 0 34px;width:34px;height:34px;border:1px solid #eadfa6;border-radius:10px;background:#fff5c5;color:#7d641c}
+.notification-group-icon-progress{background:#eaf1fc;border-color:#d7e2f2;color:#365e8a}.notification-group-icon-social{background:#f4eefa;border-color:#e8dcf0;color:#76578b}
+.notification-group-copy{display:grid;gap:3px;min-width:0;flex:1}.notification-group-copy strong{font-size:12px;font-weight:700;line-height:1.5;color:#293136}.notification-group-copy small{font-size:10px;line-height:1.5;color:#5c6870}
+.notification-group-count{display:grid;place-items:center;min-width:23px;height:23px;padding:0 5px;border-radius:12px;background:#ffe135;color:#333524;font-size:10px;font-weight:750}
+.notification-group-chevron{flex-shrink:0;color:#69767e}.notification-group[open]>summary{background:#fffae7}.notification-group[open]>summary>.notification-group-chevron{transform:rotate(180deg)}
+.notification-group .notification-list{overflow:visible}.notification-group .notification-list li{padding-left:20px}.notification-group .notification-list li:last-child{border-bottom:0}
+@media(max-height:450px){.notification-groups{max-height:calc(100dvh - 230px)}.notification-group>summary{min-height:56px;padding-block:9px}}

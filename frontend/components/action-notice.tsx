@@ -10,10 +10,9 @@ export function ActionNotice({ message, onClose }: { message: string; onClose: (
   const dialog = useRef<HTMLDialogElement>(null), close = useRef<HTMLButtonElement>(null), id = useId()
   useEffect(() => {
     const previous = document.activeElement as HTMLElement | null
-    const overflow = document.body.style.overflow
     // Let a submitting editor close before moving focus into this confirmation.
-    const frame = requestAnimationFrame(() => { dialog.current?.showModal(); close.current?.focus(); document.body.style.overflow = 'hidden' })
-    return () => { cancelAnimationFrame(frame); document.body.style.overflow = overflow; if (previous?.isConnected) previous.focus({ preventScroll: true }) }
+    const frame = requestAnimationFrame(() => { dialog.current?.showModal(); close.current?.focus(); })
+    return () => { cancelAnimationFrame(frame); if (previous?.isConnected) previous.focus({ preventScroll: true }) }
   }, [])
   return createPortal(<dialog ref={dialog} className="action-notice" aria-labelledby={id + '-title'} aria-describedby={id + '-message'} onCancel={event => { event.preventDefault(); onClose() }}>
     <button type="button" className="action-notice-close" aria-label="Close confirmation" onClick={onClose}><X size={20}/></button>
