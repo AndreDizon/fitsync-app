@@ -6,6 +6,7 @@ import { testerOnboarding } from '@/lib/auth/onboarding'
 import { readCompletedOnboarding } from '../../shared/onboarding'
 
 export const dynamic = 'force-dynamic'
+export const maxDuration = 60
 
 export default async function HomePage() {
   if (await currentTester()) {
@@ -16,8 +17,8 @@ export default async function HomePage() {
   const client = await authClient()
   if (!client) redirect('/login')
   const { data: { user } } = await client.auth.getUser()
-  if (!user) redirect('/login')
+  if (!user?.email_confirmed_at) redirect('/login?error=confirm')
   const profile = readCompletedOnboarding(user.user_metadata.fitsync_onboarding)
   if (!profile) redirect('/onboarding')
-  return <Dashboard userName={String(user.user_metadata.display_name || user.user_metadata.full_name || 'You')} userEmail={user.email ?? ''} accountId={user.id} profile={profile} />
+  return <Dashboard userName={String(user.user_metadata.display_name || user.user_metadata.full_name || 'You')} userEmail={user.email ?? ''} accountId={user.id} dataEpoch={Number(user.app_metadata.fitsync_data_epoch || 0)} profile={profile} />
 }

@@ -1,3 +1,4 @@
+import { needsAccountSetup } from '../../shared/account-security'
 import { createClient } from '@supabase/supabase-js'
 
 export async function authenticate(request: Request) {
@@ -9,5 +10,14 @@ export async function authenticate(request: Request) {
   const client = createClient(url, key, { global: { headers: { Authorization: `Bearer ${token}` } }, auth: { persistSession: false, autoRefreshToken: false } })
   const { data: { user }, error } = await client.auth.getUser(token)
   if (error || !user) return { response: Response.json({ error: 'Invalid or expired session' }, { status: 401 }) }
+  if (!user.email_confirmed_at) return { response: Response.json({ error: 'Confirm your account email before continuing.' }, { status: 403 }) }
+  if (needsAccountSetup(user)) return { response: Response.json({ error: 'Complete your account setup first.' }, { status: 403 }) }
+  // getUser verified the token above. Compare its data generation with current
+  // server-owned metadata so another device cannot sync pre-reset records back.
+  try {
+    const claims = JSON.parse(Buffer.from(token.split('.')[1], 'base64url').toString())
+    if (Number(claims.app_metadata?.fitsync_data_epoch || 0) !== Number(user.app_metadata.fitsync_data_epoch || 0)) return { response: Response.json({ error: 'Your account data was reset. Reload FitSync before continuing.' }, { status: 409 }) }
+  } catch { return { response: Response.json({ error: 'Invalid session' }, { status: 401 }) } }
+  if (Number(user.app_metadata.fitsync_data_resetting_until) > Date.now()) return { response: Response.json({ error: 'An account data operation is in progress. Try again shortly.' }, { status: 409 }) }
   return { client, user }
 }

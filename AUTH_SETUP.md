@@ -71,9 +71,21 @@ Use exact production redirect URLs rather than wildcard domains.
 
 Enable the Email provider and **Confirm email**. Set the minimum password length
 to 12 in Supabase as well as the app's validation. Enable leaked-password
-protection when supported by your plan. Configure your SMTP provider for reliable
-confirmation and password reset delivery; Supabase's default email service has
-development restrictions.
+protection when supported by your plan. FitSync's chosen delivery is now the
+**Gmail API through a signed Supabase Send Email Hook**, using
+`FitSync <andredizon2004@gmail.com>`. Follow [GMAIL_AUTH_SETUP.md](GMAIL_AUTH_SETUP.md)
+for sender authorization, backend secrets and hook activation. This replaces
+Supabase SMTP delivery once enabled. Live sending still requires authorization
+by the sender's Google account.
+
+Enable Supabase's secure password-change/reauthentication option and password
+change email notifications. New Google account setup relies on the fresh OAuth
+session; older sessions may be asked to sign in again by Supabase. Do not disable
+reauthentication to bypass that response.
+
+The Gmail hook renders FitSync's branded emails in `backend/lib/auth-email.ts`;
+dashboard email templates below are only a fallback reference when using SMTP.
+Do not activate both delivery approaches expecting two separate messages.
 
 Default confirmation links work through the PKCE callback in the browser that
 started signup. For confirmation links that also work across browsers/devices,
@@ -108,6 +120,86 @@ and token to these forms before enabling that provider setting.
 Google creates an account on first sign-in; the same button signs in returning
 users. FitSync never collects the Google password or requests Gmail mailbox
 access.
+
+## Account setup, recovery and deletion (November 18 update)
+
+Apply `backend/migrations/20261118_account_security.sql` **after** all previous
+migrations, including `20261118_notifications.sql`. It adds account-completion,
+one-use recovery tracking and server-only data-reset functions. The file can be
+rerun. The application fails closed if the functions are missing.
+
+Set `AUTH_FLOW_SECRET` on the **frontend** server. Generate at least 32 random
+bytes, for example:
+
+```sh
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+```
+
+Use separate secrets for local and production. Keep a stable value across
+instances in each environment. It signs an HttpOnly, session-bound recovery grant
+that expires 15 minutes after a verified recovery callback. Changing this secret
+invalidates open recovery forms. Configure the Supabase email token expiry to
+900 seconds too; the app cannot change that hosted setting. Configure JWT expiry
+to a suitably short interval (for example 15 minutes): revoking refresh tokens
+does not instantly invalidate already-issued access tokens on other devices.
+
+Set `SUPABASE_SERVICE_ROLE_KEY` on the **backend** server for deletion. Never use
+this value in `NEXT_PUBLIC_*` variables. It is used only after verifying the
+signed-in user's identity, confirmed email, current password and confirmation
+phrase. The target user ID always comes from the verified session.
+
+Email registration now asks for username, email and a confirmed FitSync password.
+Google supplies the verified email; `/complete-account` asks for username and a
+separate FitSync password. Existing accounts missing these details also complete
+this step once. Username is a display handle, not an alternative login identifier;
+email remains the sign-in identifier. A server-owned completion flag is set only
+after the database confirms a verified email and a stored password.
+
+Recovery always returns the same message for valid email addresses, including
+delivery/rate-limit failures. Tokens are verified by Supabase, and a recovery grant
+can be consumed only once before setting a new password. A regular signed-in
+session alone cannot open the reset form. A failed password update consumes the
+grant; request a fresh recovery email to retry.
+
+Settings includes recovery email, sign out everywhere, delete data, and delete
+account. Deletions require the current **FitSync** password and `DELETE DATA` or
+`DELETE ACCOUNT`. Google-only users from older versions can set a FitSync password
+through email recovery first. Do not enter a Google password.
+
+Data reset removes playlists, daily plans, progress, photos, achievements,
+community activity and notifications, clears onboarding, and keeps credentials.
+Account deletion removes Storage files first, then deletes the Auth user; foreign
+keys cascade the owned database records. Operations lock concurrent requests and
+advance a data generation on reset so stale device sessions cannot sync old
+records back. On reload, a changed generation clears private device copies before
+background syncing starts. Public offline exercise assets and device appearance
+are preserved. Server copies are removed; previously downloaded/exported files or
+screenshots held outside FitSync cannot be recalled. Existing short-lived signed
+photo links expire normally; Storage/CDN caches may have their own expiry.
+
+Storage, Auth and Postgres are separate services. A failure can remove some files
+before a later step fails. The UI reports this honestly and permits a retry; it
+does not claim a full rollback. Review live cleanup failures before re-enabling
+uploads. A 2-minute server lock expires automatically if a worker is interrupted.
+
+### Verify with a dedicated test account
+
+1. Register by email, confirm it, sign in and complete onboarding. Repeat with
+   Google; verify username/password setup is required and the email is read-only.
+2. Request recovery for an existing and a nonexistent email. Verify the responses
+   match. Open a recovery email, reset the password, and try the old link again.
+3. Check protected routes after signing out. Check local private storage clears.
+4. Upload a test photo and create records. Reset data with the wrong password or
+   phrase (must fail), then the correct details. Verify records/files are removed,
+   the account remains, and onboarding reopens. Reload a second signed-in device
+   and verify it does not restore the old records.
+5. In a separate disposable account, delete the account. Verify files and rows are
+   gone and signing in with its old password fails. Test failed-storage retries.
+
+These are live-environment checks. Automated tests use isolated fixtures and an
+in-memory database, never your production account. Recovery email delivery,
+Google consent settings, rate limits and production secrets still require the
+Supabase/Vercel configuration above.
 
 ## Security boundaries
 

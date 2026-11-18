@@ -3,6 +3,7 @@
 import { Activity, ArrowUpRight, Check, Flag, Palette, ShieldCheck, UserRound, WifiOff } from 'lucide-react'
 import { homeThemes, type HomeTheme } from './home-theme-preview'
 import { NotificationSettings } from './notification-settings'
+import { AccountSecuritySettings } from './account-security-settings'
 import { PlanSignout } from './plan-signout'
 import { scrollToProgressSection } from '@/lib/progress-section-navigation'
 import '@/app/settings-workspace.css'
@@ -23,6 +24,7 @@ export function SettingsWorkspace({ userName, userEmail, initials, theme, setThe
       <a href="#settings-planning"><Flag size={16}/>Planning</a>
       <a href="#settings-appearance"><Palette size={16}/>Appearance</a>
       <a href="#settings-notifications">Notifications</a>
+      <a href="#settings-security"><ShieldCheck size={16}/>Security</a>
       <a href="#settings-privacy"><ShieldCheck size={16}/>Privacy &amp; data</a>
     </nav>
 
@@ -60,6 +62,7 @@ export function SettingsWorkspace({ userName, userEmail, initials, theme, setThe
       </section>
 
       <NotificationSettings/>
+      <AccountSecuritySettings/>
       <section className="st-card st-privacy" id="settings-privacy" aria-labelledby="st-privacy-title">
         <header className="st-card-heading"><span className="st-icon"><ShieldCheck size={21}/></span><div><h2 id="st-privacy-title">Your records &amp; access</h2><p>Know what stays private and what works offline.</p></div></header>
         <div className="st-card-body">

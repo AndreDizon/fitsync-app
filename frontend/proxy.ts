@@ -1,5 +1,6 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
+import { needsAccountSetup } from '../shared/account-security'
 import { testerCookie, verifyTesterSession } from '@/lib/auth/tester'
 
 export async function proxy(request: NextRequest) {
@@ -14,6 +15,7 @@ export async function proxy(request: NextRequest) {
   const finish = (target: NextResponse) => {
     response.cookies.getAll().forEach(cookie => target.cookies.set(cookie))
     target.headers.set('Cache-Control', 'private, no-store')
+    if (path.startsWith('/auth/') || path === '/reset-password') target.headers.set('Referrer-Policy', 'no-referrer')
     return target
   }
   let authenticated = false
@@ -34,7 +36,10 @@ export async function proxy(request: NextRequest) {
       },
     })
     const { data: { user } } = await client.auth.getUser()
-    authenticated = !!user
+    authenticated = !!user?.email_confirmed_at
+    if (user && needsAccountSetup(user) && !isPublic && !['/complete-account', '/reset-password'].includes(path)) {
+      return finish(api ? NextResponse.json({ error: 'Complete your account setup first.' }, { status: 403 }) : NextResponse.redirect(new URL('/complete-account', request.url)))
+    }
     if (authenticated && api) {
       const { data: { session } } = await client.auth.getSession()
       if (session) {
@@ -53,4 +58,4 @@ export async function proxy(request: NextRequest) {
   return finish(response)
 }
 
-export const config = { matcher: ['/', '/onboarding', '/plan-preparation', '/login', '/signup', '/forgot-password', '/reset-password', '/auth/:path*', '/api/:path*'] }
+export const config = { matcher: ['/', '/onboarding', '/plan-preparation', '/complete-account', '/login', '/signup', '/forgot-password', '/reset-password', '/auth/:path*', '/api/:path*'] }

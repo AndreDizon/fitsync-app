@@ -11,6 +11,6 @@ export default async function OnboardingPage() {
   if (await currentTester()) return <Onboarding name="Test" profile={await testerOnboarding()} />
   const client = await authClient()
   const user = client ? (await client.auth.getUser()).data.user : null
-  if (!user) redirect('/login')
+  if (!user?.email_confirmed_at) redirect('/login?error=confirm')
   return <Onboarding name={String(user.user_metadata.display_name || user.user_metadata.full_name || 'friend').split(/\s+/)[0]} profile={readCompletedOnboarding(user.user_metadata.fitsync_onboarding)} />
 }

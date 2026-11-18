@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server'
 import { authClient, appOrigin } from '@/lib/auth/server'
 import { cookies } from 'next/headers'
+import { grantRecovery } from '@/lib/auth/recovery'
 import { testerCookie } from '@/lib/auth/tester'
 
 export async function GET(request: NextRequest) {
@@ -8,8 +9,13 @@ export async function GET(request: NextRequest) {
   const type = request.nextUrl.searchParams.get('type')
   const client = await authClient()
   if (hash && client && (type === 'email' || type === 'signup' || type === 'recovery')) {
-    const { error } = await client.auth.verifyOtp({ token_hash: hash, type })
-    if (!error) { (await cookies()).delete(testerCookie); return NextResponse.redirect(new URL(type === 'recovery' ? '/reset-password' : '/', appOrigin())) }
+    const { data, error } = await client.auth.verifyOtp({ token_hash: hash, type })
+    if (!error) {
+      if (type === 'recovery' && data.session && data.user) {
+        try { await grantRecovery(data.user.id, data.session.access_token) }
+        catch { return NextResponse.redirect(new URL('/forgot-password?error=link', appOrigin())) }
+      }
+      (await cookies()).delete(testerCookie); return NextResponse.redirect(new URL(type === 'recovery' ? '/reset-password' : '/', appOrigin())) }
   }
   return NextResponse.redirect(new URL('/login?error=link', appOrigin()))
 }

@@ -309,6 +309,6 @@ function SocialView({ initialSection, initialPostId }: { initialSection?: 'forum
 
 function MoonIcon() { return <span className="tiny-icon">☾</span> } function DownloadIcon() { return <span className="tiny-icon">↓</span> }
 
-export default function Dashboard({ profile, accountId = null, ...props }: { userName: string; userEmail: string; accountId?: string | null; profile: OnboardingProfile }) {
-  return <PlaylistAccountProvider id={accountId} timeZone={profile.timeZone}><PlaylistNavigationProvider><PlanningProfileProvider profile={profile}><NotificationProvider><App {...props} /></NotificationProvider></PlanningProfileProvider></PlaylistNavigationProvider></PlaylistAccountProvider>
+export default function Dashboard({ profile, accountId = null, dataEpoch = 0, ...props }: { userName: string; userEmail: string; accountId?: string | null; dataEpoch?: number; profile: OnboardingProfile }) {
+  return <PlaylistAccountProvider id={accountId} dataEpoch={dataEpoch} timeZone={profile.timeZone}><PlaylistNavigationProvider><PlanningProfileProvider profile={profile}><NotificationProvider><App {...props} /></NotificationProvider></PlanningProfileProvider></PlaylistNavigationProvider></PlaylistAccountProvider>
 }
