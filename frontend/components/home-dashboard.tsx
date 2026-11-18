@@ -95,7 +95,7 @@ export function HomeDashboard({ onOpen }: { onOpen: (destination: HomeDestinatio
       ])
       if (!live) return
       if(results[0].status==='fulfilled') {setRecord(results[0].value as StoredWeek); if((results[0].value as StoredWeek).error) setNotice('Showing your saved plan. Some account data could not refresh.')}
-      if(results[1].status==='fulfilled')setProgress(results[1].value as ProgressSnapshot | null)
+      if(results[1].status==='fulfilled') { const saved=results[1].value as ProgressSnapshot | null; setProgress(saved); if(saved?.offline) setNotice('Live progress could not refresh. Showing your saved records.') }
       setLoading(false)
       if(results.some(result=>result.status==='rejected'))setNotice('Some summaries could not refresh. Saved data stays available; open a section to retry.')
     }
@@ -123,7 +123,7 @@ export function HomeDashboard({ onOpen }: { onOpen: (destination: HomeDestinatio
   }
   return <div className="hb-root home-energy">
     <div className="hb-body-band hb-band-white">
-    <header className="hb-heading sync-status-heading"><div><p className="hb-kicker">YOUR DAY, CONNECTED</p><h2>Your training. In focus.</h2><p className="hb-heading-description">Your plans, activity and everyday progress in one place.</p></div><SyncStatus key={owner} label="Dashboard information" infoOnly signedIn={!!identity} working={loading} problem={!!identity&&!!(notice||record?.error||progress?.offline)} message={identity?(notice||'These summaries use your saved plans and progress records. Refresh to check for newer changes.'):'These summaries use the plans saved in this browser. Refresh to reload your local totals.'} onRefresh={refreshSummaries}/></header>
+    <header className="hb-heading sync-status-heading"><div><p className="hb-kicker">YOUR DAY, CONNECTED</p><h2>Your training. In focus.</h2><p className="hb-heading-description">Your plans, activity and everyday progress in one place.</p></div><SyncStatus key={owner} label="Dashboard information" infoOnly signedIn={!!identity} working={loading} problem={!!identity&&!loading&&!!(notice||record?.error||progress?.offline)} message={identity?(notice||'These summaries use your saved plans and progress records. Refresh to check for newer changes.'):'These summaries use the plans saved in this browser. Refresh to reload your local totals.'} onRefresh={refreshSummaries}/></header>
     {notice&&<p className="hb-notice" role="status">{notice}</p>}
     <section className="hb-overview" aria-label="Today at a glance">
       <article className="hb-today"><div className="hb-card-top"><span className="hb-kicker">TODAY / YOUR MOMENTUM</span><Flame size={20}/></div><HomeCardArt subject="day"/><div className="hb-completion"><DailyTrack done={done} total={all.length}/><span>plan tasks completed</span></div><progress value={done} max={Math.max(1,all.length)} aria-label="Today's completed plan tasks"/><p>{nextName?<><b>Next in your schedule</b><br/>{next?.time} · {nextName}</>:all.length?'All planned tasks are done. Make room for recovery.':'Your day is a blank canvas. Start with a plan.'}</p><button onClick={()=>openPlan(next&&'foodId' in next?'nutrition':'workout')}>Open my day <ArrowUpRight size={18}/></button></article>

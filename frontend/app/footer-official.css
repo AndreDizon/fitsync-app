@@ -60,6 +60,7 @@
  .footer-official .footer-home-column>h2,.footer-official .footer-home-contact h2{font-size:18px;line-height:23px;margin-bottom:12px;letter-spacing:-.025em}
  .footer-official nav.footer-home-column{display:flex;gap:0}
  .footer-official nav.footer-home-column h2{margin-bottom:12px}
+ .app-shell .footer-official nav.footer-home-column>button{min-height:32px;padding:5px 0;width:100%;line-height:22px}
  .footer-official .footer-home-column+.footer-home-column{padding-top:0;border:0}
  .footer-official .footer-home-column:nth-child(n+3){grid-column:1/-1;padding-top:18px;border-top:1px solid #eee8d6}
  .footer-official .footer-home-detail{gap:2px;margin-bottom:12px;line-height:20px}
