@@ -1,5 +1,6 @@
 import { needsAccountSetup } from '../../shared/account-security'
 import { createClient } from '@supabase/supabase-js'
+import { privateDataFetch } from './private-data'
 
 export async function authenticate(request: Request) {
   const token = request.headers.get('authorization')?.match(/^Bearer (\S+)$/i)?.[1]
@@ -19,5 +20,6 @@ export async function authenticate(request: Request) {
     if (Number(claims.app_metadata?.fitsync_data_epoch || 0) !== Number(user.app_metadata.fitsync_data_epoch || 0)) return { response: Response.json({ error: 'Your account data was reset. Reload FitSync before continuing.' }, { status: 409 }) }
   } catch { return { response: Response.json({ error: 'Invalid session' }, { status: 401 }) } }
   if (Number(user.app_metadata.fitsync_data_resetting_until) > Date.now()) return { response: Response.json({ error: 'An account data operation is in progress. Try again shortly.' }, { status: 409 }) }
-  return { client, user }
+  const privateClient = createClient(url, key, { global: { headers: { Authorization: `Bearer ${token}` }, fetch: privateDataFetch(user.id) }, auth: { persistSession: false, autoRefreshToken: false } })
+  return { client: privateClient, user }
 }

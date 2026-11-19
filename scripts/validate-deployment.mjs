@@ -7,9 +7,16 @@ const env = {
   NEXT_PUBLIC_SITE_URL: 'https://fitsync.example',
   NEXT_PUBLIC_SUPABASE_URL: 'https://project.supabase.co',
   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: 'sb_publishable_build_check_only',
+  PRIVATE_DATA_ENCRYPTION_KEYS: JSON.stringify({ v1: 'ab'.repeat(32) }),
+  PRIVATE_DATA_ENCRYPTION_ACTIVE_KEY: 'v1',
 }
 assert.deepEqual(deploymentErrors('frontend', env), [])
 assert.deepEqual(deploymentErrors('backend', env), [])
+for (const value of ['', '{}', 'null', '[]', '{broken', JSON.stringify({ v1: 'too-short' })]) {
+  assert(deploymentErrors('backend', { ...env, PRIVATE_DATA_ENCRYPTION_KEYS: value }).some(error => error.includes('PRIVATE_DATA_ENCRYPTION_KEYS')))
+}
+assert(deploymentErrors('backend', { ...env, PRIVATE_DATA_ENCRYPTION_ACTIVE_KEY: 'missing' }).length > 0)
+assert(!deploymentErrors('backend', { ...env, PRIVATE_DATA_ENCRYPTION_ACTIVE_KEY: 'missing' }).join('').includes('ab'.repeat(32)))
 assert.equal(backendOrigin({}), 'http://127.0.0.1:3001')
 assert.equal(backendOrigin({ BACKEND_URL: 'http://localhost:3001/' }), 'http://localhost:3001')
 assert.equal(backendOrigin({ ...env, BACKEND_URL: `${env.BACKEND_URL}/` }), env.BACKEND_URL)

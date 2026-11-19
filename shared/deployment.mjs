@@ -42,5 +42,13 @@ export function deploymentErrors(app, env = process.env) {
     check(() => httpsOrigin(env.NEXT_PUBLIC_SITE_URL, 'NEXT_PUBLIC_SITE_URL'))
     check(() => backendOrigin(env))
   }
+  if (app === 'backend') {
+    let keys
+    try { keys = JSON.parse(env.PRIVATE_DATA_ENCRYPTION_KEYS || '{}') } catch {}
+    const active = env.PRIVATE_DATA_ENCRYPTION_ACTIVE_KEY || 'v1'
+    if (!keys || typeof keys !== 'object' || Array.isArray(keys) || !Object.hasOwn(keys, active) || Object.entries(keys).some(([id, value]) => !/^[a-zA-Z0-9_-]{1,32}$/.test(id) || typeof value !== 'string' || !/^[a-f0-9]{64}$/i.test(value))) {
+      errors.push('Configure server-only PRIVATE_DATA_ENCRYPTION_KEYS and PRIVATE_DATA_ENCRYPTION_ACTIVE_KEY before deploying encrypted private storage. See PRIVATE_DATA_ENCRYPTION.md.')
+    }
+  }
   return [...new Set(errors)]
 }

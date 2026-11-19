@@ -12,7 +12,7 @@ export async function GET(request:Request){
  if(logs.error||visits.error||plans.error||awards.error)return schemaError()
  const weeks=(plans.data||[]).map(row=>({...row.document,revision:row.revision})),dates=(visits.data||[]).map(row=>row.date),stats=achievementStats(weeks,dates,today,logs.data||[]),earned=new Set((awards.data||[]).map(row=>row.code));const newly=milestones.filter(b=>!earned.has(b.code)&&stats[b.metric]>=b.target)
  let awardWarning='';if(newly.length){const saved=await client.from('progress_awards').upsert(newly.map(b=>({user_id:user.id,code:b.code})),{onConflict:'user_id,code',ignoreDuplicates:true}).select('*');if(saved.error)awardWarning=saved.error.code==='23514'?'New achievements need the 20261118_achievement_claims.sql database migration. Existing achievements remain saved.':'Milestones could not be saved yet. Refresh to retry.';else awards.data?.push(...saved.data||[])}
- const entries=await Promise.all((logs.data||[]).map(async row=>{if(row.kind!=='photo')return row;const path=row.payload.path;if(path!==user.id+'/'+row.id+'.jpg')return{...row,photoUrl:null};const signed=await client.storage.from('progress-photos').createSignedUrl(path,600);return{...row,photoUrl:signed.data?.signedUrl||null}}))
+ const entries=(logs.data||[]).map(row=>row.kind==='photo'?{...row,photoUrl:'/api/progress/photo?id='+encodeURIComponent(row.id)}:row)
  return json({userId:user.id,entries,visits:dates,weeks,awards:awards.data||[],today,awardWarning,limited:logs.data?.length===1000||plans.data?.length===1000||visits.data?.length===1000})
 }
 export async function POST(request:Request){

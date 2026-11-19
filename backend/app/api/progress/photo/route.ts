@@ -2,9 +2,20 @@ import sharp from 'sharp'
 import { authenticate } from '../../../../lib/auth'
 import { dateInZone, parseProgress } from '../../../../../shared/progress'
 import { readCompletedOnboarding } from '../../../../../shared/onboarding'
+import { openPhoto, sealPhoto } from '../../../../lib/private-data'
+import { isUUID } from '../../../../../shared/playlists'
 export const dynamic='force-dynamic'
 export const runtime='nodejs'
 const json=(value:unknown,status=200)=>Response.json(value,{status,headers:{'Cache-Control':'private, no-store'}})
+export async function GET(request:Request){
+ const auth=await authenticate(request);if(auth.response)return auth.response
+ const id=new URL(request.url).searchParams.get('id');if(!isUUID(id))return json({error:'Invalid photo.'},400)
+ const entry=await auth.client!.from('progress_entries').select('id,kind').eq('user_id',auth.user!.id).eq('id',id).eq('kind','photo').maybeSingle()
+ if(entry.error)return json({error:'Unable to load photo.'},503);if(!entry.data)return json({error:'Photo not found.'},404)
+ const file=await auth.client!.storage.from('progress-photos').download(auth.user!.id+'/'+id+'.jpg')
+ if(file.error||!file.data)return json({error:'Photo not found.'},404)
+ try{const image=openPhoto(Buffer.from(await file.data.arrayBuffer()),auth.user!.id,id);return new Response(new Uint8Array(image),{headers:{'Content-Type':'image/jpeg','Cache-Control':'private, no-store','X-Content-Type-Options':'nosniff'}})}catch{return json({error:'Unable to decrypt this photo. Check the server encryption configuration.'},503)}
+}
 export async function POST(request:Request){
  const auth=await authenticate(request);if(auth.response)return auth.response
  const max=2200000;if(Number(request.headers.get('content-length'))>max)return json({error:'Choose an image under 2 MB after compression.'},413)
@@ -17,7 +28,8 @@ export async function POST(request:Request){
  const id=crypto.randomUUID(),path=auth.user!.id+'/'+id+'.jpg',profile=readCompletedOnboarding(auth.user!.user_metadata.fitsync_onboarding)
  const entry=parseProgress({id,kind:'photo',date:form.get('date'),payload:{notes:form.get('notes')||''},revision:0},dateInZone(profile?.timeZone),path);if(!entry)return json({error:'Choose a valid date and a caption under 500 characters.'},400)
  let image:Buffer;try{image=await sharp(Buffer.from(await file.arrayBuffer()),{limitInputPixels:20000000}).rotate().resize(1600,1600,{fit:'inside',withoutEnlargement:true}).jpeg({quality:85}).toBuffer()}catch{return json({error:'This image could not be decoded. Choose another JPEG, PNG or WebP photo.'},400)}
- const upload=await auth.client!.storage.from('progress-photos').upload(path,image,{contentType:'image/jpeg',cacheControl:'0',upsert:false});if(upload.error)return json({error:'Unable to upload. Run the Progress migration and check your connection.'},503)
+ let encryptedImage:Buffer;try{encryptedImage=sealPhoto(image,auth.user!.id,id)}catch{return json({error:'Photo encryption is not configured. Your photo was not uploaded.'},503)}
+ const upload=await auth.client!.storage.from('progress-photos').upload(path,encryptedImage,{contentType:'application/octet-stream',cacheControl:'0',upsert:false});if(upload.error)return json({error:'Unable to upload. Run the Progress and encryption migrations and check your connection.'},503)
  const saved=await auth.client!.from('progress_entries').insert({id,user_id:auth.user!.id,kind:'photo',date:entry.date,payload:entry.payload}).select('*').single()
  if(saved.error){await auth.client!.storage.from('progress-photos').remove([path]);return json({error:'Could not save the photo entry. Please retry.'},503)}return json({userId:auth.user!.id,data:saved.data},201)
  }catch{return json({error:'Invalid photo upload.'},400)}

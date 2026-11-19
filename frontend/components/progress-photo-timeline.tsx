@@ -22,7 +22,7 @@ export function ProgressPhotoTimeline({ photos, disabled, onEdit, onDelete }: {
     return <div className="pr-photo-actions"><button type="button" disabled={disabled} onClick={() => onEdit(entry)}>Edit date / caption</button><button type="button" disabled={disabled} onClick={() => onDelete(entry)}>Delete photo</button></div>
   }
   return <div className="pt-content">
-    <div className="pt-privacy"><LockKeyhole size={18} aria-hidden="true"/><div><strong>Private to your account</strong><p>Your photos are stored in private storage with access rules tied to your account. Other users cannot browse them. Viewing links expire after 10 minutes; avoid sharing those links. Uploads are resized and embedded image metadata is removed.</p></div></div>
+    <div className="pt-privacy"><LockKeyhole size={18} aria-hidden="true"/><div><strong>Private to your account</strong><p>Your photos are stored in private storage with access rules tied to your account. Other users cannot browse them. Viewing requires your signed-in session. Uploads are resized and embedded image metadata is removed.</p></div></div>
     {photos.length ? <>
       <div className="pt-toolbar"><p>{photos.length} private {photos.length === 1 ? 'photo' : 'photos'} in this period</p><label>Photo order<select value={sort} onChange={event => { setSort(event.target.value); setPage(0) }}><option value="newest">Newest first (descending)</option><option value="oldest">Oldest first (ascending)</option></select></label><button type="button" disabled={photos.length < 2} aria-pressed={view === 'compare'} onClick={() => setView(view === 'timeline' ? 'compare' : 'timeline')}>{view === 'timeline' ? 'Compare two photos' : 'Back to timeline'}</button></div>
       {view === 'compare' ? <>
@@ -32,7 +32,7 @@ export function ProgressPhotoTimeline({ photos, disabled, onEdit, onDelete }: {
         <div className="pt-grid">{visible.map(entry => <figure key={entry.id}>{image(entry)}<figcaption><time dateTime={entry.date}>{entry.date}</time>{entry.payload.notes && <p>{entry.payload.notes}</p>}</figcaption>{actions(entry)}</figure>)}</div>
         <nav className="pt-pagination" aria-label="Photo timeline pages"><p aria-live="polite">Showing {current * 6 + 1}–{Math.min((current + 1) * 6, ordered.length)} of {ordered.length}<span>Page {current + 1} of {pages}</span></p><div><button type="button" disabled={current === 0} onClick={() => setPage(current - 1)}><ArrowLeft size={16}/>Previous</button><button type="button" disabled={current >= pages - 1} onClick={() => setPage(current + 1)}>Next<ArrowRight size={16}/></button></div></nav>
       </>}
-      <p className="pt-help">Photos require an internet connection. If a viewing link expires, use the page info button to refresh. Use similar lighting and framing for easier comparisons.</p>
+      <p className="pt-help">Photos require an internet connection and a valid signed-in session. If a photo is unavailable, use the page info button to refresh. Use similar lighting and framing for easier comparisons.</p>
     </> : <div className="pr-photo-empty"><Camera size={32}/><h3>No photos in this period</h3><p>Choose a wider period or add a photo. Photos are optional and private. Use similar lighting and framing for easier comparisons.</p></div>}
   </div>
 }
