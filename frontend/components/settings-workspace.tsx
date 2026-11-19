@@ -1,6 +1,6 @@
 'use client'
 
-import { Activity, ArrowUpRight, Check, Flag, Palette, ShieldCheck, UserRound, WifiOff } from 'lucide-react'
+import { ArrowUpRight, Check, Flag, Palette, ShieldCheck, UserRound } from 'lucide-react'
 import { homeThemes, type HomeTheme } from './home-theme-preview'
 import { NotificationSettings } from './notification-settings'
 import { AccountSecuritySettings } from './account-security-settings'
@@ -10,7 +10,7 @@ import '@/app/settings-workspace.css'
 
 const appearances = homeThemes
 
-export function SettingsWorkspace({ userName, userEmail, initials, theme, setTheme, onProgress }: {
+export function SettingsWorkspace({ userName, userEmail, initials, theme, setTheme }: {
   userName: string; userEmail: string; initials: string; theme: HomeTheme;
   setTheme: (theme: HomeTheme) => void; onProgress: () => void;
 }) {
@@ -25,7 +25,6 @@ export function SettingsWorkspace({ userName, userEmail, initials, theme, setThe
       <a href="#settings-appearance"><Palette size={16}/>Appearance</a>
       <a href="#settings-notifications">Notifications</a>
       <a href="#settings-security"><ShieldCheck size={16}/>Security</a>
-      <a href="#settings-privacy"><ShieldCheck size={16}/>Privacy &amp; data</a>
     </nav>
 
     <div className="st-layout">
@@ -63,14 +62,6 @@ export function SettingsWorkspace({ userName, userEmail, initials, theme, setThe
 
       <NotificationSettings/>
       <AccountSecuritySettings/>
-      <section className="st-card st-privacy" id="settings-privacy" aria-labelledby="st-privacy-title">
-        <header className="st-card-heading"><span className="st-icon"><ShieldCheck size={21}/></span><div><h2 id="st-privacy-title">Your records &amp; access</h2><p>Know what stays private and what works offline.</p></div></header>
-        <div className="st-card-body">
-          <div className="st-info-row"><Activity size={19}/><div><h3>Your progress records</h3><p>Review measurements, check-ins and your private photo timeline. Export matching records as CSV from Record history.</p><button className="st-text-link" onClick={onProgress}>Open Progress<ArrowUpRight size={15}/></button></div></div>
-          <div className="st-info-row"><WifiOff size={19}/><div><h3>Offline access</h3><p>Saved playlists and plans have device copies. The exercise library is available offline once its files finish downloading.</p></div></div>
-          <details className="st-privacy-details"><summary>What happens when I sign out?</summary><p>Private device copies are cleared. If you have unsynced changes, FitSync checks them before signing you out and offers a way to sync first.</p></details>
-        </div>
-      </section>
     </div>
     <section className="st-session" aria-label="Sign out of FitSync"><div><h2>Done for now?</h2><p>Sign out of this account on this device.</p></div><PlanSignout/></section>
   </div>

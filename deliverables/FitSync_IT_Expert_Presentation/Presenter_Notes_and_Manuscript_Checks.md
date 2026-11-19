@@ -44,7 +44,7 @@ Our visual direction intentionally combines fitness energy with a welcoming nutr
 
 ## 06 — Technology stack and AI boundary
 
-The current frontend uses Next.js 16, React 19 and TypeScript, with CSS/Tailwind and Lucide icons. The backend is a separate Next.js workspace running route handlers on Node.js 24. Shared TypeScript modules contain planning calculations and validation. Supabase provides authentication, PostgreSQL and private object storage, while the frontend and backend are deployed as Vercel projects. The optional chat assistant calls externally hosted models through OpenRouter. We did not train a custom model. The current daily planner uses explicit rules and catalog values; it does not ask an LLM to generate the schedule. The manuscript proposes React Native, adaptive generative planning and computer vision. Those should be presented as proposed scope rather than implemented functionality. Suggested timing: 50 seconds.
+The current frontend uses Next.js 16, React 19 and TypeScript, with CSS/Tailwind and Lucide icons. The backend is a separate Next.js workspace running route handlers on Node.js 24. Shared TypeScript modules contain planning calculations and validation. Supabase provides authentication, PostgreSQL and private object storage, while the frontend and backend are deployed as Vercel projects. Google Gmail API delivers branded confirmation and recovery emails through the FitSync backend; Supabase SMTP is not used. The optional chat assistant calls externally hosted models through OpenRouter. We did not train a custom model. The current daily planner uses explicit rules and catalog values; it does not ask an LLM to generate the schedule. The manuscript proposes React Native, adaptive generative planning and computer vision. Those should be presented as proposed scope rather than implemented functionality. Suggested timing: 50 seconds.
 
 **Sources and evidence**
 
@@ -52,7 +52,7 @@ The current frontend uses Next.js 16, React 19 and TypeScript, with CSS/Tailwind
 
 ## 07 — Security: accounts, recovery and sessions
 
-Supabase Auth handles credential storage; FitSync does not store plaintext passwords. Email registration collects a username, email and confirmed password, while Google supplies a verified identity and the setup page requests a separate FitSync password. Password recovery returns the same public response for valid addresses regardless of account existence or delivery errors. Supabase verifies the email token; the app also checks a signed HttpOnly session-bound grant that expires after 15 minutes and is atomically consumed before a password update. Protected routes redirect signed-out visitors and backend endpoints verify tokens independently. Local private copies are cleared at logout, with a pending-edit check in the normal sign-out flow. Important: new account-security work is local and requires its migration, server secrets and live-account tests before the hosted demo can claim it works there. Suggested timing: 55 seconds.
+Supabase Auth handles credential storage; FitSync does not store plaintext passwords. Email registration collects a username, email and confirmed password, while Google supplies a verified identity and the setup page requests a separate FitSync password. Password recovery returns the same public response for valid addresses regardless of account existence or delivery errors. The Supabase Send Email Hook calls the FitSync backend, which sends a numeric code through Google Gmail API. Users enter that code in the original FitSync tab. Supabase verifies the code; the app also checks a signed HttpOnly session-bound grant that expires after 15 minutes and is atomically consumed before a password update. Protected routes redirect signed-out visitors and backend endpoints verify tokens independently. Local private copies are cleared at logout, with a pending-edit check in the normal sign-out flow. Confirmation and recovery have been tested in the deployed app. Check mail delivery and configuration before the demo; account deletion needs a separate disposable-account test. Suggested timing: 55 seconds.
 
 **Sources and evidence**
 
@@ -119,6 +119,6 @@ The supplied PDF contains 31 PDF pages and Chapters I–III, despite its filenam
 - Decide whether to demonstrate localhost or the hosted version; they may not contain the same updates.
 - Complete migrations and secret configuration before showing new signup/recovery/deletion controls.
 - Use a disposable account, nonsensitive sample photos and prepared plan history. Do not show environment files or credentials.
-- Test internet, OAuth redirects and SMTP delivery. Keep a screenshot/video backup.
+- Test internet, OAuth redirects and Gmail API delivery. Keep a screenshot/video backup.
 - The app is decision support, not a clinical diagnosis, prescription or guarantee of results.
 - Do not claim ISO certification, completed respondent results, regulatory compliance or a custom-trained AI model.

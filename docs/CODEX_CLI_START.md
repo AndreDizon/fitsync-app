@@ -8,7 +8,10 @@ Double-click **FitSync Codex CLI** on the desktop. The launcher opens the projec
 2. **Reopen a saved chat**: select your CLI conversation and continue where you stopped. Use this on later visits.
 3. **Start a new FitSync chat**: begin with a fresh conversation in this project.
 4. **How to use Codex**: display a short help screen.
-5. **Exit**: close the launcher.
+5. **Account settings**: check sign-in status, sign in, sign out, or switch accounts.
+6. **Exit**: close the launcher.
+
+To switch accounts, return to the launcher with `/exit`, choose **5**, then **3**. The launcher signs out before starting browser sign-in. Select the intended ChatGPT account in the browser before approving. Close other CLI sessions first. Changing accounts does not delete local conversations or project files.
 
 Once Codex opens, type a request in plain English and press Enter. For example:
 
