@@ -34,7 +34,7 @@ async function main(){
     }
     if(table==='progress_entries'&&row.kind==='photo'){
      const filePath=row.user_id+'/'+row.id+'.jpg'
-     const file=await client.storage.from('progress-photos').download(filePath)
+     const file=await client.storage.from('progress-photos').download(filePath,{cacheNonce:require('node:crypto').randomUUID()},{cache:'no-store'})
      if(file.error)throw new Error('Could not read a private photo; stopped before replacing it.')
      const bytes=Buffer.from(await file.data.arrayBuffer()),encrypted=bytes.subarray(0,4).toString()==='FSE1'
      const keyId=encrypted?bytes.subarray(5,5+bytes[4]).toString():null

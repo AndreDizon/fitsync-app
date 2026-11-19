@@ -10,9 +10,9 @@ const json=(value:unknown,status=200)=>Response.json(value,{status,headers:{'Cac
 export async function GET(request:Request){
  const auth=await authenticate(request);if(auth.response)return auth.response
  const id=new URL(request.url).searchParams.get('id');if(!isUUID(id))return json({error:'Invalid photo.'},400)
- const entry=await auth.client!.from('progress_entries').select('id,kind').eq('user_id',auth.user!.id).eq('id',id).eq('kind','photo').maybeSingle()
+ const entry=await auth.client!.from('progress_entries').select('id,kind,revision').eq('user_id',auth.user!.id).eq('id',id).eq('kind','photo').maybeSingle()
  if(entry.error)return json({error:'Unable to load photo.'},503);if(!entry.data)return json({error:'Photo not found.'},404)
- const file=await auth.client!.storage.from('progress-photos').download(auth.user!.id+'/'+id+'.jpg')
+ const file=await auth.client!.storage.from('progress-photos').download(auth.user!.id+'/'+id+'.jpg',{cacheNonce:'encrypted-v1-'+entry.data.revision},{cache:'no-store'})
  if(file.error||!file.data)return json({error:'Photo not found.'},404)
  try{const image=openPhoto(Buffer.from(await file.data.arrayBuffer()),auth.user!.id,id);return new Response(new Uint8Array(image),{headers:{'Content-Type':'image/jpeg','Cache-Control':'private, no-store','X-Content-Type-Options':'nosniff'}})}catch{return json({error:'Unable to decrypt this photo. Check the server encryption configuration.'},503)}
 }
