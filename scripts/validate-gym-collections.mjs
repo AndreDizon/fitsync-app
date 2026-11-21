@@ -37,9 +37,9 @@ assert.equal(
   150,
   'Outstanding is not a cash expense and must not be subtracted from net receipts',
 )
-assert.equal(r.outstanding, 350)
+assert.equal(r.outstanding, 150)
 assert.equal(r.startedOutstanding, 150)
-assert.equal(r.futureOutstanding, 200)
+assert.equal(r.futureOutstanding, 0)
 assert.equal(r.unpaidMembers, 1)
 assert.equal(r.monthFees, 300)
 assert.equal(r.monthPaid, 150)
@@ -49,7 +49,7 @@ const noCash = summary(rows, [], 2026, 11, '2026-11-22')[0]
 assert.equal(noCash.net, 0)
 assert.equal(
   noCash.outstanding,
-  350,
+  150,
   'Unpaid plans must be shown even without receipts',
 )
 const december = summary(rows, cash, 2026, 12, '2026-11-22')[0]
@@ -58,9 +58,47 @@ assert.equal(december.monthFees, 100)
 assert.equal(december.monthOutstanding, 100)
 assert.equal(
   december.futureOutstanding,
-  200,
+  100,
   'Future is based on today, not the selected month',
 )
+const january2026 = summary(rows, cash, 2026, 1, '2026-11-22')[0]
+assert.equal(january2026.hasRecords, false)
+for (const field of [
+  'received',
+  'refunded',
+  'net',
+  'outstanding',
+  'startedOutstanding',
+  'futureOutstanding',
+  'unpaidMembers',
+  'monthFees',
+  'monthPaid',
+  'monthOutstanding',
+]) {
+  assert.equal(
+    january2026[field],
+    0,
+    'January 2026 excludes November and January 2027: ' + field,
+  )
+}
+const january2027 = summary(rows, cash, 2027, 1, '2026-11-22')[0]
+assert.equal(january2027.hasRecords, true)
+assert.equal(january2027.outstanding, 100)
+assert.equal(january2027.futureOutstanding, 100)
+assert.equal(january2027.monthFees, 100)
+const januaryEdges = summary(
+  [
+    balance('a', '2026-01-01', 0),
+    balance('b', '2026-01-31', 0),
+    balance('c', '2026-02-01', 0),
+  ],
+  [],
+  2026,
+  1,
+  '2026-11-22',
+)[0]
+assert.equal(januaryEdges.outstanding, 200)
+assert.equal(januaryEdges.unpaidMembers, 2)
 const refunded = summary(
   [],
   [{ month: '2026-12', currency: 'PHP', received: '0', refunds: '50' }],
@@ -85,7 +123,7 @@ const currencies = summary(
 )
 assert.equal(currencies.length, 2)
 assert.equal(currencies[1].outstanding, 20)
-assert.equal(currencies[0].outstanding, 350)
+assert.equal(currencies[0].outstanding, 150)
 const rounding = summary(
   [
     balance('a', '2026-11-01', 0.1, { price: 0.1, outstanding: 0 }),

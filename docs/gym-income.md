@@ -17,7 +17,7 @@ The month, year and summary-currency selectors control the current view. Receive
 The current admin workspace's **Payments & revenue > Balances & revenue** card includes a collections summary:
 
 - Cash received, refunds and net cash use the selected receipt month. Net cash is not profit, and outstanding balances are not subtracted as expenses.
-- Unpaid balances are current snapshots across all plan dates, split into started plans and future plans/renewals. Removed assignments retain their outstanding fees under the existing ledger rules. The affected member count is distinct per currency.
+- Unpaid balances include only assignments starting in the selected year and month, split into started plans and future plans/renewals. The separate member-balances table retains all records under its own filters. A month without payment or plan-start records shows zero values and a neutral No records this month status. Removed assignments retain their outstanding fees under the existing ledger rules. The affected member count is distinct per currency.
 - The monthly collection percentage compares current net payments against fees for assignments **starting in the selected month**. It does not compare that month's cash against future renewal fees. This is an as-of-now balance, not a reconstructed historical month-end balance.
 - Amber status highlights unpaid started plans. Future-only balances receive a neutral pending status, while refund-heavy months are flagged separately. Currencies stay separate, and currencies with unpaid fees are shown even when no payments were received that month.
 - A failed income request shows an error and retry action rather than zero cash or an apparently settled summary. The existing monthly CSV still exports ledger transactions.

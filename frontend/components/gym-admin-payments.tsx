@@ -270,6 +270,7 @@ export function GymAdminPayments({ data, locked, run }: AdminPageProps) {
             <label>
               Year
               <input
+                aria-label="Summary year"
                 type="number"
                 min={2020}
                 max={Number(data.today.slice(0, 4)) + 1}
@@ -280,6 +281,7 @@ export function GymAdminPayments({ data, locked, run }: AdminPageProps) {
             <label>
               Month
               <select
+                aria-label="Summary month"
                 value={month}
                 onChange={(e) => setMonth(Number(e.target.value))}
               >
@@ -301,9 +303,10 @@ export function GymAdminPayments({ data, locked, run }: AdminPageProps) {
             </button>
           </div>
           <p className="gg-small">
-            Cash totals use the selected month in {zone}. Balances show what is
-            unpaid now, across all plan dates. Net cash is received money less
-            refunds; it is not profit because expenses are not tracked.
+            All totals follow the selected month and year in {zone}. Cash uses
+            payment dates; plan fees use the month coverage starts. Plan
+            balances reflect payments recorded so far. Net cash is not profit;
+            expenses are not tracked.
           </p>
           {summaryError ? (
             <p className="gg-feedback gg-error" role="alert">
@@ -406,7 +409,9 @@ function CollectionsSummary({
               ? 'warning'
               : r.futureOutstanding > 0
                 ? 'neutral'
-                : 'settled'
+                : !r.hasRecords
+                  ? 'neutral'
+                  : 'settled'
         const label =
           r.net < 0
             ? 'Refunds exceed receipts'
@@ -414,7 +419,9 @@ function CollectionsSummary({
               ? 'Payments outstanding'
               : r.futureOutstanding > 0
                 ? 'Future fees pending'
-                : 'No outstanding fees'
+                : !r.hasRecords
+                  ? 'No records this month'
+                  : 'No unpaid fees this month'
         return (
           <section
             className={'ga-collection ga-collection-' + tone}
@@ -444,7 +451,7 @@ function CollectionsSummary({
                 </dl>
               </div>
               <div>
-                <h6>Unpaid balances now</h6>
+                <h6>{monthLabel} unpaid plan fees</h6>
                 <dl>
                   <div className="ga-collection-total">
                     <dt>Total unpaid</dt>
@@ -462,7 +469,7 @@ function CollectionsSummary({
                 <p className="gg-small">
                   {r.unpaidMembers}{' '}
                   {r.unpaidMembers === 1 ? 'member has' : 'members have'} an
-                  unpaid balance. As of {adminDay(data.today)}.
+                  unpaid balance for plans starting in {monthLabel}.
                 </p>
               </div>
             </div>

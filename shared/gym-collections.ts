@@ -14,8 +14,8 @@ type CashMonth = {
 }
 const cents = (value: string | number) => Math.round(Number(value) * 100)
 
-// Cash uses the selected receipt month. Balances are current snapshots, not
-// historical month-end balances. A plan's full fee belongs to its start month.
+// Every figure is scoped to the selected year and month. Cash uses its receipt
+// month; plan fees use their start month. Plan balances remain current snapshots.
 export function gymCollectionsSummary(
   balances: Balance[],
   cash: CashMonth[],
@@ -24,7 +24,8 @@ export function gymCollectionsSummary(
   today: string,
 ) {
   const key = `${year}-${String(month).padStart(2, '0')}`,
-    selected = cash.filter((r) => r.month === key)
+    selected = cash.filter((r) => r.month === key),
+    selectedBalances = balances.filter((p) => p.starts_on.slice(0, 7) === key)
   const currencies = [
     ...new Set([
       ...balances.map((p) => p.currency),
@@ -32,7 +33,7 @@ export function gymCollectionsSummary(
     ]),
   ].sort()
   return currencies.map((currency) => {
-    const rows = balances.filter((p) => p.currency === currency),
+    const rows = selectedBalances.filter((p) => p.currency === currency),
       receipts = selected.filter((r) => r.currency === currency)
     const received = receipts.reduce((n, r) => n + cents(r.received), 0),
       refunded = receipts.reduce((n, r) => n + cents(r.refunds), 0)
@@ -55,6 +56,7 @@ export function gymCollectionsSummary(
     }
     return {
       currency,
+      hasRecords: rows.length > 0 || receipts.length > 0,
       received: received / 100,
       refunded: refunded / 100,
       net: (received - refunded) / 100,
