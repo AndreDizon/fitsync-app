@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { Check, ClipboardCheck, RefreshCw } from 'lucide-react'
-import { HistoryDateFilter } from './gym-history-filter'
+import { HistoryDateFilter, HistoryPagination } from './gym-history-filter'
 import { emptyHistoryRange } from '../../shared/gym-history'
 import { gymRequest, gymTimeZoneLabel, type GymMembership } from '@/lib/gym-groups'
 
@@ -12,7 +12,7 @@ type Checkins = {
 }
 const stamp = (value: string, zone: string) => new Intl.DateTimeFormat(undefined, { timeZone: zone, year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' }).format(new Date(value))
 
-export function GymDailyCheckins({ membership, locked }: { membership: GymMembership; locked: boolean }) {
+export function GymDailyCheckins({ membership, locked, tableView = false }: { membership: GymMembership; locked: boolean; tableView?: boolean }) {
  const admin = membership.role === 'admin'
  const [page, setPage] = useState(0), [version, setVersion] = useState(0)
  const [range,setRange]=useState(emptyHistoryRange)
@@ -66,8 +66,13 @@ export function GymDailyCheckins({ membership, locked }: { membership: GymMember
   {notice && <p className="gg-feedback gg-success" role="status">{notice}</p>}
   {error && <p className="gg-feedback gg-error" role="alert">{error} <button type="button" disabled={busy} onClick={() => setVersion(v => v + 1)}>Retry check-ins</button></p>}
   <div className="gg-section-heading gg-checkin-history-heading"><h4>{admin ? 'Member check-ins' : 'Your check-in history'}</h4>{admin && data && <span className="gg-meta">{data.pending} awaiting confirmation</span>}</div>
-  <HistoryDateFilter label="Visit date" zone={zone} value={range} disabled={busy||locked} onChange={next=>{setRange(next);setPage(0);setNotice('')}}/>
-  {loading ? <p className="gg-empty" role="status">Loading check-ins…</p> : data && (data.entries.length ? <ul className="gg-plain-list gg-checkin-history">{data.entries.map(e => <li key={e.user_id + e.checked_on}><div><strong>{selectedScope === 'gym' ? e.username : 'Gym visit'}</strong><time className="gg-meta" dateTime={e.checked_at}>{stamp(e.checked_at, e.time_zone)}</time></div><div className="gg-actions"><span className={'gg-period-status ' + (e.confirmed_at ? 'gg-period-active' : 'gg-period-upcoming')}>{e.confirmed_at ? 'Confirmed' : 'Pending confirmation'}</span>{admin && !e.confirmed_at && <button type="button" className="gg-primary" disabled={disabled} aria-label={'Confirm check-in for ' + e.username + ' on ' + e.checked_on} onClick={() => void confirmCheckin(e)}>Confirm check-in</button>}</div></li>)}</ul> : <p className="gg-empty">{range.from||range.to ? 'No check-ins in this date range. Clear filters to see all visits.' : selectedScope === 'gym' ? 'No gym visits recorded yet.' : 'No visits recorded yet. Your first check-in will appear here.'}</p>)}
-  {data && data.total > 20 && <nav className="gg-pagination" aria-label="Check-in history pages"><button type="button" disabled={disabled || page === 0} onClick={() => setPage(p => p - 1)}>Newer</button><span>Page {page + 1} of {Math.ceil(data.total / 20)}</span><button type="button" disabled={disabled || (page + 1) * 20 >= data.total} onClick={() => setPage(p => p + 1)}>Older</button></nav>}
+  <div className={tableView ? "ga-filters" : undefined}><HistoryDateFilter label="Visit date" zone={zone} value={range} disabled={busy||locked} onChange={next=>{setRange(next);setPage(0);setNotice('')}}/></div>
+  {tableView && <>
+    <p className="gg-meta">Only your visits are shown. Scroll horizontally for all columns.</p>
+    {loading ? <p className="gg-empty" role="status">Loading visits...</p> : error ? null : data && <div className="ga-table-scroll" tabIndex={0} role="region" aria-label="Scroll my visit history"><table className="ga-table" aria-label="My gym visits"><thead><tr><th scope="col">Visit date</th><th scope="col">Check-in</th><th scope="col">Checkout</th><th scope="col">Status</th></tr></thead><tbody>{data.entries.length ? data.entries.map(e => <tr key={e.user_id + e.checked_on}><th scope="row">{e.checked_on}</th><td>{stamp(e.checked_at, e.time_zone)}</td><td>{e.checked_out_at ? stamp(e.checked_out_at, e.time_zone) : 'Not recorded'}</td><td><span className={'gg-period-status ' + (e.confirmed_at ? 'gg-period-active' : 'gg-period-upcoming')}>{e.confirmed_at ? 'Confirmed' : 'Pending confirmation'}</span></td></tr>) : <tr><td colSpan={4}>{range.from || range.to ? 'No visits match these dates. Clear filters to see all visits.' : 'No visits recorded yet. Check in when you arrive at the gym.'}</td></tr>}</tbody></table></div>}
+    <HistoryPagination always page={page} total={data?.total || 0} onChange={setPage} disabled={disabled} label="My visit history pages" previousLabel="Previous" nextLabel="Next"/>
+  </>}
+  {!tableView && (loading ? <p className="gg-empty" role="status">Loading check-ins…</p> : data && (data.entries.length ? <ul className="gg-plain-list gg-checkin-history">{data.entries.map(e => <li key={e.user_id + e.checked_on}><div><strong>{selectedScope === 'gym' ? e.username : 'Gym visit'}</strong><time className="gg-meta" dateTime={e.checked_at}>{stamp(e.checked_at, e.time_zone)}</time></div><div className="gg-actions"><span className={'gg-period-status ' + (e.confirmed_at ? 'gg-period-active' : 'gg-period-upcoming')}>{e.confirmed_at ? 'Confirmed' : 'Pending confirmation'}</span>{admin && !e.confirmed_at && <button type="button" className="gg-primary" disabled={disabled} aria-label={'Confirm check-in for ' + e.username + ' on ' + e.checked_on} onClick={() => void confirmCheckin(e)}>Confirm check-in</button>}</div></li>)}</ul> : <p className="gg-empty">{range.from||range.to ? 'No check-ins in this date range. Clear filters to see all visits.' : selectedScope === 'gym' ? 'No gym visits recorded yet.' : 'No visits recorded yet. Your first check-in will appear here.'}</p>))}
+  {!tableView && data && data.total > 20 && <HistoryPagination page={page} total={data.total} onChange={setPage} disabled={disabled} label="Check-in history pages"/>}
  </section>
 }

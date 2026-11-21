@@ -1,0 +1,111 @@
+.gm-cards {
+  display: grid;
+  gap: 24px;
+}
+.gm-workspace .ga-page-heading h3:focus {
+  outline: none;
+}
+.gm-join-code {
+  margin-top: 24px;
+}
+.gm-information {
+  display: grid;
+  gap: 24px;
+}
+.gm-information h4 {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+.gm-information p {
+  margin: 0;
+  white-space: pre-wrap;
+  line-height: 1.7;
+  max-width: 70ch;
+}
+.gm-information section + section {
+  border-top: 1px solid var(--ga-line);
+  padding-top: 24px;
+}
+.gm-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+  margin: 0;
+}
+.gm-facts dt {
+  color: var(--ga-muted);
+  font-size: 12px;
+  margin-bottom: 6px;
+}
+.gm-facts dd {
+  margin: 0;
+  font-weight: 650;
+  overflow-wrap: anywhere;
+}
+.gm-workspace .gg-overview-heading {
+  display: none;
+}
+.gm-workspace .gg-overview {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+}
+.gm-workspace .gg-overview-columns {
+  grid-template-columns: minmax(0, 1fr);
+}
+.gm-workspace .gg-overview-tasks,
+.gm-workspace .gg-overview-sessions {
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+.gm-workspace .gg-overview-sessions {
+  border-top: 1px solid var(--ga-line);
+  padding-top: 24px;
+}
+.sc-gyms .gm-workspace .gg-overview-action {
+  background: var(--ga-soft);
+  border-color: var(--ga-line);
+  padding: 14px 16px;
+  border-radius: 12px;
+}
+.gm-workspace .gg-overview-welcome {
+  border-left: 0;
+  border-radius: 12px;
+}
+.gm-workspace .gg-session-attendance {
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+.gm-workspace .gg-daily-checkins {
+  border: 0;
+  padding: 0;
+  margin: 0;
+}
+.gm-workspace .gg-checkin-today {
+  background: var(--ga-soft);
+  border-color: var(--ga-line);
+}
+.gm-workspace .gg-session-attendance > h3,
+.gm-workspace .gg-daily-checkins > .gg-section-heading:first-child h3 {
+  font-size: 16px;
+}
+.gm-workspace .ga-table-scroll {
+  margin-top: 16px;
+}
+.gm-workspace .ga-page-body > .ga-chat {
+  background: var(--ga-surface);
+  border-radius: 16px;
+  overflow: hidden;
+}
+@media (max-width: 600px) {
+  .gm-cards {
+    gap: 18px;
+  }
+  .gm-facts {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+}

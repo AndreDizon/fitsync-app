@@ -29,11 +29,13 @@ export function GymDiscussion({
   owner,
   locked,
   onAction,
+  initialAnnouncements = false,
 }: {
   membership: GymMembership
   owner: string
   locked: boolean
   onAction: GymAction
+  initialAnnouncements?: boolean
 }) {
   const admin = membership.role === 'admin',
     manager = admin || membership.role === 'staff',
@@ -49,7 +51,7 @@ export function GymDiscussion({
     [retry, setRetry] = useState(0),
     [modal, setModal] = useState<
       'pinned' | 'share' | 'post' | 'sessions' | null
-    >(null),
+    >(initialAnnouncements ? 'pinned' : null),
     [registered, setRegistered] = useState<{
       id: string
       title: string

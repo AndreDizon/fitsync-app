@@ -129,6 +129,10 @@ Staff/admin can select Renew beside an eligible member record. It prefills the m
 
 ## Workflow overview
 
+Gym members use the same sidebar, mobile section selector, plain page headings and titled collapsible cards as the admin workspace. Their destinations are Overview, Gym information, My attendance, My membership, Discussion, Training sessions and Gym team. Staff retain their existing operational workspace.
+
+My attendance shows only the signed-in member's daily visits, check-in/checkout times and admin confirmation, with server-side date filtering and persistent bottom pagination. Session attendance remains separate. My membership filters coverage to the signed-in member before rendering and provides coverage-date/status filters and pagination; available plans are read-only in a separate card. Listed fees do not confirm payment, and members cannot apply/renew plans or record money. Gym team offers a read-only dated, paginated directory with role filtering. Discussion retains announcements, session reservations and shared playlists without exposing owner tools. Existing notification destinations map to their corresponding member pages. This layout requires no new migration or permissions.
+
 See `docs/gym-feature-relationships.md`. Admin overview links to daily check-in reviews, join requests, membership renewals and session roster work. Staff see their own daily visit and permitted operations. Members see their own check-in/coverage and upcoming sessions. Overview renewal links apply the Needs renewal within 7 days filter; already-recorded contiguous renewals are excluded. Member and request lists support name search and ten-row pagination, with a role filter for the roster.
 
 Daily visits and scheduled-session attendance are separate controlled views. Normal navigation opens daily visits; old attendance notification links open session history, matching the existing notification source. Gym info, rules, invitations and admin settings are a separate destination. This UI/workflow update requires no new SQL migration.
