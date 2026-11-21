@@ -7,8 +7,8 @@ import { emptyHistoryRange } from '../../shared/gym-history'
 import { gymRequest, gymTimeZoneLabel, type GymMembership } from '@/lib/gym-groups'
 
 type Checkins = {
- today: string; timeZone: string; checkedInAt: string | null; checkedInConfirmedAt: string | null; total: number; pending: number;
- entries: { user_id: string; username: string; checked_on: string; checked_at: string; time_zone: string; confirmed_at: string | null }[];
+ today: string; timeZone: string; checkedInAt: string | null; checkedInConfirmedAt: string | null; total: number; pending: number; checkedOutAt?:string|null; openVisit?:{checked_on:string;checked_at:string}|null;
+ entries: { user_id: string; username: string; checked_on: string; checked_at: string; time_zone: string; confirmed_at: string | null; checked_out_at?:string|null }[];
 }
 const stamp = (value: string, zone: string) => new Intl.DateTimeFormat(undefined, { timeZone: zone, year: 'numeric', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit', timeZoneName: 'short' }).format(new Date(value))
 
@@ -60,6 +60,8 @@ export function GymDailyCheckins({ membership, locked }: { membership: GymMember
  return <section className="gg-daily-checkins" aria-labelledby="gym-daily-checkins-title">
   <div className="gg-section-heading"><div><h3 id="gym-daily-checkins-title">{admin ? 'Check-in review' : 'Gym check-in'}</h3><p>{admin ? 'Review member visits and confirm their attendance. Only the gym admin can see this list.' : 'At the gym? Check in once each day, then wait for the gym admin to confirm.'}</p></div><button type="button" aria-label="Refresh check-ins" disabled={disabled} onClick={() => setVersion(v => v + 1)}><RefreshCw size={16}/></button></div>
   {!admin && <div className="gg-checkin-today"><div><strong>{data?.checkedInAt ? (data.checkedInConfirmedAt ? 'Attendance confirmed today' : 'Awaiting admin confirmation') : 'Today’s attendance'}</strong><p className="gg-small">{data?.checkedInAt ? stamp(data.checkedInAt, zone) : 'Tap Check in when you arrive.'}</p></div><button type="button" className="gg-primary" disabled={disabled || !data || !!data.checkedInAt} onClick={() => void checkIn()}>{data?.checkedInAt ? <Check size={17}/> : <ClipboardCheck size={17}/>}{busy ? 'Checking in…' : data?.checkedInAt ? 'Checked in' : 'Check in'}</button></div>}
+  {!admin&&data?.openVisit&&<div className="gg-checkin-today"><p className="gg-small">Visit started {stamp(data.openVisit.checked_at,zone)}. Check out when you leave.</p><button type="button" className="gg-primary" disabled={disabled} onClick={async()=>{if(writing.current)return;writing.current=true;setBusy(true);setError('');try{const result=await gymRequest('check_out',{visitDate:data.openVisit!.checked_on,page,...range});if(live.current){setData(result);setNotice('Checkout recorded.')}}catch(e){if(live.current)setError((e as Error).message)}finally{writing.current=false;if(live.current)setBusy(false)}}}>Check out</button></div>}
+  {!admin&&data?.checkedOutAt&&<p className="gg-small">Checked out today: {stamp(data.checkedOutAt,zone)}</p>}
   <p className="gg-small">One check-in per day in {gymTimeZoneLabel(zone)}. Daily check-ins need admin confirmation and are separate from scheduled-session attendance.</p>
   {notice && <p className="gg-feedback gg-success" role="status">{notice}</p>}
   {error && <p className="gg-feedback gg-error" role="alert">{error} <button type="button" disabled={busy} onClick={() => setVersion(v => v + 1)}>Retry check-ins</button></p>}

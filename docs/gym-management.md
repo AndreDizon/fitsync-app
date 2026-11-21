@@ -13,8 +13,34 @@ Apply these migrations in Supabase SQL Editor in order. Skip any already applied
 7. `20261121_gym_groups_v7_checkin_confirmation.sql`
 8. `20261121_gym_groups_v8_history_filters.sql`
 9. `20261121_gym_groups_v9_settings.sql`
+10. `20261121_gym_groups_v10_admin_workspace.sql`
 
-The existing playlist migrations are prerequisites. Deploy frontend and backend together. `/api/gyms` now requires `gym_group_action_v5`; a missing migration shows an explicit setup error. The management migration is transactional and rerunnable. Existing groups, roles, session instants and shared content are preserved; new welcome/rules fields start blank.
+The existing playlist migrations are prerequisites. Apply v10 after v9, then deploy frontend and backend together. `/api/gyms` requires `gym_group_action_v10`; a missing migration shows an explicit setup error. The migrations are transactional and rerunnable. Existing groups, roles, session instants, plans and payment records are preserved.
+
+## Admin workspace (v10)
+
+The admin has six destinations, with a mobile section selector replacing the desktop sidebar:
+
+| Destination | Tasks |
+| --- | --- |
+| Manage gym | Name, join code, welcome message, rules, time zone and joining status. Closed blocks new joins even with a code; existing members remain. |
+| Manage members | Separate tables for pending requests, all members and banned accounts. Activity opens a table popup with a current-actor-role filter. |
+| Gym attendance | Daily visits, checkout times, admin confirmation and per-person history. Scheduled-session attendance remains available in a separate popup. |
+| Plans & assignments | Catalog table with create/edit/delete popups; member assignment table with apply/edit, renewal, removal and history. |
+| Discussion | Chat, announcements, event preregistration, attendee lists and shared workout playlists. All training sessions also remain accessible, including sessions created before v10. |
+| Payments & revenue | Record a member payment, review balances, inspect/refund/void ledger records and export monthly revenue records. |
+
+Every admin table has its own date range, search and bottom page navigation, including empty and single-page tables. Visit and payment reports filter on the server before paging. Dates use the gym time zone; date-only coverage/payment fields retain their stored local calendar date. Legacy plan, ban and registration creation dates remain unknown, rather than being backfilled with an invented date. Unknown dates appear under All dates only.
+
+Members and staff can check out their own open visit. A later-day check-in is blocked until an earlier open visit is checked out. Checkout does not confirm attendance or enable admin self-check-in. The daily key still permits only one visit per member per gym-local day.
+
+Deleting a catalog plan preserves assignments through their saved name, fee and currency. Editing an assignment cannot overlap coverage, reduce its fee below net money already paid, or change its currency while it has nonvoid payment history. Removing an assignment retains payment history and does not issue a refund or erase its outstanding fee.
+
+A member payment is limited to the outstanding balance in the selected currency and allocated to the oldest outstanding assignments first. The allocation is atomic and request IDs prevent duplicate retries. This records money received outside FitSync; it is not a payment gateway. Refunds, voiding and CSV exports retain their existing behavior. Private payment retry metadata is removed on account reset/deletion.
+
+Announcement/event publishing uses stable request IDs. A group-session post creates the announcement and scheduled session together. Members preregister under existing capacity rules; only the owner can open the admin registration report. Reservations remain separate from attendance. Existing gym notification triggers also apply to new announcements and sessions.
+
+Validation: `node scripts/validate-gym-admin.mjs` and `node scripts/validate-gym-api.mjs` exercise the migration and API boundaries. The v10 changes require the database migration; building the app does not apply it to Supabase.
 
 ## Welcome and rules
 

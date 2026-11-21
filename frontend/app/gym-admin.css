@@ -1,0 +1,615 @@
+.ga-workspace {
+  display: grid;
+  grid-template-columns: 215px minmax(0, 1fr);
+  gap: 22px;
+  align-items: start;
+  margin-top: 22px;
+}
+.ga-menu {
+  display: grid;
+  gap: 5px;
+  padding: 14px;
+  border: 1px solid #d4dfd8;
+  border-radius: 16px;
+  background: #eef3ef;
+  position: sticky;
+  top: 20px;
+  max-height: calc(100dvh - 40px);
+  overflow: auto;
+}
+.sc-gyms .ga-menu button {
+  justify-content: flex-start;
+  text-align: left;
+  min-height: 48px;
+  border-color: transparent;
+  background: transparent;
+  box-shadow: none;
+  font-size: 12px;
+}
+.sc-gyms .ga-menu button[aria-pressed='true'] {
+  background: #ffe135;
+  border-color: #c1a624;
+  color: #293332;
+}
+.ga-mobile-menu {
+  display: none;
+}
+.ga-content {
+  min-width: 0;
+  border: 1px solid #d4dfd8;
+  border-radius: 18px;
+  background: #fffdf7;
+  overflow: hidden;
+  color: #293332;
+}
+.ga-page-heading {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 22px 24px;
+  background: linear-gradient(110deg, #365e83, #243d55);
+  color: #fff;
+}
+.ga-page-heading > svg {
+  padding: 11px;
+  box-sizing: content-box;
+  border-radius: 13px;
+  background: #ffe135;
+  color: #293332;
+  flex-shrink: 0;
+}
+.ga-page-heading h3 {
+  margin: 0;
+  font-size: 22px;
+  line-height: 1.3;
+  letter-spacing: -0.02em;
+  color: inherit;
+}
+.ga-page-heading p {
+  margin: 5px 0 0;
+  font-size: 12px;
+  color: #e8eff7;
+  line-height: 1.6;
+}
+.ga-page-body {
+  padding: 24px;
+  min-width: 0;
+}
+.ga-section {
+  margin: 0 0 28px;
+  min-width: 0;
+}
+.ga-section + .ga-section {
+  padding-top: 24px;
+  border-top: 1px solid #dce4dd;
+}
+.ga-section-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.ga-section-title h4 {
+  font-size: 17px;
+  margin: 0;
+}
+.ga-section-title p {
+  font-size: 12px;
+  color: #536358;
+  margin: 5px 0 0;
+  max-width: 70ch;
+}
+.ga-table-toolbar {
+  display: flex;
+  align-items: end;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.ga-table-toolbar > .gg-field {
+  flex: 1;
+  min-width: 150px;
+}
+.ga-data > .gg-field {
+  max-width: 440px;
+}
+.ga-data input {
+  width: 100%;
+  min-width: 0;
+}
+.ga-table-scroll {
+  max-width: 100%;
+  overflow: auto;
+  border: 1px solid #d9e1dc;
+  border-radius: 12px;
+  scrollbar-width: thin;
+  scrollbar-color: #9aae9f #eef3ef;
+  overscroll-behavior-inline: contain;
+}
+.ga-table-scroll:focus-visible {
+  outline: 3px solid #a77c13;
+  outline-offset: 3px;
+}
+.ga-table {
+  width: 100%;
+  min-width: 660px;
+  border-collapse: collapse;
+  font-size: 12px;
+  line-height: 1.6;
+  font-variant-numeric: tabular-nums;
+}
+.ga-table caption {
+  text-align: left;
+  padding: 12px 14px;
+  background: #edf4ef;
+  color: #31583f;
+  font-weight: 700;
+}
+.ga-table th,
+.ga-table td {
+  padding: 12px 14px;
+  text-align: left;
+  vertical-align: top;
+  border-bottom: 1px solid #dce4dd;
+}
+.ga-table thead {
+  background: #f5f8f4;
+  color: #40584b;
+}
+.ga-table th {
+  min-width: 100px;
+  max-width: 230px;
+  overflow-wrap: anywhere;
+}
+.ga-table td {
+  white-space: nowrap;
+}
+.ga-table tbody tr:last-child > * {
+  border-bottom: 0;
+}
+.ga-table small {
+  display: block;
+  font-weight: 400;
+  white-space: normal;
+  color: #536358;
+  margin-top: 4px;
+}
+.ga-table .gg-actions {
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+.ga-table .gg-actions button {
+  flex-shrink: 0;
+}
+.ga-table-empty {
+  padding: 28px !important;
+  text-align: center !important;
+  white-space: normal !important;
+}
+.ga-scroll-hint {
+  font-size: 11px;
+  color: #536358;
+  margin: 8px 0;
+}
+.ga-modal {
+  padding: 0;
+  width: min(1000px, calc(100vw - 32px));
+  max-height: calc(100dvh - 40px);
+  border: 1px solid #d4dccc;
+  border-radius: 18px;
+  background: #fffdf7;
+  color: #293332;
+  box-shadow: 0 22px 70px #17291e40;
+}
+.ga-modal::backdrop {
+  background: #17251d80;
+  backdrop-filter: blur(3px);
+}
+.ga-modal > header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 18px 22px;
+  background: #fff3bb;
+  border-bottom: 1px solid #dfd5ac;
+}
+.ga-modal h2 {
+  font-size: 21px;
+  margin: 0;
+  line-height: 1.4;
+}
+.ga-modal > header > button {
+  background: transparent;
+  border: 0;
+  min-width: 44px;
+  padding: 8px;
+}
+.ga-modal-body {
+  padding: 22px;
+  min-width: 0;
+}
+.ga-modal form fieldset,
+.ga-page-body .gg-edit fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+.ga-modal label {
+  font-weight: 600;
+  font-size: 13px;
+}
+.ga-modal input,
+.ga-modal select,
+.ga-modal textarea {
+  margin-top: 6px;
+}
+.ga-modal .gg-actions {
+  margin-top: 12px;
+}
+.ga-modal .gg-history-filter input {
+  margin: 0;
+}
+.ga-modal .gg-history-filter .gg-actions {
+  margin: 0;
+}
+.ga-chat {
+  display: flex;
+  flex-direction: column;
+  height: min(760px, calc(100dvh - 240px));
+  min-height: 430px;
+  border: 1px solid #d9e1dc;
+  border-radius: 14px;
+  background: #f3f7f4;
+  overflow: hidden;
+}
+.ga-chat-toolbar {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 12px;
+  background: #fffdf7;
+  border-bottom: 1px solid #dce4dd;
+}
+.ga-chat-messages {
+  overflow: auto;
+  flex: 1;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+}
+.ga-chat-message {
+  max-width: 85%;
+  padding: 12px 14px;
+  background: #fff;
+  border: 1px solid #dce4dd;
+  border-radius: 14px;
+  align-self: flex-start;
+  overflow-wrap: anywhere;
+}
+.ga-chat-message.is-own {
+  align-self: flex-end;
+  background: #fff4b8;
+  border-color: #e7d68a;
+}
+.ga-chat-message > p {
+  white-space: pre-wrap;
+  line-height: 1.7;
+  font-size: 13px;
+  margin: 6px 0;
+}
+.ga-chat-message > header {
+  font-size: 11px;
+  color: #536358;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.sc-gyms .ga-chat-message button {
+  min-height: 30px;
+  font-size: 10px;
+  padding: 3px 8px;
+}
+.ga-chat-compose {
+  padding: 12px;
+  background: #fffdf7;
+  border-top: 1px solid #dce4dd;
+  display: flex;
+  align-items: end;
+  gap: 10px;
+}
+.ga-chat-compose label {
+  flex: 1;
+  min-width: 0;
+  font-size: 11px;
+  font-weight: 600;
+}
+.ga-chat-compose textarea {
+  min-height: 64px;
+  max-height: 160px;
+  margin-top: 5px;
+  width: 100%;
+  resize: vertical;
+}
+.ga-chat-pin {
+  padding: 14px 0;
+  border-bottom: 1px solid #dce4dd;
+}
+.ga-chat-pin h4 {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+.ga-chat-pin p {
+  font-size: 13px;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.ga-form-note {
+  padding: 12px 14px;
+  border-left: 1px solid #7e9fb7;
+  background: #edf4fa;
+  font-size: 12px;
+  line-height: 1.7;
+}
+.ga-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  margin: 18px 0;
+  padding: 18px 0;
+  border-block: 1px solid #dce4dd;
+}
+.ga-summary > div {
+  min-width: 150px;
+  flex: 1;
+}
+.ga-summary dt {
+  font-size: 12px;
+  color: #536358;
+}
+.ga-summary dd {
+  font-size: 22px;
+  font-weight: 700;
+  margin: 6px 0 0;
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 1099px) {
+  .ga-workspace {
+    display: block;
+  }
+  .ga-menu {
+    display: none;
+  }
+  .ga-mobile-menu {
+    display: block;
+    padding: 14px;
+    background: #eef3ef;
+    border: 1px solid #d4dfd8;
+    border-radius: 12px;
+    margin-bottom: 14px;
+    position: sticky;
+    top: 10px;
+    z-index: 3;
+  }
+  .ga-mobile-menu label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 700;
+    font-size: 12px;
+  }
+  .ga-mobile-menu select {
+    width: 100%;
+  }
+}
+@media (max-width: 600px) {
+  .ga-page-heading {
+    padding: 18px 16px;
+  }
+  .ga-page-heading h3 {
+    font-size: 20px;
+  }
+  .ga-page-body,
+  .ga-modal-body {
+    padding: 16px;
+  }
+  .ga-modal {
+    width: calc(100vw - 16px);
+    max-height: calc(100dvh - 20px);
+  }
+  .ga-modal > header {
+    padding: 14px 16px;
+  }
+  .ga-table th,
+  .ga-table td {
+    padding: 10px 12px;
+  }
+  .gg-pagination {
+    gap: 8px;
+  }
+  .ga-chat-toolbar button {
+    flex: 1;
+    font-size: 11px;
+  }
+  .ga-chat {
+    height: 640px;
+    max-height: calc(100dvh - 180px);
+  }
+  .ga-chat-message {
+    max-width: 95%;
+  }
+  .ga-chat-compose {
+    flex-wrap: wrap;
+  }
+  .ga-chat-compose label {
+    flex-basis: 100%;
+  }
+  .ga-chat-compose > button {
+    margin-left: auto;
+  }
+}
+
+.ga-content button:focus-visible,
+.ga-modal button:focus-visible {
+  outline: 3px solid #917204;
+  outline-offset: 3px;
+}
+.ga-chat-messages {
+  flex: 1;
+  overflow: auto;
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 180px;
+}
+.ga-message {
+  max-width: 85%;
+  align-self: flex-start;
+  border: 1px solid #d6dfda;
+  border-radius: 14px;
+  background: #fffdf7;
+  padding: 12px 15px;
+  overflow-wrap: anywhere;
+}
+.ga-message-own {
+  align-self: flex-end;
+  background: #fff4b8;
+  border-color: #e7d68a;
+}
+.ga-message > p {
+  white-space: pre-wrap;
+  font-size: 13px;
+  line-height: 1.7;
+  margin: 4px 0;
+}
+.sc-gyms .ga-message-delete {
+  padding: 3px 7px;
+  font-size: 11px;
+  min-height: 30px;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+.ga-chat-compose > textarea {
+  flex: 1;
+  min-width: 0;
+}
+.ga-pinned-posts {
+  display: grid;
+  gap: 16px;
+}
+.ga-form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+}
+.ga-check {
+  display: flex !important;
+  align-items: center;
+  gap: 10px;
+}
+.ga-check input {
+  width: auto !important;
+  min-height: 20px !important;
+}
+.ga-revenue {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+.ga-revenue dl {
+  padding: 16px;
+  border-left: 1px solid #b4c6ba;
+  min-width: 180px;
+  background: #eef3ef;
+}
+.ga-revenue dd {
+  font-weight: 700;
+  margin: 4px 0 12px;
+  font-variant-numeric: tabular-nums;
+}
+.ga-revenue dt {
+  font-size: 12px;
+  color: #4b6257;
+}
+.ga-outstanding {
+  color: #8b491f;
+}
+.ga-page-heading > button {
+  margin-left: auto;
+}
+.ga-catalog > h4,
+.ga-catalog .gg-section-heading {
+  border-left: 1px solid #5d85a9;
+  padding-left: 12px;
+}
+.ga-records > h4 {
+  border-left: 1px solid #56866e;
+  padding-left: 12px;
+}
+.ga-modal .ga-form fieldset {
+  display: grid;
+  gap: 18px;
+  min-width: 0;
+}
+.ga-modal .ga-form label {
+  display: grid;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.ga-modal .ga-form input,
+.ga-modal .ga-form textarea,
+.ga-modal .ga-form select {
+  width: 100%;
+}
+.ga-section > h4 {
+  margin-top: 0;
+}
+.ga-table-toolbar label {
+  display: grid;
+  gap: 6px;
+}
+.ga-table-toolbar input,
+.ga-table-toolbar select {
+  min-width: 0;
+}
+.ga-content .gg-settings-content > h3,
+.ga-content .gg-settings-content > p:first-of-type {
+  display: none;
+}
+@media (max-width: 600px) {
+  .ga-page-heading > button {
+    min-width: 40px;
+    padding: 8px;
+  }
+  .ga-chat-compose > textarea {
+    flex-basis: 100%;
+  }
+  .ga-message {
+    max-width: 96%;
+  }
+  .ga-form-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .ga-page-heading h3 {
+    font-size: 18px;
+  }
+  .ga-table-toolbar > label {
+    width: 100%;
+  }
+  .ga-modal .gg-pagination {
+    flex-wrap: wrap;
+  }
+}

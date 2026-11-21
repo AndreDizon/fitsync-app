@@ -7,13 +7,15 @@ const output=await build({entryPoints:['backend/app/api/gyms/route.ts'],bundle:t
 const route=await import('data:text/javascript;base64,'+Buffer.from(output.outputFiles[0].text).toString('base64'))
 const post=(action,doc)=>route.POST(new Request('http://localhost/api/gyms',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({action,doc})}))
 authFailure=true;assert.equal((await post('join',{})).status,401);authFailure=false
-assert.equal((await post('update_settings',{name:'Gym',welcomeMessage:'Welcome',rules:'Rules'})).status,200);assert.equal(last.name,'gym_group_settings');assert.equal(last.args.doc.welcomeMessage,'Welcome')
-assert.equal((await post('confirm_checkin',{})).status,200);assert.equal(last.name,'gym_group_action_v8');assert.equal(last.args.action,'confirm_checkin')
-assert.equal((await post('check_in',{})).status,200);assert.equal(last.name,'gym_group_action_v8');assert.equal(last.args.action,'check_in')
-await route.GET(new Request('http://localhost/api/gyms?action=checkins&scope=gym&page=2&from=2026-11-01&to=2026-11-21'));assert.equal(last.name,'gym_group_action_v8');assert.equal(last.args.action,'checkins');assert.equal(last.args.doc.scope,'gym');assert.equal(last.args.doc.page,'2');assert.equal(last.args.doc.from,'2026-11-01');assert.equal(last.args.doc.to,'2026-11-21')
+assert.equal((await post('update_settings',{name:'Gym',welcomeMessage:'Welcome',rules:'Rules'})).status,200);assert.equal(last.name,'gym_group_action_v10');assert.equal(last.args.doc.welcomeMessage,'Welcome')
+assert.equal((await post('confirm_checkin',{})).status,200);assert.equal(last.name,'gym_group_action_v10');assert.equal(last.args.action,'confirm_checkin')
+assert.equal((await post('check_in',{})).status,200);assert.equal(last.name,'gym_group_action_v10');assert.equal(last.args.action,'check_in')
+await route.GET(new Request('http://localhost/api/gyms?action=checkins&scope=gym&page=2&from=2026-11-01&to=2026-11-21'));assert.equal(last.name,'gym_group_action_v10');assert.equal(last.args.action,'checkins');assert.equal(last.args.doc.scope,'gym');assert.equal(last.args.doc.page,'2');assert.equal(last.args.doc.from,'2026-11-01');assert.equal(last.args.doc.to,'2026-11-21')
+for(const action of ['admin_settings','delete_plan','edit_member_plan','pay_member','post_announcement','post_event','check_out']){assert.equal((await post(action,{})).status,200);assert.equal(last.name,'gym_group_action_v10');assert.equal(last.args.action,action)}
+await route.GET(new Request('http://localhost/api/gyms?action=admin_report&kind=visits&userId='+owner));assert.equal(last.args.doc.kind,'visits');assert.equal(last.args.doc.userId,owner);
 for(const [action,doc]of [['read_playlist',{}],['fake',{}],['join',[]],['join',null]])assert.equal((await post(action,doc)).status,400)
 for(const action of ['approve','reject','transfer','ban','unban','schedule','announce','message','cancel_request','guidance','save_plan','archive_plan','assign_plan','cancel_period','mark_attendance','record_payment','record_refund','void_income']){
- assert.equal((await post(action,{})).status,200);assert.equal(last.name,'gym_group_action_v5');assert.equal(last.args.action,action)
+ assert.equal((await post(action,{})).status,200);assert.equal(last.name,'gym_group_action_v10');assert.equal(last.args.action,action)
 }
 await route.GET(new Request('http://localhost/api/gyms?action=read_playlist&id='+pid));assert.equal(last.args.action,'read_playlist');assert.equal(last.args.doc.id,pid)
 await route.GET(new Request('http://localhost/api/gyms?action=discussion&page=2'));assert.equal(last.args.doc.page,'2')
@@ -21,7 +23,7 @@ await route.GET(new Request('http://localhost/api/gyms?action=notifications'));a
 await route.GET(new Request('http://localhost/api/gyms?action=attendance&id='+pid));assert.equal(last.args.action,'attendance');assert.equal(last.args.doc.id,pid)
 await route.GET(new Request('http://localhost/api/gyms?action=income&year=2026&month=11'));assert.equal(last.args.action,'income');assert.equal(last.args.doc.year,'2026');assert.equal(last.args.doc.month,'11');
 await route.GET(new Request('http://localhost/api/gyms?action=income_export'));assert.equal(last.args.action,'income_export');
-rpcError={code:'PGRST202',message:'Missing'};const missing=await route.GET(new Request('http://localhost/api/gyms'));assert.equal(missing.status,503);assert.match((await missing.json()).error,/gym income/);rpcError=null
+rpcError={code:'PGRST202',message:'Missing'};const missing=await route.GET(new Request('http://localhost/api/gyms'));assert.equal(missing.status,503);assert.match((await missing.json()).error,/v10/);rpcError=null
 assert.equal((await post('share_playlist',{playlist:{name:'Forged'}})).status,400)
 source=null;assert.equal((await post('share_playlist',{playlistId:pid})).status,400)
 sourceError={code:'PRIVATE_DATA_UNAVAILABLE'};assert.equal((await post('share_playlist',{playlistId:pid})).status,503);sourceError=null
