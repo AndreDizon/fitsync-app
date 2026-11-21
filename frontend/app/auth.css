@@ -48,6 +48,7 @@
 .auth-submit { margin-top: 4px; color: #25292b; background: linear-gradient(#ffe96a, var(--auth-yellow)); border: 1px solid #d8b51a; box-shadow: inset 0 1px 0 #fff5ba, 0 3px 6px #493a1814; }
 .auth-submit:hover:not(:disabled) { background: #ffe96a; transform: translateY(-1px); box-shadow: 0 5px 9px #493a181a; }
 .auth-submit:active:not(:disabled) { transform: translateY(1px); }
+.auth-switch-account { margin-top: 16px; }
 .auth-google { color: #30373a; border: 1px solid var(--auth-line); background: #fff; }
 .auth-google:hover:not(:disabled) { background: #f6f7f8; border-color: #a6afb4; }
 .auth-page button:disabled { opacity: .55; cursor: not-allowed; }
