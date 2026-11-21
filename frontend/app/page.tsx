@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation'
 import { authClient } from '@/lib/auth/server'
 import Dashboard from '@/components/dashboard'
-import { currentTester } from '@/lib/auth/tester'
+import { currentTester, currentTesterUsername } from '@/lib/auth/tester'
 import { testerOnboarding } from '@/lib/auth/onboarding'
 import { readCompletedOnboarding } from '../../shared/onboarding'
 
@@ -12,7 +12,7 @@ export default async function HomePage() {
   if (await currentTester()) {
     const profile = await testerOnboarding()
     if (!profile) redirect('/onboarding')
-    return <Dashboard userName="Test Admin" userEmail={process.env.DEV_TEST_ADMIN_EMAIL!} profile={profile} />
+    return <Dashboard userName={await currentTesterUsername()} userEmail={process.env.DEV_TEST_ADMIN_EMAIL!} profile={profile} />
   }
   const client = await authClient()
   if (!client) redirect('/login')
@@ -20,5 +20,5 @@ export default async function HomePage() {
   if (!user?.email_confirmed_at) redirect('/login?error=confirm')
   const profile = readCompletedOnboarding(user.user_metadata.fitsync_onboarding)
   if (!profile) redirect('/onboarding')
-  return <Dashboard userName={String(user.user_metadata.display_name || user.user_metadata.full_name || 'You')} userEmail={user.email ?? ''} accountId={user.id} dataEpoch={Number(user.app_metadata.fitsync_data_epoch || 0)} profile={profile} />
+  return <Dashboard userName={String(user.user_metadata.username || user.user_metadata.display_name || user.user_metadata.full_name || 'You')} userEmail={user.email ?? ''} accountId={user.id} dataEpoch={Number(user.app_metadata.fitsync_data_epoch || 0)} profile={profile} />
 }

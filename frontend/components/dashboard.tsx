@@ -36,6 +36,7 @@ import { useHomeTheme } from './home-theme-preview'
 import { FooterSocialIcon } from './footer-social-icon'
 import { SettingsWorkspace } from './settings-workspace'
 import { HeaderNotifications } from './header-notifications'
+import { AccountPreview } from './account-preview'
 import { NotificationProvider, type NotificationTarget } from '@/lib/notifications'
 import { isNotificationTarget } from '../../shared/notifications'
 import {
@@ -95,7 +96,11 @@ function Logo() {
  return <div className="brand-mark"><img src={heroAssetUrl('fox-logo-192.webp')} alt="FitSync fox mascot" /></div>
 }
 
-function App({ userName, userEmail }: { userName: string; userEmail: string }) {
+function App({ userName: initialUserName, userEmail }: { userName: string; userEmail: string }) {
+  const [userName,setUserName]=useState(initialUserName)
+  useEffect(()=>setUserName(initialUserName),[initialUserName])
+  const [accountOpen,setAccountOpen]=useState(false)
+  const accountButton=useRef<HTMLButtonElement>(null)
   const { theme, setTheme, themeStyle, isDark, isHeaderDark } = useHomeTheme()
   const notificationOwner = usePlanAccount() || 'local-tester'
   const firstName = userName.split(/\s+/)[0]
@@ -186,7 +191,8 @@ function App({ userName, userEmail }: { userName: string; userEmail: string }) {
 
       <HeroAssetWarmer /><link rel="preload" as="image" href={heroAssetUrl('fox-logo-192.webp')} fetchPriority="high" />
       <section className="content-wrap" inert={navOpen}>
-        <header className="topbar"><div className="header-brand"><button className="menu-toggle" ref={menuButtonRef} onClick={() => setNavOpen(true)} aria-label="Open navigation" aria-expanded={navOpen} aria-controls="left-navigation"><Menu size={22} /></button><div className="mobile-brand"><Logo /><Wordmark /></div></div><div className="top-actions"><HeaderNotifications onSettings={() => { setActive('settings'); requestAnimationFrame(()=>document.getElementById('settings-notifications')?.scrollIntoView({behavior:'smooth',block:'start'})) }} /><button className="profile-button" onClick={() => setActive('settings')}><div className="avatar small">{initials}</div><span>{firstName}</span><ChevronRight size={15} /></button></div></header>
+        <header className="topbar"><div className="header-brand"><button className="menu-toggle" ref={menuButtonRef} onClick={() => setNavOpen(true)} aria-label="Open navigation" aria-expanded={navOpen} aria-controls="left-navigation"><Menu size={22} /></button><div className="mobile-brand"><Logo /><Wordmark /></div></div><div className="top-actions"><HeaderNotifications onSettings={() => { setActive('settings'); requestAnimationFrame(()=>document.getElementById('settings-notifications')?.scrollIntoView({behavior:'smooth',block:'start'})) }} /><button className="profile-button" ref={accountButton} aria-label="Open account preview" aria-haspopup="dialog" aria-expanded={accountOpen} onClick={() => setAccountOpen(true)}><div className="avatar small">{initials}</div><span>{firstName}</span><ChevronRight size={15} /></button></div></header>
+        {accountOpen&&<AccountPreview username={userName} email={userEmail} profile={profile} onSaved={setUserName} onClose={()=>{setAccountOpen(false);requestAnimationFrame(()=>accountButton.current?.focus())}}/>}
 
         {active === 'home' && <><HomeView displayName={firstName} timeZone={timeZone} onOpen={openFromHome} /></>}
         {active === 'plans' && <PlansWorkspace key={notificationVersion} tab={planTab} setTab={setPlanTab} initialMode={homeTarget?.mode} focusWater={homeTarget?.water} initialDate={notificationDestination?.page==='plans'?notificationDestination.date:undefined} />}

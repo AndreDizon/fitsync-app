@@ -1,6 +1,7 @@
 import 'server-only'
 import { createHmac, randomBytes, scryptSync, timingSafeEqual } from 'node:crypto'
 import { cookies, headers } from 'next/headers'
+import { validUsername } from '../../../shared/account-security'
 
 export const testerCookie = 'fitsync-local-tester'
 const attempts = new Map<string, { count: number; until: number }>()
@@ -29,6 +30,25 @@ export function verifyTesterSession(token: string | undefined, host: string) {
 export async function currentTester() {
   const host = (await headers()).get('host') ?? ''
   return verifyTesterSession((await cookies()).get(testerCookie)?.value, host)
+}
+
+const testerUsernameCookie = 'fitsync-tester-username'
+export async function currentTesterUsername() {
+  if (!await currentTester()) return 'Test Admin'
+  try {
+    const [payload, signature] = ((await cookies()).get(testerUsernameCookie)?.value || '').split('.')
+    const expected = createHmac('sha256', process.env.DEV_TEST_SESSION_SECRET!).update(payload).digest()
+    const supplied = Buffer.from(signature || '', 'base64url')
+    if (expected.length !== supplied.length || !timingSafeEqual(expected, supplied)) return 'Test Admin'
+    const username = Buffer.from(payload, 'base64url').toString()
+    return validUsername(username) ? username : 'Test Admin'
+  } catch { return 'Test Admin' }
+}
+export async function saveTesterUsername(username: string) {
+  if (!await currentTester() || !validUsername(username)) throw new Error('Valid tester session and username required')
+  const payload = Buffer.from(username).toString('base64url')
+  const signature = createHmac('sha256', process.env.DEV_TEST_SESSION_SECRET!).update(payload).digest('base64url')
+  ;(await cookies()).set(testerUsernameCookie, `${payload}.${signature}`, { httpOnly: true, sameSite: 'lax', secure: false, path: '/', maxAge: 8 * 60 * 60 })
 }
 
 export async function testerLogin(email: string, password: string) {
