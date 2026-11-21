@@ -408,6 +408,55 @@ export function GymMemberWorkspace({
           )}
           {active.id === "membership" && (
             <>
+              <div data-member-card="membership-plans">
+                <AdminSectionCard
+                  title="Available membership plans"
+                  icon={BookOpen}
+                  description="Compare durations and fees before asking your gym team"
+                  tone="slate"
+                  defaultOpen={target === "membership-plans"}
+                >
+                  <p className="gg-small">
+                    These are the gym's listed offers. Browsing a plan does not
+                    enroll you or make a payment.
+                  </p>
+                  <AdminTable
+                    rows={(membership.plans || []).filter((p) => !p.archived)}
+                    label="Available membership plans"
+                    dateLabel="Plan created on"
+                    zone={zone}
+                    searchable={false}
+                    dateOf={(p) =>
+                      p.created_at
+                        ? dateInZone(zone, new Date(p.created_at))
+                        : null
+                    }
+                    rowKey={(p) => p.id}
+                    searchText={(p) => p.name}
+                    columns={[
+                      {
+                        label: "Plan",
+                        render: (p) => (
+                          <>
+                            <strong>{p.name}</strong>
+                            {p.description && (
+                              <p className="gg-small">{p.description}</p>
+                            )}
+                          </>
+                        ),
+                      },
+                      {
+                        label: "Duration",
+                        render: (p) => `${p.duration_days} days`,
+                      },
+                      {
+                        label: "Fee",
+                        render: (p) => adminMoney(p.price, p.currency),
+                      },
+                    ]}
+                  />
+                </AdminSectionCard>
+              </div>
               <AdminSectionCard
                 title="My plan & coverage"
                 icon={ClipboardList}
@@ -480,55 +529,6 @@ export function GymMemberWorkspace({
                   ]}
                 />
               </AdminSectionCard>
-              <div data-member-card="membership-plans">
-                <AdminSectionCard
-                  title="Available membership plans"
-                  icon={BookOpen}
-                  description="Compare durations and fees before asking your gym team"
-                  tone="slate"
-                  defaultOpen={target === "membership-plans"}
-                >
-                  <p className="gg-small">
-                    These are the gym's listed offers. Browsing a plan does not
-                    enroll you or make a payment.
-                  </p>
-                  <AdminTable
-                    rows={(membership.plans || []).filter((p) => !p.archived)}
-                    label="Available membership plans"
-                    dateLabel="Plan created on"
-                    zone={zone}
-                    searchable={false}
-                    dateOf={(p) =>
-                      p.created_at
-                        ? dateInZone(zone, new Date(p.created_at))
-                        : null
-                    }
-                    rowKey={(p) => p.id}
-                    searchText={(p) => p.name}
-                    columns={[
-                      {
-                        label: "Plan",
-                        render: (p) => (
-                          <>
-                            <strong>{p.name}</strong>
-                            {p.description && (
-                              <p className="gg-small">{p.description}</p>
-                            )}
-                          </>
-                        ),
-                      },
-                      {
-                        label: "Duration",
-                        render: (p) => `${p.duration_days} days`,
-                      },
-                      {
-                        label: "Fee",
-                        render: (p) => adminMoney(p.price, p.currency),
-                      },
-                    ]}
-                  />
-                </AdminSectionCard>
-              </div>
             </>
           )}
           {active.id === "discussion" && (
