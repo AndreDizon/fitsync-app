@@ -1,0 +1,16 @@
+.gg-guidance{margin-top:18px;padding:18px 20px;background:#fffdf7;border:1px solid #d9e1dc;border-radius:14px;color:#293332}
+.gg-guidance h3{font-size:18px;margin:0 0 8px;overflow-wrap:anywhere}
+.gg-guidance .gg-compose{margin-bottom:0}
+.gg-guidance .gg-compose:first-child{margin-top:0;border:0;padding:0}
+.gg-rules summary{min-height:44px;display:list-item;cursor:pointer;font-weight:700;font-size:13px;padding-top:12px}
+.gg-plan-fields{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.gg-date-fields{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.gg-membership-history{margin-top:28px;padding-top:20px;border-top:1px solid #dce4dd}
+.gg-membership-history>.gg-field{max-width:360px;margin-top:14px}
+.gg-period-status{text-transform:capitalize;display:inline-block;padding:3px 8px;border-radius:6px;font-size:11px;background:#edf0ed;color:#40584b}
+.gg-period-active{background:#e5f1e9;color:#245d3a}
+.gg-period-expired{background:#fff0e9;color:#8b372c}
+.gg-period-upcoming{background:#fff3c5;color:#6b521c}
+.gg-attendance-roster .gg-field{min-width:180px;max-width:260px}
+.gg-attendance-roster .gg-field label{font-size:11px;font-weight:400;color:#536358}
+@media(max-width:700px){.gg-guidance{padding:16px}.gg-plan-fields,.gg-date-fields{grid-template-columns:1fr}.gg-attendance-roster li>.gg-field{max-width:none;width:100%}}

@@ -10,17 +10,19 @@ export const notificationFeatures = [
   {id:'like',name:'Post likes',description:'When someone hearts your forum post.'},
   {id:'comment',name:'Post comments',description:'When someone comments on your post.'},
   {id:'streak',name:'App streak',description:'An evening check-in if you have not visited today.'},
+  {id:'gym',name:'Gym updates',description:'Join requests, announcements, sessions, attendance and membership records.'},
+  {id:'gymRenewal',name:'Gym renewal reminders',description:'When your recorded gym plan is nearing expiry or has expired.'},
 ] as const
 export type NotificationFeature = typeof notificationFeatures[number]['id']
-export type NotificationTarget = {page:'plans'|'progress'|'social';mode?:'workout'|'nutrition';water?:boolean;tab?:'achievements'|'analytics';postId?:string;kind?:'forum'|'people'|'gym';date?:string}
+export type NotificationTarget = {page:'plans'|'progress'|'social';mode?:'workout'|'nutrition';water?:boolean;tab?:'achievements'|'analytics';postId?:string;kind?:'forum'|'people'|'gym';date?:string;gymId?:string;gymTab?:'announcements'|'sessions'|'team'|'attendance'|'membership'}
 export type AppNotification = {id:string;feature:NotificationFeature;title:string;body:string;createdAt:string;read:boolean;target:NotificationTarget}
 export type NotificationPreferences = Record<NotificationFeature,boolean> & {device:boolean}
 export function isNotificationTarget(value:unknown):value is NotificationTarget{
  if(!value||typeof value!=='object')return false
  const target=value as NotificationTarget
- return ['plans','progress','social'].includes(target.page)&&(target.mode===undefined||['workout','nutrition'].includes(target.mode))&&(target.water===undefined||typeof target.water==='boolean')&&(target.tab===undefined||['achievements','analytics'].includes(target.tab))&&(target.date===undefined||validDate(target.date))&&(target.kind===undefined||['forum','people','gym'].includes(target.kind))&&(target.postId===undefined||/^[a-f\d]{8}(-[a-f\d]{4}){3}-[a-f\d]{12}$/i.test(target.postId))
+ return ['plans','progress','social'].includes(target.page)&&(target.mode===undefined||['workout','nutrition'].includes(target.mode))&&(target.water===undefined||typeof target.water==='boolean')&&(target.tab===undefined||['achievements','analytics'].includes(target.tab))&&(target.date===undefined||validDate(target.date))&&(target.kind===undefined||['forum','people','gym'].includes(target.kind))&&(target.postId===undefined||/^[a-f\d]{8}(-[a-f\d]{4}){3}-[a-f\d]{12}$/i.test(target.postId))&&(target.gymId===undefined||target.page==='social'&&!target.postId&&/^[a-f\d]{8}(-[a-f\d]{4}){3}-[a-f\d]{12}$/i.test(target.gymId))&&(target.gymTab===undefined||!!target.gymId&&['announcements','sessions','team','attendance','membership'].includes(target.gymTab))
 }
-export const defaultNotificationPreferences:NotificationPreferences = {workoutStart:true,exercise:true,meal:true,water:true,achievement:true,like:true,comment:true,streak:true,device:false}
+export const defaultNotificationPreferences:NotificationPreferences = {workoutStart:true,exercise:true,meal:true,water:true,achievement:true,like:true,comment:true,streak:true,gym:true,gymRenewal:true,device:false}
 /** Reconcile existing reminders against their exact date and task, not today's day. */
 export function completedPlanNotificationIds(items:AppNotification[],week:PlanWeek):string[]{
  return items.filter(item=>{

@@ -13,6 +13,7 @@ import { useEffect, useRef, useState } from 'react'
 import { Heart, MessageCircle, Plus, Search, Users, X, ImagePlus, Pencil, Trash2, RefreshCw, ArrowRight, ArrowLeft, SlidersHorizontal, ChevronDown } from 'lucide-react'
 import { usePlanningProfile } from '@/lib/planning-profile'
 import { usePlanAccount } from '@/lib/playlist-account'
+import type { GymTab } from '@/lib/gym-groups'
 import { preparePhoto } from '@/lib/progress'
 import { LearningArticles } from './learning-articles'
 import { GymGroups, GymGroupsCard } from './gym-groups'
@@ -39,13 +40,13 @@ function PostBody({body}:{body:string}) {
  const [expanded,setExpanded]=useState(false)
  return <div className="sc-post-text"><p className={'sc-body'+(!expanded&&body.length>340?' is-collapsed':'')}>{body}</p>{body.length>340&&<button className="sc-read-more" type="button" aria-expanded={expanded} onClick={()=>setExpanded(value=>!value)}>{expanded?'Show less':'Read full post'}<ChevronDown size={14}/></button>}</div>
 }
-export function SocialWorkspace({initialSection,initialPostId}:{initialSection?:Kind;initialPostId?:string}){
+export function SocialWorkspace({initialSection,initialPostId,initialGymTab,initialGymId}:{initialSection?:Kind|'gyms';initialPostId?:string;initialGymTab?:GymTab;initialGymId?:string}){
  const owner=usePlanAccount(),[active,setActive]=useState<Kind|'gyms'|null>(initialSection==='gym'?null:initialSection ?? null)
  const root=useRef<HTMLDivElement>(null),lastSection=useRef<Kind|'gyms'|null>(null),previousOwner=useRef(owner)
  useEffect(()=>{if(previousOwner.current!==owner){setActive(null);previousOwner.current=owner}},[owner])
  function viewSection(kind:Kind|'gyms'){lastSection.current=kind;setActive(kind);requestAnimationFrame(()=>{root.current?.scrollIntoView({block:'start',behavior:'instant'});root.current?.querySelector<HTMLElement>('.sc-heading h2,#gym-workspace-title')?.focus({preventScroll:true})})}
  function back(){setActive(null);requestAnimationFrame(()=>{const button=root.current?.querySelector<HTMLElement>('[data-view-section="'+lastSection.current+'"]');button?.focus({preventScroll:true});button?.scrollIntoView({block:'center',behavior:'instant'})})}
- return <div ref={root} className="sc-body-root">{active==='gyms'?<GymGroups key={owner||'local'} onBack={back}/>:active?<SocialSection key={active} kind={active} initialPostId={initialPostId} onBack={back}/>:<section className="sc-workspace sc-overview" aria-label="Community overview">
+ return <div ref={root} className="sc-body-root">{active==='gyms'?<GymGroups key={owner||'local'} onBack={back} initialTab={initialGymTab} expectedGymId={initialGymId}/>:active?<SocialSection key={active} kind={active} initialPostId={initialPostId} onBack={back}/>:<section className="sc-workspace sc-overview" aria-label="Community overview">
   <header className="sc-overview-heading sync-status-heading"><div><ContentTitleLabel>Your community & shared progress</ContentTitleLabel><h2>Explore your community</h2><p>Share a little, find your people, and learn at your own pace.</p></div><SyncStatus key={owner||'local'} label="Community information" infoOnly signedIn={!!owner} message="The forum and introductions show illustrative example posts. Open either section for real community activity. Learn & improve links to educational articles from independent sources. Gym groups let signed-in members create or join a community and manage team roles."/></header>
   {sections.map(({id,title,description,Icon})=><section className={'sc-overview-section sc-overview-'+id+' sc-designed-overview'} key={id} aria-labelledby={'sc-overview-title-'+id}>
    <header className="fitsync-card-heading"><CommunityArt kind={id}/><Icon size={22}/><div><h3 id={'sc-overview-title-'+id}>{title}</h3><p>{description}</p></div><button data-view-section={id} onClick={()=>viewSection(id)}>{id==='forum'?'Explore forum':'Find your people'}<ArrowRight size={17}/></button></header>

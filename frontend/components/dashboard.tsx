@@ -199,7 +199,7 @@ function App({ userName: initialUserName, userEmail }: { userName: string; userE
         {active === 'home' && <><HomeView displayName={firstName} timeZone={timeZone} onOpen={openFromHome} /></>}
         {active === 'plans' && <PlansWorkspace key={notificationVersion} tab={planTab} setTab={setPlanTab} initialMode={homeTarget?.mode} focusWater={homeTarget?.water} initialDate={notificationDestination?.page==='plans'?notificationDestination.date:undefined} />}
         {active === 'library' && <LibraryView />}
-        {active === 'social' && <SocialView key={notificationVersion} initialSection={notificationDestination?.page==='social'?notificationDestination.kind:homeTarget?.socialSection} initialPostId={notificationDestination?.page==='social'?notificationDestination.postId:undefined} />}
+        {active === 'social' && <SocialView key={notificationVersion} initialSection={notificationDestination?.page==='social'?(notificationDestination.gymId?'gyms':notificationDestination.kind):homeTarget?.socialSection} initialGymId={notificationDestination?.gymId} initialGymTab={notificationDestination?.gymTab} initialPostId={notificationDestination?.page==='social'?notificationDestination.postId:undefined} />}
         {active === 'progress' && <ProgressWorkspace key={notificationVersion} initialTab={homeTarget?.progressTab} userName={userName} />}
         {active === 'settings' && <SettingsWorkspace userName={userName} userEmail={userEmail} initials={initials} theme={theme} setTheme={setTheme} onEditAccount={()=>{accountReturnTarget.current=document.activeElement instanceof HTMLElement?document.activeElement:null;accountFromDrawer.current=false;setAccountOpen(true)}} onProgress={() => setActive('progress')} />}
         <AppFooter onNavigate={(section) => { navigate(section); setNavHidden(false); window.scrollTo(0, 0) }} />
@@ -307,10 +307,10 @@ function SocialHeroArtwork() {
     <img className="social-phone-fox" {...heroImage('fox-social-phone')} width="1254" height="1254" alt="" />
   </div>
 }
-function SocialView({ initialSection, initialPostId }: { initialSection?: 'forum' | 'people' | 'gym'; initialPostId?: string }) {
+function SocialView({ initialSection, initialPostId, initialGymId, initialGymTab }: { initialSection?: 'forum' | 'people' | 'gym' | 'gyms'; initialPostId?: string;initialGymId?:string;initialGymTab?:NotificationTarget['gymTab'] }) {
   const [selectedDate, setSelectedDate] = useState('')
   return <div className="page social-page social-flow"><HeroImagePreloads page="social" /><div className="social-hero-frame"><div className="social-hero-card"><HeroDetail variant="social" /><img className="hero-card-art social-card-art" {...heroImage('hero-social-phone')} alt="" aria-hidden="true" /><svg className="social-hero-line-art" viewBox="0 0 800 350" preserveAspectRatio="none" fill="none" aria-hidden="true"><g stroke="currentColor" strokeWidth=".9"><path d="M0 58H170Q196 58 210 78L244 126Q258 146 286 146H800"/><path d="M0 74H160Q184 74 198 94L232 142Q246 162 274 162H800"/><path d="M0 90H150Q172 90 186 110L220 158Q234 178 262 178H800"/><path d="M0 286H200Q228 286 246 264L302 204Q320 186 348 186H800"/><path d="M0 302H212Q240 302 258 280L314 220Q332 202 360 202H800"/><path d="M0 318H224Q252 318 270 296L326 236Q344 218 372 218H800"/></g></svg><SocialHeroArtwork /><div className="social-intro"><div><p className="eyebrow">A LITTLE SUPPORT. SHARED PROGRESS.</p><h1>Your support<br/><span className="plan-title-highlight">circle</span></h1><p className="muted intro">A place to ask, share, and keep showing <span className="social-subtitle-ending">up together.</span></p></div><div className="community-orb" aria-hidden="true"><Users size={27} /></div></div></div><aside className="social-connection-card"><Users size={24} aria-hidden="true" /><p>GLOBAL CONNECTION</p><strong>Together</strong><span>Share. Connect. Grow.</span></aside></div>
-    <SocialWorkspace initialSection={initialSection} initialPostId={initialPostId}/>
+    <SocialWorkspace initialSection={initialSection} initialPostId={initialPostId} initialGymId={initialGymId} initialGymTab={initialGymTab}/>
   </div>
 }
 

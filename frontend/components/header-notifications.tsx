@@ -7,7 +7,7 @@ import { useNotifications } from '@/lib/notifications'
 import { notificationFeatures } from '../../shared/notifications'
 import '@/app/header-notifications.css'
 
-const featureIcons = {workoutStart:CalendarDays,exercise:Dumbbell,meal:Utensils,water:Droplet,achievement:Trophy,like:Heart,comment:MessageCircle,streak:Flame}
+const featureIcons = {workoutStart:CalendarDays,exercise:Dumbbell,meal:Utensils,water:Droplet,achievement:Trophy,like:Heart,comment:MessageCircle,streak:Flame,gym:Bell,gymRenewal:CalendarDays}
 
 export function HeaderNotifications({onSettings}:{onSettings:()=>void}) {
   const notifications = useNotifications()
@@ -50,7 +50,7 @@ export function HeaderNotifications({onSettings}:{onSettings:()=>void}) {
         const items=notifications.items.filter(item=>item.feature===feature.id)
         if(!items.length)return null
         const Icon=featureIcons[feature.id],unreadCount=items.filter(item=>!item.read).length
-        const page=feature.id==='like'||feature.id==='comment'?'Social':feature.id==='achievement'||feature.id==='streak'?'Progress':'My plan'
+        const page=['like','comment','gym','gymRenewal'].includes(feature.id)?'Social':feature.id==='achievement'||feature.id==='streak'?'Progress':'My plan'
         return <details className="notification-group" name="notification-feature" key={feature.id}>
           <summary><span className={'notification-group-icon notification-group-icon-'+page.replace(' ','-').toLowerCase()}><Icon size={18} aria-hidden="true"/></span><span className="notification-group-copy"><strong>{feature.name}</strong><small>{page}{unreadCount?` · ${unreadCount} unread`:''}</small></span><span className="notification-group-count" aria-label={`${items.length} notifications`}>{items.length}</span><ChevronDown size={16} className="notification-group-chevron" aria-hidden="true"/></summary>
           <ul className="notification-list">{items.map(item=><li className={item.read?'is-read':''} key={item.id}><button className="notification-open" onClick={()=>{notifications.markRead(item.id);setOpen(false);window.dispatchEvent(new CustomEvent('fitsync-notification-open',{detail:item.target}))}}><strong>{item.title}</strong><span>{item.body}</span><small>{new Intl.DateTimeFormat('en',{month:'short',day:'numeric',hour:'numeric',minute:'2-digit',timeZone:notifications.zone}).format(new Date(item.createdAt))}<ArrowUpRight size={13}/></small></button><button className="notification-remove" aria-label={'Clear notification: '+item.title} onClick={()=>notifications.remove(item.id)}><X size={15}/></button></li>)}</ul>

@@ -10,5 +10,7 @@ export async function GET(request:Request){
  if(queued.error)return Response.json({error:'Image cleanup queue unavailable.'},{status:503})
  const paths=(queued.data||[]).map(row=>row.path)
  if(paths.length){const removed=await client.storage.from('community-images').remove(paths);if(removed.error)return Response.json({error:'Image cleanup will retry on the next run.'},{status:503});await client.from('community_image_cleanup').delete().in('path',paths)}
- return Response.json({ok:true,imagesRemoved:paths.length})
+ const reminders=await client.rpc('queue_gym_reminders',{recipient:null})
+ if(reminders.error)return Response.json({error:'Social cleanup completed, but gym reminders need the gym management (v4) migration.'},{status:503})
+ return Response.json({ok:true,imagesRemoved:paths.length,gymRemindersQueued:reminders.data})
 }

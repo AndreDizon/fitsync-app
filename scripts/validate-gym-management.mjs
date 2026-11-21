@@ -1,0 +1,92 @@
+import assert from 'node:assert/strict'
+import {readFile} from 'node:fs/promises'
+import {PGlite} from '@electric-sql/pglite'
+const db=new PGlite()
+const [admin,staff,member,outsider]=[1,2,3,4].map(n=>`${n}1111111-1111-4111-8111-111111111111`)
+await db.exec(`create role anon;create role authenticated;create role service_role;create schema auth;create table auth.users(id uuid primary key,raw_user_meta_data jsonb default '{}');create function auth.uid() returns uuid language sql stable as $$select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid$$;grant usage on schema auth to authenticated;`)
+for(const id of [admin,staff,member,outsider])await db.query('insert into auth.users values($1,$2)',[id,JSON.stringify({username:id.slice(0,1),fitsync_onboarding:{}})])
+for(const file of ['20261107_plan_playlists.sql','20261108_playlist_schedule.sql','20261121_gym_groups.sql','20261121_gym_groups_community.sql','20261121_gym_groups_time_zone.sql','20261121_gym_groups_v4.sql','20261121_gym_groups_v4.sql'])await db.exec(await readFile('backend/migrations/'+file,'utf8'))
+const call=async(user,action,doc={},version=4)=>db.transaction(async tx=>{
+ await tx.exec('set local role authenticated');await tx.query("select set_config('request.jwt.claim.sub',$1,true)",[user]);return(await tx.query(`select public.gym_group_action_v${version}($1,$2::jsonb) as data`,[action,JSON.stringify(doc)])).rows[0].data
+})
+const created=await call(admin,'create',{name:'Gym team',timeZone:'Asia/Manila'})
+const gid=created.gym.id
+await call(staff,'join',{gymId:gid});await call(member,'join',{gymId:gid});await call(admin,'role',{userId:staff,role:'staff'})
+await call(outsider,'create',{name:'Other gym'})
+assert((await call(member,'notifications')).notifications.some(n=>n.title==='Welcome to Gym team'))
+await assert.rejects(call(staff,'guidance',{rules:'Take turns'}),/Only the gym admin/)
+await call(admin,'guidance',{welcomeMessage:'Welcome, team!',rules:'Respect others. Return equipment.'})
+assert.equal((await call(member,'mine')).gym.rules,'Respect others. Return equipment.')
+assert((await call(member,'notifications')).notifications.some(n=>n.title==='Gym guidance updated'))
+await assert.rejects(call(member,'save_plan',{}),/Only the gym admin/)
+await assert.rejects(call(admin,'save_plan',{name:'Bad',durationDays:0,price:0,currency:'PHP'}),/1–730/)
+let state=await call(admin,'save_plan',{name:'Monthly membership',description:'Manual gym plan',durationDays:30,price:999,currency:'PHP'})
+const plan=state.plans[0].id
+const today=(await db.query("select to_char(now() at time zone 'Asia/Manila','YYYY-MM-DD') as day")).rows[0].day
+const shift=(day,n)=>{const d=new Date(day+'T12:00:00Z');d.setUTCDate(d.getUTCDate()+n);return d.toISOString().slice(0,10)}
+state=await call(staff,'assign_plan',{userId:member,planId:plan,startsOn:today,endsOn:shift(today,6)})
+const period=state.membershipPeriods[0].id
+assert.equal(state.membershipPeriods[0].status,'active')
+await assert.rejects(call(member,'assign_plan',{userId:member,planId:plan,startsOn:today,endsOn:shift(today,6)}),/Only gym staff/)
+await assert.rejects(call(staff,'assign_plan',{userId:outsider,planId:plan,startsOn:today,endsOn:today}),/Member not found/)
+await assert.rejects(call(staff,'assign_plan',{userId:member,planId:plan,startsOn:today,endsOn:shift(today,29)}),/overlap/)
+assert.equal((await call(admin,'notifications')).notifications.filter(n=>n.feature==='gymRenewal').length,0)
+let notices=(await call(member,'notifications')).notifications
+assert.equal(notices.filter(n=>n.feature==='gymRenewal').length,1)
+assert.equal((await call(member,'notifications')).notifications.filter(n=>n.feature==='gymRenewal').length,1,'Renewal reminders deduplicate')
+assert.equal((await call(staff,'mine')).membershipPeriods.length,1)
+assert.equal((await call(admin,'mine')).membershipPeriods.length,1)
+assert.equal((await call(outsider,'mine')).membershipPeriods.length,0)
+await call(staff,'assign_plan',{userId:admin,planId:plan,startsOn:today,endsOn:shift(today,29)})
+assert.equal((await call(member,'mine')).membershipPeriods.length,1,'Members see only their own dates')
+await call(admin,'save_plan',{id:plan,name:'Renamed plan',description:'New price',durationDays:31,price:1200,currency:'PHP'})
+assert.equal((await call(member,'mine')).membershipPeriods[0].plan_name,'Monthly membership','Existing records keep snapshots')
+await call(admin,'archive_plan',{id:plan,archived:true})
+assert.equal((await call(member,'mine')).plans.length,0)
+await assert.rejects(call(staff,'assign_plan',{userId:member,planId:plan,startsOn:shift(today,7),endsOn:shift(today,35)}),/active plan/)
+await call(admin,'archive_plan',{id:plan,archived:false})
+// A renewal creates a new dated record; old history is preserved.
+await call(staff,'assign_plan',{userId:member,planId:plan,startsOn:shift(today,7),endsOn:shift(today,36)})
+assert.equal((await call(member,'mine')).membershipPeriods.length,2)
+assert.equal((await call(member,'notifications')).notifications.filter(n=>n.feature==='gymRenewal').length,0,'A covering renewal withdraws stale reminders')
+await call(staff,'cancel_period',{id:period})
+assert.equal((await call(member,'mine')).membershipPeriods.find(p=>p.id===period).status,'cancelled')
+// Session creation and cancellation alert current recipients, not unrelated gyms.
+const future=await call(staff,'schedule',{title:'Future class',startsAt:new Date(Date.now()+3600000).toISOString(),endsAt:new Date(Date.now()+7200000).toISOString(),capacity:10})
+const sid=future.sessions[0].id
+await call(member,'rsvp',{id:sid})
+await assert.rejects(call(staff,'mark_attendance',{id:sid,userId:member,status:'attended'}),/only after/)
+assert((await call(member,'notifications')).notifications.some(n=>n.title==='New gym session'))
+assert((await call(member,'notifications')).notifications.some(n=>n.title==='Your gym session is coming up'))
+await call(staff,'cancel_session',{id:sid})
+assert((await call(member,'notifications')).notifications.some(n=>n.title==='Gym session cancelled'))
+assert(!(await call(outsider,'notifications')).notifications.some(n=>n.gym_id===gid))
+// Staff explicitly mark past-session attendance; reservations alone never count.
+const past=(await db.query("insert into public.gym_sessions(gym_id,title,starts_at,ends_at,capacity) values($1,'Yesterday training',now()-interval '2 hours',now()-interval '1 hour',10) returning id",[gid])).rows[0].id
+let roster=await call(staff,'attendance',{id:past});assert.equal(roster.roster.find(r=>r.user_id===member).status,'unmarked')
+await assert.rejects(call(member,'attendance',{id:past}),/Only gym staff/)
+await assert.rejects(call(outsider,'attendance',{id:past}),/not found/)
+await assert.rejects(call(member,'mark_attendance',{id:past,userId:member,status:'attended'}),/Only gym staff/)
+await call(staff,'mark_attendance',{id:past,userId:member,status:'attended'})
+assert.equal((await call(member,'attendance')).sessions.find(s=>s.id===past).my_status,'attended')
+await call(admin,'mark_attendance',{id:past,userId:member,status:'excused'})
+assert.equal((await call(member,'attendance')).sessions.find(s=>s.id===past).my_status,'excused')
+await assert.rejects(call(staff,'cancel_session',{id:past}),/cannot be cancelled/)
+await assert.rejects(call(staff,'cancel_session',{id:past},2),/cannot be cancelled/)
+await call(staff,'mark_attendance',{id:past,userId:member,status:'unmarked'})
+assert.equal((await call(member,'attendance')).sessions.find(s=>s.id===past).my_status,null)
+// Expiry reminders remain private and respect renewal coverage.
+await call(staff,'cancel_period',{id:(await call(member,'mine')).membershipPeriods.find(p=>!p.cancelled).id})
+await db.query('delete from public.gym_notifications where user_id=$1',[member])
+await db.query('insert into public.gym_membership_periods(gym_id,user_id,plan_name,price,currency,starts_on,ends_on) values($1,$2,$3,0,$4,$5,$6)',[gid,member,'Old plan','PHP',shift(today,-30),shift(today,-1)])
+assert((await call(member,'notifications')).notifications.some(n=>n.title==='Gym plan expired'))
+for(const table of ['gym_membership_plans','gym_membership_periods','gym_attendance','gym_notifications'])await assert.rejects(db.transaction(async tx=>{await tx.exec('set local role authenticated');return tx.query('select * from public.'+table)}),/permission denied/)
+await assert.rejects(db.transaction(async tx=>{await tx.exec('set local role authenticated');return tx.query('select public.queue_gym_reminders(null)')}),/permission denied/)
+await db.transaction(async tx=>{await tx.exec('set local role service_role');await tx.query('select public.queue_gym_reminders(null)')})
+await db.query("update auth.users set raw_user_meta_data=raw_user_meta_data-'fitsync_onboarding' where id=$1",[member])
+assert.equal((await db.query('select count(*)::int n from public.gym_membership_periods where user_id=$1',[member])).rows[0].n,0)
+assert.equal((await db.query('select count(*)::int n from public.gym_notifications where user_id=$1',[member])).rows[0].n,0)
+await call(admin,'disband')
+assert.equal((await db.query('select count(*)::int n from public.gym_sessions where gym_id=$1',[gid])).rows[0].n,0,'Gym deletion still cascades past history')
+await db.close()
+console.log('PASS gym management migration/reruns, rules, plan permissions/dates/history/privacy, renewal deduplication, attendance/rosters/corrections, notifications, legacy cancellation guard, cron access, RLS and reset cleanup')

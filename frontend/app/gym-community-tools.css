@@ -26,8 +26,9 @@
 .gg-meta{display:block;font-size:12px;line-height:1.6;color:#536358;margin:6px 0 12px;overflow-wrap:anywhere}
 .gg-pinned{background:#fff7d8;margin-inline:-12px;padding-inline:12px;border-radius:10px}
 .gg-pin-label{display:inline-flex;align-items:center;gap:4px;color:#66501d;font-size:11px;font-weight:700;margin-bottom:8px}
-.gg-form-row{display:grid;grid-template-columns:1fr 1fr 90px;gap:12px}
+.gg-form-row{display:grid;grid-template-columns:1fr 1fr 130px;gap:12px}
 .gg-field{display:grid;gap:6px}
+.gg-field>.gg-small{margin:0}
 .gg-session-time{color:#315c50;font-size:13px;font-weight:700;margin:6px 0 12px}
 .gg-session-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12px}
 .gg-plain-list,.gg-activity{list-style:none;padding:0;margin:12px 0}

@@ -8,12 +8,14 @@ const route=await import('data:text/javascript;base64,'+Buffer.from(output.outpu
 const post=(action,doc)=>route.POST(new Request('http://localhost/api/gyms',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({action,doc})}))
 authFailure=true;assert.equal((await post('join',{})).status,401);authFailure=false
 for(const [action,doc]of [['read_playlist',{}],['fake',{}],['join',[]],['join',null]])assert.equal((await post(action,doc)).status,400)
-for(const action of ['approve','reject','transfer','ban','unban','schedule','announce','message','cancel_request']){
- assert.equal((await post(action,{})).status,200);assert.equal(last.name,'gym_group_action_v2');assert.equal(last.args.action,action)
+for(const action of ['approve','reject','transfer','ban','unban','schedule','announce','message','cancel_request','guidance','save_plan','archive_plan','assign_plan','cancel_period','mark_attendance']){
+ assert.equal((await post(action,{})).status,200);assert.equal(last.name,'gym_group_action_v4');assert.equal(last.args.action,action)
 }
 await route.GET(new Request('http://localhost/api/gyms?action=read_playlist&id='+pid));assert.equal(last.args.action,'read_playlist');assert.equal(last.args.doc.id,pid)
 await route.GET(new Request('http://localhost/api/gyms?action=discussion&page=2'));assert.equal(last.args.doc.page,'2')
-rpcError={code:'PGRST202',message:'Missing'};const missing=await route.GET(new Request('http://localhost/api/gyms'));assert.equal(missing.status,503);assert.match((await missing.json()).error,/community migrations/);rpcError=null
+await route.GET(new Request('http://localhost/api/gyms?action=notifications'));assert.equal(last.args.action,'notifications')
+await route.GET(new Request('http://localhost/api/gyms?action=attendance&id='+pid));assert.equal(last.args.action,'attendance');assert.equal(last.args.doc.id,pid)
+rpcError={code:'PGRST202',message:'Missing'};const missing=await route.GET(new Request('http://localhost/api/gyms'));assert.equal(missing.status,503);assert.match((await missing.json()).error,/gym management/);rpcError=null
 assert.equal((await post('share_playlist',{playlist:{name:'Forged'}})).status,400)
 source=null;assert.equal((await post('share_playlist',{playlistId:pid})).status,400)
 sourceError={code:'PRIVATE_DATA_UNAVAILABLE'};assert.equal((await post('share_playlist',{playlistId:pid})).status,503);sourceError=null
