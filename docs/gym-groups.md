@@ -1,6 +1,6 @@
 # Gym communities
 
-Social's fourth card opens Announcements, Discussion, Sessions, Playlists and Team. Staff/admin also have Activity. These are user-created communities, separate from the retired gym locator. Manual membership plans, date tracking and staff-marked attendance are available; online payments and professional verification are not included. See docs/gym-management.md for the management update.
+Social's fourth card opens a gym workspace grouped into Community (Announcements, Discussion), Training (Sessions, Attendance, Playlists), Members (Team, Membership) and Management (owner-only Income, staff/admin Activity). Only the selected group's section links are shown. Each group remembers its last opened section; notification links still open their target directly. Navigation wraps on mobile instead of scrolling horizontally. Gym details, invite code, settings and leave/delete actions are in one collapsed disclosure above the workspace. These are user-created communities, separate from the retired gym locator. Manual membership plans, date tracking and staff-marked attendance are available; online payments and professional verification are not included. See docs/gym-management.md for the management update.
 
 ## Enable the feature
 

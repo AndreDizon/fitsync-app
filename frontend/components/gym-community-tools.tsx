@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState, type ReactNode } from 'react'
-import { Banknote, CalendarDays, ClipboardList, Megaphone, MessageCircle, Pin, Plus, Users } from 'lucide-react'
+import { CalendarDays, ClipboardList, MessageCircle, Pin, Plus, Settings2, Users } from 'lucide-react'
 import { gymRequest, gymTimeZoneLabel, type GymAction, type GymAnnouncement, type GymMembership, type GymTab } from '@/lib/gym-groups'
 import { GymAttendance, GymMembershipPlans } from './gym-management-tools'
 import { GymIncome } from './gym-income'
@@ -19,18 +19,29 @@ export function GymCommunityTools({membership,owner,locked,onAction,children,ini
  const manager=membership.role==='admin'||membership.role==='staff',admin=membership.role==='admin'
  const [tab,setTab]=useState<string>(initialTab||'announcements')
  const confirm=useConfirmation()
- const tabs=[{id:'announcements',label:'Announcements',icon:Megaphone},{id:'discussion',label:'Discussion',icon:MessageCircle},{id:'sessions',label:'Sessions',icon:CalendarDays},{id:'attendance',label:'Attendance',icon:ClipboardList},{id:'membership',label:'Membership',icon:ClipboardList},...(admin?[{id:'income',label:'Income',icon:Banknote}]:[]),{id:'playlists',label:'Playlists',icon:ClipboardList},{id:'team',label:'Team',icon:Users},...(manager?[{id:'activity',label:'Activity',icon:ClipboardList}]:[])]
- const active=tabs.some(t=>t.id===tab)?tab:'announcements'
- const navigation=useRef<HTMLElement>(null)
- useEffect(()=>{
-  const bar=navigation.current;if(!bar)return
-  const reveal=()=>{const button=bar.querySelector('[aria-pressed="true"]');if(!button)return;const a=button.getBoundingClientRect(),b=bar.getBoundingClientRect();if(a.left<b.left+8)bar.scrollLeft-=b.left+8-a.left;else if(a.right>b.right-8)bar.scrollLeft+=a.right-b.right+8}
-  reveal();if(typeof ResizeObserver==='undefined')return
-  const observer=new ResizeObserver(reveal);observer.observe(bar);return()=>observer.disconnect()
- },[active])
+ const groups=[
+  {id:'community',label:'Community',Icon:MessageCircle,tabs:[{id:'announcements',label:'Announcements'},{id:'discussion',label:'Discussion'}]},
+  {id:'training',label:'Training',Icon:CalendarDays,tabs:[{id:'sessions',label:'Sessions'},{id:'attendance',label:'Attendance'},{id:'playlists',label:'Playlists'}]},
+  {id:'members',label:'Members',Icon:Users,tabs:[{id:'team',label:'Team'},{id:'membership',label:'Membership'}]},
+  {id:'management',label:'Management',Icon:Settings2,tabs:[...(admin?[{id:'income',label:'Income'}]:[]),...(manager?[{id:'activity',label:'Activity'}]:[])]},
+ ].filter(group=>group.tabs.length)
+ const active=groups.some(group=>group.tabs.some(item=>item.id===tab))?tab:'announcements'
+ const area=groups.find(group=>group.tabs.some(item=>item.id===active))!
+ const remembered=useRef<Record<string,string>>({})
+ useEffect(()=>{remembered.current[area.id]=active},[area.id,active])
+ function openSection(id:string){const group=groups.find(group=>group.tabs.some(item=>item.id===id));if(group)remembered.current[group.id]=id;setTab(id)}
+ function openArea(id:string){const group=groups.find(item=>item.id===id)!;const previous=remembered.current[id];openSection(group.tabs.some(item=>item.id===previous)?previous:group.tabs[0].id)}
+ function arrowNavigation(event:React.KeyboardEvent<HTMLElement>){
+  if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return
+  const buttons=Array.from(event.currentTarget.querySelectorAll<HTMLButtonElement>('button')),index=buttons.indexOf(event.target as HTMLButtonElement)
+  if(index<0)return
+  event.preventDefault();const next=event.key==='Home'?0:event.key==='End'?buttons.length-1:(index+(event.key==='ArrowRight'?1:-1)+buttons.length)%buttons.length
+  buttons[next]?.focus();buttons[next]?.click()
+ }
  async function removeBan(userId:string,username:string){if(await confirm({title:'Lift this ban?',message:`${username} will be able to join or request membership again.`,confirmLabel:'Lift ban'}))await onAction('unban',{userId},'Ban lifted.')}
  return <div className="gg-tools">
-  <nav ref={navigation} className="gg-tabs" aria-label="Gym sections">{tabs.map(t=><button key={t.id} id={'gym-nav-'+t.id} type="button" aria-pressed={active===t.id} aria-controls="gym-community-panel" onClick={()=>setTab(t.id)}><t.icon size={16}/>{t.label}{t.id==='team'&&manager&&!!membership.requests?.length&&<span className="gg-tab-count">{membership.requests.length}</span>}</button>)}</nav>
+  <nav className="gg-area-nav" aria-label="Gym areas" data-group-count={groups.length} onKeyDown={arrowNavigation}>{groups.map(group=><button type="button" key={group.id} aria-pressed={area.id===group.id} aria-controls="gym-section-navigation" onClick={()=>openArea(group.id)}><group.Icon size={18}/><span>{group.label}</span>{group.id==='members'&&manager&&!!membership.requests?.length&&<span className="gg-tab-count" aria-label={`${membership.requests.length} pending join requests`}>{membership.requests.length}</span>}</button>)}</nav>
+  <nav id="gym-section-navigation" className="gg-tabs" aria-label="Gym sections" onKeyDown={arrowNavigation}><span className="gg-area-label">{area.label}</span>{area.tabs.map(t=><button key={t.id} id={'gym-nav-'+t.id} type="button" aria-pressed={active===t.id} aria-controls="gym-community-panel" onClick={()=>openSection(t.id)}>{t.label}{t.id==='team'&&manager&&!!membership.requests?.length&&<span className="gg-tab-count">{membership.requests.length}</span>}</button>)}</nav>
   <div id="gym-community-panel" role="region" aria-labelledby={'gym-nav-'+active} className="gg-panel">
    {active==='announcements'&&<Announcements announcements={membership.announcements||[]} manager={manager} locked={locked} onAction={onAction}/>}
    {active==='discussion'&&<Discussion key={membership.gym!.id} membership={membership} owner={owner} manager={manager} locked={locked} onAction={onAction}/>}

@@ -25,3 +25,33 @@
 .gg-void-editor h4{margin:0;font-size:16px}
 @media(max-width:700px){.gg-income-payment-fields{grid-template-columns:1fr}.gg-income-records-heading{align-items:start;flex-direction:column}.gg-income-table th,.gg-income-table td{padding:10px}.gg-income-table-wrap{overscroll-behavior-inline:contain}}
 @media(max-width:900px){.gg-income-scroll-hint{display:block}}
+.gg-income>.gg-section-heading{align-items:start;gap:16px;flex-wrap:wrap}
+.gg-income>.gg-section-heading p{margin-bottom:0;max-width:48ch}
+.gg-income-filters{gap:12px;margin:24px 0 18px}
+.gg-income-filters>.gg-field{width:160px}
+.gg-income-summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));margin:0 0 22px;padding:18px 0;border-block:1px solid #dce4dd;gap:20px}
+.gg-income-summary>div+div{border-left:1px solid #dce4dd;padding-left:20px}
+.gg-income-summary dt{font-size:12px;color:#536358;margin-bottom:6px}
+.gg-income-summary dd{font-size:22px;font-weight:700;margin:0;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
+.gg-income-summary>div:last-child dd{color:#315945}
+.gg-income-yearly,.gg-income-help{border-top:1px solid #dce4dd;margin-top:20px;padding-top:16px}
+.gg-income-yearly>summary,.gg-income-help>summary{cursor:pointer;font-size:14px;font-weight:700;padding:8px 0}
+.gg-income-help .gg-small{max-width:80ch}
+.gg-income-mobile-ledger{display:none}
+@media(max-width:700px){
+ .gg-income-filters{display:grid;grid-template-columns:1fr 1fr}
+ .gg-income-filters>.gg-field{width:auto;min-width:0}
+ .gg-income-filters>.gg-field:last-child{grid-column:1/-1}
+ .gg-income-summary{gap:10px;padding:16px 0}
+ .gg-income-summary>div+div{padding-left:10px}
+ .gg-income-summary dd{font-size:17px}
+ .gg-income-desktop-ledger{display:none}
+ .gg-income-mobile-ledger{display:block;list-style:none;padding:0;margin:16px 0;border-top:1px solid #dce4dd}
+ .gg-income-mobile-ledger>li{padding:16px 0;border-bottom:1px solid #dce4dd;overflow-wrap:anywhere}
+ .gg-income-entry-heading{display:flex;justify-content:space-between;align-items:start;gap:14px;font-size:14px}
+ .gg-income-entry-heading>strong:last-child{font-variant-numeric:tabular-nums;text-align:right}
+ .gg-income-mobile-ledger p{font-size:12px;margin:6px 0;color:#536358}
+ .gg-income-mobile-ledger summary{font-size:12px;padding:8px 0;cursor:pointer;font-weight:600}
+ .gg-income-mobile-ledger .is-voided>.gg-income-entry-heading{color:#67716a}
+ .gg-income-mobile-ledger .is-voided>.gg-income-entry-heading>strong:last-child{text-decoration:line-through}
+}
