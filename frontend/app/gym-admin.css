@@ -532,6 +532,30 @@
 .ga-plan-removal .gg-small {
   margin: 0 0 14px;
 }
+.ga-plan-fee {
+  display: block;
+  font-variant-numeric: tabular-nums;
+}
+.ga-renewal-summary {
+  padding: 16px;
+  border: 1px solid #dfca77;
+  border-radius: 12px;
+  background: #fff6d4;
+  color: #51451e;
+}
+.ga-renewal-summary dl {
+  display: grid;
+  gap: 12px;
+  margin: 12px 0 0;
+}
+.ga-renewal-summary dt {
+  font-size: 12px;
+}
+.ga-renewal-summary dd {
+  margin: 3px 0 0;
+  font-size: 13px;
+  font-weight: 600;
+}
 .ga-summary {
   display: flex;
   flex-wrap: wrap;

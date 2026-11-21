@@ -12,6 +12,7 @@ import { type AdminPageProps } from './gym-admin-workspace'
 import { useConfirmation } from './confirm-dialog'
 import { dateInZone, shiftDate } from '../../shared/progress'
 import { historyOverlaps } from '../../shared/gym-history'
+import { gymCoverageSummary, gymCoverageDays } from '../../shared/gym-workflow'
 
 export function GymAdminPlans({ data, locked, run }: AdminPageProps) {
   const [editor, setEditor] = useState<GymPlan | null | false>(false),
@@ -26,10 +27,8 @@ export function GymAdminPlans({ data, locked, run }: AdminPageProps) {
     today = data.today || dateInZone(zone),
     plans = data.plans || [],
     periods = data.membershipPeriods || []
-  const current = (id: string) =>
-    periods
-      .filter((p) => p.user_id === id && !p.cancelled && p.ends_on >= today)
-      .sort((a, b) => a.starts_on.localeCompare(b.starts_on))[0]
+  const coverage = (id: string) => gymCoverageSummary(periods, id, today)
+  const current = (id: string) => coverage(id)?.current
   return (
     <>
       <div className="ga-admin-cards">
@@ -141,9 +140,8 @@ export function GymAdminPlans({ data, locked, run }: AdminPageProps) {
         </AdminSectionCard>
         <AdminSectionCard title="Member plan assignments">
           <p className="gg-small">
-            Apply a plan to a member, edit coverage or add a separate renewal.
-            Applying a plan creates an outstanding fee; it does not record
-            payment.
+            Renewals add to continuous coverage days and total plan fees. Fees
+            are recorded as outstanding until a payment is received.
           </p>
           <AdminTable
             rows={data.members}
@@ -176,9 +174,32 @@ export function GymAdminPlans({ data, locked, run }: AdminPageProps) {
               {
                 label: 'Coverage',
                 render: (m) => {
-                  const p = current(m.user_id)
-                  return p
-                    ? adminDay(p.starts_on) + ' to ' + adminDay(p.ends_on)
+                  const summary = coverage(m.user_id)
+                  return summary ? (
+                    <>
+                      {adminDay(summary.startsOn)} to {adminDay(summary.endsOn)}
+                      <span className="gg-meta">
+                        {summary.days} days total
+                        {summary.periods.length > 1
+                          ? ' - includes renewals'
+                          : ''}
+                      </span>
+                    </>
+                  ) : (
+                    '-'
+                  )
+                },
+              },
+              {
+                label: 'Total plan fees',
+                render: (m) => {
+                  const summary = coverage(m.user_id)
+                  return summary
+                    ? summary.fees.map((f) => (
+                        <span className="ga-plan-fee" key={f.currency}>
+                          {adminMoney(f.amount, f.currency)}
+                        </span>
+                      ))
                     : '-'
                 },
               },
@@ -433,6 +454,30 @@ function Assignment({
     setEnd = (value: string) => updateDraft({ end: value })
   const confirm = useConfirmation()
   const selected = plans.find((p) => p.id === chosen)
+  const addedDays = gymCoverageDays(start, end)
+  const renewalPreview =
+    renewing && period && selected && addedDays
+      ? gymCoverageSummary(
+          [
+            ...periods,
+            {
+              id: 'renewal-preview',
+              user_id: member.user_id,
+              plan_id: selected.id,
+              plan_name: selected.name,
+              price: selected.price,
+              currency: selected.currency,
+              starts_on: start,
+              ends_on: end,
+              cancelled: false,
+              status: 'upcoming',
+            },
+          ],
+          member.user_id,
+          today,
+          'renewal-preview',
+        )
+      : null
   return (
     <AdminModal
       title={
@@ -472,7 +517,7 @@ function Assignment({
                 endsOn: end,
               },
               renewing
-                ? 'Renewal recorded. Existing coverage is unchanged.'
+                ? `Renewal saved: +${addedDays} days, +${adminMoney(selected?.price || 0, selected?.currency || 'PHP')}. Coverage extends through ${adminDay(end)}.`
                 : editing
                   ? 'Member plan updated.'
                   : 'Member plan applied.',
@@ -561,9 +606,37 @@ function Assignment({
               />
             </label>
           </div>
+          {renewalPreview && selected && (
+            <div className="ga-renewal-summary" role="status">
+              <strong>
+                Renewal adds {addedDays} days +{' '}
+                {adminMoney(selected.price, selected.currency)}
+              </strong>
+              <dl>
+                <div>
+                  <dt>Renewed coverage</dt>
+                  <dd>
+                    {adminDay(renewalPreview.startsOn)} to{' '}
+                    {adminDay(renewalPreview.endsOn)} ({renewalPreview.days}{' '}
+                    days)
+                  </dd>
+                </div>
+                <div>
+                  <dt>Total fees for this coverage</dt>
+                  <dd>
+                    {renewalPreview.fees.map((f) => (
+                      <span className="ga-plan-fee" key={f.currency}>
+                        {adminMoney(f.amount, f.currency)}
+                      </span>
+                    ))}
+                  </dd>
+                </div>
+              </dl>
+            </div>
+          )}
           <p className="ga-form-note">
             {renewing
-              ? 'Renewal creates a separate period after existing coverage. The current assignment stays unchanged. The new fee is recorded as outstanding, not paid.'
+              ? 'The renewal adds these days and its fee to your membership totals. Existing payments stay recorded; the renewal fee is outstanding until paid.'
               : editing
                 ? 'Edit this assignment without creating a renewal. Coverage cannot overlap another record. A paid assignment must keep its currency and cover money already paid.'
                 : 'Coverage cannot overlap another assignment. The fee is recorded as outstanding, not paid.'}
