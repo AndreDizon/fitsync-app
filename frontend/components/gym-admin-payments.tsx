@@ -1,5 +1,6 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
+import { Receipt, Wallet } from 'lucide-react'
 import { gymRequest } from '@/lib/gym-groups'
 import {
   AdminModal,
@@ -95,7 +96,12 @@ export function GymAdminPayments({ data, locked, run }: AdminPageProps) {
   return (
     <>
       <div className="ga-admin-cards">
-        <AdminSectionCard title="Payment history" defaultOpen>
+        <AdminSectionCard
+          title="Payment history"
+          icon={Receipt}
+          description="Payments, refunds and corrections"
+          defaultOpen
+        >
           <div className="gg-section-heading">
             <div>
               <p className="gg-small">
@@ -165,7 +171,11 @@ export function GymAdminPayments({ data, locked, run }: AdminPageProps) {
             ]}
           />
         </AdminSectionCard>
-        <AdminSectionCard title="Balances & revenue">
+        <AdminSectionCard
+          title="Balances & revenue"
+          icon={Wallet}
+          description="Unpaid fees and monthly collections"
+        >
           <div className="gg-section-heading">
             <div>
               <p className="gg-small">

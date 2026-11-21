@@ -10,7 +10,13 @@ import {
   type ReactNode,
 } from 'react'
 import { createPortal } from 'react-dom'
-import { X, ChevronDown } from 'lucide-react'
+import {
+  X,
+  ChevronDown,
+  Layers,
+  ClipboardList,
+  type LucideIcon,
+} from 'lucide-react'
 import { HistoryDateFilter } from './gym-history-filter'
 import {
   emptyHistoryRange,
@@ -25,16 +31,36 @@ export function AdminSectionCard({
   title,
   children,
   defaultOpen = false,
+  icon: Icon = Layers,
+  description,
+  tone = 'blue',
 }: {
   title: ReactNode
   children: ReactNode
   defaultOpen?: boolean
+  icon?: LucideIcon
+  description?: string
+  tone?: 'blue' | 'slate' | 'warm'
 }) {
   return (
-    <details className="ga-section-card" open={defaultOpen || undefined}>
+    <details
+      className="ga-section-card"
+      data-tone={tone}
+      open={defaultOpen || undefined}
+    >
       <summary>
-        <h4>{title}</h4>
-        <ChevronDown size={20} aria-hidden="true" />
+        <span className="ga-section-icon">
+          <Icon size={22} aria-hidden="true" />
+        </span>
+        <div className="ga-section-copy">
+          <h4>{title}</h4>
+          {description && <p>{description}</p>}
+        </div>
+        <ChevronDown
+          className="ga-section-chevron"
+          size={20}
+          aria-hidden="true"
+        />
       </summary>
       <div className="ga-section-card-body">{children}</div>
     </details>
@@ -104,6 +130,9 @@ export function AdminModal({
       }}
     >
       <header>
+        <span className="ga-modal-icon">
+          <ClipboardList size={22} aria-hidden="true" />
+        </span>
         <h2 id={id}>{title}</h2>
         <button
           type="button"
@@ -150,7 +179,7 @@ function TableBody<T>({
         <thead>
           <tr>
             {columns.map((c) => (
-              <th scope="col" key={c.label}>
+              <th scope="col" key={c.label} data-column={c.label}>
                 {c.label}
               </th>
             ))}
@@ -162,11 +191,13 @@ function TableBody<T>({
               <tr key={rowKey(r)}>
                 {columns.map((c, i) =>
                   i === 0 ? (
-                    <th scope="row" key={c.label}>
+                    <th scope="row" key={c.label} data-column={c.label}>
                       {c.render(r)}
                     </th>
                   ) : (
-                    <td key={c.label}>{c.render(r)}</td>
+                    <td key={c.label} data-column={c.label}>
+                      {c.render(r)}
+                    </td>
                   ),
                 )}
               </tr>
@@ -263,35 +294,37 @@ export function AdminTable<T>({
   )
   return (
     <section className="ga-data">
-      {(searchable || extraFilters) && (
-        <div className="ga-table-toolbar">
-          {searchable && (
-            <div className="gg-field">
-              <label htmlFor={id}>Search {label.toLowerCase()}</label>
-              <input
-                id={id}
-                type="search"
-                maxLength={100}
-                value={query}
-                onChange={(e) => {
-                  setQuery(e.target.value)
-                  setPage(0)
-                }}
-              />
-            </div>
-          )}
-          {extraFilters}
-        </div>
-      )}
-      <HistoryDateFilter
-        label={dateLabel}
-        zone={zone}
-        value={range}
-        onChange={(next) => {
-          setRange(next)
-          setPage(0)
-        }}
-      />
+      <div className="ga-filters">
+        {(searchable || extraFilters) && (
+          <div className="ga-table-toolbar">
+            {searchable && (
+              <div className="gg-field">
+                <label htmlFor={id}>Search {label.toLowerCase()}</label>
+                <input
+                  id={id}
+                  type="search"
+                  maxLength={100}
+                  value={query}
+                  onChange={(e) => {
+                    setQuery(e.target.value)
+                    setPage(0)
+                  }}
+                />
+              </div>
+            )}
+            {extraFilters}
+          </div>
+        )}
+        <HistoryDateFilter
+          label={dateLabel}
+          zone={zone}
+          value={range}
+          onChange={(next) => {
+            setRange(next)
+            setPage(0)
+          }}
+        />
+      </div>
       {rows.some((r) => !dateOf(r)) && (
         <p className="gg-meta">
           Older entries without a recorded date appear under All dates only.
@@ -384,28 +417,30 @@ export function AdminReport<T>({
   ])
   return (
     <section className="ga-data">
-      <div className="gg-field">
-        <label htmlFor={id}>Search {label.toLowerCase()}</label>
-        <input
-          id={id}
-          type="search"
-          maxLength={100}
-          value={query}
-          onChange={(e) => {
-            setQuery(e.target.value)
+      <div className="ga-filters">
+        <div className="gg-field">
+          <label htmlFor={id}>Search {label.toLowerCase()}</label>
+          <input
+            id={id}
+            type="search"
+            maxLength={100}
+            value={query}
+            onChange={(e) => {
+              setQuery(e.target.value)
+              setPage(0)
+            }}
+          />
+        </div>
+        <HistoryDateFilter
+          label={kind === 'visits' ? 'Visit date' : 'Payment date'}
+          zone={zone}
+          value={range}
+          onChange={(next) => {
+            setRange(next)
             setPage(0)
           }}
         />
       </div>
-      <HistoryDateFilter
-        label={kind === 'visits' ? 'Visit date' : 'Payment date'}
-        zone={zone}
-        value={range}
-        onChange={(next) => {
-          setRange(next)
-          setPage(0)
-        }}
-      />
       {error && (
         <p className="gg-feedback gg-error" role="alert">
           {error}{' '}

@@ -1,6 +1,6 @@
-'use client'
+"use client";
 
-import { useEffect, useRef, useState, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   Building2,
   Users,
@@ -9,7 +9,10 @@ import {
   MessageCircle,
   Wallet,
   RefreshCw,
-} from 'lucide-react'
+  UserPlus,
+  Ban,
+  History,
+} from "lucide-react";
 import {
   gymRequest,
   type GymMembership,
@@ -17,7 +20,7 @@ import {
   type GymMember,
   type GymPeriod,
   type GymPlan,
-} from '@/lib/gym-groups'
+} from "@/lib/gym-groups";
 import {
   AdminFeedbackContext,
   AdminModal,
@@ -27,73 +30,74 @@ import {
   adminDay,
   adminTime,
   adminMoney,
-} from './gym-admin-primitives'
-import { useConfirmation } from './confirm-dialog'
-import { GymAdminPlans } from './gym-admin-plans'
-import { GymAdminPayments } from './gym-admin-payments'
-import { GymDiscussion } from './gym-discussion'
-import { dateInZone } from '../../shared/progress'
+} from "./gym-admin-primitives";
+import { useConfirmation } from "./confirm-dialog";
+import { GymAdminPlans } from "./gym-admin-plans";
+import { GymAdminPayments } from "./gym-admin-payments";
+import { GymDiscussion } from "./gym-discussion";
+import { dateInZone } from "../../shared/progress";
+import "@/app/card-heading.css";
 
-export type AdminData = Omit<GymMembership, 'bans' | 'activity'> & {
-  today: string
+export type AdminData = Omit<GymMembership, "bans" | "activity"> & {
+  today: string;
   balances: (GymPeriod & {
-    username: string
-    paid: number
-    outstanding: number
-  })[]
-  bans: { user_id: string; username: string; banned_at?: string }[]
+    username: string;
+    paid: number;
+    outstanding: number;
+  })[];
+  bans: { user_id: string; username: string; banned_at?: string }[];
   activity: {
-    id: string
-    actor: string
-    actor_role: string
-    target: string
-    action: string
-    created_at: string
-  }[]
-}
+    id: string;
+    actor: string;
+    actor_role: string;
+    target: string;
+    action: string;
+    created_at: string;
+  }[];
+};
 export type AdminPageProps = {
-  data: AdminData
-  locked: boolean
-  run: GymAction
-}
+  data: AdminData;
+  locked: boolean;
+  run: GymAction;
+};
 const sections = [
   {
-    id: 'settings',
-    label: 'Manage gym',
+    id: "settings",
+    label: "Manage gym",
     Icon: Building2,
-    note: 'Gym details, welcome, rules and joining.',
+    note: "Gym details, welcome, rules and joining.",
   },
   {
-    id: 'members',
-    label: 'Manage members',
+    id: "members",
+    label: "Manage members",
     Icon: Users,
-    note: 'Requests, roles, bans and team activity.',
+    note: "Requests, roles, bans and team activity.",
   },
   {
-    id: 'attendance',
-    label: 'Gym attendance',
+    id: "attendance",
+    label: "Gym attendance",
     Icon: ClipboardCheck,
-    note: 'Review visits and confirm member check-ins.',
+    note: "Review visits and confirm member check-ins.",
   },
   {
-    id: 'plans',
-    label: 'Plans & assignments',
+    id: "plans",
+    label: "Plans & assignments",
     Icon: ClipboardList,
-    note: 'Create plans, apply them and renew members.',
+    note: "Create plans, apply them and renew members.",
   },
   {
-    id: 'discussion',
-    label: 'Discussion',
+    id: "discussion",
+    label: "Discussion",
     Icon: MessageCircle,
-    note: 'Chat, announcements, events and shared workouts.',
+    note: "Chat, announcements, events and shared workouts.",
   },
   {
-    id: 'payments',
-    label: 'Payments & revenue',
+    id: "payments",
+    label: "Payments & revenue",
     Icon: Wallet,
-    note: 'Record money received and review outstanding balances.',
+    note: "Record money received and review outstanding balances.",
   },
-]
+];
 export function GymAdminWorkspace({
   membership,
   owner,
@@ -103,71 +107,71 @@ export function GymAdminWorkspace({
   initialTab,
   actionError,
 }: {
-  membership: GymMembership
-  owner: string
-  locked: boolean
-  onAction: GymAction
-  settings?: ReactNode
-  initialTab?: string
-  actionError?: string
+  membership: GymMembership;
+  owner: string;
+  locked: boolean;
+  onAction: GymAction;
+  settings?: ReactNode;
+  initialTab?: string;
+  actionError?: string;
 }) {
   const aliases: Record<string, string> = {
-    team: 'members',
-    activity: 'members',
-    membership: 'plans',
-    'membership-plans': 'plans',
-    income: 'payments',
-    announcements: 'discussion',
-    sessions: 'discussion',
-    playlists: 'discussion',
-  }
+    team: "members",
+    activity: "members",
+    membership: "plans",
+    "membership-plans": "plans",
+    income: "payments",
+    announcements: "discussion",
+    sessions: "discussion",
+    playlists: "discussion",
+  };
   const [tab, setTab] = useState(
-      aliases[initialTab || ''] ||
-        (sections.some((s) => s.id === initialTab) ? initialTab! : 'settings'),
+      aliases[initialTab || ""] ||
+        (sections.some((s) => s.id === initialTab) ? initialTab! : "settings"),
     ),
     [data, setData] = useState<AdminData | null>(null),
-    [error, setError] = useState(''),
+    [error, setError] = useState(""),
     [version, setVersion] = useState(0),
-    [loading, setLoading] = useState(true)
+    [loading, setLoading] = useState(true);
   const panel = useRef<HTMLDivElement>(null),
-    focusNext = useRef(false)
+    focusNext = useRef(false);
   useEffect(() => {
-    const abort = new AbortController()
-    setLoading(true)
-    setError('')
+    const abort = new AbortController();
+    setLoading(true);
+    setError("");
     gymRequest(
-      'admin_data',
+      "admin_data",
       {},
       AbortSignal.any([abort.signal, AbortSignal.timeout(30000)]),
     )
       .then((d) => {
-        if (!abort.signal.aborted) setData(d)
+        if (!abort.signal.aborted) setData(d);
       })
       .catch((e) => {
         if (!abort.signal.aborted) {
-          setData(null)
-          setError(e.message)
+          setData(null);
+          setError(e.message);
         }
       })
       .finally(() => {
-        if (!abort.signal.aborted) setLoading(false)
-      })
-    return () => abort.abort()
-  }, [membership, version])
+        if (!abort.signal.aborted) setLoading(false);
+      });
+    return () => abort.abort();
+  }, [membership, version]);
   useEffect(() => {
     if (focusNext.current) {
-      focusNext.current = false
-      panel.current?.focus({ preventScroll: true })
+      focusNext.current = false;
+      panel.current?.focus({ preventScroll: true });
     }
-  }, [tab])
+  }, [tab]);
   const run: GymAction = async (action, doc, message) => {
-    const ok = await onAction(action, doc, message)
-    if (ok) setVersion((v) => v + 1)
-    return ok
-  }
-  const active = sections.find((s) => s.id === tab) || sections[0]
+    const ok = await onAction(action, doc, message);
+    if (ok) setVersion((v) => v + 1);
+    return ok;
+  };
+  const active = sections.find((s) => s.id === tab) || sections[0];
   return (
-    <AdminFeedbackContext.Provider value={actionError || ''}>
+    <AdminFeedbackContext.Provider value={actionError || ""}>
       <div className="ga-workspace">
         <nav className="ga-menu" aria-label="Gym administration">
           {sections.map((s) => (
@@ -177,8 +181,8 @@ export function GymAdminWorkspace({
               aria-pressed={active.id === s.id}
               aria-controls="gym-admin-panel"
               onClick={() => {
-                focusNext.current = true
-                setTab(s.id)
+                focusNext.current = true;
+                setTab(s.id);
               }}
             >
               <s.Icon size={17} />
@@ -209,7 +213,7 @@ export function GymAdminWorkspace({
           role="region"
           aria-label={active.label}
         >
-          <header className="ga-page-heading">
+          <header className="ga-page-heading fitsync-card-heading">
             <active.Icon size={24} />
             <div>
               <h3>{active.label}</h3>
@@ -228,7 +232,7 @@ export function GymAdminWorkspace({
             {loading && <p role="status">Refreshing gym records...</p>}
             {error && (
               <p role="alert" className="gg-feedback gg-error">
-                {error}{' '}
+                {error}{" "}
                 <button type="button" onClick={() => setVersion((v) => v + 1)}>
                   Retry
                 </button>
@@ -236,33 +240,33 @@ export function GymAdminWorkspace({
             )}
             {data && !error && (
               <>
-                {active.id === 'settings' && settings}
-                {active.id === 'members' && (
+                {active.id === "settings" && settings}
+                {active.id === "members" && (
                   <Members data={data} locked={locked || loading} run={run} />
-                )}{' '}
-                {active.id === 'attendance' && (
+                )}{" "}
+                {active.id === "attendance" && (
                   <Attendance
                     data={data}
                     locked={locked || loading}
                     run={run}
                   />
-                )}{' '}
-                {active.id === 'plans' && (
+                )}{" "}
+                {active.id === "plans" && (
                   <GymAdminPlans
                     data={data}
                     locked={locked || loading}
                     run={run}
                   />
-                )}{' '}
-                {active.id === 'discussion' && (
+                )}{" "}
+                {active.id === "discussion" && (
                   <GymDiscussion
                     membership={data}
                     owner={owner}
                     locked={locked || loading}
                     onAction={run}
                   />
-                )}{' '}
-                {active.id === 'payments' && (
+                )}{" "}
+                {active.id === "payments" && (
                   <GymAdminPayments
                     data={data}
                     locked={locked || loading}
@@ -275,13 +279,13 @@ export function GymAdminWorkspace({
         </div>
       </div>
     </AdminFeedbackContext.Provider>
-  )
+  );
 }
 function Members({ data, locked, run }: AdminPageProps) {
   const [activity, setActivity] = useState(false),
-    [role, setRole] = useState('all'),
+    [role, setRole] = useState("all"),
     confirm = useConfirmation(),
-    zone = data.gym!.time_zone || 'Asia/Manila'
+    zone = data.gym!.time_zone || "Asia/Manila";
   async function act(
     action: string,
     user: GymMember,
@@ -290,36 +294,38 @@ function Members({ data, locked, run }: AdminPageProps) {
     if (
       await confirm({
         title:
-          action === 'transfer'
-            ? 'Transfer gym ownership?'
-            : action === 'role'
-              ? 'Change member role?'
-              : action === 'ban'
-                ? 'Ban this member?'
-                : 'Remove this member?',
+          action === "transfer"
+            ? "Transfer gym ownership?"
+            : action === "role"
+              ? "Change member role?"
+              : action === "ban"
+                ? "Ban this member?"
+                : "Remove this member?",
         message:
-          action === 'transfer'
+          action === "transfer"
             ? `${user.username} will become the only admin. You will lose admin access.`
-            : action === 'ban'
+            : action === "ban"
               ? `${user.username} will be removed and unable to rejoin until unbanned.`
               : `Apply this change to ${user.username}? Historical payments are preserved.`,
-        confirmLabel: action === 'transfer' ? 'Transfer ownership' : 'Confirm',
-        destructive: ['ban', 'remove', 'transfer'].includes(action),
+        confirmLabel: action === "transfer" ? "Transfer ownership" : "Confirm",
+        destructive: ["ban", "remove", "transfer"].includes(action),
       })
     )
-      await run(action, { userId: user.user_id, ...doc }, 'Member updated.')
+      await run(action, { userId: user.user_id, ...doc }, "Member updated.");
   }
   return (
     <div className="ga-member-cards">
       <AdminSectionCard
         title={
           <>
-            Pending requests{' '}
+            Pending requests{" "}
             <span className="gg-inline-count">
               {data.requests?.length || 0}
             </span>
           </>
         }
+        icon={UserPlus}
+        description="Approve or decline join requests"
         defaultOpen
       >
         <AdminTable
@@ -332,13 +338,13 @@ function Members({ data, locked, run }: AdminPageProps) {
           dateOf={(r) => dateInZone(zone, new Date(r.created_at))}
           searchText={(r) => r.username}
           columns={[
-            { label: 'Name', render: (r) => r.username },
+            { label: "Name", render: (r) => r.username },
             {
-              label: 'Requested',
+              label: "Requested",
               render: (r) => adminDay(dateInZone(zone, new Date(r.created_at))),
             },
             {
-              label: 'Actions',
+              label: "Actions",
               render: (r) => (
                 <div className="gg-actions">
                   <button
@@ -347,9 +353,9 @@ function Members({ data, locked, run }: AdminPageProps) {
                     disabled={locked || data.members.length >= 100}
                     onClick={() =>
                       void run(
-                        'approve',
+                        "approve",
                         { userId: r.user_id },
-                        'Request accepted.',
+                        "Request accepted.",
                       )
                     }
                   >
@@ -361,16 +367,16 @@ function Members({ data, locked, run }: AdminPageProps) {
                     onClick={async () => {
                       if (
                         await confirm({
-                          title: 'Decline request?',
+                          title: "Decline request?",
                           message: `Decline ${r.username}'s request? They can apply again.`,
-                          confirmLabel: 'Decline',
+                          confirmLabel: "Decline",
                         })
                       )
                         await run(
-                          'reject',
+                          "reject",
                           { userId: r.user_id },
-                          'Request declined.',
-                        )
+                          "Request declined.",
+                        );
                     }}
                   >
                     Decline
@@ -384,10 +390,12 @@ function Members({ data, locked, run }: AdminPageProps) {
       <AdminSectionCard
         title={
           <>
-            All members{' '}
+            All members{" "}
             <span className="gg-inline-count">{data.members.length}/100</span>
           </>
         }
+        icon={Users}
+        description="Manage roles and gym access"
       >
         <AdminTable
           searchable={false}
@@ -397,46 +405,46 @@ function Members({ data, locked, run }: AdminPageProps) {
           zone={zone}
           dateOf={(r) => dateInZone(zone, new Date(r.joined_at))}
           rowKey={(r) => r.user_id}
-          searchText={(r) => r.username + ' ' + r.role}
+          searchText={(r) => r.username + " " + r.role}
           columns={[
-            { label: 'Name', render: (r) => r.username },
+            { label: "Name", render: (r) => r.username },
             {
-              label: 'Role',
+              label: "Role",
               render: (r) => <span className="gg-period-status">{r.role}</span>,
             },
             {
-              label: 'Joined',
+              label: "Joined",
               render: (r) => adminDay(dateInZone(zone, new Date(r.joined_at))),
             },
             {
-              label: 'Actions',
+              label: "Actions",
               render: (r) =>
-                r.role === 'admin' ? (
-                  'Gym owner'
+                r.role === "admin" ? (
+                  "Gym owner"
                 ) : (
                   <div className="gg-actions">
                     <button
                       type="button"
                       disabled={locked}
                       onClick={() =>
-                        void act('role', r, {
-                          role: r.role === 'staff' ? 'member' : 'staff',
+                        void act("role", r, {
+                          role: r.role === "staff" ? "member" : "staff",
                         })
                       }
                     >
-                      {r.role === 'staff' ? 'Make member' : 'Make staff'}
+                      {r.role === "staff" ? "Make member" : "Make staff"}
                     </button>
                     <button
                       type="button"
                       disabled={locked}
-                      onClick={() => void act('transfer', r)}
+                      onClick={() => void act("transfer", r)}
                     >
                       Transfer ownership
                     </button>
                     <button
                       type="button"
                       disabled={locked}
-                      onClick={() => void act('remove', r)}
+                      onClick={() => void act("remove", r)}
                     >
                       Remove
                     </button>
@@ -444,7 +452,7 @@ function Members({ data, locked, run }: AdminPageProps) {
                       type="button"
                       className="gg-danger"
                       disabled={locked}
-                      onClick={() => void act('ban', r)}
+                      onClick={() => void act("ban", r)}
                     >
                       Ban
                     </button>
@@ -454,7 +462,11 @@ function Members({ data, locked, run }: AdminPageProps) {
           ]}
         />
       </AdminSectionCard>
-      <AdminSectionCard title={<> Banned accounts </>}>
+      <AdminSectionCard
+        title="Banned accounts"
+        icon={Ban}
+        description="Review restricted accounts"
+      >
         <AdminTable
           searchable={false}
           rows={data.bans || []}
@@ -467,16 +479,16 @@ function Members({ data, locked, run }: AdminPageProps) {
           rowKey={(r) => r.user_id}
           searchText={(r) => r.username}
           columns={[
-            { label: 'Name', render: (r) => r.username },
+            { label: "Name", render: (r) => r.username },
             {
-              label: 'Banned',
+              label: "Banned",
               render: (r) =>
                 adminDay(
                   r.banned_at ? dateInZone(zone, new Date(r.banned_at)) : null,
                 ),
             },
             {
-              label: 'Actions',
+              label: "Actions",
               render: (r) => (
                 <button
                   type="button"
@@ -484,16 +496,16 @@ function Members({ data, locked, run }: AdminPageProps) {
                   onClick={async () => {
                     if (
                       await confirm({
-                        title: 'Unban account?',
+                        title: "Unban account?",
                         message: `Allow ${r.username} to join or request membership again?`,
-                        confirmLabel: 'Unban',
+                        confirmLabel: "Unban",
                       })
                     )
                       await run(
-                        'unban',
+                        "unban",
                         { userId: r.user_id },
-                        'Account unbanned.',
-                      )
+                        "Account unbanned.",
+                      );
                   }}
                 >
                   Unban
@@ -503,7 +515,11 @@ function Members({ data, locked, run }: AdminPageProps) {
           ]}
         />
       </AdminSectionCard>
-      <AdminSectionCard title={<> Team activity </>}>
+      <AdminSectionCard
+        title="Team activity"
+        icon={History}
+        description="Review changes made by your team"
+      >
         <p className="gg-small">Review the latest 200 management actions.</p>
         <button type="button" onClick={() => setActivity(true)}>
           See activity
@@ -518,7 +534,7 @@ function Members({ data, locked, run }: AdminPageProps) {
           <AdminTable
             searchable={false}
             rows={(data.activity || []).filter(
-              (r) => role === 'all' || r.actor_role === role,
+              (r) => role === "all" || r.actor_role === role,
             )}
             label="Team activity"
             dateLabel="Activity date"
@@ -526,27 +542,27 @@ function Members({ data, locked, run }: AdminPageProps) {
             dateOf={(r) => dateInZone(zone, new Date(r.created_at))}
             rowKey={(r) => r.id}
             searchText={(r) =>
-              r.actor + ' ' + r.target + ' ' + r.action.replaceAll('_', ' ')
+              r.actor + " " + r.target + " " + r.action.replaceAll("_", " ")
             }
             extraFilters={
               <label>
                 Current actor role
                 <select value={role} onChange={(e) => setRole(e.target.value)}>
-                  {['all', 'admin', 'staff', 'member', 'former'].map((r) => (
+                  {["all", "admin", "staff", "member", "former"].map((r) => (
                     <option key={r} value={r}>
-                      {r === 'all' ? 'All roles' : r}
+                      {r === "all" ? "All roles" : r}
                     </option>
                   ))}
                 </select>
               </label>
             }
             columns={[
-              { label: 'Who', render: (r) => r.actor },
-              { label: 'Role', render: (r) => r.actor_role },
-              { label: 'Action', render: (r) => r.action.replaceAll('_', ' ') },
-              { label: 'Member', render: (r) => r.target },
+              { label: "Who", render: (r) => r.actor },
+              { label: "Role", render: (r) => r.actor_role },
+              { label: "Action", render: (r) => r.action.replaceAll("_", " ") },
+              { label: "Member", render: (r) => r.target },
               {
-                label: 'Date',
+                label: "Date",
                 render: (r) =>
                   adminDay(dateInZone(zone, new Date(r.created_at))),
               },
@@ -555,33 +571,33 @@ function Members({ data, locked, run }: AdminPageProps) {
         </AdminModal>
       )}
     </div>
-  )
+  );
 }
 type Visit = {
-  user_id: string
-  username: string
-  checked_on: string
-  checked_at: string
-  checked_out_at: string | null
-  confirmed_at: string | null
-}
+  user_id: string;
+  username: string;
+  checked_on: string;
+  checked_at: string;
+  checked_out_at: string | null;
+  confirmed_at: string | null;
+};
 function Attendance({ data, locked }: AdminPageProps) {
   const [person, setPerson] = useState<Visit | null>(null),
     [version, setVersion] = useState(0),
     [busy, setBusy] = useState(false),
-    [error, setError] = useState(''),
-    zone = data.gym!.time_zone || 'Asia/Manila'
+    [error, setError] = useState(""),
+    zone = data.gym!.time_zone || "Asia/Manila";
   const times = [
-    { label: 'Visit date', render: (r: Visit) => adminDay(r.checked_on) },
+    { label: "Visit date", render: (r: Visit) => adminDay(r.checked_on) },
     {
-      label: 'Last check-in',
+      label: "Last check-in",
       render: (r: Visit) => adminTime(r.checked_at, zone),
     },
     {
-      label: 'Last checkout',
+      label: "Last checkout",
       render: (r: Visit) => adminTime(r.checked_out_at, zone),
     },
-  ]
+  ];
   return (
     <>
       <p className="gg-small">
@@ -600,32 +616,32 @@ function Attendance({ data, locked }: AdminPageProps) {
         zone={zone}
         rowKey={(r) => r.user_id + r.checked_on}
         columns={[
-          { label: 'Name', render: (r) => r.username },
+          { label: "Name", render: (r) => r.username },
           ...times,
           {
-            label: 'Confirmation',
+            label: "Confirmation",
             render: (r) =>
               r.confirmed_at ? (
-                'Confirmed'
+                "Confirmed"
               ) : (
                 <button
                   type="button"
                   className="gg-primary"
                   disabled={locked || busy}
                   onClick={async () => {
-                    setBusy(true)
-                    setError('')
+                    setBusy(true);
+                    setError("");
                     try {
-                      await gymRequest('confirm_checkin', {
+                      await gymRequest("confirm_checkin", {
                         userId: r.user_id,
                         checkedOn: r.checked_on,
-                        scope: 'gym',
-                      })
-                      setVersion((v) => v + 1)
+                        scope: "gym",
+                      });
+                      setVersion((v) => v + 1);
                     } catch (e) {
-                      setError((e as Error).message)
+                      setError((e as Error).message);
                     } finally {
-                      setBusy(false)
+                      setBusy(false);
                     }
                   }}
                 >
@@ -634,7 +650,7 @@ function Attendance({ data, locked }: AdminPageProps) {
               ),
           },
           {
-            label: 'History',
+            label: "History",
             render: (r) => (
               <button type="button" onClick={() => setPerson(r)}>
                 See all history
@@ -645,7 +661,7 @@ function Attendance({ data, locked }: AdminPageProps) {
       />
       {person && (
         <AdminModal
-          title={person.username + ' - attendance history'}
+          title={person.username + " - attendance history"}
           onClose={() => setPerson(null)}
         >
           <p className="gg-small">
@@ -663,5 +679,5 @@ function Attendance({ data, locked }: AdminPageProps) {
         </AdminModal>
       )}
     </>
-  )
+  );
 }

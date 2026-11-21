@@ -1,5 +1,6 @@
 'use client'
 import { useState } from 'react'
+import { ClipboardList, Users } from 'lucide-react'
 import { type GymPlan, type GymPeriod, type GymMember } from '@/lib/gym-groups'
 import {
   AdminModal,
@@ -32,7 +33,13 @@ export function GymAdminPlans({ data, locked, run }: AdminPageProps) {
   return (
     <>
       <div className="ga-admin-cards">
-        <AdminSectionCard title="Membership plans" defaultOpen>
+        <AdminSectionCard
+          title="Membership plans"
+          icon={ClipboardList}
+          description="The plans and fees your gym offers"
+          tone="slate"
+          defaultOpen
+        >
           <div className="gg-section-heading">
             <div>
               <p className="gg-small">
@@ -138,7 +145,11 @@ export function GymAdminPlans({ data, locked, run }: AdminPageProps) {
             ]}
           />
         </AdminSectionCard>
-        <AdminSectionCard title="Member plan assignments">
+        <AdminSectionCard
+          title="Member plan assignments"
+          icon={Users}
+          description="Manage coverage, renewals and fees"
+        >
           <p className="gg-small">
             Renewals add to continuous coverage days and total plan fees. Fees
             are recorded as outstanding until a payment is received.

@@ -1,7 +1,15 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { Check, Copy, LogOut, Trash2 } from 'lucide-react'
+import {
+  Check,
+  Copy,
+  LogOut,
+  Trash2,
+  Building2,
+  ClipboardList,
+  ShieldAlert,
+} from 'lucide-react'
 import { type GymMembership, type GymAction } from '@/lib/gym-groups'
 import { AdminSectionCard } from './gym-admin-primitives'
 import { useConfirmation } from './confirm-dialog'
@@ -56,7 +64,12 @@ export function GymAdminSettings({
     selected = members.find((m) => m.user_id === successor)
   return (
     <div className="ga-settings-cards">
-      <AdminSectionCard title="Gym name & code" defaultOpen>
+      <AdminSectionCard
+        title="Gym name & code"
+        icon={Building2}
+        description="Your gym identity and invite code"
+        defaultOpen
+      >
         <form
           className="ga-settings-form"
           onSubmit={async (e) => {
@@ -113,7 +126,11 @@ export function GymAdminSettings({
           </fieldset>
         </form>
       </AdminSectionCard>
-      <AdminSectionCard title="Welcome, rules & joining">
+      <AdminSectionCard
+        title="Welcome, rules & joining"
+        icon={ClipboardList}
+        description="Set expectations and who can join"
+      >
         <form
           className="ga-settings-form"
           onSubmit={async (e) => {
@@ -193,7 +210,12 @@ export function GymAdminSettings({
           </fieldset>
         </form>
       </AdminSectionCard>
-      <AdminSectionCard title="Ownership & deletion">
+      <AdminSectionCard
+        title="Ownership & deletion"
+        icon={ShieldAlert}
+        description="Transfer access or close this gym"
+        tone="warm"
+      >
         <section className="ga-ownership-action">
           <h5>Transfer ownership &amp; leave</h5>
           <p className="gg-small">
