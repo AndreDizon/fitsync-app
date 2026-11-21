@@ -1,7 +1,7 @@
 export type Gym={id:string;name:string;description:string;join_mode?:'open'|'approval'|'invite';time_zone?:string;welcome_message?:string;rules?:string;member_count?:number;join_code?:string;owner_id?:string}
 export type GymPlan={id:string;name:string;description:string;duration_days:number;price:number;currency:string;archived:boolean}
 export type GymPeriod={id:string;user_id:string;plan_id:string|null;plan_name:string;price:number;currency:string;starts_on:string;ends_on:string;cancelled:boolean;status:'active'|'upcoming'|'expired'|'cancelled'}
-export type GymTab='announcements'|'discussion'|'sessions'|'playlists'|'team'|'activity'|'attendance'|'membership'|'income'
+export type GymTab='overview'|'settings'|'membership-plans'|'announcements'|'discussion'|'sessions'|'playlists'|'team'|'activity'|'attendance'|'membership'|'income'
 export type GymMember={user_id:string;username:string;role:'admin'|'staff'|'member';joined_at:string}
 export type GymAnnouncement={id:string;title:string;body:string;pinned:boolean;username:string;created_at:string;updated_at:string}
 export type GymSession={id:string;title:string;description:string;starts_at:string;ends_at:string;capacity:number;attending:number;joined:boolean}

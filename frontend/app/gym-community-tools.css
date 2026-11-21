@@ -76,3 +76,67 @@
 .gg-plan-library>summary{cursor:pointer;font-size:13px;font-weight:700;padding:12px 0}
 .gg-membership-history h4{font-size:16px;margin:0 0 12px}
 @media(max-width:600px){.gg-section-directory{display:block;padding:12px}.gg-navigation-group+.gg-navigation-group{border-left:0;border-top:1px solid #d4dfd8;padding:12px 0 0;margin-top:12px}.gg-navigation-group>div{display:flex;flex-wrap:wrap;gap:4px}.sc-gyms .gg-navigation-group button{width:auto;flex:1 1 auto;justify-content:center;text-align:center;padding:9px 8px;font-size:12px}.gg-history-filter-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.gg-history-filter-controls>.gg-field{min-width:0;max-width:none}.gg-history-filter-controls>.gg-actions{grid-column:1/-1}.gg-history-filter-controls>.gg-actions>button{flex:1}}
+.gg-workspace{display:grid;grid-template-columns:210px minmax(0,1fr);gap:20px;align-items:start}
+.gg-workspace .gg-section-directory{display:block;border-radius:14px;padding:14px;position:sticky;top:20px}
+.gg-workspace .gg-navigation-group+.gg-navigation-group{border-left:0;border-top:1px solid #d4dfd8;margin-top:14px;padding:14px 0 0}
+.gg-workspace .gg-navigation-group>div{display:grid;gap:3px}
+.gg-workspace .gg-navigation-group h3{font-size:11px;gap:7px;margin-bottom:7px}
+.sc-gyms .gg-workspace .gg-navigation-group button{width:100%;padding:9px 10px;justify-content:flex-start;text-align:left;font-size:12px;min-height:42px;border-radius:8px}
+.gg-workspace .gg-panel{border:1px solid #d4dfd8;border-radius:14px;min-width:0;padding:24px}
+.gg-mobile-section-picker{display:none}
+.gg-settings-content>.gg-edit{margin:20px 0;padding:20px 0;border-block:1px solid #dce4dd}
+.gg-settings-content>.gg-edit h4{margin:0 0 14px;font-size:15px}
+.gg-settings-content .gg-guidance{padding:16px 0;border:0;border-top:1px solid #dce4dd;border-radius:0;background:transparent}
+.gg-settings-content>.gg-admin-details{margin-top:20px}
+.gg-settings-content .gg-exit{margin:12px 0 0}
+.gg-attendance-modes{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:22px}
+.sc-gyms .gg-attendance-modes>button{display:flex;align-items:flex-start;flex-direction:column;text-align:left;gap:4px;padding:12px 14px;line-height:1.5;background:#fff}
+.gg-attendance-modes span{font-weight:400;color:#536358;font-size:12px}
+.sc-gyms .gg-attendance-modes>button[aria-pressed=true]{background:#eaf4ed;border-color:#7e9e88}
+.gg-attendance-modes+section.gg-session-attendance{margin-top:0;border-top:0;padding-top:0}
+.gg-overview-heading{margin-bottom:20px}
+.gg-overview-heading .gg-meta{margin:0 0 8px}
+.gg-overview-heading>div>p:last-child{font-size:13px;color:#536358;margin:8px 0 0;max-width:70ch}
+.gg-overview-welcome{padding:14px 16px;background:#fff7d9;border-left:3px solid #d0af3c;margin-bottom:24px}
+.gg-overview-welcome p{margin:0 0 8px;font-size:13px;white-space:pre-wrap;overflow-wrap:anywhere;max-width:75ch;max-height:6em;overflow:auto}
+.sc-gyms .gg-overview-welcome button{background:transparent;border:0;padding:0;min-height:36px;text-align:left;justify-content:start;color:#67541a}
+.gg-overview-columns{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:24px}
+.gg-overview h4{font-size:15px;margin:0 0 12px;line-height:1.4}
+.sc-gyms .gg-overview-action{display:flex;gap:12px;justify-content:space-between;align-items:center;text-align:left;width:100%;padding:14px 0;border:0;border-bottom:1px solid #dce4dd;border-radius:0;background:transparent;box-shadow:none;line-height:1.5;min-height:76px}
+.gg-overview-action>span:first-child{min-width:0;flex:1}
+.gg-overview-action strong{display:block;font-size:13px;overflow-wrap:anywhere}
+.gg-overview-action small{display:block;font-size:12px;font-weight:400;color:#536358;margin-top:4px;overflow-wrap:anywhere}
+.gg-overview-action>svg{flex-shrink:0;color:#5a7466}
+.gg-overview-count{padding:2px 7px;border-radius:5px;background:#eaf1ed;color:#315c43;font-size:14px;font-variant-numeric:tabular-nums}
+.gg-overview-sessions{border-left:1px solid #dce4dd;padding-left:24px;min-width:0}
+.gg-overview-sessions .gg-section-heading{align-items:center;flex-wrap:wrap}
+.sc-gyms .gg-overview-sessions .gg-section-heading button{font-size:11px;min-height:36px;padding:7px 9px}
+.gg-overview-sessions h4{margin:0}
+.gg-overview-session-list{list-style:none;margin:0;padding:0}
+.gg-overview-session-list>li{padding:14px 0;border-bottom:1px solid #dce4dd}
+.gg-overview-session-list strong{display:block;font-size:13px;overflow-wrap:anywhere}
+.gg-overview-session-list time{display:block;color:#40584b;font-size:12px;margin-top:4px}
+.gg-overview-session-list p{font-size:12px;color:#536358;margin:4px 0 10px}
+.gg-overview-empty{padding:18px 0;font-size:13px}
+.gg-overview-empty p{color:#536358;max-width:40ch}
+.gg-overview-workflow{margin-top:28px;border-top:1px solid #dce4dd;padding-top:20px}
+.gg-overview-workflow ol{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;list-style:none;padding:0;margin:0}
+.gg-overview-workflow li{min-width:0}
+.sc-gyms .gg-overview-workflow button{justify-content:start;text-align:left;padding:0;min-height:44px;border:0;background:transparent;color:#315b47;font-size:12px}
+.gg-overview-workflow p{margin:4px 0 0;font-size:12px;color:#536358;max-width:35ch}
+.gg-overview-help{padding-top:18px;border-top:1px solid #dce4dd;margin-top:24px;font-size:13px}
+.gg-overview-help summary{cursor:pointer;padding:8px 0;font-weight:700;line-height:1.5}
+.gg-overview-help li{margin:10px 0;max-width:75ch;color:#40584b}
+@media(max-width:1099px){.gg-workspace{display:block}.gg-workspace .gg-section-directory{display:none}.gg-mobile-section-picker{display:block;margin-bottom:14px;padding:14px 16px;background:#eef3ef;border:1px solid #d4dfd8;border-radius:12px}.gg-mobile-section-picker label{display:block;font-size:12px;font-weight:700;margin-bottom:6px}.gg-mobile-section-picker select{width:100%}.gg-overview-columns{display:block}.gg-overview-sessions{border-left:0;padding-left:0;border-top:1px solid #dce4dd;margin-top:24px;padding-top:20px}}
+@media(max-width:600px){.gg-workspace .gg-panel{padding:16px}.gg-attendance-modes{grid-template-columns:1fr}.gg-overview-workflow ol{grid-template-columns:1fr;gap:12px}.gg-overview-workflow li+li{border-top:1px solid #dce4dd;padding-top:10px}}
+.sc-gyms .gg-renewal-filter{display:flex;align-items:center;gap:8px;font-size:12px;min-height:44px;font-weight:600}
+.sc-gyms .gg-renewal-filter input{width:18px;height:18px;min-height:18px;padding:0;flex-shrink:0;accent-color:#397357}
+.gg-roster-filters{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:12px;margin:16px 0}
+.gg-roster-filters input,.gg-request-search input{width:100%;min-width:0}
+.gg-request-search{max-width:360px;margin:14px 0}
+.gg-workspace .gg-section-directory{max-height:calc(100dvh - 40px);overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#9aae9f #eef3ef}
+@media(max-width:1099px){.gg-mobile-section-picker{position:sticky;top:10px;z-index:3}}
+
+.gg-workspace .gg-panel{scroll-margin-top:20px}
+.gg-workspace .gg-panel:focus-visible{outline:2px solid #a77c13;outline-offset:3px}
+@media(max-width:1099px){.gg-workspace .gg-panel{scroll-margin-top:125px}}

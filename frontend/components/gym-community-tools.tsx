@@ -5,6 +5,7 @@ import { CalendarDays, ClipboardList, MessageCircle, Pin, Plus, Settings2, Users
 import { gymRequest, gymTimeZoneLabel, type GymAction, type GymAnnouncement, type GymMembership, type GymTab } from '@/lib/gym-groups'
 import { GymAttendance, GymMembershipPlans } from './gym-management-tools'
 import { GymIncome } from './gym-income'
+import { GymOverview } from './gym-overview'
 import { HistoryDateFilter, HistoryPagination } from './gym-history-filter'
 import { emptyHistoryRange, historyContainsDay } from '../../shared/gym-history'
 import { dateInZone } from '../../shared/progress'
@@ -16,38 +17,51 @@ import '@/app/gym-community-tools.css'
 const date=(value:string)=>new Date(value).toLocaleString(undefined,{dateStyle:'medium',timeStyle:'short'})
 const activityLabels:Record<string,string>={guidance:'updated the welcome message and rules',save_plan:'saved a membership plan',archive_plan:'changed plan availability',assign_plan:'recorded a membership for',cancel_period:'cancelled a membership record for',mark_attendance:'updated attendance for',approve:'approved a join request for',reject:'declined a join request from',leave:'left the gym',role_staff:'promoted to staff:',role_member:'changed to member:',transfer:'transferred ownership to',remove:'removed',ban:'banned',unban:'lifted the ban for',update:'updated gym settings',announce:'posted an announcement',edit_announcement:'edited an announcement',pin:'changed a pinned announcement',delete_announcement:'removed an announcement',delete_message:'removed a discussion message',schedule:'scheduled a training session',cancel_session:'cancelled a session',share_playlist:'shared a workout playlist',unshare_playlist:'removed a shared playlist'}
 const targetActions=new Set(['approve','reject','role_staff','role_member','transfer','remove','ban','unban','assign_plan','cancel_period','mark_attendance'])
-type Props={membership:GymMembership;owner:string;locked:boolean;onAction:GymAction;children:ReactNode;initialTab?:GymTab}
+type Props={membership:GymMembership;owner:string;locked:boolean;onAction:GymAction;children:ReactNode;settings?:ReactNode;initialTab?:GymTab}
 
-export function GymCommunityTools({membership,owner,locked,onAction,children,initialTab}:Props){
+export function GymCommunityTools({membership,owner,locked,onAction,children,settings,initialTab}:Props){
  const manager=membership.role==='admin'||membership.role==='staff',admin=membership.role==='admin'
- const [tab,setTab]=useState<string>(initialTab||'announcements')
+ const [tab,setTab]=useState<string>(initialTab||'overview')
  const confirm=useConfirmation()
+ const [membershipDay,setMembershipDay]=useState<string|undefined>()
+ const focusDestination=useRef(false)
+ const [membershipFocus,setMembershipFocus]=useState<'all'|'renewals'|'mine'>('all')
+ const [requestSearch,setRequestSearch]=useState(''),[requestPage,setRequestPage]=useState(0)
+ const requests=(membership.requests||[]).filter(r=>r.username.toLowerCase().includes(requestSearch.trim().toLowerCase()))
+ const currentRequestPage=Math.min(requestPage,Math.max(0,Math.ceil(requests.length/10)-1))
+ const [attendanceView,setAttendanceView]=useState<'daily'|'sessions'>(initialTab==='attendance'?'sessions':'daily')
  const groups=[
-  {id:'community',label:'Community',Icon:MessageCircle,tabs:[{id:'announcements',label:'Announcements'},{id:'discussion',label:'Discussion'},{id:'team',label:'Team'}]},
-  {id:'training',label:'Training',Icon:CalendarDays,tabs:[{id:'sessions',label:'Sessions'},{id:'attendance',label:'Attendance'},{id:'playlists',label:'Playlists'}]},
-  {id:'management',label:'Management',Icon:Settings2,tabs:[{id:'membership',label:'Membership records'},...(admin?[{id:'income',label:'Income'}]:[]),...(manager?[{id:'activity',label:'Team activity'}]:[])]},
- ].filter(group=>group.tabs.length)
- const active=groups.some(group=>group.tabs.some(item=>item.id===tab))?tab:'announcements'
+  {id:'today',label:'Your gym today',Icon:CalendarDays,tabs:[{id:'overview',label:'Overview'},{id:'attendance',label:admin?'Check-ins & attendance':'Check in & attendance'},{id:'sessions',label:'Training sessions'}]},
+  {id:'membership',label:manager?'Members & membership':'Your membership',Icon:Users,tabs:[{id:'team',label:manager?'Members & requests':'Gym team'},{id:'membership',label:manager?'Member records':'My membership'},{id:'membership-plans',label:admin?'Plan catalog':'Available plans'},...(admin?[{id:'income',label:'Income & payments'}]:[])]},
+  {id:'community',label:'Train together',Icon:MessageCircle,tabs:[{id:'announcements',label:'Announcements'},{id:'discussion',label:'Discussion'},{id:'playlists',label:'Workout playlists'}]},
+  {id:'gym',label:'Gym information',Icon:Settings2,tabs:[{id:'settings',label:admin?'Gym settings':'Gym info & rules'},...(manager?[{id:'activity',label:'Team activity'}]:[])]},
+ ]
+ const active=groups.some(group=>group.tabs.some(item=>item.id===tab))?tab:'overview'
+ function openSection(id:string,attendance:'daily'|'sessions'='daily',focus?:'renewals'|'mine',referenceDay?:string){if(id==='attendance')setAttendanceView(attendance);if(id==='membership'||id==='membership-plans'){setMembershipFocus(focus||'all');setMembershipDay(focus?referenceDay:undefined)}setTab(id)}
+ useEffect(()=>{if(focusDestination.current){focusDestination.current=false;const panel=document.getElementById('gym-community-panel');panel?.focus({preventScroll:true});panel?.scrollIntoView({block:'start',behavior:'instant'})}},[active])
  function arrowNavigation(event:React.KeyboardEvent<HTMLElement>){
-  if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return
+  if(!['ArrowLeft','ArrowRight','ArrowUp','ArrowDown','Home','End'].includes(event.key))return
   const buttons=Array.from(event.currentTarget.querySelectorAll<HTMLButtonElement>('button')),index=buttons.indexOf(event.target as HTMLButtonElement)
   if(index<0)return
-  event.preventDefault();const next=event.key==='Home'?0:event.key==='End'?buttons.length-1:(index+(event.key==='ArrowRight'?1:-1)+buttons.length)%buttons.length
+  event.preventDefault();const next=event.key==='Home'?0:event.key==='End'?buttons.length-1:(index+(event.key==='ArrowRight'||event.key==='ArrowDown'?1:-1)+buttons.length)%buttons.length
   buttons[next]?.focus();buttons[next]?.click()
  }
  async function removeBan(userId:string,username:string){if(await confirm({title:'Lift this ban?',message:`${username} will be able to join or request membership again.`,confirmLabel:'Lift ban'}))await onAction('unban',{userId},'Ban lifted.')}
- return <div className="gg-tools">
-  <nav className="gg-section-directory" aria-label="Gym sections" onKeyDown={arrowNavigation}>{groups.map(group=><div className="gg-navigation-group" key={group.id}><h3><group.Icon size={16}/>{group.label}</h3><div>{group.tabs.map(t=><button key={t.id} id={'gym-nav-'+t.id} type="button" aria-pressed={active===t.id} aria-controls="gym-community-panel" onClick={()=>setTab(t.id)}>{t.label}{t.id==='team'&&manager&&!!membership.requests?.length&&<span className="gg-tab-count" aria-label={membership.requests.length+' pending join requests'}>{membership.requests.length}</span>}</button>)}</div></div>)}</nav>
-  <div id="gym-community-panel" role="region" aria-labelledby={'gym-nav-'+active} className="gg-panel">
+ return <div className="gg-tools gg-workspace">
+  <nav className="gg-section-directory" aria-label="Gym sections" onKeyDown={arrowNavigation}>{groups.map(group=><div className="gg-navigation-group" key={group.id}><h3><group.Icon size={16}/>{group.label}</h3><div>{group.tabs.map(t=><button key={t.id} id={'gym-nav-'+t.id} type="button" aria-pressed={active===t.id} aria-controls="gym-community-panel" onClick={()=>openSection(t.id)}>{t.label}{t.id==='team'&&manager&&!!membership.requests?.length&&<span className="gg-tab-count" aria-label={membership.requests.length+' pending join requests'}>{membership.requests.length}</span>}</button>)}</div></div>)}</nav>
+  <div className="gg-mobile-section-picker"><label htmlFor="gym-section-picker">Gym section</label><select id="gym-section-picker" value={active} onChange={event=>openSection(event.target.value)}>{groups.map(group=><optgroup key={group.id} label={group.label}>{group.tabs.map(item=><option key={item.id} value={item.id}>{item.label}{item.id==='team'&&manager&&membership.requests?.length?' ('+membership.requests.length+' requests)':''}</option>)}</optgroup>)}</select></div>
+  <div id="gym-community-panel" role="region" tabIndex={-1} aria-labelledby={'gym-nav-'+active} className="gg-panel">
+   {active==='overview'&&<GymOverview key={membership.role} membership={membership} owner={owner} onOpen={(id,attendance,focus,referenceDay)=>{focusDestination.current=true;openSection(id,attendance,focus,referenceDay)}}/>}
+   {active==='settings'&&(settings||<p className="gg-empty">Gym information is unavailable. Refresh your gym to try again.</p>)}
    {active==='announcements'&&<Announcements announcements={membership.announcements||[]} manager={manager} locked={locked} onAction={onAction}/>}
    {active==='discussion'&&<Discussion key={membership.gym!.id} membership={membership} owner={owner} manager={manager} locked={locked} onAction={onAction}/>}
    {active==='sessions'&&<Sessions membership={membership} manager={manager} locked={locked} onAction={onAction}/>}
-   {active==='attendance'&&<GymAttendance membership={membership} locked={locked} onAction={onAction}/>}
-   {active==='membership'&&<GymMembershipPlans membership={membership} owner={owner} locked={locked} onAction={onAction}/>}
+   {active==='attendance'&&<GymAttendance key={membership.role} membership={membership} locked={locked} onAction={onAction} view={attendanceView} onViewChange={setAttendanceView}/>}
+   {(active==='membership'||active==='membership-plans')&&<GymMembershipPlans key={membership.role} membership={membership} owner={owner} locked={locked} onAction={onAction} view={active==='membership-plans'?'plans':'records'} renewalsOnly={membershipFocus==='renewals'} initialMember={membershipFocus==='mine'?owner:undefined} referenceDay={membershipDay}/>}
    {active==='income'&&admin&&<GymIncome membership={membership} locked={locked}/>}
    {active==='playlists'&&<SharedPlaylists membership={membership} owner={owner} manager={manager} locked={locked} onAction={onAction}/>}
    {active==='team'&&<>
-    {manager&&<section className="gg-requests"><h3>Join requests <span className="gg-inline-count">{membership.requests?.length||0}</span></h3><p className="gg-small">Approve people you want on the team. Requests do not reserve a place.</p>{!membership.requests?.length?<p className="gg-empty">No requests waiting.</p>:<ul className="gg-plain-list">{membership.requests.map(r=><li key={r.user_id}><div><strong>{r.username}</strong><span className="gg-meta">Requested {date(r.created_at)}</span></div><div className="gg-actions"><button className="gg-primary" type="button" disabled={locked||membership.members.length>=100} onClick={()=>void onAction('approve',{userId:r.user_id},'Member approved.')}>Approve</button><button type="button" disabled={locked} onClick={async()=>{if(await confirm({title:'Decline join request?',message:`Decline ${r.username}’s request? They can request again.`,confirmLabel:'Decline request'}))await onAction('reject',{userId:r.user_id},'Request declined.')}}>Decline</button></div></li>)}</ul>}</section>}
+    {manager&&<section className="gg-requests"><h3>Join requests <span className="gg-inline-count">{membership.requests?.length||0}</span></h3><p className="gg-small">Approve people you want on the team. Requests do not reserve a place.</p><div className="gg-field gg-request-search"><label htmlFor="gym-request-search">Search join requests</label><input id="gym-request-search" type="search" maxLength={100} value={requestSearch} onChange={e=>{setRequestSearch(e.target.value);setRequestPage(0)}}/></div>{!requests.length?<p className="gg-empty">{requestSearch?'No join requests match this name.':'No requests waiting.'}</p>:<ul className="gg-plain-list">{requests.slice(currentRequestPage*10,currentRequestPage*10+10).map(r=><li key={r.user_id}><div><strong>{r.username}</strong><span className="gg-meta">Requested {date(r.created_at)}</span></div><div className="gg-actions"><button className="gg-primary" type="button" disabled={locked||membership.members.length>=100} onClick={()=>void onAction('approve',{userId:r.user_id},'Member approved.')}>Approve</button><button type="button" disabled={locked} onClick={async()=>{if(await confirm({title:'Decline join request?',message:`Decline ${r.username}’s request? They can request again.`,confirmLabel:'Decline request'}))await onAction('reject',{userId:r.user_id},'Request declined.')}}>Decline</button></div></li>)}</ul>}<HistoryPagination page={currentRequestPage} total={requests.length} pageSize={10} previousLabel="Previous" nextLabel="Next" onChange={setRequestPage} label="Join request pages"/></section>}
     {children}
     {admin&&<details className="gg-admin-details"><summary>Banned members ({membership.bans?.length||0})</summary>{!membership.bans?.length?<p className="gg-empty">No banned members.</p>:<ul className="gg-plain-list">{membership.bans.map(b=><li key={b.user_id}><strong>{b.username}</strong><button type="button" disabled={locked} onClick={()=>void removeBan(b.user_id,b.username)}>Lift ban</button></li>)}</ul>}</details>}
    </>}

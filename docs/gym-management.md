@@ -79,7 +79,7 @@ The owner can now manually record actual payments received, refunds and void cor
 
 ## History filters and navigation
 
-All gym destinations appear together in three labeled groups. Membership records is under Management; admins and staff initially see records for All members, and regular members see only their own. The membership workspace has separate color-coded views: green Member records & renewals and blue Plan catalog. Records and catalog use semantic tables with ten rows per page. Records support member/plan search, member, status and inclusive coverage-date filters; catalog supports plan search and availability filters. Both have their own page navigation and reset controls. On small screens, each table scrolls horizontally inside a keyboard-focusable region. Creation and assignment forms stay collapsed until needed.
+Gym destinations are grouped in a desktop sidebar and mobile section selector, with Overview prioritizing actions for the current role. Membership records and Plan catalog are separate destinations; admins and staff initially see records for All members, and regular members see only their own. The membership workspace has separate color-coded views: green Member records & renewals and blue Plan catalog. Records and catalog use semantic tables with ten rows per page. Records support member/plan search, member, status and inclusive coverage-date filters; catalog supports plan search and availability filters. Both have their own page navigation and reset controls. On small screens, each table scrolls horizontally inside a keyboard-focusable region. Creation and assignment forms stay collapsed until needed.
 
 From/To filters are inclusive and applied with Apply dates; Clear filters restores all dates. Membership records match any coverage overlapping the selected date range. Team activity uses the gym-local action date and covers the full retained dataset (latest 200 actions). Both filter their complete already-loaded dataset before pagination: membership records at 10 rows and team activity at 20.
 
@@ -88,3 +88,9 @@ Daily check-in history filters recorded visit dates; scheduled attendance filter
 ### Quick renewal
 
 Staff/admin can select Renew beside an eligible member record. It prefills the member and the same plan when still available. The suggested start is today or the day after the member's latest noncancelled coverage ends, whichever is later; the selected plan duration sets the inclusive expiry. Archived or unavailable plans must be replaced with an available plan before saving. The operator reviews the dates and confirms the new record; backend overlap validation remains authoritative. Existing coverage and payment records are preserved. No database migration is needed for the table/renewal UI update.
+
+## Workflow overview
+
+See `docs/gym-feature-relationships.md`. Admin overview links to daily check-in reviews, join requests, membership renewals and session roster work. Staff see their own daily visit and permitted operations. Members see their own check-in/coverage and upcoming sessions. Overview renewal links apply the Needs renewal within 7 days filter; already-recorded contiguous renewals are excluded. Member and request lists support name search and ten-row pagination, with a role filter for the roster.
+
+Daily visits and scheduled-session attendance are separate controlled views. Normal navigation opens daily visits; old attendance notification links open session history, matching the existing notification source. Gym info, rules, invitations and admin settings are a separate destination. This UI/workflow update requires no new SQL migration.

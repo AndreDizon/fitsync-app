@@ -1,6 +1,6 @@
 # Gym communities
 
-Social's fourth card opens a gym workspace grouped into Community (Announcements, Discussion, Team), Training (Sessions, Attendance, Playlists) and Management (Membership records for all roles, owner-only Income, staff/admin Team activity). All destinations are visible together; no category click is required. Notification links still open their target directly. The directory becomes compact wrapping group rows on mobile. Gym details, invite code, welcome/rules, settings and leave/delete actions are in one collapsed disclosure above the workspace. These are user-created communities, separate from the retired gym locator. Manual membership plans, date tracking and staff-marked attendance are available; online payments and professional verification are not included. See docs/gym-management.md for the management update.
+Social's fourth card opens a role-aware gym workspace. Overview is the default and links to real next tasks. Desktop uses a grouped sidebar; smaller screens use a sticky section selector. Daily work, membership operations, shared training and gym settings are separated. Member records and Plan catalog are separate destinations; regular participants see My membership. Gym settings/info has its own destination instead of sitting above every task. Existing notification destinations still work. See `docs/gym-feature-relationships.md` for the business relationships, role map and layout contract.
 
 ## Enable the feature
 
