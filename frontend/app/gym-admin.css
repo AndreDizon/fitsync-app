@@ -429,6 +429,14 @@
   background: #f3f7f4;
   overflow: hidden;
 }
+.ga-section-card-body:has(> .ga-chat) {
+  padding: 0;
+}
+.ga-section-card-body > .ga-chat {
+  border: 0;
+  border-radius: 0;
+  background: var(--ga-soft);
+}
 .ga-chat-toolbar {
   display: flex;
   gap: 8px;

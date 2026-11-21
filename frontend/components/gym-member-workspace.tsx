@@ -483,6 +483,7 @@ export function GymMemberWorkspace({
           )}
           {active.id === "discussion" && (
             <GymDiscussion
+              framed
               membership={membership}
               owner={owner}
               locked={locked}

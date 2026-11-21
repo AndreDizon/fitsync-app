@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
-import { Pin, Send, Share2 } from 'lucide-react'
+import { Pin, Send, Share2, MessageCircle } from 'lucide-react'
 import {
   gymRequest,
   type GymMembership,
@@ -9,6 +9,7 @@ import {
 } from '@/lib/gym-groups'
 import {
   AdminModal,
+  AdminSectionCard,
   AdminTable,
   adminDay,
   adminTime,
@@ -30,12 +31,14 @@ export function GymDiscussion({
   locked,
   onAction,
   initialAnnouncements = false,
+  framed = false,
 }: {
   membership: GymMembership
   owner: string
   locked: boolean
   onAction: GymAction
   initialAnnouncements?: boolean
+  framed?: boolean
 }) {
   const admin = membership.role === 'admin',
     manager = admin || membership.role === 'staff',
@@ -115,16 +118,16 @@ export function GymDiscussion({
       })
     return () => abort.abort()
   }, [registered, registrationRetry, membership])
-  return (
+  const content = (
     <>
       <div className="ga-chat">
         <div className="ga-chat-toolbar">
-          <div>
+          {!framed && <div>
             <strong>Gym discussion</strong>
             <span className="gg-meta">
               Members only · Refreshes every 30 seconds
             </span>
-          </div>
+          </div>}
           <div className="gg-actions">
             <button type="button" onClick={() => setModal('pinned')}>
               <Pin size={16} />
@@ -544,6 +547,7 @@ export function GymDiscussion({
       )}
     </>
   )
+  return framed ? <AdminSectionCard title="Gym discussion" icon={MessageCircle} description="Members only · Refreshes every 30 seconds" defaultOpen>{content}</AdminSectionCard> : content
 }
 function PostUpdate({
   zone,

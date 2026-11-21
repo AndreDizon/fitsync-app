@@ -258,6 +258,7 @@ export function GymAdminWorkspace({
                 )}{" "}
                 {active.id === "discussion" && (
                   <GymDiscussion
+                    framed
                     membership={data}
                     owner={owner}
                     locked={locked || loading}
@@ -597,7 +598,12 @@ function Attendance({ data, locked }: AdminPageProps) {
     },
   ];
   return (
-    <>
+    <AdminSectionCard
+      title="Member visits"
+      icon={ClipboardCheck}
+      description="Review daily visits and confirm check-ins"
+      defaultOpen
+    >
       <p className="gg-small">
         Times use {zone}. One visit per gym-local day. Check-ins require your
         confirmation; checkout records when a member leaves.
@@ -676,6 +682,6 @@ function Attendance({ data, locked }: AdminPageProps) {
           />
         </AdminModal>
       )}
-    </>
+    </AdminSectionCard>
   );
 }
