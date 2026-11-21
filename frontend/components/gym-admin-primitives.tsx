@@ -10,7 +10,7 @@ import {
   type ReactNode,
 } from 'react'
 import { createPortal } from 'react-dom'
-import { X } from 'lucide-react'
+import { X, ChevronDown } from 'lucide-react'
 import { HistoryDateFilter } from './gym-history-filter'
 import {
   emptyHistoryRange,
@@ -21,6 +21,25 @@ import { gymRequest } from '@/lib/gym-groups'
 import '@/app/gym-admin.css'
 
 export const AdminFeedbackContext = createContext('')
+export function AdminSectionCard({
+  title,
+  children,
+  defaultOpen = false,
+}: {
+  title: ReactNode
+  children: ReactNode
+  defaultOpen?: boolean
+}) {
+  return (
+    <details className="ga-section-card" open={defaultOpen || undefined}>
+      <summary>
+        <h4>{title}</h4>
+        <ChevronDown size={20} aria-hidden="true" />
+      </summary>
+      <div className="ga-section-card-body">{children}</div>
+    </details>
+  )
+}
 export const adminDay = (value?: string | null) =>
   value
     ? new Date(value.slice(0, 10) + 'T12:00:00Z').toLocaleDateString(

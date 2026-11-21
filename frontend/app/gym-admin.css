@@ -83,54 +83,123 @@
   padding-top: 24px;
   border-top: 1px solid #dce4dd;
 }
-.ga-content[data-section='members'] {
+.ga-content:is([data-section='members'], [data-section='settings']) {
   border: 0;
   background: transparent;
   overflow: visible;
 }
-.ga-content[data-section='members'] > .ga-page-heading {
+.ga-content:is([data-section='members'], [data-section='settings'])
+  > .ga-page-heading {
   border-radius: 16px;
 }
-.ga-content[data-section='members'] > .ga-page-body {
+.ga-content:is([data-section='members'], [data-section='settings'])
+  > .ga-page-body {
   padding: 20px 0 0;
 }
-.ga-member-cards {
+.ga-member-cards,
+.ga-settings-cards {
   display: grid;
   gap: 24px;
 }
-.ga-member-card {
+.ga-section-card {
   min-width: 0;
-  padding: 0 20px 20px;
   border: 1px solid #d4dfd8;
   border-radius: 16px;
   overflow: hidden;
   background: #fffdf7;
 }
-.ga-member-card > h4 {
+.ga-section-card > summary {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 17px 20px;
+  background: #e9f0f7;
+  color: #294b69;
+  list-style: none;
+  cursor: pointer;
+}
+.ga-section-card > summary::-webkit-details-marker {
+  display: none;
+}
+.ga-section-card > summary h4 {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex: 1;
   gap: 12px;
-  margin: 0 -20px 18px;
-  padding: 16px 20px;
-  background: #e9f0f7;
-  color: #294b69;
+  margin: 0;
   font-size: 17px;
   line-height: 1.4;
 }
-.ga-member-card > .ga-data > .gg-history-filter {
-  margin-top: 0;
+.ga-section-card > summary > svg {
+  flex-shrink: 0;
+  transition: transform 0.15s ease;
+}
+.ga-section-card[open] > summary > svg {
+  transform: rotate(180deg);
+}
+.ga-section-card > summary:focus-visible {
+  outline: 3px solid #a77c13;
+  outline-offset: -3px;
+}
+.ga-section-card-body {
+  padding: 20px;
+  min-width: 0;
+}
+.ga-settings-form fieldset {
+  display: grid;
+  gap: 18px;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+.ga-settings-form label,
+.ga-ownership-action > label {
+  display: grid;
+  gap: 7px;
+  font-size: 13px;
+  font-weight: 600;
+}
+.ga-settings-form .gg-small {
+  margin: 0;
+}
+.ga-settings-form .gg-actions {
+  margin: 0;
+}
+.ga-ownership-action {
+  display: grid;
+  gap: 12px;
+}
+.ga-ownership-action h5 {
+  font-size: 16px;
+  margin: 0;
+}
+.ga-ownership-action .gg-small {
+  margin: 0;
+}
+.ga-ownership-action > button {
+  justify-self: start;
+  margin-top: 4px;
+}
+.ga-ownership-action + .ga-ownership-action {
+  margin-top: 24px;
+  padding-top: 24px;
+  border-top: 1px solid #dce4dd;
 }
 @media (max-width: 600px) {
-  .ga-member-cards {
+  .ga-member-cards,
+  .ga-settings-cards {
     gap: 20px;
   }
-  .ga-member-card {
-    padding: 0 16px 16px;
+  .ga-section-card > summary,
+  .ga-section-card-body {
+    padding: 16px;
   }
-  .ga-member-card > h4 {
-    margin-inline: -16px;
-    padding: 14px 16px;
+}
+@media (prefers-reduced-motion: reduce) {
+  .ga-section-card > summary > svg {
+    transition: none;
   }
 }
 .ga-section-title {

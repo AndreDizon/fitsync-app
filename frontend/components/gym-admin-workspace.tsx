@@ -22,6 +22,7 @@ import {
   AdminFeedbackContext,
   AdminModal,
   AdminTable,
+  AdminSectionCard,
   AdminReport,
   adminDay,
   adminTime,
@@ -311,11 +312,17 @@ function Members({ data, locked, run }: AdminPageProps) {
   }
   return (
     <div className="ga-member-cards">
-      <section className="ga-member-card">
-        <h4>
-          Pending requests{' '}
-          <span className="gg-inline-count">{data.requests?.length || 0}</span>
-        </h4>
+      <AdminSectionCard
+        title={
+          <>
+            Pending requests{' '}
+            <span className="gg-inline-count">
+              {data.requests?.length || 0}
+            </span>
+          </>
+        }
+        defaultOpen
+      >
         <AdminTable
           searchable={false}
           rows={data.requests || []}
@@ -374,12 +381,15 @@ function Members({ data, locked, run }: AdminPageProps) {
             },
           ]}
         />
-      </section>
-      <section className="ga-member-card">
-        <h4>
-          All members{' '}
-          <span className="gg-inline-count">{data.members.length}/100</span>
-        </h4>
+      </AdminSectionCard>
+      <AdminSectionCard
+        title={
+          <>
+            All members{' '}
+            <span className="gg-inline-count">{data.members.length}/100</span>
+          </>
+        }
+      >
         <AdminTable
           searchable={false}
           rows={data.members}
@@ -444,9 +454,8 @@ function Members({ data, locked, run }: AdminPageProps) {
             },
           ]}
         />
-      </section>
-      <section className="ga-member-card">
-        <h4>Banned accounts</h4>
+      </AdminSectionCard>
+      <AdminSectionCard title={<> Banned accounts </>}>
         <AdminTable
           searchable={false}
           rows={data.bans || []}
@@ -494,14 +503,13 @@ function Members({ data, locked, run }: AdminPageProps) {
             },
           ]}
         />
-      </section>
-      <section className="ga-member-card">
-        <h4>Team activity</h4>
+      </AdminSectionCard>
+      <AdminSectionCard title={<> Team activity </>}>
         <p className="gg-small">Review the latest 200 management actions.</p>
         <button type="button" onClick={() => setActivity(true)}>
           See activity
         </button>
-      </section>
+      </AdminSectionCard>
       {activity && (
         <AdminModal title="Team activity" onClose={() => setActivity(false)}>
           <p className="gg-small">

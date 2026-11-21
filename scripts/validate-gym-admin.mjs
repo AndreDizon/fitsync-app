@@ -28,6 +28,8 @@ try {
     '20261121_gym_groups_v9_settings.sql',
     '20261121_gym_groups_v10_admin_workspace.sql',
     '20261121_gym_groups_v10_admin_workspace.sql',
+    '20261121_gym_groups_v11_settings_cards.sql',
+    '20261121_gym_groups_v11_settings_cards.sql',
   ])
     await db.exec(await readFile('backend/migrations/' + file, 'utf8'))
   const call = (uid, action, doc = {}) =>
@@ -38,7 +40,9 @@ try {
       ])
       return (
         await tx.query(
-          'select public.gym_group_action_v10($1,$2::jsonb) value',
+          ['rename_gym', 'save_gym_guidance', 'transfer_leave'].includes(action)
+            ? 'select public.gym_group_action_v11($1,$2::jsonb) value'
+            : 'select public.gym_group_action_v10($1,$2::jsonb) value',
           [action, JSON.stringify(doc)],
         )
       ).rows[0].value
@@ -263,6 +267,55 @@ try {
     (await db.query('select count(*)::int n from public.gym_payment_batches'))
       .rows[0].n,
     0,
+  )
+
+  // Independent cards preserve the other card's stored values and reject nonowners.
+  for (const who of [staff, member, other])
+    for (const action of ['rename_gym', 'save_gym_guidance', 'transfer_leave'])
+      await assert.rejects(call(who, action, {}), /Only the gym admin/)
+  const renamed = await call(admin, 'rename_gym', {
+    name: 'Renamed gym',
+    welcomeMessage: 'Do not save this draft',
+    joinMode: 'closed',
+  })
+  assert.equal(renamed.gym.name, 'Renamed gym')
+  assert.equal(renamed.gym.welcome_message, 'Welcome')
+  assert.equal(renamed.gym.join_mode, 'open')
+  const guidance = await call(admin, 'save_gym_guidance', {
+    name: 'Do not save draft name',
+    welcomeMessage: 'Welcome back',
+    rules: 'Be respectful',
+    timeZone: 'UTC',
+    joinMode: 'closed',
+  })
+  assert.equal(guidance.gym.name, 'Renamed gym')
+  assert.equal(guidance.gym.welcome_message, 'Welcome back')
+  assert.equal(guidance.gym.join_mode, 'closed')
+  assert.equal(guidance.gym.time_zone, 'UTC')
+  await assert.rejects(
+    call(admin, 'transfer_leave', { userId: other }),
+    /not found|not a member|member/i,
+  )
+  assert.equal(
+    (await call(admin, 'mine')).role,
+    'admin',
+    'Failed transfer leaves ownership intact',
+  )
+  await assert.rejects(
+    call(admin, 'transfer_leave', { userId: admin }),
+    /admin|removed|demoted/i,
+  )
+  const beforeCount = (await call(admin, 'mine')).members.length
+  const left = await call(admin, 'transfer_leave', { userId: staff })
+  assert.equal(left.gym, null)
+  const newOwner = await call(staff, 'mine')
+  assert.equal(newOwner.role, 'admin')
+  assert.equal(newOwner.gym.owner_id, staff)
+  assert.equal(newOwner.members.length, beforeCount - 1)
+  assert(!newOwner.members.some((m) => m.user_id === admin))
+  await assert.rejects(
+    call(admin, 'rename_gym', { name: 'Forbidden rename' }),
+    /Only the gym admin/,
   )
   console.log(
     'PASS admin workspace: rerunnable migration, closed joins, owner-only actions, checkout ownership and retries, date filtering before paging, plan snapshots, overlap and paid-price limits, atomic partial payments and retry deduplication, event capacity/preregistration, RLS and reset cleanup',

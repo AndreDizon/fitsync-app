@@ -14,8 +14,19 @@ Apply these migrations in Supabase SQL Editor in order. Skip any already applied
 8. `20261121_gym_groups_v8_history_filters.sql`
 9. `20261121_gym_groups_v9_settings.sql`
 10. `20261121_gym_groups_v10_admin_workspace.sql`
+11. `20261121_gym_groups_v11_settings_cards.sql`
 
-The existing playlist migrations are prerequisites. Apply v10 after v9, then deploy frontend and backend together. `/api/gyms` requires `gym_group_action_v10`; a missing migration shows an explicit setup error. The migrations are transactional and rerunnable. Existing groups, roles, session instants, plans and payment records are preserved.
+The existing playlist migrations are prerequisites. Apply v11 after v10, then deploy frontend and backend together. `/api/gyms` uses `gym_group_action_v10` for existing actions and `gym_group_action_v11` for the independent settings cards and transfer-and-leave action. A missing migration shows an explicit setup error. The migrations are transactional and rerunnable. Existing groups, roles, session instants, plans and payment records are preserved.
+
+## Collapsible admin cards (v11)
+
+Manage gym contains three separately titled, expandable cards:
+
+- **Gym name & code:** edit the name and copy the existing gym code. Saving the name preserves the server's current guidance and joining settings.
+- **Welcome, rules & joining:** welcome message/description, rules, time zone and four joining statuses. Saving this card preserves the server's current gym name.
+- **Ownership & deletion:** select a current member, then confirm Transfer ownership & leave. Both changes execute in one transaction. No other member means this action is unavailable; Delete gym remains separately confirmed and permanently removes the gym's shared records.
+
+Member-management cards also have native, keyboard-accessible disclosure headers. Date filters, table pagination and activity role filtering remain available when expanded. No data is removed by collapsing a card.
 
 ## Admin workspace (v10)
 

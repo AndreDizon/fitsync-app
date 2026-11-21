@@ -12,7 +12,7 @@ async function run(request:Request,write:boolean){
     const parsed=await readPlaylistBody(request)
     if(parsed.response)return parsed.response
     const input=parsed.value as {action?:string;doc?:Record<string,unknown>}|null
-    if(!input||!['create','join','cancel_request','approve','reject','leave','role','remove','update','disband','announce','edit_announcement','pin','delete_announcement','message','delete_message','schedule','cancel_session','rsvp','unrsvp','share_playlist','unshare_playlist','transfer','ban','unban','guidance','save_plan','archive_plan','assign_plan','cancel_period','mark_attendance','record_payment','record_refund','void_income','check_in','confirm_checkin','update_settings','admin_settings','delete_plan','edit_member_plan','pay_member','post_announcement','post_event','check_out'].includes(input.action||'')||!input.doc||typeof input.doc!=='object'||Array.isArray(input.doc))return json({error:'Invalid gym action.'},400)
+    if(!input||!['create','join','cancel_request','approve','reject','leave','role','remove','update','disband','announce','edit_announcement','pin','delete_announcement','message','delete_message','schedule','cancel_session','rsvp','unrsvp','share_playlist','unshare_playlist','transfer','ban','unban','guidance','save_plan','archive_plan','assign_plan','cancel_period','mark_attendance','record_payment','record_refund','void_income','check_in','confirm_checkin','update_settings','admin_settings','delete_plan','edit_member_plan','pay_member','post_announcement','post_event','check_out','rename_gym','save_gym_guidance','transfer_leave'].includes(input.action||'')||!input.doc||typeof input.doc!=='object'||Array.isArray(input.doc))return json({error:'Invalid gym action.'},400)
     action=input.action==='update_settings'?'admin_settings':input.action!;doc=input.doc
   }else{
     const params=new URL(request.url).searchParams
@@ -29,8 +29,9 @@ async function run(request:Request,write:boolean){
     // Share a sanitized snapshot, never the encrypted record or private account fields.
     doc={playlist:parsed.data}
   }
-  const result=await auth.client!.rpc('gym_group_action_v10',{action,doc})
-  if(result.error)return json({error:result.error.code==='PGRST202'?'Apply the admin workspace (v10) migration after v9.':result.error.message},result.error.code==='PGRST202'?503:400)
+  const settingsCardAction=['rename_gym','save_gym_guidance','transfer_leave'].includes(action)
+  const result=await auth.client!.rpc(settingsCardAction?'gym_group_action_v11':'gym_group_action_v10',{action,doc})
+  if(result.error)return json({error:result.error.code==='PGRST202'?(settingsCardAction?'Apply the settings cards (v11) migration after v10.':'Apply the admin workspace (v10) migration after v9.'):result.error.message},result.error.code==='PGRST202'?503:400)
   return json(result.data)
 }
 export async function GET(request:Request){return run(request,false)}
