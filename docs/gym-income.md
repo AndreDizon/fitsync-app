@@ -6,6 +6,8 @@ Apply `backend/migrations/20261121_gym_groups_v5_income.sql` after the existing 
 
 ## Income section
 
+In the current admin workspace, the first collapsible card is **Payment history**. Its inline table has date filters and bottom pagination, retains refund/void actions, and refreshes after payments or corrections. **Make payment record** remains above the history and opens the existing payment form. Balances and monthly collections remain in their separate card.
+
 Only the current gym owner sees Management > Income or can call income reads, exports and writes. Staff can still assign membership plans, but cannot inspect this ledger or its monthly totals. Ownership transfer moves income access to the new owner immediately at the database boundary.
 
 The month, year and summary-currency selectors control the current view. Received, refunds and net received appear above payment records, 25 per page. On mobile, each record shows member, amount, type and date with details and actions expandable. The yearly table is under View yearly summary; selecting a month there opens its records. Record payment opens the payment form near the top. Different currencies are never added together or converted. Zero months display zero values. Net received is cash collected minus refunds, not profit; expenses are not recorded.

@@ -324,6 +324,7 @@ export function AdminReport<T>({
   columns,
   rowKey,
   version = 0,
+  refreshToken,
 }: {
   kind: 'visits' | 'payments'
   userId?: string
@@ -332,6 +333,7 @@ export function AdminReport<T>({
   columns: AdminColumn<T>[]
   rowKey: (row: T) => string
   version?: number
+  refreshToken?: unknown
 }) {
   const [range, setRange] = useState(emptyHistoryRange),
     [query, setQuery] = useState(''),
@@ -369,7 +371,17 @@ export function AdminReport<T>({
         if (!abort.signal.aborted) setLoading(false)
       })
     return () => abort.abort()
-  }, [kind, userId, range.from, range.to, query, page, retry, version])
+  }, [
+    kind,
+    userId,
+    range.from,
+    range.to,
+    query,
+    page,
+    retry,
+    version,
+    refreshToken,
+  ])
   return (
     <section className="ga-data">
       <div className="gg-field">

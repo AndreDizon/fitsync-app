@@ -21,7 +21,6 @@ import {
 
 export function GymAdminPayments({ data, locked, run }: AdminPageProps) {
   const [payment, setPayment] = useState(false),
-    [ledger, setLedger] = useState(false),
     [currency, setCurrency] = useState('all'),
     [status, setStatus] = useState('all'),
     [year, setYear] = useState(Number(data.today.slice(0, 4))),
@@ -96,12 +95,12 @@ export function GymAdminPayments({ data, locked, run }: AdminPageProps) {
   return (
     <>
       <div className="ga-admin-cards">
-        <AdminSectionCard title="Record a payment" defaultOpen>
+        <AdminSectionCard title="Payment history" defaultOpen>
           <div className="gg-section-heading">
             <div>
               <p className="gg-small">
-                Select a member and record money already received outside
-                FitSync.
+                Payments and refunds recorded for your gym. Filter by the date
+                money was received or refunded.
               </p>
             </div>
             <button
@@ -113,10 +112,58 @@ export function GymAdminPayments({ data, locked, run }: AdminPageProps) {
               Make payment record
             </button>
           </div>
-          <p className="ga-form-note">
-            A payment cannot exceed the member's outstanding balance. Different
-            currencies stay separate.
-          </p>
+          {error && (
+            <p role="alert" className="gg-feedback gg-error">
+              {error}
+            </p>
+          )}
+          <AdminReport<IncomeEntry>
+            kind="payments"
+            zone={zone}
+            version={version}
+            refreshToken={data}
+            label="Payment history"
+            rowKey={(r) => r.id}
+            columns={[
+              { label: 'Member', render: (r) => r.member_name },
+              { label: 'Date', render: (r) => adminDay(r.received_on) },
+              { label: 'Plan', render: (r) => r.plan_name },
+              {
+                label: 'Amount',
+                render: (r) => adminMoney(r.amount, r.currency),
+              },
+              {
+                label: 'Type / status',
+                render: (r) => r.kind + (r.voided ? ' - voided' : ''),
+              },
+              {
+                label: 'Actions',
+                render: (r) =>
+                  !r.voided && (
+                    <div className="gg-actions">
+                      {r.kind === 'payment' && Number(r.refundable) > 0 && (
+                        <button
+                          type="button"
+                          disabled={locked}
+                          onClick={() =>
+                            setAdjust({ entry: r, kind: 'refund' })
+                          }
+                        >
+                          Record refund
+                        </button>
+                      )}
+                      <button
+                        type="button"
+                        disabled={locked}
+                        onClick={() => setAdjust({ entry: r, kind: 'void' })}
+                      >
+                        Void record
+                      </button>
+                    </div>
+                  ),
+              },
+            ]}
+          />
         </AdminSectionCard>
         <AdminSectionCard title="Balances & revenue">
           <div className="gg-section-heading">
@@ -126,15 +173,7 @@ export function GymAdminPayments({ data, locked, run }: AdminPageProps) {
                 remaining balance stay together.
               </p>
             </div>
-            <button type="button" onClick={() => setLedger(true)}>
-              Payment history
-            </button>
           </div>
-          {error && (
-            <p role="alert" className="gg-feedback gg-error">
-              {error}
-            </p>
-          )}
           <AdminTable
             rows={data.balances.filter(
               (p) =>
@@ -292,64 +331,6 @@ export function GymAdminPayments({ data, locked, run }: AdminPageProps) {
           run={run}
           onClose={() => setPayment(false)}
         />
-      )}
-      {ledger && (
-        <AdminModal
-          title="Payment history"
-          onClose={() => setLedger(false)}
-          busy={busy}
-        >
-          <p className="gg-small">
-            Filter by date money was received or refunded. Records remain
-            visible after voiding.
-          </p>
-          <AdminReport<IncomeEntry>
-            kind="payments"
-            zone={zone}
-            version={version}
-            label="Payment history"
-            rowKey={(r) => r.id}
-            columns={[
-              { label: 'Member', render: (r) => r.member_name },
-              { label: 'Date', render: (r) => adminDay(r.received_on) },
-              { label: 'Plan', render: (r) => r.plan_name },
-              {
-                label: 'Amount',
-                render: (r) => adminMoney(r.amount, r.currency),
-              },
-              {
-                label: 'Type / status',
-                render: (r) => r.kind + (r.voided ? ' - voided' : ''),
-              },
-              {
-                label: 'Actions',
-                render: (r) =>
-                  !r.voided && (
-                    <div className="gg-actions">
-                      {r.kind === 'payment' && Number(r.refundable) > 0 && (
-                        <button
-                          type="button"
-                          disabled={locked}
-                          onClick={() =>
-                            setAdjust({ entry: r, kind: 'refund' })
-                          }
-                        >
-                          Record refund
-                        </button>
-                      )}
-                      <button
-                        type="button"
-                        disabled={locked}
-                        onClick={() => setAdjust({ entry: r, kind: 'void' })}
-                      >
-                        Void record
-                      </button>
-                    </div>
-                  ),
-              },
-            ]}
-          />
-        </AdminModal>
       )}
       {adjust && (
         <Adjustment
