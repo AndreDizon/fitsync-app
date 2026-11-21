@@ -31,7 +31,6 @@ import {
 import { useConfirmation } from './confirm-dialog'
 import { GymAdminPlans } from './gym-admin-plans'
 import { GymAdminPayments } from './gym-admin-payments'
-import { GymAttendance } from './gym-management-tools'
 import { GymDiscussion } from './gym-discussion'
 import { dateInZone } from '../../shared/progress'
 
@@ -566,9 +565,8 @@ type Visit = {
   checked_out_at: string | null
   confirmed_at: string | null
 }
-function Attendance({ data, locked, run }: AdminPageProps) {
-  const [sessions, setSessions] = useState(false),
-    [person, setPerson] = useState<Visit | null>(null),
+function Attendance({ data, locked }: AdminPageProps) {
+  const [person, setPerson] = useState<Visit | null>(null),
     [version, setVersion] = useState(0),
     [busy, setBusy] = useState(false),
     [error, setError] = useState(''),
@@ -586,24 +584,6 @@ function Attendance({ data, locked, run }: AdminPageProps) {
   ]
   return (
     <>
-      <div className="gg-actions">
-        <button type="button" onClick={() => setSessions(true)}>
-          Scheduled-session attendance
-        </button>
-      </div>
-      {sessions && (
-        <AdminModal
-          title="Scheduled-session attendance"
-          onClose={() => setSessions(false)}
-        >
-          <GymAttendance
-            membership={data}
-            locked={locked}
-            onAction={run}
-            view="sessions"
-          />
-        </AdminModal>
-      )}
       <p className="gg-small">
         Times use {zone}. One visit per gym-local day. Check-ins require your
         confirmation; checkout records when a member leaves.
