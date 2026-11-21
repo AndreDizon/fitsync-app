@@ -45,9 +45,9 @@ const sections = [
   },
   {
     id: "settings",
-    label: "Gym information",
+    label: "My gym",
     Icon: Building2,
-    note: "Welcome, rules and the time zone your gym uses.",
+    note: "Welcome, rules, gym details and the people who can help.",
   },
   {
     id: "attendance",
@@ -65,26 +65,15 @@ const sections = [
     id: "discussion",
     label: "Discussion",
     Icon: MessageCircle,
-    note: "Chat with your gym and catch up on announcements.",
-  },
-  {
-    id: "sessions",
-    label: "Training sessions",
-    Icon: CalendarDays,
-    note: "Reserve a place and find workouts shared by your gym.",
-  },
-  {
-    id: "team",
-    label: "Gym team",
-    Icon: Users,
-    note: "Meet your gym admin, staff and fellow members.",
+    note: "Chat, announcements, group sessions and shared workouts.",
   },
 ] as const;
 
 function destination(tab?: string) {
   if (tab === "membership-plans") return "membership";
   if (tab === "announcements") return "discussion";
-  if (tab === "playlists") return "sessions";
+  if (tab === "playlists" || tab === "sessions") return "discussion";
+  if (tab === "team") return "settings";
   return sections.some((s) => s.id === tab) ? tab! : "overview";
 }
 
@@ -102,6 +91,7 @@ export function GymMemberWorkspace({
   initialTab?: GymTab;
 }) {
   const [tab, setTab] = useState(() => destination(initialTab));
+  const [target, setTarget] = useState<string>(initialTab || "");
   const [role, setRole] = useState("all");
   const [status, setStatus] = useState("all");
   const [copied, setCopied] = useState(false),
@@ -117,6 +107,7 @@ export function GymMemberWorkspace({
   );
   function open(id: string) {
     focusNext.current = true;
+    setTarget(id);
     setTab(destination(id));
   }
   useEffect(() => {
@@ -126,7 +117,18 @@ export function GymMemberWorkspace({
         ?.querySelector<HTMLElement>(".ga-page-heading h3")
         ?.focus({ preventScroll: true });
     }
-  }, [tab]);
+    const card = panel.current?.querySelector<HTMLElement>(
+      `[data-member-card="${target}"]`,
+    );
+    if (card) {
+      const disclosure = card.querySelector<HTMLDetailsElement>("details");
+      if (disclosure) disclosure.open = true;
+      card.scrollIntoView({ block: "start", behavior: "instant" });
+      disclosure
+        ?.querySelector<HTMLElement>("summary")
+        ?.focus({ preventScroll: true });
+    }
+  }, [tab, target]);
   function navigate(event: KeyboardEvent<HTMLElement>) {
     if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
     const buttons = Array.from(
@@ -299,6 +301,79 @@ export function GymMemberWorkspace({
                   </p>
                 )}
               </AdminSectionCard>
+              <div data-member-card="team">
+                <AdminSectionCard
+                  title="Gym team"
+                  icon={Users}
+                  description="Find your admin and staff"
+                  defaultOpen={target === "team"}
+                >
+                  <p className="gg-small">
+                    Ask the admin about plan changes, payments or check-in
+                    confirmation. Staff is a community role, not a professional
+                    qualification.
+                  </p>
+                  <AdminTable
+                    rows={membership.members.filter(
+                      (m) => role === "all" || m.role === role,
+                    )}
+                    label="Gym team"
+                    dateLabel="Joined on"
+                    zone={zone}
+                    searchable={false}
+                    dateOf={(m) =>
+                      m.joined_at
+                        ? dateInZone(zone, new Date(m.joined_at))
+                        : null
+                    }
+                    rowKey={(m) => m.user_id}
+                    searchText={(m) => m.username}
+                    extraFilters={
+                      <div className="gg-field">
+                        <label htmlFor="gym-team-role">Role</label>
+                        <select
+                          id="gym-team-role"
+                          value={role}
+                          onChange={(e) => setRole(e.target.value)}
+                        >
+                          <option value="all">All roles</option>
+                          <option value="admin">Gym admin</option>
+                          <option value="staff">Staff</option>
+                          <option value="member">Gym member</option>
+                        </select>
+                      </div>
+                    }
+                    columns={[
+                      {
+                        label: "Name",
+                        render: (m) => (
+                          <strong>
+                            {m.username}
+                            {m.user_id === owner ? " (you)" : ""}
+                          </strong>
+                        ),
+                      },
+                      {
+                        label: "Role",
+                        render: (m) =>
+                          m.role === "admin"
+                            ? "Gym admin"
+                            : m.role === "staff"
+                              ? "Staff"
+                              : "Gym member",
+                      },
+                      {
+                        label: "Joined",
+                        render: (m) =>
+                          m.joined_at
+                            ? adminDay(dateInZone(zone, new Date(m.joined_at)))
+                            : "Not recorded",
+                      },
+                    ]}
+                  />
+                </AdminSectionCard>
+              </div>
+
               <AdminSectionCard
                 title="Leave gym"
                 icon={LogOut}
@@ -346,7 +421,7 @@ export function GymMemberWorkspace({
                 title="Session attendance"
                 icon={CalendarDays}
                 description="Your attendance at scheduled group sessions"
-                defaultOpen={initialTab === "attendance"}
+                defaultOpen={target === "attendance"}
               >
                 <GymAttendance
                   membership={membership}
@@ -432,53 +507,55 @@ export function GymMemberWorkspace({
                   ]}
                 />
               </AdminSectionCard>
-              <AdminSectionCard
-                title="Available membership plans"
-                icon={BookOpen}
-                description="Compare durations and fees before asking your gym team"
-                tone="slate"
-                defaultOpen={initialTab === "membership-plans"}
-              >
-                <p className="gg-small">
-                  These are the gym's listed offers. Browsing a plan does not
-                  enroll you or make a payment.
-                </p>
-                <AdminTable
-                  rows={(membership.plans || []).filter((p) => !p.archived)}
-                  label="Available membership plans"
-                  dateLabel="Plan created on"
-                  zone={zone}
-                  searchable={false}
-                  dateOf={(p) =>
-                    p.created_at
-                      ? dateInZone(zone, new Date(p.created_at))
-                      : null
-                  }
-                  rowKey={(p) => p.id}
-                  searchText={(p) => p.name}
-                  columns={[
-                    {
-                      label: "Plan",
-                      render: (p) => (
-                        <>
-                          <strong>{p.name}</strong>
-                          {p.description && (
-                            <p className="gg-small">{p.description}</p>
-                          )}
-                        </>
-                      ),
-                    },
-                    {
-                      label: "Duration",
-                      render: (p) => `${p.duration_days} days`,
-                    },
-                    {
-                      label: "Fee",
-                      render: (p) => adminMoney(p.price, p.currency),
-                    },
-                  ]}
-                />
-              </AdminSectionCard>
+              <div data-member-card="membership-plans">
+                <AdminSectionCard
+                  title="Available membership plans"
+                  icon={BookOpen}
+                  description="Compare durations and fees before asking your gym team"
+                  tone="slate"
+                  defaultOpen={target === "membership-plans"}
+                >
+                  <p className="gg-small">
+                    These are the gym's listed offers. Browsing a plan does not
+                    enroll you or make a payment.
+                  </p>
+                  <AdminTable
+                    rows={(membership.plans || []).filter((p) => !p.archived)}
+                    label="Available membership plans"
+                    dateLabel="Plan created on"
+                    zone={zone}
+                    searchable={false}
+                    dateOf={(p) =>
+                      p.created_at
+                        ? dateInZone(zone, new Date(p.created_at))
+                        : null
+                    }
+                    rowKey={(p) => p.id}
+                    searchText={(p) => p.name}
+                    columns={[
+                      {
+                        label: "Plan",
+                        render: (p) => (
+                          <>
+                            <strong>{p.name}</strong>
+                            {p.description && (
+                              <p className="gg-small">{p.description}</p>
+                            )}
+                          </>
+                        ),
+                      },
+                      {
+                        label: "Duration",
+                        render: (p) => `${p.duration_days} days`,
+                      },
+                      {
+                        label: "Fee",
+                        render: (p) => adminMoney(p.price, p.currency),
+                      },
+                    ]}
+                  />
+                </AdminSectionCard>
+              </div>
             </>
           )}
           {active.id === "discussion" && (
@@ -491,106 +568,40 @@ export function GymMemberWorkspace({
               initialAnnouncements={initialTab === "announcements"}
             />
           )}
-          {active.id === "sessions" && (
+          {active.id === "discussion" && (
             <>
-              <AdminSectionCard
-                title="Group sessions"
-                icon={CalendarDays}
-                description="Reserve or cancel your place in a scheduled session"
-                defaultOpen
-              >
-                <Sessions
-                  membership={membership}
-                  manager={false}
-                  locked={locked}
-                  onAction={onAction}
-                />
-              </AdminSectionCard>
-              <AdminSectionCard
-                title="Shared workout playlists"
-                icon={ClipboardList}
-                description="Save a personal copy or share one of your workouts"
-                defaultOpen={initialTab === "playlists"}
-              >
-                <SharedPlaylists
-                  membership={membership}
-                  owner={owner}
-                  manager={false}
-                  locked={locked}
-                  onAction={onAction}
-                />
-              </AdminSectionCard>
+              <div data-member-card="sessions">
+                <AdminSectionCard
+                  title="Group sessions"
+                  icon={CalendarDays}
+                  description="Reserve or cancel your place in a scheduled session"
+                  defaultOpen={target === "sessions"}
+                >
+                  <Sessions
+                    membership={membership}
+                    manager={false}
+                    locked={locked}
+                    onAction={onAction}
+                  />
+                </AdminSectionCard>
+              </div>
+              <div data-member-card="playlists">
+                <AdminSectionCard
+                  title="Shared workout playlists"
+                  icon={ClipboardList}
+                  description="Save a personal copy or share one of your workouts"
+                  defaultOpen={target === "playlists"}
+                >
+                  <SharedPlaylists
+                    membership={membership}
+                    owner={owner}
+                    manager={false}
+                    locked={locked}
+                    onAction={onAction}
+                  />
+                </AdminSectionCard>
+              </div>
             </>
-          )}
-          {active.id === "team" && (
-            <AdminSectionCard
-              title="Gym team"
-              icon={Users}
-              description="Find your admin and staff"
-              defaultOpen
-            >
-              <p className="gg-small">
-                Ask the admin about plan changes, payments or check-in
-                confirmation. Staff is a community role, not a professional
-                qualification.
-              </p>
-              <AdminTable
-                rows={membership.members.filter(
-                  (m) => role === "all" || m.role === role,
-                )}
-                label="Gym team"
-                dateLabel="Joined on"
-                zone={zone}
-                searchable={false}
-                dateOf={(m) =>
-                  m.joined_at ? dateInZone(zone, new Date(m.joined_at)) : null
-                }
-                rowKey={(m) => m.user_id}
-                searchText={(m) => m.username}
-                extraFilters={
-                  <div className="gg-field">
-                    <label htmlFor="gym-team-role">Role</label>
-                    <select
-                      id="gym-team-role"
-                      value={role}
-                      onChange={(e) => setRole(e.target.value)}
-                    >
-                      <option value="all">All roles</option>
-                      <option value="admin">Gym admin</option>
-                      <option value="staff">Staff</option>
-                      <option value="member">Gym member</option>
-                    </select>
-                  </div>
-                }
-                columns={[
-                  {
-                    label: "Name",
-                    render: (m) => (
-                      <strong>
-                        {m.username}
-                        {m.user_id === owner ? " (you)" : ""}
-                      </strong>
-                    ),
-                  },
-                  {
-                    label: "Role",
-                    render: (m) =>
-                      m.role === "admin"
-                        ? "Gym admin"
-                        : m.role === "staff"
-                          ? "Staff"
-                          : "Gym member",
-                  },
-                  {
-                    label: "Joined",
-                    render: (m) =>
-                      m.joined_at
-                        ? adminDay(dateInZone(zone, new Date(m.joined_at)))
-                        : "Not recorded",
-                  },
-                ]}
-              />
-            </AdminSectionCard>
           )}
         </div>
       </div>

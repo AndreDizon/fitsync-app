@@ -2,6 +2,10 @@
   display: grid;
   gap: 24px;
 }
+.gm-cards > [data-member-card] {
+  min-width: 0;
+  scroll-margin-top: 24px;
+}
 .gm-workspace .ga-page-heading h3:focus {
   outline: none;
 }
@@ -99,6 +103,11 @@
   background: var(--ga-surface);
   border-radius: 16px;
   overflow: hidden;
+}
+@media (max-width: 1099px) {
+  .gm-cards > [data-member-card] {
+    scroll-margin-top: 140px;
+  }
 }
 @media (max-width: 600px) {
   .gm-cards {
