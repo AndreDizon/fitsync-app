@@ -12,12 +12,12 @@ async function run(request:Request,write:boolean){
     const parsed=await readPlaylistBody(request)
     if(parsed.response)return parsed.response
     const input=parsed.value as {action?:string;doc?:Record<string,unknown>}|null
-    if(!input||!['create','join','cancel_request','approve','reject','leave','role','remove','update','disband','announce','edit_announcement','pin','delete_announcement','message','delete_message','schedule','cancel_session','rsvp','unrsvp','share_playlist','unshare_playlist','transfer','ban','unban','guidance','save_plan','archive_plan','assign_plan','cancel_period','mark_attendance'].includes(input.action||'')||!input.doc||typeof input.doc!=='object'||Array.isArray(input.doc))return json({error:'Invalid gym action.'},400)
+    if(!input||!['create','join','cancel_request','approve','reject','leave','role','remove','update','disband','announce','edit_announcement','pin','delete_announcement','message','delete_message','schedule','cancel_session','rsvp','unrsvp','share_playlist','unshare_playlist','transfer','ban','unban','guidance','save_plan','archive_plan','assign_plan','cancel_period','mark_attendance','record_payment','record_refund','void_income'].includes(input.action||'')||!input.doc||typeof input.doc!=='object'||Array.isArray(input.doc))return json({error:'Invalid gym action.'},400)
     action=input.action!;doc=input.doc
   }else{
     const params=new URL(request.url).searchParams
-    action=['list','discussion','read_playlist','attendance','notifications'].includes(params.get('action')||'')?params.get('action')!:'mine'
-    doc={q:params.get('q')||'',page:params.get('page')||'0',id:params.get('id')||''}
+    action=['list','discussion','read_playlist','attendance','notifications','income','income_export'].includes(params.get('action')||'')?params.get('action')!:'mine'
+    doc={q:params.get('q')||'',page:params.get('page')||'0',id:params.get('id')||'',year:params.get('year')||'',month:params.get('month')||''}
   }
   if(action==='share_playlist'){
     if(!isUUID(doc.playlistId))return json({error:'Choose one of your saved workout playlists.'},400)
@@ -29,8 +29,8 @@ async function run(request:Request,write:boolean){
     // Share a sanitized snapshot, never the encrypted record or private account fields.
     doc={playlist:parsed.data}
   }
-  const result=await auth.client!.rpc('gym_group_action_v4',{action,doc})
-  if(result.error)return json({error:result.error.code==='PGRST202'?'Gym community tools need a database update. Apply the gym groups, gym community, gym time zone and gym management (v4) migrations.':result.error.message},result.error.code==='PGRST202'?503:400)
+  const result=await auth.client!.rpc('gym_group_action_v5',{action,doc})
+  if(result.error)return json({error:result.error.code==='PGRST202'?'Gym community tools need a database update. Apply the gym income (v5) migration after the earlier gym migrations.':result.error.message},result.error.code==='PGRST202'?503:400)
   return json(result.data)
 }
 export async function GET(request:Request){return run(request,false)}

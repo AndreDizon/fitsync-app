@@ -10,8 +10,9 @@ Apply these in Supabase SQL Editor after the existing playlist migrations (20261
 2. backend/migrations/20261121_gym_groups_community.sql - community tools and updated permissions.
 3. backend/migrations/20261121_gym_groups_time_zone.sql - gym session time zones.
 4. backend/migrations/20261121_gym_groups_v4.sql - attendance, manual membership plans, guidance and notifications.
+5. backend/migrations/20261121_gym_groups_v5_income.sql - owner-only income records and monthly totals.
 
-The migrations are rerunnable; apply them in the listed order. Rerunning an older migration afterward can restore old function definitions. Existing groups retain members and default to open joining. Deploy frontend and backend together; the new API requires the v4 RPC and shows a setup message if missing. The migration notifies PostgREST to reload its schema.
+The migrations are rerunnable; apply them in the listed order. Rerunning an older migration afterward can restore old function definitions. Existing groups retain members and default to open joining. Deploy frontend and backend together; the new API requires the v5 RPC and shows a setup message if missing. The migration notifies PostgREST to reload its schema.
 
 ## Roles
 
@@ -71,3 +72,5 @@ Refresh loads current gym information. Gym alerts are now included in the notifi
 - npm run typecheck and npm run build - both workspaces.
 
 Browser fixtures use synthetic users/content and cover the workflows, themed confirmations, member/staff restrictions, pending cancellation, dark-theme contrast and 320-1440 px widths. Checks do not modify hosted data.
+
+Owner-only payment records, monthly income summaries, refunds, void corrections and CSV exports are described in docs/gym-income.md. Staff and ordinary members cannot access income.

@@ -8,8 +8,9 @@ Apply these migrations in Supabase SQL Editor in order. Skip any already applied
 2. `20261121_gym_groups_community.sql`
 3. `20261121_gym_groups_time_zone.sql`
 4. `20261121_gym_groups_v4.sql`
+5. `20261121_gym_groups_v5_income.sql`
 
-The existing playlist migrations are prerequisites. Deploy frontend and backend together. `/api/gyms` now requires `gym_group_action_v4`; a missing migration shows an explicit setup error. The management migration is transactional and rerunnable. Existing groups, roles, session instants and shared content are preserved; new welcome/rules fields start blank.
+The existing playlist migrations are prerequisites. Deploy frontend and backend together. `/api/gyms` now requires `gym_group_action_v5`; a missing migration shows an explicit setup error. The management migration is transactional and rerunnable. Existing groups, roles, session instants and shared content are preserved; new welcome/rules fields start blank.
 
 ## Welcome and rules
 
@@ -59,3 +60,7 @@ The update shares no private measurements, progress photos or personal nutrition
 - `npm run typecheck` and `npm run build`: both workspaces.
 
 Synthetic browser fixtures exercise welcome/rules, plan creation and assignment, attendance marking, member restrictions, the actual notification provider/bell, reminder withdrawal, preference opt-out, deep links, and 320-1440 px layouts. Local checks never modify the hosted database.
+
+## Owner income records
+
+The owner can now manually record actual payments received, refunds and void corrections in an owner-only Income section. Membership assignment alone never counts as paid. See `docs/gym-income.md` for monthly currency-separated summaries, exports and financial-record reset behavior.

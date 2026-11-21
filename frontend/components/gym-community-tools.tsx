@@ -1,9 +1,10 @@
 'use client'
 
 import { useEffect, useRef, useState, type ReactNode } from 'react'
-import { CalendarDays, ClipboardList, Megaphone, MessageCircle, Pin, Plus, Users } from 'lucide-react'
+import { Banknote, CalendarDays, ClipboardList, Megaphone, MessageCircle, Pin, Plus, Users } from 'lucide-react'
 import { gymRequest, gymTimeZoneLabel, type GymAction, type GymAnnouncement, type GymMembership, type GymTab } from '@/lib/gym-groups'
 import { GymAttendance, GymMembershipPlans } from './gym-management-tools'
+import { GymIncome } from './gym-income'
 import { listPlaylists, savePlaylist } from '@/lib/playlists'
 import { parsePlaylist, type Playlist } from '../../shared/playlists'
 import { useConfirmation } from './confirm-dialog'
@@ -18,7 +19,7 @@ export function GymCommunityTools({membership,owner,locked,onAction,children,ini
  const manager=membership.role==='admin'||membership.role==='staff',admin=membership.role==='admin'
  const [tab,setTab]=useState<string>(initialTab||'announcements')
  const confirm=useConfirmation()
- const tabs=[{id:'announcements',label:'Announcements',icon:Megaphone},{id:'discussion',label:'Discussion',icon:MessageCircle},{id:'sessions',label:'Sessions',icon:CalendarDays},{id:'attendance',label:'Attendance',icon:ClipboardList},{id:'membership',label:'Membership',icon:ClipboardList},{id:'playlists',label:'Playlists',icon:ClipboardList},{id:'team',label:'Team',icon:Users},...(manager?[{id:'activity',label:'Activity',icon:ClipboardList}]:[])]
+ const tabs=[{id:'announcements',label:'Announcements',icon:Megaphone},{id:'discussion',label:'Discussion',icon:MessageCircle},{id:'sessions',label:'Sessions',icon:CalendarDays},{id:'attendance',label:'Attendance',icon:ClipboardList},{id:'membership',label:'Membership',icon:ClipboardList},...(admin?[{id:'income',label:'Income',icon:Banknote}]:[]),{id:'playlists',label:'Playlists',icon:ClipboardList},{id:'team',label:'Team',icon:Users},...(manager?[{id:'activity',label:'Activity',icon:ClipboardList}]:[])]
  const active=tabs.some(t=>t.id===tab)?tab:'announcements'
  const navigation=useRef<HTMLElement>(null)
  useEffect(()=>{
@@ -36,6 +37,7 @@ export function GymCommunityTools({membership,owner,locked,onAction,children,ini
    {active==='sessions'&&<Sessions membership={membership} manager={manager} locked={locked} onAction={onAction}/>}
    {active==='attendance'&&<GymAttendance membership={membership} locked={locked} onAction={onAction}/>}
    {active==='membership'&&<GymMembershipPlans membership={membership} owner={owner} locked={locked} onAction={onAction}/>}
+   {active==='income'&&admin&&<GymIncome membership={membership} locked={locked}/>}
    {active==='playlists'&&<SharedPlaylists membership={membership} owner={owner} manager={manager} locked={locked} onAction={onAction}/>}
    {active==='team'&&<>
     {manager&&<section className="gg-requests"><h3>Join requests <span className="gg-inline-count">{membership.requests?.length||0}</span></h3><p className="gg-small">Approve people you want on the team. Requests do not reserve a place.</p>{!membership.requests?.length?<p className="gg-empty">No requests waiting.</p>:<ul className="gg-plain-list">{membership.requests.map(r=><li key={r.user_id}><div><strong>{r.username}</strong><span className="gg-meta">Requested {date(r.created_at)}</span></div><div className="gg-actions"><button className="gg-primary" type="button" disabled={locked||membership.members.length>=100} onClick={()=>void onAction('approve',{userId:r.user_id},'Member approved.')}>Approve</button><button type="button" disabled={locked} onClick={async()=>{if(await confirm({title:'Decline join request?',message:`Decline ${r.username}’s request? They can request again.`,confirmLabel:'Decline request'}))await onAction('reject',{userId:r.user_id},'Request declined.')}}>Decline</button></div></li>)}</ul>}</section>}

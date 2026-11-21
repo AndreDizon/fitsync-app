@@ -1,0 +1,27 @@
+.gg-income-filters{display:flex;flex-wrap:wrap;gap:14px;margin:20px 0}
+.gg-income-filters>.gg-field{width:180px;max-width:100%}
+.gg-income-table-wrap{max-width:100%;overflow:auto;scrollbar-width:thin;scrollbar-color:#9aae9f #eef3ef;border:1px solid #dce4dd;border-radius:10px;margin:16px 0}
+.gg-income-table-wrap:focus-visible{outline:3px solid #a77c13;outline-offset:3px}
+.gg-income-scroll-hint{display:none;font-size:12px;color:#536358;margin:8px 0}
+.gg-income-table{width:100%;border-collapse:collapse;font-size:13px;line-height:1.6;font-variant-numeric:tabular-nums}
+.gg-income-table caption{text-align:left;padding:12px 14px;font-size:14px;font-weight:700;background:#edf3ef}
+.gg-income-table th,.gg-income-table td{padding:10px 14px;text-align:left;border-bottom:1px solid #dce4dd;vertical-align:top}
+.gg-income-table thead{background:#f3f6f1;color:#40584b}
+.gg-income-table td:not(:first-child){white-space:nowrap}
+.gg-income-table tbody tr:last-child>*{border-bottom:0}
+.gg-income-table .is-selected{background:#fff7d8}
+.sc-gyms .gg-income-table th button{padding:4px 8px;min-height:36px;border-color:transparent;background:transparent;justify-content:start}
+.sc-gyms .gg-income-table th button[aria-pressed=true]{font-weight:700;color:#655011;text-decoration:underline;text-underline-offset:4px}
+.gg-income-payment-fields{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gg-income-records-heading{margin-top:28px;align-items:center}
+.gg-income-table.gg-income-ledger{min-width:820px}
+.gg-income-ledger td:nth-child(2){min-width:170px;max-width:270px;white-space:normal;overflow-wrap:anywhere}
+.gg-income-ledger td:last-child{min-width:180px;max-width:260px;white-space:normal;overflow-wrap:anywhere}
+.gg-income-ledger td>span,.gg-income-ledger td small{display:block;color:#536358;font-size:11px;line-height:1.6;white-space:normal}
+.gg-income-ledger td small{margin-top:4px}
+.gg-income-ledger .is-voided{background:#f0f2ef;color:#536358}
+.gg-income-ledger .is-voided td:nth-child(4){text-decoration:line-through}
+.gg-void-editor{margin-top:20px;padding:16px;background:#fff0e9;border:1px solid #e8bcb0;border-radius:12px}
+.gg-void-editor h4{margin:0;font-size:16px}
+@media(max-width:700px){.gg-income-payment-fields{grid-template-columns:1fr}.gg-income-records-heading{align-items:start;flex-direction:column}.gg-income-table th,.gg-income-table td{padding:10px}.gg-income-table-wrap{overscroll-behavior-inline:contain}}
+@media(max-width:900px){.gg-income-scroll-hint{display:block}}
