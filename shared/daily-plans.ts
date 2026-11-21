@@ -3,6 +3,7 @@ import foods from '../backend/data/foods.json'
 import { defaultWorkoutStartTime } from './onboarding'
 import { defaultMealTime, newPlaylistItem, parsePlaylist, type PlaylistItem, type PlaylistKind } from './playlists'
 import type { OnboardingProfile } from './onboarding'
+import { youthEnergyRange } from './youth-energy'
 
 export type ActualSet = { amount: number; weightKg: number }
 export type SessionPreparation = { warmupSeconds: number; cooldownSeconds: number; transitionSeconds: number }
@@ -50,7 +51,17 @@ export function parsePlanWeek(value: unknown): PlanWeek | null {
 export function planTargets(profile: OnboardingProfile | null, rest = false): PlanTargets {
   const targets: PlanTargets = { minutes: rest ? 0 : Number(profile?.sessionMinutes) || 0, energy: null, energyRange: null, protein: null, carbs: null, fat: null, notes: [] }
   const age = Number(profile?.age), height = Number(profile?.heightCm), weight = Number(profile?.weightKg)
-  if (profile?.age && Number.isFinite(age) && age > 0 && age < 18) { targets.notes.push('Adult calorie and weight-change estimates do not apply under age 18. You can use the food library and build a manual meal schedule.'); return targets }
+  if (profile && Number.isInteger(age) && age >= 13 && age < 18) {
+    const range = youthEnergyRange(profile)
+    if (!range) { targets.notes.push('Teen energy estimates need valid height, current weight and total daily activity including exercise. Update onboarding; profiles outside the app planning range need professional review.'); return targets }
+    targets.energyRange = range
+    targets.energy = Math.round((range[0] + range[1]) / 2)
+    targets.protein = Math.round(targets.energy * .2 / 4)
+    targets.carbs = Math.round(targets.energy * .5 / 4)
+    targets.fat = Math.round(targets.energy * .3 / 9)
+    targets.notes.push('Teen growth-energy estimate: 2023 DRI EER equations use age, height, current weight and total daily activity, including a growth allowance. Both sex-coefficient results form the range; gender is not used as biological sex. This range is not a confidence interval. The midpoint is an editable menu-planning reference, not a calorie limit. No weight-loss or muscle-gain calorie adjustment is applied. Macros use app allocations of 20% protein, 50% carbohydrate and 30% fat within youth AMDR ranges. Growth and individual needs vary; not intended for pregnancy, breastfeeding or clinical nutrition management. Weight-loss target dates are not estimated for teens.')
+    return targets
+  }
   if (!profile || !Number.isFinite(age) || age < 18 || age > 120 || !Number.isFinite(height) || height < 100 || height > 250 || !Number.isFinite(weight) || weight < 20 || weight > 350) { targets.notes.push('Add valid age, height and weight in onboarding to calculate nourishment targets.'); return targets }
   const bmi = weight / (height / 100) ** 2
   if (bmi < 18.5 || bmi >= 40) { targets.notes.push('Personal nourishment targets need professional review for this profile. You can still create a manual schedule.'); return targets }

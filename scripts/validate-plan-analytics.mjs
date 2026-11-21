@@ -36,6 +36,8 @@ assert.equal(result.best, 1)
 assert.equal(result.loadedDays, 2)
 assert(result.targets.energyRange)
 assert.equal(planAnalytics([week], [], { ...profile, age: '16' }, today).targets.energy, null)
+const teenReference = planAnalytics([week], [], { ...profile, age: '16', youthActivity: 'Low active' }, today).targets
+assert(teenReference.energy > 0 && teenReference.energyRange.length === 2, 'Analytics uses the teen EER calculation once total activity is supplied')
 const timed = structuredClone(week)
 timed.days[1].workout.items[0].targetType = 'time'
 timed.days[1].workout.items[0].actualSets = [{ amount: 60, weightKg: 100 }]

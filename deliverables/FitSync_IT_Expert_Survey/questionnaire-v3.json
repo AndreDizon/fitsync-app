@@ -1,0 +1,56 @@
+{
+  "title": "FitSync IT Expert Technical Evaluation",
+  "subtitle": "FitSync: An AI-Driven Platform for Smarter Workout and Nutrition Planning",
+  "version": "Version 3 | Revised to match the evaluated prototype",
+  "framework": "Adapted from the eight product-quality characteristics of ISO/IEC 25010:2011",
+  "categories": [
+    {"name": "Functional Suitability", "focus": "Completeness, correctness and appropriateness", "items": [
+      "The daily workout planner uses the selected training days, start time, session length, equipment and movement preferences when preparing an editable schedule.",
+      "Food calorie and nutrient totals update consistently when the user changes a food portion or marks a scheduled food entry as completed.",
+      "Users can create, edit and save one-day or one-week workout and nutrition playlists, then apply them to their daily schedule.",
+      "Analytics and achievement progress reflect saved activity records, while measurements, check-ins and photos appear within the selected Documentation period."
+    ]},
+    {"name": "Performance Efficiency", "focus": "Response time, resource use and capacity", "items": [
+      "Pages and controls respond within a reasonable time during the demonstrated tasks on the stated test device and network.",
+      "Optimized images and cached artwork load without preventing users from reading or interacting with the page.",
+      "Pagination or bounded scrolling keeps long record histories, photo timelines and analytics views manageable as more records are displayed.",
+      "Saving records and processing photo uploads provide timely feedback without unnecessarily blocking unrelated page controls."
+    ]},
+    {"name": "Compatibility", "focus": "Coexistence and interoperability", "items": [
+      "The frontend and backend exchange records with Supabase authentication, database and storage services without observable data mismatches in the tested workflows.",
+      "FitSync confirmation and password-recovery emails delivered through the Gmail API support successful code verification in the application.",
+      "The optional AI chat exchanges messages through OpenRouter and displays responses correctly in the application.",
+      "CSV exports from Record history preserve the selected records and readable values when opened in a compatible spreadsheet application."
+    ]},
+    {"name": "Usability", "focus": "Learnability, operation, error protection and presentation", "items": [
+      "Navigation labels and page headings make Home, Plans, Social, Progress and Settings easy to find and understand.",
+      "Forms identify required inputs and show clear messages that help users correct invalid values or unsuccessful actions.",
+      "Responsive layouts keep text, controls and essential card content readable and usable on the tested desktop and mobile screen sizes.",
+      "Selected filters, task completion states, sync information and reminder settings are visually clear and understandable."
+    ]},
+    {"name": "Reliability", "focus": "Availability, fault handling and recovery", "items": [
+      "Previously saved plans, playlists and downloaded reference libraries remain accessible during the tested network interruption, within the documented offline limits.",
+      "Failed or interrupted saves show an accurate status and a recovery or retry option instead of falsely reporting success.",
+      "After reconnecting, pending plan or playlist changes can be synchronized, and conflicting versions are identified for resolution.",
+      "If the AI chat service is unavailable or rate-limited, the application explains the failure while rule-based planning remains usable independently of AI chat."
+    ]},
+    {"name": "Security", "focus": "Confidentiality, integrity and authentication", "items": [
+      "Protected pages and backend operations reject unauthenticated access, and one signed-in user cannot read or change another user's private records in the tested access checks.",
+      "The reviewed implementation encrypts private plan and playlist contents, progress payloads and photo files using AES-256-GCM, with server-held keys derived per owner using HKDF-SHA-256.",
+      "Account confirmation and recovery require valid verification codes; recovery authorization expires and becomes unusable after a successful password change.",
+      "Backend validation rejects invalid or unauthorized requests without exposing private records, encryption keys or service credentials in browser responses."
+    ]},
+    {"name": "Maintainability", "focus": "Modularity, analysis, modification and testing", "items": [
+      "The reviewed code separates interface components, backend routes and shared planning rules clearly enough to locate and modify a feature.",
+      "Shared TypeScript types and validation rules help keep frontend, backend and stored data formats consistent during changes.",
+      "Documented catalog import or seed processes allow exercise and food reference content to be updated without rewriting the overall application structure.",
+      "The supplied checks, migration files and setup documentation support testing and troubleshooting changes to planning, authentication and encrypted storage."
+    ]},
+    {"name": "Portability", "focus": "Adaptability and deployment", "items": [
+      "Core application workflows operate consistently in the tested modern desktop and mobile browsers.",
+      "The interface adapts to changes in screen size and orientation without hiding essential controls or requiring unintended horizontal page scrolling.",
+      "The documented setup allows the frontend and backend to run locally and deploy to Vercel using environment-specific configuration.",
+      "Browser-dependent features, such as device notifications and native sharing, provide understandable alternatives or limitations when unsupported or not permitted."
+    ]}
+  ]
+}

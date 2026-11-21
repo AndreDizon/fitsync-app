@@ -68,6 +68,23 @@
 .onb-input input, .onb-input select, .onb-input-row input { width: 100%; min-width: 0; min-height: 48px; padding: 12px; background: #fffdf8; border: 1px solid #ded7c4; border-radius: 12px; font: inherit; font-weight: 400; }
 .onb-note { display: flex; gap: 10px; align-items: start; padding: 15px; border-radius: 14px; background: #f0eddf; margin: 0; font-size: 12px; line-height: 1.7; color: #786c50; }
 .onb-note svg { flex-shrink: 0; margin-top: 2px; }
+.onboarding-page .onb-choices .onb-suggested-label { font-size: 10px; font-weight: 700; color: #655016; }
+.onboarding-page .onb-choices label.selected .onb-suggested-label { color: #fff4bf; }
+.onb-session-settings { display: grid; gap: 12px; min-width: 0; }
+.onb-session-settings > .onb-choices { margin-bottom: 4px; }
+.onb-session-settings > .health-reference { margin: 0; }
+.onb-session-settings > .health-reference > summary { padding: 12px 14px; }
+.onb-session-settings > .onb-session-recommendation { border-color: #e4cf75; background: #fff6d6; }
+.onb-session-recommendation > summary > span { min-width: 0; flex: 1; }
+.onb-session-recommendation > .health-reference-body { padding: 0 14px 14px; border-top: 1px solid #e4cf75; }
+.onb-session-recommendation[open] > summary { margin-bottom: 12px; }
+.onb-session-guidance { display: block; color: #554a35; font-size: 12px; line-height: 1.5; font-weight: 400; }
+.onb-session-guidance > span { display: block; margin-top: 5px; }
+.onb-session-guidance strong { display: block; font-size: 13px; color: #332b19; }
+.onb-session-guidance strong span { font-size: 11px; font-weight: 400; }
+.onb-session-guidance .onb-session-basis { display: block; margin-top: 4px; font-size: 11px; }
+.onb-session-guidance p { margin: 0; max-width: 75ch; }
+.onb-session-guidance p + p { margin-top: 5px; }
 .onb-summary-goal { display: flex; gap: 15px; align-items: center; padding: 22px; background: #ffe477; border: 1px solid #edce56; border-radius: 18px; }
 .onb-summary-goal small { display: block; font-size: 9px; font-weight: 700; letter-spacing: .14em; margin-bottom: 8px; }
 .onb-summary-goal h2 { margin: 0; font-size: 25px; letter-spacing: -.03em; }

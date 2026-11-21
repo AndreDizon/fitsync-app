@@ -5,6 +5,8 @@ import { ArrowLeft, ArrowRight, Dumbbell, Search, SlidersHorizontal, X, Check, C
 import '@/app/exercise-library.css'
 import '@/app/library-workspace.css'
 import { OfflineLibraryStatus } from '@/components/offline-library-status'
+import { HealthReference } from './health-reference'
+import { exercisePractice, movementExplanations } from '@/lib/health-guidance'
 import { loadExerciseCatalog, type SeedExercise } from '@/lib/exercise-offline'
 
 type Exercise = SeedExercise
@@ -34,6 +36,7 @@ export function ExerciseDetails({ exercise, onClose }: { exercise: Exercise; onC
   const estimates = exercise.estimates
   const referenceWeight = 70
   const burn = estimates?.estimatedBurnKcalAt70Kg
+  const practice = exercisePractice(exercise.category)
   useEffect(() => {
     dialog.current?.showModal()
   }, [])
@@ -51,6 +54,12 @@ export function ExerciseDetails({ exercise, onClose }: { exercise: Exercise; onC
         ...(exercise.secondary_muscles.length ? [['Secondary muscles', exercise.secondary_muscles.join(', ')]] : []),
       ].map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
       <div className="exercise-default-target"><span>Suggested starting target</span><strong>{exercise.defaultTarget}</strong></div>
+      <HealthReference title="Effort & progression guide" sources={exercise.category === 'cardio' ? ['intensity', 'activity'] : exercise.category === 'stretching' ? ['flexibility'] : exercise.category === 'plyometrics' ? ['plyometrics'] : ['strength']}>
+        <p><strong>Start here.</strong> {practice.start}</p>
+        <p><strong>Role in your routine.</strong> {exercise.category === 'stretching' ? 'Flexibility work helps you practise a comfortable range of movement. It does not replace strength or aerobic training.' : movementExplanations[exercise.movementPattern] ?? 'Include a range of movements across your training week.'}</p>
+        <p><strong>Next session.</strong> {practice.progress}</p>
+        <p>Difficulty is a catalog label, not a personal assessment. Check equipment setup and use a comfortable range. Stop if movement causes pain; seek individual advice when needed.</p>
+      </HealthReference>
       {estimates && <section className="exercise-estimates" aria-labelledby="exercise-estimates-title">
         <h3 id="exercise-estimates-title">Plan your effort</h3>
         <dl><div><dt>Estimated time</dt><dd>{estimates.estimatedMinutes.join('–')} min</dd></div><div><dt>Estimated burn</dt><dd>{burn?.join('–')} kcal</dd></div></dl>
@@ -63,7 +72,7 @@ export function ExerciseDetails({ exercise, onClose }: { exercise: Exercise; onC
         {instructions.length > 3 && <button className="exercise-read-more" aria-expanded={expanded} aria-controls="exercise-guidance" onClick={() => setExpanded(!expanded)}>{expanded ? 'Read less' : 'Read more…'}</button>}
       </section>
       <aside className="exercise-coach-tip"><div><img src="/mascot/optimized/fox-logo-192.webp" alt="" width={32} height={32} /><h3>Your fox coach says</h3></div><p>{exercise.coachTip}</p></aside>
-      <p className="exercise-source-credit">Guidance: FitSync. Demonstration media: <a href="https://github.com/JahelCuadrado/ExerciseGymGifsDB" target="_blank" rel="noreferrer">JahelCuadrado / ExerciseGymGifsDB</a>{exercise.source_media_url && <> · <a href={exercise.source_media_url} target="_blank" rel="noreferrer">Original demonstration</a></>}</p>
+      <p className="exercise-source-credit">Instructions, difficulty labels and starting targets: FitSync editorial guidance. Demonstrations illustrate movement; they do not establish an individually suitable load. Demonstration media: <a href="https://github.com/JahelCuadrado/ExerciseGymGifsDB" target="_blank" rel="noreferrer">JahelCuadrado / ExerciseGymGifsDB</a>{exercise.source_media_url && <> · <a href={exercise.source_media_url} target="_blank" rel="noreferrer">Original demonstration</a></>}</p>
     </div>
   </dialog>
 }
@@ -116,6 +125,11 @@ export function ExerciseLibrary() {
   const allGroupCount = Object.values(data?.facetCounts.group ?? {}).reduce((sum, number) => sum + number, 0)
   return <div className="page library-page exercise-library-page">
     <header className="plan-tab-page-heading exercise-library-heading sync-status-heading"><div><p className="eyebrow">YOUR LIBRARY</p><h2>Find your next move</h2><p>100 essentials. Find your focus, pick your equipment, and make your next move count.</p></div><OfflineLibraryStatus compact /></header>
+    <HealthReference title="Use the workout library with confidence" sources={['activity', 'strength']}>
+      <p>Explore by body area, equipment and movement pattern. Open an exercise for technique steps, an editable starting target and practical progression guidance.</p>
+      <p>A balanced routine needs more than one body area. A focus filter helps you browse; it does not mean that one exercise guarantees a particular body change. Record sets, repetitions and resistance in My Plan to track performance.</p>
+      <p>Demonstrations are from the credited media library. FitSync writes the instructions and planning estimates; reference links are educational, not a certification of this catalog.</p>
+    </HealthReference>
     <section className="exercise-filter-studio" aria-label="Find exercises">
       <div className="exercise-search-row">
         <div className="exercise-search-field"><Search size={20} aria-hidden="true" /><input value={query} onChange={event => setQuery(event.target.value)} placeholder="Try bench press, DB row, or abs…" aria-label="Search exercises" autoComplete="off" spellCheck={false} />{query && <button onClick={clearSearch} aria-label="Clear exercise search"><X size={17} /></button>}</div>

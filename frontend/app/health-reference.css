@@ -1,0 +1,24 @@
+.health-reference{margin:20px 0;border:1px solid #d8dee4;border-radius:14px;background:#fff;color:#27292a;min-width:0;overflow:hidden}
+.health-reference>summary{display:flex;align-items:center;gap:10px;padding:16px;min-height:48px;cursor:pointer;list-style:none;font-weight:700;font-size:14px;line-height:1.5}
+.health-reference>summary::-webkit-details-marker{display:none}
+.health-reference>summary>svg:first-child{color:#8c571c;flex-shrink:0}
+.health-reference>summary>svg:last-child{margin-left:auto;flex-shrink:0;transition:transform .2s}
+.health-reference[open]>summary>svg:last-child{transform:rotate(180deg)}
+.health-reference>summary:focus-visible{outline:3px solid #c69a00;outline-offset:-4px}
+.health-reference-body{padding:0 16px 18px;font-size:14px;line-height:1.7;color:#45515c}
+.health-reference-body p{margin:0 0 12px;max-width:72ch}
+.health-reference-body ul{padding-left:20px;margin:0 0 14px}
+.health-reference-body li+li{margin-top:8px}
+.health-reference-body strong{color:#27292a}
+.health-reference-body small{display:block;font-size:12px;line-height:1.6}
+.health-reference-sources{display:flex;flex-wrap:wrap;gap:8px 16px;border-top:1px solid #e2e5e8;margin-top:16px;padding:12px 0}
+.health-reference-sources>span{width:100%;font-size:12px;font-weight:700;color:#45515c}
+.health-reference-sources a{color:#285b83;text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere}
+.food-basis-control{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:20px 0 12px}
+.food-basis-control>span{font-size:13px;font-weight:700;margin-right:auto}
+.food-basis-control button{background:#fff;color:#27292a;border:1px solid #c8ced5;border-radius:10px;padding:10px 14px;min-height:44px;cursor:pointer;font:inherit;font-size:13px}
+.food-basis-control button[aria-pressed=true]{background:#ffdf32;border-color:#b69a1c;font-weight:700}
+.food-basis-control button:focus-visible{outline:3px solid #285b83;outline-offset:2px}
+.food-data-coverage{font-size:13px;line-height:1.6;color:#45515c}
+.onb-choice-description{font-size:13px!important;color:#5a4935!important;line-height:1.6!important;margin:12px 0 0!important;max-width:68ch}
+@media(max-width:480px){.health-reference>summary{padding:13px;font-size:13px}.health-reference-body{padding:0 13px 15px}.food-basis-control button{flex:1}.food-basis-control>span{flex-basis:100%}}

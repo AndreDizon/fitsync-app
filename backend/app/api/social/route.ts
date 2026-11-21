@@ -7,6 +7,7 @@ const json=(data:unknown,status=200)=>Response.json(data,{status,headers:{'Cache
 export async function GET(request:Request){
  const auth=await authenticate(request);if(auth.response)return auth.response
  const params=Object.fromEntries(new URL(request.url).searchParams)
+ if(params.kind==='gym')return json({error:'Gym listings have been retired. Explore Learn & improve in Social.'},410)
  const result=params.notificationPostId?await auth.client!.rpc('notification_post',{post_id:params.notificationPostId}):await auth.client!.rpc('community_action',{action:params.action==='comments'?'comments':'list',doc:params})
  if(result.error)return json({error:result.error.code==='PGRST202'?'Run the Social migration to enable community features.':result.error.message},400)
  if(result.data?.posts)for(const post of result.data.posts){if(post.image_path){const signed=await auth.client!.storage.from('community-images').createSignedUrl(post.image_path,600);post.imageUrl=signed.data?.signedUrl||null}}
@@ -17,6 +18,7 @@ export async function POST(request:Request){
  const parsed=await readPlaylistBody(request);if(parsed.response)return parsed.response
  const input=parsed.value as {action?:string;doc?:Record<string,unknown>}
  if(!input||!['create','edit','delete','heart','comment','deleteComment'].includes(input.action||'')||!input.doc)return json({error:'Invalid community action.'},400)
+ if(input.doc.kind==='gym'&&['create','edit'].includes(input.action!))return json({error:'Gym listings have been retired. Explore Learn & improve in Social.'},410)
  const result=await auth.client!.rpc('community_action',{action:input.action,doc:input.doc})
  return result.error?json({error:result.error.code==='PGRST202'?'Run the Social migration first.':result.error.message},400):json(result.data)
 }

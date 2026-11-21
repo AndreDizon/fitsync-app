@@ -1,12 +1,12 @@
 # Social community setup
 
-The Social body has one overview with three preview sections: Open forum, Coaches & gym buddies, and Gyms & facilities. The Explore forum, Find your people and Explore gyms buttons each open their respective full feed and tools. Back to community returns to its overview section. The existing hero stays in place. These are real account-backed features, not the old preview posts. A regular Supabase account is required; the local admin tester cannot publish.
+The Social overview contains illustrative forum and buddy previews plus Learn & improve, a collection of source-linked educational articles. Open the forum or introductions for real account-backed posts; Back to community returns to the overview. Articles are available without signing in. A regular Supabase account is required to publish.
 
 ## Enable the database
 
 Run the **contents** of `backend/migrations/20261111_social.sql` in the Supabase SQL editor once. It is safe to rerun. This creates separate `community_*` tables, ownership rules, posting RPCs, and the private `community-images` storage bucket. Existing legacy `social_posts` and `gyms` tables are untouched.
 
-Forum and gym sections each allow two new posts per user per UTC day. Edits do not count, and deleting a post does not restore the daily allowance. Coaches/buddies allow one active introduction per account. Roles are self-described; FitSync does not verify credentials. Authors can edit/delete posts, and commenters can delete their own comments. Forum hearts toggle per account. Feeds paginate 12 posts; threads show the latest 100 comments.
+The forum allows two new posts per user per UTC day. Edits do not count, and deleting a post does not restore the daily allowance. Coaches/buddies allow one active introduction per account. Roles are self-described; FitSync does not verify credentials. Authors can edit/delete posts, and commenters can delete their own comments. Forum hearts toggle per account. Feeds paginate 12 posts; threads show the latest 100 comments.
 
 ## Quarterly purge and images
 
@@ -20,17 +20,11 @@ All posts expire together on January 1, April 1, July 1 and October 1 at 00:00 U
 
 The job physically removes expired posts and cascades comments/hearts, then deletes queued images in batches of 100. Deleted/replaced images and abandoned uploads are queued. A one-hour grace period avoids deleting an image while a post is being composed. Active post images are removed from that queue. More than 100 queued images drain over subsequent runs. Failed storage cleanup retries on the next run. Signed image links last ten minutes; refresh the feed to renew. Images are decoded and resized on the server with metadata removed.
 
-## Nearby facilities
+## Learn & improve
 
-Use my location asks for browser GPS permission. Requires HTTPS (localhost also works). `frontend/next.config.mjs` now permits geolocation for the app itself. Coordinates are not written to community posts or the account database. The server queries rounded coordinates and caches results for 15 minutes; map tiles and external directions have their own providers.
+Replaces the retired gym locator. Eight educational links cover workout, nutrition and recovery, with topic/reading-level filters and three articles per page. See `docs/learning-articles.md` for source and maintenance details. There is no location permission request, map, nearby search or walking route. Old locator endpoints return HTTP 410. Existing gym database records are preserved, but gym listings are unavailable in the interface and new gym listing requests are rejected by the API.
 
-Nearby searches use three public Overpass endpoints sequentially on failure (up to the requested maximum of five): overpass-api.de, overpass.kumi.systems, and overpass.private.coffee. These are map data services, not AI models. Coverage includes gyms/sports centres, outdoor fitness, yoga and mapped dietitians within about 6 km. Data is incomplete in some locations. The list sorts by straight-line distance. Clicking a result marks it on the map. Show walking route draws an OSRM/FOSSGIS foot route and shows estimated walking distance/time; external Google Maps directions are also available. Route requests send coordinates to the provider, are cached for 30 minutes and spaced at least one second apart per server instance. No paid API key is required.
-
-Public services do not have a universal daily reset. Retry-After is shown when supplied; otherwise the UI says the reset is unknown. Cache, one-minute per-account request spacing and provider cooldowns limit load. These process-local limits are best effort on serverless instances, not durable distributed quotas. High traffic requires a hosted/self-hosted provider and shared caching.
-
-OpenStreetMap tiles have attribution and normal browser caching. They are not prefetched for offline use. See https://wiki.openstreetmap.org/wiki/Overpass_API and https://operations.osmfoundation.org/policies/tiles/ for provider policies.
-
-Community writes and nearby search require an internet connection. There is no fabricated offline publish success. Reporting/moderation, messaging and verified professional credentials are not part of this version.
+Community writes require an internet connection. Reporting/moderation, messaging and verified professional credentials are not part of this version.
 
 ## Validation
 
