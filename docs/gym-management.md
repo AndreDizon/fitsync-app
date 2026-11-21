@@ -10,6 +10,7 @@ Apply these migrations in Supabase SQL Editor in order. Skip any already applied
 4. `20261121_gym_groups_v4.sql`
 5. `20261121_gym_groups_v5_income.sql`
 6. `20261121_gym_groups_v6_checkins.sql`
+7. `20261121_gym_groups_v7_checkin_confirmation.sql`
 
 The existing playlist migrations are prerequisites. Deploy frontend and backend together. `/api/gyms` now requires `gym_group_action_v5`; a missing migration shows an explicit setup error. The management migration is transactional and rerunnable. Existing groups, roles, session instants and shared content are preserved; new welcome/rules fields start blank.
 
@@ -30,11 +31,11 @@ The Membership section separates community membership/roles from a recorded gym 
 
 ## Daily member check-ins
 
-Training > Attendance offers a daily Check in action without needing a scheduled session. The server records the authenticated member, current timestamp and calendar day in the gym time zone. A unique gym/member/day key makes duplicate clicks and retries safe. Dates and identities cannot be supplied by the client. These are self-reported visits, not verified presence or staff-marked session attendance.
+Training > Attendance offers a daily Check in action without needing a scheduled session. The server records the authenticated member, current timestamp and calendar day in the gym time zone. A unique gym/member/day key makes duplicate clicks and retries safe. Dates and identities cannot be supplied by the client. New visits start pending. The current gym admin confirms a visit, recording the confirmation time and admin identity. Confirmation retries preserve the original confirmation. Existing v6 visits also start pending after the upgrade. Daily check-ins remain separate from scheduled-session attendance.
 
-Members see only their own history. Staff and the owner can choose All gym members; history is paginated at 20 records. Check-in remains available regardless of paid-plan status, matching existing community access rules. Leaving prevents new visits; history remains in the gym until account-data reset, account deletion or gym deletion. No location tracking is collected.
+Members and staff see only their own history and confirmation status. Only the current gym admin can see all member check-ins and confirm them; history is paginated at 20 records. The admin reviews visits instead of checking in: the button is hidden and the database rejects admin check-ins. Ownership transfer immediately transfers review and confirmation permissions. Check-in remains available regardless of paid-plan status, matching existing community access rules. Leaving prevents new visits; history remains in the gym until account-data reset, account deletion or gym deletion. No location tracking is collected.
 
-Apply v6 after v5. New check-in actions use the authenticated v6 RPC, with RLS enabled and direct table access revoked. Existing tools continue using v5, so a missing v6 migration only disables daily check-ins with a setup message.
+Apply v6 after v5, then v7. New check-in actions use the authenticated v7 RPC, with RLS enabled and direct table access revoked. v7 also hardens the v6 entry point so older clients cannot retain staff access or submit admin check-ins. Existing tools continue using v5, so a missing v7 migration only disables daily check-ins with a setup message. Do not rerun v6 after v7.
 
 ## Scheduled session attendance
 
