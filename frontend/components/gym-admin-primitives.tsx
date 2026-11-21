@@ -211,6 +211,7 @@ export function AdminTable<T>({
   zone,
   extraFilters,
   matches,
+  searchable = true,
 }: {
   rows: T[]
   columns: AdminColumn<T>[]
@@ -222,6 +223,7 @@ export function AdminTable<T>({
   zone: string
   extraFilters?: ReactNode
   matches?: (row: T, range: HistoryRange) => boolean
+  searchable?: boolean
 }) {
   const [range, setRange] = useState(emptyHistoryRange),
     [query, setQuery] = useState(''),
@@ -229,7 +231,8 @@ export function AdminTable<T>({
     id = useId()
   const filtered = rows.filter(
     (r) =>
-      searchText(r).toLowerCase().includes(query.trim().toLowerCase()) &&
+      (!searchable ||
+        searchText(r).toLowerCase().includes(query.trim().toLowerCase())) &&
       (matches
         ? matches(r, range)
         : (!range.from && !range.to) ||
@@ -241,22 +244,26 @@ export function AdminTable<T>({
   )
   return (
     <section className="ga-data">
-      <div className="ga-table-toolbar">
-        <div className="gg-field">
-          <label htmlFor={id}>Search {label.toLowerCase()}</label>
-          <input
-            id={id}
-            type="search"
-            maxLength={100}
-            value={query}
-            onChange={(e) => {
-              setQuery(e.target.value)
-              setPage(0)
-            }}
-          />
+      {(searchable || extraFilters) && (
+        <div className="ga-table-toolbar">
+          {searchable && (
+            <div className="gg-field">
+              <label htmlFor={id}>Search {label.toLowerCase()}</label>
+              <input
+                id={id}
+                type="search"
+                maxLength={100}
+                value={query}
+                onChange={(e) => {
+                  setQuery(e.target.value)
+                  setPage(0)
+                }}
+              />
+            </div>
+          )}
+          {extraFilters}
         </div>
-        {extraFilters}
-      </div>
+      )}
       <HistoryDateFilter
         label={dateLabel}
         zone={zone}

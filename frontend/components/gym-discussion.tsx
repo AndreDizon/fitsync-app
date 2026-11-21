@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
-import { Pin, Send, Share2, RefreshCw } from 'lucide-react'
+import { Pin, Send, Share2 } from 'lucide-react'
 import {
   gymRequest,
   type GymMembership,
@@ -39,6 +39,7 @@ export function GymDiscussion({
     manager = admin || membership.role === 'staff',
     zone = membership.gym!.time_zone || 'Asia/Manila'
   const [editing, setEditing] = useState<GymAnnouncement | null>(null)
+  const [showUnpinned, setShowUnpinned] = useState(false)
   const [messages, setMessages] = useState<Message[]>([]),
     [total, setTotal] = useState(0),
     [page, setPage] = useState(0),
@@ -125,35 +126,12 @@ export function GymDiscussion({
           <div className="gg-actions">
             <button type="button" onClick={() => setModal('pinned')}>
               <Pin size={16} />
-              Announcements (
+              See announcements (
               {membership.announcements?.filter((a) => a.pinned).length || 0})
             </button>
             <button type="button" onClick={() => setModal('share')}>
               <Share2 size={16} />
               Share playlist
-            </button>
-            <button type="button" onClick={() => setModal('sessions')}>
-              All training sessions
-            </button>
-            {admin && (
-              <button
-                type="button"
-                className="gg-primary"
-                onClick={() => {
-                  setEditing(null)
-                  setModal('post')
-                }}
-              >
-                Post update / event
-              </button>
-            )}
-            <button
-              type="button"
-              aria-label="Refresh discussion"
-              disabled={loading}
-              onClick={() => setRetry((n) => n + 1)}
-            >
-              <RefreshCw size={16} />
             </button>
           </div>
         </div>
@@ -221,25 +199,27 @@ export function GymDiscussion({
           )}
           <div ref={bottom} />
         </div>
-        <nav className="gg-pagination" aria-label="Discussion pages">
-          <button
-            type="button"
-            disabled={loading || (page + 1) * 30 >= total}
-            onClick={() => setPage((p) => p + 1)}
-          >
-            Older messages
-          </button>
-          <span>
-            Page {page + 1} of {Math.max(1, Math.ceil(total / 30))}
-          </span>
-          <button
-            type="button"
-            disabled={loading || page === 0}
-            onClick={() => setPage((p) => p - 1)}
-          >
-            Newer messages
-          </button>
-        </nav>
+        {total > 30 && (
+          <nav className="gg-pagination" aria-label="Discussion pages">
+            <button
+              type="button"
+              disabled={loading || (page + 1) * 30 >= total}
+              onClick={() => setPage((p) => p + 1)}
+            >
+              Older messages
+            </button>
+            <span>
+              Page {page + 1} of {Math.max(1, Math.ceil(total / 30))}
+            </span>
+            <button
+              type="button"
+              disabled={loading || page === 0}
+              onClick={() => setPage((p) => p - 1)}
+            >
+              Newer messages
+            </button>
+          </nav>
+        )}
         <form
           className="ga-chat-compose"
           onSubmit={async (e) => {
@@ -278,15 +258,43 @@ export function GymDiscussion({
           title="Gym announcements & events"
           onClose={() => setModal(null)}
         >
-          <p className="gg-small">
-            Pinned updates stay first. Event times use {zone}. Preregistering
-            reserves a place; it does not record attendance.
-          </p>
-          {!membership.announcements?.length && (
-            <p className="gg-empty">No announcements yet.</p>
+          <div className="gg-actions">
+            <button type="button" onClick={() => setModal('sessions')}>
+              All training sessions
+            </button>
+            {admin && (
+              <button
+                type="button"
+                className="gg-primary"
+                onClick={() => {
+                  setEditing(null)
+                  setModal('post')
+                }}
+              >
+                Post update / event
+              </button>
+            )}
+          </div>
+          {admin && (
+            <label className="ga-check">
+              <input
+                type="checkbox"
+                checked={showUnpinned}
+                onChange={(e) => setShowUnpinned(e.target.checked)}
+              />
+              Show unpinned announcements
+            </label>
           )}
+          <p className="gg-small">
+            Pinned announcements appear here. Event times use {zone}.
+            Preregistering reserves a place; it does not record attendance.
+          </p>
+          {!membership.announcements?.some(
+            (a) => a.pinned || (admin && showUnpinned),
+          ) && <p className="gg-empty">No pinned announcements yet.</p>}
           <div className="ga-pinned-posts">
             {[...(membership.announcements || [])]
+              .filter((a) => a.pinned || (admin && showUnpinned))
               .sort((a, b) => Number(b.pinned) - Number(a.pinned))
               .map((a) => {
                 const s = membership.sessions?.find(
@@ -451,7 +459,7 @@ export function GymDiscussion({
       {modal === 'sessions' && (
         <AdminModal
           title="All training sessions"
-          onClose={() => setModal(null)}
+          onClose={() => setModal('pinned')}
         >
           <Sessions
             membership={membership}
@@ -468,7 +476,7 @@ export function GymDiscussion({
           zone={zone}
           locked={locked}
           onAction={onAction}
-          onClose={() => setModal(null)}
+          onClose={() => setModal('pinned')}
         />
       )}
       {modal === 'share' && (

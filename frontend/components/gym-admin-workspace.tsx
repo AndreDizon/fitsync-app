@@ -202,6 +202,7 @@ export function GymAdminWorkspace({
         </div>
         <div
           className="ga-content"
+          data-section={active.id}
           id="gym-admin-panel"
           ref={panel}
           tabIndex={-1}
@@ -309,13 +310,14 @@ function Members({ data, locked, run }: AdminPageProps) {
       await run(action, { userId: user.user_id, ...doc }, 'Member updated.')
   }
   return (
-    <>
-      <section className="ga-section">
+    <div className="ga-member-cards">
+      <section className="ga-member-card">
         <h4>
           Pending requests{' '}
           <span className="gg-inline-count">{data.requests?.length || 0}</span>
         </h4>
         <AdminTable
+          searchable={false}
           rows={data.requests || []}
           label="Pending requests"
           dateLabel="Requested on"
@@ -373,12 +375,13 @@ function Members({ data, locked, run }: AdminPageProps) {
           ]}
         />
       </section>
-      <section className="ga-section">
+      <section className="ga-member-card">
         <h4>
           All members{' '}
           <span className="gg-inline-count">{data.members.length}/100</span>
         </h4>
         <AdminTable
+          searchable={false}
           rows={data.members}
           label="All members"
           dateLabel="Joined on"
@@ -442,9 +445,10 @@ function Members({ data, locked, run }: AdminPageProps) {
           ]}
         />
       </section>
-      <section className="ga-section">
+      <section className="ga-member-card">
         <h4>Banned accounts</h4>
         <AdminTable
+          searchable={false}
           rows={data.bans || []}
           label="Banned accounts"
           dateLabel="Banned on"
@@ -491,7 +495,7 @@ function Members({ data, locked, run }: AdminPageProps) {
           ]}
         />
       </section>
-      <section className="ga-section">
+      <section className="ga-member-card">
         <h4>Team activity</h4>
         <p className="gg-small">Review the latest 200 management actions.</p>
         <button type="button" onClick={() => setActivity(true)}>
@@ -505,6 +509,7 @@ function Members({ data, locked, run }: AdminPageProps) {
             labelled separately.
           </p>
           <AdminTable
+            searchable={false}
             rows={(data.activity || []).filter(
               (r) => role === 'all' || r.actor_role === role,
             )}
@@ -542,7 +547,7 @@ function Members({ data, locked, run }: AdminPageProps) {
           />
         </AdminModal>
       )}
-    </>
+    </div>
   )
 }
 type Visit = {
