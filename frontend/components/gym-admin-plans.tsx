@@ -30,18 +30,6 @@ export function GymAdminPlans({ data, locked, run }: AdminPageProps) {
     periods
       .filter((p) => p.user_id === id && !p.cancelled && p.ends_on >= today)
       .sort((a, b) => a.starts_on.localeCompare(b.starts_on))[0]
-  async function remove(p: GymPeriod) {
-    if (
-      await confirm({
-        title: 'Remove this plan assignment?',
-        message:
-          'This ends the assignment and keeps its history. Payments are preserved. Outstanding fees remain until you adjust the record; no refund is issued.',
-        confirmLabel: 'Remove plan',
-        destructive: true,
-      })
-    )
-      await run('cancel_period', { id: p.id }, 'Plan assignment removed.')
-  }
   return (
     <>
       <div className="ga-admin-cards">
@@ -63,6 +51,7 @@ export function GymAdminPlans({ data, locked, run }: AdminPageProps) {
             </button>
           </div>
           <AdminTable
+            searchable={false}
             rows={plans.filter(
               (p) =>
                 availability === 'all' ||
@@ -202,23 +191,13 @@ export function GymAdminPlans({ data, locked, run }: AdminPageProps) {
                       <button
                         type="button"
                         className="gg-primary"
-                        disabled={locked || !plans.some((p) => !p.archived)}
+                        disabled={
+                          locked || (!p && !plans.some((p) => !p.archived))
+                        }
                         onClick={() => setAssignment({ member: m, period: p })}
                       >
                         {p ? 'Update plan' : 'Apply plan'}
                       </button>
-                      {p && (
-                        <>
-                          <button
-                            type="button"
-                            className="gg-danger"
-                            disabled={locked}
-                            onClick={() => void remove(p)}
-                          >
-                            Remove plan
-                          </button>
-                        </>
-                      )}
                       <button type="button" onClick={() => setHistory(m)}>
                         Plan history
                       </button>
@@ -284,13 +263,6 @@ export function GymAdminPlans({ data, locked, run }: AdminPageProps) {
                         }}
                       >
                         Update plan
-                      </button>
-                      <button
-                        type="button"
-                        disabled={locked}
-                        onClick={() => void remove(p)}
-                      >
-                        Remove plan
                       </button>
                     </div>
                   ),
@@ -605,6 +577,43 @@ function Assignment({
           </button>
         </fieldset>
       </form>
+      {period && !period.cancelled && (
+        <section className="ga-plan-removal">
+          <h3>Remove current plan</h3>
+          <p className="gg-small">
+            Cancel {period.plan_name}, {adminDay(period.starts_on)} to{' '}
+            {adminDay(period.ends_on)}. Payment history and outstanding fees are
+            kept.
+          </p>
+          <button
+            type="button"
+            className="gg-danger"
+            disabled={locked}
+            onClick={async () => {
+              if (
+                await confirm({
+                  title: 'Remove this plan assignment?',
+                  message:
+                    'This ends the assignment and keeps its history. Payments are preserved. Outstanding fees remain until you adjust the record; no refund is issued.',
+                  confirmLabel: 'Remove plan',
+                  destructive: true,
+                })
+              ) {
+                if (
+                  await run(
+                    'cancel_period',
+                    { id: period.id },
+                    'Plan assignment removed.',
+                  )
+                )
+                  onClose()
+              }
+            }}
+          >
+            Remove plan
+          </button>
+        </section>
+      )}
     </AdminModal>
   )
 }

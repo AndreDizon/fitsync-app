@@ -520,6 +520,18 @@
 .ga-assignment-actions + .gg-small {
   margin: 0;
 }
+.ga-plan-removal {
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #dce4dd;
+}
+.ga-plan-removal h3 {
+  margin: 0 0 8px;
+  font-size: 16px;
+}
+.ga-plan-removal .gg-small {
+  margin: 0 0 14px;
+}
 .ga-summary {
   display: flex;
   flex-wrap: wrap;
