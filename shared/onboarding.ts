@@ -33,6 +33,13 @@ export const emptyOnboarding: OnboardingDraft = {
 }
 export function validTimeZone(value: string): boolean { try { if (!value || value.length > 80) return false; new Intl.DateTimeFormat('en', { timeZone: value }); return true } catch { return false } }
 const oneOf = (value: string, choices: readonly string[]) => choices.includes(value)
+export function targetWeightGoalError(value: Pick<OnboardingDraft, 'goal' | 'weightKg' | 'targetWeightKg'>): string | null {
+  const validWeight = (input: string) => /^\d{1,3}(?:\.\d{1,2})?$/.test(input) && Number(input) >= 20 && Number(input) <= 350
+  if (value.goal === 'fat_loss' && validWeight(value.weightKg) && validWeight(value.targetWeightKg) && Number(value.targetWeightKg) > Number(value.weightKg)) {
+    return 'For Lose body fat, target weight must not be higher than your current weight. Lower your target or change your goal.'
+  }
+  return null
+}
 export function validateOnboarding(value: OnboardingDraft, step?: number, legacy = false, requireMeasurements = true): string[] {
   const errors: string[] = []
   const check = (section: number) => step === undefined || step === section
@@ -52,6 +59,9 @@ export function validateOnboarding(value: OnboardingDraft, step?: number, legacy
       if (input === '' && requireMeasurements) errors.push(`Enter your ${label.toLowerCase()}.`)
       else if (input !== '' && (!/^\d{1,3}(?:\.\d{1,2})?$/.test(input) || !Number.isFinite(Number(input)) || Number(input) < min || Number(input) > max)) errors.push(`${label} must be ${min}–${max}.`)
     }
+    // Keep existing profiles readable; require a consistent target on every new save.
+    const targetError = requireMeasurements ? targetWeightGoalError(value) : null
+    if (targetError) errors.push(targetError)
   }
   if (check(2)) {
     if (!oneOf(value.experience, ['Beginner', 'Intermediate', 'Advanced'])) errors.push('Choose your training experience.')
