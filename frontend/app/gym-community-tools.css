@@ -1,0 +1,52 @@
+.gg-tools{margin-top:22px;min-width:0}
+.gg-tabs{display:flex;gap:6px;padding:8px;background:#eef3ef;border:1px solid #d4dfd8;border-radius:12px 12px 0 0;overflow-x:auto;scrollbar-width:thin;scrollbar-color:#9aae9f #eef3ef}
+.sc-gyms .gg-tabs button{background:transparent;border-color:transparent;box-shadow:none;color:#40584b;flex-shrink:0;white-space:nowrap}
+.sc-gyms .gg-tabs button[aria-pressed=true]{background:#ffe135;border-color:#c1a624;color:#28332a}
+.sc-gyms button:not(:disabled):hover{filter:brightness(.97)}
+.gg-tab-count{min-width:18px;padding:1px 4px;border-radius:5px;background:#fff8;color:#293332;font-variant-numeric:tabular-nums}
+.gg-panel{padding:22px;background:#fffdf7;color:#293332;border:1px solid #d4dfd8;border-top:0;border-radius:0 0 14px 14px;min-width:0}
+.gg-panel h3{margin:0 0 6px;font-size:19px;line-height:1.3}
+.gg-section-heading{display:flex;align-items:start;justify-content:space-between;gap:12px;margin-bottom:16px}
+.gg-section-heading p{margin:0;max-width:65ch;font-size:13px;color:#536358}
+.gg-inline-count{font-size:12px;color:#536358;white-space:nowrap;font-variant-numeric:tabular-nums}
+.gg-compose{margin:18px 0 22px;padding:14px 0;border-block:1px solid #dce4dd}
+.gg-compose summary{display:flex;align-items:center;gap:8px;min-height:44px;font-size:13px;font-weight:700;cursor:pointer;list-style:none}
+.gg-compose summary::-webkit-details-marker{display:none}
+.gg-compose summary::after{content:'';width:7px;height:7px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg);margin-left:auto;margin-right:4px}
+.gg-compose[open] summary::after{transform:rotate(225deg)}
+.gg-compose form{margin-top:12px}
+.gg-actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.sc-gyms .gg-compose fieldset>button{justify-self:start}
+.gg-empty{margin:16px 0;padding:16px 0;font-size:13px;color:#536358}
+.gg-posts{margin-top:20px}
+.gg-post{padding:20px 0;border-top:1px solid #dce4dd;min-width:0}
+.gg-post:last-child{padding-bottom:0}
+.gg-post h4{font-size:17px;line-height:1.4;margin:0 0 8px;overflow-wrap:anywhere}
+.gg-post-body{margin:8px 0 12px;max-width:70ch;white-space:pre-wrap;overflow-wrap:anywhere;font-size:14px;line-height:1.7}
+.gg-meta{display:block;font-size:12px;line-height:1.6;color:#536358;margin:6px 0 12px;overflow-wrap:anywhere}
+.gg-pinned{background:#fff7d8;margin-inline:-12px;padding-inline:12px;border-radius:10px}
+.gg-pin-label{display:inline-flex;align-items:center;gap:4px;color:#66501d;font-size:11px;font-weight:700;margin-bottom:8px}
+.gg-form-row{display:grid;grid-template-columns:1fr 1fr 90px;gap:12px}
+.gg-field{display:grid;gap:6px}
+.gg-session-time{color:#315c50;font-size:13px;font-weight:700;margin:6px 0 12px}
+.gg-session-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:12px}
+.gg-plain-list,.gg-activity{list-style:none;padding:0;margin:12px 0}
+.gg-plain-list li{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 0;border-top:1px solid #dce4dd}
+.gg-plain-list li>div:first-child{min-width:0;overflow-wrap:anywhere}
+.gg-plain-list .gg-meta{margin-bottom:0}
+.gg-panel .gg-roster{padding:0;border:0;border-radius:0;background:transparent;margin-top:24px}
+.gg-member-more summary{min-height:44px;display:flex;align-items:center;padding:0 10px;cursor:pointer;font-size:12px;font-weight:700}
+.gg-member-more[open]{display:flex;flex-wrap:wrap;gap:6px}
+.gg-member-more[open]>button{margin:4px}
+.gg-admin-details{margin-top:24px;border-top:1px solid #dce4dd;padding-top:12px}
+.gg-admin-details summary{min-height:44px;cursor:pointer;font-weight:700}
+.gg-activity li{padding:12px 0;border-top:1px solid #dce4dd}
+.gg-activity p{margin:0;font-size:13px;overflow-wrap:anywhere}
+.gg-activity time{font-size:11px;color:#536358}
+.gg-pending{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.gg-pending p{margin:4px 0 0}
+.gg-pending button{margin:0}
+.sc-gyms ::selection{background:#ffe135;color:#293332}
+.sc-gyms :is(input,textarea){caret-color:#315c50}
+@media(max-width:700px){.gg-panel{padding:16px}.gg-tabs{gap:4px;padding:6px}.sc-gyms .gg-tabs button{padding:8px 10px}.gg-form-row{grid-template-columns:1fr}.gg-plain-list li{flex-wrap:wrap}.gg-plain-list li>.gg-actions{width:100%}.sc-gyms select{font-size:16px}.gg-section-heading{gap:8px}.gg-panel .gg-member-actions{padding-left:0}.gg-panel .gg-member-more[open]{width:100%}}
+@media(prefers-reduced-motion:no-preference){.gg-panel{animation:gg-reveal .16s ease-out}@keyframes gg-reveal{from{opacity:.8}to{opacity:1}}}

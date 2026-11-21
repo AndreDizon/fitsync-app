@@ -40,7 +40,7 @@
 .sc-gyms fieldset{border:0;padding:0;margin:0;min-width:0;display:grid;gap:12px}
 .gg-edit form,.gg-create form{margin-top:12px}
 .sc-gyms label{display:grid;gap:6px;font-size:12px;font-weight:700}
-.sc-gyms :is(input,textarea){width:100%;min-width:0;box-sizing:border-box;min-height:44px;padding:10px 12px;border:1px solid #c9d5cd;border-radius:9px;background:#fff;color:#293332;font:inherit;font-size:14px}
+.sc-gyms :is(input,textarea,select){width:100%;min-width:0;box-sizing:border-box;min-height:44px;padding:10px 12px;border:1px solid #c9d5cd;border-radius:9px;background:#fff;color:#293332;font:inherit;font-size:14px}
 .sc-gyms textarea{min-height:90px;resize:vertical}
 .gg-roster{margin-top:20px}
 .gg-roster header>p{font-size:12px;margin:5px 0 14px}
@@ -67,7 +67,7 @@
 .gg-pagination{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:18px;font-size:12px}
 .gg-disclaimer{margin-top:22px;border-top:1px solid #becdc2;padding-top:14px}
 .sc-gyms button:disabled{opacity:.5;cursor:default;box-shadow:none}
-.sc-gyms :is(button,input,textarea,summary):focus-visible,.sc-gyms-overview button:focus-visible{outline:3px solid #a77c13;outline-offset:3px}
+.sc-gyms :is(button,input,textarea,select,summary):focus-visible,.sc-gyms-overview button:focus-visible{outline:3px solid #a77c13;outline-offset:3px}
 .app-shell[data-home-preview-dark='true'] .sc-gyms{color:#fff}
 .app-shell[data-home-preview-dark='true'] .sc-gyms :is(.gg-membership,.gg-roster,.gg-entry>form,.gg-create,.gg-directory>article){color:#293332}
 @media(max-width:700px){.sc-gyms-intro{grid-template-columns:1fr;gap:16px;padding:18px}.sc-gyms-intro>div{display:grid;grid-template-columns:24px 1fr;gap:3px 10px}.sc-gyms-intro svg{grid-row:span 2;margin:0}.sc-gyms-intro p{margin:0}.gg-entry,.gg-directory{grid-template-columns:1fr}.gg-heading{align-items:start}.gg-heading h2{font-size:24px}.gg-roster li{flex-wrap:wrap}.gg-member-actions{width:100%;padding-left:48px;box-sizing:border-box}.gg-exit{align-items:start;flex-direction:column}.gg-membership,.gg-roster,.gg-entry>form,.gg-create,.gg-directory>article{padding:16px}.sc-gyms :is(input,textarea){font-size:16px}}

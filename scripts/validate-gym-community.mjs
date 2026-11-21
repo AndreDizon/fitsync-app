@@ -1,0 +1,141 @@
+import assert from 'node:assert/strict'
+import {readFile} from 'node:fs/promises'
+import {PGlite} from '@electric-sql/pglite'
+const db=new PGlite()
+const [admin,staff,member,outsider,applicant]=[1,2,3,4,5].map(n=>`${n}1111111-1111-4111-8111-111111111111`)
+await db.exec(`create role anon;create role authenticated;create schema auth;create table auth.users(id uuid primary key,raw_user_meta_data jsonb default '{}');create function auth.uid() returns uuid language sql stable as $$select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid$$;grant usage on schema auth to authenticated;`)
+for(const [id,username]of [[admin,'Admin'],[staff,'Staff'],[member,'Member'],[outsider,'Outsider'],[applicant,'Applicant']])await db.query('insert into auth.users values($1,$2)',[id,JSON.stringify({username,email:'private@example.com',fitsync_onboarding:{weightKg:75}})])
+for(const file of ['20261107_plan_playlists.sql','20261108_playlist_schedule.sql','20261121_gym_groups.sql','20261121_gym_groups_community.sql','20261121_gym_groups_community.sql'])await db.exec(await readFile('backend/migrations/'+file,'utf8'))
+const as=(user,sql,args=[])=>db.transaction(async tx=>{await tx.exec('set local role authenticated');await tx.query("select set_config('request.jwt.claim.sub',$1,true)",[user]);return tx.query(sql,args)})
+const call=async(user,action,doc={})=>(await as(user,'select public.gym_group_action_v2($1,$2::jsonb) as data',[action,JSON.stringify(doc)])).rows[0].data
+const gym=await call(admin,'create',{name:'Our team',joinMode:'approval'})
+const gid=gym.gym.id,code=gym.gym.join_code
+assert.equal(gym.gym.join_mode,'approval')
+const pending=await call(staff,'join',{code,role:'admin'})
+assert.equal(pending.gym,null);assert.equal(pending.pending.gym_id,gid)
+assert.equal((await call(staff,'mine')).members.length,0)
+assert.equal((await call(admin,'mine')).requests[0].user_id,staff)
+await assert.rejects(call(staff,'approve',{userId:staff}),/Join a gym/)
+await call(admin,'approve',{userId:staff})
+assert.equal((await call(staff,'mine')).role,'member')
+await call(admin,'role',{userId:staff,role:'staff'})
+await call(member,'join',{gymId:gid})
+assert.equal((await call(member,'mine')).pending.name,'Our team')
+await call(staff,'approve',{userId:member})
+await assert.rejects(call(staff,'role',{userId:member,role:'staff'}),/Only the gym admin/)
+await assert.rejects(call(staff,'ban',{userId:member}),/Only the gym admin/)
+await assert.rejects(call(staff,'transfer',{userId:member}),/Only the gym admin/)
+for(const action of ['approve','announce','schedule'])await assert.rejects(call(member,action,{}),/Only gym staff/)
+const other=await call(outsider,'create',{name:'Other team'})
+await assert.rejects(call(outsider,'approve',{userId:applicant}),/no longer exists/)
+await call(applicant,'join',{code})
+assert.equal((await call(member,'mine')).requests.length,0,'Requests are private to management')
+assert.equal((await call(member,'mine')).activity.length,0)
+await call(staff,'reject',{userId:applicant});assert.equal((await call(applicant,'mine')).pending,null)
+await call(applicant,'join',{code});await call(applicant,'cancel_request');assert.equal((await call(applicant,'mine')).pending,null)
+// A request can arrive before the gym fills; approval must still enforce capacity.
+await call(applicant,'join',{code})
+await db.exec(`insert into auth.users(id) select ('60000000-0000-4000-8000-'||lpad(n::text,12,'0'))::uuid from generate_series(1,97)n;insert into public.gym_group_members(user_id,gym_id) select id,'${gid}' from auth.users where id::text like '60000000-%'`)
+await assert.rejects(call(staff,'approve',{userId:applicant}),/100-member limit/)
+assert.equal((await call(applicant,'mine')).pending.gym_id,gid)
+await db.exec("delete from auth.users where id::text like '60000000-%'")
+await call(applicant,'cancel_request')
+// Switching policy clears old requests without granting membership.
+await call(applicant,'join',{code});await call(admin,'update',{name:'Our team',description:'',joinMode:'invite'})
+assert.equal((await call(applicant,'mine')).pending,null)
+assert.equal((await call(applicant,'list',{q:'Our team'})).total,0)
+await assert.rejects(call(applicant,'join',{gymId:gid}),/not found/)
+await call(applicant,'join',{code});await call(applicant,'leave')
+await call(admin,'update',{name:'Our team',description:'',joinMode:'approval'})
+// Announcements are readable only by members and editable only by management.
+let state=await call(staff,'announce',{title:'Welcome team',body:'Bring water.'})
+const announcement=state.announcements[0].id
+await call(admin,'edit_announcement',{id:announcement,title:'Welcome everyone',body:'Bring water and a towel.'})
+await call(staff,'pin',{id:announcement,pinned:true})
+assert.equal((await call(member,'mine')).announcements[0].pinned,true)
+await assert.rejects(call(member,'delete_announcement',{id:announcement}),/Only gym staff/)
+await assert.rejects(call(outsider,'delete_announcement',{id:announcement}),/not found/)
+for(let i=0;i<3;i++){state=await call(admin,'announce',{title:'Extra note '+i,body:'Message'});const a=state.announcements.find(a=>a.title==='Extra note '+i);if(i<2)await call(admin,'pin',{id:a.id,pinned:true});else await assert.rejects(call(admin,'pin',{id:a.id,pinned:true}),/three/)}
+// Private discussion, paging, spam cap, own-delete, staff moderation and isolation.
+await call(member,'message',{body:'Anyone training today?'})
+let discussion=await call(staff,'discussion');const message=discussion.messages[0].id
+assert.equal(discussion.total,1);assert.equal((await call(outsider,'discussion')).total,0)
+await assert.rejects(call(admin,'message',{body:'   '}),/1–2,000/)
+await assert.rejects(call(applicant,'discussion'),/Join a gym/)
+await assert.rejects(call(outsider,'delete_message',{id:message}),/not found/)
+await call(staff,'delete_message',{id:message});assert.equal((await call(member,'discussion')).total,0)
+for(let i=0;i<5;i++)await call(member,'message',{body:'Message '+i})
+// The earlier deleted message is gone, so five current messages are allowed.
+await assert.rejects(call(member,'message',{body:'Spam'}),/wait a minute/)
+await db.query(`insert into public.gym_messages(gym_id,author_id,body,created_at) select $1,$2,'Older message',now()-interval '2 minutes' from generate_series(1,31)`,[gid,admin])
+assert.equal((await call(member,'discussion',{page:0})).messages.length,30)
+assert.equal((await call(member,'discussion',{page:1})).messages.length,6)
+// Group sessions serialize reservations and enforce capacity.
+const startsAt=new Date(Date.now()+86400000).toISOString(),endsAt=new Date(Date.now()+90000000).toISOString()
+state=await call(staff,'schedule',{title:'Saturday training',description:'Meet at the entrance',startsAt,endsAt,capacity:1})
+const session=state.sessions[0].id
+await call(member,'rsvp',{id:session});await call(member,'rsvp',{id:session})
+assert.equal((await call(staff,'mine')).sessions[0].attending,1)
+await assert.rejects(call(staff,'rsvp',{id:session}),/full/)
+await assert.rejects(call(outsider,'rsvp',{id:session}),/not found/)
+await call(member,'unrsvp',{id:session});await call(staff,'rsvp',{id:session})
+await assert.rejects(call(admin,'schedule',{title:'Past session',startsAt:'2020-01-01',endsAt:'2020-01-02',capacity:1}),/future session/)
+await assert.rejects(call(member,'cancel_session',{id:session}),/Only gym staff/)
+// Only explicit workout template fields survive sharing, even via direct RPC.
+const playlist={name:'Team workout',description:'An editable template',kind:'workout',duration:'day',email:'private@example.com',items:[{id:'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',exerciseId:'push-up',day:0,time:'08:00',sets:3,targetType:'reps',target:10,restSeconds:60,privateHealth:'hidden'}]}
+state=await call(member,'share_playlist',{playlist})
+const shared=state.playlists[0].id
+const snapshot=(await call(staff,'read_playlist',{id:shared})).playlist
+assert.equal(snapshot.kind,'workout');assert.equal(snapshot.items.length,1);assert(!('email'in snapshot));assert(!('privateHealth'in snapshot.items[0]));assert.equal(snapshot.items[0].sets,3)
+state=await call(member,'share_playlist',{playlist:{...playlist,name:'Thursday template',selectedDay:3,restDays:[],items:[{...playlist.items[0],day:3}]}})
+const thursday=state.playlists.find(p=>p.name==='Thursday template')
+const thursdayCopy=(await call(staff,'read_playlist',{id:thursday.id})).playlist
+assert.equal(thursdayCopy.selectedDay,3);assert.equal(thursdayCopy.items[0].day,3)
+await call(member,'unshare_playlist',{id:thursday.id})
+await assert.rejects(call(outsider,'read_playlist',{id:shared}),/not found/)
+await assert.rejects(call(staff,'share_playlist',{playlist:{...playlist,kind:'nutrition'}}),/valid workout/)
+await assert.rejects(call(member,'share_playlist',{playlist:{...playlist,items:[{...playlist.items[0],exerciseId:'invented'}]}}),/valid library/)
+await call(staff,'unshare_playlist',{id:shared});assert.equal((await call(member,'mine')).playlists.length,0)
+// Demotion takes away management permissions immediately.
+await call(admin,'role',{userId:staff,role:'member'})
+await assert.rejects(call(staff,'announce',{title:'No permission',body:'No'}),/Only gym staff/)
+await call(admin,'role',{userId:staff,role:'staff'})
+// Ban cannot be bypassed by old clients, directory join or a code.
+await call(admin,'ban',{userId:member})
+assert.equal((await call(member,'mine')).gym,null)
+await assert.rejects(call(member,'join',{code}),/banned/)
+await assert.rejects(as(member,'select public.gym_group_action($1,$2::jsonb)',['join',JSON.stringify({gymId:gid})]),/banned/)
+assert.equal((await call(staff,'mine')).bans.length,0)
+await call(admin,'unban',{userId:member});await call(member,'join',{code});await call(staff,'approve',{userId:member})
+// Transfer changes the sole administrator, old admin becomes staff and may leave.
+await assert.rejects(call(admin,'transfer',{userId:outsider}),/Member not found/)
+await call(admin,'transfer',{userId:staff});assert.equal((await call(staff,'mine')).role,'admin');assert.equal((await call(admin,'mine')).role,'staff')
+await assert.rejects(call(admin,'role',{userId:member,role:'staff'}),/Only the gym admin/)
+await call(admin,'leave')
+assert.equal((await call(admin,'mine')).gym,null)
+assert((await call(staff,'mine')).activity.some(a=>a.action==='transfer'))
+await db.query("update auth.users set raw_user_meta_data=raw_user_meta_data-'fitsync_onboarding' where id=$1",[admin])
+assert.equal((await call(staff,'mine')).gym.id,gid,'Resetting former owner does not disband transferred gym')
+// Activity is bounded even after a busy moderation period.
+await db.query("insert into public.gym_activity(gym_id,actor_id,action) select $1,$2,'update' from generate_series(1,205)",[gid,staff])
+await call(staff,'update',{name:'Our team',description:'',joinMode:'approval'})
+assert.equal((await db.query('select count(*)::int as n from public.gym_activity where gym_id=$1',[gid])).rows[0].n,200)
+// Direct reads/writes denied for all new tables; anon RPC denied.
+const tables=['gym_join_requests','gym_bans','gym_announcements','gym_messages','gym_sessions','gym_session_attendees','gym_shared_playlists','gym_activity']
+for(const t of tables)for(const sql of ['select * from','delete from'])await assert.rejects(as(member,`${sql} public.${t}`),/permission denied/)
+await assert.rejects(call('','mine'),/Authentication required/)
+await assert.rejects(db.transaction(async tx=>{await tx.exec('set local role anon');return tx.query('select public.gym_group_action_v2($1,$2::jsonb)',['mine','{}'])}),/permission denied/)
+// Reset removes shared contributions and pending requests; admin reset cascades.
+await call(member,'share_playlist',{playlist})
+await call(applicant,'join',{code})
+await db.query("update auth.users set raw_user_meta_data=raw_user_meta_data-'fitsync_onboarding' where id=$1",[applicant])
+assert.equal((await call(applicant,'mine')).pending,null)
+await db.query("update auth.users set raw_user_meta_data=raw_user_meta_data-'fitsync_onboarding' where id=$1",[member])
+assert.equal((await call(member,'mine')).gym,null)
+assert.equal((await call(staff,'mine')).playlists.length,0)
+await db.query("update auth.users set raw_user_meta_data=raw_user_meta_data-'fitsync_onboarding' where id=$1",[staff])
+assert.equal((await call(staff,'mine')).gym,null)
+for(const t of tables)assert.equal((await db.query(`select count(*)::int as n from public.${t}`)).rows[0].n,0,`${t} cleaned`)
+await call(outsider,'disband')
+await db.close()
+console.log('PASS community migration reruns, joining policies/requests, staff permissions, announcements/pins, private discussion, session capacity, playlist privacy, moderation, ownership transfer, audit, RLS and reset cleanup')

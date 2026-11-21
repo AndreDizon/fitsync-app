@@ -26,9 +26,9 @@ Replaces the retired gym locator. Seventeen educational links cover workout, nut
 
 ## Gym communities
 
-Apply `backend/migrations/20261121_gym_groups.sql` after the existing migrations to enable the fourth card's create/join actions. Each account can belong to one group, up to 100 members. The creator is gym admin and can promote members to staff or demote staff to members. Staff cannot manage roles. Join by name search or a ten-character code. These are unverified user-created groups, not paid memberships or business listings. See `docs/gym-groups.md` for permissions, privacy and reset behavior. Run `node scripts/validate-gym-groups.mjs` for isolated SQL tests.
+Apply `backend/migrations/20261121_gym_groups.sql`, then `backend/migrations/20261121_gym_groups_community.sql`, after the existing playlist migrations. If groups already work, apply just the community migration. Each account can belong to one group, up to 100 members. Open, approval-required and invite-only joining are supported. The gym workspace includes announcements, private discussion, session reservations, shared workout playlists and a roster. Staff review requests, manage announcements/sessions and moderate content; only the admin changes roles, manages bans, transfers ownership or deletes the gym. These are unverified communities, not paid memberships or business listings. See `docs/gym-groups.md` for details. Run `node scripts/validate-gym-community.mjs` and `node scripts/validate-gym-api.mjs` for isolated checks.
 
-Community writes require an internet connection. Reporting/moderation, messaging and verified professional credentials are not part of this version.
+Community writes require an internet connection. Gym discussion and moderation are available within a group. Direct messaging, global forum reporting/moderation and verified professional credentials are not part of this version.
 
 ## Validation
 
