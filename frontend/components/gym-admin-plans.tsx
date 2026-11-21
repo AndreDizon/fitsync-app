@@ -205,17 +205,10 @@ export function GymAdminPlans({ data, locked, run }: AdminPageProps) {
                         disabled={locked || !plans.some((p) => !p.archived)}
                         onClick={() => setAssignment({ member: m, period: p })}
                       >
-                        {p ? 'Edit plan' : 'Apply plan'}
+                        {p ? 'Update plan' : 'Apply plan'}
                       </button>
                       {p && (
                         <>
-                          <button
-                            type="button"
-                            disabled={locked}
-                            onClick={() => setAssignment({ member: m })}
-                          >
-                            Renew
-                          </button>
                           <button
                             type="button"
                             className="gg-danger"
@@ -290,7 +283,7 @@ export function GymAdminPlans({ data, locked, run }: AdminPageProps) {
                           setAssignment({ member: history, period: p })
                         }}
                       >
-                        Edit
+                        Update plan
                       </button>
                       <button
                         type="button"
@@ -437,26 +430,41 @@ function Assignment({
   onClose: () => void
 } & Pick<AdminPageProps, 'locked' | 'run'>) {
   const last = periods
-      .filter((p) => p.user_id === member.user_id && !p.cancelled)
-      .map((p) => p.ends_on)
-      .sort()
-      .at(-1),
-    initial =
-      period?.starts_on || (last && last >= today ? shiftDate(last, 1) : today)
-  const [chosen, setChosen] = useState(
-      plans.some((p) => p.id === period?.plan_id && !p.archived)
-        ? period!.plan_id!
-        : '',
-    ),
-    [start, setStart] = useState(initial),
-    [end, setEnd] = useState(period?.ends_on || shiftDate(initial, 29)),
-    confirm = useConfirmation()
+    .filter((p) => p.user_id === member.user_id && !p.cancelled)
+    .map((p) => p.ends_on)
+    .sort()
+    .at(-1)
+  const nextStart = last && last >= today ? shiftDate(last, 1) : today
+  const existingPlan = plans.find(
+    (p) => p.id === period?.plan_id && !p.archived,
+  )
+  const [mode, setMode] = useState<'edit' | 'renew'>(period ? 'edit' : 'renew')
+  const [editDraft, setEditDraft] = useState({
+    chosen: existingPlan?.id || '',
+    start: period?.starts_on || today,
+    end: period?.ends_on || shiftDate(today, 29),
+  })
+  const [renewDraft, setRenewDraft] = useState({
+    chosen: existingPlan?.id || '',
+    start: nextStart,
+    end: shiftDate(nextStart, (existingPlan?.duration_days || 30) - 1),
+  })
+  const editing = !!period && mode === 'edit',
+    renewing = !!period && mode === 'renew'
+  const { chosen, start, end } = editing ? editDraft : renewDraft
+  function updateDraft(change: Partial<typeof editDraft>) {
+    if (editing) setEditDraft((d) => ({ ...d, ...change }))
+    else setRenewDraft((d) => ({ ...d, ...change }))
+  }
+  const setChosen = (value: string) => updateDraft({ chosen: value }),
+    setStart = (value: string) => updateDraft({ start: value }),
+    setEnd = (value: string) => updateDraft({ end: value })
+  const confirm = useConfirmation()
   const selected = plans.find((p) => p.id === chosen)
   return (
     <AdminModal
       title={
-        (period ? 'Edit plan for ' : 'Apply / renew plan for ') +
-        member.username
+        (period ? 'Update plan for ' : 'Apply plan for ') + member.username
       }
       onClose={onClose}
       busy={locked}
@@ -467,9 +475,17 @@ function Assignment({
           e.preventDefault()
           if (
             !(await confirm({
-              title: 'Save plan assignment?',
+              title: renewing
+                ? 'Save renewal?'
+                : editing
+                  ? 'Save plan changes?'
+                  : 'Save plan assignment?',
               message: `Save ${selected?.name} for ${member.username}, ${adminDay(start)} to ${adminDay(end)}? Listed fee: ${adminMoney(selected?.price || 0, selected?.currency || 'PHP')}. This does not confirm payment.`,
-              confirmLabel: 'Save assignment',
+              confirmLabel: renewing
+                ? 'Save renewal'
+                : editing
+                  ? 'Save changes'
+                  : 'Save assignment',
             }))
           )
             return
@@ -477,19 +493,51 @@ function Assignment({
             await run(
               'edit_member_plan',
               {
-                id: period?.id,
+                id: editing ? period?.id : undefined,
                 userId: member.user_id,
                 planId: chosen,
                 startsOn: start,
                 endsOn: end,
               },
-              'Member plan saved.',
+              renewing
+                ? 'Renewal recorded. Existing coverage is unchanged.'
+                : editing
+                  ? 'Member plan updated.'
+                  : 'Member plan applied.',
             )
           )
             onClose()
         }}
       >
         <fieldset disabled={locked}>
+          {period && (
+            <>
+              <div
+                className="ga-assignment-actions"
+                role="group"
+                aria-label="Plan update action"
+              >
+                <button
+                  type="button"
+                  aria-pressed={editing}
+                  onClick={() => setMode('edit')}
+                >
+                  Edit existing plan
+                </button>
+                <button
+                  type="button"
+                  aria-pressed={renewing}
+                  onClick={() => setMode('renew')}
+                >
+                  Renew plan
+                </button>
+              </div>
+              <p className="gg-small">
+                Current assignment: <strong>{period.plan_name}</strong> -{' '}
+                {adminDay(period.starts_on)} to {adminDay(period.ends_on)}.
+              </p>
+            </>
+          )}
           <label>
             Membership plan
             <select
@@ -519,6 +567,7 @@ function Assignment({
               <input
                 required
                 type="date"
+                min={renewing ? nextStart : undefined}
                 value={start}
                 onChange={(e) => {
                   setStart(e.target.value)
@@ -541,12 +590,18 @@ function Assignment({
             </label>
           </div>
           <p className="ga-form-note">
-            Coverage cannot overlap another assignment. Renewals start after
-            existing coverage. Editing a paid record must preserve its currency
-            and cover money already paid.
+            {renewing
+              ? 'Renewal creates a separate period after existing coverage. The current assignment stays unchanged. The new fee is recorded as outstanding, not paid.'
+              : editing
+                ? 'Edit this assignment without creating a renewal. Coverage cannot overlap another record. A paid assignment must keep its currency and cover money already paid.'
+                : 'Coverage cannot overlap another assignment. The fee is recorded as outstanding, not paid.'}
           </p>
           <button type="submit" className="gg-primary" disabled={!chosen}>
-            Save assignment
+            {renewing
+              ? 'Save renewal'
+              : editing
+                ? 'Save changes'
+                : 'Save assignment'}
           </button>
         </fieldset>
       </form>

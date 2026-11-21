@@ -507,6 +507,19 @@
   font-size: 12px;
   line-height: 1.7;
 }
+.ga-assignment-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.sc-gyms .ga-assignment-actions button[aria-pressed='true'] {
+  background: #ffe135;
+  border-color: #b69a20;
+  color: #293332;
+}
+.ga-assignment-actions + .gg-small {
+  margin: 0;
+}
 .ga-summary {
   display: flex;
   flex-wrap: wrap;
