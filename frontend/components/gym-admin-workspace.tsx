@@ -36,7 +36,6 @@ import { GymAdminPlans } from "./gym-admin-plans";
 import { GymAdminPayments } from "./gym-admin-payments";
 import { GymDiscussion } from "./gym-discussion";
 import { dateInZone } from "../../shared/progress";
-import "@/app/card-heading.css";
 
 export type AdminData = Omit<GymMembership, "bans" | "activity"> & {
   today: string;
@@ -213,8 +212,7 @@ export function GymAdminWorkspace({
           role="region"
           aria-label={active.label}
         >
-          <header className="ga-page-heading fitsync-card-heading">
-            <active.Icon size={24} />
+          <header className="ga-page-heading">
             <div>
               <h3>{active.label}</h3>
               <p>{active.note}</p>
