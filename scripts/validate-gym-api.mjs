@@ -7,9 +7,9 @@ const output=await build({entryPoints:['backend/app/api/gyms/route.ts'],bundle:t
 const route=await import('data:text/javascript;base64,'+Buffer.from(output.outputFiles[0].text).toString('base64'))
 const post=(action,doc)=>route.POST(new Request('http://localhost/api/gyms',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({action,doc})}))
 authFailure=true;assert.equal((await post('join',{})).status,401);authFailure=false
-assert.equal((await post('confirm_checkin',{})).status,200);assert.equal(last.name,'gym_group_action_v7');assert.equal(last.args.action,'confirm_checkin')
-assert.equal((await post('check_in',{})).status,200);assert.equal(last.name,'gym_group_action_v7');assert.equal(last.args.action,'check_in')
-await route.GET(new Request('http://localhost/api/gyms?action=checkins&scope=gym&page=2'));assert.equal(last.name,'gym_group_action_v7');assert.equal(last.args.action,'checkins');assert.equal(last.args.doc.scope,'gym');assert.equal(last.args.doc.page,'2')
+assert.equal((await post('confirm_checkin',{})).status,200);assert.equal(last.name,'gym_group_action_v8');assert.equal(last.args.action,'confirm_checkin')
+assert.equal((await post('check_in',{})).status,200);assert.equal(last.name,'gym_group_action_v8');assert.equal(last.args.action,'check_in')
+await route.GET(new Request('http://localhost/api/gyms?action=checkins&scope=gym&page=2&from=2026-11-01&to=2026-11-21'));assert.equal(last.name,'gym_group_action_v8');assert.equal(last.args.action,'checkins');assert.equal(last.args.doc.scope,'gym');assert.equal(last.args.doc.page,'2');assert.equal(last.args.doc.from,'2026-11-01');assert.equal(last.args.doc.to,'2026-11-21')
 for(const [action,doc]of [['read_playlist',{}],['fake',{}],['join',[]],['join',null]])assert.equal((await post(action,doc)).status,400)
 for(const action of ['approve','reject','transfer','ban','unban','schedule','announce','message','cancel_request','guidance','save_plan','archive_plan','assign_plan','cancel_period','mark_attendance','record_payment','record_refund','void_income']){
  assert.equal((await post(action,{})).status,200);assert.equal(last.name,'gym_group_action_v5');assert.equal(last.args.action,action)

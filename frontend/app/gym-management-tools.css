@@ -26,3 +26,4 @@
 .gg-session-attendance>summary{cursor:pointer;font-size:14px;font-weight:700;padding:10px 0}
 .gg-session-attendance[open]>summary{margin-bottom:12px}
 @media(max-width:500px){.gg-checkin-today{align-items:start;flex-direction:column}.gg-checkin-today>button{width:100%}.gg-checkin-history-heading .gg-field{width:100%}}
+.gg-gym-details-body .gg-guidance{padding:14px 0;border:0;border-top:1px solid #dce4dd;border-radius:0;background:transparent;margin-top:16px}

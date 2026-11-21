@@ -1,6 +1,6 @@
 # Gym communities
 
-Social's fourth card opens a gym workspace grouped into Community (Announcements, Discussion), Training (Sessions, Attendance, Playlists), Members (Team, Membership) and Management (owner-only Income, staff/admin Activity). Only the selected group's section links are shown. Each group remembers its last opened section; notification links still open their target directly. Navigation wraps on mobile instead of scrolling horizontally. Gym details, invite code, settings and leave/delete actions are in one collapsed disclosure above the workspace. These are user-created communities, separate from the retired gym locator. Manual membership plans, date tracking and staff-marked attendance are available; online payments and professional verification are not included. See docs/gym-management.md for the management update.
+Social's fourth card opens a gym workspace grouped into Community (Announcements, Discussion, Team), Training (Sessions, Attendance, Playlists) and Management (Membership records for all roles, owner-only Income, staff/admin Team activity). All destinations are visible together; no category click is required. Notification links still open their target directly. The directory becomes compact wrapping group rows on mobile. Gym details, invite code, welcome/rules, settings and leave/delete actions are in one collapsed disclosure above the workspace. These are user-created communities, separate from the retired gym locator. Manual membership plans, date tracking and staff-marked attendance are available; online payments and professional verification are not included. See docs/gym-management.md for the management update.
 
 ## Enable the feature
 
@@ -13,6 +13,7 @@ Apply these in Supabase SQL Editor after the existing playlist migrations (20261
 5. backend/migrations/20261121_gym_groups_v5_income.sql - owner-only income records and monthly totals.
 6. backend/migrations/20261121_gym_groups_v6_checkins.sql - daily member self check-in and private/team history.
 7. backend/migrations/20261121_gym_groups_v7_checkin_confirmation.sql - admin-only history review and confirmation; no admin self check-in.
+8. backend/migrations/20261121_gym_groups_v8_history_filters.sql - attendance date filtering before counts and pagination.
 
 The migrations are rerunnable; apply them in the listed order. Rerunning an older migration afterward can restore old function definitions. Existing groups retain members and default to open joining. Deploy frontend and backend together; the new API requires the v5 RPC and shows a setup message if missing. The migration notifies PostgREST to reload its schema.
 

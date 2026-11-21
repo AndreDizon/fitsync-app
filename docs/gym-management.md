@@ -11,6 +11,7 @@ Apply these migrations in Supabase SQL Editor in order. Skip any already applied
 5. `20261121_gym_groups_v5_income.sql`
 6. `20261121_gym_groups_v6_checkins.sql`
 7. `20261121_gym_groups_v7_checkin_confirmation.sql`
+8. `20261121_gym_groups_v8_history_filters.sql`
 
 The existing playlist migrations are prerequisites. Deploy frontend and backend together. `/api/gyms` now requires `gym_group_action_v5`; a missing migration shows an explicit setup error. The management migration is transactional and rerunnable. Existing groups, roles, session instants and shared content are preserved; new welcome/rules fields start blank.
 
@@ -74,3 +75,11 @@ Synthetic browser fixtures exercise welcome/rules, plan creation and assignment,
 ## Owner income records
 
 The owner can now manually record actual payments received, refunds and void corrections in an owner-only Income section. Membership assignment alone never counts as paid. See `docs/gym-income.md` for monthly currency-separated summaries, exports and financial-record reset behavior.
+
+## History filters and navigation
+
+All gym destinations appear together in three labeled groups. Membership records is under Management; admins and staff initially see records for All members, and regular members see only their own. Plan editing and the plan catalog are collapsed under Membership plans to keep records visible.
+
+From/To filters are inclusive and applied with Apply dates; Clear filters restores all dates. Membership records match any coverage overlapping the selected date range. Team activity uses the gym-local action date and covers the full retained dataset (latest 200 actions). Both filter their complete already-loaded dataset before pagination at 20 records.
+
+Daily check-in history filters recorded visit dates; scheduled attendance filters gym-local session start dates. The v8 RPC filters before counting or pagination, so old records outside the first page remain findable. Today's check-in status stays independent of history filters; admin confirmations preserve the selected range. Apply v8 after v7 to enable attendance filtering. Existing admin-only confirmation and staff/member own-history restrictions are preserved.

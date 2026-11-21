@@ -17,7 +17,7 @@ async function run(request:Request,write:boolean){
   }else{
     const params=new URL(request.url).searchParams
     action=['list','discussion','read_playlist','attendance','notifications','income','income_export','checkins'].includes(params.get('action')||'')?params.get('action')!:'mine'
-    doc={q:params.get('q')||'',page:params.get('page')||'0',id:params.get('id')||'',year:params.get('year')||'',month:params.get('month')||'',scope:params.get('scope')||'mine'}
+    doc={q:params.get('q')||'',page:params.get('page')||'0',id:params.get('id')||'',year:params.get('year')||'',month:params.get('month')||'',scope:params.get('scope')||'mine',from:params.get('from')||'',to:params.get('to')||''}
   }
   if(action==='share_playlist'){
     if(!isUUID(doc.playlistId))return json({error:'Choose one of your saved workout playlists.'},400)
@@ -29,8 +29,8 @@ async function run(request:Request,write:boolean){
     // Share a sanitized snapshot, never the encrypted record or private account fields.
     doc={playlist:parsed.data}
   }
-  const result=await auth.client!.rpc(['check_in','checkins','confirm_checkin'].includes(action)?'gym_group_action_v7':'gym_group_action_v5',{action,doc})
-  if(result.error)return json({error:result.error.code==='PGRST202'?(['check_in','checkins','confirm_checkin'].includes(action)?'Daily check-ins need a database update. Apply the check-in confirmation (v7) migration after v6.':'Gym community tools need a database update. Apply the gym income (v5) migration after the earlier gym migrations.'):result.error.message},result.error.code==='PGRST202'?503:400)
+  const result=await auth.client!.rpc(['check_in','checkins','confirm_checkin','attendance'].includes(action)?'gym_group_action_v8':'gym_group_action_v5',{action,doc})
+  if(result.error)return json({error:result.error.code==='PGRST202'?(['check_in','checkins','confirm_checkin','attendance'].includes(action)?'Gym attendance needs a database update. Apply the history filters (v8) migration after v7.':'Gym community tools need a database update. Apply the gym income (v5) migration after the earlier gym migrations.'):result.error.message},result.error.code==='PGRST202'?503:400)
   return json(result.data)
 }
 export async function GET(request:Request){return run(request,false)}

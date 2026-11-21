@@ -58,3 +58,21 @@
 .sc-gyms :is(input,textarea){caret-color:#315c50}
 @media(max-width:700px){.gg-panel{padding:16px}.gg-area-nav{grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;padding:8px}.sc-gyms .gg-area-nav button{padding:8px;font-size:12px}.gg-area-nav[data-group-count='3'] button>svg{display:none}.gg-tabs{gap:4px;padding:8px}.gg-area-label{display:none}.sc-gyms .gg-tabs button{padding:8px 10px}.gg-form-row{grid-template-columns:1fr}.gg-plain-list li{flex-wrap:wrap}.gg-plain-list li>.gg-actions{width:100%}.sc-gyms select{font-size:16px}.gg-section-heading{gap:8px}.gg-panel .gg-member-actions{padding-left:0}.gg-panel .gg-member-more[open]{width:100%}}
 @media(prefers-reduced-motion:no-preference){.gg-panel{animation:gg-reveal .16s ease-out}@keyframes gg-reveal{from{opacity:.8}to{opacity:1}}}
+.gg-section-directory{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;padding:16px;background:#eef3ef;border:1px solid #d4dfd8;border-radius:14px 14px 0 0}
+.gg-navigation-group{min-width:0}
+.gg-navigation-group+.gg-navigation-group{border-left:1px solid #d4dfd8;padding-left:20px}
+.gg-navigation-group h3{display:flex;align-items:center;gap:8px;font-size:12px;color:#40584b;margin:0 0 8px;font-weight:700}
+.gg-navigation-group>div{display:grid;gap:4px}
+.sc-gyms .gg-navigation-group button{justify-content:flex-start;text-align:left;min-height:44px;width:100%;padding:9px 12px;line-height:1.4;white-space:normal;overflow-wrap:anywhere;background:transparent;border-color:transparent;box-shadow:none}
+.sc-gyms .gg-navigation-group button[aria-pressed=true]{background:#ffe135;border-color:#c1a624;color:#28332a}
+.gg-history-filter{margin:18px 0 16px;padding:14px 0;border-block:1px solid #dce4dd}
+.gg-history-filter fieldset{margin:0;padding:0;border:0;min-width:0;display:block}
+.gg-history-filter legend{padding:0;margin-bottom:10px;font-size:12px;font-weight:700}
+.gg-history-filter-controls{display:flex;align-items:end;flex-wrap:wrap;gap:12px}
+.gg-history-filter-controls>.gg-field{flex:1;min-width:140px;max-width:220px}
+.gg-history-filter .gg-meta{margin:10px 0 0}
+.gg-history-filter .gg-field input{width:100%;min-width:0}
+.gg-plan-library{border-block:1px solid #dce4dd;margin:18px 0;padding:8px 0}
+.gg-plan-library>summary{cursor:pointer;font-size:13px;font-weight:700;padding:12px 0}
+.gg-membership-history h4{font-size:16px;margin:0 0 12px}
+@media(max-width:600px){.gg-section-directory{display:block;padding:12px}.gg-navigation-group+.gg-navigation-group{border-left:0;border-top:1px solid #d4dfd8;padding:12px 0 0;margin-top:12px}.gg-navigation-group>div{display:flex;flex-wrap:wrap;gap:4px}.sc-gyms .gg-navigation-group button{width:auto;flex:1 1 auto;justify-content:center;text-align:center;padding:9px 8px;font-size:12px}.gg-history-filter-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.gg-history-filter-controls>.gg-field{min-width:0;max-width:none}.gg-history-filter-controls>.gg-actions{grid-column:1/-1}.gg-history-filter-controls>.gg-actions>button{flex:1}}

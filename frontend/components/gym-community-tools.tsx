@@ -5,6 +5,9 @@ import { CalendarDays, ClipboardList, MessageCircle, Pin, Plus, Settings2, Users
 import { gymRequest, gymTimeZoneLabel, type GymAction, type GymAnnouncement, type GymMembership, type GymTab } from '@/lib/gym-groups'
 import { GymAttendance, GymMembershipPlans } from './gym-management-tools'
 import { GymIncome } from './gym-income'
+import { HistoryDateFilter, HistoryPagination } from './gym-history-filter'
+import { emptyHistoryRange, historyContainsDay } from '../../shared/gym-history'
+import { dateInZone } from '../../shared/progress'
 import { listPlaylists, savePlaylist } from '@/lib/playlists'
 import { parsePlaylist, type Playlist } from '../../shared/playlists'
 import { useConfirmation } from './confirm-dialog'
@@ -20,17 +23,11 @@ export function GymCommunityTools({membership,owner,locked,onAction,children,ini
  const [tab,setTab]=useState<string>(initialTab||'announcements')
  const confirm=useConfirmation()
  const groups=[
-  {id:'community',label:'Community',Icon:MessageCircle,tabs:[{id:'announcements',label:'Announcements'},{id:'discussion',label:'Discussion'}]},
+  {id:'community',label:'Community',Icon:MessageCircle,tabs:[{id:'announcements',label:'Announcements'},{id:'discussion',label:'Discussion'},{id:'team',label:'Team'}]},
   {id:'training',label:'Training',Icon:CalendarDays,tabs:[{id:'sessions',label:'Sessions'},{id:'attendance',label:'Attendance'},{id:'playlists',label:'Playlists'}]},
-  {id:'members',label:'Members',Icon:Users,tabs:[{id:'team',label:'Team'},{id:'membership',label:'Membership'}]},
-  {id:'management',label:'Management',Icon:Settings2,tabs:[...(admin?[{id:'income',label:'Income'}]:[]),...(manager?[{id:'activity',label:'Activity'}]:[])]},
+  {id:'management',label:'Management',Icon:Settings2,tabs:[{id:'membership',label:'Membership records'},...(admin?[{id:'income',label:'Income'}]:[]),...(manager?[{id:'activity',label:'Team activity'}]:[])]},
  ].filter(group=>group.tabs.length)
  const active=groups.some(group=>group.tabs.some(item=>item.id===tab))?tab:'announcements'
- const area=groups.find(group=>group.tabs.some(item=>item.id===active))!
- const remembered=useRef<Record<string,string>>({})
- useEffect(()=>{remembered.current[area.id]=active},[area.id,active])
- function openSection(id:string){const group=groups.find(group=>group.tabs.some(item=>item.id===id));if(group)remembered.current[group.id]=id;setTab(id)}
- function openArea(id:string){const group=groups.find(item=>item.id===id)!;const previous=remembered.current[id];openSection(group.tabs.some(item=>item.id===previous)?previous:group.tabs[0].id)}
  function arrowNavigation(event:React.KeyboardEvent<HTMLElement>){
   if(!['ArrowLeft','ArrowRight','Home','End'].includes(event.key))return
   const buttons=Array.from(event.currentTarget.querySelectorAll<HTMLButtonElement>('button')),index=buttons.indexOf(event.target as HTMLButtonElement)
@@ -40,8 +37,7 @@ export function GymCommunityTools({membership,owner,locked,onAction,children,ini
  }
  async function removeBan(userId:string,username:string){if(await confirm({title:'Lift this ban?',message:`${username} will be able to join or request membership again.`,confirmLabel:'Lift ban'}))await onAction('unban',{userId},'Ban lifted.')}
  return <div className="gg-tools">
-  <nav className="gg-area-nav" aria-label="Gym areas" data-group-count={groups.length} onKeyDown={arrowNavigation}>{groups.map(group=><button type="button" key={group.id} aria-pressed={area.id===group.id} aria-controls="gym-section-navigation" onClick={()=>openArea(group.id)}><group.Icon size={18}/><span>{group.label}</span>{group.id==='members'&&manager&&!!membership.requests?.length&&<span className="gg-tab-count" aria-label={`${membership.requests.length} pending join requests`}>{membership.requests.length}</span>}</button>)}</nav>
-  <nav id="gym-section-navigation" className="gg-tabs" aria-label="Gym sections" onKeyDown={arrowNavigation}><span className="gg-area-label">{area.label}</span>{area.tabs.map(t=><button key={t.id} id={'gym-nav-'+t.id} type="button" aria-pressed={active===t.id} aria-controls="gym-community-panel" onClick={()=>openSection(t.id)}>{t.label}{t.id==='team'&&manager&&!!membership.requests?.length&&<span className="gg-tab-count">{membership.requests.length}</span>}</button>)}</nav>
+  <nav className="gg-section-directory" aria-label="Gym sections" onKeyDown={arrowNavigation}>{groups.map(group=><div className="gg-navigation-group" key={group.id}><h3><group.Icon size={16}/>{group.label}</h3><div>{group.tabs.map(t=><button key={t.id} id={'gym-nav-'+t.id} type="button" aria-pressed={active===t.id} aria-controls="gym-community-panel" onClick={()=>setTab(t.id)}>{t.label}{t.id==='team'&&manager&&!!membership.requests?.length&&<span className="gg-tab-count" aria-label={membership.requests.length+' pending join requests'}>{membership.requests.length}</span>}</button>)}</div></div>)}</nav>
   <div id="gym-community-panel" role="region" aria-labelledby={'gym-nav-'+active} className="gg-panel">
    {active==='announcements'&&<Announcements announcements={membership.announcements||[]} manager={manager} locked={locked} onAction={onAction}/>}
    {active==='discussion'&&<Discussion key={membership.gym!.id} membership={membership} owner={owner} manager={manager} locked={locked} onAction={onAction}/>}
@@ -55,7 +51,7 @@ export function GymCommunityTools({membership,owner,locked,onAction,children,ini
     {children}
     {admin&&<details className="gg-admin-details"><summary>Banned members ({membership.bans?.length||0})</summary>{!membership.bans?.length?<p className="gg-empty">No banned members.</p>:<ul className="gg-plain-list">{membership.bans.map(b=><li key={b.user_id}><strong>{b.username}</strong><button type="button" disabled={locked} onClick={()=>void removeBan(b.user_id,b.username)}>Lift ban</button></li>)}</ul>}</details>}
    </>}
-   {active==='activity'&&manager&&<section><h3>Team activity</h3><p className="gg-small">The latest 200 management actions. Only the admin and staff can see this history.</p>{!membership.activity?.length?<p className="gg-empty">Management actions will appear here.</p>:<ol className="gg-activity">{membership.activity.map(a=><li key={a.id}><p><strong>{a.actor}</strong> {activityLabels[a.action]||'updated the gym'}{targetActions.has(a.action)?' '+a.target:''}.</p><time dateTime={a.created_at}>{date(a.created_at)}</time></li>)}</ol>}</section>}
+   {active==='activity'&&manager&&<TeamActivity membership={membership}/>}
   </div>
  </div>
 }
@@ -130,4 +126,12 @@ function SharedPlaylists({membership,owner,manager,locked,onAction}:{membership:
   {error&&<p className="gg-feedback gg-error" role="alert">{error}</p>}{notice&&<p className="gg-feedback gg-success" role="status">{notice}</p>}
   {!items.length?<p className="gg-empty">No shared playlists yet. Members, staff and admin can contribute.</p>:<div className="gg-posts">{items.map(p=><article className="gg-post" key={p.id}><h4>{p.name}</h4>{p.description&&<p className="gg-post-body">{p.description}</p>}<p className="gg-meta">Shared by {p.username} · {p.duration==='week'?'One week':'One day'} · {p.item_count} exercises</p><div className="gg-actions"><button className="gg-primary" type="button" disabled={disabled} onClick={()=>void importPlaylist(p.id)}>{importing?'Saving…':'Save to my playlists'}</button>{(manager||p.author_id===owner)&&<button className="gg-danger" type="button" disabled={disabled} onClick={async()=>{if(await confirm({title:'Unshare this playlist?',message:`Remove “${p.name}” from this gym? Personal copies already saved by members stay available to them.`,confirmLabel:'Unshare playlist',destructive:true}))await onAction('unshare_playlist',{id:p.id},'Playlist unshared.')}}>Unshare</button>}</div></article>)}</div>}
  </section>
+}
+
+function TeamActivity({membership}:{membership:GymMembership}){
+ const [range,setRange]=useState(emptyHistoryRange),[page,setPage]=useState(0)
+ const zone=membership.gym?.time_zone||'Asia/Manila'
+ const rows=(membership.activity||[]).filter(a=>historyContainsDay(dateInZone(zone,new Date(a.created_at)),range))
+ const current=Math.min(page,Math.max(0,Math.ceil(rows.length/20)-1))
+ return <section><h3>Team activity</h3><p className="gg-small">Management actions in your gym. The latest 200 actions are retained.</p><HistoryDateFilter label="Activity date" zone={zone} value={range} onChange={next=>{setRange(next);setPage(0)}}/><p className="gg-meta" role="status">{rows.length} matching {rows.length===1?'action':'actions'}</p>{!rows.length?<p className="gg-empty">{range.from||range.to?'No activity in this date range. Clear filters to see all retained activity.':'Management actions will appear here.'}</p>:<ol className="gg-activity">{rows.slice(current*20,current*20+20).map(a=><li key={a.id}><p><strong>{a.actor}</strong> {activityLabels[a.action]||'updated the gym'}{targetActions.has(a.action)?' '+a.target:''}.</p><time dateTime={a.created_at}>{new Intl.DateTimeFormat(undefined,{timeZone:zone,dateStyle:'medium',timeStyle:'short'}).format(new Date(a.created_at))}</time></li>)}</ol>}<HistoryPagination page={current} total={rows.length} onChange={setPage} label="Team activity pages"/></section>
 }

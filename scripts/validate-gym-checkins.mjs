@@ -6,8 +6,8 @@ try {
 const [admin,staff,member,other]=[1,2,3,4].map(n=>`${n}1111111-1111-4111-8111-111111111111`)
 await db.exec(`create role anon;create role authenticated;create role service_role;create schema auth;create table auth.users(id uuid primary key,raw_user_meta_data jsonb default '{}');create function auth.uid() returns uuid language sql stable as $$select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid$$;grant usage on schema auth to authenticated;`)
 for(const id of [admin,staff,member,other])await db.query('insert into auth.users values($1,$2)',[id,JSON.stringify({username:'Member '+id[0],fitsync_onboarding:{}})])
-for(const file of ['20261107_plan_playlists.sql','20261108_playlist_schedule.sql','20261121_gym_groups.sql','20261121_gym_groups_community.sql','20261121_gym_groups_time_zone.sql','20261121_gym_groups_v4.sql','20261121_gym_groups_v5_income.sql','20261121_gym_groups_v6_checkins.sql','20261121_gym_groups_v7_checkin_confirmation.sql','20261121_gym_groups_v7_checkin_confirmation.sql'])await db.exec(await readFile('backend/migrations/'+file,'utf8'))
-const call=(uid,action,doc={})=>db.transaction(async tx=>{await tx.exec('set local role authenticated');await tx.query("select set_config('request.jwt.claim.sub',$1,true)",[uid]);return(await tx.query('select public.gym_group_action_v7($1,$2::jsonb) value',[action,JSON.stringify(doc)])).rows[0].value})
+for(const file of ['20261107_plan_playlists.sql','20261108_playlist_schedule.sql','20261121_gym_groups.sql','20261121_gym_groups_community.sql','20261121_gym_groups_time_zone.sql','20261121_gym_groups_v4.sql','20261121_gym_groups_v5_income.sql','20261121_gym_groups_v6_checkins.sql','20261121_gym_groups_v7_checkin_confirmation.sql','20261121_gym_groups_v8_history_filters.sql','20261121_gym_groups_v8_history_filters.sql'])await db.exec(await readFile('backend/migrations/'+file,'utf8'))
+const call=(uid,action,doc={})=>db.transaction(async tx=>{await tx.exec('set local role authenticated');await tx.query("select set_config('request.jwt.claim.sub',$1,true)",[uid]);return(await tx.query('select public.gym_group_action_v8($1,$2::jsonb) value',[action,JSON.stringify(doc)])).rows[0].value})
 const gym=await call(admin,'create',{name:'Attendance crew',timeZone:'Asia/Manila'})
 await call(staff,'join',{gymId:gym.gym.id});await call(member,'join',{gymId:gym.gym.id});await call(admin,'role',{userId:staff,role:'staff'})
 assert.equal((await call(member,'checkins')).total,0)
@@ -32,6 +32,18 @@ await assert.rejects(call(admin,'confirm_checkin',{...confirmation,userId:other}
 await assert.rejects(call(admin,'check_in'),/cannot check in/)
 // The old entry point must inherit the stricter permissions, too.
 await assert.rejects(db.transaction(async tx=>{await tx.exec('set local role authenticated');await tx.query("select set_config('request.jwt.claim.sub',$1,true)",[staff]);await tx.query("select public.gym_group_action_v6('checkins','{\"scope\":\"gym\"}'::jsonb)")}),/Only the gym admin/)
+// Date filters must find records beyond the first unfiltered page.
+await db.query("insert into public.gym_daily_checkins(gym_id,user_id,checked_on,checked_at,time_zone) select $1,$2,($3::date-n),now()-n*interval '1 day','Asia/Manila' from generate_series(1,25) n",[gym.gym.id,member,today])
+const oldDay=(await db.query("select to_char($1::date-25,'YYYY-MM-DD') d",[today])).rows[0].d
+const oldHistory=await call(member,'checkins',{from:oldDay,to:oldDay})
+assert.equal(oldHistory.total,1);assert.equal(oldHistory.entries[0].checked_on,oldDay);assert(oldHistory.checkedInAt)
+await assert.rejects(call(member,'checkins',{from:today,to:oldDay}),/From date/)
+await assert.rejects(call(member,'checkins',{from:'not-a-date'}),/valid From/)
+await db.query("insert into public.gym_sessions(gym_id,title,starts_at,ends_at,capacity) values($1,'Local midnight',($2::date+interval '16 hours') at time zone 'UTC',($2::date+interval '17 hours') at time zone 'UTC',10)",[gym.gym.id,oldDay])
+const nextDay=(await db.query("select to_char($1::date+1,'YYYY-MM-DD') d",[oldDay])).rows[0].d
+assert.equal((await call(member,'attendance',{from:oldDay,to:oldDay})).total,0)
+assert.equal((await call(member,'attendance',{from:nextDay,to:nextDay})).total,1)
+await db.query('delete from public.gym_daily_checkins where gym_id=$1 and checked_on<>$2::date',[gym.gym.id,today])
 await assert.rejects(call(other,'check_in'),/Join a gym/)
 await assert.rejects(call('', 'check_in'),/Authentication required/)
 await assert.rejects(call(member,'checkins',{page:'-1'}),/Invalid history page/)
