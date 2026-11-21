@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { type GymPlan, type GymPeriod, type GymMember } from '@/lib/gym-groups'
 import {
   AdminModal,
+  AdminSectionCard,
   AdminTable,
   adminDay,
   adminMoney,
@@ -43,199 +44,199 @@ export function GymAdminPlans({ data, locked, run }: AdminPageProps) {
   }
   return (
     <>
-      <section className="ga-section ga-catalog">
-        <div className="gg-section-heading">
-          <div>
-            <h4>1. Membership plans</h4>
-            <p className="gg-small">
-              Your catalog of durations and fees. Create a plan before assigning
-              it.
-            </p>
+      <div className="ga-admin-cards">
+        <AdminSectionCard title="Membership plans" defaultOpen>
+          <div className="gg-section-heading">
+            <div>
+              <p className="gg-small">
+                Your catalog of durations and fees. Create a plan before
+                assigning it.
+              </p>
+            </div>
+            <button
+              type="button"
+              className="gg-primary"
+              disabled={locked}
+              onClick={() => setEditor(null)}
+            >
+              Create plan
+            </button>
           </div>
-          <button
-            type="button"
-            className="gg-primary"
-            disabled={locked}
-            onClick={() => setEditor(null)}
-          >
-            Create plan
-          </button>
-        </div>
-        <AdminTable
-          rows={plans.filter(
-            (p) =>
-              availability === 'all' ||
-              p.archived === (availability === 'archived'),
-          )}
-          label="Available plans"
-          dateLabel="Plan created on"
-          zone={zone}
-          dateOf={(p) =>
-            p.created_at ? dateInZone(zone, new Date(p.created_at)) : null
-          }
-          rowKey={(p) => p.id}
-          searchText={(p) => p.name + ' ' + p.description}
-          extraFilters={
-            <label>
-              Availability
-              <select
-                value={availability}
-                onChange={(e) => setAvailability(e.target.value)}
-              >
-                <option value="all">All plans</option>
-                <option value="available">Available</option>
-                <option value="archived">Archived</option>
-              </select>
-            </label>
-          }
-          columns={[
-            { label: 'Plan', render: (p) => p.name },
-            { label: 'Duration', render: (p) => p.duration_days + ' days' },
-            { label: 'Fee', render: (p) => adminMoney(p.price, p.currency) },
-            {
-              label: 'Status',
-              render: (p) => (p.archived ? 'Archived' : 'Available'),
-            },
-            {
-              label: 'Actions',
-              render: (p) => (
-                <div className="gg-actions">
-                  <button
-                    type="button"
-                    disabled={locked}
-                    onClick={() => setEditor(p)}
-                  >
-                    Edit
-                  </button>
-                  <button
-                    type="button"
-                    disabled={locked}
-                    onClick={() =>
-                      void run(
-                        'archive_plan',
-                        { id: p.id, archived: !p.archived },
-                        'Plan availability updated.',
-                      )
-                    }
-                  >
-                    {p.archived ? 'Restore' : 'Archive'}
-                  </button>
-                  <button
-                    type="button"
-                    className="gg-danger"
-                    disabled={locked}
-                    onClick={async () => {
-                      if (
-                        await confirm({
-                          title: 'Delete catalog plan?',
-                          message:
-                            'Remove this plan from the catalog? Existing assignments keep their saved plan name, fee, coverage and payment history.',
-                          confirmLabel: 'Delete plan',
-                          destructive: true,
-                        })
-                      )
-                        await run(
-                          'delete_plan',
-                          { id: p.id },
-                          'Catalog plan deleted.',
-                        )
-                    }}
-                  >
-                    Delete
-                  </button>
-                </div>
-              ),
-            },
-          ]}
-        />
-      </section>
-      <section className="ga-section ga-records">
-        <h4>2. Member plan assignments</h4>
-        <p className="gg-small">
-          Apply a plan to a member, edit coverage or add a separate renewal.
-          Applying a plan creates an outstanding fee; it does not record
-          payment.
-        </p>
-        <AdminTable
-          rows={data.members}
-          label="Member plan assignments"
-          dateLabel="Member joined on"
-          zone={zone}
-          dateOf={(m) => dateInZone(zone, new Date(m.joined_at))}
-          rowKey={(m) => m.user_id}
-          searchText={(m) =>
-            m.username + ' ' + (current(m.user_id)?.plan_name || 'No plan')
-          }
-          columns={[
-            { label: 'Member', render: (m) => m.username },
-            {
-              label: 'Plan',
-              render: (m) => {
-                const p = current(m.user_id)
-                return p ? (
-                  <>
-                    <strong>{p.plan_name}</strong>
-                    <span className="gg-meta">
-                      {p.starts_on <= today ? 'Active' : 'Upcoming'}
-                    </span>
-                  </>
-                ) : (
-                  'No active or upcoming plan'
-                )
+          <AdminTable
+            rows={plans.filter(
+              (p) =>
+                availability === 'all' ||
+                p.archived === (availability === 'archived'),
+            )}
+            label="Available plans"
+            dateLabel="Plan created on"
+            zone={zone}
+            dateOf={(p) =>
+              p.created_at ? dateInZone(zone, new Date(p.created_at)) : null
+            }
+            rowKey={(p) => p.id}
+            searchText={(p) => p.name + ' ' + p.description}
+            extraFilters={
+              <label>
+                Availability
+                <select
+                  value={availability}
+                  onChange={(e) => setAvailability(e.target.value)}
+                >
+                  <option value="all">All plans</option>
+                  <option value="available">Available</option>
+                  <option value="archived">Archived</option>
+                </select>
+              </label>
+            }
+            columns={[
+              { label: 'Plan', render: (p) => p.name },
+              { label: 'Duration', render: (p) => p.duration_days + ' days' },
+              { label: 'Fee', render: (p) => adminMoney(p.price, p.currency) },
+              {
+                label: 'Status',
+                render: (p) => (p.archived ? 'Archived' : 'Available'),
               },
-            },
-            {
-              label: 'Coverage',
-              render: (m) => {
-                const p = current(m.user_id)
-                return p
-                  ? adminDay(p.starts_on) + ' to ' + adminDay(p.ends_on)
-                  : '-'
-              },
-            },
-            {
-              label: 'Actions',
-              render: (m) => {
-                const p = current(m.user_id)
-                return (
+              {
+                label: 'Actions',
+                render: (p) => (
                   <div className="gg-actions">
                     <button
                       type="button"
-                      className="gg-primary"
-                      disabled={locked || !plans.some((p) => !p.archived)}
-                      onClick={() => setAssignment({ member: m, period: p })}
+                      disabled={locked}
+                      onClick={() => setEditor(p)}
                     >
-                      {p ? 'Edit plan' : 'Apply plan'}
+                      Edit
                     </button>
-                    {p && (
-                      <>
-                        <button
-                          type="button"
-                          disabled={locked}
-                          onClick={() => setAssignment({ member: m })}
-                        >
-                          Renew
-                        </button>
-                        <button
-                          type="button"
-                          className="gg-danger"
-                          disabled={locked}
-                          onClick={() => void remove(p)}
-                        >
-                          Remove plan
-                        </button>
-                      </>
-                    )}
-                    <button type="button" onClick={() => setHistory(m)}>
-                      Plan history
+                    <button
+                      type="button"
+                      disabled={locked}
+                      onClick={() =>
+                        void run(
+                          'archive_plan',
+                          { id: p.id, archived: !p.archived },
+                          'Plan availability updated.',
+                        )
+                      }
+                    >
+                      {p.archived ? 'Restore' : 'Archive'}
+                    </button>
+                    <button
+                      type="button"
+                      className="gg-danger"
+                      disabled={locked}
+                      onClick={async () => {
+                        if (
+                          await confirm({
+                            title: 'Delete catalog plan?',
+                            message:
+                              'Remove this plan from the catalog? Existing assignments keep their saved plan name, fee, coverage and payment history.',
+                            confirmLabel: 'Delete plan',
+                            destructive: true,
+                          })
+                        )
+                          await run(
+                            'delete_plan',
+                            { id: p.id },
+                            'Catalog plan deleted.',
+                          )
+                      }}
+                    >
+                      Delete
                     </button>
                   </div>
-                )
+                ),
               },
-            },
-          ]}
-        />
-      </section>
+            ]}
+          />
+        </AdminSectionCard>
+        <AdminSectionCard title="Member plan assignments">
+          <p className="gg-small">
+            Apply a plan to a member, edit coverage or add a separate renewal.
+            Applying a plan creates an outstanding fee; it does not record
+            payment.
+          </p>
+          <AdminTable
+            rows={data.members}
+            label="Member plan assignments"
+            dateLabel="Member joined on"
+            zone={zone}
+            dateOf={(m) => dateInZone(zone, new Date(m.joined_at))}
+            rowKey={(m) => m.user_id}
+            searchText={(m) =>
+              m.username + ' ' + (current(m.user_id)?.plan_name || 'No plan')
+            }
+            columns={[
+              { label: 'Member', render: (m) => m.username },
+              {
+                label: 'Plan',
+                render: (m) => {
+                  const p = current(m.user_id)
+                  return p ? (
+                    <>
+                      <strong>{p.plan_name}</strong>
+                      <span className="gg-meta">
+                        {p.starts_on <= today ? 'Active' : 'Upcoming'}
+                      </span>
+                    </>
+                  ) : (
+                    'No active or upcoming plan'
+                  )
+                },
+              },
+              {
+                label: 'Coverage',
+                render: (m) => {
+                  const p = current(m.user_id)
+                  return p
+                    ? adminDay(p.starts_on) + ' to ' + adminDay(p.ends_on)
+                    : '-'
+                },
+              },
+              {
+                label: 'Actions',
+                render: (m) => {
+                  const p = current(m.user_id)
+                  return (
+                    <div className="gg-actions">
+                      <button
+                        type="button"
+                        className="gg-primary"
+                        disabled={locked || !plans.some((p) => !p.archived)}
+                        onClick={() => setAssignment({ member: m, period: p })}
+                      >
+                        {p ? 'Edit plan' : 'Apply plan'}
+                      </button>
+                      {p && (
+                        <>
+                          <button
+                            type="button"
+                            disabled={locked}
+                            onClick={() => setAssignment({ member: m })}
+                          >
+                            Renew
+                          </button>
+                          <button
+                            type="button"
+                            className="gg-danger"
+                            disabled={locked}
+                            onClick={() => void remove(p)}
+                          >
+                            Remove plan
+                          </button>
+                        </>
+                      )}
+                      <button type="button" onClick={() => setHistory(m)}>
+                        Plan history
+                      </button>
+                    </div>
+                  )
+                },
+              },
+            ]}
+          />
+        </AdminSectionCard>
+      </div>
       {editor !== false && (
         <PlanEditor
           plan={editor}

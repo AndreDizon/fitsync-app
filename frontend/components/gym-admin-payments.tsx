@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from 'react'
 import { gymRequest } from '@/lib/gym-groups'
 import {
   AdminModal,
+  AdminSectionCard,
   AdminTable,
   AdminReport,
   adminDay,
@@ -91,198 +92,202 @@ export function GymAdminPayments({ data, locked, run }: AdminPageProps) {
   }
   return (
     <>
-      <section className="ga-section">
-        <div className="gg-section-heading">
-          <div>
-            <h4>1. Record a payment</h4>
-            <p className="gg-small">
-              Select a member and record money already received outside FitSync.
-            </p>
-          </div>
-          <button
-            type="button"
-            className="gg-primary"
-            disabled={locked}
-            onClick={() => setPayment(true)}
-          >
-            Make payment record
-          </button>
-        </div>
-        <p className="ga-form-note">
-          A payment cannot exceed the member's outstanding balance. Different
-          currencies stay separate.
-        </p>
-      </section>
-      <section className="ga-section">
-        <div className="gg-section-heading">
-          <div>
-            <h4>2. Balances &amp; revenue</h4>
-            <p className="gg-small">
-              Each row is a saved plan assignment. Fees, payments and remaining
-              balance stay together.
-            </p>
-          </div>
-          <button type="button" onClick={() => setLedger(true)}>
-            Payment history
-          </button>
-        </div>
-        {error && (
-          <p role="alert" className="gg-feedback gg-error">
-            {error}
-          </p>
-        )}
-        <AdminTable
-          rows={data.balances.filter(
-            (p) =>
-              (currency === 'all' || p.currency === currency) &&
-              (status === 'all' ||
-                (status === 'outstanding'
-                  ? Number(p.outstanding) > 0
-                  : Number(p.outstanding) === 0)),
-          )}
-          label="Member balances"
-          dateLabel="Coverage during"
-          zone={zone}
-          dateOf={(p) => p.starts_on}
-          matches={(p, r) => historyOverlaps(p.starts_on, p.ends_on, r)}
-          rowKey={(p) => p.id}
-          searchText={(p) => p.username + ' ' + p.plan_name}
-          extraFilters={
-            <>
-              <label>
-                Currency
-                <select
-                  value={currency}
-                  onChange={(e) => setCurrency(e.target.value)}
-                >
-                  <option value="all">All currencies</option>
-                  {currencies.map((c) => (
-                    <option key={c}>{c}</option>
-                  ))}
-                </select>
-              </label>
-              <label>
-                Balance status
-                <select
-                  value={status}
-                  onChange={(e) => setStatus(e.target.value)}
-                >
-                  <option value="all">All balances</option>
-                  <option value="outstanding">Outstanding</option>
-                  <option value="settled">Settled</option>
-                </select>
-              </label>
-            </>
-          }
-          columns={[
-            { label: 'Member', render: (p) => p.username },
-            {
-              label: 'Plan / coverage',
-              render: (p) => (
-                <>
-                  {p.plan_name}
-                  <span className="gg-meta">
-                    {adminDay(p.starts_on)} to {adminDay(p.ends_on)}
-                    {p.cancelled ? ' - removed' : ''}
-                  </span>
-                </>
-              ),
-            },
-            { label: 'Fee', render: (p) => adminMoney(p.price, p.currency) },
-            {
-              label: 'Paid, less refunds',
-              render: (p) => adminMoney(p.paid, p.currency),
-            },
-            {
-              label: 'Outstanding',
-              render: (p) => (
-                <strong
-                  className={Number(p.outstanding) > 0 ? 'ga-outstanding' : ''}
-                >
-                  {adminMoney(p.outstanding, p.currency)}
-                </strong>
-              ),
-            },
-            {
-              label: 'Status',
-              render: (p) => (
-                <span
-                  className={
-                    'gg-period-status ' +
-                    (Number(p.outstanding) > 0
-                      ? 'gg-period-upcoming'
-                      : 'gg-period-active')
-                  }
-                >
-                  {Number(p.outstanding) > 0 ? 'Outstanding' : 'Settled'}
-                </span>
-              ),
-            },
-          ]}
-        />
-        <h4>Monthly revenue</h4>
-        <div className="ga-table-toolbar">
-          <label>
-            Year
-            <input
-              type="number"
-              min={2020}
-              max={Number(data.today.slice(0, 4)) + 1}
-              value={year}
-              onChange={(e) => setYear(Number(e.target.value))}
-            />
-          </label>
-          <label>
-            Month
-            <select
-              value={month}
-              onChange={(e) => setMonth(Number(e.target.value))}
+      <div className="ga-admin-cards">
+        <AdminSectionCard title="Record a payment" defaultOpen>
+          <div className="gg-section-heading">
+            <div>
+              <p className="gg-small">
+                Select a member and record money already received outside
+                FitSync.
+              </p>
+            </div>
+            <button
+              type="button"
+              className="gg-primary"
+              disabled={locked}
+              onClick={() => setPayment(true)}
             >
-              {Array.from({ length: 12 }, (_, i) => (
-                <option key={i} value={i + 1}>
-                  {new Date(2026, i, 1).toLocaleString(undefined, {
-                    month: 'long',
-                  })}
-                </option>
-              ))}
-            </select>
-          </label>
-          <button
-            type="button"
-            disabled={busy || locked || !income}
-            onClick={() => void exportMonth()}
-          >
-            Download monthly CSV
-          </button>
-        </div>
-        <p className="gg-small">
-          Dates follow {zone}. Net received excludes expenses. Voided entries
-          are excluded from totals.
-        </p>
-        {!income ? (
-          <p role="status">Loading revenue...</p>
-        ) : (
-          <div className="ga-revenue">
-            {income.summary
-              .filter(
-                (r) => r.month === `${year}-${String(month).padStart(2, '0')}`,
-              )
-              .map((r) => (
-                <dl key={r.currency}>
-                  <dt>{r.currency} received</dt>
-                  <dd>{adminMoney(r.received, r.currency)}</dd>
-                  <dt>Refunded</dt>
-                  <dd>{adminMoney(r.refunds, r.currency)}</dd>
-                  <dt>Net received</dt>
-                  <dd>{adminMoney(r.net, r.currency)}</dd>
-                </dl>
-              ))}
-            {!income.summary.some(
-              (r) => r.month === `${year}-${String(month).padStart(2, '0')}`,
-            ) && <p>No payments recorded for this month.</p>}
+              Make payment record
+            </button>
           </div>
-        )}
-      </section>
+          <p className="ga-form-note">
+            A payment cannot exceed the member's outstanding balance. Different
+            currencies stay separate.
+          </p>
+        </AdminSectionCard>
+        <AdminSectionCard title="Balances & revenue">
+          <div className="gg-section-heading">
+            <div>
+              <p className="gg-small">
+                Each row is a saved plan assignment. Fees, payments and
+                remaining balance stay together.
+              </p>
+            </div>
+            <button type="button" onClick={() => setLedger(true)}>
+              Payment history
+            </button>
+          </div>
+          {error && (
+            <p role="alert" className="gg-feedback gg-error">
+              {error}
+            </p>
+          )}
+          <AdminTable
+            rows={data.balances.filter(
+              (p) =>
+                (currency === 'all' || p.currency === currency) &&
+                (status === 'all' ||
+                  (status === 'outstanding'
+                    ? Number(p.outstanding) > 0
+                    : Number(p.outstanding) === 0)),
+            )}
+            label="Member balances"
+            dateLabel="Coverage during"
+            zone={zone}
+            dateOf={(p) => p.starts_on}
+            matches={(p, r) => historyOverlaps(p.starts_on, p.ends_on, r)}
+            rowKey={(p) => p.id}
+            searchText={(p) => p.username + ' ' + p.plan_name}
+            extraFilters={
+              <>
+                <label>
+                  Currency
+                  <select
+                    value={currency}
+                    onChange={(e) => setCurrency(e.target.value)}
+                  >
+                    <option value="all">All currencies</option>
+                    {currencies.map((c) => (
+                      <option key={c}>{c}</option>
+                    ))}
+                  </select>
+                </label>
+                <label>
+                  Balance status
+                  <select
+                    value={status}
+                    onChange={(e) => setStatus(e.target.value)}
+                  >
+                    <option value="all">All balances</option>
+                    <option value="outstanding">Outstanding</option>
+                    <option value="settled">Settled</option>
+                  </select>
+                </label>
+              </>
+            }
+            columns={[
+              { label: 'Member', render: (p) => p.username },
+              {
+                label: 'Plan / coverage',
+                render: (p) => (
+                  <>
+                    {p.plan_name}
+                    <span className="gg-meta">
+                      {adminDay(p.starts_on)} to {adminDay(p.ends_on)}
+                      {p.cancelled ? ' - removed' : ''}
+                    </span>
+                  </>
+                ),
+              },
+              { label: 'Fee', render: (p) => adminMoney(p.price, p.currency) },
+              {
+                label: 'Paid, less refunds',
+                render: (p) => adminMoney(p.paid, p.currency),
+              },
+              {
+                label: 'Outstanding',
+                render: (p) => (
+                  <strong
+                    className={
+                      Number(p.outstanding) > 0 ? 'ga-outstanding' : ''
+                    }
+                  >
+                    {adminMoney(p.outstanding, p.currency)}
+                  </strong>
+                ),
+              },
+              {
+                label: 'Status',
+                render: (p) => (
+                  <span
+                    className={
+                      'gg-period-status ' +
+                      (Number(p.outstanding) > 0
+                        ? 'gg-period-upcoming'
+                        : 'gg-period-active')
+                    }
+                  >
+                    {Number(p.outstanding) > 0 ? 'Outstanding' : 'Settled'}
+                  </span>
+                ),
+              },
+            ]}
+          />
+          <h4>Monthly revenue</h4>
+          <div className="ga-table-toolbar">
+            <label>
+              Year
+              <input
+                type="number"
+                min={2020}
+                max={Number(data.today.slice(0, 4)) + 1}
+                value={year}
+                onChange={(e) => setYear(Number(e.target.value))}
+              />
+            </label>
+            <label>
+              Month
+              <select
+                value={month}
+                onChange={(e) => setMonth(Number(e.target.value))}
+              >
+                {Array.from({ length: 12 }, (_, i) => (
+                  <option key={i} value={i + 1}>
+                    {new Date(2026, i, 1).toLocaleString(undefined, {
+                      month: 'long',
+                    })}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <button
+              type="button"
+              disabled={busy || locked || !income}
+              onClick={() => void exportMonth()}
+            >
+              Download monthly CSV
+            </button>
+          </div>
+          <p className="gg-small">
+            Dates follow {zone}. Net received excludes expenses. Voided entries
+            are excluded from totals.
+          </p>
+          {!income ? (
+            <p role="status">Loading revenue...</p>
+          ) : (
+            <div className="ga-revenue">
+              {income.summary
+                .filter(
+                  (r) =>
+                    r.month === `${year}-${String(month).padStart(2, '0')}`,
+                )
+                .map((r) => (
+                  <dl key={r.currency}>
+                    <dt>{r.currency} received</dt>
+                    <dd>{adminMoney(r.received, r.currency)}</dd>
+                    <dt>Refunded</dt>
+                    <dd>{adminMoney(r.refunds, r.currency)}</dd>
+                    <dt>Net received</dt>
+                    <dd>{adminMoney(r.net, r.currency)}</dd>
+                  </dl>
+                ))}
+              {!income.summary.some(
+                (r) => r.month === `${year}-${String(month).padStart(2, '0')}`,
+              ) && <p>No payments recorded for this month.</p>}
+            </div>
+          )}
+        </AdminSectionCard>
+      </div>
       {payment && (
         <PaymentForm
           data={data}

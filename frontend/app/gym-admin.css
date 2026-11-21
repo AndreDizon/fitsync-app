@@ -83,21 +83,37 @@
   padding-top: 24px;
   border-top: 1px solid #dce4dd;
 }
-.ga-content:is([data-section='members'], [data-section='settings']) {
+.ga-content:is(
+  [data-section='members'],
+  [data-section='settings'],
+  [data-section='plans'],
+  [data-section='payments']
+) {
   border: 0;
   background: transparent;
   overflow: visible;
 }
-.ga-content:is([data-section='members'], [data-section='settings'])
+.ga-content:is(
+    [data-section='members'],
+    [data-section='settings'],
+    [data-section='plans'],
+    [data-section='payments']
+  )
   > .ga-page-heading {
   border-radius: 16px;
 }
-.ga-content:is([data-section='members'], [data-section='settings'])
+.ga-content:is(
+    [data-section='members'],
+    [data-section='settings'],
+    [data-section='plans'],
+    [data-section='payments']
+  )
   > .ga-page-body {
   padding: 20px 0 0;
 }
 .ga-member-cards,
-.ga-settings-cards {
+.ga-settings-cards,
+.ga-admin-cards {
   display: grid;
   gap: 24px;
 }
@@ -188,8 +204,18 @@
   border-top: 1px solid #dce4dd;
 }
 @media (max-width: 600px) {
+  .ga-section-card-body > .gg-section-heading {
+    flex-wrap: wrap;
+  }
+  .ga-section-card-body > .gg-section-heading > div {
+    flex-basis: 100%;
+  }
+  .ga-section-card-body > .gg-section-heading > button {
+    white-space: nowrap;
+  }
   .ga-member-cards,
-  .ga-settings-cards {
+  .ga-settings-cards,
+  .ga-admin-cards {
     gap: 20px;
   }
   .ga-section-card > summary,
