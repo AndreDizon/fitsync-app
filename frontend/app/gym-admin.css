@@ -740,6 +740,126 @@
 .ga-outstanding {
   color: #8b491f;
 }
+.ga-collections {
+  display: grid;
+  gap: 18px;
+  margin-top: 18px;
+}
+.ga-collection {
+  padding: 18px;
+  border: 1px solid #d4dfd8;
+  border-radius: 12px;
+  background: #fffdf7;
+}
+.ga-collection > header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+.ga-collection h5 {
+  margin: 0;
+  font-size: 16px;
+}
+.ga-collection h6 {
+  margin: 0 0 12px;
+  font-size: 13px;
+  color: #40584b;
+}
+.ga-collection-status {
+  padding: 5px 9px;
+  border-radius: 6px;
+  background: #edf1f5;
+  color: #35516b;
+  font-size: 12px;
+  font-weight: 700;
+}
+.ga-collection-warning {
+  border-color: #d5ba70;
+}
+.ga-collection-warning .ga-collection-status {
+  background: #fff0bf;
+  color: #705017;
+}
+.ga-collection-warning .ga-collection-total dd {
+  color: #8b491f;
+}
+.ga-collection-negative .ga-collection-status {
+  background: #ffede7;
+  color: #8b3427;
+}
+.ga-collection-settled .ga-collection-status {
+  background: #eaf4ed;
+  color: #315c40;
+}
+.ga-collection-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 24px;
+}
+.ga-collection-columns > div + div {
+  border-left: 1px solid #dce4dd;
+  padding-left: 24px;
+}
+.ga-collection dl {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+.ga-collection dl > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 5px 12px;
+}
+.ga-collection dt {
+  font-size: 13px;
+}
+.ga-collection dd {
+  margin: 0;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.ga-collection-cohort {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid #dce4dd;
+  font-size: 13px;
+}
+.ga-collection-cohort p {
+  margin: 6px 0;
+  line-height: 1.7;
+}
+.ga-collection-cohort > span {
+  color: #536358;
+  font-size: 12px;
+}
+.ga-collection-notice {
+  padding: 12px;
+  margin: 16px 0 0;
+  border-radius: 8px;
+  background: #fff5d6;
+  color: #705017;
+  font-size: 13px;
+  line-height: 1.6;
+}
+@media (max-width: 700px) {
+  .ga-collection-columns {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 18px;
+  }
+  .ga-collection-columns > div + div {
+    border-left: 0;
+    border-top: 1px solid #dce4dd;
+    padding: 18px 0 0;
+  }
+  .ga-collection {
+    padding: 16px;
+  }
+}
 .ga-page-heading > button {
   margin-left: auto;
 }

@@ -12,6 +12,7 @@ import {
 import { type AdminPageProps } from './gym-admin-workspace'
 import { useConfirmation } from './confirm-dialog'
 import { historyOverlaps } from '../../shared/gym-history'
+import { gymCollectionsSummary } from '../../shared/gym-collections'
 import {
   incomeCsv,
   type GymIncomeData,
@@ -27,6 +28,7 @@ export function GymAdminPayments({ data, locked, run }: AdminPageProps) {
     [month, setMonth] = useState(Number(data.today.slice(5, 7))),
     [income, setIncome] = useState<GymIncomeData | null>(null),
     [error, setError] = useState(''),
+    [summaryError, setSummaryError] = useState(''),
     [busy, setBusy] = useState(false),
     [version, setVersion] = useState(0),
     [adjust, setAdjust] = useState<{
@@ -39,6 +41,7 @@ export function GymAdminPayments({ data, locked, run }: AdminPageProps) {
   useEffect(() => {
     const abort = new AbortController()
     setIncome(null)
+    setSummaryError('')
     gymRequest(
       'income',
       { year, month, page: 0 },
@@ -48,7 +51,7 @@ export function GymAdminPayments({ data, locked, run }: AdminPageProps) {
         if (!abort.signal.aborted) setIncome(d)
       })
       .catch((e) => {
-        if (!abort.signal.aborted) setError(e.message)
+        if (!abort.signal.aborted) setSummaryError(e.message)
       })
     return () => abort.abort()
   }, [year, month, data, version])
@@ -223,7 +226,7 @@ export function GymAdminPayments({ data, locked, run }: AdminPageProps) {
               },
             ]}
           />
-          <h4>Monthly revenue</h4>
+          <h4>Monthly collections & unpaid balances</h4>
           <div className="ga-table-toolbar">
             <label>
               Year
@@ -259,32 +262,26 @@ export function GymAdminPayments({ data, locked, run }: AdminPageProps) {
             </button>
           </div>
           <p className="gg-small">
-            Dates follow {zone}. Net received excludes expenses. Voided entries
-            are excluded from totals.
+            Cash totals use the selected month in {zone}. Balances show what is
+            unpaid now, across all plan dates. Net cash is received money less
+            refunds; it is not profit because expenses are not tracked.
           </p>
-          {!income ? (
-            <p role="status">Loading revenue...</p>
+          {summaryError ? (
+            <p className="gg-feedback gg-error" role="alert">
+              {summaryError}{' '}
+              <button type="button" onClick={() => setVersion((v) => v + 1)}>
+                Retry summary
+              </button>
+            </p>
+          ) : !income ? (
+            <p role="status">Loading collections...</p>
           ) : (
-            <div className="ga-revenue">
-              {income.summary
-                .filter(
-                  (r) =>
-                    r.month === `${year}-${String(month).padStart(2, '0')}`,
-                )
-                .map((r) => (
-                  <dl key={r.currency}>
-                    <dt>{r.currency} received</dt>
-                    <dd>{adminMoney(r.received, r.currency)}</dd>
-                    <dt>Refunded</dt>
-                    <dd>{adminMoney(r.refunds, r.currency)}</dd>
-                    <dt>Net received</dt>
-                    <dd>{adminMoney(r.net, r.currency)}</dd>
-                  </dl>
-                ))}
-              {!income.summary.some(
-                (r) => r.month === `${year}-${String(month).padStart(2, '0')}`,
-              ) && <p>No payments recorded for this month.</p>}
-            </div>
+            <CollectionsSummary
+              data={data}
+              income={income}
+              year={year}
+              month={month}
+            />
           )}
         </AdminSectionCard>
       </div>
@@ -393,6 +390,130 @@ export function GymAdminPayments({ data, locked, run }: AdminPageProps) {
     </>
   )
 }
+function CollectionsSummary({
+  data,
+  income,
+  year,
+  month,
+}: Pick<AdminPageProps, 'data'> & {
+  income: GymIncomeData
+  year: number
+  month: number
+}) {
+  const rows = gymCollectionsSummary(
+    data.balances,
+    income.summary,
+    year,
+    month,
+    data.today,
+  )
+  const monthLabel = new Intl.DateTimeFormat(undefined, {
+    month: 'long',
+    year: 'numeric',
+    timeZone: 'UTC',
+  }).format(new Date(Date.UTC(year, month - 1, 1)))
+  return (
+    <div className="ga-collections">
+      {!rows.length && (
+        <p>No payments or plan fees recorded for {monthLabel}.</p>
+      )}
+      {rows.map((r) => {
+        const tone =
+          r.net < 0
+            ? 'negative'
+            : r.startedOutstanding > 0
+              ? 'warning'
+              : r.futureOutstanding > 0
+                ? 'neutral'
+                : 'settled'
+        const label =
+          r.net < 0
+            ? 'Refunds exceed receipts'
+            : r.startedOutstanding > 0
+              ? 'Payments outstanding'
+              : r.futureOutstanding > 0
+                ? 'Future fees pending'
+                : 'No outstanding fees'
+        return (
+          <section
+            className={'ga-collection ga-collection-' + tone}
+            key={r.currency}
+            aria-label={r.currency + ' collection summary'}
+          >
+            <header>
+              <h5>{r.currency} summary</h5>
+              <span className="ga-collection-status">{label}</span>
+            </header>
+            <div className="ga-collection-columns">
+              <div>
+                <h6>{monthLabel} cash</h6>
+                <dl>
+                  <div>
+                    <dt>Received</dt>
+                    <dd>{adminMoney(r.received, r.currency)}</dd>
+                  </div>
+                  <div>
+                    <dt>Refunded</dt>
+                    <dd>{adminMoney(r.refunded, r.currency)}</dd>
+                  </div>
+                  <div>
+                    <dt>Net cash received</dt>
+                    <dd>{adminMoney(r.net, r.currency)}</dd>
+                  </div>
+                </dl>
+              </div>
+              <div>
+                <h6>Unpaid balances now</h6>
+                <dl>
+                  <div className="ga-collection-total">
+                    <dt>Total unpaid</dt>
+                    <dd>{adminMoney(r.outstanding, r.currency)}</dd>
+                  </div>
+                  <div>
+                    <dt>Started plans</dt>
+                    <dd>{adminMoney(r.startedOutstanding, r.currency)}</dd>
+                  </div>
+                  <div>
+                    <dt>Future plans / renewals</dt>
+                    <dd>{adminMoney(r.futureOutstanding, r.currency)}</dd>
+                  </div>
+                </dl>
+                <p className="gg-small">
+                  {r.unpaidMembers}{' '}
+                  {r.unpaidMembers === 1 ? 'member has' : 'members have'} an
+                  unpaid balance. As of {adminDay(data.today)}.
+                </p>
+              </div>
+            </div>
+            {r.monthFees > 0 && (
+              <div className="ga-collection-cohort">
+                <strong>Plans starting in {monthLabel}</strong>
+                <p>
+                  {adminMoney(r.monthPaid, r.currency)} collected of{' '}
+                  {adminMoney(r.monthFees, r.currency)} in plan fees (
+                  {r.collectionPercent}% collected).{' '}
+                  <strong>
+                    {adminMoney(r.monthOutstanding, r.currency)} still unpaid.
+                  </strong>
+                </p>
+                <span>
+                  Plan balances are current, including payments received after
+                  the selected month.
+                </span>
+              </div>
+            )}
+            {r.startedOutstanding > 0 && (
+              <p className="ga-collection-notice" role="status">
+                Follow up with members who still owe for started plans.
+              </p>
+            )}
+          </section>
+        )
+      })}
+    </div>
+  )
+}
+
 function PaymentForm({
   data,
   locked,
