@@ -9,6 +9,7 @@ Apply these migrations in Supabase SQL Editor in order. Skip any already applied
 3. `20261121_gym_groups_time_zone.sql`
 4. `20261121_gym_groups_v4.sql`
 5. `20261121_gym_groups_v5_income.sql`
+6. `20261121_gym_groups_v6_checkins.sql`
 
 The existing playlist migrations are prerequisites. Deploy frontend and backend together. `/api/gyms` now requires `gym_group_action_v5`; a missing migration shows an explicit setup error. The management migration is transactional and rerunnable. Existing groups, roles, session instants and shared content are preserved; new welcome/rules fields start blank.
 
@@ -27,7 +28,15 @@ The Membership section separates community membership/roles from a recorded gym 
 - A record is active, upcoming, expired or cancelled based on gym-local dates. Staff can cancel an incorrect record; it stays in history and its reminders stop. Cancellation neither refunds a payment nor removes a member from the community.
 - Members see only their own dated records. Admin/staff may view records for their gym's members. Leaving/removal cancels current/future recorded periods; account-data reset deletes that user's records. Fee records are not payment confirmations. FitSync does not collect card details or process payments.
 
-## Attendance
+## Daily member check-ins
+
+Training > Attendance offers a daily Check in action without needing a scheduled session. The server records the authenticated member, current timestamp and calendar day in the gym time zone. A unique gym/member/day key makes duplicate clicks and retries safe. Dates and identities cannot be supplied by the client. These are self-reported visits, not verified presence or staff-marked session attendance.
+
+Members see only their own history. Staff and the owner can choose All gym members; history is paginated at 20 records. Check-in remains available regardless of paid-plan status, matching existing community access rules. Leaving prevents new visits; history remains in the gym until account-data reset, account deletion or gym deletion. No location tracking is collected.
+
+Apply v6 after v5. New check-in actions use the authenticated v6 RPC, with RLS enabled and direct table access revoked. Existing tools continue using v5, so a missing v6 migration only disables daily check-ins with a setup message.
+
+## Scheduled session attendance
 
 Attendance is a separate section with 20 sessions per page. Started sessions appear first. Admin/staff can open a session roster showing current members, previous attendance records and reservation flags. They may mark Attended, Absent, Excused or Not marked only after the session starts. Walk-ins can be recorded even without a reservation. Staff can correct an entry, and members receive an attendance update notification.
 

@@ -14,3 +14,15 @@
 .gg-attendance-roster .gg-field{min-width:180px;max-width:260px}
 .gg-attendance-roster .gg-field label{font-size:11px;font-weight:400;color:#536358}
 @media(max-width:700px){.gg-guidance{padding:16px}.gg-plan-fields,.gg-date-fields{grid-template-columns:1fr}.gg-attendance-roster li>.gg-field{max-width:none;width:100%}}
+.gg-checkin-today{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:18px 0;margin-top:12px;border-block:1px solid #dce4dd}
+.gg-checkin-today strong{font-size:15px}
+.gg-checkin-today .gg-small{margin:4px 0 0}
+.gg-checkin-history-heading{margin-top:24px;align-items:center;flex-wrap:wrap}
+.gg-checkin-history-heading h4{margin:0}
+.gg-checkin-history-heading .gg-field{min-width:180px}
+.gg-checkin-history time{display:block}
+.gg-checkin-history .gg-period-status{white-space:nowrap}
+.gg-session-attendance{margin-top:24px;padding-top:14px;border-top:1px solid #dce4dd}
+.gg-session-attendance>summary{cursor:pointer;font-size:14px;font-weight:700;padding:10px 0}
+.gg-session-attendance[open]>summary{margin-bottom:12px}
+@media(max-width:500px){.gg-checkin-today{align-items:start;flex-direction:column}.gg-checkin-today>button{width:100%}.gg-checkin-history-heading .gg-field{width:100%}}

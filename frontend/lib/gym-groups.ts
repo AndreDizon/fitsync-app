@@ -10,7 +10,7 @@ export type GymMembership={gym:Gym|null;role?:GymMember['role'];members:GymMembe
 export type GymAction=(action:string,doc:Record<string,unknown>,success:string)=>Promise<boolean>
 export const gymTimeZoneLabel=(zone:string)=>zone==='Asia/Manila'?'Philippine time (Asia/Manila, UTC+08:00)':zone.replaceAll('_',' ')
 export async function gymRequest(action:string,doc:Record<string,unknown>={},signal?:AbortSignal){
- const read=['mine','list','discussion','read_playlist','attendance','notifications','income','income_export'].includes(action)
+ const read=['mine','list','discussion','read_playlist','attendance','notifications','income','income_export','checkins'].includes(action)
  const response=await fetch('/api/gyms'+(read?'?'+new URLSearchParams(Object.entries({action,...doc}).map(([k,v])=>[k,String(v)])):''),{method:read?'GET':'POST',cache:'no-store',headers:read?undefined:{'Content-Type':'application/json'},body:read?undefined:JSON.stringify({action,doc}),signal:signal||AbortSignal.timeout(30000)})
  const data=await response.json().catch(()=>null)
  if(!response.ok)throw new Error(data?.error||'Could not load gyms. Try again.')

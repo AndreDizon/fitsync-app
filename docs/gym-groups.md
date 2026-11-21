@@ -11,6 +11,7 @@ Apply these in Supabase SQL Editor after the existing playlist migrations (20261
 3. backend/migrations/20261121_gym_groups_time_zone.sql - gym session time zones.
 4. backend/migrations/20261121_gym_groups_v4.sql - attendance, manual membership plans, guidance and notifications.
 5. backend/migrations/20261121_gym_groups_v5_income.sql - owner-only income records and monthly totals.
+6. backend/migrations/20261121_gym_groups_v6_checkins.sql - daily member self check-in and private/team history.
 
 The migrations are rerunnable; apply them in the listed order. Rerunning an older migration afterward can restore old function definitions. Existing groups retain members and default to open joining. Deploy frontend and backend together; the new API requires the v5 RPC and shows a setup message if missing. The migration notifies PostgREST to reload its schema.
 
