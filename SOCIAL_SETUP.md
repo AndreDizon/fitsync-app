@@ -1,6 +1,6 @@
 # Social community setup
 
-The Social overview contains illustrative forum and buddy previews plus Learn & improve, a collection of source-linked educational articles. Open the forum or introductions for real account-backed posts; Back to community returns to the overview. Articles are available without signing in. A regular Supabase account is required to publish.
+The Social overview contains illustrative forum and buddy previews, Learn & improve, and a fourth card for gym communities. Open the forum or introductions for account-backed posts, or Explore gyms to create/join a group. Back to community returns to the overview. Articles are available without signing in. A regular Supabase account is required to publish or join a gym.
 
 ## Enable the database
 
@@ -22,7 +22,11 @@ The job physically removes expired posts and cascades comments/hearts, then dele
 
 ## Learn & improve
 
-Replaces the retired gym locator. Eight educational links cover workout, nutrition and recovery, with topic/reading-level filters and three articles per page. See `docs/learning-articles.md` for source and maintenance details. There is no location permission request, map, nearby search or walking route. Old locator endpoints return HTTP 410. Existing gym database records are preserved, but gym listings are unavailable in the interface and new gym listing requests are rejected by the API.
+Replaces the retired gym locator. Seventeen educational links cover workout, nutrition and recovery, with topic/expertise-level filters and three articles per page. See `docs/learning-articles.md` for source and maintenance details. There is no location permission request, map, nearby search or walking route. Old locator endpoints return HTTP 410. Existing legacy gym records are preserved; new gym communities use separate tables and API routes.
+
+## Gym communities
+
+Apply `backend/migrations/20261121_gym_groups.sql` after the existing migrations to enable the fourth card's create/join actions. Each account can belong to one group, up to 100 members. The creator is gym admin and can promote members to staff or demote staff to members. Staff cannot manage roles. Join by name search or a ten-character code. These are unverified user-created groups, not paid memberships or business listings. See `docs/gym-groups.md` for permissions, privacy and reset behavior. Run `node scripts/validate-gym-groups.mjs` for isolated SQL tests.
 
 Community writes require an internet connection. Reporting/moderation, messaging and verified professional credentials are not part of this version.
 

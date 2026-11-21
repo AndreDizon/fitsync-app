@@ -4,7 +4,7 @@
   .app-shell .plan-hero-frame > .plan-tabs,
   .app-shell .pr-tabs-bar > [role='tablist'] {
     /* Hide the flaps below the body's top edge while keeping side curves visible. */
-    clip-path: inset(-16px -48px 0 -16px);
+    clip-path: inset(-16px -48px -1px -16px);
   }
   .app-shell .plan-hero-frame > .plan-tabs > button,
   .app-shell .pr-tabs-bar > [role='tablist'] > button {

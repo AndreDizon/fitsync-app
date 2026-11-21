@@ -1,4 +1,6 @@
 'use client'
+
+import { useConfirmation } from './confirm-dialog'
 import { heroImage } from '@/lib/hero-images'
 import { HeroImagePreloads } from '@/components/hero-asset-loading'
 import { ActionNotice } from './action-notice'
@@ -24,6 +26,7 @@ import '@/app/progress.css'
 const shortDate = (date: string) => new Intl.DateTimeFormat('en', { month: 'short', day: 'numeric', timeZone: 'UTC' }).format(new Date(date + 'T12:00:00Z'))
 const fieldNames: Record<string, string> = { weightKg: 'Weight (kg)', bodyFat: 'Body fat (%)', chest: 'Chest (cm)', waist: 'Waist (cm)', hips: 'Hips (cm)', arm: 'Arm (cm)', thigh: 'Thigh (cm)', rpe: 'Workout effort / RPE (1–10)', energy: 'Energy', mood: 'Mood', sleepQuality: 'Sleep quality', soreness: 'Soreness', sleepHours: 'Sleep duration (hours)' }
 export function ProgressWorkspace({ initialTab = 'analytics', userName = '' }: { initialTab?: 'analytics' | 'documentation' | 'achievements'; userName?: string }) {
+  const confirm = useConfirmation()
   const owner = usePlanAccount(), profile = usePlanningProfile(), zone = profile?.timeZone || 'Asia/Manila'
   const [clock,setClock] = useState(()=>new Date()), today = dateInZone(zone,clock), lastDate = useRef(today)
   const [snapshot,setSnapshot] = useState<ProgressSnapshot|null>(null), [error,setError] = useState(''), [notice,setNotice] = useState(''), [loading,setLoading] = useState(true), [busy,setBusy] = useState(false), [version,setVersion] = useState(0)
@@ -81,7 +84,7 @@ export function ProgressWorkspace({ initialTab = 'analytics', userName = '' }: {
     window.dispatchEvent(new CustomEvent('fitsync-award-claimed',{detail:code}))
     return result.data
   }
-  async function remove(entry:ProgressEntry){if(!owner||!window.confirm('Delete this progress entry'+(entry.kind==='photo'?' and its photo':'')+'?'))return;setBusy(true);setError('');const run=generation.current;try{const result=await progressRequest('?id='+entry.id+'&revision='+entry.revision,'DELETE');if(run!==generation.current)return;if(result.userId!==owner)throw new Error('Account changed. Reload this page.');setNotice(result.warning||'Progress entry deleted.');setVersion(n=>n+1)}catch(e){if(run===generation.current)setError((e as Error).message)}finally{if(run===generation.current)setBusy(false)}}
+  async function remove(entry:ProgressEntry){const beforeConfirmation=generation.current;if(!owner||!await confirm({title:'Delete progress entry?',message:'Delete this progress entry'+(entry.kind==='photo'?' and its photo':'')+'? This cannot be undone.',confirmLabel:'Delete entry',destructive:true})||beforeConfirmation!==generation.current)return;setBusy(true);setError('');const run=generation.current;try{const result=await progressRequest('?id='+entry.id+'&revision='+entry.revision,'DELETE');if(run!==generation.current)return;if(result.userId!==owner)throw new Error('Account changed. Reload this page.');setNotice(result.warning||'Progress entry deleted.');setVersion(n=>n+1)}catch(e){if(run===generation.current)setError((e as Error).message)}finally{if(run===generation.current)setBusy(false)}}
   return <div className="page progress-workspace"><HeroImagePreloads page="progress" />
     <div className="pr-hero-frame">
     <header className="pr-hero">

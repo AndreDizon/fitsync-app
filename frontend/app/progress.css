@@ -219,3 +219,8 @@
 .pr-tabs-bar [role=tab]>svg{flex-shrink:0;width:17px;height:17px}
 @media(max-width:600px){.pr-tabs-bar [role=tab]>svg{width:14px;height:14px}}
 @media(max-width:380px){.pr-tabs-bar [role=tab]{gap:3px}.pr-tabs-bar [role=tab]>svg{width:12px;height:12px}}
+
+/* Use Plans' non-shrinking folder baseline and one-pixel body overlap. */
+.app-shell.theme-default .progress-workspace .pr-hero-frame>.pr-tabs-bar{flex-shrink:0;align-items:stretch;margin-bottom:0;padding-bottom:0;border-bottom:0}
+.app-shell.theme-default .progress-workspace .pr-tabs-bar>[role=tablist]{align-items:stretch;overflow:visible}
+.app-shell.theme-default .progress-workspace .pr-tabs-bar [role=tab]{box-sizing:border-box;height:calc(100% + 1px);margin-bottom:-1px;padding-block:0}

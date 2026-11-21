@@ -2,7 +2,7 @@
 
 import { useActionState, useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
-import { KeyRound, LogOut, ShieldCheck, Trash2, X } from 'lucide-react'
+import { ChevronDown, KeyRound, LogOut, ShieldCheck, Trash2, X } from 'lucide-react'
 import { eraseAccountData, finishAccountReset, requestAccountRecovery, signOutEverywhere, type AccountActionState } from '@/app/auth/account-actions'
 import { clearNotificationCopies } from '@/lib/notifications'
 import { clearProgressCopies } from '@/lib/progress'
@@ -43,8 +43,8 @@ export function AccountSecuritySettings() {
     } catch { setError('Could not finish signing out. Please try again.') }
     finally { setBusy(false) }
   }
-  return <section className="st-card st-security" id="settings-security" aria-labelledby="security-title">
-    <header className="st-card-heading"><span className="st-icon"><ShieldCheck size={21}/></span><div><h2 id="security-title">Sign-in &amp; account security</h2><p>Recover access, manage sessions or start fresh.</p></div></header>
+  return <details className="st-card st-security st-collapsible" id="settings-security" aria-labelledby="security-title">
+    <summary className="st-card-heading"><span className="st-icon"><ShieldCheck size={21}/></span><div><h2 id="security-title">Sign-in &amp; account security</h2><p>Recover access, manage sessions or start fresh.</p></div><ChevronDown className="st-collapse-chevron" size={20} aria-hidden="true"/></summary>
     <div className="st-card-body security-rows">
       <div className="security-row"><KeyRound size={20}/><div><h3>Password recovery</h3><p>Send a code to your verified account email. Enter it in FitSync, then choose a new password in the same tab.</p><button className="security-button" disabled={!owner || busy} onClick={recover}>{busy ? 'Please wait...' : 'Send recovery code'}</button></div></div>
       <div className="security-row"><LogOut size={20}/><div><h3>Sign out on all devices</h3><p>End your sessions across devices. Unsynced changes on this device will be cleared. Sync your records first.</p><button className="security-button secondary" disabled={!owner || busy} onClick={allSessions}>Sign out everywhere</button></div></div>
@@ -66,7 +66,7 @@ export function AccountSecuritySettings() {
         catch { window.location.assign('/login') }
       })()
     }}/>}
-  </section>
+  </details>
 }
 
 function EraseDialog({ operation, onClose, onComplete }: { operation: 'reset' | 'delete'; onClose: () => void; onComplete: () => Promise<void> }) {

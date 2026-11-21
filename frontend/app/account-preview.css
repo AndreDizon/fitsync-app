@@ -13,16 +13,10 @@
 .account-preview form{display:flex;flex-direction:column;min-height:0;overflow:hidden}
 .account-preview-body{padding:20px;overflow:auto;overscroll-behavior:contain}
 .account-preview label{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:6px;font-size:12px;font-weight:700}
-.account-preview label span,.account-preview h3 span{font-size:10px;font-weight:450;color:#6c624c}
+.account-preview label span{font-size:10px;font-weight:450;color:#6c624c}
 .account-preview input{display:block;width:100%;min-height:46px;padding:10px 12px;border:1px solid #cfc4ad;border-radius:10px;background:#fff;color:#292c28}
 .account-preview input[readonly]{background:#f2f0e8;border-color:#e2ddd0;color:#57533f}
 .account-preview .account-preview-hint{margin:6px 0 18px;font-size:11px;line-height:1.6;color:#6b6048}
-.account-preview-body>section{margin-top:22px;padding-top:18px;border-top:1px solid #e7dfce}
-.account-preview h3{display:flex;justify-content:space-between;gap:8px;margin:0 0 14px;font-size:14px;font-weight:700}
-.account-preview dl{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 20px;margin:0}
-.account-preview dl>div{min-width:0}
-.account-preview dt{font-size:11px;color:#6b6048}
-.account-preview dd{margin:3px 0 0;font-size:13px;font-weight:600;overflow-wrap:anywhere}
 .account-preview footer{display:flex;justify-content:flex-end;gap:10px;padding:14px 20px;border-top:1px solid #e7dfce;background:#fffdf7;flex-shrink:0}
 .account-preview .account-preview-save{background:linear-gradient(#ffe969,#ffe135);border-color:#cfb52f;box-shadow:inset 0 2px 2px #fff8,0 2px 0 #c8ac28}
 .account-preview button:disabled{opacity:.5;cursor:default;box-shadow:none}
@@ -30,4 +24,4 @@
 .account-preview-error:empty{display:none}
 .account-preview-error{margin:16px 0 0;color:#a53020;font-size:12px}
 .account-preview-success{margin:16px 0 0;color:#25613f;font-size:12px}
-@media(max-width:400px){.account-preview{width:calc(100vw - 20px);max-height:calc(100dvh - 20px)}.account-preview>header,.account-preview-body{padding:16px}.account-preview>header{gap:9px}.account-preview h2{font-size:19px}.account-preview>header>svg{width:20px;height:20px;padding:8px}.account-preview footer{padding:12px 16px}.account-preview dl{gap:14px}}
+@media(max-width:400px){.account-preview{width:calc(100vw - 20px);max-height:calc(100dvh - 20px)}.account-preview>header,.account-preview-body{padding:16px}.account-preview>header{gap:9px}.account-preview h2{font-size:19px}.account-preview>header>svg{width:20px;height:20px;padding:8px}.account-preview footer{padding:12px 16px}}

@@ -1,0 +1,91 @@
+'use client'
+
+import { useEffect, useRef, useState } from 'react'
+import { ArrowLeft, ArrowRight, Building2, Check, Copy, Crown, LogOut, Plus, RefreshCw, Search, ShieldCheck, Trash2, Users } from 'lucide-react'
+import { usePlanAccount } from '@/lib/playlist-account'
+import { useConfirmation } from './confirm-dialog'
+import '@/app/gym-groups.css'
+
+type Gym={id:string;name:string;description:string;member_count?:number;join_code?:string;owner_id?:string}
+type Member={user_id:string;username:string;role:'admin'|'staff'|'member';joined_at:string}
+type Membership={gym:Gym|null;role?:Member['role'];members:Member[]}
+async function gymRequest(action:string,doc:Record<string,unknown>={},signal?:AbortSignal){
+  const read=action==='mine'||action==='list'
+  const response=await fetch('/api/gyms'+(read?'?'+new URLSearchParams(Object.entries({action,...doc}).map(([k,v])=>[k,String(v)])):''),{method:read?'GET':'POST',cache:'no-store',headers:read?undefined:{'Content-Type':'application/json'},body:read?undefined:JSON.stringify({action,doc}),signal:signal||AbortSignal.timeout(30000)})
+  const data=await response.json()
+  if(!response.ok)throw new Error(data.error||'Could not load gyms. Try again.')
+  return data
+}
+
+export function GymGroupsCard({onOpen}:{onOpen:()=>void}){
+  return <section className="sc-gyms-overview" aria-labelledby="sc-gyms-title">
+    <header className="fitsync-card-heading"><Building2 size={22}/><div><h3 id="sc-gyms-title">Your gym, your team</h3><p>Create a gym community or join one to train together.</p></div><button type="button" data-view-section="gyms" onClick={onOpen}>Explore gyms<ArrowRight size={17}/></button></header>
+    <div className="sc-gyms-intro"><div><Users size={20}/><strong>Join your people</strong><p>Find a gym by name or enter its join code.</p></div><div><Plus size={20}/><strong>Start your own gym</strong><p>Create a group and welcome up to 100 members.</p></div><div><ShieldCheck size={20}/><strong>Build your team</strong><p>The gym admin can assign staff and manage members.</p></div></div>
+    <p className="sc-gyms-note">One gym per account. Community groups are not verified businesses or paid gym memberships.</p>
+  </section>
+}
+
+export function GymGroups({onBack}:{onBack:()=>void}){
+  const owner=usePlanAccount(),confirm=useConfirmation()
+  const [mine,setMine]=useState<Membership|null>(null),[gyms,setGyms]=useState<Gym[]>([]),[total,setTotal]=useState(0)
+  const [loading,setLoading]=useState(true),[busy,setBusy]=useState(false),[error,setError]=useState(''),[notice,setNotice]=useState('')
+  const [search,setSearch]=useState(''),[query,setQuery]=useState(''),[page,setPage]=useState(0),[version,setVersion]=useState(0),[code,setCode]=useState('')
+  const [name,setName]=useState(''),[description,setDescription]=useState(''),[copied,setCopied]=useState(false)
+  const generation=useRef(0)
+  useEffect(()=>{
+    if(!owner){setLoading(false);return}
+    const abort=new AbortController(),run=++generation.current
+    const signal=AbortSignal.any([abort.signal,AbortSignal.timeout(30000)])
+    setLoading(true);setError('')
+    ;(async()=>{
+      try{
+        const membership:Membership=await gymRequest('mine',{},signal)
+        if(run!==generation.current)return
+        setMine(membership)
+        if(membership.gym){setName(membership.gym.name);setDescription(membership.gym.description)}
+        else{const result=await gymRequest('list',{q:query,page},signal);if(run!==generation.current)return;setGyms(result.gyms);setTotal(result.total);if(page>0&&page*6>=result.total)setPage(Math.max(0,Math.ceil(result.total/6)-1))}
+      }catch(e){if(!abort.signal.aborted&&run===generation.current)setError((e as Error).message)}
+      finally{if(run===generation.current&&!abort.signal.aborted)setLoading(false)}
+    })()
+    return()=>{generation.current++;abort.abort()}
+  },[owner,query,page,version])
+  async function act(action:string,doc:Record<string,unknown>,success:string){
+    if(busy||!owner)return
+    const run=generation.current
+    setBusy(true);setError('');setNotice('')
+    try{const result:Membership=await gymRequest(action,doc);if(run!==generation.current)return;setMine(result);if(!result.gym){setName('');setDescription('');setCode('')}setNotice(success);setCopied(false);setVersion(n=>n+1)}
+    catch(e){if(run===generation.current)setError((e as Error).message)}
+    finally{setBusy(false)}
+  }
+  async function confirmAction(title:string,message:string,confirmLabel:string,action:string,doc:Record<string,unknown>,success:string,destructive=false){
+    const run=generation.current
+    if(await confirm({title,message,confirmLabel,destructive})&&run===generation.current)await act(action,doc,success)
+  }
+  const gym=mine?.gym,admin=mine?.role==='admin',locked=busy||loading
+  return <section className="sc-gyms" aria-labelledby="gym-workspace-title">
+    <button className="gg-back" type="button" onClick={onBack}><ArrowLeft size={17}/>Back to community</button>
+    <header className="gg-heading"><div><h2 id="gym-workspace-title" tabIndex={-1}>{gym?gym.name:'Find your gym community'}</h2><p>{gym?'Your team, membership and shared training circle.':'Join a community or create a space for your own team.'}</p></div>{owner&&<button type="button" disabled={locked} onClick={()=>setVersion(n=>n+1)} aria-label="Refresh gyms"><RefreshCw size={17}/>{loading?'Loading…':'Refresh'}</button>}</header>
+    {!owner?<p className="gg-feedback">Sign in to create or join a gym. Local tester previews cannot create real memberships.</p>:<>
+      {error&&<div className="gg-feedback gg-error" role="alert">{error}<button type="button" disabled={busy} onClick={()=>setVersion(n=>n+1)}>Try again</button></div>}
+      {notice&&<p className="gg-feedback gg-success" role="status">{notice}</p>}
+      {loading&&<p className="gg-feedback" role="status">Loading gym information…</p>}
+      {gym?<>
+        <article className="gg-membership"><div className="gg-membership-top"><span className="gg-emblem"><Building2 size={28}/></span><div><h3>{gym.name}</h3><span className={'gg-role gg-role-'+mine.role}>{admin?'Gym admin':mine.role==='staff'?'Staff':'Gym member'}</span><span className="gg-count">{mine.members.length}/100 members</span></div></div>{gym.description&&<p>{gym.description}</p>}
+          <div className="gg-code"><div><span>Join code</span><strong>{gym.join_code}</strong></div><button type="button" disabled={locked} onClick={async()=>{try{await navigator.clipboard.writeText(gym.join_code||'');setCopied(true)}catch{setError('Copy is unavailable. Select the join code and copy it manually.')}}}>{copied?<Check size={16}/>:<Copy size={16}/>}<span>{copied?'Copied':'Copy code'}</span></button></div>
+          <p className="gg-small">Anyone signed in can join a listed gym or use its code. Staff is a community role, not a professional qualification.</p>
+          {admin?<details className="gg-edit"><summary>Edit gym details</summary><form onSubmit={event=>{event.preventDefault();void act('update',{name,description},'Gym details saved.')}}><fieldset disabled={locked}><label>Gym name<input required minLength={3} maxLength={60} value={name} onChange={event=>setName(event.target.value)}/></label><label>Description<textarea maxLength={400} value={description} onChange={event=>setDescription(event.target.value)}/></label><button className="gg-primary" type="submit">Save gym details</button></fieldset></form></details>:null}
+        </article>
+        <section className="gg-roster" aria-labelledby="gym-roster-title"><header><h3 id="gym-roster-title">Members</h3><p>{admin?'Promote members to staff or change staff back to members.':'The gym admin manages roles. Staff and members can view the team.'}</p></header><ul>{mine.members.map(member=><li key={member.user_id}><span className="gg-member-avatar" aria-hidden="true">{member.username.slice(0,2).toUpperCase()}</span><div className="gg-member-name"><strong>{member.username}{member.user_id===owner?' (you)':''}</strong><span className="gg-member-role">{member.role==='admin'?<><Crown size={13}/>Gym admin</>:member.role==='staff'?'Staff':'Gym member'}</span></div>{admin&&member.role!=='admin'&&<div className="gg-member-actions"><button type="button" disabled={locked} onClick={()=>void confirmAction(member.role==='staff'?'Change to gym member?':'Promote to staff?',`${member.username} will become ${member.role==='staff'?'a gym member':'staff'}. Only the gym admin can manage roles.`,member.role==='staff'?'Make member':'Make staff','role',{userId:member.user_id,role:member.role==='staff'?'member':'staff'},'Member role updated.')}>{member.role==='staff'?'Make member':'Make staff'}</button><button type="button" className="gg-danger" disabled={locked} onClick={()=>void confirmAction('Remove member?',`Remove ${member.username} from this gym? They can rejoin using the gym listing or code.`,'Remove member','remove',{userId:member.user_id},'Member removed.',true)}>Remove</button></div>}</li>)}</ul></section>
+        <div className="gg-exit">{admin?<><p>As the creator, you remain gym admin. Deleting the gym removes the group and all memberships.</p><button type="button" className="gg-danger" disabled={locked} onClick={()=>void confirmAction('Delete this gym?',`Delete ${gym.name} and remove all ${mine.members.length} memberships? Personal FitSync accounts and records stay intact.`,'Delete gym','disband',{},'Gym deleted.',true)}><Trash2 size={16}/>Delete gym</button></>:<button type="button" disabled={locked} onClick={()=>void confirmAction('Leave this gym?',`Leave ${gym.name}? Your personal FitSync plans and records stay intact.`,'Leave gym','leave',{},'You left the gym.')}><LogOut size={16}/>Leave gym</button>}</div>
+      </>:!loading&&mine?<>
+        <div className="gg-entry"><form onSubmit={event=>{event.preventDefault();void act('join',{code:code.trim()},'You joined the gym.')}}><h3>Have a join code?</h3><fieldset disabled={locked}><label htmlFor="gym-join-code">Gym code<input id="gym-join-code" required minLength={10} maxLength={10} autoCapitalize="characters" spellCheck={false} value={code} onChange={event=>setCode(event.target.value.toUpperCase())} placeholder="10-character code"/></label><button className="gg-primary" type="submit">Join gym</button></fieldset></form>
+          <details className="gg-create"><summary><Plus size={17}/>Create a gym</summary><form onSubmit={event=>{event.preventDefault();void act('create',{name,description},'Your gym is ready. You are the gym admin.')}}><fieldset disabled={locked}><label>Gym name<input required minLength={3} maxLength={60} value={name} onChange={event=>setName(event.target.value)} placeholder="Your team’s name"/></label><label>Description<textarea maxLength={400} value={description} onChange={event=>setDescription(event.target.value)} placeholder="Tell members what your gym is about"/></label><p className="gg-small">Publicly listed. One gym per account, up to 100 members. You become the admin.</p><button className="gg-primary" type="submit">Create gym</button></fieldset></form></details></div>
+        <form className="gg-search" onSubmit={event=>{event.preventDefault();setQuery(search.trim());setPage(0)}}><label htmlFor="gym-search">Find a gym by name</label><div><input id="gym-search" type="search" maxLength={100} value={search} onChange={event=>setSearch(event.target.value)} placeholder="Search gym communities"/><button type="submit" disabled={locked}><Search size={17}/>Search</button></div></form>
+        <p className="gg-small" role="status">{total?`${total} gym ${total===1?'community':'communities'}`:'No gyms found. Create the first one or try a different name.'}</p>
+        <div className="gg-directory">{gyms.map(item=><article key={item.id}><Building2 size={23}/><h3>{item.name}</h3><p>{item.description||'A FitSync gym community. Join to meet the team.'}</p><footer><span>{item.member_count}/100 members</span><button type="button" className="gg-primary" disabled={locked||(item.member_count||0)>=100} onClick={()=>void act('join',{gymId:item.id},'You joined the gym.')}>{(item.member_count||0)>=100?'Full':'Join gym'}</button></footer></article>)}</div>
+        {total>6&&<nav className="gg-pagination" aria-label="Gym pages"><button disabled={locked||page===0} onClick={()=>setPage(n=>n-1)}>Previous</button><span>Page {page+1} of {Math.ceil(total/6)}</span><button disabled={locked||(page+1)*6>=total} onClick={()=>setPage(n=>n+1)}>Next</button></nav>}
+      </>:null}
+    </>}
+    <p className="gg-small gg-disclaimer">Gym groups are user-created communities. FitSync does not verify business ownership or professional credentials. Membership does not share private progress photos, nutrition logs, email addresses or payment details.</p>
+  </section>
+}

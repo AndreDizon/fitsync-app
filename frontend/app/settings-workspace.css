@@ -10,6 +10,15 @@
 .st-card-heading:after{content:'';position:absolute;z-index:-1;right:0;top:0;width:108px;height:100%;opacity:.5;background:repeating-linear-gradient(135deg,transparent 0 19px,#ffffff2b 20px 21px,transparent 22px 30px);pointer-events:none}
 .st-card-heading h2{font-size:21px;line-height:1.2;font-weight:800;letter-spacing:-.035em;margin:0 0 5px;text-wrap:balance}
 .st-card-heading p{font-size:12px;line-height:1.6;margin:0;max-width:43ch}
+.st-collapsible{align-self:start}
+.st-collapsible>summary{list-style:none;cursor:pointer;border-bottom:0}
+.st-collapsible>summary::-webkit-details-marker{display:none}
+.st-collapsible>summary>div{flex:1;min-width:0}
+.st-collapsible[open]>summary{border-bottom:1px solid #e1e4e8}
+.st-collapse-chevron{flex-shrink:0;margin-left:auto;transition:transform .16s ease}
+.st-collapsible[open]>summary>.st-collapse-chevron{transform:rotate(180deg)}
+.st-collapsible>summary:focus-visible{outline-offset:-4px}
+@media(prefers-reduced-motion:reduce){.st-collapse-chevron{transition:none}}
 .st-icon{width:42px;height:42px;flex-shrink:0;display:grid;place-items:center;border-radius:12px;background:#ffe135;color:#24282a;border:1px solid #efd13e;box-shadow:inset 0 2px 2px #fff9,0 3px 5px #0000000e}
 .st-account .st-card-heading{background:linear-gradient(110deg,#375f88,#243b52);color:#fff}
 .st-planning .st-card-heading{background:linear-gradient(110deg,#44352e,#242a2c);color:#fff}
@@ -47,6 +56,27 @@
 .st-privacy-details{grid-column:1/-1;border-top:1px solid #e1e3e5;padding-top:18px}.st-privacy-details summary{cursor:pointer;font-size:13px;line-height:1.6;font-weight:600;min-height:32px}.st-privacy-details p{padding-top:8px}
 .st-session{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:24px 2px 0;margin-top:26px;border-top:1px solid #dfe2e5}.st-session h2{font-size:18px;line-height:1.4;margin:0 0 4px}.st-session p{font-size:13px;line-height:1.7;margin:0;color:#5d666e}
 .st-workspace .st-session>.signout{margin:0;min-height:44px;white-space:nowrap;border:1px solid #dfbeb5;border-radius:12px;padding:10px 18px;background:#fff3ee;color:#9e3b24;font-size:13px;font-weight:700;cursor:pointer}
+.st-account,.st-planning{align-self:start}
+.st-workspace :is(.st-account,.st-planning)>.st-card-heading{padding:18px 20px}
+.st-workspace :is(.st-account,.st-planning) .st-card-heading h2{font-size:20px}
+.st-workspace .st-account-body,.st-workspace .st-planning>.st-card-body{padding:18px 20px}
+.st-account .st-identity{padding:0;border:0;gap:12px}
+.st-account .st-identity>div{min-width:0}
+.st-account .st-identity strong{display:block;font-size:17px}
+.st-account .st-avatar{width:44px;height:44px;font-size:17px;flex-shrink:0}
+.st-account-email{display:block;margin-top:3px;font-size:12px;line-height:1.5;color:#5d6c7c;overflow-wrap:anywhere}
+.st-account .st-edit-username{margin-top:14px;padding:9px 12px;min-height:44px;font-size:12px}
+.st-planning .st-card-body>p{margin-bottom:12px;font-size:13px;line-height:1.6}
+.st-workspace .st-planning .st-caption{margin:12px 0 0;font-size:11px}
+.st-account-planning{grid-column:1/-1;display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.35fr);gap:0 22px}
+@media(min-width:851px){
+ .st-account-planning>:is(.st-account,.st-planning){display:grid;grid-template-rows:subgrid;grid-row:span 4;row-gap:0;align-self:stretch;padding-bottom:18px}
+ .st-account-planning .st-account-body,.st-account-planning .st-planning>.st-card-body{display:contents}
+ .st-account-planning .st-identity,.st-account-planning .st-planning .st-card-body>p:first-child{margin:0;padding:18px 20px 14px}
+ .st-account-planning .st-primary{justify-self:start;align-self:start;margin:0 20px;min-height:46px;padding:10px 14px;font-size:13px}
+ .st-account-planning .st-planning .st-caption{margin:0;padding:12px 20px 0}
+}
+@media(max-width:850px){.st-account-planning{grid-template-columns:minmax(0,1fr);gap:22px}}
 .st-workspace :is(a,button,summary):focus-visible{outline:3px solid #be9a17;outline-offset:4px}
 @media(prefers-reduced-motion:no-preference){.st-shortcuts a,.st-primary{transition:box-shadow .16s ease,transform .16s ease}.st-shortcuts a:hover,.st-primary:hover{transform:translateY(-2px)}.st-shortcuts a:active,.st-primary:active{transform:translateY(1px)}}
 .app-shell[data-home-preview-dark='true'] .st-workspace>.eyebrow,.app-shell[data-home-preview-dark='true'] .st-workspace>.st-session{color:#fff}

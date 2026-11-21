@@ -8,5 +8,6 @@ export function scrollToProgressSection(event: MouseEvent<HTMLElement>) {
   const target = document.getElementById(link.hash.slice(1))
   if (!target) return
   event.preventDefault()
+  if (target instanceof HTMLDetailsElement) target.open = true
   target.scrollIntoView({ block: 'start', behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' })
 }

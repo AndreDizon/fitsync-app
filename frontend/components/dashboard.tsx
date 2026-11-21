@@ -101,6 +101,8 @@ function App({ userName: initialUserName, userEmail }: { userName: string; userE
   useEffect(()=>setUserName(initialUserName),[initialUserName])
   const [accountOpen,setAccountOpen]=useState(false)
   const accountButton=useRef<HTMLButtonElement>(null)
+  const accountFromDrawer=useRef(false)
+  const accountReturnTarget=useRef<HTMLElement|null>(null)
   const { theme, setTheme, themeStyle, isDark, isHeaderDark } = useHomeTheme()
   const notificationOwner = usePlanAccount() || 'local-tester'
   const firstName = userName.split(/\s+/)[0]
@@ -156,7 +158,7 @@ function App({ userName: initialUserName, userEmail }: { userName: string; userE
     return () => {
       document.body.style.overflow = previousOverflow
       document.removeEventListener('keydown', handleKey)
-      requestAnimationFrame(() => menuButtonRef.current?.focus())
+      if(!accountFromDrawer.current)requestAnimationFrame(() => menuButtonRef.current?.focus())
     }
   }, [navOpen])
 
@@ -184,22 +186,22 @@ function App({ userName: initialUserName, userEmail }: { userName: string; userE
       {navOpen && <><div className="navigation-backdrop" onClick={() => setNavOpen(false)} aria-hidden="true" />
       <aside className="desktop-sidebar navigation-drawer" id="left-navigation" ref={drawerRef} role="dialog" aria-modal="true" aria-label="Main navigation">
         <div className="drawer-heading"><div className="brand"><Logo /><Wordmark /></div><button className="menu-toggle" onClick={() => setNavOpen(false)} aria-label="Close navigation"><X size={22} /></button></div>
-        <button className="drawer-profile" onClick={() => navigate('settings')} aria-label="Account settings"><span className="avatar" aria-hidden="true">{initials}</span><span className="drawer-profile-copy"><strong>{userName}</strong><small>{userEmail || 'Your FitSync account'}</small></span><ChevronRight size={17} aria-hidden="true"/></button>
+        <button className="drawer-profile" onClick={() => {accountReturnTarget.current=null;accountFromDrawer.current=true;setNavOpen(false);setAccountOpen(true)}} aria-label="Open account preview" aria-haspopup="dialog"><span className="avatar" aria-hidden="true">{initials}</span><span className="drawer-profile-copy"><strong>{userName}</strong><small>{userEmail || 'Your FitSync account'}</small></span><ChevronRight size={17} aria-hidden="true"/></button>
         <nav className="side-nav" aria-label="Sections">{navItems.map(({ id, label, description, icon: Icon }) => <button key={id} className={active === id ? 'active' : ''} aria-label={label} aria-current={active === id ? 'page' : undefined} onClick={() => navigate(id)}><span className="drawer-nav-icon"><Icon size={21} aria-hidden="true"/></span><span className="drawer-nav-copy"><strong>{label}</strong><small>{description}</small></span><ChevronRight className="drawer-nav-chevron" size={16} aria-hidden="true"/></button>)}</nav>
         <div className="side-bottom"><button className={active === 'settings' ? 'active' : ''} aria-current={active === 'settings' ? 'page' : undefined} onClick={() => navigate('settings')}><Settings size={20} aria-hidden="true"/>Settings<ChevronRight size={16} aria-hidden="true"/></button><p className="drawer-signature">Move. Fuel. Feel good.</p></div>
       </aside></>}
 
       <HeroAssetWarmer /><link rel="preload" as="image" href={heroAssetUrl('fox-logo-192.webp')} fetchPriority="high" />
       <section className="content-wrap" inert={navOpen}>
-        <header className="topbar"><div className="header-brand"><button className="menu-toggle" ref={menuButtonRef} onClick={() => setNavOpen(true)} aria-label="Open navigation" aria-expanded={navOpen} aria-controls="left-navigation"><Menu size={22} /></button><div className="mobile-brand"><Logo /><Wordmark /></div></div><div className="top-actions"><HeaderNotifications onSettings={() => { setActive('settings'); requestAnimationFrame(()=>document.getElementById('settings-notifications')?.scrollIntoView({behavior:'smooth',block:'start'})) }} /><button className="profile-button" ref={accountButton} aria-label="Open account preview" aria-haspopup="dialog" aria-expanded={accountOpen} onClick={() => setAccountOpen(true)}><div className="avatar small">{initials}</div><span>{firstName}</span><ChevronRight size={15} /></button></div></header>
-        {accountOpen&&<AccountPreview username={userName} email={userEmail} profile={profile} onSaved={setUserName} onClose={()=>{setAccountOpen(false);requestAnimationFrame(()=>accountButton.current?.focus())}}/>}
+        <header className="topbar"><div className="header-brand"><button className="menu-toggle" ref={menuButtonRef} onClick={() => setNavOpen(true)} aria-label="Open navigation" aria-expanded={navOpen} aria-controls="left-navigation"><Menu size={22} /></button><div className="mobile-brand"><Logo /><Wordmark /></div></div><div className="top-actions"><HeaderNotifications onSettings={() => { setActive('settings'); requestAnimationFrame(()=>{const panel=document.getElementById('settings-notifications');if(panel instanceof HTMLDetailsElement)panel.open=true;panel?.scrollIntoView({behavior:'smooth',block:'start'})}) }} /><button className="profile-button" ref={accountButton} aria-label="Open account preview" aria-haspopup="dialog" aria-expanded={accountOpen} onClick={() => {accountReturnTarget.current=null;accountFromDrawer.current=false;setAccountOpen(true)}}><div className="avatar small">{initials}</div><span>{firstName}</span><ChevronRight size={15} /></button></div></header>
+        {accountOpen&&<AccountPreview username={userName} email={userEmail} onSaved={setUserName} onClose={()=>{setAccountOpen(false);requestAnimationFrame(()=>{(accountReturnTarget.current||(accountFromDrawer.current?menuButtonRef:accountButton).current)?.focus();accountFromDrawer.current=false;accountReturnTarget.current=null})}}/>}
 
         {active === 'home' && <><HomeView displayName={firstName} timeZone={timeZone} onOpen={openFromHome} /></>}
         {active === 'plans' && <PlansWorkspace key={notificationVersion} tab={planTab} setTab={setPlanTab} initialMode={homeTarget?.mode} focusWater={homeTarget?.water} initialDate={notificationDestination?.page==='plans'?notificationDestination.date:undefined} />}
         {active === 'library' && <LibraryView />}
         {active === 'social' && <SocialView key={notificationVersion} initialSection={notificationDestination?.page==='social'?notificationDestination.kind:homeTarget?.socialSection} initialPostId={notificationDestination?.page==='social'?notificationDestination.postId:undefined} />}
         {active === 'progress' && <ProgressWorkspace key={notificationVersion} initialTab={homeTarget?.progressTab} userName={userName} />}
-        {active === 'settings' && <SettingsWorkspace userName={userName} userEmail={userEmail} initials={initials} theme={theme} setTheme={setTheme} onProgress={() => setActive('progress')} />}
+        {active === 'settings' && <SettingsWorkspace userName={userName} userEmail={userEmail} initials={initials} theme={theme} setTheme={setTheme} onEditAccount={()=>{accountReturnTarget.current=document.activeElement instanceof HTMLElement?document.activeElement:null;accountFromDrawer.current=false;setAccountOpen(true)}} onProgress={() => setActive('progress')} />}
         <AppFooter onNavigate={(section) => { navigate(section); setNavHidden(false); window.scrollTo(0, 0) }} />
       </section>
 
