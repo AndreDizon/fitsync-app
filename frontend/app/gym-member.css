@@ -2,6 +2,7 @@
   display: grid;
   gap: 24px;
 }
+.gm-workspace .ga-content,
 .gm-cards > [data-member-card] {
   min-width: 0;
   scroll-margin-top: 24px;
@@ -46,38 +47,6 @@
   font-weight: 650;
   overflow-wrap: anywhere;
 }
-.gm-workspace .gg-overview-heading {
-  display: none;
-}
-.gm-workspace .gg-overview {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background: transparent;
-}
-.gm-workspace .gg-overview-columns {
-  grid-template-columns: minmax(0, 1fr);
-}
-.gm-workspace .gg-overview-tasks,
-.gm-workspace .gg-overview-sessions {
-  border: 0;
-  padding: 0;
-  background: transparent;
-}
-.gm-workspace .gg-overview-sessions {
-  border-top: 1px solid var(--ga-line);
-  padding-top: 24px;
-}
-.sc-gyms .gm-workspace .gg-overview-action {
-  background: var(--ga-soft);
-  border-color: var(--ga-line);
-  padding: 14px 16px;
-  border-radius: 12px;
-}
-.gm-workspace .gg-overview-welcome {
-  border-left: 0;
-  border-radius: 12px;
-}
 .gm-workspace .gg-session-attendance {
   margin: 0;
   padding: 0;
@@ -105,6 +74,7 @@
   overflow: hidden;
 }
 @media (max-width: 1099px) {
+  .gm-workspace .ga-content,
   .gm-cards > [data-member-card] {
     scroll-margin-top: 140px;
   }

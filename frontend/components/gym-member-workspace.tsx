@@ -6,7 +6,6 @@ import {
   CalendarDays,
   ClipboardCheck,
   ClipboardList,
-  Home,
   LogOut,
   MessageCircle,
   Users,
@@ -26,7 +25,6 @@ import {
   adminDay,
   adminMoney,
 } from "./gym-admin-primitives";
-import { GymOverview } from "./gym-overview";
 import { GymDailyCheckins } from "./gym-daily-checkins";
 import { GymAttendance } from "./gym-management-tools";
 import { GymDiscussion } from "./gym-discussion";
@@ -38,16 +36,16 @@ import "@/app/gym-member.css";
 
 const sections = [
   {
-    id: "overview",
-    label: "Overview",
-    Icon: Home,
-    note: "Your check-in, membership and next session.",
+    id: "settings",
+    label: "Gym information",
+    Icon: Building2,
+    note: "Your gym details, welcome message and rules.",
   },
   {
-    id: "settings",
-    label: "My gym",
-    Icon: Building2,
-    note: "Welcome, rules, gym details and the people who can help.",
+    id: "team",
+    label: "Gym team",
+    Icon: Users,
+    note: "Meet your gym admin, staff and fellow members.",
   },
   {
     id: "attendance",
@@ -73,8 +71,7 @@ function destination(tab?: string) {
   if (tab === "membership-plans") return "membership";
   if (tab === "announcements") return "discussion";
   if (tab === "playlists" || tab === "sessions") return "discussion";
-  if (tab === "team") return "settings";
-  return sections.some((s) => s.id === tab) ? tab! : "overview";
+  return sections.some((s) => s.id === tab) ? tab! : "settings";
 }
 
 export function GymMemberWorkspace({
@@ -111,15 +108,16 @@ export function GymMemberWorkspace({
     setTab(destination(id));
   }
   useEffect(() => {
+    const card = panel.current?.querySelector<HTMLElement>(
+      `[data-member-card="${target}"]`,
+    );
     if (focusNext.current) {
       focusNext.current = false;
+      if (!card) panel.current?.scrollIntoView({ block: "start", behavior: "instant" });
       panel.current
         ?.querySelector<HTMLElement>(".ga-page-heading h3")
         ?.focus({ preventScroll: true });
     }
-    const card = panel.current?.querySelector<HTMLElement>(
-      `[data-member-card="${target}"]`,
-    );
     if (card) {
       const disclosure = card.querySelector<HTMLDetailsElement>("details");
       if (disclosure) disclosure.open = true;
@@ -193,31 +191,58 @@ export function GymMemberWorkspace({
           </div>
         </header>
         <div className="ga-page-body gm-cards">
-          {active.id === "overview" && (
-            <AdminSectionCard
-              title="Your gym today"
-              icon={Home}
-              description="Your next steps, in one place"
-              defaultOpen
-            >
-              <GymOverview
-                membership={membership}
-                owner={owner}
-                onOpen={open}
-              />
-            </AdminSectionCard>
-          )}
           {active.id === "settings" && (
             <>
               <AdminSectionCard
-                title="Welcome & gym rules"
-                icon={BookOpen}
-                description="Know what to expect before your next visit"
+                title="Gym details & rules"
+                icon={Building2}
+                description="Gym identity, welcome, rules and joining"
                 defaultOpen
               >
                 <div className="gm-information">
                   <section>
-                    <h4>Welcome to {gym.name}</h4>
+                    <h4>Gym name</h4>
+                    <p>{gym.name}</p>{" "}
+                    {gym.join_code && (
+                      <div className="gg-code gm-join-code">
+                        <div>
+                          <span>Gym code</span>
+                          <strong>{gym.join_code}</strong>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={async () => {
+                            try {
+                              await navigator.clipboard.writeText(
+                                gym.join_code!,
+                              );
+                              setCopied(true);
+                              setCopyError("");
+                            } catch {
+                              setCopyError(
+                                "Copy is unavailable. Select the code to copy it manually.",
+                              );
+                            }
+                          }}
+                        >
+                          {copied ? <Check size={16} /> : <Copy size={16} />}{" "}
+                          {copied ? "Copied" : "Copy code"}
+                        </button>
+                      </div>
+                    )}
+                    {copied && (
+                      <p className="gg-meta" role="status">
+                        Gym code copied.
+                      </p>
+                    )}
+                    {copyError && (
+                      <p role="alert" className="gg-small">
+                        {copyError}
+                      </p>
+                    )}
+                  </section>
+                  <section>
+                    <h4>Welcome message</h4>
                     <p>
                       {gym.welcome_message ||
                         gym.description ||
@@ -231,149 +256,29 @@ export function GymMemberWorkspace({
                         "No rules posted yet. Ask your gym team about equipment, facilities and conduct."}
                     </p>
                   </section>
+                  <section>
+                    <dl className="gm-facts">
+                      <div>
+                        <dt>Time zone</dt>
+                        <dd>{gymTimeZoneLabel(zone)}</dd>
+                      </div>
+                      <div>
+                        <dt>Join membership status</dt>
+                        <dd>
+                          {
+                            {
+                              open: "Open to all",
+                              approval: "Approval required",
+                              invite: "Invite only",
+                              closed: "Closed to new memberships",
+                            }[gym.join_mode || "open"]
+                          }
+                        </dd>
+                      </div>
+                    </dl>
+                  </section>
                 </div>
               </AdminSectionCard>
-              <AdminSectionCard
-                title="Gym details"
-                icon={Building2}
-                description="Local time, joining policy and your role"
-              >
-                <dl className="gm-facts">
-                  <div>
-                    <dt>Gym name</dt>
-                    <dd>{gym.name}</dd>
-                  </div>
-                  <div>
-                    <dt>Time zone</dt>
-                    <dd>{gymTimeZoneLabel(zone)}</dd>
-                  </div>
-                  <div>
-                    <dt>Joining policy</dt>
-                    <dd>
-                      {
-                        {
-                          open: "Open to all",
-                          approval: "Approval required",
-                          invite: "Invite only",
-                          closed: "Closed to new memberships",
-                        }[gym.join_mode || "open"]
-                      }
-                    </dd>
-                  </div>
-                  <div>
-                    <dt>Your role</dt>
-                    <dd>Gym member</dd>
-                  </div>
-                </dl>
-                {gym.join_code && (
-                  <div className="gg-code gm-join-code">
-                    <div>
-                      <span>Gym code</span>
-                      <strong>{gym.join_code}</strong>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={async () => {
-                        try {
-                          await navigator.clipboard.writeText(gym.join_code!);
-                          setCopied(true);
-                          setCopyError("");
-                        } catch {
-                          setCopyError(
-                            "Copy is unavailable. Select the code to copy it manually.",
-                          );
-                        }
-                      }}
-                    >
-                      {copied ? <Check size={16} /> : <Copy size={16} />}{" "}
-                      {copied ? "Copied" : "Copy code"}
-                    </button>
-                  </div>
-                )}
-                {copied && (
-                  <p className="gg-meta" role="status">
-                    Gym code copied.
-                  </p>
-                )}
-                {copyError && (
-                  <p role="alert" className="gg-small">
-                    {copyError}
-                  </p>
-                )}
-              </AdminSectionCard>
-              <div data-member-card="team">
-                <AdminSectionCard
-                  title="Gym team"
-                  icon={Users}
-                  description="Find your admin and staff"
-                  defaultOpen={target === "team"}
-                >
-                  <p className="gg-small">
-                    Ask the admin about plan changes, payments or check-in
-                    confirmation. Staff is a community role, not a professional
-                    qualification.
-                  </p>
-                  <AdminTable
-                    rows={membership.members.filter(
-                      (m) => role === "all" || m.role === role,
-                    )}
-                    label="Gym team"
-                    dateLabel="Joined on"
-                    zone={zone}
-                    searchable={false}
-                    dateOf={(m) =>
-                      m.joined_at
-                        ? dateInZone(zone, new Date(m.joined_at))
-                        : null
-                    }
-                    rowKey={(m) => m.user_id}
-                    searchText={(m) => m.username}
-                    extraFilters={
-                      <div className="gg-field">
-                        <label htmlFor="gym-team-role">Role</label>
-                        <select
-                          id="gym-team-role"
-                          value={role}
-                          onChange={(e) => setRole(e.target.value)}
-                        >
-                          <option value="all">All roles</option>
-                          <option value="admin">Gym admin</option>
-                          <option value="staff">Staff</option>
-                          <option value="member">Gym member</option>
-                        </select>
-                      </div>
-                    }
-                    columns={[
-                      {
-                        label: "Name",
-                        render: (m) => (
-                          <strong>
-                            {m.username}
-                            {m.user_id === owner ? " (you)" : ""}
-                          </strong>
-                        ),
-                      },
-                      {
-                        label: "Role",
-                        render: (m) =>
-                          m.role === "admin"
-                            ? "Gym admin"
-                            : m.role === "staff"
-                              ? "Staff"
-                              : "Gym member",
-                      },
-                      {
-                        label: "Joined",
-                        render: (m) =>
-                          m.joined_at
-                            ? adminDay(dateInZone(zone, new Date(m.joined_at)))
-                            : "Not recorded",
-                      },
-                    ]}
-                  />
-                </AdminSectionCard>
-              </div>
-
               <AdminSectionCard
                 title="Leave gym"
                 icon={LogOut}
@@ -402,6 +307,78 @@ export function GymMemberWorkspace({
                 </button>
               </AdminSectionCard>
             </>
+          )}
+          {active.id === "team" && (
+            <div data-member-card="team">
+              <AdminSectionCard
+                title="Gym team"
+                icon={Users}
+                description="Find your admin and staff"
+                defaultOpen
+              >
+                <p className="gg-small">
+                  Ask the admin about plan changes, payments or check-in
+                  confirmation. Staff is a community role, not a professional
+                  qualification.
+                </p>
+                <AdminTable
+                  rows={membership.members.filter(
+                    (m) => role === "all" || m.role === role,
+                  )}
+                  label="Gym team"
+                  dateLabel="Joined on"
+                  zone={zone}
+                  searchable={false}
+                  dateOf={(m) =>
+                    m.joined_at ? dateInZone(zone, new Date(m.joined_at)) : null
+                  }
+                  rowKey={(m) => m.user_id}
+                  searchText={(m) => m.username}
+                  extraFilters={
+                    <div className="gg-field">
+                      <label htmlFor="gym-team-role">Role</label>
+                      <select
+                        id="gym-team-role"
+                        value={role}
+                        onChange={(e) => setRole(e.target.value)}
+                      >
+                        <option value="all">All roles</option>
+                        <option value="admin">Gym admin</option>
+                        <option value="staff">Staff</option>
+                        <option value="member">Gym member</option>
+                      </select>
+                    </div>
+                  }
+                  columns={[
+                    {
+                      label: "Name",
+                      render: (m) => (
+                        <strong>
+                          {m.username}
+                          {m.user_id === owner ? " (you)" : ""}
+                        </strong>
+                      ),
+                    },
+                    {
+                      label: "Role",
+                      render: (m) =>
+                        m.role === "admin"
+                          ? "Gym admin"
+                          : m.role === "staff"
+                            ? "Staff"
+                            : "Gym member",
+                    },
+                    {
+                      label: "Joined",
+                      render: (m) =>
+                        m.joined_at
+                          ? adminDay(dateInZone(zone, new Date(m.joined_at)))
+                          : "Not recorded",
+                    },
+                  ]}
+                />
+              </AdminSectionCard>
+            </div>
           )}
           {active.id === "attendance" && (
             <>
