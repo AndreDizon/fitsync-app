@@ -28,7 +28,6 @@ import {
 import { GymDailyCheckins } from "./gym-daily-checkins";
 import { GymAttendance } from "./gym-management-tools";
 import { GymDiscussion } from "./gym-discussion";
-import { Sessions, SharedPlaylists } from "./gym-community-tools";
 import { useConfirmation } from "./confirm-dialog";
 import { dateInZone } from "../../shared/progress";
 import { historyOverlaps } from "../../shared/gym-history";
@@ -539,43 +538,10 @@ export function GymMemberWorkspace({
               locked={locked}
               onAction={onAction}
               initialAnnouncements={initialTab === "announcements"}
+              initialView={initialTab === "sessions" ? "sessions" : initialTab === "playlists" ? "share" : undefined}
             />
           )}
-          {active.id === "discussion" && (
-            <>
-              <div data-member-card="sessions">
-                <AdminSectionCard
-                  title="Group sessions"
-                  icon={CalendarDays}
-                  description="Reserve or cancel your place in a scheduled session"
-                  defaultOpen={target === "sessions"}
-                >
-                  <Sessions
-                    membership={membership}
-                    manager={false}
-                    locked={locked}
-                    onAction={onAction}
-                  />
-                </AdminSectionCard>
-              </div>
-              <div data-member-card="playlists">
-                <AdminSectionCard
-                  title="Shared workout playlists"
-                  icon={ClipboardList}
-                  description="Save a personal copy or share one of your workouts"
-                  defaultOpen={target === "playlists"}
-                >
-                  <SharedPlaylists
-                    membership={membership}
-                    owner={owner}
-                    manager={false}
-                    locked={locked}
-                    onAction={onAction}
-                  />
-                </AdminSectionCard>
-              </div>
-            </>
-          )}
+
         </div>
       </div>
     </div>
