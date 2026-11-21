@@ -6,10 +6,17 @@ try {
 const [admin,staff,member,other]=[1,2,3,4].map(n=>`${n}1111111-1111-4111-8111-111111111111`)
 await db.exec(`create role anon;create role authenticated;create role service_role;create schema auth;create table auth.users(id uuid primary key,raw_user_meta_data jsonb default '{}');create function auth.uid() returns uuid language sql stable as $$select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid$$;grant usage on schema auth to authenticated;`)
 for(const id of [admin,staff,member,other])await db.query('insert into auth.users values($1,$2)',[id,JSON.stringify({username:'Member '+id[0],fitsync_onboarding:{}})])
-for(const file of ['20261107_plan_playlists.sql','20261108_playlist_schedule.sql','20261121_gym_groups.sql','20261121_gym_groups_community.sql','20261121_gym_groups_time_zone.sql','20261121_gym_groups_v4.sql','20261121_gym_groups_v5_income.sql','20261121_gym_groups_v6_checkins.sql','20261121_gym_groups_v7_checkin_confirmation.sql','20261121_gym_groups_v8_history_filters.sql','20261121_gym_groups_v8_history_filters.sql'])await db.exec(await readFile('backend/migrations/'+file,'utf8'))
+for(const file of ['20261107_plan_playlists.sql','20261108_playlist_schedule.sql','20261121_gym_groups.sql','20261121_gym_groups_community.sql','20261121_gym_groups_time_zone.sql','20261121_gym_groups_v4.sql','20261121_gym_groups_v5_income.sql','20261121_gym_groups_v6_checkins.sql','20261121_gym_groups_v7_checkin_confirmation.sql','20261121_gym_groups_v8_history_filters.sql','20261121_gym_groups_v9_settings.sql','20261121_gym_groups_v9_settings.sql'])await db.exec(await readFile('backend/migrations/'+file,'utf8'))
 const call=(uid,action,doc={})=>db.transaction(async tx=>{await tx.exec('set local role authenticated');await tx.query("select set_config('request.jwt.claim.sub',$1,true)",[uid]);return(await tx.query('select public.gym_group_action_v8($1,$2::jsonb) value',[action,JSON.stringify(doc)])).rows[0].value})
 const gym=await call(admin,'create',{name:'Attendance crew',timeZone:'Asia/Manila'})
 await call(staff,'join',{gymId:gym.gym.id});await call(member,'join',{gymId:gym.gym.id});await call(admin,'role',{userId:staff,role:'staff'})
+const settings=(uid,doc)=>db.transaction(async tx=>{await tx.exec('set local role authenticated');await tx.query("select set_config('request.jwt.claim.sub',$1,true)",[uid]);return(await tx.query('select public.gym_group_settings($1::jsonb) value',[JSON.stringify(doc)])).rows[0].value})
+const config={name:'Updated gym',welcomeMessage:'Welcome team',rules:'Respect everyone',joinMode:'open',timeZone:'Asia/Manila'}
+for(const uid of [staff,member])await assert.rejects(settings(uid,config),/Only the gym admin/)
+const updated=await settings(admin,config);assert.equal(updated.gym.welcome_message,'Welcome team');assert.equal(updated.gym.rules,'Respect everyone');assert.equal(updated.gym.name,'Updated gym')
+const notices=(await db.query('select count(*)::int n from public.gym_notifications')).rows[0].n
+await assert.rejects(settings(admin,{...config,name:'x',welcomeMessage:'Should roll back',rules:'Do not save'}))
+const unchanged=await call(admin,'mine');assert.equal(unchanged.gym.welcome_message,'Welcome team');assert.equal(unchanged.gym.rules,'Respect everyone');assert.equal((await db.query('select count(*)::int n from public.gym_notifications')).rows[0].n,notices,'Failed settings must not leave notifications')
 assert.equal((await call(member,'checkins')).total,0)
 const checked=await call(member,'check_in',{userId:admin,checkedOn:'2000-01-01',checkedAt:'2000-01-01',gymId:'00000000-0000-4000-8000-000000000000'})
 const today=(await db.query("select to_char(now() at time zone 'Asia/Manila','YYYY-MM-DD') d")).rows[0].d

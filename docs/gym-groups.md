@@ -14,6 +14,7 @@ Apply these in Supabase SQL Editor after the existing playlist migrations (20261
 6. backend/migrations/20261121_gym_groups_v6_checkins.sql - daily member self check-in and private/team history.
 7. backend/migrations/20261121_gym_groups_v7_checkin_confirmation.sql - admin-only history review and confirmation; no admin self check-in.
 8. backend/migrations/20261121_gym_groups_v8_history_filters.sql - attendance date filtering before counts and pagination.
+9. backend/migrations/20261121_gym_groups_v9_settings.sql - one admin save for settings, welcome message and rules.
 
 The migrations are rerunnable; apply them in the listed order. Rerunning an older migration afterward can restore old function definitions. Existing groups retain members and default to open joining. Deploy frontend and backend together; the new API requires the v5 RPC and shows a setup message if missing. The migration notifies PostgREST to reload its schema.
 

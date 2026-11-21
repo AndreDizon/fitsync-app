@@ -27,3 +27,44 @@
 .gg-session-attendance[open]>summary{margin-bottom:12px}
 @media(max-width:500px){.gg-checkin-today{align-items:start;flex-direction:column}.gg-checkin-today>button{width:100%}.gg-checkin-history-heading .gg-field{width:100%}}
 .gg-gym-details-body .gg-guidance{padding:14px 0;border:0;border-top:1px solid #dce4dd;border-radius:0;background:transparent;margin-top:16px}
+.gg-membership-modes{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:20px 0 24px}
+.sc-gyms .gg-membership-modes>button{display:flex;flex-direction:column;align-items:flex-start;text-align:left;justify-content:center;gap:4px;min-height:82px;padding:14px 16px;border-width:1px;border-left-width:4px;background:#fff;line-height:1.5}
+.gg-membership-modes strong{font-size:14px}
+.gg-membership-modes span{font-size:12px;font-weight:400;color:#536358}
+.sc-gyms .gg-membership-modes>.gg-member-mode{border-left-color:#397357}
+.sc-gyms .gg-membership-modes>.gg-catalog-mode{border-left-color:#386b94}
+.sc-gyms .gg-membership-modes>.gg-member-mode[aria-pressed=true]{background:#eaf4ed;border-color:#79a28a;color:#234d35}
+.sc-gyms .gg-membership-modes>.gg-catalog-mode[aria-pressed=true]{background:#eaf2fa;border-color:#7e9fb8;color:#244f74}
+.gg-membership-section-heading{padding:14px 16px;border-left:4px solid #397357;background:#f0f6f1;margin-bottom:18px}
+.gg-membership-catalog-panel .gg-membership-section-heading{border-left-color:#386b94;background:#eef4fa}
+.gg-membership-section-heading h4{font-size:16px;margin:0 0 4px}
+.gg-membership-section-heading p{font-size:12px;margin:0;max-width:75ch;color:#40584b}
+.gg-membership-catalog-panel .gg-membership-section-heading p{color:#3b566b}
+.gg-renewal-compose>summary{color:#285b3f}
+.gg-plan-compose>summary{color:#2d5e86}
+.gg-membership-filter-row{display:flex;align-items:end;flex-wrap:wrap;gap:12px;margin:18px 0}
+.gg-membership-filter-row>.gg-field{flex:1;min-width:150px}
+.gg-membership-filter-row>.gg-field:first-child{flex:2}
+.gg-membership-filter-row input{width:100%;min-width:0}
+.gg-membership-result-count{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;margin:12px 0}
+.gg-membership-table-wrap{max-width:100%;overflow:auto;border:1px solid #d9e1dc;border-radius:10px;scrollbar-width:thin;scrollbar-color:#9aae9f #eef3ef;overscroll-behavior-inline:contain}
+.gg-membership-table-wrap:focus-visible{outline:3px solid #a77c13;outline-offset:3px}
+.gg-membership-table{border-collapse:collapse;width:100%;min-width:700px;font-size:12px;line-height:1.6;font-variant-numeric:tabular-nums}
+.gg-membership-table caption{text-align:left;padding:12px 14px;font-weight:700;background:#edf5ef;color:#30563d}
+.gg-membership-catalog-panel .gg-membership-table caption{background:#edf3fa;color:#305577}
+.gg-membership-table thead{background:#f6f8f5;color:#40584b}
+.gg-membership-catalog-panel .gg-membership-table thead{background:#f4f7fa;color:#3b566b}
+.gg-membership-table th,.gg-membership-table td{text-align:left;padding:12px 14px;vertical-align:top;border-bottom:1px solid #e0e6e0}
+.gg-membership-table tbody tr:last-child>*{border-bottom:0}
+.gg-membership-table td{white-space:nowrap}
+.gg-membership-table th{min-width:120px;max-width:220px;overflow-wrap:anywhere}
+.gg-membership-table th small{display:block;font-weight:400;color:#536358;margin-top:4px}
+.gg-membership-table td:last-child{white-space:normal}
+.gg-membership-table .gg-actions{flex-wrap:nowrap;min-width:0;white-space:nowrap}
+.gg-membership-table .gg-actions>button{flex-shrink:0;white-space:nowrap}
+.gg-period-cancelled{background:#f0f1f2;color:#555f66}
+.gg-membership-table-hint{font-size:12px;color:#536358;margin:10px 0}
+
+@media(max-width:600px){.gg-membership-modes{grid-template-columns:1fr;gap:8px;margin:16px 0}.sc-gyms .gg-membership-modes>button{min-height:72px;padding:12px}.gg-membership-filter-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.gg-membership-filter-row>.gg-field{min-width:0}.gg-membership-filter-row>.gg-field:first-child{grid-column:1/-1}.gg-membership-table th,.gg-membership-table td{padding:10px 12px}}
+
+.gg-membership-table .gg-membership-plan-name{white-space:normal;min-width:140px;max-width:220px;overflow-wrap:anywhere}

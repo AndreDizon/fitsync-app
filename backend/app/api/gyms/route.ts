@@ -12,7 +12,7 @@ async function run(request:Request,write:boolean){
     const parsed=await readPlaylistBody(request)
     if(parsed.response)return parsed.response
     const input=parsed.value as {action?:string;doc?:Record<string,unknown>}|null
-    if(!input||!['create','join','cancel_request','approve','reject','leave','role','remove','update','disband','announce','edit_announcement','pin','delete_announcement','message','delete_message','schedule','cancel_session','rsvp','unrsvp','share_playlist','unshare_playlist','transfer','ban','unban','guidance','save_plan','archive_plan','assign_plan','cancel_period','mark_attendance','record_payment','record_refund','void_income','check_in','confirm_checkin'].includes(input.action||'')||!input.doc||typeof input.doc!=='object'||Array.isArray(input.doc))return json({error:'Invalid gym action.'},400)
+    if(!input||!['create','join','cancel_request','approve','reject','leave','role','remove','update','disband','announce','edit_announcement','pin','delete_announcement','message','delete_message','schedule','cancel_session','rsvp','unrsvp','share_playlist','unshare_playlist','transfer','ban','unban','guidance','save_plan','archive_plan','assign_plan','cancel_period','mark_attendance','record_payment','record_refund','void_income','check_in','confirm_checkin','update_settings'].includes(input.action||'')||!input.doc||typeof input.doc!=='object'||Array.isArray(input.doc))return json({error:'Invalid gym action.'},400)
     action=input.action!;doc=input.doc
   }else{
     const params=new URL(request.url).searchParams
@@ -28,6 +28,11 @@ async function run(request:Request,write:boolean){
     if(!parsed.data||!parsed.data.items.length)return json({error:parsed.error||'Add an exercise before sharing this playlist.'},400)
     // Share a sanitized snapshot, never the encrypted record or private account fields.
     doc={playlist:parsed.data}
+  }
+  if(action==='update_settings'){
+    const result=await auth.client!.rpc('gym_group_settings',{doc})
+    if(result.error)return json({error:result.error.code==='PGRST202'?'Gym settings need a database update. Apply the gym settings (v9) migration after v8.':result.error.message},result.error.code==='PGRST202'?503:400)
+    return json(result.data)
   }
   const result=await auth.client!.rpc(['check_in','checkins','confirm_checkin','attendance'].includes(action)?'gym_group_action_v8':'gym_group_action_v5',{action,doc})
   if(result.error)return json({error:result.error.code==='PGRST202'?(['check_in','checkins','confirm_checkin','attendance'].includes(action)?'Gym attendance needs a database update. Apply the history filters (v8) migration after v7.':'Gym community tools need a database update. Apply the gym income (v5) migration after the earlier gym migrations.'):result.error.message},result.error.code==='PGRST202'?503:400)

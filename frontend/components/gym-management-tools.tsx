@@ -1,57 +1,24 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
-import { ArrowLeft, ClipboardCheck, Plus } from 'lucide-react'
-import { gymRequest, gymTimeZoneLabel, type GymAction, type GymMembership, type GymPlan } from '@/lib/gym-groups'
-import { dateInZone, shiftDate } from '../../shared/progress'
-import { useConfirmation } from './confirm-dialog'
+import { useEffect, useState } from 'react'
+import { ArrowLeft, ClipboardCheck } from 'lucide-react'
+import { gymRequest, gymTimeZoneLabel, type GymAction, type GymMembership } from '@/lib/gym-groups'
 import { GymDailyCheckins } from './gym-daily-checkins'
-import { HistoryDateFilter, HistoryPagination } from './gym-history-filter'
-import { emptyHistoryRange, historyOverlaps } from '../../shared/gym-history'
+import { HistoryDateFilter } from './gym-history-filter'
+import { emptyHistoryRange } from '../../shared/gym-history'
 import '@/app/gym-management-tools.css'
 
-const money=(price:number,currency:string)=>new Intl.NumberFormat(undefined,{style:'currency',currency}).format(price)
-const dayLabel=(value:string)=>new Date(value+'T12:00:00Z').toLocaleDateString(undefined,{timeZone:'UTC',year:'numeric',month:'short',day:'numeric'})
 
-export function GymGuidance({membership,locked,onAction}:{membership:GymMembership;locked:boolean;onAction:GymAction}){
- const gym=membership.gym!,admin=membership.role==='admin'
- const [welcome,setWelcome]=useState(gym.welcome_message||''),[rules,setRules]=useState(gym.rules||'')
- const editor=useRef<HTMLDetailsElement>(null)
- useEffect(()=>{setWelcome(gym.welcome_message||'');setRules(gym.rules||'')},[gym.welcome_message,gym.rules])
- if(!admin&&!gym.welcome_message&&!gym.rules)return null
+export function GymGuidance({membership}:{membership:GymMembership}){
+ const gym=membership.gym!
+ if(!gym.welcome_message&&!gym.rules)return null
  return <section className="gg-guidance" aria-label="Gym welcome and rules">
   {gym.welcome_message&&<><h3>Welcome to {gym.name}</h3><p className="gg-post-body">{gym.welcome_message}</p></>}
   {gym.rules&&<details className="gg-rules"><summary>Gym rules</summary><p className="gg-post-body">{gym.rules}</p></details>}
-  {admin&&<details className="gg-compose" ref={editor}><summary>{gym.welcome_message||gym.rules?'Edit welcome & rules':'Add a welcome message & gym rules'}</summary><form onSubmit={async e=>{e.preventDefault();if(await onAction('guidance',{welcomeMessage:welcome,rules},'Welcome message and rules saved.')){if(editor.current)editor.current.open=false}}}><fieldset disabled={locked}><label>Welcome message<textarea maxLength={1000} value={welcome} onChange={e=>setWelcome(e.target.value)} placeholder="Welcome your team and explain how to get started."/></label><label>Gym rules<textarea maxLength={4000} value={rules} onChange={e=>setRules(e.target.value)} placeholder="Share expectations for conduct, equipment and training together."/></label><p className="gg-small">Only gym members can read this guidance. Saving changes notifies the team.</p><button className="gg-primary" type="submit">Save welcome & rules</button></fieldset></form></details>}
  </section>
 }
 
-export function GymMembershipPlans({membership,owner,locked,onAction}:{membership:GymMembership;owner:string;locked:boolean;onAction:GymAction}){
- const admin=membership.role==='admin',manager=admin||membership.role==='staff',plans=membership.plans||[],periods=membership.membershipPeriods||[]
- const zone=membership.gym?.time_zone||'Asia/Manila',today=dateInZone(zone)
- const [edit,setEdit]=useState<string|null>(null),[name,setName]=useState(''),[description,setDescription]=useState(''),[duration,setDuration]=useState(30),[price,setPrice]=useState('0'),[currency,setCurrency]=useState('PHP')
- const [person,setPerson]=useState(owner),[chosen,setChosen]=useState(''),[start,setStart]=useState(today),[end,setEnd]=useState(shiftDate(today,29))
- const [filter,setFilter]=useState(manager?'all':owner),[range,setRange]=useState(emptyHistoryRange),[historyPage,setHistoryPage]=useState(0)
- const confirm=useConfirmation(),editor=useRef<HTMLDetailsElement>(null),assigner=useRef<HTMLDetailsElement>(null)
- const selectedPlan=plans.find(p=>p.id===chosen),history=periods.filter(p=>(manager&&filter==='all'||p.user_id===(manager?filter:owner))&&historyOverlaps(p.starts_on,p.ends_on,range))
- const currentHistoryPage=Math.min(historyPage,Math.max(0,Math.ceil(history.length/20)-1))
- function choosePlan(id:string){setChosen(id);const p=plans.find(p=>p.id===id);if(p&&start)setEnd(shiftDate(start,p.duration_days-1))}
- function editPlan(p:GymPlan){setEdit(p.id);setName(p.name);setDescription(p.description);setDuration(p.duration_days);setPrice(String(p.price));setCurrency(p.currency);if(editor.current){editor.current.open=true;editor.current.querySelector('input')?.focus()}}
- function resetPlan(){setEdit(null);setName('');setDescription('');setDuration(30);setPrice('0');setCurrency('PHP')}
- return <section><h3>Membership records</h3><p className="gg-small">Review plan dates or assign a renewal. Expiry dates include the last day; listed fees are not payment records.</p>
-  <details className="gg-plan-library"><summary>Membership plans ({plans.length})</summary>
-  {admin&&<details className="gg-compose" ref={editor}><summary><Plus size={16}/>{edit?'Edit membership plan':'Create a membership plan'}</summary><form onSubmit={async e=>{e.preventDefault();if(await onAction('save_plan',{id:edit,name,description,durationDays:duration,price:Number(price),currency},'Membership plan saved.')){resetPlan();if(editor.current)editor.current.open=false}}}><fieldset disabled={locked}><label>Plan name<input required minLength={3} maxLength={80} value={name} onChange={e=>setName(e.target.value)}/></label><label>Plan description<textarea maxLength={500} value={description} onChange={e=>setDescription(e.target.value)}/></label><div className="gg-plan-fields"><label>Duration (days)<input type="number" required min={1} max={730} value={duration} onChange={e=>setDuration(Number(e.target.value))}/></label><label>Listed fee<input type="number" required min={0} max={999999} step="0.01" value={price} onChange={e=>setPrice(e.target.value)}/></label><div className="gg-field"><label htmlFor="gym-plan-currency">Currency</label><select id="gym-plan-currency" value={currency} onChange={e=>setCurrency(e.target.value)}>{[...new Set(['PHP','USD','EUR','GBP','JPY','AUD','CAD','SGD',currency])].map(code=><option key={code}>{code}</option>)}</select></div></div><p className="gg-small">Editing a plan changes future assignments. Existing membership records keep their original plan name and fee.</p><div className="gg-actions"><button className="gg-primary" type="submit">{edit?'Save plan changes':'Create plan'}</button>{edit&&<button type="button" onClick={()=>{resetPlan();if(editor.current)editor.current.open=false}}>Cancel edit</button>}</div></fieldset></form></details>}
-  {!plans.length?<p className="gg-empty">No membership plans yet. {admin?'Create a plan to start recording memberships.':'Your gym team can add plans here.'}</p>:<div className="gg-plan-catalog">{plans.map(p=><article key={p.id} className="gg-post"><div className="gg-section-heading"><div><h4>{p.name}{p.archived?' · Archived':''}</h4><p>{p.duration_days} days · {money(p.price,p.currency)}</p></div></div>{p.description&&<p className="gg-post-body">{p.description}</p>}{admin&&<div className="gg-actions"><button type="button" disabled={locked} onClick={()=>editPlan(p)}>Edit plan</button><button type="button" disabled={locked} onClick={async()=>{if(await confirm({title:p.archived?'Restore this plan?':'Archive this plan?',message:p.archived?'Make this plan available for new membership records?':'Hide this plan from new assignments? Existing records keep their dates and fee.',confirmLabel:p.archived?'Restore plan':'Archive plan'}))await onAction('archive_plan',{id:p.id,archived:!p.archived},p.archived?'Plan restored.':'Plan archived.')}}>{p.archived?'Restore':'Archive'}</button></div>}</article>)}</div>}
-  </details>
-  {manager&&<details className="gg-compose" ref={assigner}><summary><Plus size={16}/>Assign or renew a membership</summary><form onSubmit={async e=>{e.preventDefault();if(!await confirm({title:'Record this membership?',message:`Record ${selectedPlan?.name||'this plan'} for ${dayLabel(start)} to ${dayLabel(end)}? This does not process or confirm a payment.`,confirmLabel:'Record membership'}))return;if(await onAction('assign_plan',{userId:person,planId:chosen,startsOn:start,endsOn:end},'Membership dates recorded.')){setFilter(person);if(assigner.current)assigner.current.open=false}}}><fieldset disabled={locked}><div className="gg-field"><label htmlFor="gym-plan-member">Member</label><select id="gym-plan-member" value={person} onChange={e=>setPerson(e.target.value)}>{membership.members.map(m=><option key={m.user_id} value={m.user_id}>{m.username}{m.user_id===owner?' (you)':''}</option>)}</select></div><div className="gg-field"><label htmlFor="gym-plan-choice">Membership plan</label><select id="gym-plan-choice" required value={chosen} onChange={e=>choosePlan(e.target.value)}><option value="">Choose a plan</option>{plans.filter(p=>!p.archived).map(p=><option key={p.id} value={p.id}>{p.name} · {p.duration_days} days · {money(p.price,p.currency)}</option>)}</select></div><div className="gg-date-fields"><label>Membership starts<input type="date" required value={start} onChange={e=>{setStart(e.target.value);if(selectedPlan&&e.target.value)setEnd(shiftDate(e.target.value,selectedPlan.duration_days-1))}}/></label><label>Membership expires<input type="date" required min={start||undefined} value={end} onChange={e=>setEnd(e.target.value)}/></label></div><p className="gg-small">Renew by adding a new record starting after the current expiry. Dates cannot overlap. Reminders are generated within seven days, the day before, on expiry day and after expiry unless a renewal already covers the next period.</p><button className="gg-primary" type="submit" disabled={!chosen}>Record membership</button></fieldset></form></details>}
-  <div className="gg-membership-history"><h4>{manager?'Plan history':'Your plan history'}</h4>{manager&&<div className="gg-field"><label htmlFor="gym-history-member">Show records for</label><select id="gym-history-member" value={filter} onChange={e=>{setFilter(e.target.value);setHistoryPage(0)}}><option value="all">All members</option>{membership.members.map(m=><option key={m.user_id} value={m.user_id}>{m.username}{m.user_id===owner?' (you)':''}</option>)}</select></div>}
-   <HistoryDateFilter label="Active during date range" zone={zone} value={range} onChange={next=>{setRange(next);setHistoryPage(0)}}/>
-   <p className="gg-meta" role="status">{history.length} matching {history.length===1?'record':'records'}. Includes plans active on any day in the range.</p>
-   {!history.length?<p className="gg-empty">{range.from||range.to?'No membership records overlap this date range. Clear filters to see all records.':'No plan dates recorded for this member. Ask the gym team to record or renew a plan.'}</p>:<div className="gg-posts">{history.slice(currentHistoryPage*20,currentHistoryPage*20+20).map(p=><article className="gg-post" key={p.id}><div className="gg-section-heading"><h4>{p.plan_name}</h4><span className={'gg-period-status gg-period-'+p.status}>{p.status}</span></div>{manager&&filter==='all'&&<p className="gg-meta">{membership.members.find(m=>m.user_id===p.user_id)?.username||'Former member'}</p>}<p className="gg-small">{dayLabel(p.starts_on)} – {dayLabel(p.ends_on)} · {money(p.price,p.currency)}</p>{manager&&!p.cancelled&&<button type="button" className="gg-danger" disabled={locked} onClick={async()=>{if(await confirm({title:'Cancel this membership record?',message:'Keep the record in history but mark it cancelled and stop its renewal reminders? This does not refund a payment or remove the member from the community.',confirmLabel:'Cancel record',destructive:true}))await onAction('cancel_period',{id:p.id},'Membership record cancelled.')}}>Cancel record</button>}</article>)}</div>}
-   <HistoryPagination page={currentHistoryPage} total={history.length} onChange={setHistoryPage} label="Membership history pages"/>
-  </div>
- </section>
-}
+export { GymMembershipPlans } from './gym-membership-tools'
 
 type AttendanceSession={id:string;title:string;starts_at:string;ends_at:string;attended:number;my_status:string|null}
 type AttendanceMember={user_id:string;username:string;reserved:boolean;status:string}

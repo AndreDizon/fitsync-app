@@ -12,12 +12,13 @@ Apply these migrations in Supabase SQL Editor in order. Skip any already applied
 6. `20261121_gym_groups_v6_checkins.sql`
 7. `20261121_gym_groups_v7_checkin_confirmation.sql`
 8. `20261121_gym_groups_v8_history_filters.sql`
+9. `20261121_gym_groups_v9_settings.sql`
 
 The existing playlist migrations are prerequisites. Deploy frontend and backend together. `/api/gyms` now requires `gym_group_action_v5`; a missing migration shows an explicit setup error. The management migration is transactional and rerunnable. Existing groups, roles, session instants and shared content are preserved; new welcome/rules fields start blank.
 
 ## Welcome and rules
 
-The admin edits the welcome message (up to 1,000 characters) and gym rules (up to 4,000). Current members see the welcome message and can expand the rules. Updating this guidance notifies current members except the editor. New members receive a welcome notification. The public gym directory does not expose guidance. No automatic waiver or legal agreement is implied.
+Edit gym details contains the gym name, welcome message (up to 1,000 characters), gym rules (up to 4,000), joining policy and time zone. The Description field and separate welcome/rules editor have been removed from this panel. Save gym details saves all these fields together via the admin-only `gym_group_settings` RPC. Apply v9 after v8; its transaction rolls back guidance, settings and notifications together if validation fails. Current members see the welcome message and can expand the rules. Updating this guidance notifies current members except the editor. New members receive a welcome notification. The public gym directory does not expose guidance. No automatic waiver or legal agreement is implied.
 
 ## Membership plans and dated records
 
@@ -78,8 +79,12 @@ The owner can now manually record actual payments received, refunds and void cor
 
 ## History filters and navigation
 
-All gym destinations appear together in three labeled groups. Membership records is under Management; admins and staff initially see records for All members, and regular members see only their own. Plan editing and the plan catalog are collapsed under Membership plans to keep records visible.
+All gym destinations appear together in three labeled groups. Membership records is under Management; admins and staff initially see records for All members, and regular members see only their own. The membership workspace has separate color-coded views: green Member records & renewals and blue Plan catalog. Records and catalog use semantic tables with ten rows per page. Records support member/plan search, member, status and inclusive coverage-date filters; catalog supports plan search and availability filters. Both have their own page navigation and reset controls. On small screens, each table scrolls horizontally inside a keyboard-focusable region. Creation and assignment forms stay collapsed until needed.
 
-From/To filters are inclusive and applied with Apply dates; Clear filters restores all dates. Membership records match any coverage overlapping the selected date range. Team activity uses the gym-local action date and covers the full retained dataset (latest 200 actions). Both filter their complete already-loaded dataset before pagination at 20 records.
+From/To filters are inclusive and applied with Apply dates; Clear filters restores all dates. Membership records match any coverage overlapping the selected date range. Team activity uses the gym-local action date and covers the full retained dataset (latest 200 actions). Both filter their complete already-loaded dataset before pagination: membership records at 10 rows and team activity at 20.
 
 Daily check-in history filters recorded visit dates; scheduled attendance filters gym-local session start dates. The v8 RPC filters before counting or pagination, so old records outside the first page remain findable. Today's check-in status stays independent of history filters; admin confirmations preserve the selected range. Apply v8 after v7 to enable attendance filtering. Existing admin-only confirmation and staff/member own-history restrictions are preserved.
+
+### Quick renewal
+
+Staff/admin can select Renew beside an eligible member record. It prefills the member and the same plan when still available. The suggested start is today or the day after the member's latest noncancelled coverage ends, whichever is later; the selected plan duration sets the inclusive expiry. Archived or unavailable plans must be replaced with an available plan before saving. The operator reviews the dates and confirms the new record; backend overlap validation remains authoritative. Existing coverage and payment records are preserved. No database migration is needed for the table/renewal UI update.

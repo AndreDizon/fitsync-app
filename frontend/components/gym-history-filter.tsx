@@ -19,7 +19,7 @@ export function HistoryDateFilter({ label, zone, value, onChange, disabled = fal
  </form>
 }
 
-export function HistoryPagination({ page, total, onChange, disabled = false, label }: { page: number; total: number; onChange: (page: number) => void; disabled?: boolean; label: string }) {
- if (total <= 20) return null
- return <nav className="gg-pagination" aria-label={label}><button type="button" disabled={disabled || page === 0} onClick={() => onChange(page - 1)}>Newer</button><span>Page {page + 1} of {Math.ceil(total / 20)}</span><button type="button" disabled={disabled || (page + 1) * 20 >= total} onClick={() => onChange(page + 1)}>Older</button></nav>
+export function HistoryPagination({ page, total, onChange, disabled = false, label, pageSize = 20, previousLabel = 'Newer', nextLabel = 'Older' }: { page: number; total: number; onChange: (page: number) => void; disabled?: boolean; label: string; pageSize?: number; previousLabel?: string; nextLabel?: string }) {
+ if (total <= pageSize) return null
+ return <nav className="gg-pagination" aria-label={label}><button type="button" disabled={disabled || page === 0} onClick={() => onChange(page - 1)}>{previousLabel}</button><span>Page {page + 1} of {Math.ceil(total / pageSize)}</span><button type="button" disabled={disabled || (page + 1) * pageSize >= total} onClick={() => onChange(page + 1)}>{nextLabel}</button></nav>
 }
