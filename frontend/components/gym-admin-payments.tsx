@@ -100,7 +100,6 @@ export function GymAdminPayments({ data, locked, run }: AdminPageProps) {
           title="Payment history"
           icon={Receipt}
           description="Payments, refunds and corrections"
-          defaultOpen
         >
           <div className="gg-section-heading">
             <div>

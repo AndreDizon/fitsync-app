@@ -68,7 +68,6 @@ export function GymAdminSettings({
         title="Gym name & code"
         icon={Building2}
         description="Your gym identity and invite code"
-        defaultOpen
       >
         <form
           className="ga-settings-form"

@@ -104,7 +104,7 @@ export function GymMemberWorkspace({
   );
   function open(id: string) {
     focusNext.current = true;
-    setTarget(id);
+    setTarget(sections.some((section) => section.id === id) ? "" : id);
     setTab(destination(id));
   }
   useEffect(() => {
@@ -197,7 +197,6 @@ export function GymMemberWorkspace({
                 title="Gym details & rules"
                 icon={Building2}
                 description="Gym identity, welcome, rules and joining"
-                defaultOpen
               >
                 <div className="gm-information">
                   <section>
@@ -314,7 +313,6 @@ export function GymMemberWorkspace({
                 title="Gym team"
                 icon={Users}
                 description="Find your admin and staff"
-                defaultOpen
               >
                 <p className="gg-small">
                   Ask the admin about plan changes, payments or check-in
@@ -386,7 +384,6 @@ export function GymMemberWorkspace({
                 title="My gym visits"
                 icon={ClipboardCheck}
                 description="Check-in, checkout and admin confirmation"
-                defaultOpen
               >
                 <GymDailyCheckins
                   membership={membership}
@@ -415,7 +412,6 @@ export function GymMemberWorkspace({
                 title="My plan & coverage"
                 icon={ClipboardList}
                 description="Active, upcoming and past membership records"
-                defaultOpen
               >
                 <p className="ga-hint">
                   Your gym team applies, updates and renews plans. A listed fee

@@ -38,7 +38,6 @@ export function GymAdminPlans({ data, locked, run }: AdminPageProps) {
           icon={ClipboardList}
           description="The plans and fees your gym offers"
           tone="slate"
-          defaultOpen
         >
           <div className="gg-section-heading">
             <div>

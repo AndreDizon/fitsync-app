@@ -547,7 +547,7 @@ export function GymDiscussion({
       )}
     </>
   )
-  return framed ? <AdminSectionCard title="Gym discussion" icon={MessageCircle} description="Members only · Refreshes every 30 seconds" defaultOpen>{content}</AdminSectionCard> : content
+  return framed ? <AdminSectionCard title="Gym discussion" icon={MessageCircle} description="Members only · Refreshes every 30 seconds">{content}</AdminSectionCard> : content
 }
 function PostUpdate({
   zone,

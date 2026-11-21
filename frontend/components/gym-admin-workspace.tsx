@@ -325,7 +325,6 @@ function Members({ data, locked, run }: AdminPageProps) {
         }
         icon={UserPlus}
         description="Approve or decline join requests"
-        defaultOpen
       >
         <AdminTable
           searchable={false}
@@ -602,7 +601,6 @@ function Attendance({ data, locked }: AdminPageProps) {
       title="Member visits"
       icon={ClipboardCheck}
       description="Review daily visits and confirm check-ins"
-      defaultOpen
     >
       <p className="gg-small">
         Times use {zone}. One visit per gym-local day. Check-ins require your
