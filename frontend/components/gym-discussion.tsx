@@ -230,7 +230,7 @@ export function GymDiscussion({
         </form>
       </div>
       {modal === "pinned" && (
-        <AdminModal title="Gym announcements" onClose={() => setModal(null)}>
+        <AdminModal size="content" title="Gym announcements" onClose={() => setModal(null)}>
           <div className="gg-actions">
             {manager && (
               <button
@@ -351,6 +351,7 @@ export function GymDiscussion({
       )}
       {modal === "share" && (
         <AdminModal
+          size="content"
           title="Shared workout playlists"
           onClose={() => setModal(null)}
         >

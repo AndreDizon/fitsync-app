@@ -347,15 +347,37 @@
   color: var(--ga-muted);
   margin: 8px 0;
 }
-.ga-modal {
+.ga-modal.sc-gyms {
+  --ga-dialog-width: 640px;
+  position: fixed;
+  inset-inline: 0;
+  top: calc(
+    var(--ga-viewport-top, 0px) + var(--ga-viewport-height, 100dvh) / 2
+  );
+  bottom: auto;
+  transform: translateY(-50%);
+  margin: 0 auto;
   padding: 0;
-  width: min(1000px, calc(100vw - 32px));
-  max-height: calc(100dvh - 40px);
+  width: min(var(--ga-dialog-width), calc(100vw - 32px));
+  max-width: calc(100vw - 32px);
+  max-height: calc(var(--ga-viewport-height, 100dvh) - 32px);
+  box-sizing: border-box;
+  overflow: hidden;
   border: 1px solid #d4dccc;
   border-radius: 18px;
   background: var(--ga-surface);
   color: var(--ga-ink);
   box-shadow: 0 22px 70px #17291e40;
+}
+.ga-modal.sc-gyms[open] {
+  display: flex;
+  flex-direction: column;
+}
+.ga-modal.sc-gyms[data-size="content"] {
+  --ga-dialog-width: 760px;
+}
+.ga-modal.sc-gyms[data-size="report"] {
+  --ga-dialog-width: 1040px;
 }
 .ga-modal::backdrop {
   background: #17251d80;
@@ -369,12 +391,13 @@
   align-items: center;
   justify-content: space-between;
   gap: 13px;
-  padding: 20px 24px;
+  padding: 14px 20px;
+  flex-shrink: 0;
   background: #fff3bb;
   border-bottom: 1px solid #dfd5ac;
 }
 .ga-modal h2 {
-  font-size: 20px;
+  font-size: 18px;
   margin: 0;
   line-height: 1.4;
   letter-spacing: -0.02em;
@@ -389,8 +412,13 @@
   padding: 8px;
 }
 .ga-modal-body {
-  padding: 24px;
+  padding: 20px;
   min-width: 0;
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #9aafc2 #f0f4f8;
 }
 .ga-modal form fieldset,
 .ga-page-body .gg-edit fieldset {
@@ -800,12 +828,12 @@
 }
 .ga-modal .ga-form fieldset {
   display: grid;
-  gap: 18px;
+  gap: 14px;
   min-width: 0;
 }
 .ga-modal .ga-form label {
   display: grid;
-  gap: 7px;
+  gap: 6px;
   font-size: 13px;
   font-weight: 600;
 }
@@ -932,6 +960,56 @@
   background: #fff;
   color: var(--ga-ink);
   font-weight: 400;
+  margin-top: 0;
+}
+.ga-modal.sc-gyms textarea {
+  min-height: 88px;
+  max-height: 220px;
+  resize: vertical;
+}
+.ga-modal.sc-gyms .ga-form-grid {
+  gap: 12px;
+}
+.ga-modal.sc-gyms .ga-form-note {
+  margin: 0;
+  padding: 12px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.ga-modal.sc-gyms > header > .ga-modal-icon {
+  width: 36px;
+  height: 36px;
+  flex-basis: 36px;
+}
+.ga-modal.sc-gyms > header > .ga-modal-icon > svg {
+  width: 20px;
+  height: 20px;
+}
+.ga-modal.sc-gyms .gg-section-heading {
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.ga-modal.sc-gyms .gg-section-heading p {
+  margin: 0;
+}
+.ga-modal.sc-gyms .gg-compose {
+  margin: 14px 0;
+  padding: 0;
+  border: 0;
+}
+@media (max-width: 600px) {
+  .ga-modal.sc-gyms {
+    width: calc(100vw - 24px);
+    max-width: calc(100vw - 24px);
+    max-height: calc(var(--ga-viewport-height, 100dvh) - 24px);
+  }
+  .ga-modal.sc-gyms > header {
+    padding: 12px 16px;
+    gap: 10px;
+  }
+  .ga-modal.sc-gyms :is(input, select, textarea) {
+    font-size: 16px;
+  }
 }
 .sc-gyms .ga-workspace button,
 .ga-modal.sc-gyms button {

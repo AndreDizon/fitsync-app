@@ -526,7 +526,7 @@ function Members({ data, locked, run }: AdminPageProps) {
         </button>
       </AdminSectionCard>
       {activity && (
-        <AdminModal title="Team activity" onClose={() => setActivity(false)}>
+        <AdminModal size="report" title="Team activity" onClose={() => setActivity(false)}>
           <p className="gg-small">
             Role filters use the actor's current role. Former members are
             labelled separately.
@@ -666,6 +666,7 @@ function Attendance({ data, locked, run, openSessions = false }: AdminPageProps 
         />
         {person && (
           <AdminModal
+            size="report"
             title={person.username + " - attendance history"}
             onClose={() => setPerson(null)}
           >

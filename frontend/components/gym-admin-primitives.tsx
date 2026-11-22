@@ -91,42 +91,72 @@ export function AdminModal({
   children,
   onClose,
   busy = false,
+  size = "form",
 }: {
-  title: string
-  children: ReactNode
-  onClose: () => void
-  busy?: boolean
+  title: string;
+  children: ReactNode;
+  onClose: () => void;
+  busy?: boolean;
+  size?: "form" | "content" | "report";
 }) {
-  const actionError = useContext(AdminFeedbackContext)
+  const actionError = useContext(AdminFeedbackContext);
   const id = useId(),
     dialog = useRef<HTMLDialogElement>(null),
-    trigger = useRef<HTMLElement | null>(null)
+    trigger = useRef<HTMLElement | null>(null);
   useEffect(() => {
-    trigger.current = document.activeElement as HTMLElement
-    const previous = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
-    dialog.current?.showModal()
-    dialog.current
-      ?.querySelector<HTMLElement>(
-        'input:not([disabled]),select:not([disabled]),textarea:not([disabled]),button',
-      )
-      ?.focus()
+    trigger.current = document.activeElement as HTMLElement;
+    const previous = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    dialog.current?.showModal();
+    const viewport = window.visualViewport;
+    const fitViewport = () => {
+      dialog.current?.style.setProperty(
+        "--ga-viewport-height",
+        `${viewport?.height || window.innerHeight}px`,
+      );
+      dialog.current?.style.setProperty(
+        "--ga-viewport-top",
+        `${viewport?.offsetTop || 0}px`,
+      );
+    };
+    fitViewport();
+    viewport?.addEventListener("resize", fitViewport);
+    viewport?.addEventListener("scroll", fitViewport);
+    window.addEventListener("resize", fitViewport);
+    const body = dialog.current?.querySelector(".ga-modal-body");
+    (
+      body?.querySelector<HTMLElement>(
+        'input:not([disabled]):not([type="hidden"]),select:not([disabled]),textarea:not([disabled])',
+      ) ||
+      body?.querySelector<HTMLElement>("button:not([disabled])") ||
+      dialog.current
+    )?.focus({ preventScroll: true });
     return () => {
-      document.body.style.overflow = previous
-      trigger.current?.isConnected && trigger.current.focus()
-    }
-  }, [])
+      document.body.style.overflow = previous;
+      viewport?.removeEventListener("resize", fitViewport);
+      viewport?.removeEventListener("scroll", fitViewport);
+      window.removeEventListener("resize", fitViewport);
+      trigger.current?.isConnected && trigger.current.focus();
+    };
+  }, []);
   return createPortal(
     <dialog
       ref={dialog}
       className="ga-modal sc-gyms"
+      data-size={size}
       aria-labelledby={id}
       onCancel={(e) => {
-        e.preventDefault()
-        if (!busy) onClose()
+        e.preventDefault();
+        if (!busy) onClose();
       }}
       onClick={(e) => {
-        if (e.target === e.currentTarget && !busy) onClose()
+        const rect = e.currentTarget.getBoundingClientRect();
+        const outside =
+          e.clientX < rect.left ||
+          e.clientX > rect.right ||
+          e.clientY < rect.top ||
+          e.clientY > rect.bottom;
+        if (e.target === e.currentTarget && outside && !busy) onClose();
       }}
     >
       <header>
@@ -153,7 +183,7 @@ export function AdminModal({
       </div>
     </dialog>,
     document.body,
-  )
+  );
 }
 export type AdminColumn<T> = { label: string; render: (row: T) => ReactNode }
 function TableBody<T>({

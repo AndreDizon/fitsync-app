@@ -262,6 +262,7 @@ export function GymAdminPlans({ data, locked, run }: AdminPageProps) {
       )}
       {history && (
         <AdminModal
+          size="report"
           title={history.username + ' - plan history'}
           onClose={() => setHistory(null)}
         >

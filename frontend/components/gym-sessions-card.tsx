@@ -224,6 +224,7 @@ export function GymSessionsCard({
       )}
       {roster && (
         <AdminModal
+          size="report"
           title={"Preregistrations: " + roster.title}
           onClose={() => setRoster(null)}
         >
