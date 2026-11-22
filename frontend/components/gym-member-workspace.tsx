@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState, type KeyboardEvent } from "react";
 import {
   Building2,
-  CalendarDays,
   ClipboardCheck,
   ClipboardList,
   LogOut,
@@ -26,7 +25,6 @@ import {
   adminMoney,
 } from "./gym-admin-primitives";
 import { GymDailyCheckins } from "./gym-daily-checkins";
-import { GymAttendance } from "./gym-management-tools";
 import { GymSessionsCard } from "./gym-sessions-card";
 import { GymDiscussion } from "./gym-discussion";
 import { useConfirmation } from "./confirm-dialog";
@@ -401,19 +399,6 @@ export function GymMemberWorkspace({
                   defaultOpen={target === "sessions"}
                 />
               </div>
-              <AdminSectionCard
-                title="Session attendance"
-                icon={CalendarDays}
-                description="Your attendance at scheduled group sessions"
-                defaultOpen={target === "attendance"}
-              >
-                <GymAttendance
-                  membership={membership}
-                  locked={locked}
-                  onAction={onAction}
-                  view="sessions"
-                />
-              </AdminSectionCard>
             </>
           )}
           {active.id === "membership" && (

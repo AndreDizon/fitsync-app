@@ -16,7 +16,6 @@ import {
   adminDay,
   adminTime,
 } from "./gym-admin-primitives";
-import { GymAttendance } from "./gym-management-tools";
 import { useConfirmation } from "./confirm-dialog";
 import { dateInZone } from "../../shared/progress";
 
@@ -34,8 +33,7 @@ export function GymSessionsCard({
   const admin = membership.role === "admin",
     zone = membership.gym!.time_zone || "Asia/Manila";
   const [kind, setKind] = useState("all"),
-    [create, setCreate] = useState(false),
-    [attendance, setAttendance] = useState(false);
+    [create, setCreate] = useState(false);
   const [roster, setRoster] = useState<GymSession | null>(null),
     [entries, setEntries] = useState<
       { user_id: string; username: string; registered_at?: string }[] | null
@@ -78,8 +76,8 @@ export function GymSessionsCard({
       defaultOpen={defaultOpen}
     >
       <p className="gg-small">
-        Times use {gymTimeZoneLabel(zone)}. A reservation holds a place; session
-        attendance is recorded separately by the gym team.
+        Times use {gymTimeZoneLabel(zone)}. A reservation holds a place for an
+        event or group session; it does not record a daily gym visit.
       </p>
       {admin && (
         <div className="gg-actions ga-session-actions">
@@ -90,9 +88,6 @@ export function GymSessionsCard({
             onClick={() => setCreate(true)}
           >
             Create event / group session
-          </button>
-          <button type="button" onClick={() => setAttendance(true)}>
-            Session attendance
           </button>
         </div>
       )}
@@ -227,19 +222,6 @@ export function GymSessionsCard({
           onClose={() => setCreate(false)}
         />
       )}
-      {attendance && (
-        <AdminModal
-          title="Session attendance"
-          onClose={() => setAttendance(false)}
-        >
-          <GymAttendance
-            membership={membership}
-            locked={locked}
-            onAction={onAction}
-            view="sessions"
-          />
-        </AdminModal>
-      )}
       {roster && (
         <AdminModal
           title={"Preregistrations: " + roster.title}
@@ -359,7 +341,11 @@ function SessionEditor({
         <fieldset disabled={locked || busy}>
           <label>
             Activity type
-            <select aria-label="Activity type" value={kind} onChange={(e) => setKind(e.target.value)}>
+            <select
+              aria-label="Activity type"
+              value={kind}
+              onChange={(e) => setKind(e.target.value)}
+            >
               <option value="event">Event</option>
               <option value="group_session">Group session</option>
             </select>
