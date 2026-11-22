@@ -244,17 +244,17 @@ export function GymDiscussion({
                 Post announcement
               </button>
             )}
+            {manager && (
+              <button
+                type="button"
+                className="ga-announcement-toggle"
+                aria-pressed={showUnpinned}
+                onClick={() => setShowUnpinned((value) => !value)}
+              >
+                Show unpinned announcements
+              </button>
+            )}
           </div>
-          {manager && (
-            <label className="ga-check">
-              <input
-                type="checkbox"
-                checked={showUnpinned}
-                onChange={(e) => setShowUnpinned(e.target.checked)}
-              />
-              Show unpinned announcements
-            </label>
-          )}
           <p className="gg-small">
             Pinned updates from your gym appear here. Events and group sessions
             are available on the attendance page.

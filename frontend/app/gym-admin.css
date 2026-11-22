@@ -686,6 +686,11 @@
   display: grid;
   gap: 16px;
 }
+.ga-modal.sc-gyms .ga-announcement-toggle[aria-pressed="true"] {
+  background: #fff4c5;
+  border-color: #b99519;
+  color: #55400a;
+}
 .ga-form-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
