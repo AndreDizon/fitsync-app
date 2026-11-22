@@ -41,6 +41,6 @@ export function PlaylistCollection({ collection, loading, busy, nutrition, query
       <div className="pc-row-tools"><span className="pc-row-duration">{item.duration === 'day' ? 'One day' : 'One week'}</span><span className={'pc-row-status pc-sync is-' + item.syncStatus}>{item.syncStatus === 'pending' ? 'Pending sync' : item.syncStatus === 'conflict' ? 'Sync conflict' : 'Available offline'}</span></div><ArrowUpRight className="pc-row-arrow" size={18} aria-hidden="true" />
     </button></li>)}</ul> : <div className="pc-no-results"><Search size={24} /><h3>No matching playlists</h3><p>Try another name or include all playlist lengths.</p><button onClick={() => { setQuery(''); setLengthFilter('all') }}>Clear filters</button></div>}
     {!loading && <nav className="pc-pagination" aria-label="Playlist pages"><button disabled={busy || page === 1} onClick={() => setPaging({ key: pageKey, page: page - 1 })}>Previous</button><span role="status">Page {page} of {pages}<small>{filtered.length ? `${(page - 1) * 5 + 1}–${Math.min(page * 5, filtered.length)} of ${filtered.length} playlists` : '0 playlists'}</small></span><button disabled={busy || page === pages} onClick={() => setPaging({ key: pageKey, page: page + 1 })}>Next</button></nav>}
-    <KnowledgeFlashcards key={nutrition ? 'nutrition' : 'workout'} initialTopic={nutrition ? 'Nutrition' : 'Workout'} />
+    <KnowledgeFlashcards topic={nutrition ? 'Nutrition' : 'Workout'} />
   </div>
 }

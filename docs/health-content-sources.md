@@ -63,7 +63,7 @@ These numbers are FitSync planning heuristics, not certified durations or standa
 
 ### Playlist knowledge flashcards
 
-Workout and nutrition playlist collections include 18 educational flashcards: three questions per topic at Beginner, Intermediate and Advanced difficulty. Difficulty describes question complexity, not a user's health or training ability. Answer reveals link to the source. Recall totals are self-reported for the current deck and are not stored or treated as an assessment.
+Workout and nutrition playlist collections include 30 educational questions: 15 Workout and 15 Nutrition, with five per topic at Beginner, Intermediate and Advanced difficulty. The page header's Workout/Nutrition toggle selects the quiz topic. Each flashcard has one question and four options, with one correct answer. Choosing an answer locks the options, shows correctness and a source-backed explanation, and allows moving to the next question. Scores count correct answers for the current five-question deck only; changing difficulty or topic resets the quiz. Scores are not stored or treated as a health assessment. Difficulty describes question complexity, not a user's health or training ability.
 
 - [CDC adult activity overview](https://www.cdc.gov/physical-activity-basics/guidelines/adults.html): adult aerobic and strengthening guidance, major muscle groups and spreading activity across the week. Adult-specific questions explicitly say adults.
 - [CDC activity intensity](https://www.cdc.gov/physical-activity-basics/measuring/index.html): talk test, relative intensity and MET concepts.
