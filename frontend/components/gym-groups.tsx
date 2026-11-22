@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { ArrowLeft, ArrowRight, Building2, Check, Copy, Crown, LogOut, Plus, RefreshCw, Search, ShieldCheck, Trash2, Users } from 'lucide-react'
+import { ArrowLeft, ArrowRight, CalendarDays, ClipboardList, Building2, Check, Copy, Crown, LogOut, Plus, RefreshCw, Search, ShieldCheck, Trash2, Users } from 'lucide-react'
 import { usePlanAccount } from '@/lib/playlist-account'
 import { useConfirmation } from './confirm-dialog'
 import { GymAdminSettings } from './gym-admin-settings'
@@ -13,10 +13,22 @@ import '@/app/gym-groups.css'
 
 
 export function GymGroupsCard({onOpen}:{onOpen:()=>void}){
-  return <section className="sc-gyms-overview" aria-labelledby="sc-gyms-title">
+  const features = [
+    {Icon:Users, category:'Your community', detail:'Welcome, rules and your gym team', title:'Find your people. Feel at home.', body:'Find a gym by name or join code. Meet the team and read the welcome message and rules before your first visit.', note:'One gym community per account'},
+    {Icon:CalendarDays, category:'Visits & activities', detail:'Check-ins, events and group sessions', title:'Show up and train together.', body:'Check in when you arrive, check out when you leave, and reserve a place at an event or group session.', note:'Schedules follow your gym?s time zone'},
+    {Icon:ClipboardList, category:'Plans & membership', detail:'Available plans and coverage dates', title:'Keep your next steps clear.', body:'Compare plans, review your membership dates and ask staff about renewals. Chat with your gym and share workout playlists.', note:'Your personal health records stay private'},
+  ]
+  return <section className="sc-gyms-overview sc-designed-overview" aria-labelledby="sc-gyms-title">
     <header className="fitsync-card-heading"><Building2 size={22}/><div><h3 id="sc-gyms-title">Your gym, your team</h3><p>Create a gym community or join one to train together.</p></div><button type="button" data-view-section="gyms" onClick={onOpen}>Explore gyms<ArrowRight size={17}/></button></header>
-    <div className="sc-gyms-intro"><div><Users size={20}/><strong>Join your people</strong><p>Find a gym by name or enter its join code.</p></div><div><Plus size={20}/><strong>Start your own gym</strong><p>Create a group and welcome up to 100 members.</p></div><div><ShieldCheck size={20}/><strong>Build your team</strong><p>The gym admin can assign staff and manage members.</p></div></div>
-    <p className="sc-gyms-note">One gym community per account. Joining does not purchase a membership; gym staff manage plan records and fees.</p>
+    <div className="sc-examples sc-gym-preview">
+      <div className="sc-examples-label"><span>Inside your gym</span><small>For members, staff and gym admins</small></div>
+      <div className="sc-examples-grid">{features.map(({Icon,category,detail,title,body,note})=><article className="sc-example-post" key={category}>
+        <header className="sc-example-person"><span className="sc-gym-feature-icon"><Icon size={23} aria-hidden="true"/></span><div><strong>{category}</strong><span>{detail}</span></div></header>
+        <h4>{title}</h4><p>{body}</p><footer className="sc-example-detail"><ShieldCheck size={15} aria-hidden="true"/>{note}</footer>
+      </article>)}</div>
+      <p className="sc-examples-caption">Create a gym for up to 100 people, or join an existing community to get started.</p>
+    </div>
+    <p className="sc-overview-note">Joining a gym does not purchase a membership. Gym staff manage coverage; the admin records payments received.</p>
   </section>
 }
 
