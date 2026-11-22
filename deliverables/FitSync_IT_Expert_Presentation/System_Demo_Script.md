@@ -1,157 +1,173 @@
 # FitSync Investor Demo Script
 
-**Speaking time:** Approximately 8–10 minutes, plus clicks and account switching. Read the paragraphs naturally; the **Show** lines are directions, not part of the pitch.
+**Video order:** Auth → Onboarding → Home → Plans → Social → Progress → Settings → Sign out.
 
-**Before presenting:** Prepare demo accounts for a member, gym admin and staff member in separate browser profiles. Have a saved playlist, completed daily logs, progress photos, a pending gym request, a membership assignment and sample payment records ready. Open examples instead of filling out every form. Expand cards when needed and leave destructive actions unconfirmed.
+**Delivery:** Read the paragraphs aloud; **Show** lines are recording directions. Allow approximately 9–11 minutes of narration, plus navigation.
 
-## 1 Introduce FitSync and create an account
+**Prepare:** Use separate browser profiles for a gym admin, staff member and regular member so role changes do not require signing out during the tour. Prepare saved routines, completed logs, progress photos, a pending join request, membership coverage and payment examples. Expand cards as needed, avoid confirming destructive actions and reserve the final sign-out for the end of the video.
 
-**Show:** Sign-in options, then the onboarding steps. For an existing account, use Settings → Edit preferences.
+## 1 Auth page script
 
-Staying consistent is hard when workouts, food records and gym updates are scattered across different tools.
+**Show:** Sign-in page, registration, Google option and password recovery. Continue with the demo account.
 
-FitSync brings them together. Let me show you the experience for an individual, then for the gym supporting them.
+Staying consistent is difficult when workouts, food records and gym updates are scattered across different tools. FitSync brings them into one connected experience for individuals and the gyms supporting them.
 
-We start with email registration and verification, or Google sign-in. Onboarding gathers goals, measurements, activity, experience, equipment, available time, food preferences and allergies. These guide new plans, with checks for missing information and conflicting targets, plus a suggested session length.
+Let’s start where every user begins. We can create an account with email and verify it, or continue with Google and complete the required account details. Returning users sign in here, and password recovery helps them regain access.
 
-## 2 Give the user a clear starting point
+Once the account is ready, FitSync takes a new user through onboarding. This gives their plans a starting point based on their own goals and routine.
 
-**Show:** Home, the main navigation, account preview and notification bell.
+## 2 Onboarding script
 
-Home answers a practical question: “What should I focus on today?”
+**Show:** Move through the five onboarding pages. For a prepared account, open Edit preferences and explain that this revisits the same setup.
 
-Here are today’s tasks, completions, food energy, water and weekly summaries, with shortcuts to each plan. The main sections are Home, Plans, Social and Progress, alongside playlists and account details.
+### Page 1 Your goal
 
-Short learning cards and the optional Ask the FitSync fox AI chat let users explore fitness and nutrition questions here too.
+First, we choose what we want to work toward, such as feeling fitter, building muscle, improving endurance or losing body fat. We can also select focus areas. This gives the system a direction instead of starting everyone with the same routine.
 
-## 3 Turn preferences into a workout routine
+### Page 2 Your starting point
 
-**Show:** Plans → Workout → My plan. Select a day and open an exercise.
+Next, we enter our time zone, age, activity level, height, current weight and target weight, with a gender option that includes Prefer not to say. These details support relevant estimates and scheduling. The form checks required information and conflicting targets. Teen users also provide total daily activity for their energy estimate.
 
-Here, onboarding becomes useful. We can generate a workout day, build one ourselves or apply a saved routine.
+### Page 3 Your movement
 
-The user stays in control. They can adjust times, sets, repetitions, duration and rest, replace an exercise or regenerate the day. The calendar helps organise training and recovery days.
+Here, we describe a realistic training week: experience, training days, start time, session length, equipment and movement preferences. FitSync suggests a starting duration, while letting us keep a different choice. The aim is a routine we can make time for.
 
-Users mark exercises complete and log actual sets and effort, connecting the plan to their records. Daily suggestions use programmed rules and calculations; AI chat provides separate general guidance.
+### Page 4 Your food
 
-## 4 Bring nutrition into the same routine
+Now we set food preferences, allergies, dislikes, meal frequency, cooking time and budget. These answers guide meal suggestions around practical constraints, rather than treating food planning as a calorie number alone.
 
-**Show:** Switch the header to Nutrition. Open a food entry, portion controls and the water log.
+### Page 5 Your blueprint
 
-One switch takes us to nutrition, with the same familiar layout.
+Finally, we review everything together. If something looks wrong, we can go back and change it before saving. These preferences guide newly generated plans and can be updated later as our routine changes.
 
-We can generate menus, add foods or apply a saved playlist, then edit portions, meal categories and times. Energy and macro summaries separate planned food from completed entries, with an explanation of the estimated targets.
+## 3 Homepage script
 
-Water has its own log. Together, these tools let someone organise their day and record what they followed through on.
+**Show:** Home, daily summaries, weekly insights, navigation, account preview and Ask the FitSync fox.
 
-## 5 Make useful routines easy to repeat
+Home answers a simple question: “What should I focus on today?”
 
-**Show:** Playlist → an existing routine → return to the collection → answer one quiz question.
+We can see planned tasks, completed activities, food energy, water logs and weekly summaries. Shortcuts lead to the relevant plan, so the user can act on what they see.
 
-When a routine works, we make it easy to repeat.
+The main sections are Home, Plans, Social and Progress. The centre playlist button opens saved routines, while the account preview shows our username and email and lets us edit the username.
 
-Playlists save daily or weekly routines to create, edit, reorder, copy, delete and apply to My plan. Search, length filters and five previews per page keep collections manageable.
+Home also offers short learning cards and the optional Ask the FitSync fox AI chat for general fitness and nutrition questions. This puts daily organisation and learning within the same experience.
 
-Below is a quiz following the header’s Workout or Nutrition selection: 30 questions, three difficulties and four choices per question. Each five-question round includes feedback, explanations, sources and a score, bringing learning into the routine.
+## 4 Plans page script
 
-## 6 Help users understand their choices
+**Show:** Plans. Point out the Workout/Nutrition header switch and the three tabs: My plan, Playlist and Library.
 
-**Show:** Library in both modes. Open an article and one exercise or food detail.
+Plans is where our preferences become something we can use today. Workout and Nutrition share the same three-tab layout, so users learn one navigation pattern for both.
 
-Understanding the plan matters too.
+### My plan tab
 
-FitSync currently includes 100 exercise references and 100 food references. Users can search and filter exercises, inspect movement instructions, media and equipment, or review food nutrients for a selected portion or per 100 grams. These references also support building plans and playlists.
+**Show:** A workout day, an exercise’s details and actual-set log. Switch to Nutrition and open a food entry and water log.
 
-Learn & improve adds articles from external sources, organised by topic and expertise. Users can start with the basics or explore deeper information.
+For workouts, we can generate a day, add exercises ourselves or apply a saved routine. Times, sets, repetitions, duration and rest are editable. We can replace exercises, regenerate the day or remove its plan, while the calendar separates training and recovery days.
 
-## 7 Show progress beyond a completed checklist
+As we train, we mark exercises complete and record actual sets and effort. That connects what we intended to do with what we recorded. Daily suggestions use programmed rules and calculations, separate from the AI chat.
 
-**Show:** Progress → Analytics → Documentation → Achievements. Change a date range and open a prepared photo comparison.
+Switching to Nutrition gives us menus to generate or build, with editable foods, portions, meal categories and times. Energy and macro summaries separate planned food from completed entries, and users can inspect how targets are estimated. Water has its own log.
 
-Over time, those daily records give us a broader picture.
+### Playlist tab
 
-Analytics connects completed workouts, nutrition and water logs with consistency patterns. It also helps compare actual exercise records and recovery information. Estimates and outlooks appear when enough information is available, and incomplete logging is kept distinct from zero activity or intake.
+**Show:** Open a saved routine, return to the collection and answer one quiz question.
 
-In Documentation, users can record measurements, energy, recovery and notes, keep private progress photos and compare two images. They can filter their record history and export matching records as CSV.
+When a routine works, we make it easy to repeat. Playlists save daily or weekly workouts and menus. We can create, edit, reorder, copy or delete them, then apply them to My plan. Search, length filters and five previews per page help keep collections manageable.
 
-Achievements recognise recorded milestones and let users claim eligible awards and open a sharing preview. Users can review more than a number on the scale.
+Below is a knowledge quiz following the header’s Workout or Nutrition selection. There are 30 questions across both topics, with three difficulties and four choices per question. Each five-question round gives feedback, explanations, sources and a score.
 
-## 8 Add a place for community support
+### Library tab
 
-**Show:** Social → Open forum → Find coaches & gym buddies.
+**Show:** Library in both modes. Open Learn & improve and one exercise or food detail.
 
-Social gives users a place to ask questions, share progress and meet people with similar interests.
+The libraries help users understand and build their routines. FitSync currently includes 100 exercise references and 100 food references, with search and filters. Exercise details provide instructions, media and equipment information. Food details show nutrients for a chosen portion or per 100 grams.
 
-In Open forum, users can post updates or questions, attach a photo, react and comment. They can manage their own posts, while search, filters and page navigation help others find conversations.
+Learn & improve adds external articles organised by topic and expertise. Users can explore the basics or deeper information before selecting items for a plan or playlist.
 
-The introductions area lets people describe themselves as a coach, nutritionist or gym buddy. Those roles are self-described community introductions; FitSync does not verify professional credentials.
+## 5 Social page script
 
-## 9 Connect individual users with their gym
+**Show:** Social overview → Open forum → Find coaches & gym buddies → Explore gyms. Use separate browser profiles to show each gym role.
 
-**Show:** Explore gyms → an existing gym community.
+Social adds a place to ask questions, share progress and connect with others.
 
-Now let’s look at the gym community.
+In Open forum, users can publish updates with an optional photo, react, comment and manage their own posts. Search, filters and page navigation help people find conversations. The introductions area helps users meet coaches, nutritionists or gym buddies through self-described profiles; professional credentials are not verified by FitSync.
 
-A user can create a community or find one by name or join code. Each gym controls its joining policy, whether that is open access, approval, invitation or closed membership. An account can belong to one gym community at a time.
+For a closer community, users can create a gym or find one by name or join code. Each account belongs to one gym community at a time. Joining follows the gym’s policy: open, approval required, invite only or closed. Joining the community is separate from receiving a priced membership plan, and personal nutrition records and progress photos remain private.
 
-Joining the community is separate from receiving a priced membership plan. Access, coverage and payments have separate records, and private food logs and progress photos stay private.
+### Gym admin summary
 
-## 10 Give gym owners a connected workspace
+**Show:** Briefly visit the six admin pages and open prepared examples.
 
-**Show:** Switch to the admin account. Move through the six sidebar pages, opening prepared examples.
+For an owner, FitSync connects the main gym operations.
 
-For the gym owner, the value is having related operations in one workspace.
+**Manage gym** holds the name, code, welcome message, rules, time zone and joining policy, with ownership transfer and deletion kept separate.
 
-In **Manage gym**, the owner sets the name, join code, welcome message, rules, time zone and joining policy. Ownership transfer and deletion are kept separate from everyday settings.
+**Manage members** covers requests, member roles, staff promotion or demotion, removals, bans, unbans and team activity.
 
-In **Manage members**, they review requests, accept or decline applicants, assign or remove staff roles and handle removals, bans and unbans. Team activity gives them a record of actions.
+**Gym attendance** shows check-ins, checkouts, admin confirmation and individual history. Events and group sessions are also here, with capacity, gym-local scheduling and preregistrations.
 
-**Gym attendance** brings together check-ins, checkouts, admin confirmation and individual visit history. The owner can also create events or group sessions, set capacity and review preregistrations. Schedules follow the gym’s selected time zone.
+**Plans & assignments** connects the plan catalogue to member coverage. The admin can create and edit plans, apply them, or update, renew and remove coverage. Renewals add days and fees while keeping history.
 
-**Plans & assignments** connects the membership catalogue with each member’s coverage. The owner can create and edit plans, apply one to a member, or update, renew and remove coverage. Renewals add days and fees while keeping the individual records in history.
+**Discussion** brings together gym chat, pinned announcements and shared workout playlists. A shared playlist is a snapshot others can copy.
 
-**Discussion** keeps gym chat, pinned announcements and shared workout playlists together. Shared playlists are snapshots that members can copy, so sharing does not change the original routine.
+**Payments & revenue** records money received outside FitSync and shows payment history, refunds, corrections, outstanding balances and monthly collections. A payment cannot exceed the selected outstanding balance. Date filters, page navigation and CSV export help review records. Net receipts are separate from profit because expenses are not tracked.
 
-Finally, **Payments & revenue** shows recorded payments, refunds, corrections and outstanding balances. Payments are recorded after money is received outside FitSync, and cannot exceed the selected outstanding balance. Monthly filters and CSV export help the owner review collections. These are receipts and balances, rather than profit calculations, because expenses are not tracked.
+### Gym member summary
 
-Date filters and page navigation help keep those records readable as the gym’s activity grows.
+**Show:** Member view: Gym information, Gym team, My attendance, My membership and Discussion.
 
-## 11 Make the member experience simpler
+As a member, I get a simpler view of that same gym. I can read its details and rules, see the team, check in and out and review my own visits and admin confirmation.
 
-**Show:** Switch to the member account. Open My attendance and My membership.
+I can reserve or cancel a place at events and group sessions; a reservation is separate from attendance. Available plans appear before my personal coverage and history, and the gym team applies the plan.
 
-As a member, I see a simpler version of the same gym.
+Chat, announcements and playlist sharing keep me connected. I can also leave the gym community without deleting my personal FitSync account.
 
-I can read the welcome message and rules, see the gym team, check in and out, and review my own visits and confirmation status. I can reserve or cancel a place at an event or group session. Reserving a place is separate from recording a visit.
+### Gym staff summary
 
-In My membership, I see available plans first, followed by my own coverage and history. The gym team applies the plan. I also have discussion, announcements and playlist sharing, plus an option to leave the gym community.
+**Show:** Staff view: pending requests, Member plans and Discussion.
 
-## 12 Let staff help with daily operations
+Staff help with daily operations. They can accept or decline join requests, apply existing plans, renew coverage, manage announcements and moderate discussion, while keeping their own attendance and reservations.
 
-**Show:** Switch to staff. Open pending requests, Member plans and Discussion.
+Gym settings, role changes, bans, ownership, catalogue changes, payments, gym-wide check-in confirmation and event scheduling remain with the admin. This lets the owner delegate routine tasks while keeping control of those decisions.
 
-Staff provide a middle level of access. They can review join requests, apply existing plans, renew coverage, manage announcements and moderate discussion.
+## 6 Progress page script
 
-They also keep their own attendance and activity reservations. Ownership, role changes, bans, gym settings, plan catalogue changes, payments, gym-wide check-in confirmation and event scheduling stay with the admin. The gym can delegate everyday tasks while keeping those decisions with its owner.
+**Show:** Progress. Visit Analytics, Documentation and Achievements using prepared records.
 
-## 13 Keep control with the account holder
+Progress brings daily records together so users can review their routine over time.
 
-**Show:** Settings, notification preferences, account security and a sync status explanation.
+### Analytics tab
 
-As someone’s routine changes, they can update their planning preferences, edit their username or choose a different theme. New preferences guide new plans; existing entries stay as saved.
+**Show:** Change the date range and point to consistency, nutrition, workout and recovery summaries.
 
-Reminder controls cover daily activities, achievements, social interactions, gym updates and membership renewals. The notification bell links back to relevant items. Scheduled reminders check while FitSync is open, and device alerts require browser permission.
+Analytics connects completed workouts, food and water logs with consistency patterns. It also compares actual exercise records and recovery information, with estimates and outlooks when enough records are available. Missing logs are kept distinct from zero activity or intake, so the picture reflects what has been recorded.
 
-Saved plans and playlists have device copies, with indicators for pending changes or sync conflicts. Downloaded exercise media can work offline; live community and AI features need connectivity. Private server records have access controls and additional encryption, with different protection for offline copies.
+### Documentation tab
 
-Users also have password recovery, sign-out controls, data deletion and account deletion.
+**Show:** Measurements, recovery check-ins, record history and a two-photo comparison.
 
-## 14 End with the product opportunity
+Documentation gives users a personal record beyond their daily checklist. They can add and edit measurements, energy, recovery and notes, keep private progress photos and compare two images. Filtered history and CSV export make those records easier to review.
 
-**Show:** Return to Home.
+### Achievements tab
 
-FitSync connects the routine someone plans, the activities they record and the community supporting them.
+**Show:** An eligible milestone, its claim action and sharing preview.
 
-For an individual, FitSync offers one place to prepare, learn and review. For a gym, it connects member communication with attendance, membership coverage and payment records.
+Achievements recognise recorded milestones. Users can claim eligible awards and open a sharing preview. Alongside analytics and documentation, this gives people several ways to notice progress beyond a number on the scale.
 
-We see an opportunity in that shared workflow: supporting members between visits while helping gyms run their daily operations. Real-world pilots would test member engagement and the usefulness of these tools to owners.
+## 7 Settings script
+
+**Show:** Settings → Account, Planning, Appearance, Notifications and Security. Open a sync status explanation before the final sign-out.
+
+Settings keeps the experience in the user’s hands. We can edit our username, revisit planning preferences and choose a theme. Updated preferences guide new plans while existing entries stay as saved.
+
+Reminder controls cover workouts, exercises, meals, water, achievements, social interactions, app streaks, gym updates and renewals. The notification bell links to relevant items. Scheduled reminders check while FitSync is open, and device alerts require browser permission.
+
+Saved plans and playlists have device copies, with indicators for pending changes or sync conflicts. Downloaded exercise media can work offline; live community and AI features need connectivity. Private server records use access controls and additional encryption, with different protection for offline copies.
+
+Account security includes password recovery, signing out on all devices, deleting personal data and deleting the account.
+
+FitSync’s opportunity is in connecting these workflows: helping individuals organise and review their routines while giving gyms practical tools to support their members. That is the experience we would bring into real-world pilots to evaluate member engagement and usefulness to gym owners.
+
+I’ll finish by signing out of this account.
+
+**Final action:** Check that saved changes have synced, click **Sign out** in Settings and wait for the sign-in page. End the video there.
