@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowRight, Dumbbell, Search, SlidersHorizontal, X, Check, C
 import '@/app/exercise-library.css'
 import '@/app/library-workspace.css'
 import { OfflineLibraryStatus } from '@/components/offline-library-status'
+import { LearningArticles } from './learning-articles'
 import { HealthReference } from './health-reference'
 import { exercisePractice, movementExplanations } from '@/lib/health-guidance'
 import { loadExerciseCatalog, type SeedExercise } from '@/lib/exercise-offline'
@@ -124,7 +125,8 @@ export function ExerciseLibrary() {
   const equipmentOptions = data?.facets.equipment ?? []
   const allGroupCount = Object.values(data?.facetCounts.group ?? {}).reduce((sum, number) => sum + number, 0)
   return <div className="page library-page exercise-library-page">
-    <header className="plan-tab-page-heading exercise-library-heading sync-status-heading"><div><p className="eyebrow">YOUR LIBRARY</p><h2>Find your next move</h2><p>100 essentials. Find your focus, pick your equipment, and make your next move count.</p></div><OfflineLibraryStatus compact /></header>
+    <header className="plan-tab-page-heading exercise-library-heading sync-status-heading"><div><p className="eyebrow">YOUR LIBRARY</p><h2>Browse exercises & workout articles</h2><p>Explore 100 exercises by focus and equipment, plus articles on training, nutrition and recovery.</p></div><OfflineLibraryStatus compact /></header>
+    <LearningArticles initialTopic="Workout"/>
     <HealthReference title="Use the workout library with confidence" sources={['activity', 'strength']}>
       <p>Explore by body area, equipment and movement pattern. Open an exercise for technique steps, an editable starting target and practical progression guidance.</p>
       <p>A balanced routine needs more than one body area. A focus filter helps you browse; it does not mean that one exercise guarantees a particular body change. Record sets, repetitions and resistance in My Plan to track performance.</p>

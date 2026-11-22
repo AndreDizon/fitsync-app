@@ -15,7 +15,6 @@ import { usePlanningProfile } from '@/lib/planning-profile'
 import { usePlanAccount } from '@/lib/playlist-account'
 import type { GymTab } from '@/lib/gym-groups'
 import { preparePhoto } from '@/lib/progress'
-import { LearningArticles } from './learning-articles'
 import { GymGroups, GymGroupsCard } from './gym-groups'
 import '@/app/social.css'
 import '@/app/social-content.css'
@@ -53,7 +52,6 @@ export function SocialWorkspace({initialSection,initialPostId,initialGymTab,init
    <CommunityExamples kind={id}/>
    <p className="sc-overview-note">{id==='people'?'One active introduction per user. Editable anytime.':'Up to 2 new posts per day.'} Posts clear every 3 months.</p>
   </section>)}
-  <LearningArticles/>
   <GymGroupsCard onOpen={()=>viewSection('gyms')}/>
  </section>}</div>
 }
