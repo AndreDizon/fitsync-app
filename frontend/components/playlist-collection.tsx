@@ -1,6 +1,8 @@
 'use client'
 
 import { ArrowUpRight, CalendarDays, Check, Plus, Search, X } from 'lucide-react'
+import { useState } from 'react'
+import { KnowledgeFlashcards } from './knowledge-flashcards'
 import type { Playlist } from '../../shared/playlists'
 import { playlistDays } from '../../shared/playlists'
 import { HomeCardArt } from './home-card-art'
@@ -12,7 +14,12 @@ export function PlaylistCollection({ collection, loading, busy, nutrition, query
   lengthFilter: string; setLengthFilter: (value: string) => void
   onOpen: (playlist: Playlist | null) => void
 }) {
+  const [paging, setPaging] = useState({ key: '', page: 1 })
   const filtered = collection.filter(item => (lengthFilter === 'all' || item.duration === lengthFilter) && `${item.name} ${item.description}`.toLowerCase().includes(query.toLowerCase().trim()))
+  const pageKey = `${nutrition}:${query}:${lengthFilter}`
+  const pages = Math.max(1, Math.ceil(filtered.length / 5))
+  const page = Math.min(paging.key === pageKey ? paging.page : 1, pages)
+  const previews = filtered.slice((page - 1) * 5, page * 5)
   const filtering = query.trim().length > 0 || lengthFilter !== 'all'
   return <div className="pc-root">
     <div className="pc-welcome-grid">
@@ -28,10 +35,12 @@ export function PlaylistCollection({ collection, loading, busy, nutrition, query
       <label className="pc-filter"><CalendarDays size={17} aria-hidden="true" /><select aria-label="Filter playlist length" value={lengthFilter} onChange={event => setLengthFilter(event.target.value)}><option value="all">All lengths</option><option value="day">One day</option><option value="week">One week</option></select></label>
     </div>
     <p className="pc-result-count" role="status">{!loading && filtering ? `${filtered.length} of ${collection.length} playlists match` : ''}</p>
-    {loading ? <p className="pc-loading" role="status">Loading your playlists…</p> : !collection.length ? <div className="pc-collection-placeholder"><div className="pc-mascot-frame"><img src="/mascot/optimized/fox-collection-480.webp" loading="lazy" decoding="async" alt="FitSync fox organizing your collection" width={1254} height={1254} /></div><div><h3>Your collection starts here</h3><p>Create a playlist above. Your saved playlists will appear here.</p><span>Build once. Come back and edit any time.</span></div></div> : filtered.length ? <ul className="pc-playlist-list" aria-label="Saved playlists">{filtered.map(item => <li key={item.id}><button className="pc-playlist-row" disabled={busy} onClick={() => onOpen(item)}>
+    {loading ? <p className="pc-loading" role="status">Loading your playlists…</p> : !collection.length ? <div className="pc-collection-placeholder"><div className="pc-mascot-frame"><img src="/mascot/optimized/fox-collection-480.webp" loading="lazy" decoding="async" alt="FitSync fox organizing your collection" width={1254} height={1254} /></div><div><h3>Your collection starts here</h3><p>Create a playlist above. Your saved playlists will appear here.</p><span>Build once. Come back and edit any time.</span></div></div> : filtered.length ? <ul className="pc-playlist-list" aria-label="Saved playlists">{previews.map(item => <li key={item.id}><button className="pc-playlist-row" disabled={busy} onClick={() => onOpen(item)}>
       <span className="pc-row-calendar" aria-hidden="true"><CalendarDays size={20} /></span>
       <div className="pc-row-info"><h3>{item.name}</h3>{item.description && <p>{item.description}</p>}<div className="pc-row-meta"><span>{item.duration === 'day' ? playlistDays[item.selectedDay] : 'Monday–Sunday'}</span><span>{item.items.length} {nutrition ? (item.items.length === 1 ? 'food portion' : 'food portions') : (item.items.length === 1 ? 'exercise' : 'exercises')}</span></div></div>
       <div className="pc-row-tools"><span className="pc-row-duration">{item.duration === 'day' ? 'One day' : 'One week'}</span><span className={'pc-row-status pc-sync is-' + item.syncStatus}>{item.syncStatus === 'pending' ? 'Pending sync' : item.syncStatus === 'conflict' ? 'Sync conflict' : 'Available offline'}</span></div><ArrowUpRight className="pc-row-arrow" size={18} aria-hidden="true" />
     </button></li>)}</ul> : <div className="pc-no-results"><Search size={24} /><h3>No matching playlists</h3><p>Try another name or include all playlist lengths.</p><button onClick={() => { setQuery(''); setLengthFilter('all') }}>Clear filters</button></div>}
+    {!loading && <nav className="pc-pagination" aria-label="Playlist pages"><button disabled={busy || page === 1} onClick={() => setPaging({ key: pageKey, page: page - 1 })}>Previous</button><span role="status">Page {page} of {pages}<small>{filtered.length ? `${(page - 1) * 5 + 1}–${Math.min(page * 5, filtered.length)} of ${filtered.length} playlists` : '0 playlists'}</small></span><button disabled={busy || page === pages} onClick={() => setPaging({ key: pageKey, page: page + 1 })}>Next</button></nav>}
+    <KnowledgeFlashcards key={nutrition ? 'nutrition' : 'workout'} initialTopic={nutrition ? 'Nutrition' : 'Workout'} />
   </div>
 }

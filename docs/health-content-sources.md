@@ -61,6 +61,16 @@ These numbers are FitSync planning heuristics, not certified durations or standa
 
 ## Validation
 
+### Playlist knowledge flashcards
+
+Workout and nutrition playlist collections include 18 educational flashcards: three questions per topic at Beginner, Intermediate and Advanced difficulty. Difficulty describes question complexity, not a user's health or training ability. Answer reveals link to the source. Recall totals are self-reported for the current deck and are not stored or treated as an assessment.
+
+- [CDC adult activity overview](https://www.cdc.gov/physical-activity-basics/guidelines/adults.html): adult aerobic and strengthening guidance, major muscle groups and spreading activity across the week. Adult-specific questions explicitly say adults.
+- [CDC activity intensity](https://www.cdc.gov/physical-activity-basics/measuring/index.html): talk test, relative intensity and MET concepts.
+- [FDA Nutrition Facts label](https://www.fda.gov/food/nutrition-facts-label/how-understand-and-use-nutrition-facts-label): serving calculations, total versus added sugars, Daily Values and general calorie references. These questions explicitly use U.S. label conventions.
+
+Reviewed November 22, 2026. The flashcards explain general concepts; they do not generate personal calorie, weight-loss or exercise prescriptions.
+
 Run `node scripts/validate-monitoring-insights.mjs` for portion scaling, unknown versus zero values, date boundaries, duplicate handling, actual-session comparisons, recovery coverage and outlook eligibility.
 
 Use the existing food, exercise, estimate and library-filter validators to check catalog integrity. Browser checks should cover portion/100-g switching, invalid portions, unknown versus zero nutrients, contextual onboarding explanations, expandable references, keyboard dialog dismissal and 320–1440 px layouts. Existing source JSON and offline catalogs must stay unchanged for a presentation-only content update.
