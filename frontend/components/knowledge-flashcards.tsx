@@ -46,10 +46,10 @@ function QuizDeck({ topic }: { topic: KnowledgeTopic }) {
             const wrong = answered && selected === position && !correct
             return <button key={option} className={(correct ? 'is-correct' : '') + (wrong ? ' is-wrong' : '')} aria-disabled={answered} onClick={() => answer(position)}><span className="kf-option-letter" aria-hidden="true">{'ABCD'[position]}</span><span>{option}{correct && <small>Correct answer</small>}{wrong && <small>Your answer</small>}</span>{correct ? <Check size={18} aria-hidden="true" /> : wrong ? <X size={18} aria-hidden="true" /> : null}</button>
           })}</div>
-          {answered && <div className="kf-answer" role="status"><strong>{selected === current.correctIndex ? 'Correct!' : 'Not quite.'}</strong><p>{current.explanation}</p><a href={current.source} target="_blank" rel="noopener noreferrer">Read the {topic === 'Workout' ? 'CDC' : 'FDA'} source <ExternalLink size={14} aria-hidden="true" /><span className="kf-sr-only"> (opens in a new tab)</span></a><div className="kf-actions"><button className="kf-primary" onClick={advance}>{index === deck.length - 1 ? 'See results' : 'Next question'}<ArrowRight size={17} /></button></div></div>}
+          {answered && <div className="kf-answer" role="status"><strong>{selected === current.correctIndex ? 'Correct!' : 'Not quite.'}</strong><p>{current.explanation}</p><div className="kf-feedback-footer"><a href={current.source} target="_blank" rel="noopener noreferrer">Read the {topic === 'Workout' ? 'CDC' : 'FDA'} source <ExternalLink size={14} aria-hidden="true" /><span className="kf-sr-only"> (opens in a new tab)</span></a><div className="kf-actions"><button className="kf-primary" onClick={advance}>{index === deck.length - 1 ? 'See results' : 'Next question'}<ArrowRight size={17} /></button></div></div></div>}
         </>}
       </div>
-      <p className="kf-footnote">Use the page’s Workout/Nutrition toggle to change topic. Changing topic or difficulty starts a new quiz. Nutrition questions use U.S. labels.</p>
+      <details className="kf-about"><summary>About this quiz</summary><p>Use the page’s Workout/Nutrition toggle to change topic. Each difficulty has five questions. Changing topic or difficulty starts a new quiz. Nutrition questions use U.S. labels.</p></details>
     </div>
   </section>
 }
