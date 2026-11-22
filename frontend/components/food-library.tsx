@@ -91,7 +91,7 @@ export function FoodLibrary() {
   const close = () => { setSelected(null); requestAnimationFrame(() => (opener.current?.isConnected ? opener.current : search.current)?.focus()) }
   return <div className="food-library">
     <header className="food-library-heading plan-tab-page-heading sync-status-heading"><div><p className="food-kicker">YOUR NUTRITION LIBRARY</p><h2>Browse foods & nutrition articles</h2><p>Explore nutrients, portions and preparation for 100 foods, plus articles on balanced eating and healthy routines.</p></div><OfflineLibraryStatus catalog="food" compact /></header>
-    <LearningArticles initialTopic="Nutrition"/>
+    <LearningArticles/>
     <HealthReference title="Understand portions, preparation & food data" sources={['diet', 'foodData']}>
       <p>Cards show nutrition for the listed edible portion. Open a food to change the amount or compare per 100 g. Match raw or cooked weights to the food state shown.</p>
       <p>Use food groups to build variety, not a list of good or bad foods. A balanced eating pattern includes vegetables, fruit, starchy foods, protein sources and suitable fats; individual needs differ.</p>
