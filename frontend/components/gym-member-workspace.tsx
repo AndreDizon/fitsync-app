@@ -27,6 +27,7 @@ import {
 } from "./gym-admin-primitives";
 import { GymDailyCheckins } from "./gym-daily-checkins";
 import { GymAttendance } from "./gym-management-tools";
+import { GymSessionsCard } from "./gym-sessions-card";
 import { GymDiscussion } from "./gym-discussion";
 import { useConfirmation } from "./confirm-dialog";
 import { dateInZone } from "../../shared/progress";
@@ -50,7 +51,7 @@ const sections = [
     id: "attendance",
     label: "My attendance",
     Icon: ClipboardCheck,
-    note: "Check in when you arrive and check out when you leave.",
+    note: "Check in, review your visits and reserve a place at gym activities.",
   },
   {
     id: "membership",
@@ -62,14 +63,15 @@ const sections = [
     id: "discussion",
     label: "Discussion",
     Icon: MessageCircle,
-    note: "Chat, announcements, group sessions and shared workouts.",
+    note: "Chat, announcements and shared workouts.",
   },
 ] as const;
 
 function destination(tab?: string) {
   if (tab === "membership-plans") return "membership";
   if (tab === "announcements") return "discussion";
-  if (tab === "playlists" || tab === "sessions") return "discussion";
+  if (tab === "playlists") return "discussion";
+  if (tab === "sessions") return "attendance";
   return sections.some((s) => s.id === tab) ? tab! : "settings";
 }
 
@@ -112,7 +114,8 @@ export function GymMemberWorkspace({
     );
     if (focusNext.current) {
       focusNext.current = false;
-      if (!card) panel.current?.scrollIntoView({ block: "start", behavior: "instant" });
+      if (!card)
+        panel.current?.scrollIntoView({ block: "start", behavior: "instant" });
       panel.current
         ?.querySelector<HTMLElement>(".ga-page-heading h3")
         ?.focus({ preventScroll: true });
@@ -390,6 +393,14 @@ export function GymMemberWorkspace({
                   tableView
                 />
               </AdminSectionCard>
+              <div data-member-card="sessions">
+                <GymSessionsCard
+                  membership={membership}
+                  locked={locked}
+                  onAction={onAction}
+                  defaultOpen={target === "sessions"}
+                />
+              </div>
               <AdminSectionCard
                 title="Session attendance"
                 icon={CalendarDays}
@@ -538,10 +549,9 @@ export function GymMemberWorkspace({
               locked={locked}
               onAction={onAction}
               initialAnnouncements={initialTab === "announcements"}
-              initialView={initialTab === "sessions" ? "sessions" : initialTab === "playlists" ? "share" : undefined}
+              initialView={initialTab === "playlists" ? "share" : undefined}
             />
           )}
-
         </div>
       </div>
     </div>

@@ -437,6 +437,9 @@
   border-radius: 0;
   background: var(--ga-soft);
 }
+.ga-session-actions {
+  margin-bottom: 18px;
+}
 .ga-chat-toolbar {
   display: flex;
   gap: 8px;

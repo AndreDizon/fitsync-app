@@ -34,6 +34,7 @@ import {
 import { useConfirmation } from "./confirm-dialog";
 import { GymAdminPlans } from "./gym-admin-plans";
 import { GymAdminPayments } from "./gym-admin-payments";
+import { GymSessionsCard } from "./gym-sessions-card";
 import { GymDiscussion } from "./gym-discussion";
 import { dateInZone } from "../../shared/progress";
 
@@ -76,7 +77,7 @@ const sections = [
     id: "attendance",
     label: "Gym attendance",
     Icon: ClipboardCheck,
-    note: "Review visits and confirm member check-ins.",
+    note: "Review visits, confirm check-ins and schedule activities.",
   },
   {
     id: "plans",
@@ -88,7 +89,7 @@ const sections = [
     id: "discussion",
     label: "Discussion",
     Icon: MessageCircle,
-    note: "Chat, announcements, events and shared workouts.",
+    note: "Chat, announcements and shared workouts.",
   },
   {
     id: "payments",
@@ -121,7 +122,7 @@ export function GymAdminWorkspace({
     "membership-plans": "plans",
     income: "payments",
     announcements: "discussion",
-    sessions: "discussion",
+    sessions: "attendance",
     playlists: "discussion",
   };
   const [tab, setTab] = useState(
@@ -244,6 +245,7 @@ export function GymAdminWorkspace({
                 )}{" "}
                 {active.id === "attendance" && (
                   <Attendance
+                    openSessions={initialTab === "sessions"}
                     data={data}
                     locked={locked || loading}
                     run={run}
@@ -579,7 +581,7 @@ type Visit = {
   checked_out_at: string | null;
   confirmed_at: string | null;
 };
-function Attendance({ data, locked }: AdminPageProps) {
+function Attendance({ data, locked, run, openSessions = false }: AdminPageProps & { openSessions?: boolean }) {
   const [person, setPerson] = useState<Visit | null>(null),
     [version, setVersion] = useState(0),
     [busy, setBusy] = useState(false),
@@ -597,89 +599,92 @@ function Attendance({ data, locked }: AdminPageProps) {
     },
   ];
   return (
-    <AdminSectionCard
-      title="Member visits"
-      icon={ClipboardCheck}
-      description="Review daily visits and confirm check-ins"
-    >
-      <p className="gg-small">
-        Times use {zone}. One visit per gym-local day. Check-ins require your
-        confirmation; checkout records when a member leaves.
-      </p>
-      {error && (
-        <p role="alert" className="gg-feedback gg-error">
-          {error}
+    <div className="ga-admin-cards">
+      <AdminSectionCard
+        title="Member visits"
+        icon={ClipboardCheck}
+        description="Review daily visits and confirm check-ins"
+      >
+        <p className="gg-small">
+          Times use {zone}. One visit per gym-local day. Check-ins require your
+          confirmation; checkout records when a member leaves.
         </p>
-      )}
-      <AdminReport<Visit>
-        kind="visits"
-        version={version}
-        label="Gym attendance"
-        zone={zone}
-        rowKey={(r) => r.user_id + r.checked_on}
-        columns={[
-          { label: "Name", render: (r) => r.username },
-          ...times,
-          {
-            label: "Confirmation",
-            render: (r) =>
-              r.confirmed_at ? (
-                "Confirmed"
-              ) : (
-                <button
-                  type="button"
-                  className="gg-primary"
-                  disabled={locked || busy}
-                  onClick={async () => {
-                    setBusy(true);
-                    setError("");
-                    try {
-                      await gymRequest("confirm_checkin", {
-                        userId: r.user_id,
-                        checkedOn: r.checked_on,
-                        scope: "gym",
-                      });
-                      setVersion((v) => v + 1);
-                    } catch (e) {
-                      setError((e as Error).message);
-                    } finally {
-                      setBusy(false);
-                    }
-                  }}
-                >
-                  Confirm check-in
+        {error && (
+          <p role="alert" className="gg-feedback gg-error">
+            {error}
+          </p>
+        )}
+        <AdminReport<Visit>
+          kind="visits"
+          version={version}
+          label="Gym attendance"
+          zone={zone}
+          rowKey={(r) => r.user_id + r.checked_on}
+          columns={[
+            { label: "Name", render: (r) => r.username },
+            ...times,
+            {
+              label: "Confirmation",
+              render: (r) =>
+                r.confirmed_at ? (
+                  "Confirmed"
+                ) : (
+                  <button
+                    type="button"
+                    className="gg-primary"
+                    disabled={locked || busy}
+                    onClick={async () => {
+                      setBusy(true);
+                      setError("");
+                      try {
+                        await gymRequest("confirm_checkin", {
+                          userId: r.user_id,
+                          checkedOn: r.checked_on,
+                          scope: "gym",
+                        });
+                        setVersion((v) => v + 1);
+                      } catch (e) {
+                        setError((e as Error).message);
+                      } finally {
+                        setBusy(false);
+                      }
+                    }}
+                  >
+                    Confirm check-in
+                  </button>
+                ),
+            },
+            {
+              label: "History",
+              render: (r) => (
+                <button type="button" onClick={() => setPerson(r)}>
+                  See all history
                 </button>
               ),
-          },
-          {
-            label: "History",
-            render: (r) => (
-              <button type="button" onClick={() => setPerson(r)}>
-                See all history
-              </button>
-            ),
-          },
-        ]}
-      />
-      {person && (
-        <AdminModal
-          title={person.username + " - attendance history"}
-          onClose={() => setPerson(null)}
-        >
-          <p className="gg-small">
-            All recorded time in and time out in {zone}.
-          </p>
-          <AdminReport<Visit>
-            kind="visits"
-            userId={person.user_id}
-            version={version}
-            label="Member attendance history"
-            zone={zone}
-            rowKey={(r) => r.checked_on}
-            columns={times}
-          />
-        </AdminModal>
-      )}
-    </AdminSectionCard>
+            },
+          ]}
+        />
+        {person && (
+          <AdminModal
+            title={person.username + " - attendance history"}
+            onClose={() => setPerson(null)}
+          >
+            <p className="gg-small">
+              All recorded time in and time out in {zone}.
+            </p>
+            <AdminReport<Visit>
+              kind="visits"
+              userId={person.user_id}
+              version={version}
+              label="Member attendance history"
+              zone={zone}
+              rowKey={(r) => r.checked_on}
+              columns={times}
+            />
+          </AdminModal>
+        )}
+      </AdminSectionCard>
+      <GymSessionsCard membership={data} locked={locked} onAction={run} defaultOpen={openSessions} />
+    </div>
   );
 }
