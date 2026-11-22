@@ -31,9 +31,9 @@ async function run(request:Request,write:boolean){
   }
   const settingsCardAction=['rename_gym','save_gym_guidance','transfer_leave'].includes(action)
   const sessionAction=['mine','admin_data','create_session'].includes(action)
-  let result=await auth.client!.rpc(sessionAction?'gym_group_action_v12':settingsCardAction?'gym_group_action_v11':'gym_group_action_v10',{action,doc})
+  let result=await auth.client!.rpc(action==='post_announcement'?'gym_group_action_v13':sessionAction?'gym_group_action_v12':settingsCardAction?'gym_group_action_v11':'gym_group_action_v10',{action,doc})
   if(sessionAction&&action!=='create_session'&&result.error?.code==='PGRST202')result=await auth.client!.rpc('gym_group_action_v10',{action,doc})
-  if(result.error)return json({error:result.error.code==='PGRST202'?(action==='create_session'?'Apply the events and group sessions (v12) migration after v11.':settingsCardAction?'Apply the settings cards (v11) migration after v10.':'Apply the admin workspace (v10) migration after v9.'):result.error.message},result.error.code==='PGRST202'?503:400)
+  if(result.error)return json({error:result.error.code==='PGRST202'?(action==='post_announcement'?'Apply the staff workspace (v13) migration after v12.':action==='create_session'?'Apply the events and group sessions (v12) migration after v11.':settingsCardAction?'Apply the settings cards (v11) migration after v10.':'Apply the admin workspace (v10) migration after v9.'):result.error.message},result.error.code==='PGRST202'?503:400)
   return json(result.data)
 }
 export async function GET(request:Request){return run(request,false)}

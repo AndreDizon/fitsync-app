@@ -83,3 +83,7 @@
 @media(max-width:700px){.sc-gyms-intro{grid-template-columns:1fr;gap:16px;padding:18px}.sc-gyms-intro>div{display:grid;grid-template-columns:24px 1fr;gap:3px 10px}.sc-gyms-intro svg{grid-row:span 2;margin:0}.sc-gyms-intro p{margin:0}.gg-entry,.gg-directory{grid-template-columns:1fr}.gg-heading{align-items:start}.gg-heading h2{font-size:24px}.gg-roster li{flex-wrap:wrap}.gg-member-actions{width:100%;padding-left:48px;box-sizing:border-box}.gg-exit{align-items:start;flex-direction:column}.gg-membership,.gg-roster,.gg-entry>form,.gg-create,.gg-directory>article{padding:16px}.sc-gyms :is(input,textarea){font-size:16px}}
 .gg-gym-details>summary .gg-count{display:inline-block}
 @media(max-width:700px){.gg-gym-details>summary{padding:14px 16px}.gg-gym-details-body{padding:0 16px 16px}}
+
+/* Match the spacing between the Social hero and its detail pages. */
+.sc-gyms{padding:30px 0 12px}
+@media(width < 768px){.sc-gyms{padding-top:20px}}

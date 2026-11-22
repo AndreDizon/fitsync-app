@@ -2,6 +2,18 @@
   display: grid;
   gap: 24px;
 }
+.gm-staff-records .gg-membership-workspace > h3,
+.gm-staff-records .gg-membership-workspace > p:first-of-type,
+.gm-staff-records .gg-membership-section-heading {
+  display: none;
+}
+.gm-staff-records .gg-membership-table {
+  font-size: 13px;
+}
+.gm-staff-records .gg-membership-table thead {
+  background: #eef3f9;
+  color: #36546e;
+}
 .gm-workspace .ga-content,
 .gm-cards > [data-member-card] {
   min-width: 0;

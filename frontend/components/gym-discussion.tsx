@@ -232,7 +232,7 @@ export function GymDiscussion({
       {modal === "pinned" && (
         <AdminModal title="Gym announcements" onClose={() => setModal(null)}>
           <div className="gg-actions">
-            {admin && (
+            {manager && (
               <button
                 type="button"
                 className="gg-primary"
@@ -245,7 +245,7 @@ export function GymDiscussion({
               </button>
             )}
           </div>
-          {admin && (
+          {manager && (
             <label className="ga-check">
               <input
                 type="checkbox"
@@ -260,11 +260,11 @@ export function GymDiscussion({
             are available on the attendance page.
           </p>
           {!membership.announcements?.some(
-            (a) => a.pinned || (admin && showUnpinned),
+            (a) => a.pinned || (manager && showUnpinned),
           ) && <p className="gg-empty">No pinned announcements yet.</p>}
           <div className="ga-pinned-posts">
             {[...(membership.announcements || [])]
-              .filter((a) => a.pinned || (admin && showUnpinned))
+              .filter((a) => a.pinned || (manager && showUnpinned))
               .sort((a, b) => Number(b.pinned) - Number(a.pinned))
               .map((a) => {
                 return (
@@ -281,7 +281,7 @@ export function GymDiscussion({
                       {a.username || "Gym admin"} ·{" "}
                       {adminDay(dateInZone(zone, new Date(a.created_at)))}
                     </p>
-                    {admin && (
+                    {manager && (
                       <div className="gg-actions">
                         <button
                           type="button"
