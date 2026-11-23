@@ -1,44 +1,46 @@
 # FitSync System Diagrams
 
-Generated November 23, 2026 from the implemented FitSync workflows. These are logical system diagrams, not database schema or deployment diagrams.
+Summarized figures updated November 23, 2026 to match the supplied samples: short descriptions, grouped features, clear rows and minimal connections.
 
-## Files to insert in the manuscript
+## Download and insert
 
-| Manuscript figure | Image | Vector image | PDF |
+| Figure | PNG image | SVG vector | PDF |
 | --- | --- | --- | --- |
-| Figure 4.5: FitSync Context Diagram | [PNG](Figure_4_5_Context.png) | [SVG](Figure_4_5_Context.svg) | [PDF](Figure_4_5_Context.pdf) |
-| Figure 4.6: FitSync Use-Case Diagram | [PNG](Figure_4_6_Use_Case.png) | [SVG](Figure_4_6_Use_Case.svg) | [PDF](Figure_4_6_Use_Case.pdf) |
-| Figure 4.7: FitSync Data-Flow Diagram, Level 0 | [PNG](Figure_4_7_DFD_Level_0.png) | [SVG](Figure_4_7_DFD_Level_0.svg) | [PDF](Figure_4_7_DFD_Level_0.pdf) |
+| 4.5 Context Diagram | [PNG](Figure_4_5_Context.png) | [SVG](Figure_4_5_Context.svg) | [PDF](Figure_4_5_Context.pdf) |
+| 4.6 Use-Case Diagram | [PNG](Figure_4_6_Use_Case.png) | [SVG](Figure_4_6_Use_Case.svg) | [PDF](Figure_4_6_Use_Case.pdf) |
+| 4.7 Data-Flow Diagram Level 0 | [PNG](Figure_4_7_DFD_Level_0.png) | [SVG](Figure_4_7_DFD_Level_0.svg) | [PDF](Figure_4_7_DFD_Level_0.pdf) |
 
-Use SVG where your document editor supports it, to preserve sharp text when resizing. PNG works in Word and Google Docs. The context and use-case diagrams suit a landscape page; the detailed DFD suits a full portrait or larger foldout page. Keep diagram text readable rather than shrinking a dense figure into a small paragraph column. Captions are already included in the images; remove the top label in the DOT source before rendering if your manuscript requires captions only below figures.
+The ZIP beside this folder contains every format and the editable sources. SVG preserves sharp text when resized. PNG is convenient for Word and Google Docs. The figures already include their numbered titles.
 
-## Figure descriptions
+## Short explanations for the manuscript
 
-**Figure 4.5** places FitSync at the centre of its environment. Registered users and the three gym roles exchange personal records, community information and operational decisions with the system. Google supports identity authorization, Gmail delivers account emails, OpenRouter supplies educational chat responses, and external publishers host linked articles. FitSync's application, Supabase Auth, database, storage and browser copies are inside the chosen system boundary.
+**Figure 4.5** shows FitSync as one system connecting individual users, gym members and staff, gym owners and external services. Users provide preferences and records, while FitSync returns plans, information and summaries. External services support sign-in, account emails, educational AI chat and linked articles.
 
-**Figure 4.6** groups use cases into account access, personal planning and learning, community participation and gym operations. Gym roles inherit the personal functions of a registered user, then receive their role-specific gym actions. Member and staff self-check-in is separate from the admin's confirmation of gym-wide visits. Staff can approve requests, assign existing plans, renew coverage and moderate content; ownership, role changes, activity scheduling, catalogue changes and finances stay with the gym admin. Rectangles marked «actor» identify UML actors; ellipses identify grouped use cases. Solid association lines do not indicate sequence. Hollow triangles indicate actor generalization.
+**Figure 4.6** summarizes features by role. Registered users manage personal planning, learning, progress and community participation. Gym members manage their own participation and view coverage. Staff help with requests, existing-plan assignments, renewals and moderation. Gym admins manage settings, roles, attendance confirmation, activities, plans and recorded payments.
 
-**Figure 4.7** decomposes the application into seven processes: account and preferences; plans and daily logs; references and quizzes; progress and insights; community and gym operations; membership and collections; and reminders and educational chat. Named arrows show data moving between external entities, processes and logical stores. D1–D5 refer to records held through Supabase services; D6 is bundled reference content; D7 is device state. These logical stores can contain several actual tables or storage objects.
+**Figure 4.7** shows five main process groups. P1 manages accounts and preferences. P2 covers personal plans, logs, learning and progress. P3 handles community, gyms and attendance. P4 handles membership coverage and payment records. P5 sends submitted educational questions to OpenRouter and receives responses. D1–D4 represent grouped logical records rather than individual database tables.
 
-## Modelling conventions
+## Scope and notation
 
-- This manuscript uses a **context diagram with process 0**, followed by a **Level 0 decomposition with processes 1.0–7.0**. Some schools call the context view Level 0 and the first decomposition Level 1. If your adviser uses that convention, rename Figure 4.7 without changing its flows.
-- A registered user is the shared personal-account role. Gym member, staff and admin are additional permissions. The DFD groups member/staff participation and admin/staff operational actions where their data flows overlap; every operation still checks its actual role.
-- A reservation holds a place at an activity. It is not a visit log or an attendance confirmation.
-- Joining a community, receiving coverage and recording a payment are separate transactions. Membership fees are not received income until money is recorded as received. FitSync does not process online payments or calculate profit after expenses.
-- Plans are generated by programmed rules and calculations. OpenRouter receives submitted conversation messages, not automatic access to a user's private logs. Article pages open on external publisher websites.
-- Quiz scores and current chat state are transient. Reminders run while the app is open; the diagrams do not claim closed-app push delivery.
-- Account reset/deletion affects the applicable stores. Not every deletion, authorization and cache-maintenance arrow is drawn, to keep this an overview.
-- These figures exclude the retired gym locator and food camera scan. A progress photo is a private user upload, not a food-recognition feature.
+- These are simplified overview diagrams following the supplied samples. The use-case figure groups functions into boxes instead of showing individual UML ellipses and inheritance arrows. It is a role-based use-case summary, not an exhaustive UML specification.
+- All gym roles retain registered-user personal features. Staff have member participation features plus limited operational permissions.
+- Admin confirms gym visits; members and staff log their own check-ins/checkouts. Event reservations are separate from visit attendance.
+- Staff can apply existing plans and renew coverage. Only the admin changes plan offers, edits/removes coverage, manages finances, changes roles/settings, bans users, transfers ownership or schedules gym activities.
+- Joining a gym, receiving membership coverage and recording payment are separate actions. Payments are recorded after receipt outside FitSync; this is not online payment processing.
+- The DFD repeats the User entity across rows for readability. Arrows into processes show summarized requests; two-way links show record exchange or service requests/responses. User-facing responses, shared-profile lookups, caches and detailed subflows are omitted.
+- D2 groups personal records and reference content for this summary. Reference catalogues and article/quiz data are read-only; user plans, logs and progress are editable. D1–D4 are logical groups, not a single-table schema.
+- Google sign-in, Gmail and article publishers are grouped in the context diagram; their detailed flows are omitted from the summarized DFD. OpenRouter receives submitted chat, not automatic access to private logs. Plan generation uses programmed rules and calculations.
+- This manuscript separates the context view from the Level 0 process breakdown. Some schools call the breakdown Level 1; rename the caption if your adviser follows that convention.
+- The retired gym locator and food camera scan are excluded.
 
-## Editable sources and regeneration
+## Editable sources
 
-The three `.dot` files are the editable Graphviz sources. They can be rendered by Graphviz tools without modifying the FitSync application.
-
-`render-diagrams.cjs` creates SVG, high-resolution PNG and vector PDF files. The current environment uses `@viz-js/viz` from `%TEMP%/fitsync-diagram-tools`, Playwright from `%TEMP%/fitsync-layout-check`, installed Chrome, and the repository's Sharp dependency. With those tools installed, run from the repository root:
+Edit the three `.dot` files with Graphviz-compatible tools. To regenerate SVG, high-resolution PNG and vector PDF in the current workspace, run:
 
 ```text
 node deliverables/FitSync_System_Diagrams/render-diagrams.cjs
 ```
 
-Implementation references checked: `frontend/components/dashboard.tsx`, `onboarding.tsx`, `my-plan-workspace.tsx`, `learning-articles.tsx`, `knowledge-flashcards.tsx`, the progress and gym workspaces, `backend/app/api/coach/route.ts`, `backend/lib/auth-email.ts`, `shared/gym-collections.ts`, and the gym permission migrations through v13.
+The renderer uses `@viz-js/viz` in `%TEMP%/fitsync-diagram-tools`, Playwright in `%TEMP%/fitsync-layout-check`, installed Chrome and the repository's Sharp package. Regenerate the ZIP after editing.
+
+Checked against the implemented account, planning, library, progress, social and gym workspaces, AI/email routes and gym permission migrations through v13.

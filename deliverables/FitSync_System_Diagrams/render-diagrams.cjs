@@ -15,7 +15,7 @@ const folder = __dirname;
       fs.writeFileSync(path.join(folder, base + '.svg'), svg);
       const [, width, height] = svg.match(/viewBox="0\.00 0\.00 ([\d.]+) ([\d.]+)"/) || [];
       if (!width || !height) throw Error('Missing SVG dimensions: ' + base);
-      const page = await browser.newPage({ viewport: { width: Math.ceil(Number(width)), height: Math.ceil(Number(height)) }, deviceScaleFactor: 1.5 });
+      const page = await browser.newPage({ viewport: { width: Math.ceil(Number(width)), height: Math.ceil(Number(height)) }, deviceScaleFactor: 2.5 });
       await page.setContent('<style>body{margin:0;background:white}svg{display:block;width:100%;height:auto}@page{margin:0}</style>' + svg.replace(/<\?xml[^>]+\?>/, '').replace(/<!DOCTYPE[\s\S]*?>/, ''));
       await page.locator('svg').screenshot({ path: path.join(folder, base + '.png') });
       await page.pdf({ path: path.join(folder, base + '.pdf'), width: Math.ceil(Number(width)) + 'px', height: Math.ceil(Number(height)) + 'px', printBackground: true, margin: { top: 0, bottom: 0, left: 0, right: 0 } });
