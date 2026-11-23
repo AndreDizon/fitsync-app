@@ -1,0 +1,65 @@
+digraph UseCases {
+  graph [rankdir=LR, bgcolor=white, pad=0.35, nodesep=0.18, ranksep=0.85, splines=polyline, fontname="Arial", fontsize=22, labelloc=t, label="Figure 4.6: FitSync Use-Case Diagram", compound=true];
+  node [shape=ellipse, fontname="Arial", fontsize=12, color="#334155", margin="0.15,0.10"];
+  edge [arrowhead=none, color="#64748b", penwidth=0.9, constraint=false];
+  visitor [shape=box, label="«actor»\nVisitor / account holder"];
+  user [shape=box, label="«actor»\nRegistered user"];
+  member [shape=box, label="«actor»\nGym member"];
+  staff [shape=box, label="«actor»\nGym staff"];
+  admin [shape=box, label="«actor»\nGym admin / owner"];
+  {rank=min; visitor; user;}
+  {rank=max; member; staff; admin;}
+  subgraph cluster_system {
+    label="FitSync"; fontsize=18; color="#334155"; penwidth=1.4;
+    subgraph cluster_access {
+      label="Account access"; fontsize=13; color="#cbd5e1";
+      auth [label="Register / verify email\nSign in / recover password"];
+      profile [label="Complete onboarding\nUpdate preferences and username"];
+      settings [label="Manage themes, reminders,\nsessions and account data"];
+    }
+    subgraph cluster_personal {
+      label="Personal planning and learning"; fontsize=13; color="#cbd5e1";
+      plans [label="Generate / edit daily plans\nLog workouts, meals and water"];
+      playlists [label="Manage reusable playlists\nApply routines to daily plans"];
+      learn [label="Browse exercise / food libraries\nRead articles / answer quizzes"];
+      progress [label="Record measurements / recovery / photos\nReview analytics / export records / claim awards"];
+      chat [label="Ask educational AI questions"];
+    }
+    subgraph cluster_social {
+      label="Community and gym participation"; fontsize=13; color="#cbd5e1";
+      forum [label="Publish posts / introductions\nReact and comment"];
+      discover [label="Find / join / create a gym"];
+      gymInfo [label="View gym details and team\nView available plans / leave gym"];
+      ownCoverage [label="Review own membership\ncoverage and history"];
+      visits [label="Log own check-in / checkout\nReview own visits and confirmation"];
+      reserve [label="Reserve / cancel a place\nat events and group sessions"];
+      discussion [label="Chat / read announcements\nShare or copy workout playlists"];
+    }
+    subgraph cluster_operations {
+      label="Gym operations"; fontsize=13; color="#cbd5e1";
+      requests [label="Accept / decline\npending join requests"];
+      assign [label="Apply existing membership plans\nRenew member coverage"];
+      moderation [label="Manage announcements\nModerate gym discussion"];
+      gymSettings [label="Edit gym details / rules / policy / time zone\nTransfer ownership / delete gym"];
+      roles [label="Promote / demote staff\nRemove / ban / unban members\nReview team activity"];
+      attendance [label="Review gym-wide visits / history\nConfirm member check-ins"];
+      events [label="Create / cancel events and group sessions\nReview preregistrations"];
+      catalogue [label="Create / edit / delete plan offers\nUpdate / remove assigned coverage"];
+      finance [label="Record payments / refunds / corrections\nReview balances / monthly collections\nExport payment records"];
+    }
+  }
+  visitor -> auth [constraint=true];
+  user -> plans [constraint=true];
+  auth -> gymInfo -> requests -> member [style=invis, constraint=true, weight=100];
+  plans -> ownCoverage -> assign -> staff [style=invis, constraint=true, weight=100];
+  profile -> discussion -> catalogue -> admin [style=invis, constraint=true, weight=100];
+  user -> profile; user -> settings; user -> playlists; user -> learn; user -> progress; user -> chat; user -> forum; user -> discover;
+  member -> user [arrowhead=empty, color="#111827", label="inherits", fontname="Arial", fontsize=10];
+  staff -> user [arrowhead=empty, color="#111827"];
+  admin -> user [arrowhead=empty, color="#111827"];
+  member -> gymInfo; member -> ownCoverage; member -> visits; member -> reserve; member -> discussion;
+  staff -> gymInfo; staff -> ownCoverage; staff -> visits; staff -> reserve; staff -> discussion; staff -> requests; staff -> assign; staff -> moderation;
+  admin -> gymInfo; admin -> discussion; admin -> requests; admin -> assign; admin -> moderation; admin -> gymSettings; admin -> roles; admin -> attendance; admin -> events; admin -> catalogue; admin -> finance;
+  note [shape=note, fontsize=11, label="Solid lines: actor–use-case associations.\nHollow triangles: gym roles inherit personal-user functions.\nStaff cannot change gym roles/settings, confirm others' visits,\nschedule activities, edit plan offers or manage finances.\nGym admin does not have the member self-check-in action.", color="#94a3b8"];
+  admin -> note [style=invis];
+}

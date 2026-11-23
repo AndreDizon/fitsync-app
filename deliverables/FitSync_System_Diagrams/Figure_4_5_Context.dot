@@ -1,0 +1,34 @@
+digraph Context {
+  graph [rankdir=LR, bgcolor="white", pad=0.35, nodesep=0.65, ranksep=1.45, splines=polyline, fontname="Arial", fontsize=22, labelloc=t, label="Figure 4.5: FitSync Context Diagram"];
+  node [shape=box, fontname="Arial", fontsize=14, color="#334155", penwidth=1.2, margin="0.20,0.14"];
+  edge [fontname="Arial", fontsize=11, color="#475569", arrowsize=0.75];
+  user [label="Registered user\nPersonal fitness account"];
+  member [label="Gym member"];
+  staff [label="Gym staff"];
+  admin [label="Gym admin / owner"];
+  system [shape=ellipse, style=filled, fillcolor="#edf3fa", penwidth=1.8, label="0\nFitSync\nWorkout, nutrition, progress\nand gym community system", fontsize=19, width=3.4, height=2.0];
+  google [label="Google identity service"];
+  mail [label="Gmail API\nAccount email delivery"];
+  ai [label="OpenRouter\nAI model service"];
+  publishers [label="Article publishers\nExternal learning websites"];
+  {rank=same; user; member; staff; admin;}
+  {rank=same; google; mail; ai; publishers;}
+  user -> system [label="Account details; onboarding preferences;\nplans, logs, questions and social contributions"];
+  system -> user [label="Account results; plans; references;\ninsights, reminders and community content", constraint=false];
+  member -> system [label="Join requests; visit logs; reservations;\ngym messages and playlist contributions"];
+  system -> member [label="Gym details; own attendance;\ncoverage; activities and announcements", constraint=false];
+  staff -> system [label="Request decisions; plan assignments;\nrenewals and moderated content"];
+  system -> staff [label="Pending requests; member coverage;\ncommunity records and action results", constraint=false];
+  admin -> system [label="Gym settings; roles; attendance decisions;\nactivities, membership fees and payment records"];
+  system -> admin [label="Member and visit records; preregistrations;\ncoverage, balances, collections and activity history", constraint=false];
+  system -> google [label="Sign-in / identity request"];
+  google -> system [label="Identity authorization result", constraint=false];
+  system -> mail [label="Verification / recovery email request"];
+  mail -> system [label="Delivery result", constraint=false];
+  system -> ai [label="User-submitted conversation"];
+  ai -> system [label="Educational answer / provider status", constraint=false];
+  system -> publishers [label="Selected article URL / page request"];
+  publishers -> system [label="Publisher-hosted article page", constraint=false];
+  note [shape=note, fontsize=11, label="Each gym role also has the registered-user functions.\nThe boundary includes FitSync's application logic,\nSupabase Auth, database, storage and browser copies.\nArticle pages open externally; chat receives submitted messages.\nPayments are recorded, not processed online.", color="#94a3b8"];
+  system -> note [style=invis];
+}
