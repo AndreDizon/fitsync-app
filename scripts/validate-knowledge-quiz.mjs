@@ -22,7 +22,10 @@ for (const [topic, levels] of Object.entries(knowledgeDecks)) {
       assert(card.explanation.trim())
       const url = new URL(card.source)
       assert.equal(url.protocol, 'https:')
-      assert.equal(url.hostname, topic === 'Workout' ? 'www.cdc.gov' : 'www.fda.gov')
+      const publishers = { 'www.cdc.gov': 'CDC', 'www.nhs.uk': 'NHS', 'acsm.org': 'ACSM', 'www.who.int': 'WHO', 'www.fda.gov': 'FDA' }
+      const allowed = topic === 'Workout' ? ['www.cdc.gov', 'www.nhs.uk', 'acsm.org'] : ['www.cdc.gov', 'www.who.int', 'www.fda.gov']
+      assert(allowed.includes(url.hostname), 'Use an approved primary source for this topic')
+      assert.equal(card.sourceName, publishers[url.hostname], 'Source link must name the actual publisher')
     }
   }
 }
