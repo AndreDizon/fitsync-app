@@ -4,7 +4,7 @@ The Home body summarizes the signed-in user's saved daily plan, water log, playl
 
 Fitness tip cards turn over to show educational descriptions and source links. These are informational, not personalized recommendations.
 
-## Enable the optional chatbot
+## Enable the optional chatbot and AI formulate
 
 1. Create an account at https://openrouter.ai/ and sign in.
 2. Open https://openrouter.ai/settings/keys and create an API key for FitSync.
@@ -13,7 +13,9 @@ Fitness tip cards turn over to show educational descriptions and source links. T
 5. Save and redeploy the backend's latest deployment.
 6. Sign in to FitSync with a regular account, open Home, and choose **Ask the FitSync fox**.
 
-For local development add the same variable to `backend/.env.local` and restart the backend. No new database migration is needed for Home or chat.
+The same key enables **Plans → My Plan → AI formulate** in Workout and Nutrition. Deploy both updated apps to show the new buttons. For local development add the variable to `backend/.env.local` and restart the backend. No new database migration is needed for Home, chat or AI formulate.
+
+AI formulation compares up to four eligible system-generated day drafts, then saves the selected complete draft through the normal plan storage flow. It uses up to three verified zero-priced `:free` model attempts, with no paid fallback. Only planning preferences, an adult/teen band, applicable energy reference and draft options are sent; names, email, exact age, body measurements, free-text allergy notes and private logs are omitted. Catalogue exclusions, rest days, portions and calculated targets stay under FitSync's existing rules. Failure leaves the current plan intact; **System formulate** remains available offline. A separate per-user burst limit allows four AI formulation requests per minute per server instance. See `MY_PLAN_SETUP.md` for the API and validation.
 
 The backend discovers currently listed zero-priced `:free` models and attempts up to five in sequence. Optionally set `OPENROUTER_FREE_MODELS` to comma-separated preferred model IDs; they must still pass the free-catalog check. Model availability and free quotas depend on OpenRouter and its providers. Switching models cannot bypass an account-wide quota. Consult https://openrouter.ai/docs/api-reference/limits for current limits.
 

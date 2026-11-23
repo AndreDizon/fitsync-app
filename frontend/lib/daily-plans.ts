@@ -5,6 +5,23 @@ let epoch = 0
 const key = (owner: string, week: string) => prefix + owner + ':' + week
 const announcePlanChange = (owner:string,week:string) => { if(typeof window!=='undefined')window.dispatchEvent(new CustomEvent('fitsync-plan-updated',{detail:{owner,week}})) }
 export function clearDailyPlanCopies() { epoch++; try { for (const name of Object.keys(localStorage)) if (name.startsWith(prefix)) localStorage.removeItem(name) } catch {} }
+export async function requestAiDay(owner: string, kind: 'workout' | 'nutrition', day: number, variation: number, signal: AbortSignal) {
+  if (owner === 'local-tester') throw new Error('Sign in to a regular account to use AI formulate. System formulate also works offline.')
+  if (!navigator.onLine) throw new Error('AI formulate needs internet. Use System formulate while offline.')
+  const started = epoch
+  const response = await fetch('/api/plans/generate-ai', {
+    method: 'POST', cache: 'no-store', headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ kind, day, variation }), signal: AbortSignal.any([signal, AbortSignal.timeout(50000)]),
+  })
+  const value = await response.json().catch(() => { throw new Error('AI formulation is temporarily unavailable. Your plan has not changed. Try System formulate.') })
+  if (!response.ok) throw new Error(value.error || 'AI formulation is unavailable. Try System formulate.')
+  if (started !== epoch || value.userId !== owner) throw new Error('Account changed. Reload before formulating a plan.')
+  const document = blankWeek('2026-01-05')
+  document.days[day][kind] = value.schedule
+  const valid = parsePlanWeek(document)
+  if (!valid || value.schedule?.source !== 'AI-formulated' || !value.schedule.items.length || value.schedule.rest || !Array.isArray(value.notes) || value.notes.some((note: unknown) => typeof note !== 'string' || note.length > 2000)) throw new Error('AI returned an invalid day. Your plan has not changed.')
+  return { schedule: valid.days[day][kind], notes: value.notes as string[] }
+}
 export function cachedWeek(owner: string, week: string): StoredWeek {
   let raw: string | null = null
   try { raw = localStorage.getItem(key(owner, week)) } catch {}

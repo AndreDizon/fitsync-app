@@ -6,7 +6,7 @@ import { Fragment, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { ArrowDown, ArrowUp, Check, Flag, Plus, RefreshCw, Sparkles, Trash2, X } from 'lucide-react'
 import { usePlanningProfile } from '@/lib/planning-profile'
 import { usePlanAccount } from '@/lib/playlist-account'
-import { cachedWeek, reloadWeek, storeWeek, syncWeek, type StoredWeek } from '@/lib/daily-plans'
+import { cachedWeek, reloadWeek, requestAiDay, storeWeek, syncWeek, type StoredWeek } from '@/lib/daily-plans'
 import { listPlaylists } from '@/lib/playlists'
 import { FoodDetails } from './food-library'
 import { FoodArt } from './food-art'
@@ -98,6 +98,8 @@ export function MyPlanWorkspace({ kind, focusWater = false, initialDate }: { kin
   }, [focusWater, !!record])
   const [imports, setImports] = useState<Playlist[] | null>(null)
   const generation = useRef(0)
+  const aiRequest = useRef<AbortController | null>(null)
+  const [aiBusy, setAiBusy] = useState(false)
   const nutrition = kind === 'nutrition'
   latest.current = record
   // Read the small device snapshot before paint so navigation never flashes
@@ -119,7 +121,7 @@ export function MyPlanWorkspace({ kind, focusWater = false, initialDate }: { kin
     const timer = setTimeout(() => { void syncWeek(owner, week).then(value => { if (active) setRecord(value) }) }, 700)
     return () => { active = false; clearTimeout(timer) }
   }, [record?.token, identity, owner, week, record?.pending, record?.conflict])
-  useEffect(() => { generation.current++; setBusy(false); setChooser(null); setImports(null); setDetail(null); setMessage(''); setNotes([]); return () => { generation.current++ } }, [kind, day])
+  useEffect(() => { generation.current++; aiRequest.current?.abort(); setBusy(false); setAiBusy(false); setChooser(null); setImports(null); setDetail(null); setMessage(''); setNotes([]); return () => { generation.current++; aiRequest.current?.abort() } }, [kind, day, owner, week, profile])
   useLayoutEffect(() => {
     const flag = todoRef.current?.querySelector<HTMLElement>('.my-plan-timeline-flag')
     if (!flag) { previousFlag.current = null; return }
@@ -189,20 +191,25 @@ export function MyPlanWorkspace({ kind, focusWater = false, initialDate }: { kin
   const firstIncomplete = timelineItems.findIndex(item => !item.done)
   const flagEndId = firstIncomplete === 0 ? null : timelineItems[(firstIncomplete < 0 ? timelineItems.length : firstIncomplete) - 1]?.id
   const allowOverwrite = async () => !schedule.items.length && !schedule.rest || await confirm({title:'Replace this plan?',confirmLabel:'Replace plan',message:'Replace ' + weekDays[day] + ' ' + kind + ' tasks? Completion marks for replaced tasks will reset. Water and the other plan type will stay unchanged.'})
-  async function generate(single?: PlanTask) {
+  async function generate(single?: PlanTask, method: 'system' | 'ai' = 'system') {
     if (!profile) return setMessage('Finish onboarding to formulate a personal day.')
+    if (busy) return
+    if (method === 'ai' && owner === 'local-tester') return setMessage('Sign in to a regular account to use AI formulate. System formulate also works offline.')
     const beforeConfirmation=generation.current
     if (!single && !await allowOverwrite()) return
     if(beforeConfirmation!==generation.current)return
     const run = ++generation.current
-    setBusy(true); setMessage(''); setNotes([])
+    const previousSchedule = JSON.stringify(latest.current?.document.days[day][kind])
+    setBusy(true); setAiBusy(method === 'ai'); setMessage(''); setNotes([])
     try {
       const variation = Math.min(100000, schedule.variation + 1)
       const exclude = single ? schedule.items.map(item => 'foodId' in item ? item.foodId : item.exerciseId) : []
-      // The same deterministic engine and seeded catalogs run on either side.
-      // Account storage still validates every task and derives its owner from the session.
-      const result = formulateDay(profile, kind, day, variation, exclude, !!single)
+      aiRequest.current = new AbortController()
+      const result = method === 'ai'
+        ? await requestAiDay(owner, kind, day, variation, aiRequest.current.signal)
+        : formulateDay(profile, kind, day, variation, exclude, !!single)
       if (generation.current !== run) return
+      if (JSON.stringify(latest.current?.document.days[day][kind]) !== previousSchedule) throw new Error('This day changed while preparing the plan. Review it and formulate again.')
       if (single) {
         let alternative = result.schedule.items.find(item => ('foodId' in single) === ('foodId' in item))
         if (nutrition && profile && 'foodId' in single) {
@@ -216,7 +223,7 @@ export function MyPlanWorkspace({ kind, focusWater = false, initialDate }: { kin
         commit(next => { next.days[day][kind].items = next.days[day][kind].items.map(item => item.id === single.id ? replacement : item); next.days[day][kind].variation = variation; next.days[day][kind].source = 'Customized system plan' })
       } else setSchedule(result.schedule)
       setNotes(result.notes)
-    } catch (error) { if (generation.current === run) setMessage((error as Error).message) } finally { if (generation.current === run) setBusy(false) }
+    } catch (error) { if (generation.current === run) setMessage((error as Error).name === 'TimeoutError' ? 'AI formulation timed out. Your plan has not changed. Try System formulate or retry later.' : (error as Error).message) } finally { if (generation.current === run) { setBusy(false); setAiBusy(false) } }
   }
   function choose(id: string) {
     if (schedule.items.length >= 60 && !chooser?.replace) return setMessage('A day supports up to 60 tasks.')
@@ -254,9 +261,9 @@ export function MyPlanWorkspace({ kind, focusWater = false, initialDate }: { kin
     <details className="my-plan-method"><summary>How your targets are calculated</summary><p>{nutrition && targets.energyRange ? 'Estimated energy range: ' + targets.energyRange.join('–') + ' kcal/day. ' : ''}{targets.notes.join(' ')}</p><p>Exercise time includes sets, reps or timed work, exercise-specific repetition tempo, between-set rest and any listed preparation; it is a scheduled estimate, not measured activity. Library information stays unchanged.</p><a href={Number(profile?.age)<18 ? "https://www.nationalacademies.org/read/26818/chapter/7" : "https://www.sciencedirect.com/science/article/pii/S0002916523166986"} target="_blank" rel="noreferrer">Energy equation</a> · <a href={Number(profile?.age)<18 ? "https://www.cdc.gov/physical-activity-basics/guidelines/children.html" : "https://www.cdc.gov/physical-activity-basics/guidelines/adults.html"} target="_blank" rel="noreferrer">Activity guidance</a></details>
     <div ref={calendarRef} className="plan-week-calendar-wrap"><PlanWeekCalendar week={week} day={day} timeZone={timeZone} nutrition={nutrition} onSelect={setDay} days={record.document.days.map((entry, index) => ({ rest: kind === 'workout' && (profile ? !profile.days.includes(weekDays[index].slice(0, 3)) : entry.workout.rest), total: entry[kind].items.length, done: entry[kind].items.filter(item => item.done).length }))} /></div>
     <section ref={todoRef} className="my-plan-todo" aria-labelledby="my-plan-day-title"><div className="my-plan-day-top"><div><h3 id="my-plan-day-title">{weekDays[day]} {nutrition ? 'menu' : schedule.rest ? 'rest day' : 'movement'}</h3>{(nutrition || !schedule.rest) && <p>{schedule.source} · {completed.length}/{schedule.items.length} done</p>}</div></div>
-      {(nutrition || !schedule.rest) && <><div className="my-plan-options"><button className="my-plan-generate" disabled={busy || !profile} onClick={() => generate()}><Sparkles size={16} />{schedule.items.length ? 'Regenerate day' : 'Formulate my day'}</button><button disabled={busy} onClick={importList}>Use a playlist</button><button disabled={busy} onClick={() => { setChooser({}); setQuery('') }}><Plus size={15} />{nutrition ? "Add more foods from library" : "Add more exercises from library"}</button><button type="button" className="my-plan-delete-day" disabled={busy || !schedule.items.length} onClick={async () => { if (!await confirm({title:'Delete this plan?',confirmLabel:'Delete plan',destructive:true,message:'Delete ' + weekDays[day] + "'s " + (nutrition ? 'meal' : 'workout') + ' plan, including completion marks and set logs? Your playlists, water log and other days will stay unchanged.'})) return; setChooser(null); setImports(null); setSchedule({ ...schedule, items: [], source: 'Manual' }) }}><Trash2 size={15} />Delete plan</button></div>
-      <p className="my-plan-hint">Smart suggestions use your onboarding preferences and calculations, not generative AI. Or build your own day from a playlist or the library.</p></>}
-      {busy && <div className="my-plan-formulating" role="status"><span /><span /><span />Preparing your options…</div>}
+      {(nutrition || !schedule.rest) && <><div className="my-plan-options"><button className="my-plan-generate" disabled={busy || !profile} onClick={() => generate()}><RefreshCw size={16} />System formulate</button><button type="button" className="my-plan-ai-generate" disabled={busy || !profile} onClick={() => generate(undefined, 'ai')} aria-describedby="plan-formulation-help"><Sparkles size={16} />{aiBusy ? 'AI formulating...' : 'AI formulate'}</button><button disabled={busy} onClick={importList}>Use a playlist</button><button disabled={busy} onClick={() => { setChooser({}); setQuery('') }}><Plus size={15} />{nutrition ? "Add more foods from library" : "Add more exercises from library"}</button><button type="button" className="my-plan-delete-day" disabled={busy || !schedule.items.length} onClick={async () => { if (!await confirm({title:'Delete this plan?',confirmLabel:'Delete plan',destructive:true,message:'Delete ' + weekDays[day] + "'s " + (nutrition ? 'meal' : 'workout') + ' plan, including completion marks and set logs? Your playlists, water log and other days will stay unchanged.'})) return; setChooser(null); setImports(null); setSchedule({ ...schedule, items: [], source: 'Manual' }) }}><Trash2 size={15} />Delete plan</button></div>
+      <p id="plan-formulation-help" className="my-plan-hint my-plan-formulation-help"><strong>System:</strong> instant, works offline. <strong>AI:</strong> compares eligible day drafts using OpenRouter. Sends planning preferences and draft options; excludes your name, measurements and private logs. Both use FitSync targets.</p></>}
+      {busy && <div className="my-plan-formulating" role="status"><span /><span /><span />{aiBusy ? 'AI is comparing eligible day plans...' : 'Preparing your options...'}</div>}
       {notes.length > 0 && <div className="my-plan-notes">{notes.map(note => <p key={note}>{note}</p>)}</div>}
       {imports && <section className="my-plan-picker" aria-label="Import a playlist"><header><h4>Choose a playlist</h4><button aria-label="Close playlist import" onClick={() => setImports(null)}><X size={17} /></button></header><p>One day goes to {weekDays[day]}; a full week replaces Monday–Sunday. Water and the other plan type stay as they are.</p>{!imports.length ? <p>No saved {kind} playlists yet. Create one in the Playlist tab.</p> : imports.map(playlist => <button key={playlist.id} onClick={() => usePlaylist(playlist)}>{playlist.name}<small>{playlist.duration === 'week' ? 'One week' : weekDays[playlist.selectedDay] + ' · one day'} · {playlist.items.length} items</small></button>)}</section>}
       {chooser && <dialog ref={pickerRef} className="my-plan-picker my-plan-picker-dialog" aria-label="Choose plan library item" onCancel={() => setChooser(null)} onClick={event => { if (event.target === event.currentTarget) { const bounds = event.currentTarget.getBoundingClientRect(); if (event.clientX < bounds.left || event.clientX > bounds.right || event.clientY < bounds.top || event.clientY > bounds.bottom) setChooser(null) } }}><header><h4>{chooser.replace ? 'Replace this task' : 'Add a task'}</h4><button aria-label="Close plan library picker" onClick={() => setChooser(null)}><X size={17} /></button></header><input ref={pickerSearchRef} aria-label="Search plan library" placeholder={nutrition ? 'Search foods' : 'Search exercises'} value={query} onChange={event => setQuery(event.target.value)} /><div className="my-plan-picker-items">{matches.map(item => <article key={item.id}><div><strong>{item.name}</strong><small>{item.meta}</small><button onClick={() => setDetail(item.id)}>View details</button></div><button onClick={() => choose(item.id)}>{chooser.replace ? 'Use instead' : 'Add'}</button></article>)}</div>{!matches.length && <p>No matching items.</p>}</dialog>}

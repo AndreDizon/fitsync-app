@@ -10,7 +10,10 @@ const folder = __dirname;
   const viz = await instance();
   const browser = await chromium.launch({ channel: 'chrome', headless: true });
   try {
-    for (const base of ['Figure_4_5_Context', 'Figure_4_6_Use_Case', 'Figure_4_7_DFD_Level_0']) {
+    const figures = ['Figure_4_5_Context', 'Figure_4_6_Use_Case', 'Figure_4_7_DFD_Level_0', 'Figure_4_9_ERD', 'Figure_4_10_Architecture'];
+    const targets = process.argv.slice(2);
+    if (targets.some(target => !figures.includes(target))) throw Error('Unknown figure name');
+    for (const base of targets.length ? targets : figures) {
       const svg = viz.renderString(fs.readFileSync(path.join(folder, base + '.dot'), 'utf8'), { format: 'svg', engine: 'dot' });
       fs.writeFileSync(path.join(folder, base + '.svg'), svg);
       const [, width, height] = svg.match(/viewBox="0\.00 0\.00 ([\d.]+) ([\d.]+)"/) || [];

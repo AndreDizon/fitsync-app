@@ -24,7 +24,7 @@ npm run dev
 - Plans has Workout/Nutrition modes, each with My Plan, Playlist and Library tabs.
 - Libraries: 100 exercises and 100 generic foods, detailed views, filters, numbered pagination, static thumbnails/manual demonstrations and public offline caches.
 - Playlists: manually customize one day or a full week with times/quantities/workout rest days; account-backed with private offline copies.
-- My Plan: calculate daily suggestions from onboarding, import playlists, add/replace library items, mark completion, record actual sets/water, sync account-owned weekly documents. Formulation runs locally online/offline; it is not generative AI.
+- My Plan: **System formulate** calculates daily suggestions online/offline; **AI formulate** uses OpenRouter to select a complete day from eligible system-generated drafts. Both preserve calculated targets and catalogue limits. Import playlists, edit tasks, record sets/water and sync account-owned weekly documents. See [MY_PLAN_SETUP.md](MY_PLAN_SETUP.md).
 - Progress: Analytics, Documentation and Achievements, real plan/visit statistics, editable body/wellness records, private photos and conditional weight-trend outlook.
 - Home: account-driven daily summaries, page/tab shortcuts, water status and educational tip cards. Optional authenticated OpenRouter chat uses up to five free-model attempts; see [HOME_SETUP.md](HOME_SETUP.md).
 - Social: account-backed community sections, reviews and nearby facilities; see [SOCIAL_SETUP.md](SOCIAL_SETUP.md). Settings still contains some unfinished controls.

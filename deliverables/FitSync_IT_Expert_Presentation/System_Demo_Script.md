@@ -64,7 +64,7 @@ Plans is where our preferences become something we can use today. Workout and Nu
 
 For workouts, we can generate a day, add exercises ourselves or apply a saved routine. Times, sets, repetitions, duration and rest are editable. We can replace exercises, regenerate the day or remove its plan, while the calendar separates training and recovery days.
 
-As we train, we mark exercises complete and record actual sets and effort. That connects what we intended to do with what we recorded. Daily suggestions use programmed rules and calculations, separate from the AI chat.
+We can choose System formulate for an instant day plan, or AI formulate to let AI compare options that match our preferences. Both keep FitSync's calculated targets and library limits. As we train, we mark exercises complete and record actual sets and effort, connecting our plan with what we actually recorded.
 
 Switching to Nutrition gives us menus to generate or build, with editable foods, portions, meal categories and times. Energy and macro summaries separate planned food from completed entries, and users can inspect how targets are estimated. Water has its own log.
 

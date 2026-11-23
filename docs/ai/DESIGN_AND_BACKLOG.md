@@ -45,7 +45,7 @@ Further considerations:
 
 Read shared type/parser, API, SQL and cache layers before changing private data contracts. Preserve revisions, UUID retry behavior, owner checks, epoch guards and explicit conflict resolution. Regenerate catalog assets/SQL allowlists together and retain provenance. Use native/editable accessible controls, focus management, keyboard tabs and reduced motion. Test small screens without hiding necessary content.
 
-Catalogs stay informational. Reuse full details in pickers, freeze thumbnails until play, retain preparation states and gram-backed portions, avoid invented source values. Planning and forecast heuristics do not promise medical outcomes, precise body-fat loss or muscle gain. Coach AI and deterministic planner are separate features.
+Catalogs stay informational. Reuse full details in pickers, freeze thumbnails until play, retain preparation states and gram-backed portions, avoid invented source values. Planning and forecast heuristics do not promise medical outcomes, precise body-fat loss or muscle gain. Coach chat is separate from planning. System formulate uses the deterministic planner; AI formulate selects a complete eligible draft through OpenRouter without changing calculated targets or catalogue constraints.
 
 Suggested priorities (not additional authorization): live real-account plan-to-progress smoke test; preparation-copy cleanup; Social moderation and live migration verification; contact/export/delete-account flows; committed responsive tab UI checks. Do not implement these solely because this document lists them.
 

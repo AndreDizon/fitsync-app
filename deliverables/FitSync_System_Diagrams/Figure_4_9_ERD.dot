@@ -1,0 +1,35 @@
+digraph ERD {
+  graph [rankdir=LR, bgcolor=white, pad=0.35, nodesep=0.35, ranksep=0.65, splines=polyline, fontname="Arial", fontsize=22, fontcolor="#142b55", labelloc=t, label=<<B>Figure 4.9: FitSync Entity-Relationship Diagram</B><BR/><FONT POINT-SIZE="11">PK = primary key | FK = foreign key | many = zero or more | 0..1 = optional one<BR/>Repeated USERS and GYMS boxes represent the same tables. Selected core relationships only.</FONT>>, compound=true];
+  node [shape=box, style="rounded,filled", fontname="Arial", fontsize=12, color="#47658a", penwidth=1.2, margin="0.18,0.15"];
+  edge [fontname="Arial", fontsize=11, color="#47658a", arrowhead=none, penwidth=1.1];
+  subgraph cluster_personal {
+    label="Personal records"; fontsize=15; color="#cbd5e1"; margin=16; sortv=1;
+    user1 [fillcolor="#e6effc", label=<<B>USERS</B><BR/>auth.users<BR/><FONT POINT-SIZE="10">PK: id</FONT>>];
+    playlists [fillcolor="#e6f3eb", label=<<B>PLAYLISTS</B><BR/>plan_playlists<BR/><FONT POINT-SIZE="10">PK: id | FK: user_id</FONT>>];
+    daily [fillcolor="#e6f3eb", label=<<B>DAILY PLANS</B><BR/>daily_plan_weeks<BR/><FONT POINT-SIZE="10">PK: user_id + week_start<BR/>FK: user_id</FONT>>];
+    progress [fillcolor="#e6f3eb", label=<<B>PROGRESS RECORDS</B><BR/>progress_entries<BR/><FONT POINT-SIZE="10">PK: id | FK: user_id</FONT>>];
+    user1 -> playlists [label="1 : many"];
+    user1 -> daily [label="1 : many"];
+    user1 -> progress [label="1 : many"];
+  }
+  subgraph cluster_gym {
+    label="Gym community membership"; fontsize=15; color="#cbd5e1"; margin=16; sortv=2;
+    user2 [fillcolor="#e6effc", label=<<B>USERS</B><BR/>auth.users<BR/><FONT POINT-SIZE="10">PK: id</FONT>>];
+    members [fillcolor="#edeafa", label=<<B>GYM MEMBERS</B><BR/>gym_group_members<BR/><FONT POINT-SIZE="10">PK / FK: user_id<BR/>FK: gym_id | Role: role</FONT>>];
+    gym1 [fillcolor="#fff2d4", label=<<B>GYMS</B><BR/>gym_groups<BR/><FONT POINT-SIZE="10">PK: id | FK: owner_id</FONT>>];
+    user2 -> members [label="1 : 0..1"];
+    members -> gym1 [label="many : 1"];
+  }
+  subgraph cluster_paid {
+    label="Paid membership and payment records"; fontsize=15; color="#cbd5e1"; margin=16; sortv=3;
+    gym2 [fillcolor="#fff2d4", label=<<B>GYMS</B><BR/>gym_groups<BR/><FONT POINT-SIZE="10">PK: id | FK: owner_id</FONT>>];
+    user3 [fillcolor="#e6effc", label=<<B>USERS</B><BR/>auth.users<BR/><FONT POINT-SIZE="10">PK: id</FONT>>];
+    offers [fillcolor="#e6f3eb", label=<<B>MEMBERSHIP PLANS</B><BR/>gym_membership_plans<BR/><FONT POINT-SIZE="10">PK: id | FK: gym_id</FONT>>];
+    coverage [fillcolor="#e6f3eb", label=<<B>MEMBER COVERAGE</B><BR/>gym_membership_periods<BR/><FONT POINT-SIZE="10">PK: id<BR/>FK: user_id, gym_id, plan_id</FONT>>];
+    payments [fillcolor="#e6f3eb", label=<<B>PAYMENT / REFUND RECORDS</B><BR/>gym_income_entries<BR/><FONT POINT-SIZE="10">PK: id | FK: period_id</FONT>>];
+    gym2 -> offers [label="1 : many"];
+    offers -> coverage [label="0..1 : many"];
+    user3 -> coverage [label="1 : many"];
+    coverage -> payments [label="0..1 : many"];
+  }
+}

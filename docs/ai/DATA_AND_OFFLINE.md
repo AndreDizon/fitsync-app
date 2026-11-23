@@ -108,7 +108,7 @@ Signout clears private copies and uses epoch/account guards against in-flight re
 
 ## Computation semantics
 
-Planner is `shared/daily-plans.ts`; UI and backend consume the same engine. Formulation is deterministic calculation, not generative AI.
+Planner is `shared/daily-plans.ts`; UI and backend consume the same engine. **System formulate** runs those deterministic calculations locally, including offline. **AI formulate** calls `/api/plans/generate-ai`: the server builds eligible day drafts and OpenRouter chooses one complete draft. The model cannot supply task IDs, targets, portions or prescriptions. It requires internet, a regular account and backend `OPENROUTER_API_KEY`; no silent system fallback. Private records still save through the normal validated weekly document API.
 
 Workout eligibility respects equipment/experience/focus/movement preferences and avoids duplicates within a day. Budget reserves four warm-up minutes, three cooldown minutes and minute transitions. Estimated work uses timed sets or reps at three seconds plus between-set rest. Strength goal affects targets/rest; no measured workout duration or guaranteed burn/gain is claimed.
 

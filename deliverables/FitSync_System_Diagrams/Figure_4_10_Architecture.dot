@@ -1,0 +1,17 @@
+digraph Architecture {
+  graph [rankdir=LR, bgcolor=white, pad=0.35, nodesep=0.85, ranksep=0.85, splines=polyline, fontname="Arial", fontsize=22, fontcolor="#142b55", labelloc=t, label="Figure 4.10: FitSync System Architecture"];
+  node [shape=box, style="rounded,filled", fontname="Arial", fontsize=13, color="#47658a", penwidth=1.3, margin="0.22,0.18"];
+  edge [fontname="Arial", fontsize=11, color="#47658a", penwidth=1.1, arrowsize=0.7, dir=both];
+  frontend [fillcolor="#e6effc", label=<<B>FRONTEND</B><BR/>Next.js / React / TypeScript<BR/><BR/>User interface and account sessions<BR/>Hosted on Vercel>];
+  backend [fillcolor="#e6effc", label=<<B>BACKEND</B><BR/>Next.js API / Node.js / TypeScript<BR/><BR/>Authorization, planning and gym logic<BR/>Private-data encryption<BR/>Hosted on Vercel>];
+  supabase [fillcolor="#e6f3eb", label=<<B>SUPABASE</B><BR/>PostgreSQL database<BR/>Auth and file storage<BR/><BR/>Accounts, app records and photos>];
+  device [fillcolor="#f2f6fb", label=<<B>LOCAL DEVICE STORAGE</B><BR/>localStorage / IndexedDB / CacheStorage<BR/><BR/>Saved copies, preferences and offline files>];
+  ai [fillcolor="#fff2d4", label=<<B>EXTERNAL AI</B><BR/>OpenRouter<BR/><BR/>Educational fitness and nutrition chat>];
+  {rank=same; frontend; device;}
+  {rank=same; supabase; ai;}
+  frontend -> backend [label="Authenticated API\nrequests and results"];
+  backend -> supabase [label="Authorized records,\nfiles and auth checks"];
+  backend -> ai [label="Submitted conversation\nand AI response"];
+  frontend -> device [label="Local read / write", constraint=false];
+  frontend -> supabase [label="Supabase Auth sessions", style=dashed, constraint=false];
+}
