@@ -1,0 +1,36 @@
+.hb-chat .hb-chat-tools{display:flex;flex-wrap:wrap;gap:8px;min-width:0}
+.hb-chat .hb-chat-actions{align-items:flex-end;gap:10px}
+.hb-chat .hb-chat-actions button{min-height:42px;white-space:nowrap}
+.hb-chat .hb-meal-attachment{display:flex;align-items:center;gap:10px;margin:0 0 12px;padding:10px;background:#f0f5fa;border:1px solid #d6e1eb;border-radius:12px}
+.hb-meal-attachment>img{flex:none;width:58px;height:58px;object-fit:cover;border-radius:8px}
+.hb-meal-attachment figcaption{flex:1;min-width:0;font-size:12px;color:#29445d;line-height:1.5}
+.hb-meal-attachment figcaption>span{display:block;font-size:11px;color:#4a6074;margin-top:3px}
+.hb-chat .hb-meal-attachment>button{flex:none;padding:8px;background:#fff;min-height:36px}
+.hb-chat .meal-estimate{margin-top:12px;border-top:1px solid #d6d7cd;padding-top:12px;line-height:1.5}
+.meal-estimate-title{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap}
+.hb-chat .meal-estimate h3{font-size:16px;margin:0;color:#293f52}
+.meal-estimate-title>span{font-size:10px;font-weight:700;background:#fff0b2;color:#725016;border-radius:6px;padding:4px 7px}
+.hb-chat .meal-estimate-warning{padding:9px 10px;background:#fff0c0;border-radius:8px;color:#75511b;font-size:12px;margin-top:10px}
+.meal-estimate-nutrients{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}
+.meal-estimate-nutrients>div{background:#fffdf5;padding:10px;border-radius:8px;min-width:0}
+.meal-estimate-nutrients dt{font-size:11px;color:#4b6070}
+.meal-estimate-nutrients dd{font-size:15px;font-weight:750;margin:4px 0 0;color:#263d4f;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.hb-chat .meal-estimate h4{font-size:12px;margin:16px 0 7px;color:#29445d}
+.meal-estimate-foods{list-style:none;padding:0;margin:0}
+.meal-estimate-foods>li{display:flex;align-items:start;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid #d5dace;font-size:12px}
+.meal-estimate-foods a{color:#2d5b7f;text-underline-offset:3px}
+.meal-estimate-foods a>span{display:block;color:#526268;font-size:10px;text-decoration:none}
+.meal-estimate-foods strong{flex:none;font-variant-numeric:tabular-nums;color:#37473f;font-size:11px}
+.meal-estimate details{margin-top:14px;font-size:12px;color:#344b5b}
+.meal-estimate summary{cursor:pointer;font-weight:700;padding:7px 0}
+.meal-estimate summary:focus-visible{outline:3px solid #a98212;outline-offset:3px;border-radius:4px}
+.meal-estimate-benefits{padding-left:18px;margin:8px 0}
+.meal-estimate-benefits li{margin-bottom:12px}
+.meal-estimate-benefits a{color:#2d5b7f;text-underline-offset:3px;font-size:11px}
+.hb-chat .meal-estimate-limits{font-size:11px;line-height:1.6;color:#585c4f;margin-top:14px}
+html body dialog.hb-chat.hb-meal-enabled[open]{height:min(740px,calc(100dvh - 32px));overflow:hidden}
+html body dialog.hb-chat.hb-meal-enabled>.hb-chat-log{flex:1 1 auto;min-height:0;max-height:none;height:auto}
+html body dialog.hb-chat>form{max-height:50%;overflow-y:auto;overscroll-behavior:contain}
+html body dialog.hb-chat>.hb-chat-error{max-height:20%;overflow-y:auto;flex-shrink:0}
+@media(max-width:420px){html body dialog.hb-chat>form{padding:10px 12px 14px}.hb-chat .hb-chat-actions{gap:6px}.hb-chat .hb-chat-actions button{padding:9px;font-size:11px;min-height:44px}.hb-chat .hb-chat-tools{gap:6px}.hb-chat .hb-meal-attachment{padding:8px;gap:8px}.hb-meal-attachment>img{width:48px;height:48px}}
+@media(max-height:540px){html body dialog.hb-chat>header{padding:8px 14px}.hb-chat h2{font-size:19px;margin:0}.hb-chat .hb-kicker{display:none}html body dialog.hb-chat>:is(.hb-chat-note,.hb-chat-privacy){font-size:10px;line-height:1.4;margin:3px 14px}.hb-chat textarea{min-height:44px!important}.hb-chat .hb-meal-attachment>img{width:42px;height:42px}html body dialog.hb-chat>form{max-height:65%}}

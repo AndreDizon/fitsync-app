@@ -50,7 +50,7 @@ We can see planned tasks, completed activities, food energy, water logs and week
 
 The main sections are Home, Plans, Social and Progress. The centre playlist button opens saved routines, while the account preview shows our username and email and lets us edit the username.
 
-Home also offers short learning cards and the optional Ask the FitSync fox AI chat for general fitness and nutrition questions. This puts daily organisation and learning within the same experience.
+Home also offers short learning cards and Ask the FitSync fox for workout and nutrition questions. We can attach a meal photo to see approximate nutrient ranges and potential benefits from matched foods. The result shows portions to review and flags ingredients it could not match. It stays in chat until we decide what to log, bringing daily organisation and learning into the same experience.
 
 ## 4 Plans page script
 

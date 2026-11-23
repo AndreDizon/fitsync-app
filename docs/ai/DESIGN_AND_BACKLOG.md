@@ -19,7 +19,7 @@ One default theme: Fox Energy, vibrant daytime yellow/white/black with warm crea
 
 | Area | Current limitation |
 | --- | --- |
-| Home/chat | Summaries use saved account data; AI chat needs an OpenRouter key and internet. No persisted chat history. |
+| Home/chat | Summaries use saved account data; topic-screened chat and meal photos need an OpenRouter key and internet. No persisted chat/photos or automatic meal logging. Photo estimates are catalogue-based ranges and can be partial. |
 | Social | Three account-backed overview sections and full detail views implemented; hosted migration and cron secrets need setup. Hero count remains decorative. Moderation/reporting and verified credentials are future work. |
 | Settings | Some inert edit/notification/offline/export/delete controls |
 | Contact | Footer coming soon only |

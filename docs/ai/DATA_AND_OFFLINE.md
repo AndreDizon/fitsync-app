@@ -58,7 +58,8 @@ Browser calls same-origin frontend `/api`; proxy supplies verified Bearer token 
 | Endpoint | Methods | Purpose |
 | --- | --- | --- |
 | `/api/health` | GET | Public reachability |
-| `/api/coach` | POST | Authenticated JSON chat through OpenRouter, up to five verified free models |
+| `/api/coach` | POST | Authenticated topic-screened workout/nutrition JSON chat through up to three verified free models |
+| `/api/coach/meal` | POST | Authenticated, bounded multipart photo scan through free vision models; validated catalogue matches and gram ranges; no photo storage or automatic logging |
 | `/api/playlists` | GET, POST | Collection and create |
 | `/api/playlists/[id]` | PUT, DELETE | Owner/revision protected mutation |
 | `/api/plans?week=YYYY-MM-DD` | GET | User Monday-start week |

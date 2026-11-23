@@ -26,7 +26,7 @@ npm run dev
 - Playlists: manually customize one day or a full week with times/quantities/workout rest days; account-backed with private offline copies.
 - My Plan: **System formulate** calculates daily suggestions online/offline; **AI formulate** uses OpenRouter to select a complete day from eligible system-generated drafts. Both preserve calculated targets and catalogue limits. Import playlists, edit tasks, record sets/water and sync account-owned weekly documents. See [MY_PLAN_SETUP.md](MY_PLAN_SETUP.md).
 - Progress: Analytics, Documentation and Achievements, real plan/visit statistics, editable body/wellness records, private photos and conditional weight-trend outlook.
-- Home: account-driven daily summaries, page/tab shortcuts, water status and educational tip cards. Optional authenticated OpenRouter chat uses up to five free-model attempts; see [HOME_SETUP.md](HOME_SETUP.md).
+- Home: account-driven daily summaries, shortcuts, water status and educational tip cards. Optional OpenRouter chat screens for workout/nutrition topics and supports meal photos with approximate catalogue-based nutrient ranges and source-linked benefits. Only verified free models are used; see [HOME_SETUP.md](HOME_SETUP.md).
 - Social: account-backed community sections, reviews and nearby facilities; see [SOCIAL_SETUP.md](SOCIAL_SETUP.md). Settings still contains some unfinished controls.
 
 Offline features require opening/signing in online and relevant data downloads first. Full offline cold-start/login is not implemented. Public service worker never caches private data; Progress journal/photo writes need internet.
