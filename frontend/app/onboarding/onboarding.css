@@ -160,6 +160,10 @@
 @media (max-width: 350px) { .onb-layout { padding-inline: 14px; } .onb-goals { grid-template-columns: 1fr; } .onb-goal { min-height: 100px; } .onb-input-row { grid-template-columns: 1fr; } .onb-actions button { padding-inline: 12px; } }
 @media (prefers-reduced-motion: reduce) { .onb-content > progress::-webkit-progress-value, .onb-goal { transition: none; } }
 @media (max-width: 1023px) {
+  /* Keep editable text at 16px so mobile browsers do not zoom on focus. */
+  .onboarding-page input:not([type="checkbox"]):not([type="radio"]),
+  .onboarding-page select,
+  .onboarding-page textarea { font-size: 16px; }
   .onb-layout { display: block; max-width: 820px; padding: 28px 24px 40px; }
   .onb-story { display: none; }
   .onb-coach-mobile { display: grid; grid-template-columns: minmax(0, 1fr) 92px; align-items: start; gap: 6px; margin: 0 0 24px; padding: 12px 10px 0; border-radius: 18px; background: radial-gradient(ellipse at 100% 100%, #ffe68c99, transparent 65%), #fff8df; }
