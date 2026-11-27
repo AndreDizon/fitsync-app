@@ -1,4 +1,5 @@
 import { blankWeek, parsePlanWeek, type PlanWeek } from '../../shared/daily-plans'
+import { accountRequest } from './account-request'
 export type StoredWeek = { document: PlanWeek; pending: boolean; conflict?: boolean; error?: string; token: string }
 const prefix = 'fitsync-private-daily-plan:'
 let epoch = 0
@@ -39,10 +40,9 @@ export function storeWeek(owner: string, document: PlanWeek, token: string): Sto
   localStorage.setItem(key(owner, document.week), JSON.stringify(saved)); announcePlanChange(owner,document.week); return saved
 }
 async function request(owner: string, week: string, document?: PlanWeek) {
-  const response = await fetch('/api/plans' + (document ? '' : '?week=' + week), { method: document ? 'PUT' : 'GET', cache: 'no-store', headers: document ? { 'Content-Type': 'application/json' } : undefined, body: document ? JSON.stringify(document) : undefined, signal: AbortSignal.timeout(15000) })
-  const value = await response.json()
-  if (!response.ok) throw Object.assign(new Error(value.error || 'Unable to sync this week.'), { status: response.status })
+  const value = await accountRequest('/api/plans' + (document ? '' : '?week=' + week), { method: document ? 'PUT' : 'GET', cache: 'no-store', headers: document ? { 'Content-Type': 'application/json' } : undefined, body: document ? JSON.stringify(document) : undefined, signal: AbortSignal.timeout(15000) }, 'Plan refresh')
   if (value.userId !== owner) throw new Error('Account changed. Reload before syncing.')
+  if (!Object.hasOwn(value, 'data') || document && !value.data) throw new Error('The account service did not confirm this plan. Your device copy is kept.')
   if (value.data && !parsePlanWeek(value.data)) throw new Error('The account plan has invalid data. Your device copy is kept.')
   return value.data as PlanWeek | null
 }
@@ -71,6 +71,13 @@ export async function syncWeek(owner: string, week: string): Promise<StoredWeek>
         if (remote) {
           const sameContent = JSON.stringify({ ...remote, revision: 0 }) === JSON.stringify({ ...local.document, revision: 0 })
           local = { document: remote, token: (sent.pending || sameContent) && local.token ? local.token : crypto.randomUUID(), pending: false }; localStorage.setItem(id, JSON.stringify(local))
+        } else {
+          // An authoritative empty response clears a removed remote week and
+          // any old network error. New pending edits were handled above.
+          const document = blankWeek(week)
+          const unchanged = JSON.stringify(local.document) === JSON.stringify(document)
+          local = { document, token: unchanged && local.token ? local.token : crypto.randomUUID(), pending: false }
+          localStorage.setItem(id, JSON.stringify(local))
         }
         return local
       }

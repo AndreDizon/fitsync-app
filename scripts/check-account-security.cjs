@@ -181,13 +181,15 @@ async function actionTests() {
 async function endpointTests() {
   const owner = '00000000-0000-4000-8000-000000000001'
   let passwordOK = false, storageFails = false, deleted = false, reset = false, privilegedCalls = 0
+  const images = new Map(['progress-photos','community-images'].map(bucket => [bucket, Array.from({length:205},(_,index)=>({id:String(index),name:index+'.jpg'}))]))
+  let removedImages = 0
   const user = { id: owner, email: 'test@example.com', email_confirmed_at: new Date().toISOString(), app_metadata: { provider: 'email' }, user_metadata: { username: 'member.one' } }
   process.env.NEXT_PUBLIC_SUPABASE_URL = 'https://fixture.invalid'
   process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY = 'public-fixture'
   process.env.SUPABASE_SERVICE_ROLE_KEY = 'secret-fixture'
   const client = { auth: { getUser: async () => ({ data: { user }, error: null }), signInWithPassword: async () => ({ data: { user: passwordOK ? user : null }, error: passwordOK ? null : {} }), signOut: async () => ({ error: null }), admin: { updateUserById: async () => ({ error: null }), deleteUser: async id => { assert.equal(id, owner); deleted = true; return { error: null } } } },
     rpc: async (fn, args) => { assert.equal(args.owner_id, owner); privilegedCalls++; if (fn === 'reset_fitsync_data') reset = true; return { data: true, error: null } },
-    storage: { from: () => ({ list: async prefix => { assert.equal(prefix, owner); return { data: [], error: storageFails ? {} : null } } }) },
+    storage: { from: bucket => ({ list: async prefix => { assert.equal(prefix, owner); return { data: (images.get(bucket)||[]).slice(0,100), error: storageFails ? {} : null } }, remove: async paths => { assert(paths.every(path=>path.startsWith(owner+'/'))); removedImages+=paths.length; images.set(bucket,images.get(bucket).filter(file=>!paths.includes(owner+'/'+file.name))); return {error:null} } }) },
     from: () => ({ delete: () => ({ like: async () => ({ error: null }) }) }) }
   const route = bundle('backend/app/api/account/route.ts', { '@supabase/supabase-js': { createClient: () => client } })
   const token = 'header.' + Buffer.from(JSON.stringify({ app_metadata: {} })).toString('base64url') + '.signature'
@@ -203,6 +205,8 @@ async function endpointTests() {
   storageFails = false
   assert.equal((await route.POST(request(body))).status, 200)
   assert(reset); assert.equal(deleted, false)
+  assert.equal(removedImages,410,'All storage pages from both private buckets must be removed without skipping')
+  assert([...images.values()].every(files=>files.length===0))
   assert.equal((await route.POST(request({ ...body, operation: 'delete', confirmation: 'DELETE ACCOUNT' }))).status, 200)
   assert(deleted)
   user.app_metadata.fitsync_data_epoch = 42

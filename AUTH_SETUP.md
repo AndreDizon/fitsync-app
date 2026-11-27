@@ -272,6 +272,38 @@ isolated HTTP auth fixture: signup, login cookies, password recovery/update,
 global sign-out, Google PKCE and callback allowlists. It does not contact the
 live project or create a live account.
 
+Account refresh regression: `node scripts/validate-account-refresh.cjs` covers a
+transient read failure, a failed visit upload followed by a successful progress
+read, expired/stale account errors, account-isolated caches, in-flight sign-out,
+and pending plan writes. GET network failures retry once; writes and destructive
+requests are never automatically retried. A failed visit upload keeps the visit
+pending and no longer blocks readable progress or streak history. HTTP 401, 403
+and 409 are surfaced instead of silently presenting a cached progress snapshot.
+
+Additional regressions cover a recovered empty-account sync clearing its prior
+error, authoritative removal of a remote week, unconfirmed writes preserving
+pending edits, stale streak results rejected after sign-out, and malformed
+device snapshots ignored without hiding valid weeks. Invalid cache entries are
+not deleted automatically. `node scripts/validate-auth-availability.cjs` checks
+that a temporarily unreachable Supabase Auth service returns HTTP 503 rather
+than incorrectly declaring the user's session invalid; invalid credentials
+still return HTTP 401, and stale reset epochs still return HTTP 409.
+
+Deletion checks use isolated records. `check-account-security.cjs` verifies
+password and confirmation requirements, a storage failure stopping database
+deletion, and all 205 files in each of the two photo buckets being removed
+without pagination skips. `validate-gym-staff.mjs` additionally checks member
+reset, staff deletion and owner-gym cascade with the latest gym migration.
+`validate-gym-income.mjs` verifies that financial history is anonymized on
+reset/deletion while totals remain accurate. These do not test delivery of real
+email, Google's hosted consent flow or the affected user's production session.
+
+For a production “Failed to fetch”, inspect the signed-in browser's failing
+`/api/plans` or `/api/progress` request status and the matching Vercel function
+log. A screenshot alone cannot establish whether the cause is connectivity,
+expired credentials, a missing migration or unavailable encryption keys. Do not
+copy passwords, access tokens, cookies or encryption keys into a bug report.
+
 Test email confirmation, rejected invalid credentials, Google first-time signup
 and returning login, expired callback links, password reset, and sign-out using
 test accounts. An anonymous `/` request must redirect to `/login`; anonymous or

@@ -9,7 +9,11 @@ export async function authenticate(request: Request) {
   const key = process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
   if (!url || !key) return { response: Response.json({ error: 'Service unavailable' }, { status: 503 }) }
   const client = createClient(url, key, { global: { headers: { Authorization: `Bearer ${token}` } }, auth: { persistSession: false, autoRefreshToken: false } })
-  const { data: { user }, error } = await client.auth.getUser(token)
+  let checked: Awaited<ReturnType<typeof client.auth.getUser>>
+  try { checked = await client.auth.getUser(token) }
+  catch { return { response: Response.json({ error: 'The sign-in service is temporarily unreachable. Retry shortly; your saved records are kept.' }, { status: 503 }) } }
+  const { data: { user }, error } = checked
+  if (error && (error.name === 'AuthRetryableFetchError' || error.status === 0 || (error.status ?? 0) >= 500)) return { response: Response.json({ error: 'The sign-in service is temporarily unreachable. Retry shortly; your saved records are kept.' }, { status: 503 }) }
   if (error || !user) return { response: Response.json({ error: 'Invalid or expired session' }, { status: 401 }) }
   if (!user.email_confirmed_at) return { response: Response.json({ error: 'Confirm your account email before continuing.' }, { status: 403 }) }
   if (needsAccountSetup(user)) return { response: Response.json({ error: 'Complete your account setup first.' }, { status: 403 }) }

@@ -37,5 +37,18 @@ await rpc(member,10,'message',{body:'Test message'});const chat=await rpc(staff,
 await rpc(admin,10,'admin_settings',{name:'Staff test gym',welcomeMessage:'Welcome',rules:'Respect others',joinMode:'approval',timeZone:'Asia/Manila'})
 await rpc(other,10,'join',{gymId:gym.gym.id});assert.equal((await read(staff)).requests.length,1);await rpc(staff,10,'approve',{userId:other});await rpc(other,10,'leave');await rpc(other,10,'join',{gymId:gym.gym.id});await rpc(staff,10,'reject',{userId:other});assert.equal((await read(staff)).requests.length,0)
 await db.exec(await readFile('backend/migrations/20261122_gym_groups_v13_staff_workspace.sql','utf8'));assert.equal((await read(staff)).role,'staff');assert.equal((await rpc(admin,10,'admin_data')).role,'admin')
+// Exercise account cleanup with the latest role guards installed, not only
+// the original gym migrations. These rows live in this isolated PGlite DB.
+await db.query("update auth.users set raw_user_meta_data=raw_user_meta_data-'fitsync_onboarding' where id=$1",[member])
+assert.equal((await read(member)).gym,null,'Member data reset detaches gym membership')
+assert.equal((await db.query('select count(*)::int count from public.gym_daily_checkins where user_id=$1',[member])).rows[0].count,0)
+await db.query('delete from auth.users where id=$1',[staff])
+assert.equal((await db.query('select count(*)::int count from public.gym_group_members where user_id=$1',[staff])).rows[0].count,0,'Deleted staff leave no membership')
+assert.equal((await db.query('select count(*)::int count from public.gym_daily_checkins where user_id=$1',[staff])).rows[0].count,0)
+assert.equal((await rpc(admin,10,'admin_data')).role,'admin','Another user deletion must preserve admin access')
+await db.query('delete from auth.users where id=$1',[admin])
+assert.equal((await db.query('select count(*)::int count from public.gym_groups where id=$1',[gym.gym.id])).rows[0].count,0,'Owner account deletion disbands its gym')
+assert.equal((await db.query('select count(*)::int count from auth.users where id=$1',[other])).rows[0].count,1,'Unrelated account survives')
 console.log('PASS staff permissions: migration apply/reapply; legacy bypass closed; admin-only operations denied; own visits private; catalog prices immutable during assignment; renewals preserve coverage; join approval/decline; announcement posting/retry/edit/pin/delete and chat moderation; admin access preserved')
+console.log('PASS latest gym migrations: member reset, staff account deletion/check-in cleanup, owner deletion cascade and unrelated account preservation')
 }finally{await db.close()}

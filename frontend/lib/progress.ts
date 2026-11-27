@@ -1,6 +1,7 @@
 import { cachedWeek, syncWeek } from './daily-plans'
-import type { PlanWeek } from '../../shared/daily-plans'
-import { dateInZone, habitStats, type Award, type ProgressEntry } from '../../shared/progress'
+import { accountRequest } from './account-request'
+import { parsePlanWeek, type PlanWeek } from '../../shared/daily-plans'
+import { dateInZone, habitStats, validDate, type Award, type ProgressEntry } from '../../shared/progress'
 export type ProgressSnapshot={userId:string;entries:ProgressEntry[];visits:string[];weeks:PlanWeek[];awards:Award[];today:string;awardWarning?:string;limited?:boolean;offline?:boolean}
 const prefix='fitsync-private-progress:'
 let epoch=0
@@ -10,9 +11,46 @@ export function recordAppVisit(owner:string,date:string){try{localStorage.setIte
 export async function syncProgressVisits(owner:string){if(!navigator.onLine)return;const started=epoch;for(const date of pendingVisits(owner)){const result=await progressRequest('','POST',{action:'visit',date});if(started!==epoch)return;if(result.userId!==owner)throw new Error('Account changed. Reload before syncing.');localStorage.setItem(visitKey(owner),JSON.stringify(pendingVisits(owner).filter(value=>value!==date)))}}
 
 export function clearProgressCopies(){epoch++;try{for(const key of Object.keys(localStorage))if(key.startsWith(prefix))localStorage.removeItem(key)}catch{}}
-export function cachedProgress(owner:string):ProgressSnapshot|null{try{const raw=JSON.parse(localStorage.getItem(prefix+owner)||'null');return raw?.userId===owner&&Array.isArray(raw.entries)&&raw.entries.every((entry:ProgressEntry)=>entry&&typeof entry.date==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(entry.date)&&entry.payload&&typeof entry.payload==='object')&&Array.isArray(raw.weeks)&&Array.isArray(raw.visits)&&Array.isArray(raw.awards)?{...raw,entries:raw.entries.map(({photoUrl,...entry}:ProgressEntry)=>entry),offline:true}:null}catch{return null}}
-export function devicePlanWeeks(owner:string):PlanWeek[]{const result:PlanWeek[]=[];try{for(const key of Object.keys(localStorage)){if(key.startsWith('fitsync-private-daily-plan:'+owner+':')){const raw=JSON.parse(localStorage.getItem(key)||'null');if(raw?.document)result.push(raw.document)}}}catch{}return result}
-export async function progressRequest(path='',method='GET',body?:unknown){const response=await fetch('/api/progress'+path,{method,cache:'no-store',headers:body&&!(body instanceof FormData)?{'Content-Type':'application/json'}:undefined,body:body instanceof FormData?body:body?JSON.stringify(body):undefined,signal:AbortSignal.timeout(30000)});const data=await response.json();if(!response.ok)throw Object.assign(new Error(data.error||'Progress could not be loaded.'),{status:response.status});return data}
-export async function loadAppStreak(owner:string,timeZone:string):Promise<number>{try{await syncProgressVisits(owner);const data=await progressRequest('?summary=streak') as {userId?:unknown;streak?:unknown};if(data.userId!==owner)throw Object.assign(new Error('Account changed. Reload before continuing.'),{status:401});if(!Number.isInteger(data.streak)||typeof data.streak!=='number'||data.streak<0)throw new Error('The saved streak response is invalid.');return data.streak}catch(error){if((error as {status?:number}).status===401)throw error;const saved=cachedProgress(owner);if(saved)return habitStats([],[...saved.visits,...pendingVisits(owner)],dateInZone(timeZone)).streak;throw error}}
-export async function loadProgress(owner:string):Promise<ProgressSnapshot>{const started=epoch;try{if(!navigator.onLine)throw new Error('Offline');await syncProgressVisits(owner);await Promise.all(devicePlanWeeks(owner).filter(week=>cachedWeek(owner,week.week).pending).map(week=>syncWeek(owner,week.week)));if(started!==epoch)throw new Error('Account changed. Sign in again.');const data=await progressRequest();if(started!==epoch)throw new Error('Account changed. Sign in again.');if(data.userId!==owner)throw new Error('Account changed. Reload before continuing.');try{localStorage.setItem(prefix+owner,JSON.stringify({...data,entries:data.entries.map(({photoUrl,...entry}:ProgressEntry)=>entry)}))}catch{}return data}catch(error){if(started!==epoch)throw new Error('Account changed. Sign in again.');if((error as {status?:number}).status===401)throw error;const saved=cachedProgress(owner);if(saved)return saved;throw error}}
+export function cachedProgress(owner:string):ProgressSnapshot|null{try{const raw=JSON.parse(localStorage.getItem(prefix+owner)||'null');return raw?.userId===owner&&Array.isArray(raw.entries)&&raw.entries.every((entry:ProgressEntry)=>entry&&typeof entry.date==='string'&&/^\d{4}-\d{2}-\d{2}$/.test(entry.date)&&entry.payload&&typeof entry.payload==='object')&&Array.isArray(raw.weeks)&&raw.weeks.every((week:unknown)=>parsePlanWeek(week))&&Array.isArray(raw.visits)&&raw.visits.every(validDate)&&Array.isArray(raw.awards)?{...raw,entries:raw.entries.map(({photoUrl,...entry}:ProgressEntry)=>entry),offline:true}:null}catch{return null}}
+export function devicePlanWeeks(owner:string):PlanWeek[]{const result:PlanWeek[]=[];try{for(const key of Object.keys(localStorage)){if(key.startsWith('fitsync-private-daily-plan:'+owner+':')){try{const raw=JSON.parse(localStorage.getItem(key)||'null'),week=parsePlanWeek(raw?.document);if(week&&key==='fitsync-private-daily-plan:'+owner+':'+week.week)result.push(week)}catch{/* One damaged copy must not hide the other saved weeks. */}}}}catch{}return result}
+export async function progressRequest(path='',method='GET',body?:unknown){return accountRequest('/api/progress'+path,{method,cache:'no-store',headers:body&&!(body instanceof FormData)?{'Content-Type':'application/json'}:undefined,body:body instanceof FormData?body:body?JSON.stringify(body):undefined,signal:AbortSignal.timeout(30000)},'Progress refresh')}
+export async function loadAppStreak(owner:string,timeZone:string):Promise<number>{
+ const started=epoch
+ try{
+  try{await syncProgressVisits(owner)}catch(error){if(requiresAccountReload(error))throw error}
+  if(started!==epoch)throw new Error('Account changed. Sign in again.')
+  const data=await progressRequest('?summary=streak') as {userId?:unknown;streak?:unknown}
+  if(started!==epoch)throw new Error('Account changed. Sign in again.')
+  if(data.userId!==owner)throw Object.assign(new Error('Account changed. Reload before continuing.'),{status:401})
+  if(!Number.isInteger(data.streak)||typeof data.streak!=='number'||data.streak<0)throw new Error('The saved streak response is invalid.')
+  return data.streak
+ }catch(error){
+  if(started!==epoch)throw new Error('Account changed. Sign in again.')
+  if(requiresAccountReload(error))throw error
+  const saved=cachedProgress(owner);if(saved)return habitStats([],[...saved.visits,...pendingVisits(owner)],dateInZone(timeZone)).streak
+  throw error
+ }
+}
+const requiresAccountReload=(error:unknown)=>[401,403,409].includes((error as {status?:number})?.status||0)
+export async function loadProgress(owner:string):Promise<ProgressSnapshot>{
+ const started=epoch
+ try{
+  if(!navigator.onLine)throw new Error('Offline')
+  let visitWarning=''
+  try{await syncProgressVisits(owner)}catch(error){if(requiresAccountReload(error))throw error;visitWarning='Your latest app visit is still waiting to sync. Saved account records are shown.'}
+  await Promise.all(devicePlanWeeks(owner).filter(week=>cachedWeek(owner,week.week).pending).map(week=>syncWeek(owner,week.week)))
+  if(started!==epoch)throw new Error('Account changed. Sign in again.')
+  const data=await progressRequest()
+  if(started!==epoch)throw new Error('Account changed. Sign in again.')
+  if(data.userId!==owner)throw Object.assign(new Error('Account changed. Reload before continuing.'),{status:409})
+  if(visitWarning)data.awardWarning=[data.awardWarning,visitWarning].filter(Boolean).join(' ')
+  try{localStorage.setItem(prefix+owner,JSON.stringify({...data,entries:data.entries.map(({photoUrl,...entry}:ProgressEntry)=>entry)}))}catch{}
+  return data
+ }catch(error){
+  if(started!==epoch)throw new Error('Account changed. Sign in again.')
+  if(requiresAccountReload(error))throw error
+  const saved=cachedProgress(owner);if(saved)return saved
+  throw error
+ }
+}
 export async function preparePhoto(file:File):Promise<Blob>{if(!['image/jpeg','image/png','image/webp'].includes(file.type)||file.size>15000000)throw new Error('Choose a JPEG, PNG or WebP photo under 15 MB.');const bitmap=await createImageBitmap(file);try{const factor=Math.min(1,1280/Math.max(bitmap.width,bitmap.height)),canvas=document.createElement('canvas');canvas.width=Math.max(1,Math.round(bitmap.width*factor));canvas.height=Math.max(1,Math.round(bitmap.height*factor));const ctx=canvas.getContext('2d');if(!ctx)throw new Error('Image processing is unavailable in this browser.');ctx.fillStyle='#fff';ctx.fillRect(0,0,canvas.width,canvas.height);ctx.drawImage(bitmap,0,0,canvas.width,canvas.height);const blob=await new Promise<Blob|null>(resolve=>canvas.toBlob(resolve,'image/jpeg',0.85));if(!blob||blob.size>2097152)throw new Error('This photo is too large after compression. Choose a smaller image.');return blob}finally{bitmap.close()}}
