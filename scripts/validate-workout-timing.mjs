@@ -10,6 +10,10 @@ assert.equal(engine.taskBlockMinutes(item), 430 / 60, 'Separate pre-start warm-u
 for (const option of engine.warmupExercises) assert(engine.workoutCatalog.some(exercise => exercise.id === option.id && exercise.category === 'cardio'), 'Warm-up examples must refer to actual catalog exercises')
 assert.equal(engine.stretchingExercises.length, 5)
 for (const option of engine.stretchingExercises) assert(engine.workoutCatalog.some(exercise => exercise.id === option.id && exercise.category === 'stretching'))
+assert.deepEqual(engine.stretchingTime(['rear-deltoid-stretch'], 2), { holdSeconds: 120, preparationSeconds: 30, totalSeconds: 150 })
+assert.deepEqual(engine.stretchingTime(['chest-and-front-of-shoulder-stretch'], 2), { holdSeconds: 60, preparationSeconds: 30, totalSeconds: 90 }, 'A simultaneous stretch must not count both sides twice')
+const allIds = engine.stretchingExercises.map(exercise => exercise.id)
+assert.deepEqual(engine.stretchingTime(allIds, 4), { holdSeconds: 960, preparationSeconds: 150, totalSeconds: 1110 })
 const saved = engine.blankWeek('2026-11-30')
 saved.days[0].workout.items = [{ ...item, id: '11111111-1111-4111-8111-111111111111', done: false, preparation: { ...item.preparation, warmupSeconds: 0, stretchingSeconds: 120, stretchExerciseId: 'rear-deltoid-stretch', stretchingStatus: 'completed' } }]
 assert.deepEqual(engine.parsePlanWeek(saved).days[0].workout.items[0].preparation, saved.days[0].workout.items[0].preparation, 'Stretch selection and completion survive sync/offline round trips')
@@ -28,8 +32,16 @@ for (const [warmupSeconds, stretchingSeconds, leadMinutes] of [[0, 120, 2], [300
   assert.equal(Math.round((engine.taskMinutes(task) - engine.taskBlockMinutes(task)) * 60), leadMinutes * 60)
   assert.equal(task.time, '14:00', 'Preparation choice leaves the workout block start unchanged')
 }
-for (const patch of [{ stretchingSeconds: -1 }, { stretchingSeconds: 601 }, { stretchExerciseId: 'forged' }, { stretchingStatus: 'forged' }]) {
+for (const patch of [{ stretchingSeconds: -1 }, { stretchingSeconds: 3601 }, { stretchExerciseId: 'forged' }, { stretchingStatus: 'forged' }]) {
   const invalid = structuredClone(saved)
+  Object.assign(invalid.days[0].workout.items[0].preparation, patch)
+  assert.equal(engine.parsePlanWeek(invalid), null)
+}
+const structured = structuredClone(saved)
+Object.assign(structured.days[0].workout.items[0].preparation, { stretchExerciseIds: allIds, stretchRepetitions: 4, stretchSetupSeconds: 30, stretchingSeconds: 1110 })
+assert(engine.parsePlanWeek(structured), 'Longer multi-stretch selections survive storage')
+for (const patch of [{ stretchExerciseIds: [] }, { stretchExerciseIds: [allIds[0], allIds[0]] }, { stretchExerciseIds: ['forged'] }, { stretchRepetitions: 1 }, { stretchRepetitions: 5 }, { stretchSetupSeconds: -1 }, { stretchingSeconds: 1000 }]) {
+  const invalid = structuredClone(structured)
   Object.assign(invalid.days[0].workout.items[0].preparation, patch)
   assert.equal(engine.parsePlanWeek(invalid), null)
 }
@@ -44,8 +56,8 @@ let checked = 0
 for (const experience of ['Beginner', 'Intermediate', 'Advanced']) for (const sessionMinutes of ['30', '45', '60', '90']) for (const workoutRestSeconds of ['auto', '120', '300']) {
   const schedule = engine.formulateDay({ ...profile, experience, sessionMinutes, workoutRestSeconds }, 'workout', 0, 3, [], false, '2026-11-30').schedule
   assert(schedule.items.length)
-  assert.equal(schedule.items[0].preparation.stretchingSeconds, 120)
-  assert.equal(schedule.items.reduce((sum, task) => sum + task.preparation.warmupSeconds, 0), 0, 'Dedicated warm-up is optional and off in new plans')
+  assert.equal(schedule.items[0].preparation.stretchingSeconds, 0)
+  assert.equal(schedule.items.reduce((sum, task) => sum + task.preparation.warmupSeconds, 0), 300, 'New plans include a five-minute warm-up without blocking user choices')
   let total = 0
   for (const task of schedule.items) {
     const parts = engine.taskTimeBreakdown(task)
