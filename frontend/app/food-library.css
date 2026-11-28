@@ -121,12 +121,12 @@
 @media(max-width:360px){.fd-overview{grid-template-columns:1fr}.fd-illustration{max-width:180px;justify-self:center}.fd-overview-copy{width:100%}}
 
 /* Food guide: quick navigation and clearer information groups. */
-.food-detail-refined .food-detail-header>div{flex:1;min-width:0}
+.food-detail-refined .food-detail-header>div:not(.fd-section-nav){flex:1;min-width:0}
 .fd-section-nav{display:flex;gap:4px;flex:1 0 100%;padding-top:2px}
 .food-detail-refined .food-detail-header .fd-section-nav button{display:flex;align-items:center;justify-content:center;gap:6px;width:auto;height:auto;min-height:44px;padding:10px 14px;border:0;border-radius:8px 8px 0 0;color:#47533d;font-size:13px;font-weight:700;background:transparent;cursor:pointer;white-space:nowrap}
 .food-detail-refined .food-detail-header .fd-section-nav button:is(:hover,:focus-visible){background:#fff0a3;color:#29322b}
 .fd-section-nav button span{font-size:11px;background:#ede9d8;border-radius:5px;padding:0 5px}
-.food-detail-refined :is(#food-portion-title,#food-dishes-title,#food-more-title){scroll-margin-top:160px}
+
 .food-detail-refined .food-basis-control button{white-space:nowrap;border-color:transparent;background:transparent}
 .food-detail-refined .food-basis-control button[aria-pressed=true]{border-color:#d8bc33}
 .food-detail-refined .food-portion-controls input[aria-invalid=true]{border-color:#af342b}
@@ -151,6 +151,24 @@
  .food-detail-refined .fd-dishes{margin-inline:-18px;padding:20px 18px}
  .food-detail-refined .food-macro-panel>div+div{border:0}
  .food-detail-refined .food-macro-panel>div:nth-child(even){border-left:1px solid #52604e}
- .food-detail-refined :is(#food-portion-title,#food-dishes-title,#food-more-title){scroll-margin-top:180px}
+
 }
-@media(max-height:550px){.food-detail-refined .food-detail-header{position:static}.food-detail-refined :is(#food-portion-title,#food-dishes-title,#food-more-title){scroll-margin-top:20px}}
+@media(max-height:550px){.food-detail-refined .food-detail-header{position:static}}
+
+/* Exclusive food guide panels. Hidden content is also excluded from keyboard navigation. */
+.food-detail-refined .fd-tab-panel[hidden]{display:none!important}
+.food-detail-refined .food-detail-header .fd-section-nav button[aria-selected=true]{background:#ffe34d;color:#283329;box-shadow:inset 0 -3px #a88a16}
+.food-detail-refined .fd-tab-panel>.fd-nutrition{margin-top:0;padding-top:0;border-top:0}
+.food-detail-refined .fd-tab-panel>.fd-dishes{margin-top:-24px;border-top:0}
+.food-detail-refined .fd-benefits{margin-top:24px;padding-top:24px;border-top:1px solid #e0e3d7}
+.fd-benefits>section{padding:14px 0;border-bottom:1px solid #e7eadf}
+.fd-benefits h4{font-size:14px;font-weight:700;margin:0 0 5px}
+.fd-benefits>section p{margin:0;font-size:13px;color:#52624a}
+.fd-benefits a{display:inline-flex;align-items:center;gap:4px;margin-top:8px;color:#315c87;font-size:13px;text-decoration:underline;text-underline-offset:3px}
+.fd-serving-facts{margin-top:20px}
+.fd-tab-panel:focus-visible{outline:2px solid #8b7010;outline-offset:5px}
+@media(max-width:600px){
+ .food-detail-refined .food-detail-header .fd-section-nav button{min-width:0;flex:1 1 0;white-space:normal;line-height:1.4;min-height:60px;padding:9px 6px}
+ .fd-section-nav button span{flex:none}
+ .food-detail-refined .fd-tab-panel>.fd-dishes{margin-top:-18px}
+}
