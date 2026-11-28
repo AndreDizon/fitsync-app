@@ -12,4 +12,4 @@ export const stretchingExercises = [
   { id: 'rear-deltoid-stretch', name: 'Cross-Body Shoulder Stretch' },
   { id: 'overhead-triceps-stretch', name: 'Overhead Triceps Stretch' },
 ] as const
-export const stretchingSource = { label: 'Mayo Clinic: stretching guidance', url: 'https://www.mayoclinic.org/healthy-lifestyle/fitness/in-depth/stretching/art-20546848' }
+export const stretchingSource = { label: 'Mayo Clinic: stretching guidance', url: 'https://www.mayoclinic.org/healthy-lifestyle/fitness/in-depth/stretching/art-20047931' }
