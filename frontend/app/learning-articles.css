@@ -28,6 +28,11 @@
 .sc-learning-article>p{margin:0 0 10px;font-size:12px;line-height:1.55;color:#4b5660}
 .sc-learning-footer{display:flex;align-items:flex-end;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:auto;padding-top:8px;border-top:1px solid #25282a18}
 .sc-learning-source{flex:1 1 70px;min-width:0;font-size:10px;line-height:1.5;color:#54504b;overflow-wrap:anywhere}
+.sc-learning-publisher{display:flex;align-items:center;gap:8px;flex:1 1 110px;min-width:0}
+.sc-learning-publisher-icon{display:grid;place-items:center;flex:0 0 36px;width:36px;height:36px;overflow:hidden;border:1px solid #e1e3e4;border-radius:8px;background:#fff}
+.sc-learning-publisher-icon img{display:block;width:28px;height:28px;object-fit:contain}
+.sc-learning-publisher-icon>span{font-size:9px;font-weight:750;line-height:1;color:#465469;letter-spacing:0}
+.sc-learning-publisher .sc-learning-source{flex:1;min-width:0}
 .sc-learning-footer>a{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-shrink:0;min-height:44px;padding:8px 10px;border:1px solid #d2b523;border-radius:9px;background:#ffe138;color:#25282a;font-size:12px;font-weight:700;text-decoration:none;box-shadow:inset 0 2px 2px #fff7,0 2px 0 #c8ac28;transition:transform .15s}
 .sc-learning-footer>a:hover{transform:translateY(-2px)}
 .sc-learning-pagination{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px;font-size:12px;color:#4c4540}

@@ -1,0 +1,57 @@
+[
+  {
+    "id": "cdc",
+    "source": "https://www.cdc.gov/TemplatePackage/5.0/img/favicon/apple-touch-icon.png",
+    "retrieved": "2026-11-28"
+  },
+  {
+    "id": "who",
+    "source": "https://www.who.int/apple-touch-icon-precomposed.png",
+    "retrieved": "2026-11-28"
+  },
+  {
+    "id": "aha",
+    "source": "https://www.google.com/s2/favicons?domain=www.heart.org&sz=64",
+    "retrieved": "2026-11-28"
+  },
+  {
+    "id": "fda",
+    "source": "https://www.google.com/s2/favicons?domain=www.fda.gov&sz=64",
+    "retrieved": "2026-11-28"
+  },
+  {
+    "id": "acsm",
+    "source": "https://www.google.com/s2/favicons?domain=acsm.org&sz=64",
+    "retrieved": "2026-11-28"
+  },
+  {
+    "id": "ods",
+    "source": "https://www.google.com/s2/favicons?domain=ods.od.nih.gov&sz=64",
+    "retrieved": "2026-11-28"
+  },
+  {
+    "id": "nhlbi",
+    "source": "https://www.google.com/s2/favicons?domain=www.nhlbi.nih.gov&sz=64",
+    "retrieved": "2026-11-28"
+  },
+  {
+    "id": "niddk",
+    "source": "https://www.niddk.nih.gov/_ux/niddk/9.40.0/images/apple-touch-icon.png",
+    "retrieved": "2026-11-28"
+  },
+  {
+    "id": "nhs",
+    "source": "https://www.nhs.uk/static/nhsuk/img/favicons/apple-touch-icon-180x180.15a5044def06.png",
+    "retrieved": "2026-11-28"
+  },
+  {
+    "id": "nsca",
+    "source": "https://www.google.com/s2/favicons?domain=www.nsca.com&sz=64",
+    "retrieved": "2026-11-28"
+  },
+  {
+    "id": "national-academies",
+    "source": "https://www.nationalacademies.org/apple-touch-icon.png",
+    "retrieved": "2026-11-28"
+  }
+]
