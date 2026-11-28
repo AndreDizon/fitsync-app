@@ -85,21 +85,21 @@
 
 /* One tile system for both catalogs. Preserve every label, tag and metric. */
 .app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) :is(.exercise-catalog-grid,.food-grid){gap:18px;align-items:stretch}
-.app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) :is(.exercise-card,.food-card){display:flex;flex-direction:column;min-block-size:420px;block-size:420px;min-width:0;border:1px solid #d9ded7;border-radius:16px;background:#fffef9;box-shadow:0 5px 16px #2833290a;transition:border-color .18s ease-out,box-shadow .18s ease-out}
+.app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) :is(.exercise-card,.food-card){display:flex;flex-direction:column;min-block-size:380px;block-size:380px;min-width:0;border:1px solid #d9ded7;border-radius:16px;background:#fffef9;box-shadow:0 5px 16px #2833290a;transition:border-color .18s ease-out,box-shadow .18s ease-out}
 .app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) :is(.exercise-media-button,.food-media-button){margin:0;flex:0 0 120px;background:#faf8ef;border-bottom:1px solid #e6e8df}
 .app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) .exercise-card .exercise-library-media{height:120px;min-height:0;aspect-ratio:auto;background:#fff}
 .app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) .exercise-card .exercise-library-media img{width:100%;height:100%;object-fit:contain;padding:8px}
 .app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) .food-card .food-card-art{height:120px;min-height:0;aspect-ratio:auto;background:#faf8ef}
 .app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) .food-card .food-card-art .food-art{width:145px;max-width:100%;height:108px;margin:0}
-.app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) :is(.exercise-card-body,.food-card-body){display:flex;flex-direction:column;flex:1;width:100%;min-height:0;min-width:0;padding:14px;gap:6px;box-sizing:border-box;background:#fffef9}
-.app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) :is(.exercise-card,.food-card) h3{font-size:17px;line-height:1.35;letter-spacing:-.025em;margin:0;min-height:2.7em;overflow-wrap:anywhere}
+.app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) :is(.exercise-card-body,.food-card-body){display:flex;flex-direction:column;flex:1;width:100%;min-height:0;min-width:0;padding:12px;gap:5px;box-sizing:border-box;background:#fffef9}
+.app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) :is(.exercise-card,.food-card) h3{font-size:17px;line-height:1.35;letter-spacing:-.025em;margin:0;min-height:0;overflow-wrap:anywhere}
 .app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) :is(.exercise-tags,.food-card-tags){display:flex;flex-wrap:wrap;gap:5px;margin:0}
 .app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) :is(.exercise-tags,.food-card-tags)>span{display:inline-block;max-width:100%;padding:4px 7px;border:1px solid #e2e5da;background:#f3f5ec;color:#4c5d42;font-size:11px;line-height:1.4;white-space:normal;overflow-wrap:anywhere;box-shadow:none}
-.app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) .food-card-meta{min-height:28px;gap:7px;flex-wrap:wrap}
-.app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) .exercise-card-body>.eyebrow{display:block;min-height:28px;margin:0;font-size:11px;line-height:1.5;letter-spacing:0;text-transform:none;color:#63705b}
+.app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) .food-card-meta{min-height:0;gap:7px;flex-wrap:wrap}
+.app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) .exercise-card-body>.eyebrow{display:block;min-height:0;margin:0;font-size:11px;line-height:1.5;letter-spacing:0;text-transform:none;color:#63705b}
 .app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) :is(.food-card-portion,.food-card-benefit,.exercise-card-rest){display:block;flex:none;margin:0;padding:0;color:#5c6953;font-size:12px;line-height:1.55;overflow-wrap:anywhere}
 .app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) .exercise-card-rest{margin-top:8px;padding-top:12px;border-top:1px solid #e2e5da}
-.app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) .food-card-macros{display:flex;flex-wrap:wrap;gap:6px 16px;margin:2px 0;padding:11px 12px;border:0;border-radius:10px;background:#29322b;box-shadow:none;line-height:1.5}
+.app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) .food-card-macros{display:flex;flex-wrap:wrap;gap:6px 16px;margin:0;padding:9px 10px;border:0;border-radius:10px;background:#29322b;box-shadow:none;line-height:1.5}
 .app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) .food-card-macros>span{display:block;color:#e0e8d6;font-size:11px}
 .app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) .food-card-macros strong{display:inline;font-size:21px;color:#fff7df}
 .app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) .food-card-macros>span:first-child strong{color:#ffe253}
@@ -110,11 +110,11 @@
  .app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) :is(.exercise-catalog-grid,.food-grid){grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 }
 @media(max-width:500px){
- .app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) :is(.exercise-card,.food-card){min-block-size:440px;block-size:440px;border-radius:12px}
+ .app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) :is(.exercise-card,.food-card){min-block-size:400px;block-size:400px;border-radius:12px}
  .app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) :is(.exercise-media-button,.food-media-button){flex-basis:92px}
  .app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) .exercise-card .exercise-library-media,.app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) .food-card .food-card-art{height:92px}
  .app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) .food-card .food-card-art .food-art{width:110px;height:84px}
- .app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) :is(.exercise-card-body,.food-card-body){padding:10px;gap:6px}
+ .app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) :is(.exercise-card-body,.food-card-body){padding:10px;gap:5px}
  .app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) :is(.exercise-card,.food-card) h3{font-size:15px;line-height:1.35;letter-spacing:-.015em}
  .app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) :is(.exercise-tags,.food-card-tags)>span{font-size:11px;padding:3px 5px}
  .app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) .food-card-macros{flex-direction:column;padding:9px;gap:4px}
@@ -129,5 +129,13 @@
 .app-shell[data-section='plans'] .exercise-library-page .exercise-card .exercise-media-button{display:flex;min-height:0;align-self:stretch}
 .app-shell[data-section='plans'] .exercise-library-page .exercise-card .exercise-library-media{display:flex;align-items:center;justify-content:center;height:100%;min-height:0}
 .app-shell[data-section='plans'] .exercise-library-page .exercise-card .exercise-library-media img{display:block;min-height:0;max-height:100%;max-width:100%}
-.app-shell[data-section='plans'] .exercise-library-page .exercise-card-rest{padding:11px 12px;margin-top:2px;border:0;border-radius:10px;background:#29322b;color:#fff7df;font-weight:650}
+.app-shell[data-section='plans'] .exercise-library-page .exercise-card-rest{padding:9px 10px;margin-top:0;border:0;border-radius:10px;background:#29322b;color:#fff7df;font-weight:650}
 @media(max-width:500px){.app-shell[data-section='plans'] .exercise-library-page .exercise-card{grid-template-rows:minmax(92px,1fr) auto}.app-shell[data-section='plans'] .exercise-library-page .exercise-card-rest{padding:9px}}
+
+.app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) :is(.exercise-card-body,.food-card-body)>*{flex-shrink:0}
+
+.app-shell[data-section='plans'] .food-library .food-card{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:minmax(120px,1fr) auto}
+.app-shell[data-section='plans'] .food-library .food-card .food-media-button{display:flex;min-height:0;align-self:stretch}
+.app-shell[data-section='plans'] .food-library .food-card .food-card-art{display:flex;align-items:center;justify-content:center;width:100%;height:100%;min-height:0}
+@media(max-width:500px){.app-shell[data-section='plans'] .food-library .food-card{grid-template-rows:minmax(92px,1fr) auto}}
+@media(max-width:370px){.app-shell[data-section='plans'] :is(.exercise-library-page,.food-library) :is(.exercise-card,.food-card){min-block-size:440px;block-size:440px}}
