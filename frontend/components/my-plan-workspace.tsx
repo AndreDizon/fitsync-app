@@ -202,6 +202,8 @@ export function MyPlanWorkspace({ kind, focusWater = false, initialDate }: { kin
     const run = ++generation.current
     const previousSchedule = JSON.stringify(latest.current?.document.days[day][kind])
     setBusy(true); setAiBusy(method === 'ai'); setMessage(''); setNotes([])
+    const loadingStarted = performance.now()
+    const finishLoading = () => new Promise<void>(resolve => setTimeout(resolve, Math.max(0, 2500 - (performance.now() - loadingStarted))))
     try {
       // Let the loading cards paint before synchronous system formulation.
       await new Promise<void>(resolve => requestAnimationFrame(() => setTimeout(resolve, 0)))
@@ -212,6 +214,7 @@ export function MyPlanWorkspace({ kind, focusWater = false, initialDate }: { kin
       const result = method === 'ai'
         ? await requestAiDay(owner, kind, day, variation, aiRequest.current.signal)
         : formulateDay(profile, kind, day, variation, exclude, !!single)
+      await finishLoading()
       if (generation.current !== run) return
       if (JSON.stringify(latest.current?.document.days[day][kind]) !== previousSchedule) throw new Error('This day changed while preparing the plan. Review it and formulate again.')
       if (single) {
@@ -227,7 +230,7 @@ export function MyPlanWorkspace({ kind, focusWater = false, initialDate }: { kin
         commit(next => { next.days[day][kind].items = next.days[day][kind].items.map(item => item.id === single.id ? replacement : item); next.days[day][kind].variation = variation; next.days[day][kind].source = 'Customized system plan' })
       } else setSchedule(result.schedule)
       setNotes(result.notes)
-    } catch (error) { if (generation.current === run) setMessage((error as Error).name === 'TimeoutError' ? 'AI formulation timed out. Your plan has not changed. Try System formulate or retry later.' : (error as Error).message) } finally { if (generation.current === run) { setBusy(false); setAiBusy(false) } }
+    } catch (error) { await finishLoading(); if (generation.current === run) setMessage((error as Error).name === 'TimeoutError' ? 'AI formulation timed out. Your plan has not changed. Try System formulate or retry later.' : (error as Error).message) } finally { if (generation.current === run) { setBusy(false); setAiBusy(false) } }
   }
   function choose(id: string) {
     if (schedule.items.length >= 60 && !chooser?.replace) return setMessage('A day supports up to 60 tasks.')

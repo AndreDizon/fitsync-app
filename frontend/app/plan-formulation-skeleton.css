@@ -9,7 +9,7 @@
 .plan-skeleton-heading{display:flex;gap:16px;align-items:center;padding-bottom:20px}
 .plan-skeleton-heading>div{flex:1;min-width:0;display:grid;gap:10px}
 .plan-skeleton-block{display:block;position:relative;overflow:hidden;border-radius:6px;background:var(--skeleton-fill);height:12px}
-.plan-skeleton-block:after{content:'';position:absolute;inset:0;background:linear-gradient(100deg,transparent 15%,var(--skeleton-shine) 50%,transparent 85%);transform:translateX(-100%);animation:plan-skeleton-shimmer 1.7s ease-in-out infinite}
+.plan-skeleton-block:after{content:'';position:absolute;inset:0;background:linear-gradient(100deg,transparent 15%,var(--skeleton-shine) 50%,transparent 85%);transform:translateX(-100%);animation:plan-skeleton-shimmer 2.5s cubic-bezier(.4,0,.2,1) infinite}
 .plan-skeleton-time{height:38px;width:100%}.plan-skeleton-action{height:42px;width:100%}
 .plan-skeleton-art{height:64px;width:64px;flex:none;border-radius:12px}
 .plan-skeleton-title{width:65%;height:20px}.plan-skeleton-subtitle{width:45%;height:12px}
