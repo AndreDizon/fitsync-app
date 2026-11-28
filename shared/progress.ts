@@ -273,20 +273,60 @@ export const milestones=[
     "target": 60
   }
 ] as const
-export function weightForecast(entries:ProgressEntry[],target:number|null,age:number,today:string){
- const unavailable=(reason:string)=>({reason,date:null as string|null,rate:null as number|null,r2:null as number|null})
- if(!Number.isFinite(age)||age<18)return unavailable('A target-date estimate is available only for adults. Your logs and progress charts still work.')
- if(!target||!Number.isFinite(target))return unavailable('Set a target weight to explore your logged trend.')
- const daily=new Map<string,ProgressEntry>();for(const entry of [...entries].sort((a,b)=>(a.created_at||'').localeCompare(b.created_at||'')))if(entry.kind==='body'&&typeof entry.payload.weightKg==='number'&&entry.date<=today&&entry.date>=shiftDate(today,-90))daily.set(entry.date,entry)
- const points=[...daily.values()].sort((a,b)=>a.date.localeCompare(b.date));if(points.length<4)return unavailable('Add at least 4 weight entries on different days spanning 21 days.')
- const first=points[0],last=points[points.length-1],span=(Date.parse(last.date)-Date.parse(first.date))/86400000;if(span<21)return unavailable('Your weight entries need to span at least 21 days.')
- if(last.date<shiftDate(today,-30))return unavailable('Add a recent weight entry; your latest measurement is over 30 days old.')
- const xy=points.map(p=>({x:(Date.parse(p.date)-Date.parse(first.date))/86400000,y:p.payload.weightKg!}));const mx=xy.reduce((n,p)=>n+p.x,0)/xy.length,my=xy.reduce((n,p)=>n+p.y,0)/xy.length;const xx=xy.reduce((n,p)=>n+(p.x-mx)**2,0),yy=xy.reduce((n,p)=>n+(p.y-my)**2,0),slope=xy.reduce((n,p)=>n+(p.x-mx)*(p.y-my),0)/xx;const rate=slope*7,r2=yy?1-xy.reduce((n,p)=>n+(p.y-(my+slope*(p.x-mx)))**2,0)/yy:0
- if(Math.abs(last.payload.weightKg!-target)<0.5)return unavailable('Your latest entry is within 0.5 kg of the target.')
- if(Math.abs(rate)<0.02||r2<0.5)return unavailable('Your recorded trend is too flat or variable for a useful date estimate.')
- if(Math.abs(rate)>1.5)return unavailable('Your recent trend is changing too quickly for this simple projection to be useful.')
- const days=(target-last.payload.weightKg!)/slope;if(days<=0)return unavailable('Your recent trend is moving away from this target.')
- if(days>365)return unavailable('This target is too far away for a useful short-term projection.')
- const projected=shiftDate(last.date,Math.ceil(days));if(projected<=today)return unavailable('The previous trend date has passed. Add a new weight entry.')
- return{reason:'A linear extrapolation of your last 90 days of weight logs, not a promise or a medical forecast. Water, measurement noise and changing habits can shift it.',date:projected,rate:Math.round(rate*100)/100,r2:Math.round(r2*100)/100}
+type WeightTrendContext = { nutritionContext?: string; heightCm?: string }
+export function weightForecast(entries: ProgressEntry[], target: number | null, age: number, today: string, context?: WeightTrendContext) {
+ const unavailable = (reason: string) => ({ reason, date: null as string | null, rate: null as number | null, r2: null as number | null, earliest: null as string | null, latest: null as string | null, weeklyPoints: 0, historyDays: 0 })
+ if (!validDate(today)) return unavailable('Choose a valid date to review your trend.')
+ if (!Number.isFinite(age) || age < 18 || age > 120) return unavailable('A target-date estimate is available only for adults. Your logs and progress charts still work.')
+ if (context?.nutritionContext === 'review') return unavailable('Review weight goals with a qualified professional. Automatic target dates are paused for your planning preferences.')
+ if (!target || !Number.isFinite(target) || target < 20 || target > 350) return unavailable('Set a valid target weight to explore your logged trend.')
+ const daily = new Map<string, ProgressEntry>()
+ for (const entry of [...entries].sort((a,b) => (a.created_at || '').localeCompare(b.created_at || '') || a.revision - b.revision)) {
+  const weight = entry.payload?.weightKg
+  if (entry.kind === 'body' && validDate(entry.date) && typeof weight === 'number' && Number.isFinite(weight) && weight >= 20 && weight <= 350 && entry.date <= today && entry.date >= shiftDate(today, -90)) daily.set(entry.date, entry)
+ }
+ const points = [...daily.values()].sort((a,b) => a.date.localeCompare(b.date))
+ if (points.length < 4) return unavailable('Add weight entries in at least 4 different weeks, spanning 21 days or more.')
+ const first = points[0], last = points[points.length - 1]
+ const span = (Date.parse(last.date) - Date.parse(first.date)) / 86400000
+ if (span < 21) return unavailable('Your weight entries need to span at least 21 days.')
+ if (last.date < shiftDate(today, -14)) return unavailable('Add a recent weight entry; your latest measurement is over 14 days old.')
+ const height = Number(context?.heightCm) / 100
+ if (height >= 1 && height <= 2.5 && [target, last.payload.weightKg!].some(weight => weight / height ** 2 < 18.5 || weight / height ** 2 >= 40)) return unavailable('This weight profile needs professional review before estimating a target date.')
+ const median = (values: number[]) => { const sorted = [...values].sort((a,b) => a-b), middle = Math.floor(sorted.length / 2); return sorted.length % 2 ? sorted[middle] : (sorted[middle - 1] + sorted[middle]) / 2 }
+ const grouped = new Map<string, { x: number; y: number }[]>()
+ for (const point of points) {
+  const weekday = (new Date(point.date + 'T12:00:00Z').getUTCDay() + 6) % 7
+  const week = shiftDate(point.date, -weekday)
+  const bucket = grouped.get(week) || []
+  bucket.push({ x: (Date.parse(point.date) - Date.parse(first.date)) / 86400000, y: point.payload.weightKg! }); grouped.set(week, bucket)
+ }
+ // Equal-weight weekly medians keep a week of frequent logging from dominating the fit.
+ const weekly = [...grouped.values()].map(bucket => ({ x: median(bucket.map(p => p.x)), y: median(bucket.map(p => p.y)) }))
+ if (weekly.length < 4) return unavailable('Log weight in at least 4 different weeks; many entries in one week do not replace longer history.')
+ const fit = (sample: typeof weekly) => {
+  const mx = sample.reduce((n,p) => n+p.x, 0) / sample.length, my = sample.reduce((n,p) => n+p.y, 0) / sample.length
+  const xx = sample.reduce((n,p) => n+(p.x-mx)**2, 0), yy = sample.reduce((n,p) => n+(p.y-my)**2, 0)
+  const slope = sample.reduce((n,p) => n+(p.x-mx)*(p.y-my), 0) / xx
+  const at = (x: number) => my + slope * (x-mx)
+  return { slope, at, r2: yy ? Math.max(0, 1 - sample.reduce((n,p) => n+(p.y-at(p.x))**2, 0) / yy) : 0 }
+ }
+ const model = fit(weekly), rate = model.slope * 7
+ if (Math.abs(last.payload.weightKg! - target) < .5) return unavailable('Your latest entry is within 0.5 kg of the target.')
+ if (!Number.isFinite(rate) || Math.abs(rate) < .02 || model.r2 < .5) return unavailable('Your recorded trend is too flat or variable for a useful date estimate.')
+ if (Math.abs(rate) > 1.5) return unavailable('Your recent trend is changing too quickly for this simple projection to be useful.')
+ const anchor = model.at(span)
+ if (Math.abs(last.payload.weightKg! - anchor) > Math.max(1.5, anchor * .03)) return unavailable('Your latest measurement differs substantially from the weekly trend. Check it and add consistent measurements before estimating a date.')
+ const horizon = Math.min(180, Math.max(28, span * 4))
+ const daysToTarget = (target - anchor) / model.slope
+ if (daysToTarget <= 0) return unavailable('Your recent trend is moving away from this target.')
+ if (daysToTarget > horizon) return unavailable('This target is beyond the supported trend horizon. More history or a nearer review goal is needed.')
+ // Sensitivity analysis, not a calibrated confidence or prediction interval.
+ const sensitivity = weekly.map((_, index) => fit(weekly.filter((_, i) => i !== index)))
+ if (sensitivity.some(test => test.slope * model.slope <= 0 || Math.abs(test.slope / model.slope - 1) > .5)) return unavailable('The estimated pace changes too much when one week is left out. Add more consistent weekly measurements.')
+ const dates = [daysToTarget, ...sensitivity.map(test => (target - test.at(span)) / test.slope)]
+ if (dates.some(days => !Number.isFinite(days) || days <= 0 || days > horizon)) return unavailable('The target-date range is too sensitive to individual weeks. Add more history before projecting it.')
+ const projected = shiftDate(last.date, Math.ceil(daysToTarget)), earliest = shiftDate(last.date, Math.ceil(Math.min(...dates))), latest = shiftDate(last.date, Math.ceil(Math.max(...dates)))
+ if (earliest <= today) return unavailable('The previous trend date has passed. Add a new weight entry.')
+ return { reason: 'A short-term extrapolation of weekly median weights from up to 90 days. The date range shows sensitivity to leaving out one week; it is not a probability or a medical forecast. Metabolic adaptation and changing habits can alter the trend.', date: projected, earliest, latest, rate: Math.round(rate * 100) / 100, r2: Math.round(model.r2 * 100) / 100, weeklyPoints: weekly.length, historyDays: span }
 }

@@ -95,3 +95,8 @@ Use the existing food, exercise, estimate and library-filter validators to check
 ## Shared onboarding start and initial formulation ? November 28, 2026
 
 The current implementation is specified in [onboarding-planning-standard.md](./onboarding-planning-standard.md). This supersedes the earlier workout-only start boundary: nutrition now shares that boundary and continues on workout rest days. Preparation generates the first seven days, preserves existing schedules, and reports suitability and menu-quality gaps. Adult equation coefficient choice, meal windows, nonconsecutive strength emphasis, and planning suitability checks are now connected to the shared engine. Standards, app heuristics, and remaining validation limits are distinguished in that specification.
+
+
+### Logical onboarding order and trend sensitivity
+
+The shared start date now follows training weekdays on onboarding page three; nutrition suitability is grouped with food inputs on page four. Progress uses weekly medians, bounded extrapolation and leave-one-week-out sensitivity checks. Research sources, exact app thresholds, exclusions and validation limits are recorded in [the planning specification](./onboarding-planning-standard.md#updated-prediction-method). These changes reduce specific failure modes; they do not establish clinical predictive accuracy.

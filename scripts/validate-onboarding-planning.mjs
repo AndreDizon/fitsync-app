@@ -9,10 +9,10 @@ const e = await import('data:text/javascript;base64,' + Buffer.from(bundle.outpu
 const profile = { ...e.emptyOnboarding, goal: 'general_fitness', age: '28', gender: 'Prefer not to say', heightCm: '175', weightKg: '75', targetWeightKg: '75', activity: 'Lightly active', nutritionContext: 'standard', exerciseReadiness: 'ready', days: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri'], workoutStartDate: '2026-12-04', experience: 'Beginner', sessionMinutes: '45', equipment: ['Bodyweight', 'Dumbbells'], diet: 'No preference', allergiesReviewed: true, mealsPerDay: '3', cookingMinutes: '30', budget: 'Flexible', firstMealTime: '07:30', lastMealTime: '20:30', version: 2, completedAt: '2026-11-28T00:00:00Z' }
 assert.deepEqual(e.validateOnboarding(profile, undefined, false, true, true), [])
 assert.deepEqual(e.validateOnboarding({ ...profile, days: [] }, 1, false, true, true), [], 'Page two must not require a training schedule from page three')
-assert(e.validateOnboarding({ ...profile, workoutStartDate: '' }, 1, false, true, true).length)
+assert(e.validateOnboarding({ ...profile, workoutStartDate: '' }, 2, false, true, true).length)
 assert(e.validateOnboarding({ ...profile, firstMealTime: '21:00', lastMealTime: '08:00' }, 3).length)
 assert(e.validateOnboarding({ ...profile, energySex: 'invalid' }, 1).length)
-assert(e.validateOnboarding({ ...profile, nutritionContext: '' }, 1, false, true, true).length)
+assert(e.validateOnboarding({ ...profile, nutritionContext: '' }, 3, false, true, true).length)
 assert.equal(e.planTargets({ ...profile, nutritionContext: 'review' }).energy, null)
 assert.equal(e.workoutWeightOutlook({ ...profile, nutritionContext: 'review', targetWeightKg: '70' }).date, null)
 assert.equal(e.formulateDay({ ...profile, exerciseReadiness: 'review' }, 'workout', 4, 1, [], false, '2026-12-04').schedule.items.length, 0)

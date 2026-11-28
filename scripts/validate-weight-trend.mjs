@@ -1,0 +1,37 @@
+import assert from 'node:assert/strict'
+import { build } from 'esbuild'
+
+const output = await build({ entryPoints: ['shared/progress.ts'], bundle: true, write: false, platform: 'node', format: 'esm' })
+const { weightForecast, shiftDate } = await import('data:text/javascript;base64,' + Buffer.from(output.outputFiles[0].text).toString('base64'))
+const today = '2026-11-28'
+const entry = (offset, weightKg, revision = 1) => ({ id: crypto.randomUUID(), kind: 'body', date: shiftDate(today, offset), payload: { weightKg }, revision, created_at: '2026-11-28T00:00:00Z' })
+const weights = [80, 79.6, 79.2, 78.8].map((weight, index) => entry(-21 + index * 7, weight))
+const baseline = weightForecast(weights, 75, 28, today)
+assert(baseline.date > today)
+assert.equal(baseline.rate, -.4)
+assert.equal(baseline.r2, 1)
+assert.equal(baseline.weeklyPoints, 4)
+assert.equal(baseline.earliest, baseline.latest, 'A perfectly linear fixture has no leave-one-week-out date spread')
+assert.equal(weightForecast(weights, 75, 17, today).date, null)
+assert.equal(weightForecast(weights, 75, 28, today, { nutritionContext: 'review' }).date, null)
+assert.equal(weightForecast(weights, 40, 28, today, { heightCm: '175' }).date, null)
+assert.equal(weightForecast(weights.map(p => ({ ...p, date: shiftDate(p.date, -15) })), 75, 28, today).date, null, 'Stale data cannot produce a fresh date')
+assert.equal(weightForecast([entry(-22,80),entry(-21,79.9),entry(-1,79),entry(0,78.9)],75,28,today).date,null, 'Two dense weeks do not replace four distinct weeks')
+assert.equal(weightForecast(weights, 60, 28, today).date, null, 'Long extrapolation must be withheld')
+assert.equal(weightForecast([...weights, entry(5, 70), entry(-2, NaN), entry(-3, Infinity), entry(-4, 500)], 75, 28, today).date, baseline.date, 'Invalid and future records must not influence the fit')
+const sameDate = weights.map(p => ({ ...p, revision: 2 }))
+const duplicate = { ...weights[0], revision: 1, payload: { weightKg: 110 } }
+assert.equal(weightForecast([...sameDate, duplicate], 75, 28, today).date, baseline.date, 'A lower revision with equal timestamp cannot replace the daily value')
+const noisy = [80, 79.55, 79.3, 78.7, 78.45, 78].map((weight, index) => entry(-35 + index * 7, weight))
+const sensitivity = weightForecast(noisy, 75, 28, today)
+assert(sensitivity.date)
+assert(sensitivity.earliest <= sensitivity.date && sensitivity.latest >= sensitivity.date)
+assert(sensitivity.earliest < sensitivity.latest)
+assert.equal(weightForecast([...noisy.slice(0, -1), entry(0, 85)], 75, 28, today).date, null, 'A conflicting latest measurement must withhold the estimate')
+const stable = []
+for (let week = 0; week < 6; week++) for (const day of [-2,-1,0]) stable.push(entry(-35 + week*7 + day, 80 - week*.4 + (day === -2 ? .05 : day === -1 ? -.05 : 0)))
+const clean = weightForecast(stable,75,28,today)
+const oneSpike = weightForecast([...stable,entry(-21,110)],75,28,today)
+assert(clean.date && oneSpike.date)
+assert(Math.abs(oneSpike.rate - clean.rate) < .05, 'An isolated within-week spike should have little influence on weekly medians')
+console.log('PASS weight trends: equal-weight weekly medians, date sensitivity, stale/invalid/duplicate records, short history, clinical exclusions, outliers and bounded horizons.')

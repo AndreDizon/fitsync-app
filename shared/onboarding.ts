@@ -51,10 +51,7 @@ export function validateOnboarding(value: OnboardingDraft, step?: number, legacy
   if (check(0) && !goalOptions.some(([key]) => key === value.goal)) errors.push('Choose your main goal.')
   if (check(0) && (!value.focusAreas.length || !value.focusAreas.every(area => oneOf(area, focusOptions)) || (value.focusAreas.includes('Overall') && value.focusAreas.length > 1))) errors.push('Choose Overall or one or more specific focus areas.')
   if (check(1)) {
-    if (value.workoutStartDate && !validWorkoutDate(value.workoutStartDate)) errors.push('Choose a valid plan start date.')
-    if (requireProgramStart && !value.workoutStartDate) errors.push('Choose your workout and nutrition plan start date.')
     if (value.energySex && !['range', 'female', 'male'].includes(value.energySex)) errors.push('Choose a valid energy equation option.')
-    if (value.nutritionContext && !['standard', 'review'].includes(value.nutritionContext) || requireProgramStart && !value.nutritionContext) errors.push('Choose whether standard nutrition estimates are suitable for you.')
     if (!validTimeZone(value.timeZone)) errors.push('Choose a valid time zone.')
     if (legacy) {
       if (!oneOf(value.ageRange, ['18–24', '25–34', '35–44', '45–54', '55–64', '65+'])) errors.push('Choose your age range.')
@@ -73,6 +70,7 @@ export function validateOnboarding(value: OnboardingDraft, step?: number, legacy
     if (targetError) errors.push(targetError)
   }
   if (check(2)) {
+    if (value.workoutStartDate && !validWorkoutDate(value.workoutStartDate)) errors.push('Choose a valid plan start date.')
     if (value.exerciseReadiness && !['ready', 'review'].includes(value.exerciseReadiness) || requireProgramStart && !value.exerciseReadiness) errors.push('Review the exercise planning check.')
     if (!oneOf(value.experience, ['Beginner', 'Intermediate', 'Advanced'])) errors.push('Choose your training experience.')
     if (value.days.length < 1 || value.days.length > (requireMeasurements ? maximumTrainingDays : 6) || new Set(value.days).size !== value.days.length || !value.days.every(day => oneOf(day, days))) errors.push('Choose 1–5 training days, leaving at least two rest days.')
@@ -90,6 +88,7 @@ export function validateOnboarding(value: OnboardingDraft, step?: number, legacy
     if (!value.adjustments.every(item => oneOf(item, adjustmentOptions))) errors.push('Choose a valid movement preference.')
   }
   if (check(3)) {
+    if (value.nutritionContext && !['standard', 'review'].includes(value.nutritionContext) || requireProgramStart && !value.nutritionContext) errors.push('Choose whether standard nutrition estimates are suitable for you.')
     const first = value.firstMealTime || '08:00', last = value.lastMealTime || '19:00'
     if (![first, last].every(time => /^([01]\d|2[0-3]):[0-5]\d$/.test(time)) || first >= last) errors.push('Choose a first meal time earlier than your last meal time, within the same day.')
     if (!value.allergiesReviewed) errors.push('Confirm whether you have any food allergies.')
