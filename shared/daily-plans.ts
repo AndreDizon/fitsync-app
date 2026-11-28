@@ -5,10 +5,11 @@ import { defaultWorkoutStartTime } from './onboarding'
 import { newPlaylistItem, parsePlaylist, type PlaylistItem, type PlaylistKind } from './playlists'
 import type { OnboardingProfile } from './onboarding'
 import { youthEnergyRange } from './youth-energy'
+import { stretchingExercises } from './workout-warmup'
 import { nutritionDateNote, strengthTrainingDays, workoutDateNote, workoutRestPrescription, validWorkoutDate, workoutDayIndex } from './workout-program'
 
 export type ActualSet = { amount: number; weightKg: number }
-export type SessionPreparation = { warmupSeconds: number; cooldownSeconds: number; transitionSeconds: number }
+export type SessionPreparation = { warmupSeconds: number; cooldownSeconds: number; transitionSeconds: number; stretchingSeconds?: number; stretchExerciseId?: string; stretchingStatus?: 'completed' | 'adapted' }
 export type PlanTask = PlaylistItem & { done: boolean; actualSets?: ActualSet[]; preparation?: SessionPreparation; secondsPerRep?: number }
 export type DaySchedule = { items: PlanTask[]; rest: boolean; source: string; variation: number }
 export type PlanDay = { workout: DaySchedule; nutrition: DaySchedule; water: { time: string; done: boolean }[] }
@@ -42,8 +43,14 @@ export function parsePlanWeek(value: unknown): PlanWeek | null {
       const parsed = parsePlaylist({ id: '11111111-1111-4111-8111-111111111111', kind, name: 'Daily plan', description: '', duration: 'day', selectedDay: day, restDays: kind === 'workout' && schedule.rest ? [day] : [], items: schedule.items })
       if (!parsed.data || schedule.items.some(item => typeof item.done !== 'boolean' || item.actualSets !== undefined && (kind !== 'workout'))) return null
       for (const task of schedule.items) if (task.actualSets !== undefined && (!Array.isArray(task.actualSets) || task.actualSets.length > 20 || task.actualSets.some(set => !set || !Number.isInteger(set.amount) || set.amount < 0 || set.amount > (('targetType' in task && task.targetType === 'time') ? 3600 : 100) || !Number.isFinite(set.weightKg) || set.weightKg < 0 || set.weightKg > 1000))) return null
-      for (const task of schedule.items) if (task.preparation !== undefined && (kind !== 'workout' || !task.preparation || typeof task.preparation !== 'object' || ['warmupSeconds','cooldownSeconds','transitionSeconds'].some(key => { const seconds = task.preparation![key as keyof SessionPreparation]; return !Number.isInteger(seconds) || seconds < 0 || seconds > 600 }))) return null
+      for (const task of schedule.items) if (task.preparation !== undefined && (kind !== 'workout' || !task.preparation || typeof task.preparation !== 'object' || ['warmupSeconds','cooldownSeconds','transitionSeconds'].some(key => { const seconds = task.preparation![key as 'warmupSeconds' | 'cooldownSeconds' | 'transitionSeconds']; return !Number.isInteger(seconds) || seconds < 0 || seconds > 600 }))) return null
       for (const task of schedule.items) if (task.secondsPerRep !== undefined && (kind !== 'workout' || !Number.isInteger(task.secondsPerRep) || task.secondsPerRep < 1 || task.secondsPerRep > 10)) return null
+      for (const task of schedule.items) {
+        const prep = task.preparation
+        if (prep?.stretchingSeconds !== undefined && (!Number.isInteger(prep.stretchingSeconds) || prep.stretchingSeconds < 0 || prep.stretchingSeconds > 600)) return null
+        if (prep?.stretchExerciseId !== undefined && !stretchingExercises.some(exercise => exercise.id === prep.stretchExerciseId)) return null
+        if (prep?.stretchingStatus !== undefined && !['completed', 'adapted'].includes(prep.stretchingStatus)) return null
+      }
       result.days[day][kind] = { source: schedule.source, variation: schedule.variation, rest: kind === 'workout' && schedule.rest, items: parsed.data.items.map((item, i) => ({ ...item, done: schedule.items[i].done, ...(schedule.items[i].secondsPerRep !== undefined ? { secondsPerRep: schedule.items[i].secondsPerRep } : {}), ...(schedule.items[i].preparation ? { preparation: { ...schedule.items[i].preparation! } } : {}), ...(schedule.items[i].actualSets ? { actualSets: schedule.items[i].actualSets!.map(set => ({ amount: set.amount, weightKg: set.weightKg })) } : {}) })) }
     }
   }
@@ -94,19 +101,20 @@ export function taskSeconds(item: PlaylistItem & { secondsPerRep?: number }) { i
 export function taskMinutes(item: PlaylistItem & { preparation?: SessionPreparation; secondsPerRep?: number }) {
   return taskTimeBreakdown(item).totalSeconds / 60
 }
-// Warm-up happens before the chosen workout start; retain it in the overall time budget.
+// Stretching preparation and optional warm-up happen before the chosen workout start.
 export function taskBlockMinutes(item: PlaylistItem & { preparation?: SessionPreparation; secondsPerRep?: number }) {
   const timing = taskTimeBreakdown(item)
-  return (timing.totalSeconds - timing.warmupSeconds) / 60
+  return (timing.totalSeconds - timing.warmupSeconds - timing.stretchingSeconds) / 60
 }
 export function taskTimeBreakdown(item: PlaylistItem & { preparation?: SessionPreparation; secondsPerRep?: number }) {
   const workout = 'exerciseId' in item
   const workSeconds = workout ? item.sets * (item.targetType === 'time' ? item.target : item.target * (item.secondsPerRep ?? 3)) : 0
   const restSeconds = workout ? Math.max(0, item.sets - 1) * item.restSeconds : 0
   const warmupSeconds = workout ? item.preparation?.warmupSeconds ?? 0 : 0
+  const stretchingSeconds = workout ? item.preparation?.stretchingSeconds ?? 0 : 0
   const cooldownSeconds = workout ? item.preparation?.cooldownSeconds ?? 0 : 0
   const transitionSeconds = workout ? item.preparation?.transitionSeconds ?? 0 : 0
-  return { workSeconds, restSeconds, warmupSeconds, cooldownSeconds, transitionSeconds, totalSeconds: workSeconds + restSeconds + warmupSeconds + cooldownSeconds + transitionSeconds }
+  return { workSeconds, restSeconds, warmupSeconds, stretchingSeconds, cooldownSeconds, transitionSeconds, totalSeconds: workSeconds + restSeconds + warmupSeconds + stretchingSeconds + cooldownSeconds + transitionSeconds }
 }
 export function foodTotals(items: PlanTask[]) {
   return items.reduce((sum, item) => { if ('foodId' in item) { const food = storedFoodCatalog.find(food => food.id === item.foodId); if (food) { sum.energy += (food.nutrients.energyKcal ?? 0) * item.grams / 100; sum.protein += (food.nutrients.proteinG ?? 0) * item.grams / 100; sum.carbs += (food.nutrients.carbsG ?? 0) * item.grams / 100; sum.fat += (food.nutrients.fatG ?? 0) * item.grams / 100 } } return sum }, { energy: 0, protein: 0, carbs: 0, fat: 0 })
@@ -154,8 +162,8 @@ export function formulateDay(profile: OnboardingProfile, kind: PlaylistKind, day
     const [startHour, startMinute] = startTime.split(':').map(Number)
     const startMinutes = startHour * 60 + startMinute
     if (startMinutes + duration > 1440) return { schedule, notes: ['Choose an earlier workout start time or a shorter session to finish by midnight.'] }
-    const warmup = duration < 30 ? 180 : 300, cooldown = warmup
-    let remaining = duration * 60 - warmup - cooldown
+    const stretching = 120, cooldown = duration < 30 ? 180 : 300
+    let remaining = duration * 60 - stretching - cooldown
     const count = Math.min(10, Math.max(2, Math.ceil(duration / (prefer === 'stretching' ? 5 : 10))))
     const compound = (exercise: typeof exercises[number]) => exercise.category === 'strength' && ['Squat','Hinge','Push','Pull'].includes(exercise.movementPattern) && !/biceps|triceps|delts|calves|forearms/i.test(exercise.target)
     const heavy = (exercise: typeof exercises[number]) => compound(exercise) && exercise.equipment === 'barbell'
@@ -188,7 +196,7 @@ export function formulateDay(profile: OnboardingProfile, kind: PlaylistKind, day
     const rank = (item: PlanTask) => ['Main movements','Accessories & core','Conditioning','Mobility'].indexOf(workoutPhase(item))
     schedule.items.sort((a,b) => rank(a)-rank(b))
     if (!alternative && schedule.items.length) {
-      schedule.items[0].preparation!.warmupSeconds = warmup
+      schedule.items[0].preparation!.stretchingSeconds = stretching
       schedule.items[schedule.items.length - 1].preparation!.cooldownSeconds = cooldown
       // Grow work within bounded prescriptions before using any additional recovery/setup.
       let changed = true
@@ -226,7 +234,7 @@ export function formulateDay(profile: OnboardingProfile, kind: PlaylistKind, day
         const extra = Math.min(remaining, Math.max(0, cap - item.preparation!.transitionSeconds))
         item.preparation!.transitionSeconds += extra; remaining -= extra
       }
-      for (const [item,key] of [[schedule.items[0],'warmupSeconds'],[schedule.items[schedule.items.length-1],'cooldownSeconds']] as const) {
+      for (const [item,key] of [[schedule.items[schedule.items.length-1],'cooldownSeconds']] as const) {
         const extra = Math.min(remaining, 600 - item.preparation![key]); item.preparation![key] += extra; remaining -= extra
       }
       if (remaining > 0) notes.push('Your eligible exercise selection supports a shorter session (' + Math.round((duration * 60 - remaining) / 60) + ' minutes). Add suitable exercises or broaden your equipment/focus preferences; extra time is not filled with excessive sets or rest.')
@@ -235,7 +243,7 @@ export function formulateDay(profile: OnboardingProfile, kind: PlaylistKind, day
     for (const item of schedule.items) { item.time = clock(startMinutes + Math.floor(elapsed / 60)); elapsed += Math.round(taskBlockMinutes(item) * 60) }
     notes.push(weekDays[day] + ': ' + duration + '-minute ' + profile.experience.toLowerCase() + ' session for ' + (profile.focusAreas?.join(', ') || 'overall fitness') + ', using ' + profile.equipment.join(', ') + '. Your selected goal guides exercise type, sets and rest.')
     if (!schedule.items.length) notes.push('No eligible alternatives match your equipment, focus and movement preferences. Adjust onboarding or pick manually.')
-    notes.push(alternative ? 'Alternative exercises use their own set and rest estimates; replacing an item can change the session total.' : 'Warm up before your selected workout start time. Your session budget includes this separate warm-up once, plus work, between-set rest, cooldown and setup/transitions. Exercise block times exclude warm-up. These are scheduled estimates, not stopwatch measurements; editing or replacing tasks can change the total.')
+    notes.push(alternative ? 'Alternative exercises use their own set and rest estimates; replacing an item can change the session total.' : 'Complete the stretching preparation check before your workout. The two-minute preparation allowance is included once in your session budget; it is not a prescribed hold duration. Dedicated cardio warm-up is optional and adds preparation time if enabled. Exercise blocks include work, between-set rest, cooldown and setup/transitions. These are scheduled estimates, not stopwatch measurements.')
   } else {
     notes.push('Built around your ' + profile.diet.toLowerCase() + ' eating preference, ' + profile.mealsPerDay + ' meals, available preparation time and saved ingredient exclusions.')
     const target = planTargets(profile).energy
