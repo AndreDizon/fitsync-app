@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { ArrowUpRight, BookOpen, ChevronDown, ShieldCheck, Utensils, X } from 'lucide-react'
+import { ArrowUpRight, BookOpen, ShieldCheck, Utensils, X } from 'lucide-react'
 import { foodDiets, formatNutrient, nutrientsFor, type Food } from '@/lib/nutrition'
 import { nutrientCoverage } from '@/lib/health-guidance'
 import { FoodArt } from './food-art'
@@ -58,11 +58,20 @@ export function FoodDetails({ food, onClose }: { food: Food; onClose: () => void
             event.preventDefault()
             selectTab(guideTabs[next][0])
             dialog.current?.querySelector<HTMLButtonElement>(`#food-tab-${guideTabs[next][0]}`)?.focus()
-          }}>{label}{id === 'dishes' && !!food.sampleDishes?.length && <span>{food.sampleDishes.length}</span>}</button>)}
+          }}>{label}</button>)}
       </div>
     </header>
     <div className="food-detail-body">
       <div id="food-panel-nutrition" role="tabpanel" aria-labelledby="food-tab-nutrition" className="fd-tab-panel" hidden={activeTab !== 'nutrition'} tabIndex={0}>
+      <section className="fd-overview" aria-label="Food at a glance">
+        <div className="fd-illustration" data-food-group={foodGroupTone(food.category)}><FoodArt id={food.id} category={food.category} /></div>
+        <div className="fd-overview-copy">
+          <div className="fd-group-row">{food.classifications.groups.map(group => <FoodGroupBadge key={group} group={group} />)}<span className="fd-state">{food.state}</span></div>
+          <h3>{dry ? 'Weigh before adding water' : rawReadyToEat ? 'Count only the part you eat' : raw ? 'Weigh the edible portion before cooking' : food.state === 'Cooked' ? 'Weigh after cooking' : 'Measure the ready-to-eat portion'}</h3>
+          <p>{dry ? 'Use the dry weight. Water changes the weight after cooking.' : rawReadyToEat ? 'Leave out peel, pits and shells. Log milk, toppings and other additions separately.' : raw ? 'Remove bones, shells and other inedible parts. Log sauces and other additions separately.' : 'Leave out bones, shells and other inedible parts. Log sauces and additions separately.'}</p>
+          <dl className="fd-quick-facts"><div><dt>Preparation</dt><dd>{food.classifications.preparation.join(', ')}</dd></div><div><dt>Estimated prep time</dt><dd>About {food.prepMinutes} min</dd></div></dl>
+        </div>
+      </section>
       <section className="fd-nutrition" aria-labelledby="food-portion-title">
         <div className="fd-section-heading"><div><h3 id="food-portion-title" tabIndex={-1}>Nutrition for your portion</h3><p>Adjust your serving to see its nutrients.</p></div><div className="food-basis-control" role="group" aria-label="Nutrition display basis"><button type="button" aria-pressed={basis === 'portion'} onClick={() => setBasis('portion')}>My portion</button><button type="button" aria-pressed={basis === '100g'} onClick={() => setBasis('100g')}>Per 100 g</button></div></div>
         <div className="food-portion-controls">
@@ -71,7 +80,7 @@ export function FoodDetails({ food, onClose }: { food: Food; onClose: () => void
         </div>
         <div className="fd-basis-row"><p id="food-portion-feedback" role="status" data-invalid={!valid}>{!valid ? 'Enter an edible portion between 1 and 2,000 g.' : basis === '100g' ? 'Showing the 100 g reference · your serving stays saved' : `Showing your ${formatNutrient(grams)} g portion`}</p></div>
         <div className="food-macro-panel">{macros.map(([key, label, unit]) => <div key={key}><span>{label}</span><strong>{nutrients ? formatNutrient(nutrients[key], key === 'energyKcal' ? 0 : 1) : '—'}<small>{unit}</small></strong></div>)}</div>
-        <details className="fd-disclosure food-full-nutrients"><summary>Vitamins, minerals & full nutrition <ChevronDown size={18} aria-hidden="true" /></summary><div><dl>{nutrientsList.map(([key, name, unit]) => <div key={key}><dt>{name}</dt><dd>{nutrients ? formatNutrient(nutrients[key]) : '—'} {nutrients?.[key] === null ? '' : unit}</dd></div>)}</dl><p>{coverage.reported} of {coverage.total} nutrients reported. “Not reported” means unknown, not zero. Values are estimates for the named reference food.</p></div></details>
+        <section className="fd-info-section food-full-nutrients" aria-labelledby="food-full-nutrients-title"><h3 id="food-full-nutrients-title">Vitamins, minerals & full nutrition</h3><div><dl>{nutrientsList.map(([key, name, unit]) => <div key={key}><dt>{name}</dt><dd>{nutrients ? formatNutrient(nutrients[key]) : '—'} {nutrients?.[key] === null ? '' : unit}</dd></div>)}</dl><p>{coverage.reported} of {coverage.total} nutrients reported. “Not reported” means unknown, not zero. Values are estimates for the named reference food.</p></div></section>
       </section>
 
       <section className="fd-benefits" aria-labelledby="food-benefits-title">
@@ -88,31 +97,26 @@ export function FoodDetails({ food, onClose }: { food: Food; onClose: () => void
       </section>}
 
       {!food.sampleDishes?.length && <section className="fd-section-heading"><Utensils size={21} aria-hidden="true" /><div><h3>Serving ideas</h3><p>No Filipino dish examples are listed for this reference food yet.</p></div></section>}
+      <section className="fd-preparation" aria-label="Preparation guide">
+
+        <section className="fd-info-section"><h3>How to prepare & measure</h3><div><ol>{food.preparation.map(step => <li key={step}>{step}</li>)}</ol><p><strong>Portion reference.</strong> {food.measureNote}</p><p className="fd-small-note">{food.prepTimeSource}. Budget: {food.budget}; a qualitative guide, not a current price.</p></div></section>
+      </section>
       <dl className="fd-facts-list fd-serving-facts"><div><dt>Pairs with</dt><dd>{food.pairing.join(', ') || 'Choose accompaniments that suit your preferences.'}</dd></div><div><dt>Meal ideas</dt><dd>{food.classifications.mealUses.join(', ') || 'Use as part of a balanced meal.'}</dd></div></dl>
       <aside className="food-allergen-note fd-allergen"><ShieldCheck size={19} aria-hidden="true" /><div><strong>{food.allergens.length ? `Listed allergens: ${food.allergens.join(', ')}` : 'No major ingredient allergens listed'}</strong><p>Check the actual product and recipe. Cross-contact is unknown, and dish ideas can contain additional allergens.</p></div></aside>
 
       </div>
       <div id="food-panel-reference" role="tabpanel" aria-labelledby="food-tab-reference" className="fd-tab-panel" hidden={activeTab !== 'reference'} tabIndex={0}>
-      <section className="fd-overview" aria-label="Food at a glance">
-        <div className="fd-illustration" data-food-group={foodGroupTone(food.category)}><FoodArt id={food.id} category={food.category} /></div>
-        <div className="fd-overview-copy">
-          <div className="fd-group-row">{food.classifications.groups.map(group => <FoodGroupBadge key={group} group={group} />)}<span className="fd-state">{food.state}</span></div>
-          <h3>{dry ? 'Weigh before adding water' : rawReadyToEat ? 'Count only the part you eat' : raw ? 'Weigh the edible portion before cooking' : food.state === 'Cooked' ? 'Weigh after cooking' : 'Measure the ready-to-eat portion'}</h3>
-          <p>{dry ? 'Use the dry weight. Water changes the weight after cooking.' : rawReadyToEat ? 'Leave out peel, pits and shells. Log milk, toppings and other additions separately.' : raw ? 'Remove bones, shells and other inedible parts. Log sauces and other additions separately.' : 'Leave out bones, shells and other inedible parts. Log sauces and additions separately.'}</p>
-          <dl className="fd-quick-facts"><div><dt>Preparation</dt><dd>{food.classifications.preparation.join(', ')}</dd></div><div><dt>Estimated prep time</dt><dd>About {food.prepMinutes} min</dd></div></dl>
-        </div>
-      </section>
       {referenceException && <aside className="fd-reference-match"><strong>About this reference</strong><p>{food.referenceNote}</p></aside>}
 
       <div className="fd-more-information">
-        <div className="fd-section-heading"><BookOpen size={21} aria-hidden="true" /><div><h3 id="food-more-title" tabIndex={-1}>Food reference & notes</h3><p>Preparation, preferences and the source behind the numbers.</p></div></div>
-        <details className="fd-disclosure"><summary>How to prepare & measure <ChevronDown size={18} aria-hidden="true" /></summary><div><ol>{food.preparation.map(step => <li key={step}>{step}</li>)}</ol><p><strong>Portion reference.</strong> {food.measureNote}</p><p><strong>Pairs with:</strong> {food.pairing.join(' · ')}.</p><p className="fd-small-note">{food.prepTimeSource}. Budget: {food.budget}; a qualitative guide, not a current price.</p></div></details>
-        <details className="fd-disclosure"><summary>Food groups & eating preferences <ChevronDown size={18} aria-hidden="true" /></summary><div><dl className="fd-facts-list">
+        <div className="fd-section-heading"><BookOpen size={21} aria-hidden="true" /><div><h3 id="food-more-title" tabIndex={-1}>Food reference & notes</h3><p>Food classifications and the source behind the numbers.</p></div></div>
+
+        <section className="fd-info-section"><h3>Food groups & eating preferences</h3><div><dl className="fd-facts-list">
           <div><dt>Food groups</dt><dd className="fd-group-row">{food.classifications.groups.map(group => <FoodGroupBadge key={group} group={group} />)}</dd></div>
           <div><dt>Food type</dt><dd>{food.classifications.foodTypes.join(', ')}</dd></div><div><dt>Suggested meals</dt><dd>{food.classifications.mealUses.join(', ')}</dd></div><div><dt>Eating preferences</dt><dd>{foodDiets(food).join(', ') || 'Check the actual food and preparation'}</dd></div><div><dt>Halal suitability</dt><dd>{food.halal === 'not-compatible' ? 'Not compatible' : food.halal === 'requires-verification' ? 'Product verification required' : 'Ingredient-compatible; not certified'}</dd></div>
-        </dl><p>{food.productNote || 'Ingredient tags do not verify a complete recipe or product.'}</p></div></details>
+        </dl><p>{food.productNote || 'Ingredient tags do not verify a complete recipe or product.'}</p></div></section>
 
-        <details className="fd-disclosure"><summary>Exact food reference & data source <ChevronDown size={18} aria-hidden="true" /></summary><div><p><strong>USDA description:</strong> {food.source.description}</p><p>{food.referenceNote || food.description}</p><p>{food.source.dataset}. Published {food.source.publishedAt}; FitSync data check {food.source.reviewedAt}. Measurement source: {portion.source}.</p><p>Raw and cooked weights are not interchangeable. Generic records are not lab tests of your meal or product labels. A data check does not imply professional certification.</p><a href={food.source.url} target="_blank" rel="noreferrer">USDA FoodData Central · {food.source.fdcId} <ArrowUpRight size={13} aria-hidden="true" /></a></div></details>
+        <section className="fd-info-section"><h3>Exact food reference & data source</h3><div><p><strong>USDA description:</strong> {food.source.description}</p><p>{food.referenceNote || food.description}</p><p>{food.source.dataset}. Published {food.source.publishedAt}; FitSync data check {food.source.reviewedAt}. Measurement source: {portion.source}.</p><p>Raw and cooked weights are not interchangeable. Generic records are not lab tests of your meal or product labels. A data check does not imply professional certification.</p><a href={food.source.url} target="_blank" rel="noreferrer">USDA FoodData Central · {food.source.fdcId} <ArrowUpRight size={13} aria-hidden="true" /></a></div></section>
       </div>
       </div>
     </div>

@@ -167,8 +167,19 @@
 .fd-benefits a{display:inline-flex;align-items:center;gap:4px;margin-top:8px;color:#315c87;font-size:13px;text-decoration:underline;text-underline-offset:3px}
 .fd-serving-facts{margin-top:20px}
 .fd-tab-panel:focus-visible{outline:2px solid #8b7010;outline-offset:5px}
+.food-detail-refined .fd-info-section{margin:24px 0 0;padding:22px 0 0;border:0;border-top:1px solid #e0e3d7;background:transparent;border-radius:0}
+.food-detail-refined .fd-info-section>h3{font-size:17px;margin:0 0 12px}
+.food-detail-refined .fd-info-section p{font-size:13px;color:#52624a;margin:10px 0 0}
+.fd-info-section a{display:inline-flex;align-items:center;gap:4px;margin-top:12px;color:#315c87;font-size:13px;text-decoration:underline;text-underline-offset:3px}
+.fd-preparation{margin-top:24px;padding-top:24px;border-top:1px solid #e0e3d7}
+.fd-info-section ol{list-style:decimal;padding-left:22px;margin:0;font-size:14px;color:#394c32}
+.fd-info-section ol li{padding-left:4px;margin:0 0 10px;line-height:1.65}
+.food-detail-refined .fd-info-section .fd-small-note{font-size:12px}
+.fd-more-information>.fd-section-heading:first-child{margin-top:0}
 @media(max-width:600px){
  .food-detail-refined .food-detail-header .fd-section-nav button{min-width:0;flex:1 1 0;white-space:normal;line-height:1.4;min-height:60px;padding:9px 6px}
  .fd-section-nav button span{flex:none}
  .food-detail-refined .fd-tab-panel>.fd-dishes{margin-top:-18px}
 }
+
+.food-detail-refined #food-panel-nutrition>.fd-overview+.fd-nutrition{margin-top:24px;padding-top:24px;border-top:1px solid #e0e3d7}
