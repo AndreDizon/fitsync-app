@@ -63,6 +63,7 @@ export function FoodDetails({ food, onClose }: { food: Food; onClose: () => void
     </header>
     <div className="food-detail-body">
       <div id="food-panel-nutrition" role="tabpanel" aria-labelledby="food-tab-nutrition" className="fd-tab-panel" hidden={activeTab !== 'nutrition'} tabIndex={0}>
+        <div className="fd-section-heading"><BookOpen size={21} aria-hidden="true" /><div><h3 id="food-benefits-title">Nutrition notes & benefits</h3><p>How to use this food’s nutrition information.</p></div></div>
       <section className="fd-overview" aria-label="Food at a glance">
         <div className="fd-illustration" data-food-group={foodGroupTone(food.category)}><FoodArt id={food.id} category={food.category} /></div>
         <div className="fd-overview-copy">
@@ -83,8 +84,8 @@ export function FoodDetails({ food, onClose }: { food: Food; onClose: () => void
         <section className="fd-info-section food-full-nutrients" aria-labelledby="food-full-nutrients-title"><h3 id="food-full-nutrients-title">Vitamins, minerals & full nutrition</h3><div><dl>{nutrientsList.map(([key, name, unit]) => <div key={key}><dt>{name}</dt><dd>{nutrients ? formatNutrient(nutrients[key]) : '—'} {nutrients?.[key] === null ? '' : unit}</dd></div>)}</dl><p>{coverage.reported} of {coverage.total} nutrients reported. “Not reported” means unknown, not zero. Values are estimates for the named reference food.</p></div></section>
       </section>
 
-      <section className="fd-benefits" aria-labelledby="food-benefits-title">
-        <div className="fd-section-heading"><BookOpen size={21} aria-hidden="true" /><div><h3 id="food-benefits-title">Nutrition notes & benefits</h3><p>How to use this food’s nutrition information.</p></div></div>
+      <section className="fd-benefits" aria-labelledby="food-nutrition-notes-title">
+        <h3 id="food-nutrition-notes-title">Understanding this food</h3>
         {food.benefits.length ? food.benefits.map(benefit => <section key={benefit.title}><h4>{benefit.title}</h4><p>{benefit.text}</p>{benefit.source && <a href={benefit.source} target="_blank" rel="noreferrer">Read the reference <ArrowUpRight size={13} aria-hidden="true" /></a>}</section>) : <p>Use the nutrient amounts above to compare portions. Unreported nutrients are unknown, not zero.</p>}
         <p className="fd-small-note">These notes describe nutrients, not a promise of health results. Your overall eating pattern matters.</p>
       </section>
