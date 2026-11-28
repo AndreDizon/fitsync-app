@@ -134,7 +134,7 @@
 .food-detail-refined .food-macro-panel{font-variant-numeric:tabular-nums}
 .food-detail-refined .food-macro-panel>div+div{border-left:1px solid #52604e;border-radius:0}
 .food-detail-refined .food-macro-panel>div:first-child strong{color:#ffe44d}
-.food-detail-refined .fd-dishes{background:#fff9e5;margin-inline:-28px;padding:22px 28px;border-bottom:1px solid #e9e1c9}
+.food-detail-refined .fd-dishes{background:transparent;margin:0;padding:0;border:0}
 .fd-more-information>.fd-section-heading{margin:28px 0 16px}
 .food-detail-refined{scrollbar-color:#adb39f #f7f6ee;caret-color:#8b7010}
 .food-detail-refined ::selection{background:#ffe879;color:#283329}
@@ -148,7 +148,6 @@
  .food-detail-refined .fd-overview-copy>p{font-size:13px}
  .food-detail-refined .fd-quick-facts{gap:12px;padding-top:4px}
  .fd-section-nav{gap:0}.food-detail-refined .food-detail-header .fd-section-nav button{flex:1;padding:10px 6px;font-size:12px}
- .food-detail-refined .fd-dishes{margin-inline:-18px;padding:20px 18px}
  .food-detail-refined .food-macro-panel>div+div{border:0}
  .food-detail-refined .food-macro-panel>div:nth-child(even){border-left:1px solid #52604e}
 
@@ -159,7 +158,7 @@
 .food-detail-refined .fd-tab-panel[hidden]{display:none!important}
 .food-detail-refined .food-detail-header .fd-section-nav button[aria-selected=true]{background:#ffe34d;color:#283329;box-shadow:inset 0 -3px #a88a16}
 .food-detail-refined .fd-tab-panel>.fd-nutrition{margin-top:0;padding-top:0;border-top:0}
-.food-detail-refined .fd-tab-panel>.fd-dishes{margin-top:-24px;border-top:0}
+.food-detail-refined .fd-tab-panel>.fd-dishes{margin:0;padding:0;border:0}
 .food-detail-refined .fd-benefits{margin-top:24px;padding-top:24px;border-top:1px solid #e0e3d7}
 .fd-benefits>section{padding:14px 0;border-bottom:1px solid #e7eadf}
 .fd-benefits h4{font-size:14px;font-weight:700;margin:0 0 5px}
@@ -172,6 +171,7 @@
 .food-detail-refined .fd-info-section p{font-size:13px;color:#52624a;margin:10px 0 0}
 .fd-info-section a{display:inline-flex;align-items:center;gap:4px;margin-top:12px;color:#315c87;font-size:13px;text-decoration:underline;text-underline-offset:3px}
 .fd-preparation{margin-top:24px;padding-top:24px;border-top:1px solid #e0e3d7}
+.food-detail-refined .fd-preparation>.fd-info-section:first-child{margin:0;padding:0;border:0}
 .fd-info-section ol{list-style:decimal;padding-left:22px;margin:0;font-size:14px;color:#394c32}
 .fd-info-section ol li{padding-left:4px;margin:0 0 10px;line-height:1.65}
 .food-detail-refined .fd-info-section .fd-small-note{font-size:12px}
@@ -179,7 +179,6 @@
 @media(max-width:600px){
  .food-detail-refined .food-detail-header .fd-section-nav button{min-width:0;flex:1 1 0;white-space:normal;line-height:1.4;min-height:60px;padding:9px 6px}
  .fd-section-nav button span{flex:none}
- .food-detail-refined .fd-tab-panel>.fd-dishes{margin-top:-18px}
 }
 
 .food-detail-refined #food-panel-nutrition>.fd-overview+.fd-nutrition{margin-top:24px;padding-top:24px;border-top:1px solid #e0e3d7}

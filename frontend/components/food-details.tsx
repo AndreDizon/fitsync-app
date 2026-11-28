@@ -8,7 +8,7 @@ import { FoodArt } from './food-art'
 import { FoodGroupBadge, foodGroupTone } from './food-group-badge'
 import '@/app/food-library.css'
 
-const guideTabs = [['nutrition', 'Nutrition & benefits'], ['dishes', 'Dish ideas'], ['reference', 'Food reference & notes']] as const
+const guideTabs = [['nutrition', 'Nutrition & benefits'], ['dishes', 'Dish ideas'], ['reference', 'Food Reference']] as const
 type GuideTab = typeof guideTabs[number][0]
 
 const macros = [['energyKcal', 'Energy', 'kcal'], ['proteinG', 'Protein', 'g'], ['carbsG', 'Carbohydrate', 'g'], ['fatG', 'Fat', 'g']] as const
