@@ -8,6 +8,7 @@ import { OfflineLibraryStatus } from '@/components/offline-library-status'
 import { LearningArticles } from './learning-articles'
 import { HealthReference } from './health-reference'
 import { exercisePractice, movementExplanations } from '@/lib/health-guidance'
+import { exerciseGuidance, guidanceLevels, type GuidanceLevel } from '@/lib/exercise-guidance'
 import { loadExerciseCatalog, type SeedExercise } from '@/lib/exercise-offline'
 
 type Exercise = SeedExercise
@@ -32,48 +33,34 @@ function ExerciseMedia({ exercise, animated = false }: { exercise: Exercise; ani
 
 export function ExerciseDetails({ exercise, onClose }: { exercise: Exercise; onClose: () => void }) {
   const dialog = useRef<HTMLDialogElement>(null)
-  const [expanded, setExpanded] = useState(false)
   const [animate, setAnimate] = useState(false)
-  const estimates = exercise.estimates
-  const referenceWeight = 70
-  const burn = estimates?.estimatedBurnKcalAt70Kg
+  const [tab, setTab] = useState('technique')
+  const [level, setLevel] = useState<GuidanceLevel>('Beginner')
+  const guidance = exerciseGuidance(exercise, level)
   const practice = exercisePractice(exercise.category)
-  useEffect(() => {
-    dialog.current?.showModal()
-  }, [])
-  const instructions = exercise.instructions ?? []
+  const estimates = exercise.estimates
+  useEffect(() => { dialog.current?.showModal() }, [])
   const close = () => { dialog.current?.close(); onClose() }
+  const tabs = [{ id: 'technique', label: 'Movement & technique' }, { id: 'training', label: 'Training & rest' }, { id: 'reference', label: 'Exercise reference' }]
   return <dialog ref={dialog} className="exercise-detail-dialog" aria-labelledby="exercise-detail-title" onCancel={event => { event.preventDefault(); close() }} onClick={event => { if (event.target === event.currentTarget) { const r = event.currentTarget.getBoundingClientRect(); if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) close() } }}>
-    <div className="exercise-detail-header"><div><p className="eyebrow">MOVE WITH CONFIDENCE</p><h2 id="exercise-detail-title">{exercise.name}</h2></div><button className="exercise-close" onClick={close} aria-label="Close exercise details" autoFocus><X size={20} /></button></div>
-    <div className="exercise-detail-body">
-      <ExerciseMedia key={String(animate)} exercise={exercise} animated={animate} />
-      {exercise.media_urls.length > 0 && <button className="exercise-animation-toggle" aria-pressed={animate} onClick={() => setAnimate(!animate)}>{animate ? 'Pause demonstration' : 'Play demonstration'}</button>}
-      <dl className="exercise-metadata">{[
-        ['Target muscle', exercise.target_muscle], ['Equipment', exercise.equipment],
-        ['Category', exercise.category], ['Body part', exercise.body_part],
-        ['Difficulty', exercise.difficulty], ['Movement', exercise.movementPattern],
-        ...(exercise.secondary_muscles.length ? [['Secondary muscles', exercise.secondary_muscles.join(', ')]] : []),
-      ].map(([label, value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl>
-      <div className="exercise-default-target"><span>Suggested starting target</span><strong>{exercise.defaultTarget}</strong></div>
-      <HealthReference title="Effort & progression guide" sources={exercise.category === 'cardio' ? ['intensity', 'activity'] : exercise.category === 'stretching' ? ['flexibility'] : exercise.category === 'plyometrics' ? ['plyometrics'] : ['strength']}>
-        <p><strong>Start here.</strong> {practice.start}</p>
-        <p><strong>Role in your routine.</strong> {exercise.category === 'stretching' ? 'Flexibility work helps you practise a comfortable range of movement. It does not replace strength or aerobic training.' : movementExplanations[exercise.movementPattern] ?? 'Include a range of movements across your training week.'}</p>
-        <p><strong>Next session.</strong> {practice.progress}</p>
-        <p>Difficulty is a catalog label, not a personal assessment. Check equipment setup and use a comfortable range. Stop if movement causes pain; seek individual advice when needed.</p>
-      </HealthReference>
-      {estimates && <section className="exercise-estimates" aria-labelledby="exercise-estimates-title">
-        <h3 id="exercise-estimates-title">Plan your effort</h3>
-        <dl><div><dt>Estimated time</dt><dd>{estimates.estimatedMinutes.join('–')} min</dd></div><div><dt>Estimated burn</dt><dd>{burn?.join('–')} kcal</dd></div></dl>
-        <p>For {estimates.prescription.toLowerCase()}, including between-set rest; setup and warm-up excluded. Burn uses {referenceWeight} kg as a fixed reference, not a personal target.</p>
-        <details className="exercise-default-benefits"><summary>How this movement supports different goals</summary>{Object.values(estimates.goals).map(value => <p key={value.label}><strong>{value.label}:</strong> {value.benefit}</p>)}</details>
-        <small>Planning estimates, not measured results. Burn includes resting energy; pace, load and rest change it. Muscle or body-weight gain cannot be predicted per exercise. Library information is the same for every user and does not change with onboarding. Based on activity classes in the <a href="https://pacompendium.com/" target="_blank" rel="noreferrer">Physical Activity Compendium</a>.</small>
-      </section>}
-      <section className="exercise-instructions"><h3>Instructions</h3>
-        <ol id="exercise-guidance">{(expanded ? instructions : instructions.slice(0, 3)).map((text, index) => <li key={index}>{text}</li>)}</ol>
-        {instructions.length > 3 && <button className="exercise-read-more" aria-expanded={expanded} aria-controls="exercise-guidance" onClick={() => setExpanded(!expanded)}>{expanded ? 'Read less' : 'Read more…'}</button>}
-      </section>
-      <aside className="exercise-coach-tip"><div><img src="/mascot/optimized/fox-logo-192.webp" alt="" width={32} height={32} /><h3>Your fox coach says</h3></div><p>{exercise.coachTip}</p></aside>
-      <p className="exercise-source-credit">Instructions, difficulty labels and starting targets: FitSync editorial guidance. Demonstrations illustrate movement; they do not establish an individually suitable load. Demonstration media: <a href="https://github.com/JahelCuadrado/ExerciseGymGifsDB" target="_blank" rel="noreferrer">JahelCuadrado / ExerciseGymGifsDB</a>{exercise.source_media_url && <> · <a href={exercise.source_media_url} target="_blank" rel="noreferrer">Original demonstration</a></>}</p>
+    <div className="exercise-detail-header"><div><p className="eyebrow">YOUR MOVEMENT GUIDE</p><h2 id="exercise-detail-title">{exercise.name}</h2><p className="exercise-guide-subtitle">Technique, training guidance and recovery.</p></div><button className="exercise-close" onClick={close} aria-label="Close exercise details" autoFocus><X size={20} /></button></div>
+    <div className="exercise-guide-tabs" role="tablist" aria-label="Exercise information">{tabs.map((entry, index) => <button key={entry.id} id={'exercise-tab-'+entry.id} role="tab" aria-selected={tab === entry.id} aria-controls={'exercise-panel-'+entry.id} tabIndex={tab === entry.id ? 0 : -1} onClick={() => { setTab(entry.id); setAnimate(false) }} onKeyDown={event => { if (['ArrowRight', 'ArrowLeft', 'Home', 'End'].includes(event.key)) { event.preventDefault(); const next = event.key === 'Home' ? 0 : event.key === 'End' ? tabs.length-1 : (index+(event.key === 'ArrowRight' ? 1 : -1)+tabs.length)%tabs.length; setTab(tabs[next].id); setAnimate(false); document.getElementById('exercise-tab-'+tabs[next].id)?.focus() } }}>{entry.label}</button>)}</div>
+    <div className="exercise-detail-body" role="tabpanel" id={'exercise-panel-'+tab} aria-labelledby={'exercise-tab-'+tab} tabIndex={0}>
+      {tab === 'technique' && <>
+        <section className="exercise-guide-section"><h3>How to perform this movement</h3><div className="exercise-guide-overview"><ExerciseMedia key={String(animate)} exercise={exercise} animated={animate} /><div><p className="exercise-guide-kicker">{exercise.group} / {exercise.difficulty}</p><p>{movementExplanations[exercise.movementPattern] ?? 'Include this movement as part of a balanced routine.'}</p><dl className="exercise-metadata"><div><dt>Primary muscle</dt><dd>{exercise.target_muscle}</dd></div><div><dt>Equipment</dt><dd>{exercise.equipment}</dd></div></dl>{exercise.media_urls.length > 0 && <button className="exercise-animation-toggle" aria-pressed={animate} onClick={() => setAnimate(!animate)}>{animate ? 'Pause demonstration' : 'Play demonstration'}</button>}</div></div></section>
+        <section className="exercise-guide-section exercise-instructions"><h3>Step by step</h3><ol id="exercise-guidance">{exercise.instructions.map((text,index) => <li key={index}>{text}</li>)}</ol></section>
+        <section className="exercise-guide-section"><h3>Technique check</h3><p>{exercise.coachTip}</p><p>Use a comfortable range and controlled movement. Stop if you feel pain. The demonstration does not determine the right load for you.</p></section>
+      </>}
+      {tab === 'training' && <>
+        <section className="exercise-guide-section"><h3>Choose your training experience</h3><p>Adjust the guidance to your familiarity. This does not change your saved plan or the exercise difficulty.</p><div className="exercise-guide-levels" role="group" aria-label="Training experience">{guidanceLevels.map(value => <button key={value} aria-pressed={level === value} onClick={() => setLevel(value)}>{value}</button>)}</div><div aria-live="polite"><h4>{guidance.target}</h4><p>{guidance.effort}</p>{level === 'Beginner' && exercise.difficulty !== 'Beginner' && <p className="exercise-guide-notice">This catalog movement is {exercise.difficulty.toLowerCase()}. Learn an easier variation or get technique guidance before adding resistance.</p>}</div></section>
+        <section className="exercise-guide-section"><h3>Rest & recovery</h3><div className="exercise-guide-rest"><strong>{guidance.rest}</strong><p>{guidance.restDetail}</p></div><h4>Between exercises</h4><p>Recover your breathing, check equipment and rehearse the next setup. Heavy or demanding work can need longer. A timed transition includes setup; it is not all passive rest.</p></section>
+        <section className="exercise-guide-section"><h3>Progress at your level</h3><p>{guidance.progression}</p><p>{practice.progress}</p><p>General education for healthy adults. Younger users need age-appropriate instruction and qualified supervision for resistance training.</p><a href={guidance.url} target="_blank" rel="noreferrer">{guidance.source}</a></section>
+      </>}
+      {tab === 'reference' && <>
+        <section className="exercise-guide-section"><h3>Exercise classification</h3><dl className="exercise-metadata">{[['Category',exercise.category],['Body part',exercise.body_part],['Catalog difficulty',exercise.difficulty],['Movement',exercise.movementPattern],['Secondary muscles',exercise.secondary_muscles.join(', ') || 'Not listed']].map(([label,value]) => <div key={label}><dt>{label}</dt><dd>{value}</dd></div>)}</dl><p>Difficulty describes movement complexity, not an assessment of your ability.</p></section>
+        {estimates && <section className="exercise-guide-section exercise-estimates"><h3>Catalog planning estimates</h3><p><strong>{exercise.defaultTarget}</strong> is an editable catalog template.</p><dl><div><dt>Estimated time</dt><dd>{estimates.estimatedMinutes.join(' - ')} min</dd></div><div><dt>Burn at 70 kg</dt><dd>{estimates.estimatedBurnKcalAt70Kg.join(' - ')} kcal</dd></div></dl><p>For {estimates.prescription.toLowerCase()}, including between-set rest; setup and warm-up are excluded. These reference estimates stay the same when you change experience.</p><p>Burn includes resting energy. Pace, load, body size and rest affect actual results. Per-exercise muscle gain cannot be predicted.</p><a href="https://pacompendium.com/" target="_blank" rel="noreferrer">Physical Activity Compendium</a></section>}
+        <section className="exercise-guide-section"><h3>Sources & notes</h3><p>FitSync translates the sources into starting guidance. Exact ranges are app suggestions, not personalized prescriptions or professional certification.</p><ul><li><a href="https://acsm.org/resistance-training-guidelines-update-2026/" target="_blank" rel="noreferrer">ACSM resistance training guidance</a></li><li><a href="https://pubmed.ncbi.nlm.nih.gov/28933024/" target="_blank" rel="noreferrer">Systematic review: rest intervals and strength</a></li><li><a href={guidance.url} target="_blank" rel="noreferrer">{guidance.source}</a></li></ul><p className="exercise-source-credit">Instructions, difficulty and targets: FitSync editorial guidance. Media: <a href="https://github.com/JahelCuadrado/ExerciseGymGifsDB" target="_blank" rel="noreferrer">ExerciseGymGifsDB</a>{exercise.source_media_url && <> / <a href={exercise.source_media_url} target="_blank" rel="noreferrer">Original demonstration</a></>}</p></section>
+      </>}
     </div>
   </dialog>
 }
@@ -162,7 +149,7 @@ export function ExerciseLibrary() {
     {error ? <div className="exercise-library-state" role="alert"><h2>Let’s try that again.</h2><p>{error}</p><button onClick={() => setRetry(retry + 1)}>Retry</button></div> : pending ? <div className="exercise-library-grid exercise-catalog-grid" aria-label="Loading exercises" aria-busy="true">{Array.from({ length: 6 }, (_, index) => <div key={index} className="exercise-skeleton" aria-hidden="true"><div className="exercise-skeleton-media"><Dumbbell size={32} /></div><div className="exercise-skeleton-body"><i /><i /><i /><b /></div></div>)}</div> : !data?.data.length ? <div className="exercise-library-state"><Dumbbell size={32} /><h2>No moves found</h2><p>{query.trim() ? `Nothing matches “${query.trim()}” with these filters. Try a shorter name or remove a selection.` : 'These selections do not overlap. Remove an active filter to widen your options.'}</p><button onClick={reset}>Show all exercises</button></div> : <>
       <div className="exercise-library-grid exercise-catalog-grid">{data.data.map(exercise => <article className="exercise-card" key={exercise.id}>
         <button className="exercise-media-button" data-exercise-id={exercise.id} onClick={event => open(exercise, event.currentTarget)} aria-label={`View ${exercise.name}`}><ExerciseMedia exercise={exercise} /></button>
-        <div className="exercise-card-body"><p className="eyebrow">{exercise.group} · {exercise.difficulty}</p><h3>{exercise.name}</h3><div className="exercise-tags"><span title="Target muscle">{exercise.target_muscle}</span><span title="Equipment">{exercise.equipment}</span></div><button className="exercise-view-details" data-exercise-id={exercise.id} onClick={event => open(exercise, event.currentTarget)} aria-label={`View details for ${exercise.name}`}>View details <ArrowRight size={15} /></button></div>
+        <div className="exercise-card-body"><p className="eyebrow">{exercise.group} · {exercise.difficulty}</p><h3>{exercise.name}</h3><div className="exercise-tags"><span title="Target muscle">{exercise.target_muscle}</span><span title="Equipment">{exercise.equipment}</span></div><p className="exercise-card-rest">{exerciseGuidance(exercise).rest}</p><button className="exercise-view-details" data-exercise-id={exercise.id} onClick={event => open(exercise, event.currentTarget)} aria-label={`View details for ${exercise.name}`}>View details <ArrowRight size={15} /></button></div>
       </article>)}</div>
       <nav className="exercise-pagination" aria-label="Exercise pages"><button disabled={page <= 1} onClick={() => changePage(page - 1)}><ArrowLeft size={15} /> Previous</button><span>Page {data.page} of {data.totalPages}</span><div className="exercise-page-numbers">{Array.from({ length: data.totalPages }, (_, index) => index + 1).map(number => <button key={number} aria-label={`Exercise page ${number}`} aria-current={number === data.page ? 'page' : undefined} onClick={() => changePage(number)}>{number}</button>)}</div><button disabled={page >= data.totalPages} onClick={() => changePage(page + 1)}>Next <ArrowRight size={15} /></button></nav>
     </>}

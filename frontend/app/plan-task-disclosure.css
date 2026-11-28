@@ -1,4 +1,10 @@
 /* FitSync task tickets: white content, charcoal metrics, pulse-yellow actions. */
+.app-shell[data-section='plans'] .my-plan-workspace .plan-task-metrics.has-rest{grid-template-columns:repeat(4,minmax(0,1fr))}
+.plan-task-metrics.has-rest>div:nth-child(3) dd{font-size:18px;line-height:1.4}
+.plan-task-recovery{display:grid;gap:5px;margin-top:14px;padding:12px 14px;border:1px solid #d6ddcf;border-radius:10px;background:#f0f4e9;color:#344730}
+.plan-task-recovery strong{font-size:12px!important;color:#344730!important;text-decoration:none!important}
+.plan-task-recovery span{font-size:14px;font-weight:650}.plan-task-recovery small{font-size:11px;line-height:1.6;color:#596653}
+@media(max-width:600px){.app-shell[data-section='plans'] .my-plan-workspace .plan-task-metrics.has-rest{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:16px}.plan-task-metrics.has-rest>div:nth-child(3){border-left:0}.plan-task-metrics.has-rest>div:nth-child(n+3){padding-top:10px;border-top:1px solid #ffffff25}.plan-task-recovery{padding:10px}.plan-task-recovery span{font-size:12px}}
 .app-shell[data-section='plans'] .my-plan-workspace:is(.workout,.nutrition) .my-plan-task-list .my-plan-task-card{--task-ink:#27292a;--task-muted:#625c51;position:relative;display:block;min-width:0;padding:22px;border:1px solid #c4c7c9;border-top-color:#ffffffed;border-right-color:#d7dbde;border-radius:18px;background:linear-gradient(145deg,#fffffff5,#f5f7f9eb);backdrop-filter:blur(10px) saturate(108%);-webkit-backdrop-filter:blur(10px) saturate(108%);box-shadow:inset 2px 3px 5px #fff,inset -2px -3px 6px #29333d0a,2px 3px 0 #30343829,0 7px 15px #222a330b!important}
 .app-shell[data-section='plans'] .my-plan-workspace:is(.workout,.nutrition) .my-plan-task-list .my-plan-task-card:before,.app-shell[data-section='plans'] .my-plan-workspace:is(.workout,.nutrition) .my-plan-task-list .my-plan-task-card:after{display:none}
 .app-shell[data-section='plans'] .my-plan-workspace:is(.workout,.nutrition) .my-plan-task-list .is-done .my-plan-task-card{background:linear-gradient(135deg,#fffffff5,#edf8f0e6);border-color:#b9cfbf;border-top-color:#ffffffeb}

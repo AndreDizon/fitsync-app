@@ -105,3 +105,15 @@ The shared start date now follows training weekdays on onboarding page three; nu
 ### Full-range default planning
 
 Onboarding preparation now generates all dates from the shared start through the displayed scenario target date, inclusive. When no supported weight-target date exists, it explicitly prepares a 28-day review period. This supersedes the earlier seven-day generation limit. The forecast formula itself remains a transparent assumption, not a validated personal prediction. Future calorie targets use current inputs rather than assumed future weight. See the planning specification for progress, retry, review and storage behavior.
+
+### Exercise detail guidance and visible recovery
+
+Exercise details separate movement technique, experience-based training guidance, and catalog references. Beginner, Intermediate and Advanced selectors change educational guidance only; catalog difficulty and saved prescriptions are unchanged. Movement-specific editorial instructions remain the technique source.
+
+- [ACSM 2026 resistance training guidance](https://acsm.org/resistance-training-guidelines-update-2026/) supports consistent training, individualized goals, progressive demands and optional failure training. Experience alone does not establish a suitable load.
+- [Grgic et al., rest intervals and strength](https://pubmed.ncbi.nlm.nih.gov/28933024/) supports longer recovery for trained strength work and describes 60-120 seconds as sufficient in untrained participants. FitSync's 1-2 minute accessory and 2-3 minute compound starting ranges, with 2-5 minutes for heavy work, are practical app guidance, not universal standards or individual prescriptions.
+- [AHA flexibility guidance](https://www.heart.org/en/healthy-living/exercise-and-physical-activity/fitness-basics/flexibility-exercise-stretching) informs comfortable 10-30 second holds, warm muscles and gradual progression. Stretching does not receive a resistance-training rest prescription.
+- [CDC intensity guidance](https://www.cdc.gov/physical-activity-basics/measuring/index.html) supplies the moderate-intensity talk test. Continuous cardio has no mandatory between-set interval.
+- [HSS plyometrics guidance](https://www.hss.edu/health-library/move-better/plyometrics-workouts-for-beginner) informs landing control and progression; recovery follows movement quality rather than an invented expertise-specific timer.
+
+To-do previews show the saved rest between sets and the next exercise's existing recovery/setup allowance. That allowance is already included in the next task's estimate; displaying it does not add time to the schedule. One-set tasks have no between-set break. Missing transition allowances are described without inventing a duration. This is educational content, not evidence of clinical validation or professional certification.

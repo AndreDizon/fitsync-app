@@ -172,6 +172,30 @@
 @media (prefers-reduced-motion: reduce) { .exercise-skeleton::after, .exercise-offline-status.is-saving > svg { animation: none; } .exercise-offline-status progress::-webkit-progress-value { transition: none; } }
 
 .exercise-page-numbers { display: flex; gap: 5px; }
+.exercise-detail-dialog{width:min(780px,calc(100vw - 24px));background:#fffdf5}
+.exercise-detail-header{background:#fffdf5;align-items:flex-start}
+.exercise-guide-subtitle{font-size:13px;line-height:1.6;color:#626b60;margin:8px 0 0}
+.exercise-guide-tabs{display:flex;gap:4px;padding:8px 20px 0;border-bottom:1px solid #dedfce;background:#fffdf5}
+.exercise-guide-tabs button{flex:1;min-width:0;min-height:48px;padding:10px 8px;border:0;border-bottom:3px solid transparent;border-radius:10px 10px 0 0;background:transparent;color:#334136;font-size:12px;font-weight:700}
+.exercise-guide-tabs button[aria-selected=true]{background:#ffe23b;border-color:#ab8d15;color:#22291d}
+.exercise-guide-section{padding:0 0 24px;margin:0 0 24px;border-bottom:1px solid #dedfce}
+.exercise-guide-section:last-child{padding-bottom:0;margin-bottom:0;border-bottom:0}
+.exercise-guide-section h3{font-size:19px;line-height:1.35;margin:0 0 14px;letter-spacing:-.025em}
+.exercise-guide-section h4{font-size:15px;line-height:1.5;margin:18px 0 8px}
+.exercise-guide-section p,.exercise-guide-section li{font-size:14px;line-height:1.75;margin:8px 0;color:#4d5a4d;overflow-wrap:anywhere}
+.exercise-guide-section a{color:#315d83;text-decoration:underline;text-underline-offset:3px;font-size:13px}
+.exercise-guide-section ul{padding-left:20px;list-style:disc}
+.exercise-guide-overview{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:22px;align-items:start}
+.exercise-guide-overview .exercise-library-media{aspect-ratio:auto;height:250px;min-height:0;background:#fff}
+.exercise-guide-overview .exercise-library-media img{width:100%;height:100%;min-height:0;object-fit:contain}
+.exercise-guide-kicker{font-weight:700;font-size:12px!important;color:#796433!important}
+.exercise-guide-levels{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
+.exercise-guide-levels button{flex:1;min-height:44px;border:1px solid #d4d9ce;border-radius:10px;padding:10px;color:#334136;background:#fff;font-size:13px;font-weight:650}
+.exercise-guide-levels button[aria-pressed=true]{background:#283d4e;color:#fff;border-color:#283d4e}
+.exercise-guide-rest,.exercise-guide-notice{padding:16px;border:1px solid #e2ce72;border-radius:12px;background:#fff7d4}
+.exercise-guide-rest strong{font-size:19px;color:#3a361e}.exercise-guide-rest p{margin-bottom:0}
+.exercise-card-rest{font-size:12px;line-height:1.5;color:#4d624f;margin:0;padding-top:4px}
+@media(max-width:500px){.exercise-guide-overview{grid-template-columns:1fr;gap:14px}.exercise-guide-overview .exercise-library-media{height:190px}.exercise-guide-tabs{padding-inline:10px;gap:2px}.exercise-guide-tabs button{font-size:11px;padding-inline:5px}.exercise-guide-levels{gap:5px}.exercise-guide-levels button{font-size:12px;padding-inline:6px}}
 .exercise-page-numbers button { padding: 8px 12px; }
 .exercise-page-numbers button[aria-current="page"] { background: #ffdf36; border-color: #d4b92e; font-weight: 700; }
 @media (max-width: 480px) { .exercise-pagination { gap: 8px; font-size: 11px; } .exercise-page-numbers { width: 100%; justify-content: center; order: 2; } .exercise-pagination button { padding: 8px 11px; } }
