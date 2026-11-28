@@ -201,6 +201,18 @@
 .exercise-guide-scaling>div{display:grid;grid-template-columns:150px minmax(0,1fr);gap:18px;padding-top:16px;border-top:1px solid #dedfce}
 .exercise-guide-scaling dt{font-size:13px;font-weight:700;color:#334136}.exercise-guide-scaling dd{font-size:14px;line-height:1.75;color:#4d5a4d;margin:0}
 .exercise-guide-template{display:grid;gap:7px;margin:0 0 14px!important}.exercise-guide-template strong{font-size:18px;color:#29352b}.exercise-guide-template span{font-size:12px;color:#626b60}
+.exercise-weight-controls{display:flex;align-items:flex-end;flex-wrap:wrap;gap:12px;margin:16px 0 0}
+.exercise-weight-controls>label{display:grid;gap:8px;flex:1 1 180px;font-size:13px;font-weight:650;color:#334136}
+.exercise-weight-controls input{width:100%;min-width:0;min-height:46px;padding:10px 12px;border:1px solid #cbd1be;border-radius:10px;background:#fffef9;color:#29352b;font-size:16px;font-weight:500}
+.exercise-weight-controls input:focus-visible{outline:2px solid #315d9b;outline-offset:3px}
+.exercise-weight-controls>div{display:flex;gap:4px;padding:4px;border-radius:10px;background:#efeee4}
+.exercise-weight-controls button{min-width:44px;min-height:40px;padding:8px 13px;border:1px solid transparent;border-radius:8px;background:transparent;color:#334136;font-size:13px;font-weight:650}
+.exercise-weight-controls button[aria-pressed=true]{background:#ffe23b;border-color:#d0b249;color:#292d20}
+.exercise-weight-controls .exercise-use-weight{border-color:#cbd1be;background:#fffef9;min-height:46px}
+.exercise-weight-controls input[aria-invalid=true]{border-color:#a84d35}
+.exercise-estimates dl{grid-template-columns:repeat(2,minmax(0,1fr))}.exercise-estimates dd{overflow-wrap:anywhere}
+.exercise-guide-section.exercise-estimates{padding:0;margin:0;border:0;border-radius:0;background:transparent}
+@media(max-width:400px){.exercise-estimates dl{grid-template-columns:1fr;gap:16px}}
 .exercise-guide-levels{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
 .exercise-guide-levels button{flex:1;min-height:44px;border:1px solid #d4d9ce;border-radius:10px;padding:10px;color:#334136;background:#fff;font-size:13px;font-weight:650}
 .exercise-guide-levels button[aria-pressed=true]{background:#283d4e;color:#fff;border-color:#283d4e}

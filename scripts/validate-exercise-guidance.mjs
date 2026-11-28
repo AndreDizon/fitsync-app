@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import { build } from 'esbuild'
 
-const result = await build({ stdin: { contents: "export * from './frontend/lib/exercise-guidance'; export * from './frontend/lib/exercise-technique';", resolveDir: process.cwd(), loader: 'ts' }, bundle: true, write: false, platform: 'node', format: 'esm' })
+const result = await build({ stdin: { contents: "export * from './frontend/lib/exercise-guidance'; export * from './frontend/lib/exercise-technique'; export * from './frontend/lib/exercise-scenario';", resolveDir: process.cwd(), loader: 'ts' }, bundle: true, write: false, platform: 'node', format: 'esm' })
 const guide = await import('data:text/javascript;base64,' + Buffer.from(result.outputFiles[0].text).toString('base64'))
 const catalog = JSON.parse(await readFile('frontend/public/offline/exercises.json', 'utf8')).data
 assert.equal(guide.exerciseTechniqueIds.length, 100, 'Exactly 100 explicit technique mappings')
@@ -20,7 +20,22 @@ for (const exercise of catalog) {
     assert(guidance.target && guidance.rest && guidance.progression)
     if (exercise.category === 'cardio') assert.match(guidance.restDetail, /no prescribed between-set/)
     if (exercise.category === 'stretching') assert.equal(guidance.rest, 'Release between holds')
+    const scenario = guide.exerciseScenario(exercise, level, 80)
+    const heavier = guide.exerciseScenario(exercise, level, 160)
+    assert(scenario.sets >= 1 && scenario.sets <= 5)
+    assert(scenario.quantity[0] <= scenario.quantity[1])
+    assert(scenario.rest[0] <= scenario.rest[1])
+    for (const i of [0, 1]) {
+      assert.equal(scenario.durationMinutes[i], (scenario.activeSeconds[i] + scenario.restSeconds[i]) / 60)
+      assert(scenario.durationMinutes[i] > 0 && Number.isFinite(scenario.kcal[i]))
+      assert.equal(heavier.kcal[i], scenario.kcal[i] * 2, 'Body weight scales energy, not duration')
+      assert.equal(heavier.durationMinutes[i], scenario.durationMinutes[i])
+    }
+    for (const weight of [null, NaN, Infinity, 0, -10, 19, 351]) assert.equal(guide.exerciseScenario(exercise, level, weight).kcal, null)
   }
+  const examples = guide.guidanceLevels.map(level => guide.exerciseScenario(exercise, level, 80))
+  assert.equal(new Set(examples.map(e => e.prescription)).size, 3, `${exercise.id}: expertise must update targets`)
+  assert.equal(new Set(examples.map(e => e.durationMinutes.join(','))).size, 3, `${exercise.id}: expertise must update duration`)
   assert.equal(JSON.stringify(exercise), original, 'Viewing guidance must not change catalog prescriptions')
 }
 const rest = id => guide.exerciseGuidance(catalog.find(e => e.id === id)).rest
@@ -31,4 +46,9 @@ assert.match(guide.exerciseTechnique('dead-bug').label, /Anti-extension/)
 assert.match(guide.exerciseTechnique('band-horizontal-pallof-press').counting, /each direction/)
 assert.equal(guide.durationLabel(125), '2 min 5 sec')
 assert.equal(guide.durationLabel(0), '0 sec')
-console.log('PASS: 100 unique technique mappings, all expertise levels, appropriate movement-specific rest, core functions, counting notes and immutable catalog targets.')
+const pallof = guide.exerciseScenario(catalog.find(e => e.id === 'band-horizontal-pallof-press'), 'Intermediate', 80)
+assert.equal(pallof.activeSeconds[0], 3 * 8 * 2 * 2, 'Count repetitions on both sides')
+assert.equal(pallof.breakCount, 5, 'Three sets each direction have five recovery gaps')
+const deadbug = guide.exerciseScenario(catalog.find(e => e.id === 'dead-bug'), 'Intermediate', 80)
+assert.equal(deadbug.breakCount, 2, 'Alternating sides recover between full sets')
+console.log('PASS: 100 exercises, three dynamic expertise examples, exact work/rest arithmetic, both-side and alternating-side counting, invalid weights, proportional energy scaling and unchanged catalog targets.')
