@@ -1,28 +1,60 @@
 'use client'
 
 import { Check } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import { currentDay, currentWeek, weekDays } from '../../shared/daily-plans'
 import { shiftDate } from '../../shared/progress'
+import { validWorkoutDate, workoutDayIndex, workoutWeightOutlook } from '../../shared/workout-program'
+import type { OnboardingProfile } from '../../shared/onboarding'
 import '@/app/plan-week-calendar.css'
 
 type CalendarDay = { rest: boolean; total: number; done: number }
 
-export function PlanWeekCalendar({ week, day, days, timeZone, nutrition, onSelect }: {
+export function PlanWeekCalendar({ week, day, days, timeZone, nutrition, onSelect, onSelectDate, profile, getWeekDays }: {
   week: string
   day: number
   days: CalendarDay[]
   timeZone: string
   nutrition: boolean
   onSelect: (day: number) => void
+  onSelectDate: (date: string) => void
+  profile: OnboardingProfile | null
+  getWeekDays: (week: string) => CalendarDay[] | null
 }) {
-  const now = new Date()
-  const today = week === currentWeek(now, timeZone) ? currentDay(now, timeZone) : -1
+  const [view, setView] = useState<'week' | 'plan'>('week')
+  const startDate = profile?.workoutStartDate && validWorkoutDate(profile.workoutStartDate) ? profile.workoutStartDate : null
+  const endDate = profile ? workoutWeightOutlook(profile).date : null
+  const [anchor, setAnchor] = useState(() => (startDate || week).slice(0, 7))
+  const [visibleMonths, setVisibleMonths] = useState(1)
+  useEffect(() => { setAnchor((startDate || week).slice(0, 7)); setVisibleMonths(1) }, [startDate])
+  const localToday = () => { const now = new Date(); return shiftDate(currentWeek(now, timeZone), currentDay(now, timeZone)) }
+  const [todayDate, setTodayDate] = useState(localToday)
+  useEffect(() => {
+    const refresh = () => { const now = new Date(); setTodayDate(shiftDate(currentWeek(now, timeZone), currentDay(now, timeZone))) }
+    refresh()
+    const timer = setInterval(refresh, 60000)
+    return () => clearInterval(timer)
+  }, [timeZone])
+  const selectedDate = shiftDate(week, day)
+  const today = week === currentWeek(new Date(todayDate + 'T12:00:00Z'), 'UTC') ? workoutDayIndex(todayDate) : -1
   const dates = weekDays.map((_, index) => new Date(shiftDate(week, index) + 'T12:00:00Z'))
   const month = new Intl.DateTimeFormat('en', { month: 'short', timeZone: 'UTC' })
   const first = dates[0], last = dates[6]
   const range = `${month.format(first)} ${first.getUTCDate()} – ${month.format(last)} ${last.getUTCDate()}, ${last.getUTCFullYear()}`
   const selected = days[day]
   const status = (entry: CalendarDay) => entry.rest ? 'Rest day' : !entry.total ? 'Not planned' : `${entry.done}/${entry.total} done`
+  const jump = (date: string) => { setAnchor(date.slice(0, 7)); setVisibleMonths(1); onSelectDate(date) }
+  const monthAt = (offset: number) => { const date = new Date(anchor + '-01T12:00:00Z'); date.setUTCMonth(date.getUTCMonth() + offset); return date }
+  const monthCount = Math.min(visibleMonths, (2200 - Number(anchor.slice(0, 4))) * 12 + 12 - Number(anchor.slice(5, 7)) + 1)
+  const summaries = new Map<string, CalendarDay[] | null>()
+  const summaryFor = (date: string) => {
+    const key = currentWeek(new Date(date + 'T12:00:00Z'), 'UTC')
+    if (!summaries.has(key)) summaries.set(key, key === week ? days : getWeekDays(key))
+    const value = summaries.get(key)?.[workoutDayIndex(date)]
+    return value || { rest: !nutrition && !!profile && !profile.days.includes(weekDays[workoutDayIndex(date)].slice(0, 3)), total: 0, done: 0, unknown: true }
+  }
+  const markerLabels = (date: string) => [date === todayDate ? 'Today' : '', date === startDate ? 'Plan start' : '', date === endDate ? 'Estimated end' : ''].filter(Boolean)
+  const markers = (date: string) => <span className="pwc-markers">{markerLabels(date).map(label => <span key={label} data-marker={label}>{label}</span>)}</span>
 
   return <section className="plan-week-calendar" aria-label="Weekly plan calendar">
     <div className="pwc-sky" aria-hidden="true">
@@ -46,18 +78,38 @@ export function PlanWeekCalendar({ week, day, days, timeZone, nutrition, onSelec
         </g>
       </svg>
     </div>
-    <header className="pwc-heading"><div><h3>Your week</h3><p>{range}</p></div><button type="button" className="pwc-today" data-current={today === day} disabled={today < 0} aria-label={today === day ? 'Viewing today' : 'Go to today'} onClick={() => onSelect(today)}>{today === day ? 'Viewing today' : 'Go to today'}</button></header>
-    <nav className="pwc-days" aria-label="Choose plan day">
+    <header className="pwc-heading"><div><h3>{view === 'week' ? 'Your week' : 'My plan calendar'}</h3><p>{view === 'week' ? range : 'Browse every date. Select a day to open its to-do list.'}</p></div><label className="pwc-view-control"><span className="pwc-visually-hidden">Calendar view</span><select aria-label="Calendar view" value={view} onChange={event => { const next = event.target.value as 'week' | 'plan'; setView(next); setVisibleMonths(1); if (next === 'week') onSelectDate(localToday()); else setAnchor((startDate || selectedDate).slice(0, 7)) }}><option value="week">This week</option><option value="plan">My plan calendar</option></select></label></header>
+    {view === 'week' ? <nav className="pwc-days" aria-label="Choose plan day">
       {weekDays.map((name, index) => {
         const entry = days[index], complete = entry.total > 0 && entry.done === entry.total && !entry.rest
         return <button type="button" key={name} className="pwc-day" aria-pressed={day === index} aria-current={today === index ? 'date' : undefined} aria-label={`${name}, ${month.format(dates[index])} ${dates[index].getUTCDate()}${today === index ? ', today' : ''}, ${status(entry)}`} data-rest={entry.rest} data-complete={complete} onClick={() => onSelect(index)}>
           <span className="pwc-weekday"><span className="pwc-full-name">{name}</span><span className="pwc-short-name" aria-hidden="true">{name.slice(0, 3)}</span></span>
           <span className="pwc-date">{dates[index].getUTCDate()}{complete && <Check size={12} className="pwc-complete" aria-hidden="true" />}</span>
           <span className="pwc-day-status">{status(entry)}</span>
-          <span className="pwc-current-marker" aria-hidden="true">{today === index ? 'Today' : entry.rest ? 'Rest' : '\u00a0'}</span>
+          {markers(shiftDate(week, index))}
+          {entry.rest && !markerLabels(shiftDate(week, index)).length && <span className="pwc-current-marker">Rest</span>}
         </button>
       })}
-    </nav>
-    <footer className="pwc-summary" aria-live="polite"><strong>{weekDays[day]}{today === day ? ' · Today' : ''}</strong><span>{selected.rest ? 'Recovery day' : !selected.total ? `Add ${nutrition ? 'foods' : 'exercises'} to plan this day` : `${selected.done} of ${selected.total} ${nutrition ? 'food portions' : selected.total === 1 ? 'exercise' : 'exercises'} completed`}</span></footer>
+    </nav> : <div className="pwc-plan-view">
+      <div className="pwc-calendar-jumps" aria-label="Jump to calendar marker"><button type="button" onClick={() => jump(localToday())}>Today</button>{startDate && <button type="button" onClick={() => jump(startDate)}>Plan start</button>}{endDate && <button type="button" onClick={() => jump(endDate)}>Estimated end</button>}</div>
+      <label className="pwc-month-picker"><span>Browse month</span><input type="month" min="1900-01" max="2200-12" value={anchor} onChange={event => { if (validWorkoutDate(event.target.value + '-01')) { setAnchor(event.target.value); setVisibleMonths(1) } }} /></label>
+      <p className="pwc-calendar-note">{startDate ? 'Plan starts ' + new Intl.DateTimeFormat('en', { dateStyle: 'medium', timeZone: 'UTC' }).format(new Date(startDate + 'T12:00:00Z')) + '. ' : 'Set a workout start date in planning preferences to show the start marker. '}{endDate ? 'The end marker is your target-weight scenario, not a guaranteed completion date.' : 'No target-weight end date is available for this profile.'} Dates follow {timeZone}. Select an unloaded day to fetch its saved plan.</p>
+      <div className="pwc-months">{Array.from({ length: monthCount }, (_, index) => {
+        const first = monthAt(index), monthKey = first.toISOString().slice(0, 7), offset = (first.getUTCDay() + 6) % 7
+        const count = new Date(Date.UTC(first.getUTCFullYear(), first.getUTCMonth() + 1, 0)).getUTCDate()
+        return <section className="pwc-month" key={monthKey} aria-label={new Intl.DateTimeFormat('en', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(first)}>
+          <h4>{new Intl.DateTimeFormat('en', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(first)}</h4>
+          <div className="pwc-month-weekdays" aria-hidden="true">{weekDays.map(name => <span key={name}>{name.slice(0, 3)}</span>)}</div>
+          <div className="pwc-month-days">{Array.from({ length: offset }, (_, blank) => <span className="pwc-blank-date" key={'blank-' + blank} />)}{Array.from({ length: count }, (_, index) => {
+            const date = monthKey + '-' + String(index + 1).padStart(2, '0'), entry = summaryFor(date)
+            const description = entry.rest ? 'Rest day' : 'unknown' in entry ? 'Select to load' : status(entry)
+            return <button type="button" className="pwc-day" key={date} data-date={date} data-rest={entry.rest} aria-pressed={selectedDate === date} aria-current={todayDate === date ? 'date' : undefined} aria-label={[new Intl.DateTimeFormat('en', { dateStyle: 'full', timeZone: 'UTC' }).format(new Date(date + 'T12:00:00Z')), ...markerLabels(date), description].join(', ')} onClick={() => onSelectDate(date)}><span className="pwc-date">{index + 1}</span><span className="pwc-day-status">{description}</span>{markers(date)}</button>
+          })}</div>
+        </section>
+      })}</div>
+      {monthAt(monthCount - 1).toISOString().slice(0, 7) < '2200-12' && <button type="button" className="pwc-more-dates" onClick={() => setVisibleMonths(count => count + 1)}>Show more dates</button>}
+      <p className="pwc-range-announcement" role="status">Showing {monthCount} {monthCount === 1 ? 'month' : 'months'}. More dates are added below.</p>
+    </div>}
+    <footer className="pwc-summary" aria-live="polite"><strong>{view === 'plan' ? new Intl.DateTimeFormat('en', { dateStyle: 'full', timeZone: 'UTC' }).format(new Date(selectedDate + 'T12:00:00Z')) : weekDays[day]}{today === day ? ' · Today' : ''}</strong><span>{selected.rest ? 'Recovery day' : !selected.total ? `Add ${nutrition ? 'foods' : 'exercises'} to plan this day` : `${selected.done} of ${selected.total} ${nutrition ? 'food portions' : selected.total === 1 ? 'exercise' : 'exercises'} completed`}</span></footer>
   </section>
 }
