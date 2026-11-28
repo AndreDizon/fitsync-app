@@ -17,6 +17,17 @@ const withWarmup = structuredClone(saved.days[0].workout.items[0])
 withWarmup.preparation.warmupSeconds = 300
 assert.equal(engine.taskBlockMinutes(withWarmup), engine.taskBlockMinutes(saved.days[0].workout.items[0]), 'Optional warm-up must not move the exercise block')
 assert.equal(engine.taskMinutes(withWarmup), engine.taskMinutes(saved.days[0].workout.items[0]) + 5, 'Optional warm-up adds exactly five pre-start minutes')
+for (const [warmupSeconds, stretchingSeconds, leadMinutes] of [[0, 120, 2], [300, 0, 5], [300, 120, 7]]) {
+  const choice = structuredClone(saved)
+  const task = choice.days[0].workout.items[0]
+  task.preparation = { ...task.preparation, warmupSeconds, stretchingSeconds, stretchingStatus: undefined }
+  const parsed = engine.parsePlanWeek(JSON.parse(JSON.stringify(choice)))
+  assert(parsed)
+  assert.equal(parsed.days[0].workout.items[0].preparation.warmupSeconds, warmupSeconds)
+  assert.equal(parsed.days[0].workout.items[0].preparation.stretchingSeconds, stretchingSeconds, 'Zero stretching must remain zero in warm-up-only mode')
+  assert.equal(Math.round((engine.taskMinutes(task) - engine.taskBlockMinutes(task)) * 60), leadMinutes * 60)
+  assert.equal(task.time, '14:00', 'Preparation choice leaves the workout block start unchanged')
+}
 for (const patch of [{ stretchingSeconds: -1 }, { stretchingSeconds: 601 }, { stretchExerciseId: 'forged' }, { stretchingStatus: 'forged' }]) {
   const invalid = structuredClone(saved)
   Object.assign(invalid.days[0].workout.items[0].preparation, patch)
