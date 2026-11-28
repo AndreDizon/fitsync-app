@@ -73,7 +73,7 @@ export const offlinePlaylists = {
   async markError(sent: CachedPlaylist, message: string, conflict: boolean) {
     return transaction('readwrite', async store => {
       const current = await request<CachedPlaylist | undefined>(store.get(sent.key))
-      if (current) await request(store.put({ ...current, deleted: conflict ? false : current.deleted, playlist: { ...current.playlist, syncStatus: conflict ? 'conflict' : 'pending', syncError: message } }))
+      if (current && current.playlist.localVersion === sent.playlist.localVersion) await request(store.put({ ...current, deleted: conflict ? false : current.deleted, playlist: { ...current.playlist, syncStatus: conflict ? 'conflict' : 'pending', syncError: message } }))
     })
   },
   async merge(owner: string, kind: PlaylistKind, remote: Playlist[]) {

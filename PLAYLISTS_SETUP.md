@@ -18,3 +18,21 @@ Sync preserves newer in-flight device edits and reconciles a lost response witho
 Libraries remain public, seeded, informational and independent of onboarding. They do not have playlist-creation or add-to-plan actions; selection happens inside the playlist editor. Catalogs/media are cached separately by the service worker. Private playlists use IndexedDB, never the public service-worker cache. Full cold-start offline authentication/navigation is not provided by the library cache; open/sign in online first.
 
 Checks: node scripts/validate-playlists.mjs runs actual PostgreSQL migrations, validation, two-user RLS, revision protection and cascade tests. npm run typecheck covers both apps. Local checks do not install either migration on hosted Supabase.
+
+Additional sync regression checks: `node scripts/validate-playlist-sync.cjs`
+uses Chrome's actual IndexedDB and Web Locks in an isolated browser origin, with
+all HTTP mocked. Set `PLAYWRIGHT_MODULE` to a Playwright module path if the local
+browser-test installation is elsewhere. It checks incomplete save responses,
+sign-out/sign-in races, overlapping account syncs, failed older edits, malformed
+remote collections, genuine conflicts, pending-edit preservation and ordinary
+save/delete acknowledgements. No live account or database is used.
+
+Successful save responses must contain the expected playlist ID/kind, validated
+content, a positive revision and valid timestamps before acknowledging a device
+write. A missing or invalid result keeps the local copy pending instead of
+treating it as deleted. Remote lists are validated before merging, and account
+access/reset errors are surfaced instead of returning stale cached lists.
+Each sync belongs to a specific account session; sign-out invalidates its
+responses even when the same account signs in again. A failed request for an
+older local version cannot mark a newer edit as conflicted. Genuine conflicts
+for the current version still require explicit resolution.

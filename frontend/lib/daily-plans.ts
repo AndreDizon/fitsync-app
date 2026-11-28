@@ -43,20 +43,22 @@ async function request(owner: string, week: string, document?: PlanWeek) {
   const value = await accountRequest('/api/plans' + (document ? '' : '?week=' + week), { method: document ? 'PUT' : 'GET', cache: 'no-store', headers: document ? { 'Content-Type': 'application/json' } : undefined, body: document ? JSON.stringify(document) : undefined, signal: AbortSignal.timeout(15000) }, 'Plan refresh')
   if (value.userId !== owner) throw new Error('Account changed. Reload before syncing.')
   if (!Object.hasOwn(value, 'data') || document && !value.data) throw new Error('The account service did not confirm this plan. Your device copy is kept.')
-  if (value.data && !parsePlanWeek(value.data)) throw new Error('The account plan has invalid data. Your device copy is kept.')
-  return value.data as PlanWeek | null
+  const parsed = value.data ? parsePlanWeek(value.data) : null
+  if (value.data && (!parsed || parsed.week !== week)) throw new Error('The account plan has invalid data. Your device copy is kept.')
+  return parsed
 }
 const pending = new Map<string, Promise<StoredWeek>>()
 export async function syncWeek(owner: string, week: string): Promise<StoredWeek> {
   const id = key(owner, week)
-  if (pending.has(id)) return pending.get(id)!
+  const started = epoch, workId = id + ':' + started
+  if (pending.has(workId)) return pending.get(workId)!
   const run = async () => {
-    const started = epoch
     let local = cachedWeek(owner, week)
-    if (!navigator.onLine || owner === 'local-tester') return local
+    let sent = local
+    if (started !== epoch || !navigator.onLine || owner === 'local-tester') return local
     try {
       for (let pass = 0; pass < 20; pass++) {
-        const sent = cachedWeek(owner, week)
+        sent = cachedWeek(owner, week)
         if (sent.conflict) return sent
         const remote = await request(owner, week, sent.pending ? sent.document : undefined)
         if (started !== epoch) return cachedWeek(owner, week)
@@ -84,17 +86,20 @@ export async function syncWeek(owner: string, week: string): Promise<StoredWeek>
       return local
     } catch (error) {
       if (started !== epoch) return cachedWeek(owner, week)
-      local = cachedWeek(owner, week); local.error = (error as Error).message
+      local = cachedWeek(owner, week)
+      if (local.token !== sent.token) return local
       if ((error as { status?: number }).status === 409) {
         const remote = await request(owner, week).catch(() => null)
         if (started !== epoch) return cachedWeek(owner, week)
+        local = cachedWeek(owner, week)
+        if (local.token !== sent.token) return local
         if (remote && JSON.stringify({ ...remote, revision: 0 }) === JSON.stringify({ ...local.document, revision: 0 })) { local = { document: remote, pending: false, token: local.token || crypto.randomUUID() } }
-        else local.conflict = true
-      }
+        else { local.conflict = true; local.error = (error as Error).message }
+      } else local.error = (error as Error).message
       localStorage.setItem(id, JSON.stringify(local)); return local
     }
   }
-  const work = (navigator.locks ? navigator.locks.request('daily-plan-' + id, run) : run()).finally(() => {pending.delete(id);announcePlanChange(owner,week)}); pending.set(id, work); return work
+  const work = (navigator.locks ? navigator.locks.request('daily-plan-' + id, run) : run()).finally(() => {pending.delete(workId);if(started===epoch)announcePlanChange(owner,week)}); pending.set(workId, work); return work
 }
 export async function reloadWeek(owner: string, week: string) {
   const started = epoch
