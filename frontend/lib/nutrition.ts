@@ -9,7 +9,7 @@ export type Food = {
   defaultPortionId: string; portions: { id: string; label: string; grams: number; source: string }[];
   allergens: string[]; vegan: boolean; vegetarian: boolean; pescatarian: boolean; halal: string;
   prepMinutes: number; prepTimeSource: string; budget: string; benefits: { title: string; text: string; source: string | null }[];
-  preparation: string[]; measureNote: string; pairing: string[]; productNote?: string; crossContact: string; sampleDishes?: string[]; referenceNote?: string;
+  preparation: string[]; measureNote: string; pairing: string[]; productNote?: string; crossContact: string; sampleDishes?: string[]; referenceNote?: string; artwork?: string;
   nutrients: FoodNutrients; source: { provider: string; dataset: string; fdcId: number; description: string; publishedAt: string; reviewedAt: string; url: string };
 }
 export const foods = seed as Food[]

@@ -2,6 +2,8 @@ import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import { build } from 'esbuild'
 import { PGlite } from '@electric-sql/pglite'
+import { createHash } from 'node:crypto'
+import sharp from 'sharp'
 
 const foods = JSON.parse(await readFile('backend/data/foods.json', 'utf8'))
 const legacy = JSON.parse(await readFile('backend/data/foods-legacy.json', 'utf8'))
@@ -9,11 +11,18 @@ const md = await readFile('PHILIPPINE_FOOD_CANDIDATES.md', 'utf8')
 const headings = [...md.matchAll(/^## \d+\. (.+)$/gm)].map(match => match[1])
 assert.equal(foods.length, 100)
 assert.deepEqual(foods.map(f => f.name), headings, 'Approved names and Tagalog labels retained in order')
+const illustrationHashes = new Set()
 for (const food of foods) {
-  assert.equal(food.sampleDishes.length, 5, food.name)
-  assert.equal(new Set(food.sampleDishes).size, 5, food.name)
+  assert.equal(food.sampleDishes.length, 6, food.name)
+  assert.equal(new Set(food.sampleDishes).size, 6, food.name)
   assert(food.sampleDishes.every(d => typeof d === 'string' && d.trim().length > 3))
   assert(food.referenceNote && food.source.description)
+  assert(food.artwork?.length > 100, 'Individual artwork: ' + food.name)
+  assert(!/<script|foreignObject|\son\w+\s*=|href\s*=|url\s*\(/i.test(food.artwork), 'Artwork must contain only local SVG shapes')
+  const digest = createHash('sha256').update(food.artwork).digest('hex')
+  assert(!illustrationHashes.has(digest), 'Individual illustration, not a repeated group placeholder: ' + food.name)
+  illustrationHashes.add(digest)
+  await sharp(Buffer.from(`<svg xmlns="http://www.w3.org/2000/svg" width="240" height="165" viewBox="0 0 240 165">${food.artwork}</svg>`)).png().toBuffer()
   const old = legacy.find(f => f.id === food.id)
   if (old) {
     assert.equal(old.source.fdcId, food.source.fdcId, 'Do not reuse an old ID for another food state')
@@ -44,4 +53,4 @@ try {
   const ids = new Set((await db.query("select id from plan_catalog_refs where kind='nutrition'")).rows.map(r => r.id))
   for (const food of [...foods, ...legacy]) assert(ids.has(food.id), 'SQL allows new and existing entries: ' + food.id)
 } finally { await db.close() }
-console.log('PASS Philippine library: 100 approved names, 500 unique-per-food dish examples, exact source identities, stable historical IDs/nutrients/totals, dish search and idempotent SQL allowlist.')
+console.log('PASS Philippine library: 100 approved names and individual renderable illustrations, 600 dish examples, exact source identities, stable historical IDs/nutrients/totals, dish search and idempotent SQL allowlist.')

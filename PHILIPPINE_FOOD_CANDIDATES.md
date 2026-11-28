@@ -7,6 +7,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Lugaw
 - Tapsilog
 - Champorado
+- Goto
 
 ## 2. Brown rice
 
@@ -15,6 +16,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Steamed brown rice with inihaw na isda
 - Brown-rice chicken lugaw (variation)
 - Brown-rice vegetable fried rice (variation)
+- Brown-rice chicken fried rice (home-style variation)
 
 ## 3. Glutinous rice (Malagkit)
 
@@ -23,6 +25,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Ginataang bilo-bilo
 - Bibingkang malagkit
 - Puto maya
+- Kalamay na malagkit
 
 ## 4. Corn (Mais)
 
@@ -31,6 +34,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Nilagang mais
 - Maja blanca with corn
 - Mais con yelo
+- Binatog
 
 ## 5. Oats
 
@@ -39,6 +43,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Oatmeal with banana
 - Oatmeal cookies
 - Banana-oat pancakes (home-style variation)
+- Oatmeal champorado (home-style variation)
 
 ## 6. Rice noodles (Bihon)
 
@@ -47,6 +52,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Pancit sotanghon-bihon
 - Bihon soup
 - Bam-i with bihon
+- Pancit guisado with bihon and shrimp
 
 ## 7. Egg noodles (Miki)
 
@@ -55,6 +61,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Pancit lomi
 - Pancit batil patung
 - Miki-bihon guisado
+- Pancit habhab (use suitable miki noodles)
 
 ## 8. White bread
 
@@ -63,6 +70,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Chicken sandwich
 - Tuna sandwich
 - Egg sandwich
+- Pinoy-style clubhouse sandwich
 
 ## 9. Potato (Patatas)
 
@@ -71,6 +79,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Tortang patatas
 - Beef caldereta with potatoes
 - Chicken curry with potatoes
+- Filipino chicken potato salad
 
 ## 10. Sweet potato (Kamote)
 
@@ -79,6 +88,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Nilagang kamote
 - Kamote fries
 - Nilupak na kamote
+- Ginataang kamote
 
 ## 11. Cassava (Kamoteng kahoy)
 
@@ -87,6 +97,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Suman na kamoteng kahoy
 - Nilupak na kamoteng kahoy
 - Ginataang kamoteng kahoy
+- Cassava bibingka
 
 ## 12. Taro (Gabi)
 
@@ -95,6 +106,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Ginataang gabi
 - Ginataang bilo-bilo with gabi
 - Sinigang na hipon with gabi
+- Taro dessert in coconut milk
 
 ## 13. Yam
 
@@ -103,6 +115,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Ube halaya (use purple yam / ube)
 - Ube ice cream (use purple yam / ube)
 - Ube suman (use purple yam / ube)
+- Nilupak na ube (use purple yam / ube)
 
 ## 14. Breadfruit (Rimas)
 
@@ -111,6 +124,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Rimas cue
 - Nilagang rimas
 - Minatamis na rimas
+- Rimas fritters (home-style variation)
 
 ## 15. Eggplant (Talong)
 
@@ -119,6 +133,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Binagoongang talong
 - Ginataang talong
 - Pinakbet with talong
+- Poqui-poqui
 
 ## 16. Bitter melon (Ampalaya)
 
@@ -127,6 +142,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Ampalaya con carne
 - Ensaladang ampalaya
 - Ginisang munggo with ampalaya
+- Ampalaya with sardines
 
 ## 17. Okra
 
@@ -135,6 +151,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Nilagang okra with bagoong
 - Sinigang na baboy with okra
 - Ensaladang okra
+- Steamed okra and salted-egg salad
 
 ## 18. Yardlong beans (Sitaw)
 
@@ -143,6 +160,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Kare-kare with sitaw
 - Ginisang sitaw with pork
 - Dinengdeng with sitaw
+- Ginisang sitaw with sardines
 
 ## 19. Green beans (Baguio beans)
 
@@ -151,6 +169,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Lumpiang sariwa with Baguio beans
 - Beef stir-fry with Baguio beans
 - Ginisang Baguio beans with shrimp
+- Baguio-bean adobo (home-style variation)
 
 ## 20. Green peas (Gisantes)
 
@@ -159,6 +178,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Arroz a la Valenciana with gisantes
 - Chicken afritada with gisantes
 - Pork menudo with gisantes
+- Pork igado with gisantes
 
 ## 21. Winged beans (Sigarilyas)
 
@@ -167,6 +187,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Ensaladang sigarilyas
 - Ginisang sigarilyas with pork
 - Dinengdeng with sigarilyas
+- Sigarilyas with bagoong and tomatoes
 
 ## 22. Water spinach (Kangkong)
 
@@ -175,6 +196,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Crispy kangkong
 - Kangkong with oyster sauce
 - Ginisang munggo with kangkong
+- Kare-kare with kangkong
 
 ## 23. Moringa leaves (Malunggay)
 
@@ -183,6 +205,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Ginataang malunggay
 - Laswa with malunggay
 - Bulanglang with malunggay
+- Malunggay omelet
 
 ## 24. Jute leaves (Saluyot)
 
@@ -191,6 +214,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Laswa with saluyot
 - Ginisang saluyot (home-style variation)
 - Saluyot with bamboo shoots (regional variation)
+- Saluyot and munggo soup (home-style variation)
 
 ## 25. Squash (Kalabasa)
 
@@ -199,6 +223,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Pinakbet with kalabasa
 - Bulanglang with kalabasa
 - Laswa with kalabasa
+- Okoy with kalabasa and shrimp
 
 ## 26. Chayote (Sayote)
 
@@ -207,6 +232,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Chop suey with sayote
 - Ginisang sayote with egg
 - Ginisang sayote with sardines
+- Sayote with misua
 
 ## 27. Bottle gourd (Upo)
 
@@ -215,6 +241,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Ginisang upo with sardines
 - Ginisang upo with shrimp
 - Bulanglang with upo
+- Upo with sotanghon
 
 ## 28. Sponge gourd (Patola)
 
@@ -223,6 +250,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Dinengdeng with patola
 - Patola with sardines
 - Laswa with patola
+- Patola with ground pork and misua
 
 ## 29. Bok choy (Pechay)
 
@@ -231,6 +259,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Ginisang pechay with tofu
 - Kare-kare with pechay
 - Pochero with pechay
+- Ginisang pechay with sardines
 
 ## 30. Cabbage (Repolyo)
 
@@ -239,6 +268,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Pancit bihon with repolyo
 - Chicken sopas with repolyo
 - Pork pochero with repolyo
+- Repolyo with corned beef
 
 ## 31. Carrot
 
@@ -247,6 +277,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Chop suey with carrots
 - Pork menudo with carrots
 - Filipino-style carrot cake
+- Atsarang carrots (home-style variation)
 
 ## 32. Radish (Labanos)
 
@@ -255,6 +286,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Atsarang labanos
 - Bulanglang with labanos
 - Sinigang na hipon with labanos
+- Paksiw na isda with labanos
 
 ## 33. Cucumber (Pipino)
 
@@ -263,6 +295,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Atsarang pipino
 - Cucumber, tomato and salted-egg salad
 - Filipino chicken sandwich with cucumber
+- Pipino with bagoong
 
 ## 34. Tomato (Kamatis)
 
@@ -271,6 +304,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Sinigang na isda sa kamatis
 - Tomato and salted-egg salad
 - Ginisang sardinas with tomatoes
+- Sarsiadong isda with kamatis
 
 ## 35. Lettuce (Letsugas)
 
@@ -279,6 +313,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Chicken sandwich with lettuce
 - Tuna sandwich with lettuce
 - Filipino-style chicken salad with lettuce
+- Egg sandwich with lettuce
 
 ## 36. Cauliflower
 
@@ -287,6 +322,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Ginataang mixed vegetables with cauliflower
 - Pancit canton with cauliflower
 - Buttered mixed vegetables with cauliflower
+- Filipino-style vegetable omelet with cauliflower
 
 ## 37. Broccoli
 
@@ -295,6 +331,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Ginisang broccoli with chicken
 - Chicken with broccoli
 - Buttered mixed vegetables with broccoli
+- Pancit canton with broccoli
 
 ## 38. Bamboo shoots (Labong)
 
@@ -303,6 +340,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Dinengdeng with labong
 - Lumpiang labong
 - Laswa with labong
+- Labong with saluyot and fish
 
 ## 39. Sweet potato leaves (Talbos ng kamote)
 
@@ -311,6 +349,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Sinigang na isda with talbos ng kamote
 - Ginisang talbos ng kamote
 - Steamed talbos ng kamote with bagoong
+- Talbos ng kamote with salted egg
 
 ## 40. Taro leaves (Dahon ng gabi)
 
@@ -319,6 +358,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Ginataang dahon ng gabi
 - Linapay (regional gabi-leaf dish)
 - Tinumok (gabi-leaf parcels)
+- Laing with shrimp
 
 ## 41. Jicama (Singkamas)
 
@@ -327,6 +367,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Ensaladang singkamas
 - Singkamas with bagoong
 - Lumpiang ubod with singkamas
+- Singkamas and green mango salad
 
 ## 42. Banana (Saging)
 
@@ -335,6 +376,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Maruya (use saba)
 - Minatamis na saging (use saba)
 - Saging con hielo (use saba)
+- Halo-halo with minatamis na saba
 
 ## 43. Mango (Mangga)
 
@@ -343,6 +385,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Hilaw na mangga with bagoong
 - Mango sago
 - Mango ice candy
+- Mango graham icebox cake
 
 ## 44. Papaya
 
@@ -351,6 +394,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Ripe papaya served as dessert
 - Papaya fruit salad
 - Minatamis na papaya
+- Green-papaya ukoy (home-style variation)
 
 ## 45. Pineapple (Pinya)
 
@@ -359,6 +403,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Pineapple upside-down cake
 - Pork hamonado
 - Filipino fruit salad with pineapple
+- Sweet-and-sour pork with pineapple
 
 ## 46. Coconut meat (Niyog)
 
@@ -367,6 +412,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Bukayo (use mature coconut)
 - Ginataang bilo-bilo with niyog
 - Palitaw with grated niyog
+- Buko pandan salad (use young coconut)
 
 ## 47. Watermelon (Pakwan)
 
@@ -375,6 +421,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Watermelon ice candy
 - Mixed-fruit dessert bowl with pakwan
 - Chilled pakwan with condensed milk (home-style variation)
+- Watermelon gulaman dessert (home-style variation)
 
 ## 48. Cantaloupe (Melon)
 
@@ -383,6 +430,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Melon ice candy
 - Mixed-fruit dessert bowl with melon
 - Melon gulaman dessert
+- Melon and nata de coco dessert
 
 ## 49. Guava (Bayabas)
 
@@ -391,6 +439,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Fresh guava dessert platter
 - Minatamis na bayabas
 - Guava jelly with pandesal
+- Guava-filled pastry (home-style variation)
 
 ## 50. Jackfruit (Langka)
 
@@ -399,6 +448,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Minatamis na langka
 - Ginataang bilo-bilo with langka
 - Langka ice cream
+- Langka pastillas (home-style variation)
 
 ## 51. Soursop (Guyabano)
 
@@ -407,6 +457,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Fresh guyabano served as dessert
 - Guyabano gelatin (home-style variation)
 - Chilled guyabano with milk (home-style variation)
+- Guyabano and nata de coco dessert (home-style variation)
 
 ## 52. Sugar apple (Atis)
 
@@ -415,6 +466,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Chilled atis pulp with milk (home-style variation)
 - Atis dessert bowl with cream (home-style variation)
 - Atis gelatin (home-style variation)
+- Atis ice candy (home-style variation)
 
 ## 53. Sapodilla (Chico)
 
@@ -423,6 +475,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Chilled chico with milk (home-style variation)
 - Chico ice cream (home-style variation)
 - Chico fruit-salad cup (home-style variation)
+- Chico graham dessert (home-style variation)
 
 ## 54. Star fruit (Balimbing)
 
@@ -431,6 +484,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Ensaladang balimbing
 - Minatamis na balimbing (home-style variation)
 - Balimbing fruit-salad cup (home-style variation)
+- Balimbing and green-mango salad
 
 ## 55. Pomelo (Suha)
 
@@ -439,6 +493,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Fresh pomelo dessert platter
 - Pomelo, cucumber and tomato salad
 - Pomelo and salted-egg salad (home-style variation)
+- Pomelo and chicken salad (home-style variation)
 
 ## 56. Mandarin orange (Dalanghita)
 
@@ -447,6 +502,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Crema de fruta with dalanghita (variation)
 - Dalanghita gulaman (home-style variation)
 - Chilled dalanghita and cream dessert (home-style variation)
+- Dalanghita sago dessert (home-style variation)
 
 ## 57. Orange (Kahel)
 
@@ -455,6 +511,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Fresh orange dessert platter
 - Orange gulaman dessert
 - Orange and mango fruit salad
+- Orange and nata de coco dessert (home-style variation)
 
 ## 58. Apple (Mansanas)
 
@@ -463,6 +520,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Apple and chicken salad
 - Filipino-style apple pie
 - Apple and raisin macaroni salad
+- Filipino chicken salad with apple and pineapple
 
 ## 59. Avocado (Abokado)
 
@@ -471,6 +529,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Avocado ice cream
 - Avocado and sago dessert
 - Avocado graham dessert (home-style variation)
+- Avocado icebox cake (home-style variation)
 
 ## 60. Grapes (Ubas)
 
@@ -479,6 +538,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Fresh grape dessert platter
 - Grape and apple fruit salad
 - Grapes in a chilled cream dessert (home-style variation)
+- Grape and nata de coco dessert (home-style variation)
 
 ## 61. Lychee (Litsiyas)
 
@@ -487,6 +547,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Lychee sago dessert
 - Lychee gelatin dessert
 - Lychee and nata de coco dessert
+- Lychee and fruit-cocktail salad
 
 ## 62. Chicken (Manok)
 
@@ -495,6 +556,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Chicken inasal
 - Chicken afritada
 - Chicken pastel
+- Chicken binakol
 
 ## 63. Duck (Itik)
 
@@ -503,6 +565,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Kalderetang itik
 - Itik tim
 - Paksiw na itik
+- Pato estofado
 
 ## 64. Quail (Pugo)
 
@@ -511,6 +574,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Inihaw na pugo
 - Pugo afritada (home-style variation)
 - Pugo caldereta (home-style variation)
+- Pugo with mushrooms (home-style variation)
 
 ## 65. Pork (Baboy)
 
@@ -519,6 +583,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Lechon kawali
 - Pork adobo
 - Bicol Express
+- Pork binagoongan
 
 ## 66. Beef (Baka)
 
@@ -527,6 +592,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Beef caldereta
 - Beef pares
 - Kare-kare
+- Beef mechado
 
 ## 67. Goat meat (Kambing)
 
@@ -535,6 +601,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Kilawing kambing (cooked goat meat)
 - Sinampalukang kambing
 - Papaitang kambing (use appropriate meat and offal)
+- Kambing curry (home-style variation)
 
 ## 68. Chicken liver (Atay ng manok)
 
@@ -543,6 +610,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Chicken menudo with chicken liver
 - Chicken-liver bistek
 - Chicken-liver sisig
+- Chicken-liver afritada
 
 ## 69. Pork liver (Atay ng baboy)
 
@@ -551,6 +619,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Adobong atay ng baboy
 - Pork-liver bistek
 - Pork-liver sisig
+- Pork-liver adobo with potatoes
 
 ## 70. Beef liver (Atay ng baka)
 
@@ -559,6 +628,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Adobong atay ng baka
 - Igado with beef liver (variation)
 - Beef-liver caldereta (variation)
+- Beef liver with onions and tomatoes
 
 ## 71. Chicken egg (Itlog ng manok)
 
@@ -567,6 +637,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Chicken-egg tokneneng
 - Tortang giniling
 - Tortang patatas
+- Arroz a la Cubana with fried chicken egg
 
 ## 72. Duck egg (Itlog ng pato)
 
@@ -575,6 +646,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Bibingka with salted duck egg
 - Salted-egg and tomato salad
 - Duck-egg omelet
+- Duck-egg tortang talong
 
 ## 73. Tofu (Tokwa)
 
@@ -583,6 +655,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Adobong tokwa
 - Ginisang tokwa with pechay
 - Tofu sisig
+- Tokwa with kangkong in oyster sauce
 
 ## 74. Mung beans (Munggo)
 
@@ -591,6 +664,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Hopia munggo
 - Munggo with chicharon
 - Buchi with mung-bean filling
+- Munggo ice candy
 
 ## 75. Red kidney beans
 
@@ -599,6 +673,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Pork-and-beans with red kidney beans (variation)
 - Red-bean hopia
 - Red-bean ice candy
+- Red-bean-filled bread (home-style variation)
 
 ## 76. Lima beans (Patani)
 
@@ -607,6 +682,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Dinengdeng with patani
 - Laswa with patani
 - Bulanglang with patani
+- Patani with pork and tomatoes
 
 ## 77. Soybeans (Utaw)
 
@@ -615,6 +691,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Tokwa (soybeans processed into tofu)
 - Soy hotcakes (soybean-flour variation)
 - Soy nuggets (soybean-pulp variation)
+- Soybean-pulp veggie patties (home-style variation)
 
 ## 78. Peanuts (Mani)
 
@@ -623,6 +700,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Peanut brittle
 - Peanut polvoron
 - Peanut butter pandesal
+- Peanut-filled buchi
 
 ## 79. Cashew nuts (Kasoy)
 
@@ -631,6 +709,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Roasted kasoy
 - Turrones de casoy
 - Cashew brittle
+- Cashew cookies
 
 ## 80. Milkfish (Bangus)
 
@@ -639,6 +718,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Sinigang na bangus
 - Bangus sisig
 - Paksiw na bangus
+- Bangus sa tausi
 
 ## 81. Tilapia
 
@@ -647,6 +727,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Pinaputok na tilapia
 - Paksiw na tilapia
 - Sweet-and-sour tilapia
+- Tilapia escabeche
 
 ## 82. Catfish (Hito)
 
@@ -655,6 +736,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Ginataang hito
 - Pritong hito
 - Hito in yellow-bean sauce (home-style variation)
+- Hito with coconut milk and pechay
 
 ## 83. Grouper (Lapu-lapu)
 
@@ -663,6 +745,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Steamed lapu-lapu
 - Lapu-lapu in sweet-and-sour sauce
 - Lapu-lapu sa tausi
+- Lapu-lapu fish soup with ginger
 
 ## 84. Snapper (Maya-maya)
 
@@ -671,6 +754,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Pesang maya-maya
 - Inihaw na maya-maya
 - Pinangat na maya-maya
+- Maya-maya sa tausi
 
 ## 85. Pompano
 
@@ -679,6 +763,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Pompano sa tausi
 - Ginataang pompano
 - Steamed pompano with ginger
+- Pompano escabeche
 
 ## 86. Mullet (Banak)
 
@@ -687,6 +772,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Sinigang na banak
 - Pritong banak
 - Ginataang banak
+- Banak escabeche
 
 ## 87. Carp (Karpa)
 
@@ -695,6 +781,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Pritong karpa
 - Sinigang na karpa
 - Escabecheng karpa
+- Karpa with ginger and tomatoes
 
 ## 88. Eel (Palos)
 
@@ -703,6 +790,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Inihaw na palos
 - Pritong palos
 - Paksiw na palos
+- Palos with ginger and tomatoes (home-style variation)
 
 ## 89. Tuna (Tambakol)
 
@@ -711,6 +799,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Tuna sisig
 - Tuna kinilaw
 - Tuna escabeche
+- Tuna omelet
 
 ## 90. Sardines (Sardinas)
 
@@ -719,6 +808,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Tortang sardinas
 - Sardinas with sotanghon
 - Sardine fish balls (home-style variation)
+- Pandesal with sardine spread
 
 ## 91. Mackerel (Alumahan)
 
@@ -727,6 +817,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Pritong alumahan
 - Ginataang alumahan
 - Escabecheng alumahan
+- Alumahan with tomatoes and ginger
 
 ## 92. Anchovies (Dilis)
 
@@ -735,6 +826,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Sinangag with dilis
 - Ukoy na dilis
 - Tortang dilis
+- Dilis with tomatoes and scrambled egg
 
 ## 93. Shrimp (Hipon)
 
@@ -743,6 +835,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Ukoy na hipon
 - Halabos na hipon
 - Garlic-butter shrimp
+- Camaron rebosado
 
 ## 94. Crab (Alimango)
 
@@ -751,6 +844,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Chili-garlic alimango
 - Adobong alimango
 - Rellenong alimango
+- Alimango with coconut milk and sitaw
 
 ## 95. Squid (Pusit)
 
@@ -759,6 +853,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Rellenong pusit
 - Crispy calamares
 - Ginataang pusit
+- Pancit with pusit
 
 ## 96. Octopus (Pugita)
 
@@ -767,6 +862,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Inihaw na pugita
 - Pugita sisig (home-style variation)
 - Kilawing pugita (use cooked octopus)
+- Pugita with garlic and tomatoes (home-style variation)
 
 ## 97. Clams (Halaan)
 
@@ -775,6 +871,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Ginisang halaan with garlic
 - Sinigang na halaan
 - Halaan with corn and malunggay
+- Halaan with misua
 
 ## 98. Mussels (Tahong)
 
@@ -783,6 +880,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Ginisang tahong
 - Adobong tahong
 - Tahong sisig
+- Tahong with misua
 
 ## 99. Oysters (Talaba)
 
@@ -791,6 +889,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Talaba fritters
 - Talaba omelet
 - Garlic-butter talaba
+- Talaba with ginger and spring onions
 
 ## 100. Scallops
 
@@ -799,6 +898,7 @@ Filipino favorites, regional dishes and familiar home-style variations. Fruit ex
 - Inihaw na scallops
 - Scallop sisig (home-style variation)
 - Adobong scallops (home-style variation)
+- Scallops with coconut milk (home-style variation)
 
 ### Recipe and menu references
 

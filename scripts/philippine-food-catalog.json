@@ -28,7 +28,8 @@
       "Arroz caldo",
       "Lugaw",
       "Tapsilog",
-      "Champorado"
+      "Champorado",
+      "Goto"
     ]
   },
   {
@@ -60,7 +61,8 @@
       "Brown-rice arroz caldo (variation)",
       "Steamed brown rice with inihaw na isda",
       "Brown-rice chicken lugaw (variation)",
-      "Brown-rice vegetable fried rice (variation)"
+      "Brown-rice vegetable fried rice (variation)",
+      "Brown-rice chicken fried rice (home-style variation)"
     ]
   },
   {
@@ -91,7 +93,8 @@
       "Suman sa malagkit",
       "Ginataang bilo-bilo",
       "Bibingkang malagkit",
-      "Puto maya"
+      "Puto maya",
+      "Kalamay na malagkit"
     ]
   },
   {
@@ -122,7 +125,8 @@
       "Suam na mais",
       "Nilagang mais",
       "Maja blanca with corn",
-      "Mais con yelo"
+      "Mais con yelo",
+      "Binatog"
     ]
   },
   {
@@ -154,7 +158,8 @@
       "Arroz caldo with oats (variation)",
       "Oatmeal with banana",
       "Oatmeal cookies",
-      "Banana-oat pancakes (home-style variation)"
+      "Banana-oat pancakes (home-style variation)",
+      "Oatmeal champorado (home-style variation)"
     ]
   },
   {
@@ -185,7 +190,8 @@
       "Pancit palabok with bihon",
       "Pancit sotanghon-bihon",
       "Bihon soup",
-      "Bam-i with bihon"
+      "Bam-i with bihon",
+      "Pancit guisado with bihon and shrimp"
     ]
   },
   {
@@ -219,7 +225,8 @@
       "Miki soup",
       "Pancit lomi",
       "Pancit batil patung",
-      "Miki-bihon guisado"
+      "Miki-bihon guisado",
+      "Pancit habhab (use suitable miki noodles)"
     ]
   },
   {
@@ -252,7 +259,8 @@
       "Bread pudding",
       "Chicken sandwich",
       "Tuna sandwich",
-      "Egg sandwich"
+      "Egg sandwich",
+      "Pinoy-style clubhouse sandwich"
     ]
   },
   {
@@ -283,7 +291,8 @@
       "Pork menudo with potatoes",
       "Tortang patatas",
       "Beef caldereta with potatoes",
-      "Chicken curry with potatoes"
+      "Chicken curry with potatoes",
+      "Filipino chicken potato salad"
     ]
   },
   {
@@ -316,7 +325,8 @@
       "Ginataang bilo-bilo with kamote",
       "Nilagang kamote",
       "Kamote fries",
-      "Nilupak na kamote"
+      "Nilupak na kamote",
+      "Ginataang kamote"
     ]
   },
   {
@@ -347,7 +357,8 @@
       "Pichi-pichi",
       "Suman na kamoteng kahoy",
       "Nilupak na kamoteng kahoy",
-      "Ginataang kamoteng kahoy"
+      "Ginataang kamoteng kahoy",
+      "Cassava bibingka"
     ]
   },
   {
@@ -378,7 +389,8 @@
       "Nilagang gabi",
       "Ginataang gabi",
       "Ginataang bilo-bilo with gabi",
-      "Sinigang na hipon with gabi"
+      "Sinigang na hipon with gabi",
+      "Taro dessert in coconut milk"
     ]
   },
   {
@@ -408,7 +420,8 @@
       "Ginataang yam",
       "Ube halaya (use purple yam / ube)",
       "Ube ice cream (use purple yam / ube)",
-      "Ube suman (use purple yam / ube)"
+      "Ube suman (use purple yam / ube)",
+      "Nilupak na ube (use purple yam / ube)"
     ]
   },
   {
@@ -439,7 +452,8 @@
       "Pritong rimas",
       "Rimas cue",
       "Nilagang rimas",
-      "Minatamis na rimas"
+      "Minatamis na rimas",
+      "Rimas fritters (home-style variation)"
     ]
   },
   {
@@ -470,7 +484,8 @@
       "Ensaladang talong",
       "Binagoongang talong",
       "Ginataang talong",
-      "Pinakbet with talong"
+      "Pinakbet with talong",
+      "Poqui-poqui"
     ]
   },
   {
@@ -501,7 +516,8 @@
       "Pinakbet with ampalaya",
       "Ampalaya con carne",
       "Ensaladang ampalaya",
-      "Ginisang munggo with ampalaya"
+      "Ginisang munggo with ampalaya",
+      "Ampalaya with sardines"
     ]
   },
   {
@@ -531,7 +547,8 @@
       "Dinengdeng with okra",
       "Nilagang okra with bagoong",
       "Sinigang na baboy with okra",
-      "Ensaladang okra"
+      "Ensaladang okra",
+      "Steamed okra and salted-egg salad"
     ]
   },
   {
@@ -562,7 +579,8 @@
       "Ginataang sitaw at kalabasa",
       "Kare-kare with sitaw",
       "Ginisang sitaw with pork",
-      "Dinengdeng with sitaw"
+      "Dinengdeng with sitaw",
+      "Ginisang sitaw with sardines"
     ]
   },
   {
@@ -596,7 +614,8 @@
       "Chop suey with Baguio beans",
       "Lumpiang sariwa with Baguio beans",
       "Beef stir-fry with Baguio beans",
-      "Ginisang Baguio beans with shrimp"
+      "Ginisang Baguio beans with shrimp",
+      "Baguio-bean adobo (home-style variation)"
     ]
   },
   {
@@ -627,7 +646,8 @@
       "Chicken pastel with gisantes",
       "Arroz a la Valenciana with gisantes",
       "Chicken afritada with gisantes",
-      "Pork menudo with gisantes"
+      "Pork menudo with gisantes",
+      "Pork igado with gisantes"
     ]
   },
   {
@@ -658,7 +678,8 @@
       "Ginataang sigarilyas",
       "Ensaladang sigarilyas",
       "Ginisang sigarilyas with pork",
-      "Dinengdeng with sigarilyas"
+      "Dinengdeng with sigarilyas",
+      "Sigarilyas with bagoong and tomatoes"
     ]
   },
   {
@@ -689,7 +710,8 @@
       "Sinigang na baboy with kangkong",
       "Crispy kangkong",
       "Kangkong with oyster sauce",
-      "Ginisang munggo with kangkong"
+      "Ginisang munggo with kangkong",
+      "Kare-kare with kangkong"
     ]
   },
   {
@@ -720,7 +742,8 @@
       "Ginisang munggo with malunggay",
       "Ginataang malunggay",
       "Laswa with malunggay",
-      "Bulanglang with malunggay"
+      "Bulanglang with malunggay",
+      "Malunggay omelet"
     ]
   },
   {
@@ -751,7 +774,8 @@
       "Bulanglang with saluyot",
       "Laswa with saluyot",
       "Ginisang saluyot (home-style variation)",
-      "Saluyot with bamboo shoots (regional variation)"
+      "Saluyot with bamboo shoots (regional variation)",
+      "Saluyot and munggo soup (home-style variation)"
     ]
   },
   {
@@ -782,7 +806,8 @@
       "Ukoy na kalabasa",
       "Pinakbet with kalabasa",
       "Bulanglang with kalabasa",
-      "Laswa with kalabasa"
+      "Laswa with kalabasa",
+      "Okoy with kalabasa and shrimp"
     ]
   },
   {
@@ -813,7 +838,8 @@
       "Tinolang manok with sayote",
       "Chop suey with sayote",
       "Ginisang sayote with egg",
-      "Ginisang sayote with sardines"
+      "Ginisang sayote with sardines",
+      "Sayote with misua"
     ]
   },
   {
@@ -844,7 +870,8 @@
       "Upo with misua",
       "Ginisang upo with sardines",
       "Ginisang upo with shrimp",
-      "Bulanglang with upo"
+      "Bulanglang with upo",
+      "Upo with sotanghon"
     ]
   },
   {
@@ -875,7 +902,8 @@
       "Ginisang patola with shrimp",
       "Dinengdeng with patola",
       "Patola with sardines",
-      "Laswa with patola"
+      "Laswa with patola",
+      "Patola with ground pork and misua"
     ]
   },
   {
@@ -906,7 +934,8 @@
       "Nilagang baka with pechay",
       "Ginisang pechay with tofu",
       "Kare-kare with pechay",
-      "Pochero with pechay"
+      "Pochero with pechay",
+      "Ginisang pechay with sardines"
     ]
   },
   {
@@ -937,7 +966,8 @@
       "Nilagang baboy with repolyo",
       "Pancit bihon with repolyo",
       "Chicken sopas with repolyo",
-      "Pork pochero with repolyo"
+      "Pork pochero with repolyo",
+      "Repolyo with corned beef"
     ]
   },
   {
@@ -967,7 +997,8 @@
       "Chicken afritada with carrots",
       "Chop suey with carrots",
       "Pork menudo with carrots",
-      "Filipino-style carrot cake"
+      "Filipino-style carrot cake",
+      "Atsarang carrots (home-style variation)"
     ]
   },
   {
@@ -998,7 +1029,8 @@
       "Ensaladang labanos",
       "Atsarang labanos",
       "Bulanglang with labanos",
-      "Sinigang na hipon with labanos"
+      "Sinigang na hipon with labanos",
+      "Paksiw na isda with labanos"
     ]
   },
   {
@@ -1029,7 +1061,8 @@
       "Pipino at kamatis salad",
       "Atsarang pipino",
       "Cucumber, tomato and salted-egg salad",
-      "Filipino chicken sandwich with cucumber"
+      "Filipino chicken sandwich with cucumber",
+      "Pipino with bagoong"
     ]
   },
   {
@@ -1060,7 +1093,8 @@
       "Ensaladang kamatis",
       "Sinigang na isda sa kamatis",
       "Tomato and salted-egg salad",
-      "Ginisang sardinas with tomatoes"
+      "Ginisang sardinas with tomatoes",
+      "Sarsiadong isda with kamatis"
     ]
   },
   {
@@ -1091,7 +1125,8 @@
       "Lettuce, cucumber and tomato salad",
       "Chicken sandwich with lettuce",
       "Tuna sandwich with lettuce",
-      "Filipino-style chicken salad with lettuce"
+      "Filipino-style chicken salad with lettuce",
+      "Egg sandwich with lettuce"
     ]
   },
   {
@@ -1121,7 +1156,8 @@
       "Ginisang cauliflower with shrimp",
       "Ginataang mixed vegetables with cauliflower",
       "Pancit canton with cauliflower",
-      "Buttered mixed vegetables with cauliflower"
+      "Buttered mixed vegetables with cauliflower",
+      "Filipino-style vegetable omelet with cauliflower"
     ]
   },
   {
@@ -1153,7 +1189,8 @@
       "Chop suey with broccoli",
       "Ginisang broccoli with chicken",
       "Chicken with broccoli",
-      "Buttered mixed vegetables with broccoli"
+      "Buttered mixed vegetables with broccoli",
+      "Pancit canton with broccoli"
     ]
   },
   {
@@ -1184,7 +1221,8 @@
       "Adobong labong",
       "Dinengdeng with labong",
       "Lumpiang labong",
-      "Laswa with labong"
+      "Laswa with labong",
+      "Labong with saluyot and fish"
     ]
   },
   {
@@ -1215,7 +1253,8 @@
       "Dinengdeng with talbos ng kamote",
       "Sinigang na isda with talbos ng kamote",
       "Ginisang talbos ng kamote",
-      "Steamed talbos ng kamote with bagoong"
+      "Steamed talbos ng kamote with bagoong",
+      "Talbos ng kamote with salted egg"
     ]
   },
   {
@@ -1246,7 +1285,8 @@
       "Pinangat na gabi",
       "Ginataang dahon ng gabi",
       "Linapay (regional gabi-leaf dish)",
-      "Tinumok (gabi-leaf parcels)"
+      "Tinumok (gabi-leaf parcels)",
+      "Laing with shrimp"
     ]
   },
   {
@@ -1277,7 +1317,8 @@
       "Lumpiang Shanghai with singkamas",
       "Ensaladang singkamas",
       "Singkamas with bagoong",
-      "Lumpiang ubod with singkamas"
+      "Lumpiang ubod with singkamas",
+      "Singkamas and green mango salad"
     ]
   },
   {
@@ -1309,7 +1350,8 @@
       "Banana cue (use saba)",
       "Maruya (use saba)",
       "Minatamis na saging (use saba)",
-      "Saging con hielo (use saba)"
+      "Saging con hielo (use saba)",
+      "Halo-halo with minatamis na saba"
     ]
   },
   {
@@ -1340,7 +1382,8 @@
       "Ensaladang mangga",
       "Hilaw na mangga with bagoong",
       "Mango sago",
-      "Mango ice candy"
+      "Mango ice candy",
+      "Mango graham icebox cake"
     ]
   },
   {
@@ -1370,7 +1413,8 @@
       "Atsarang papaya",
       "Ripe papaya served as dessert",
       "Papaya fruit salad",
-      "Minatamis na papaya"
+      "Minatamis na papaya",
+      "Green-papaya ukoy (home-style variation)"
     ]
   },
   {
@@ -1401,7 +1445,8 @@
       "Hamonado with pineapple",
       "Pineapple upside-down cake",
       "Pork hamonado",
-      "Filipino fruit salad with pineapple"
+      "Filipino fruit salad with pineapple",
+      "Sweet-and-sour pork with pineapple"
     ]
   },
   {
@@ -1432,7 +1477,8 @@
       "Buko pie (use young coconut)",
       "Bukayo (use mature coconut)",
       "Ginataang bilo-bilo with niyog",
-      "Palitaw with grated niyog"
+      "Palitaw with grated niyog",
+      "Buko pandan salad (use young coconut)"
     ]
   },
   {
@@ -1463,7 +1509,8 @@
       "Watermelon fruit salad",
       "Watermelon ice candy",
       "Mixed-fruit dessert bowl with pakwan",
-      "Chilled pakwan with condensed milk (home-style variation)"
+      "Chilled pakwan with condensed milk (home-style variation)",
+      "Watermelon gulaman dessert (home-style variation)"
     ]
   },
   {
@@ -1494,7 +1541,8 @@
       "Fresh melon dessert platter",
       "Melon ice candy",
       "Mixed-fruit dessert bowl with melon",
-      "Melon gulaman dessert"
+      "Melon gulaman dessert",
+      "Melon and nata de coco dessert"
     ]
   },
   {
@@ -1525,7 +1573,8 @@
       "Bayabas jam with pandesal",
       "Fresh guava dessert platter",
       "Minatamis na bayabas",
-      "Guava jelly with pandesal"
+      "Guava jelly with pandesal",
+      "Guava-filled pastry (home-style variation)"
     ]
   },
   {
@@ -1556,7 +1605,8 @@
       "Turon with ripe langka",
       "Minatamis na langka",
       "Ginataang bilo-bilo with langka",
-      "Langka ice cream"
+      "Langka ice cream",
+      "Langka pastillas (home-style variation)"
     ]
   },
   {
@@ -1587,7 +1637,8 @@
       "Guyabano ice cream",
       "Fresh guyabano served as dessert",
       "Guyabano gelatin (home-style variation)",
-      "Chilled guyabano with milk (home-style variation)"
+      "Chilled guyabano with milk (home-style variation)",
+      "Guyabano and nata de coco dessert (home-style variation)"
     ]
   },
   {
@@ -1618,7 +1669,8 @@
       "Atis ice cream",
       "Chilled atis pulp with milk (home-style variation)",
       "Atis dessert bowl with cream (home-style variation)",
-      "Atis gelatin (home-style variation)"
+      "Atis gelatin (home-style variation)",
+      "Atis ice candy (home-style variation)"
     ]
   },
   {
@@ -1649,7 +1701,8 @@
       "Chico ice candy (home-style variation)",
       "Chilled chico with milk (home-style variation)",
       "Chico ice cream (home-style variation)",
-      "Chico fruit-salad cup (home-style variation)"
+      "Chico fruit-salad cup (home-style variation)",
+      "Chico graham dessert (home-style variation)"
     ]
   },
   {
@@ -1680,7 +1733,8 @@
       "Sinigang sa balimbing (regional variation)",
       "Ensaladang balimbing",
       "Minatamis na balimbing (home-style variation)",
-      "Balimbing fruit-salad cup (home-style variation)"
+      "Balimbing fruit-salad cup (home-style variation)",
+      "Balimbing and green-mango salad"
     ]
   },
   {
@@ -1711,7 +1765,8 @@
       "Pomelo and shrimp salad",
       "Fresh pomelo dessert platter",
       "Pomelo, cucumber and tomato salad",
-      "Pomelo and salted-egg salad (home-style variation)"
+      "Pomelo and salted-egg salad (home-style variation)",
+      "Pomelo and chicken salad (home-style variation)"
     ]
   },
   {
@@ -1742,7 +1797,8 @@
       "Fruit salad with dalanghita",
       "Crema de fruta with dalanghita (variation)",
       "Dalanghita gulaman (home-style variation)",
-      "Chilled dalanghita and cream dessert (home-style variation)"
+      "Chilled dalanghita and cream dessert (home-style variation)",
+      "Dalanghita sago dessert (home-style variation)"
     ]
   },
   {
@@ -1774,7 +1830,8 @@
       "Crema de fruta with oranges (variation)",
       "Fresh orange dessert platter",
       "Orange gulaman dessert",
-      "Orange and mango fruit salad"
+      "Orange and mango fruit salad",
+      "Orange and nata de coco dessert (home-style variation)"
     ]
   },
   {
@@ -1805,7 +1862,8 @@
       "Fruit salad with apples",
       "Apple and chicken salad",
       "Filipino-style apple pie",
-      "Apple and raisin macaroni salad"
+      "Apple and raisin macaroni salad",
+      "Filipino chicken salad with apple and pineapple"
     ]
   },
   {
@@ -1836,7 +1894,8 @@
       "Avocado ice candy",
       "Avocado ice cream",
       "Avocado and sago dessert",
-      "Avocado graham dessert (home-style variation)"
+      "Avocado graham dessert (home-style variation)",
+      "Avocado icebox cake (home-style variation)"
     ]
   },
   {
@@ -1867,7 +1926,8 @@
       "Chicken macaroni salad with grapes",
       "Fresh grape dessert platter",
       "Grape and apple fruit salad",
-      "Grapes in a chilled cream dessert (home-style variation)"
+      "Grapes in a chilled cream dessert (home-style variation)",
+      "Grape and nata de coco dessert (home-style variation)"
     ]
   },
   {
@@ -1898,7 +1958,8 @@
       "Lychee gulaman dessert",
       "Lychee sago dessert",
       "Lychee gelatin dessert",
-      "Lychee and nata de coco dessert"
+      "Lychee and nata de coco dessert",
+      "Lychee and fruit-cocktail salad"
     ]
   },
   {
@@ -1929,7 +1990,8 @@
       "Tinolang manok",
       "Chicken inasal",
       "Chicken afritada",
-      "Chicken pastel"
+      "Chicken pastel",
+      "Chicken binakol"
     ]
   },
   {
@@ -1960,7 +2022,8 @@
       "Fried itik",
       "Kalderetang itik",
       "Itik tim",
-      "Paksiw na itik"
+      "Paksiw na itik",
+      "Pato estofado"
     ]
   },
   {
@@ -1991,7 +2054,8 @@
       "Pritong pugo",
       "Inihaw na pugo",
       "Pugo afritada (home-style variation)",
-      "Pugo caldereta (home-style variation)"
+      "Pugo caldereta (home-style variation)",
+      "Pugo with mushrooms (home-style variation)"
     ]
   },
   {
@@ -2023,7 +2087,8 @@
       "Pork menudo",
       "Lechon kawali",
       "Pork adobo",
-      "Bicol Express"
+      "Bicol Express",
+      "Pork binagoongan"
     ]
   },
   {
@@ -2055,7 +2120,8 @@
       "Nilagang baka",
       "Beef caldereta",
       "Beef pares",
-      "Kare-kare"
+      "Kare-kare",
+      "Beef mechado"
     ]
   },
   {
@@ -2086,7 +2152,8 @@
       "Adobong kambing",
       "Kilawing kambing (cooked goat meat)",
       "Sinampalukang kambing",
-      "Papaitang kambing (use appropriate meat and offal)"
+      "Papaitang kambing (use appropriate meat and offal)",
+      "Kambing curry (home-style variation)"
     ]
   },
   {
@@ -2117,7 +2184,8 @@
       "Ginisang atay ng manok",
       "Chicken menudo with chicken liver",
       "Chicken-liver bistek",
-      "Chicken-liver sisig"
+      "Chicken-liver sisig",
+      "Chicken-liver afritada"
     ]
   },
   {
@@ -2148,7 +2216,8 @@
       "Igado",
       "Adobong atay ng baboy",
       "Pork-liver bistek",
-      "Pork-liver sisig"
+      "Pork-liver sisig",
+      "Pork-liver adobo with potatoes"
     ]
   },
   {
@@ -2179,7 +2248,8 @@
       "Ginisang atay ng baka",
       "Adobong atay ng baka",
       "Igado with beef liver (variation)",
-      "Beef-liver caldereta (variation)"
+      "Beef-liver caldereta (variation)",
+      "Beef liver with onions and tomatoes"
     ]
   },
   {
@@ -2214,7 +2284,8 @@
       "Scrambled egg with tomatoes",
       "Chicken-egg tokneneng",
       "Tortang giniling",
-      "Tortang patatas"
+      "Tortang patatas",
+      "Arroz a la Cubana with fried chicken egg"
     ]
   },
   {
@@ -2247,7 +2318,8 @@
       "Duck-egg leche flan",
       "Bibingka with salted duck egg",
       "Salted-egg and tomato salad",
-      "Duck-egg omelet"
+      "Duck-egg omelet",
+      "Duck-egg tortang talong"
     ]
   },
   {
@@ -2281,7 +2353,8 @@
       "Sizzling tofu",
       "Adobong tokwa",
       "Ginisang tokwa with pechay",
-      "Tofu sisig"
+      "Tofu sisig",
+      "Tokwa with kangkong in oyster sauce"
     ]
   },
   {
@@ -2314,7 +2387,8 @@
       "Ginataang munggo",
       "Hopia munggo",
       "Munggo with chicharon",
-      "Buchi with mung-bean filling"
+      "Buchi with mung-bean filling",
+      "Munggo ice candy"
     ]
   },
   {
@@ -2346,7 +2420,8 @@
       "Ginataang red beans (home-style variation)",
       "Pork-and-beans with red kidney beans (variation)",
       "Red-bean hopia",
-      "Red-bean ice candy"
+      "Red-bean ice candy",
+      "Red-bean-filled bread (home-style variation)"
     ]
   },
   {
@@ -2377,7 +2452,8 @@
       "Ginataang patani",
       "Dinengdeng with patani",
       "Laswa with patani",
-      "Bulanglang with patani"
+      "Bulanglang with patani",
+      "Patani with pork and tomatoes"
     ]
   },
   {
@@ -2410,7 +2486,8 @@
       "Taho (soybeans processed into silken tofu)",
       "Tokwa (soybeans processed into tofu)",
       "Soy hotcakes (soybean-flour variation)",
-      "Soy nuggets (soybean-pulp variation)"
+      "Soy nuggets (soybean-pulp variation)",
+      "Soybean-pulp veggie patties (home-style variation)"
     ]
   },
   {
@@ -2443,7 +2520,8 @@
       "Adobong mani",
       "Peanut brittle",
       "Peanut polvoron",
-      "Peanut butter pandesal"
+      "Peanut butter pandesal",
+      "Peanut-filled buchi"
     ]
   },
   {
@@ -2477,7 +2555,8 @@
       "Cashew polvoron",
       "Roasted kasoy",
       "Turrones de casoy",
-      "Cashew brittle"
+      "Cashew brittle",
+      "Cashew cookies"
     ]
   },
   {
@@ -2510,7 +2589,8 @@
       "Rellenong bangus",
       "Sinigang na bangus",
       "Bangus sisig",
-      "Paksiw na bangus"
+      "Paksiw na bangus",
+      "Bangus sa tausi"
     ]
   },
   {
@@ -2544,7 +2624,8 @@
       "Ginataang tilapia",
       "Pinaputok na tilapia",
       "Paksiw na tilapia",
-      "Sweet-and-sour tilapia"
+      "Sweet-and-sour tilapia",
+      "Tilapia escabeche"
     ]
   },
   {
@@ -2577,7 +2658,8 @@
       "Adobong hito",
       "Ginataang hito",
       "Pritong hito",
-      "Hito in yellow-bean sauce (home-style variation)"
+      "Hito in yellow-bean sauce (home-style variation)",
+      "Hito with coconut milk and pechay"
     ]
   },
   {
@@ -2610,7 +2692,8 @@
       "Sinigang na lapu-lapu",
       "Steamed lapu-lapu",
       "Lapu-lapu in sweet-and-sour sauce",
-      "Lapu-lapu sa tausi"
+      "Lapu-lapu sa tausi",
+      "Lapu-lapu fish soup with ginger"
     ]
   },
   {
@@ -2643,7 +2726,8 @@
       "Escabecheng maya-maya",
       "Pesang maya-maya",
       "Inihaw na maya-maya",
-      "Pinangat na maya-maya"
+      "Pinangat na maya-maya",
+      "Maya-maya sa tausi"
     ]
   },
   {
@@ -2675,7 +2759,8 @@
       "Inihaw na pompano",
       "Pompano sa tausi",
       "Ginataang pompano",
-      "Steamed pompano with ginger"
+      "Steamed pompano with ginger",
+      "Pompano escabeche"
     ]
   },
   {
@@ -2708,7 +2793,8 @@
       "Inihaw na banak",
       "Sinigang na banak",
       "Pritong banak",
-      "Ginataang banak"
+      "Ginataang banak",
+      "Banak escabeche"
     ]
   },
   {
@@ -2741,7 +2827,8 @@
       "Ginataang karpa",
       "Pritong karpa",
       "Sinigang na karpa",
-      "Escabecheng karpa"
+      "Escabecheng karpa",
+      "Karpa with ginger and tomatoes"
     ]
   },
   {
@@ -2774,7 +2861,8 @@
       "Ginataang palos",
       "Inihaw na palos",
       "Pritong palos",
-      "Paksiw na palos"
+      "Paksiw na palos",
+      "Palos with ginger and tomatoes (home-style variation)"
     ]
   },
   {
@@ -2807,7 +2895,8 @@
       "Inihaw na tuna",
       "Tuna sisig",
       "Tuna kinilaw",
-      "Tuna escabeche"
+      "Tuna escabeche",
+      "Tuna omelet"
     ]
   },
   {
@@ -2840,7 +2929,8 @@
       "Sardinas with misua",
       "Tortang sardinas",
       "Sardinas with sotanghon",
-      "Sardine fish balls (home-style variation)"
+      "Sardine fish balls (home-style variation)",
+      "Pandesal with sardine spread"
     ]
   },
   {
@@ -2873,7 +2963,8 @@
       "Inihaw na alumahan",
       "Pritong alumahan",
       "Ginataang alumahan",
-      "Escabecheng alumahan"
+      "Escabecheng alumahan",
+      "Alumahan with tomatoes and ginger"
     ]
   },
   {
@@ -2906,7 +2997,8 @@
       "Sweet-and-spicy dilis",
       "Sinangag with dilis",
       "Ukoy na dilis",
-      "Tortang dilis"
+      "Tortang dilis",
+      "Dilis with tomatoes and scrambled egg"
     ]
   },
   {
@@ -2940,7 +3032,8 @@
       "Ginataang hipon",
       "Ukoy na hipon",
       "Halabos na hipon",
-      "Garlic-butter shrimp"
+      "Garlic-butter shrimp",
+      "Camaron rebosado"
     ]
   },
   {
@@ -2973,7 +3066,8 @@
       "Steamed alimango",
       "Chili-garlic alimango",
       "Adobong alimango",
-      "Rellenong alimango"
+      "Rellenong alimango",
+      "Alimango with coconut milk and sitaw"
     ]
   },
   {
@@ -3006,7 +3100,8 @@
       "Inihaw na pusit",
       "Rellenong pusit",
       "Crispy calamares",
-      "Ginataang pusit"
+      "Ginataang pusit",
+      "Pancit with pusit"
     ]
   },
   {
@@ -3039,7 +3134,8 @@
       "Ginataang pugita",
       "Inihaw na pugita",
       "Pugita sisig (home-style variation)",
-      "Kilawing pugita (use cooked octopus)"
+      "Kilawing pugita (use cooked octopus)",
+      "Pugita with garlic and tomatoes (home-style variation)"
     ]
   },
   {
@@ -3072,7 +3168,8 @@
       "Ginataang halaan",
       "Ginisang halaan with garlic",
       "Sinigang na halaan",
-      "Halaan with corn and malunggay"
+      "Halaan with corn and malunggay",
+      "Halaan with misua"
     ]
   },
   {
@@ -3105,7 +3202,8 @@
       "Baked tahong",
       "Ginisang tahong",
       "Adobong tahong",
-      "Tahong sisig"
+      "Tahong sisig",
+      "Tahong with misua"
     ]
   },
   {
@@ -3138,7 +3236,8 @@
       "Steamed talaba",
       "Talaba fritters",
       "Talaba omelet",
-      "Garlic-butter talaba"
+      "Garlic-butter talaba",
+      "Talaba with ginger and spring onions"
     ]
   },
   {
@@ -3170,7 +3269,8 @@
       "Garlic-butter scallops",
       "Inihaw na scallops",
       "Scallop sisig (home-style variation)",
-      "Adobong scallops (home-style variation)"
+      "Adobong scallops (home-style variation)",
+      "Scallops with coconut milk (home-style variation)"
     ]
   }
 ]

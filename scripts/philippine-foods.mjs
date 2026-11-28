@@ -1,4 +1,5 @@
 import { readFileSync } from 'node:fs'
+import { foodArtwork } from './food-artwork.mjs'
 
 export const philippineFoodRows = JSON.parse(readFileSync(new URL('./philippine-food-catalog.json', import.meta.url), 'utf8'))
 
@@ -14,6 +15,7 @@ export function philippineFoodMetadata(source) {
     const note = row.referenceNote || 'Use the exact variety and preparation in the USDA source description.'
     return {
       ...row,
+      artwork: foodArtwork(row.name),
       description: `${record.description}. ${note}`,
       defaultPortionId: preferred?.id ?? '100g', portionIds: chosen.map(p => p.id),
       budget: row.budget || 'Moderate',

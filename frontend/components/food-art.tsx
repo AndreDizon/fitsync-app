@@ -1,6 +1,12 @@
 import { Wheat, Fish, Apple, Carrot, Milk, Nut, Droplets, Sprout } from 'lucide-react'
+import foodSeed from '../../backend/data/foods.json'
+
+const illustrations = new Map(foodSeed.map(food => [food.id, food.artwork]))
 
 export function FoodArt({ id, category = '' }: { id: string; category?: string }) {
+  const artwork = illustrations.get(id)
+  // Authored, checked-in SVG markup from the public seed; never user/model HTML.
+  if (artwork) return <svg viewBox="0 0 240 165" className="food-art" aria-hidden="true" data-food-art={id} dangerouslySetInnerHTML={{ __html: artwork }} />
   const custom = ['cooked-white-rice', 'dry-oats', 'roasted-chicken-breast', 'hard-boiled-egg', 'cooked-tilapia', 'calcium-set-tofu', 'cooked-mung-beans', 'raw-banana', 'boiled-broccoli', 'plain-greek-yogurt'].includes(id)
   const Icon = ({ Grains: Wheat, 'Protein foods': Fish, Fruits: Apple, Vegetables: Carrot, Dairy: Milk, 'Nuts & seeds': Nut, 'Oils & fats': Droplets, 'Roots & tubers': Carrot, Legumes: Sprout })[category] ?? Sprout
   if (!custom) return <svg viewBox="0 0 240 165" className="food-art" aria-hidden="true"><ellipse cx="120" cy="138" rx="72" ry="8" fill="#526044" opacity=".1" /><circle cx="120" cy="80" r="64" fill="#fffdf2" opacity=".8" /><circle cx="120" cy="80" r="54" fill="none" stroke="#8b9976" strokeOpacity=".25" /><Icon x="88" y="45" width="64" height="64" strokeWidth="1.3" color="#687b51" /><text x="120" y="127" textAnchor="middle" fill="#7a856b" fontSize="8" letterSpacing="1.2">FOOD GROUP ILLUSTRATION</text></svg>
