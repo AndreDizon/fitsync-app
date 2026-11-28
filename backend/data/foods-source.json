@@ -3,7 +3,7 @@
   "dataset": "SR Legacy, April 2018",
   "archiveUrl": "https://fdc.nal.usda.gov/fdc-datasets/FoodData_Central_sr_legacy_food_csv_2018-04.zip",
   "archiveSha256": "b80817294b8850530aaedf2e515c02593b1824f763a0ff356e5c2081643e6fd0",
-  "reviewedAt": "2026-11-07",
+  "reviewedAt": "2026-11-28",
   "records": [
     {
       "fdc_id": "167762",
@@ -87,66 +87,6 @@
         "1162": 58.8,
         "1258": 0.015,
         "2000": 4.89
-      }
-    },
-    {
-      "fdc_id": "167765",
-      "data_type": "sr_legacy_food",
-      "description": "Watermelon, raw",
-      "food_category_id": "9",
-      "publication_date": "2019-04-01",
-      "portions": [
-        {
-          "id": "81932",
-          "amount": 1,
-          "label": "cup, balls",
-          "grams": 154
-        },
-        {
-          "id": "81933",
-          "amount": 1,
-          "label": "cup, diced",
-          "grams": 152
-        },
-        {
-          "id": "81934",
-          "amount": 1,
-          "label": "melon (15\" long x 7-1/2\" dia)",
-          "grams": 4518
-        },
-        {
-          "id": "81935",
-          "amount": 1,
-          "label": "wedge (approx 1/16 of melon)",
-          "grams": 286
-        },
-        {
-          "id": "81936",
-          "amount": 10,
-          "label": "watermelon balls",
-          "grams": 122
-        },
-        {
-          "id": "81937",
-          "amount": 1,
-          "label": "NLEA serving",
-          "grams": 280
-        }
-      ],
-      "nutrients": {
-        "1003": 0.61,
-        "1004": 0.15,
-        "1005": 7.55,
-        "1008": 30,
-        "1079": 0.4,
-        "1087": 7,
-        "1089": 0.24,
-        "1092": 112,
-        "1093": 1,
-        "1114": 0,
-        "1162": 8.1,
-        "1258": 0.016,
-        "2000": 6.2
       }
     },
     {
@@ -238,48 +178,6 @@
       }
     },
     {
-      "fdc_id": "168250",
-      "data_type": "sr_legacy_food",
-      "description": "Pork, fresh, loin, tenderloin, separable lean only, cooked, roasted",
-      "food_category_id": "10",
-      "publication_date": "2019-04-01",
-      "portions": [
-        {
-          "id": "82751",
-          "amount": 3,
-          "label": "oz",
-          "grams": 85
-        },
-        {
-          "id": "82752",
-          "amount": 1,
-          "label": "piece, cooked, excluding refuse (yield from 1 lb raw meat with refuse)",
-          "grams": 333
-        },
-        {
-          "id": "82753",
-          "amount": 1,
-          "label": "roast",
-          "grams": 402
-        }
-      ],
-      "nutrients": {
-        "1003": 26.17,
-        "1004": 3.51,
-        "1005": 0,
-        "1008": 143,
-        "1079": 0,
-        "1087": 6,
-        "1089": 1.15,
-        "1092": 421,
-        "1093": 57,
-        "1114": 0.2,
-        "1162": 0,
-        "1258": 1.198,
-        "2000": 0
-      }
-    },
-    {
       "fdc_id": "168390",
       "data_type": "sr_legacy_food",
       "description": "Asparagus, cooked, boiled, drained",
@@ -313,42 +211,6 @@
         "1162": 7.7,
         "1258": 0.048,
         "2000": 1.3
-      }
-    },
-    {
-      "fdc_id": "168409",
-      "data_type": "sr_legacy_food",
-      "description": "Cucumber, with peel, raw",
-      "food_category_id": "11",
-      "publication_date": "2019-04-01",
-      "portions": [
-        {
-          "id": "83049",
-          "amount": 0.5,
-          "label": "cup slices",
-          "grams": 52
-        },
-        {
-          "id": "83050",
-          "amount": 1,
-          "label": "cucumber (8-1/4\")",
-          "grams": 301
-        }
-      ],
-      "nutrients": {
-        "1003": 0.65,
-        "1004": 0.11,
-        "1005": 3.63,
-        "1008": 15,
-        "1079": 0.5,
-        "1087": 16,
-        "1089": 0.28,
-        "1092": 147,
-        "1093": 2,
-        "1114": 0,
-        "1162": 2.8,
-        "1258": 0.037,
-        "2000": 1.67
       }
     },
     {
@@ -430,72 +292,6 @@
       }
     },
     {
-      "fdc_id": "168484",
-      "data_type": "sr_legacy_food",
-      "description": "Sweet potato, cooked, boiled, without skin",
-      "food_category_id": "11",
-      "publication_date": "2019-04-01",
-      "portions": [
-        {
-          "id": "83172",
-          "amount": 1,
-          "label": "cup, mashed",
-          "grams": 328
-        },
-        {
-          "id": "83173",
-          "amount": 1,
-          "label": "medium",
-          "grams": 151
-        }
-      ],
-      "nutrients": {
-        "1003": 1.37,
-        "1004": 0.14,
-        "1005": 17.72,
-        "1008": 76,
-        "1079": 2.5,
-        "1087": 27,
-        "1089": 0.72,
-        "1092": 230,
-        "1093": 27,
-        "1114": 0,
-        "1162": 12.8,
-        "1258": 0.031,
-        "2000": 5.74
-      }
-    },
-    {
-      "fdc_id": "168486",
-      "data_type": "sr_legacy_food",
-      "description": "Taro, cooked, without salt",
-      "food_category_id": "11",
-      "publication_date": "2019-04-01",
-      "portions": [
-        {
-          "id": "83176",
-          "amount": 1,
-          "label": "cup, sliced",
-          "grams": 132
-        }
-      ],
-      "nutrients": {
-        "1003": 0.52,
-        "1004": 0.11,
-        "1005": 34.6,
-        "1008": 142,
-        "1079": 5.1,
-        "1087": 18,
-        "1089": 0.72,
-        "1092": 484,
-        "1093": 15,
-        "1114": 0,
-        "1162": 5,
-        "1258": 0.023,
-        "2000": 0.49
-      }
-    },
-    {
       "fdc_id": "168871",
       "data_type": "sr_legacy_food",
       "description": "Millet, cooked",
@@ -523,36 +319,6 @@
         "1162": 0,
         "1258": 0.172,
         "2000": 0.13
-      }
-    },
-    {
-      "fdc_id": "168878",
-      "data_type": "sr_legacy_food",
-      "description": "Rice, white, long-grain, regular, enriched, cooked",
-      "food_category_id": "20",
-      "publication_date": "2019-04-01",
-      "portions": [
-        {
-          "id": "83928",
-          "amount": 1,
-          "label": "cup",
-          "grams": 158
-        }
-      ],
-      "nutrients": {
-        "1003": 2.69,
-        "1004": 0.28,
-        "1005": 28.17,
-        "1008": 130,
-        "1079": 0.4,
-        "1087": 10,
-        "1089": 1.2,
-        "1092": 35,
-        "1093": 1,
-        "1114": 0,
-        "1162": 0,
-        "1258": 0.077,
-        "2000": 0.05
       }
     },
     {
@@ -658,228 +424,6 @@
       }
     },
     {
-      "fdc_id": "169092",
-      "data_type": "sr_legacy_food",
-      "description": "Melons, cantaloupe, raw",
-      "food_category_id": "9",
-      "publication_date": "2019-04-01",
-      "portions": [
-        {
-          "id": "84207",
-          "amount": 1,
-          "label": "cup, balls",
-          "grams": 177
-        },
-        {
-          "id": "84208",
-          "amount": 1,
-          "label": "cup, cubes",
-          "grams": 160
-        },
-        {
-          "id": "84209",
-          "amount": 1,
-          "label": "cup, diced",
-          "grams": 156
-        },
-        {
-          "id": "84210",
-          "amount": 1,
-          "label": "melon, large (about 6-1/2\" dia)",
-          "grams": 814
-        },
-        {
-          "id": "84211",
-          "amount": 1,
-          "label": "wedge, large (1/8 of large melon)",
-          "grams": 102
-        },
-        {
-          "id": "84212",
-          "amount": 1,
-          "label": "melon, medium (about 5\" dia)",
-          "grams": 552
-        },
-        {
-          "id": "84213",
-          "amount": 1,
-          "label": "wedge, medium (1/8 of medium melon)",
-          "grams": 69
-        },
-        {
-          "id": "84214",
-          "amount": 1,
-          "label": "melon, small (about 4-1/4\" dia)",
-          "grams": 441
-        },
-        {
-          "id": "84215",
-          "amount": 1,
-          "label": "wedge, small (1/8 of small melon)",
-          "grams": 55
-        },
-        {
-          "id": "84216",
-          "amount": 10,
-          "label": "cantaloupe balls",
-          "grams": 138
-        },
-        {
-          "id": "84217",
-          "amount": 1,
-          "label": "NLEA serving",
-          "grams": 134
-        }
-      ],
-      "nutrients": {
-        "1003": 0.84,
-        "1004": 0.19,
-        "1005": 8.16,
-        "1008": 34,
-        "1079": 0.9,
-        "1087": 9,
-        "1089": 0.21,
-        "1092": 267,
-        "1093": 16,
-        "1114": 0,
-        "1162": 36.7,
-        "1258": 0.051,
-        "2000": 7.86
-      }
-    },
-    {
-      "fdc_id": "169097",
-      "data_type": "sr_legacy_food",
-      "description": "Oranges, raw, all commercial varieties",
-      "food_category_id": "9",
-      "publication_date": "2019-04-01",
-      "portions": [
-        {
-          "id": "84227",
-          "amount": 1,
-          "label": "cup, sections",
-          "grams": 180
-        },
-        {
-          "id": "84228",
-          "amount": 1,
-          "label": "large (3-1/16\" dia)",
-          "grams": 184
-        },
-        {
-          "id": "84229",
-          "amount": 1,
-          "label": "small (2-3/8\" dia)",
-          "grams": 96
-        },
-        {
-          "id": "84230",
-          "amount": 1,
-          "label": "fruit (2-5/8\" dia)",
-          "grams": 131
-        }
-      ],
-      "nutrients": {
-        "1003": 0.94,
-        "1004": 0.12,
-        "1005": 11.75,
-        "1008": 47,
-        "1079": 2.4,
-        "1087": 40,
-        "1089": 0.1,
-        "1092": 181,
-        "1093": 0,
-        "1114": 0,
-        "1162": 53.2,
-        "1258": 0.015,
-        "2000": 9.35
-      }
-    },
-    {
-      "fdc_id": "169124",
-      "data_type": "sr_legacy_food",
-      "description": "Pineapple, raw, all varieties",
-      "food_category_id": "9",
-      "publication_date": "2019-04-01",
-      "portions": [
-        {
-          "id": "84287",
-          "amount": 1,
-          "label": "cup, chunks",
-          "grams": 165
-        },
-        {
-          "id": "84288",
-          "amount": 1,
-          "label": "fruit",
-          "grams": 905
-        },
-        {
-          "id": "84289",
-          "amount": 1,
-          "label": "slice (4-2/3\" dia x 3/4\" thick)",
-          "grams": 166
-        },
-        {
-          "id": "84290",
-          "amount": 1,
-          "label": "slice (3-1/2\" dia x 3/4\" thick)",
-          "grams": 84
-        },
-        {
-          "id": "84291",
-          "amount": 1,
-          "label": "slice, thin (3-1/2\" dia x 1/2\" thick)",
-          "grams": 56
-        }
-      ],
-      "nutrients": {
-        "1003": 0.54,
-        "1004": 0.12,
-        "1005": 13.12,
-        "1008": 50,
-        "1079": 1.4,
-        "1087": 13,
-        "1089": 0.29,
-        "1092": 109,
-        "1093": 1,
-        "1114": 0,
-        "1162": 47.8,
-        "1258": 0.009,
-        "2000": 9.85
-      }
-    },
-    {
-      "fdc_id": "169141",
-      "data_type": "sr_legacy_food",
-      "description": "Beans, snap, green, cooked, boiled, drained, without salt",
-      "food_category_id": "11",
-      "publication_date": "2019-04-01",
-      "portions": [
-        {
-          "id": "84317",
-          "amount": 1,
-          "label": "cup",
-          "grams": 125
-        }
-      ],
-      "nutrients": {
-        "1003": 1.89,
-        "1004": 0.28,
-        "1005": 7.88,
-        "1008": 35,
-        "1079": 3.2,
-        "1087": 44,
-        "1089": 0.65,
-        "1092": 146,
-        "1093": 1,
-        "1114": 0,
-        "1162": 9.7,
-        "1258": 0.064,
-        "2000": 3.63
-      }
-    },
-    {
       "fdc_id": "169146",
       "data_type": "sr_legacy_food",
       "description": "Beets, cooked, boiled, drained",
@@ -913,36 +457,6 @@
         "1162": 3.6,
         "1258": 0.028,
         "2000": 7.96
-      }
-    },
-    {
-      "fdc_id": "169229",
-      "data_type": "sr_legacy_food",
-      "description": "Eggplant, cooked, boiled, drained, without salt",
-      "food_category_id": "11",
-      "publication_date": "2019-04-01",
-      "portions": [
-        {
-          "id": "84477",
-          "amount": 1,
-          "label": "cup (1\" cubes)",
-          "grams": 99
-        }
-      ],
-      "nutrients": {
-        "1003": 0.83,
-        "1004": 0.23,
-        "1005": 8.73,
-        "1008": 35,
-        "1079": 2.5,
-        "1087": 6,
-        "1089": 0.25,
-        "1092": 123,
-        "1093": 1,
-        "1114": 0,
-        "1162": 1.3,
-        "1258": 0.044,
-        "2000": 3.2
       }
     },
     {
@@ -1093,42 +607,6 @@
         "1162": 2.1,
         "1258": 0.05,
         "2000": 1.98
-      }
-    },
-    {
-      "fdc_id": "169261",
-      "data_type": "sr_legacy_food",
-      "description": "Okra, cooked, boiled, drained, without salt",
-      "food_category_id": "11",
-      "publication_date": "2019-04-01",
-      "portions": [
-        {
-          "id": "84555",
-          "amount": 0.5,
-          "label": "cup slices",
-          "grams": 80
-        },
-        {
-          "id": "84556",
-          "amount": 8,
-          "label": "pods (3\" long)",
-          "grams": 85
-        }
-      ],
-      "nutrients": {
-        "1003": 1.87,
-        "1004": 0.21,
-        "1005": 4.51,
-        "1008": 22,
-        "1079": 2.5,
-        "1087": 77,
-        "1089": 0.28,
-        "1092": 135,
-        "1093": 6,
-        "1114": 0,
-        "1162": 16.3,
-        "1258": 0.045,
-        "2000": 2.4
       }
     },
     {
@@ -1365,174 +843,6 @@
       }
     },
     {
-      "fdc_id": "169704",
-      "data_type": "sr_legacy_food",
-      "description": "Rice, brown, long-grain, cooked (Includes foods for USDA's Food Distribution Program)",
-      "food_category_id": "20",
-      "publication_date": "2019-04-01",
-      "portions": [
-        {
-          "id": "85378",
-          "amount": 1,
-          "label": "cup",
-          "grams": 202
-        }
-      ],
-      "nutrients": {
-        "1003": 2.74,
-        "1004": 0.97,
-        "1005": 25.58,
-        "1008": 123,
-        "1079": 1.6,
-        "1087": 3,
-        "1089": 0.56,
-        "1092": 86,
-        "1093": 4,
-        "1114": 0,
-        "1162": 0,
-        "1258": 0.26,
-        "2000": 0.24
-      }
-    },
-    {
-      "fdc_id": "169910",
-      "data_type": "sr_legacy_food",
-      "description": "Mangos, raw",
-      "food_category_id": "9",
-      "publication_date": "2019-04-01",
-      "portions": [
-        {
-          "id": "85651",
-          "amount": 1,
-          "label": "cup pieces",
-          "grams": 165
-        },
-        {
-          "id": "85652",
-          "amount": 1,
-          "label": "fruit without refuse",
-          "grams": 336
-        }
-      ],
-      "nutrients": {
-        "1003": 0.82,
-        "1004": 0.38,
-        "1005": 14.98,
-        "1008": 60,
-        "1079": 1.6,
-        "1087": 11,
-        "1089": 0.16,
-        "1092": 168,
-        "1093": 1,
-        "1114": 0,
-        "1162": 36.4,
-        "1258": 0.092,
-        "2000": 13.66
-      }
-    },
-    {
-      "fdc_id": "169926",
-      "data_type": "sr_legacy_food",
-      "description": "Papayas, raw",
-      "food_category_id": "9",
-      "publication_date": "2019-04-01",
-      "portions": [
-        {
-          "id": "85692",
-          "amount": 1,
-          "label": "cup 1\" pieces",
-          "grams": 145
-        },
-        {
-          "id": "85693",
-          "amount": 1,
-          "label": "cup, mashed",
-          "grams": 230
-        },
-        {
-          "id": "85694",
-          "amount": 1,
-          "label": "fruit, small",
-          "grams": 157
-        },
-        {
-          "id": "85695",
-          "amount": 1,
-          "label": "fruit, large",
-          "grams": 781
-        }
-      ],
-      "nutrients": {
-        "1003": 0.47,
-        "1004": 0.26,
-        "1005": 10.82,
-        "1008": 43,
-        "1079": 1.7,
-        "1087": 20,
-        "1089": 0.25,
-        "1092": 182,
-        "1093": 8,
-        "1114": 0,
-        "1162": 60.9,
-        "1258": 0.081,
-        "2000": 7.82
-      }
-    },
-    {
-      "fdc_id": "169967",
-      "data_type": "sr_legacy_food",
-      "description": "Broccoli, cooked, boiled, drained, without salt",
-      "food_category_id": "11",
-      "publication_date": "2019-04-01",
-      "portions": [
-        {
-          "id": "85772",
-          "amount": 0.5,
-          "label": "cup, chopped",
-          "grams": 78
-        },
-        {
-          "id": "85773",
-          "amount": 1,
-          "label": "stalk, large (11\"-12\" long)",
-          "grams": 280
-        },
-        {
-          "id": "85774",
-          "amount": 1,
-          "label": "stalk, medium (7-1/2\" - 8\" long)",
-          "grams": 180
-        },
-        {
-          "id": "85775",
-          "amount": 1,
-          "label": "stalk, small (5\" long)",
-          "grams": 140
-        },
-        {
-          "id": "85776",
-          "amount": 1,
-          "label": "spear (about 5\" long)",
-          "grams": 37
-        }
-      ],
-      "nutrients": {
-        "1003": 2.38,
-        "1004": 0.41,
-        "1005": 7.18,
-        "1008": 35,
-        "1079": 3.3,
-        "1087": 40,
-        "1089": 0.67,
-        "1092": 293,
-        "1093": 41,
-        "1114": 0,
-        "1162": 64.9,
-        "1258": 0.079,
-        "2000": 1.39
-      }
-    },
-    {
       "fdc_id": "169975",
       "data_type": "sr_legacy_food",
       "description": "Cabbage, raw",
@@ -1689,42 +999,6 @@
       }
     },
     {
-      "fdc_id": "170072",
-      "data_type": "sr_legacy_food",
-      "description": "Yam, cooked, boiled, drained, or baked, without salt",
-      "food_category_id": "11",
-      "publication_date": "2019-04-01",
-      "portions": [
-        {
-          "id": "85997",
-          "amount": 1,
-          "label": "cup, cubes",
-          "grams": 136
-        },
-        {
-          "id": "85998",
-          "amount": 0.5,
-          "label": "cup, cubes",
-          "grams": 68
-        }
-      ],
-      "nutrients": {
-        "1003": 1.49,
-        "1004": 0.14,
-        "1005": 27.48,
-        "1008": 116,
-        "1079": 3.9,
-        "1087": 14,
-        "1089": 0.52,
-        "1092": 670,
-        "1093": 8,
-        "1114": 0,
-        "1162": 12.1,
-        "1258": 0.029,
-        "2000": 0.49
-      }
-    },
-    {
       "fdc_id": "170093",
       "data_type": "sr_legacy_food",
       "description": "Potatoes, baked, flesh and skin, without salt",
@@ -1836,36 +1110,6 @@
         "1162": 127.7,
         "1258": 0.059,
         "2000": 4.2
-      }
-    },
-    {
-      "fdc_id": "170162",
-      "data_type": "sr_legacy_food",
-      "description": "Nuts, cashew nuts, raw",
-      "food_category_id": "12",
-      "publication_date": "2019-04-01",
-      "portions": [
-        {
-          "id": "86155",
-          "amount": 1,
-          "label": "oz",
-          "grams": 28.35
-        }
-      ],
-      "nutrients": {
-        "1003": 18.22,
-        "1004": 43.85,
-        "1005": 30.19,
-        "1008": 553,
-        "1079": 3.3,
-        "1087": 37,
-        "1089": 6.68,
-        "1092": 660,
-        "1093": 12,
-        "1114": 0,
-        "1162": 0.5,
-        "1258": 7.783,
-        "2000": 5.91
       }
     },
     {
@@ -2115,42 +1359,6 @@
       }
     },
     {
-      "fdc_id": "170397",
-      "data_type": "sr_legacy_food",
-      "description": "Cauliflower, cooked, boiled, drained, without salt",
-      "food_category_id": "11",
-      "publication_date": "2019-04-01",
-      "portions": [
-        {
-          "id": "86573",
-          "amount": 0.5,
-          "label": "cup (1\" pieces)",
-          "grams": 62
-        },
-        {
-          "id": "86574",
-          "amount": 3,
-          "label": "flowerets",
-          "grams": 54
-        }
-      ],
-      "nutrients": {
-        "1003": 1.84,
-        "1004": 0.45,
-        "1005": 4.11,
-        "1008": 23,
-        "1079": 2.3,
-        "1087": 16,
-        "1089": 0.32,
-        "1092": 142,
-        "1093": 15,
-        "1114": 0,
-        "1162": 44.3,
-        "1258": 0.07,
-        "2000": 2.08
-      }
-    },
-    {
       "fdc_id": "170440",
       "data_type": "sr_legacy_food",
       "description": "Potatoes, boiled, cooked without skin, flesh, without salt",
@@ -2196,108 +1404,6 @@
         "1162": 7.4,
         "1258": 0.026,
         "2000": 0.89
-      }
-    },
-    {
-      "fdc_id": "170457",
-      "data_type": "sr_legacy_food",
-      "description": "Tomatoes, red, ripe, raw, year round average",
-      "food_category_id": "11",
-      "publication_date": "2019-04-01",
-      "portions": [
-        {
-          "id": "86681",
-          "amount": 1,
-          "label": "cup cherry tomatoes",
-          "grams": 149
-        },
-        {
-          "id": "86682",
-          "amount": 1,
-          "label": "cup, chopped or sliced",
-          "grams": 180
-        },
-        {
-          "id": "86683",
-          "amount": 1,
-          "label": "Italian tomato",
-          "grams": 62
-        },
-        {
-          "id": "86684",
-          "amount": 1,
-          "label": "cherry",
-          "grams": 17
-        },
-        {
-          "id": "86685",
-          "amount": 1,
-          "label": "large whole (3\" dia)",
-          "grams": 182
-        },
-        {
-          "id": "86686",
-          "amount": 1,
-          "label": "medium whole (2-3/5\" dia)",
-          "grams": 123
-        },
-        {
-          "id": "86687",
-          "amount": 1,
-          "label": "slice, medium (1/4\" thick)",
-          "grams": 20
-        },
-        {
-          "id": "86688",
-          "amount": 1,
-          "label": "plum tomato",
-          "grams": 62
-        },
-        {
-          "id": "86689",
-          "amount": 1,
-          "label": "small whole (2-2/5\" dia)",
-          "grams": 91
-        },
-        {
-          "id": "86690",
-          "amount": 1,
-          "label": "slice, thick/large (1/2\" thick)",
-          "grams": 27
-        },
-        {
-          "id": "86691",
-          "amount": 1,
-          "label": "wedge (1/4 of medium tomato)",
-          "grams": 31
-        },
-        {
-          "id": "86692",
-          "amount": 1,
-          "label": "slice, thin/small",
-          "grams": 15
-        },
-        {
-          "id": "86693",
-          "amount": 1,
-          "label": "NLEA serving",
-          "grams": 148
-        }
-      ],
-      "nutrients": {
-        "1003": 0.88,
-        "1004": 0.2,
-        "1005": 3.89,
-        "1008": 18,
-        "1079": 1.2,
-        "1087": 10,
-        "1089": 0.27,
-        "1092": 237,
-        "1093": 5,
-        "1114": 0,
-        "1162": 13.7,
-        "1258": 0.028,
-        "2000": 2.63
       }
     },
     {
@@ -2899,48 +2005,6 @@
       }
     },
     {
-      "fdc_id": "171477",
-      "data_type": "sr_legacy_food",
-      "description": "Chicken, broilers or fryers, breast, meat only, cooked, roasted",
-      "food_category_id": "5",
-      "publication_date": "2019-04-01",
-      "portions": [
-        {
-          "id": "88817",
-          "amount": 1,
-          "label": "cup, chopped or diced",
-          "grams": 140
-        },
-        {
-          "id": "88818",
-          "amount": 1,
-          "label": "unit (yield from 1 lb ready-to-cook chicken)",
-          "grams": 52
-        },
-        {
-          "id": "88819",
-          "amount": 0.5,
-          "label": "breast, bone and skin removed",
-          "grams": 86
-        }
-      ],
-      "nutrients": {
-        "1003": 31.02,
-        "1004": 3.57,
-        "1005": 0,
-        "1008": 165,
-        "1079": 0,
-        "1087": 15,
-        "1089": 1.04,
-        "1092": 256,
-        "1093": 74,
-        "1114": 0.1,
-        "1162": 0,
-        "1258": 1.01,
-        "2000": 0
-      }
-    },
-    {
       "fdc_id": "171496",
       "data_type": "sr_legacy_food",
       "description": "Turkey, whole, breast, meat only, cooked, roasted",
@@ -2977,126 +2041,6 @@
       }
     },
     {
-      "fdc_id": "171688",
-      "data_type": "sr_legacy_food",
-      "description": "Apples, raw, with skin (Includes foods for USDA's Food Distribution Program)",
-      "food_category_id": "9",
-      "publication_date": "2019-04-01",
-      "portions": [
-        {
-          "id": "89190",
-          "amount": 1,
-          "label": "cup, quartered or chopped",
-          "grams": 125
-        },
-        {
-          "id": "89191",
-          "amount": 1,
-          "label": "cup slices",
-          "grams": 109
-        },
-        {
-          "id": "89192",
-          "amount": 1,
-          "label": "large (3-1/4\" dia)",
-          "grams": 223
-        },
-        {
-          "id": "89193",
-          "amount": 1,
-          "label": "medium (3\" dia)",
-          "grams": 182
-        },
-        {
-          "id": "89194",
-          "amount": 1,
-          "label": "small (2-3/4\" dia)",
-          "grams": 149
-        },
-        {
-          "id": "89195",
-          "amount": 1,
-          "label": "extra small (2-1/2\" dia)",
-          "grams": 101
-        },
-        {
-          "id": "89196",
-          "amount": 1,
-          "label": "NLEA serving",
-          "grams": 242
-        }
-      ],
-      "nutrients": {
-        "1003": 0.26,
-        "1004": 0.17,
-        "1005": 13.81,
-        "1008": 52,
-        "1079": 2.4,
-        "1087": 6,
-        "1089": 0.12,
-        "1092": 107,
-        "1093": 1,
-        "1114": 0,
-        "1162": 4.6,
-        "1258": 0.028,
-        "2000": 10.39
-      }
-    },
-    {
-      "fdc_id": "171705",
-      "data_type": "sr_legacy_food",
-      "description": "Avocados, raw, all commercial varieties",
-      "food_category_id": "9",
-      "publication_date": "2019-04-01",
-      "portions": [
-        {
-          "id": "89223",
-          "amount": 1,
-          "label": "cup, cubes",
-          "grams": 150
-        },
-        {
-          "id": "89224",
-          "amount": 1,
-          "label": "cup, pureed",
-          "grams": 230
-        },
-        {
-          "id": "89225",
-          "amount": 1,
-          "label": "cup, sliced",
-          "grams": 146
-        },
-        {
-          "id": "89226",
-          "amount": 1,
-          "label": "avocado, NS as to Florida or California",
-          "grams": 201
-        },
-        {
-          "id": "89227",
-          "amount": 1,
-          "label": "NLEA Serving",
-          "grams": 50
-        }
-      ],
-      "nutrients": {
-        "1003": 2,
-        "1004": 14.66,
-        "1005": 8.53,
-        "1008": 160,
-        "1079": 6.7,
-        "1087": 12,
-        "1089": 0.55,
-        "1092": 485,
-        "1093": 7,
-        "1114": 0,
-        "1162": 10,
-        "1258": 2.126,
-        "2000": 0.66
-      }
-    },
-    {
       "fdc_id": "171711",
       "data_type": "sr_legacy_food",
       "description": "Blueberries, raw",
@@ -3130,42 +2074,6 @@
         "1162": 9.7,
         "1258": 0.028,
         "2000": 9.96
-      }
-    },
-    {
-      "fdc_id": "171794",
-      "data_type": "sr_legacy_food",
-      "description": "Beef, ground, 90% lean meat / 10% fat, crumbles, cooked, pan-browned",
-      "food_category_id": "13",
-      "publication_date": "2019-04-01",
-      "portions": [
-        {
-          "id": "89378",
-          "amount": 3,
-          "label": "oz",
-          "grams": 85
-        },
-        {
-          "id": "89379",
-          "amount": 1,
-          "label": "portion ( yield from 1/2 lb raw meat )",
-          "grams": 154
-        }
-      ],
-      "nutrients": {
-        "1003": 28.45,
-        "1004": 12.04,
-        "1005": 0,
-        "1008": 230,
-        "1079": 0,
-        "1087": 16,
-        "1089": 3.08,
-        "1092": 433,
-        "1093": 87,
-        "1114": 0,
-        "1162": 0,
-        "1258": 4.712,
-        "2000": 0
       }
     },
     {
@@ -3453,42 +2361,6 @@
       }
     },
     {
-      "fdc_id": "172476",
-      "data_type": "sr_legacy_food",
-      "description": "Tofu, raw, regular, prepared with calcium sulfate",
-      "food_category_id": "16",
-      "publication_date": "2019-04-01",
-      "portions": [
-        {
-          "id": "90685",
-          "amount": 0.5,
-          "label": "cup",
-          "grams": 124
-        },
-        {
-          "id": "90686",
-          "amount": 0.25,
-          "label": "block",
-          "grams": 116
-        }
-      ],
-      "nutrients": {
-        "1003": 8.08,
-        "1004": 4.78,
-        "1005": 1.87,
-        "1008": 76,
-        "1079": 0.3,
-        "1087": 350,
-        "1089": 5.36,
-        "1092": 121,
-        "1093": 7,
-        "1114": 0,
-        "1162": 0.1,
-        "1258": 0.691,
-        "2000": 0.62
-      }
-    },
-    {
       "fdc_id": "172688",
       "data_type": "sr_legacy_food",
       "description": "Bread, whole-wheat, commercially prepared",
@@ -3522,42 +2394,6 @@
         "1162": 0,
         "1258": 0.722,
         "2000": 4.34
-      }
-    },
-    {
-      "fdc_id": "173044",
-      "data_type": "sr_legacy_food",
-      "description": "Guavas, common, raw",
-      "food_category_id": "9",
-      "publication_date": "2019-04-01",
-      "portions": [
-        {
-          "id": "91858",
-          "amount": 1,
-          "label": "cup",
-          "grams": 165
-        },
-        {
-          "id": "91859",
-          "amount": 1,
-          "label": "fruit, without refuse",
-          "grams": 55
-        }
-      ],
-      "nutrients": {
-        "1003": 2.55,
-        "1004": 0.95,
-        "1005": 14.32,
-        "1008": 68,
-        "1079": 5.4,
-        "1087": 18,
-        "1089": 0.26,
-        "1092": 417,
-        "1093": 2,
-        "1114": 0,
-        "1162": 228.3,
-        "1258": 0.272,
-        "2000": 8.92
       }
     },
     {
@@ -3618,48 +2454,6 @@
         "1162": 0,
         "1258": 18.867,
         "2000": 0.48
-      }
-    },
-    {
-      "fdc_id": "173424",
-      "data_type": "sr_legacy_food",
-      "description": "Egg, whole, cooked, hard-boiled",
-      "food_category_id": "1",
-      "publication_date": "2019-04-01",
-      "portions": [
-        {
-          "id": "92498",
-          "amount": 1,
-          "label": "cup, chopped",
-          "grams": 136
-        },
-        {
-          "id": "92499",
-          "amount": 1,
-          "label": "tbsp",
-          "grams": 8.5
-        },
-        {
-          "id": "92500",
-          "amount": 1,
-          "label": "large",
-          "grams": 50
-        }
-      ],
-      "nutrients": {
-        "1003": 12.58,
-        "1004": 10.61,
-        "1005": 1.12,
-        "1008": 155,
-        "1079": 0,
-        "1087": 50,
-        "1089": 1.19,
-        "1092": 126,
-        "1093": 124,
-        "1114": 2.2,
-        "1162": 0,
-        "1258": 3.267,
-        "2000": 1.12
       }
     },
     {
@@ -3867,6 +2661,3151 @@
       }
     },
     {
+      "fdc_id": "175168",
+      "data_type": "sr_legacy_food",
+      "description": "Fish, salmon, Atlantic, farmed, cooked, dry heat",
+      "food_category_id": "15",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "95788",
+          "amount": 3,
+          "label": "oz",
+          "grams": 85
+        },
+        {
+          "id": "95789",
+          "amount": 0.5,
+          "label": "fillet",
+          "grams": 178
+        }
+      ],
+      "nutrients": {
+        "1003": 22.1,
+        "1004": 12.35,
+        "1005": 0,
+        "1008": 206,
+        "1079": 0,
+        "1087": 15,
+        "1089": 0.34,
+        "1092": 384,
+        "1093": 61,
+        "1114": 13.1,
+        "1162": 3.7,
+        "1258": 2.397,
+        "2000": 0
+      }
+    },
+    {
+      "fdc_id": "175200",
+      "data_type": "sr_legacy_food",
+      "description": "Beans, pinto, mature seeds, cooked, boiled, without salt",
+      "food_category_id": "16",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "95832",
+          "amount": 1,
+          "label": "cup",
+          "grams": 171
+        },
+        {
+          "id": "95833",
+          "amount": 1,
+          "label": "tbsp",
+          "grams": 10.6
+        }
+      ],
+      "nutrients": {
+        "1003": 9.01,
+        "1004": 0.65,
+        "1005": 26.22,
+        "1008": 143,
+        "1079": 9,
+        "1087": 46,
+        "1089": 2.09,
+        "1092": 436,
+        "1093": 1,
+        "1114": 0,
+        "1162": 0.8,
+        "1258": 0.136,
+        "2000": 0.34
+      }
+    },
+    {
+      "fdc_id": "175203",
+      "data_type": "sr_legacy_food",
+      "description": "Beans, white, mature seeds, cooked, boiled, without salt",
+      "food_category_id": "16",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "95838",
+          "amount": 1,
+          "label": "cup",
+          "grams": 179
+        },
+        {
+          "id": "95839",
+          "amount": 1,
+          "label": "tbsp",
+          "grams": 11.2
+        }
+      ],
+      "nutrients": {
+        "1003": 9.73,
+        "1004": 0.35,
+        "1005": 25.09,
+        "1008": 139,
+        "1079": 6.3,
+        "1087": 90,
+        "1089": 3.7,
+        "1092": 561,
+        "1093": 6,
+        "1114": 0,
+        "1162": 0,
+        "1258": 0.091,
+        "2000": 0.34
+      }
+    },
+    {
+      "fdc_id": "167742",
+      "data_type": "sr_legacy_food",
+      "description": "Mollusks, scallop, (bay and sea), cooked, steamed",
+      "food_category_id": "15",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "81878",
+          "amount": 3,
+          "label": "oz",
+          "grams": 85
+        }
+      ],
+      "nutrients": {
+        "1003": 20.54,
+        "1004": 0.84,
+        "1005": 5.41,
+        "1008": 111,
+        "1079": 0,
+        "1087": 10,
+        "1089": 0.58,
+        "1092": 314,
+        "1093": 667,
+        "1114": 0,
+        "1162": 0,
+        "1258": 0.218,
+        "2000": 0
+      }
+    },
+    {
+      "fdc_id": "167754",
+      "data_type": "sr_legacy_food",
+      "description": "Pummelo, raw",
+      "food_category_id": "9",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "81903",
+          "amount": 1,
+          "label": "cup, sections",
+          "grams": 190
+        },
+        {
+          "id": "81904",
+          "amount": 1,
+          "label": "fruit without refuse",
+          "grams": 609
+        }
+      ],
+      "nutrients": {
+        "1003": 0.76,
+        "1004": 0.04,
+        "1005": 9.62,
+        "1008": 38,
+        "1079": 1,
+        "1087": 4,
+        "1089": 0.11,
+        "1092": 216,
+        "1093": 1,
+        "1162": 61
+      }
+    },
+    {
+      "fdc_id": "167759",
+      "data_type": "sr_legacy_food",
+      "description": "Sapodilla, raw",
+      "food_category_id": "9",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "81913",
+          "amount": 1,
+          "label": "cup, pulp",
+          "grams": 241
+        },
+        {
+          "id": "81914",
+          "amount": 1,
+          "label": "sapodilla",
+          "grams": 170
+        }
+      ],
+      "nutrients": {
+        "1003": 0.44,
+        "1004": 1.1,
+        "1005": 19.96,
+        "1008": 83,
+        "1079": 5.3,
+        "1087": 21,
+        "1089": 0.8,
+        "1092": 193,
+        "1093": 12,
+        "1162": 14.7,
+        "1258": 0.194
+      }
+    },
+    {
+      "fdc_id": "167761",
+      "data_type": "sr_legacy_food",
+      "description": "Soursop, raw",
+      "food_category_id": "9",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "81917",
+          "amount": 1,
+          "label": "cup, pulp",
+          "grams": 225
+        },
+        {
+          "id": "81918",
+          "amount": 1,
+          "label": "fruit (7\" x 5-1/4\" dia)",
+          "grams": 625
+        }
+      ],
+      "nutrients": {
+        "1003": 1,
+        "1004": 0.3,
+        "1005": 16.84,
+        "1008": 66,
+        "1079": 3.3,
+        "1087": 14,
+        "1089": 0.6,
+        "1092": 278,
+        "1093": 14,
+        "1114": 0,
+        "1162": 20.6,
+        "1258": 0.051,
+        "2000": 13.54
+      }
+    },
+    {
+      "fdc_id": "167765",
+      "data_type": "sr_legacy_food",
+      "description": "Watermelon, raw",
+      "food_category_id": "9",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "81932",
+          "amount": 1,
+          "label": "cup, balls",
+          "grams": 154
+        },
+        {
+          "id": "81933",
+          "amount": 1,
+          "label": "cup, diced",
+          "grams": 152
+        },
+        {
+          "id": "81934",
+          "amount": 1,
+          "label": "melon (15\" long x 7-1/2\" dia)",
+          "grams": 4518
+        },
+        {
+          "id": "81935",
+          "amount": 1,
+          "label": "wedge (approx 1/16 of melon)",
+          "grams": 286
+        },
+        {
+          "id": "81936",
+          "amount": 10,
+          "label": "watermelon balls",
+          "grams": 122
+        },
+        {
+          "id": "81937",
+          "amount": 1,
+          "label": "NLEA serving",
+          "grams": 280
+        }
+      ],
+      "nutrients": {
+        "1003": 0.61,
+        "1004": 0.15,
+        "1005": 7.55,
+        "1008": 30,
+        "1079": 0.4,
+        "1087": 7,
+        "1089": 0.24,
+        "1092": 112,
+        "1093": 1,
+        "1114": 0,
+        "1162": 8.1,
+        "1258": 0.016,
+        "2000": 6.2
+      }
+    },
+    {
+      "fdc_id": "167863",
+      "data_type": "sr_legacy_food",
+      "description": "Pork, fresh, variety meats and by-products, liver, cooked, braised",
+      "food_category_id": "10",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "82113",
+          "amount": 3,
+          "label": "oz",
+          "grams": 85
+        }
+      ],
+      "nutrients": {
+        "1003": 26.02,
+        "1004": 4.4,
+        "1005": 3.76,
+        "1008": 165,
+        "1079": 0,
+        "1087": 10,
+        "1089": 17.92,
+        "1092": 150,
+        "1093": 49,
+        "1162": 23.6,
+        "1258": 1.41
+      }
+    },
+    {
+      "fdc_id": "168175",
+      "data_type": "sr_legacy_food",
+      "description": "Sugar-apples, (sweetsop), raw",
+      "food_category_id": "9",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "82608",
+          "amount": 1,
+          "label": "cup, pulp",
+          "grams": 250
+        },
+        {
+          "id": "82609",
+          "amount": 1,
+          "label": "fruit (2-7/8\" dia)",
+          "grams": 155
+        }
+      ],
+      "nutrients": {
+        "1003": 2.06,
+        "1004": 0.29,
+        "1005": 23.64,
+        "1008": 94,
+        "1079": 4.4,
+        "1087": 24,
+        "1089": 0.6,
+        "1092": 247,
+        "1093": 9,
+        "1162": 36.3,
+        "1258": 0.048
+      }
+    },
+    {
+      "fdc_id": "168250",
+      "data_type": "sr_legacy_food",
+      "description": "Pork, fresh, loin, tenderloin, separable lean only, cooked, roasted",
+      "food_category_id": "10",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "82751",
+          "amount": 3,
+          "label": "oz",
+          "grams": 85
+        },
+        {
+          "id": "82752",
+          "amount": 1,
+          "label": "piece, cooked, excluding refuse (yield from 1 lb raw meat with refuse)",
+          "grams": 333
+        },
+        {
+          "id": "82753",
+          "amount": 1,
+          "label": "roast",
+          "grams": 402
+        }
+      ],
+      "nutrients": {
+        "1003": 26.17,
+        "1004": 3.51,
+        "1005": 0,
+        "1008": 143,
+        "1079": 0,
+        "1087": 6,
+        "1089": 1.15,
+        "1092": 421,
+        "1093": 57,
+        "1114": 0.2,
+        "1162": 0,
+        "1258": 1.198,
+        "2000": 0
+      }
+    },
+    {
+      "fdc_id": "168394",
+      "data_type": "sr_legacy_food",
+      "description": "Balsam-pear (bitter gourd), pods, cooked, boiled, drained, without salt",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "83025",
+          "amount": 1,
+          "label": "cup (1/2\" pieces)",
+          "grams": 124
+        },
+        {
+          "id": "83026",
+          "amount": 0.5,
+          "label": "cup (1/2\" pieces)",
+          "grams": 62
+        }
+      ],
+      "nutrients": {
+        "1003": 0.84,
+        "1004": 0.18,
+        "1005": 4.32,
+        "1008": 19,
+        "1079": 2,
+        "1087": 9,
+        "1089": 0.38,
+        "1092": 319,
+        "1093": 6,
+        "1114": 0,
+        "1162": 33,
+        "1258": 0.014,
+        "2000": 1.95
+      }
+    },
+    {
+      "fdc_id": "168409",
+      "data_type": "sr_legacy_food",
+      "description": "Cucumber, with peel, raw",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "83049",
+          "amount": 0.5,
+          "label": "cup slices",
+          "grams": 52
+        },
+        {
+          "id": "83050",
+          "amount": 1,
+          "label": "cucumber (8-1/4\")",
+          "grams": 301
+        }
+      ],
+      "nutrients": {
+        "1003": 0.65,
+        "1004": 0.11,
+        "1005": 3.63,
+        "1008": 15,
+        "1079": 0.5,
+        "1087": 16,
+        "1089": 0.28,
+        "1092": 147,
+        "1093": 2,
+        "1114": 0,
+        "1162": 2.8,
+        "1258": 0.037,
+        "2000": 1.67
+      }
+    },
+    {
+      "fdc_id": "168415",
+      "data_type": "sr_legacy_food",
+      "description": "Gourd, dishcloth (towelgourd), cooked, boiled, drained, without salt",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "83059",
+          "amount": 1,
+          "label": "cup (1\" pieces)",
+          "grams": 178
+        },
+        {
+          "id": "83060",
+          "amount": 0.5,
+          "label": "cup (1\" slices)",
+          "grams": 89
+        }
+      ],
+      "nutrients": {
+        "1003": 0.66,
+        "1004": 0.34,
+        "1005": 14.34,
+        "1008": 56,
+        "1079": 2.9,
+        "1087": 9,
+        "1089": 0.36,
+        "1092": 453,
+        "1093": 21,
+        "1114": 0,
+        "1162": 5.7,
+        "1258": 0.027,
+        "2000": 5.17
+      }
+    },
+    {
+      "fdc_id": "168417",
+      "data_type": "sr_legacy_food",
+      "description": "Drumstick leaves, cooked, boiled, drained, without salt",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "83062",
+          "amount": 1,
+          "label": "cup, chopped",
+          "grams": 42
+        }
+      ],
+      "nutrients": {
+        "1003": 5.27,
+        "1004": 0.93,
+        "1005": 11.15,
+        "1008": 60,
+        "1079": 2,
+        "1087": 151,
+        "1089": 2.32,
+        "1092": 344,
+        "1093": 9,
+        "1114": 0,
+        "1162": 31,
+        "1258": 0.152,
+        "2000": 1
+      }
+    },
+    {
+      "fdc_id": "168420",
+      "data_type": "sr_legacy_food",
+      "description": "Jute, potherb, cooked, boiled, drained, without salt",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "83065",
+          "amount": 1,
+          "label": "cup",
+          "grams": 87
+        }
+      ],
+      "nutrients": {
+        "1003": 3.68,
+        "1004": 0.2,
+        "1005": 7.29,
+        "1008": 37,
+        "1079": 2,
+        "1087": 211,
+        "1089": 3.14,
+        "1092": 550,
+        "1093": 11,
+        "1114": 0,
+        "1162": 33,
+        "1258": 0.03,
+        "2000": 1
+      }
+    },
+    {
+      "fdc_id": "168449",
+      "data_type": "sr_legacy_food",
+      "description": "Pumpkin, cooked, boiled, drained, without salt",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "83113",
+          "amount": 1,
+          "label": "cup, mashed",
+          "grams": 245
+        }
+      ],
+      "nutrients": {
+        "1003": 0.72,
+        "1004": 0.07,
+        "1005": 4.9,
+        "1008": 20,
+        "1079": 1.1,
+        "1087": 15,
+        "1089": 0.57,
+        "1092": 230,
+        "1093": 1,
+        "1114": 0,
+        "1162": 4.7,
+        "1258": 0.037,
+        "2000": 2.08
+      }
+    },
+    {
+      "fdc_id": "168484",
+      "data_type": "sr_legacy_food",
+      "description": "Sweet potato, cooked, boiled, without skin",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "83172",
+          "amount": 1,
+          "label": "cup, mashed",
+          "grams": 328
+        },
+        {
+          "id": "83173",
+          "amount": 1,
+          "label": "medium",
+          "grams": 151
+        }
+      ],
+      "nutrients": {
+        "1003": 1.37,
+        "1004": 0.14,
+        "1005": 17.72,
+        "1008": 76,
+        "1079": 2.5,
+        "1087": 27,
+        "1089": 0.72,
+        "1092": 230,
+        "1093": 27,
+        "1114": 0,
+        "1162": 12.8,
+        "1258": 0.031,
+        "2000": 5.74
+      }
+    },
+    {
+      "fdc_id": "168486",
+      "data_type": "sr_legacy_food",
+      "description": "Taro, cooked, without salt",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "83176",
+          "amount": 1,
+          "label": "cup, sliced",
+          "grams": 132
+        }
+      ],
+      "nutrients": {
+        "1003": 0.52,
+        "1004": 0.11,
+        "1005": 34.6,
+        "1008": 142,
+        "1079": 5.1,
+        "1087": 18,
+        "1089": 0.72,
+        "1092": 484,
+        "1093": 15,
+        "1114": 0,
+        "1162": 5,
+        "1258": 0.023,
+        "2000": 0.49
+      }
+    },
+    {
+      "fdc_id": "168488",
+      "data_type": "sr_legacy_food",
+      "description": "Taro leaves, cooked, steamed, without salt",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "83179",
+          "amount": 1,
+          "label": "cup",
+          "grams": 145
+        }
+      ],
+      "nutrients": {
+        "1003": 2.72,
+        "1004": 0.41,
+        "1005": 4.02,
+        "1008": 24,
+        "1079": 2,
+        "1087": 86,
+        "1089": 1.18,
+        "1092": 460,
+        "1093": 2,
+        "1114": 0,
+        "1162": 35.5,
+        "1258": 0.083
+      }
+    },
+    {
+      "fdc_id": "168626",
+      "data_type": "sr_legacy_food",
+      "description": "Beef, variety meats and by-products, liver, cooked, braised",
+      "food_category_id": "13",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "83447",
+          "amount": 3,
+          "label": "oz",
+          "grams": 85
+        },
+        {
+          "id": "83448",
+          "amount": 1,
+          "label": "slice",
+          "grams": 68
+        }
+      ],
+      "nutrients": {
+        "1003": 29.08,
+        "1004": 5.26,
+        "1005": 5.13,
+        "1008": 191,
+        "1079": 0,
+        "1087": 6,
+        "1089": 6.54,
+        "1092": 352,
+        "1093": 79,
+        "1114": 1.2,
+        "1162": 1.9,
+        "1258": 2.947,
+        "2000": 0
+      }
+    },
+    {
+      "fdc_id": "168878",
+      "data_type": "sr_legacy_food",
+      "description": "Rice, white, long-grain, regular, enriched, cooked",
+      "food_category_id": "20",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "83928",
+          "amount": 1,
+          "label": "cup",
+          "grams": 158
+        }
+      ],
+      "nutrients": {
+        "1003": 2.69,
+        "1004": 0.28,
+        "1005": 28.17,
+        "1008": 130,
+        "1079": 0.4,
+        "1087": 10,
+        "1089": 1.2,
+        "1092": 35,
+        "1093": 1,
+        "1114": 0,
+        "1162": 0,
+        "1258": 0.077,
+        "2000": 0.05
+      }
+    },
+    {
+      "fdc_id": "168914",
+      "data_type": "sr_legacy_food",
+      "description": "Rice noodles, cooked",
+      "food_category_id": "20",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "83974",
+          "amount": 1,
+          "label": "cup",
+          "grams": 176
+        }
+      ],
+      "nutrients": {
+        "1003": 1.79,
+        "1004": 0.2,
+        "1005": 24.01,
+        "1008": 108,
+        "1079": 1,
+        "1087": 4,
+        "1089": 0.14,
+        "1092": 4,
+        "1093": 19,
+        "1114": 0,
+        "1162": 0,
+        "1258": 0.023,
+        "2000": 0.03
+      }
+    },
+    {
+      "fdc_id": "168919",
+      "data_type": "sr_legacy_food",
+      "description": "Noodles, egg, cooked, enriched, with added salt",
+      "food_category_id": "20",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "83992",
+          "amount": 1,
+          "label": "cup",
+          "grams": 160
+        }
+      ],
+      "nutrients": {
+        "1003": 4.54,
+        "1004": 2.07,
+        "1005": 25.16,
+        "1008": 138,
+        "1079": 1.2,
+        "1087": 12,
+        "1089": 1.47,
+        "1092": 38,
+        "1093": 165,
+        "1162": 0,
+        "1258": 0.419,
+        "2000": 0.4
+      }
+    },
+    {
+      "fdc_id": "169086",
+      "data_type": "sr_legacy_food",
+      "description": "Litchis, raw",
+      "food_category_id": "9",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "84200",
+          "amount": 1,
+          "label": "cup",
+          "grams": 190
+        },
+        {
+          "id": "84201",
+          "amount": 1,
+          "label": "fruit without refuse",
+          "grams": 9.6
+        }
+      ],
+      "nutrients": {
+        "1003": 0.83,
+        "1004": 0.44,
+        "1005": 16.53,
+        "1008": 66,
+        "1079": 1.3,
+        "1087": 5,
+        "1089": 0.31,
+        "1092": 171,
+        "1093": 1,
+        "1114": 0,
+        "1162": 71.5,
+        "1258": 0.099,
+        "2000": 15.23
+      }
+    },
+    {
+      "fdc_id": "169092",
+      "data_type": "sr_legacy_food",
+      "description": "Melons, cantaloupe, raw",
+      "food_category_id": "9",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "84207",
+          "amount": 1,
+          "label": "cup, balls",
+          "grams": 177
+        },
+        {
+          "id": "84208",
+          "amount": 1,
+          "label": "cup, cubes",
+          "grams": 160
+        },
+        {
+          "id": "84209",
+          "amount": 1,
+          "label": "cup, diced",
+          "grams": 156
+        },
+        {
+          "id": "84210",
+          "amount": 1,
+          "label": "melon, large (about 6-1/2\" dia)",
+          "grams": 814
+        },
+        {
+          "id": "84211",
+          "amount": 1,
+          "label": "wedge, large (1/8 of large melon)",
+          "grams": 102
+        },
+        {
+          "id": "84212",
+          "amount": 1,
+          "label": "melon, medium (about 5\" dia)",
+          "grams": 552
+        },
+        {
+          "id": "84213",
+          "amount": 1,
+          "label": "wedge, medium (1/8 of medium melon)",
+          "grams": 69
+        },
+        {
+          "id": "84214",
+          "amount": 1,
+          "label": "melon, small (about 4-1/4\" dia)",
+          "grams": 441
+        },
+        {
+          "id": "84215",
+          "amount": 1,
+          "label": "wedge, small (1/8 of small melon)",
+          "grams": 55
+        },
+        {
+          "id": "84216",
+          "amount": 10,
+          "label": "cantaloupe balls",
+          "grams": 138
+        },
+        {
+          "id": "84217",
+          "amount": 1,
+          "label": "NLEA serving",
+          "grams": 134
+        }
+      ],
+      "nutrients": {
+        "1003": 0.84,
+        "1004": 0.19,
+        "1005": 8.16,
+        "1008": 34,
+        "1079": 0.9,
+        "1087": 9,
+        "1089": 0.21,
+        "1092": 267,
+        "1093": 16,
+        "1114": 0,
+        "1162": 36.7,
+        "1258": 0.051,
+        "2000": 7.86
+      }
+    },
+    {
+      "fdc_id": "169097",
+      "data_type": "sr_legacy_food",
+      "description": "Oranges, raw, all commercial varieties",
+      "food_category_id": "9",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "84227",
+          "amount": 1,
+          "label": "cup, sections",
+          "grams": 180
+        },
+        {
+          "id": "84228",
+          "amount": 1,
+          "label": "large (3-1/16\" dia)",
+          "grams": 184
+        },
+        {
+          "id": "84229",
+          "amount": 1,
+          "label": "small (2-3/8\" dia)",
+          "grams": 96
+        },
+        {
+          "id": "84230",
+          "amount": 1,
+          "label": "fruit (2-5/8\" dia)",
+          "grams": 131
+        }
+      ],
+      "nutrients": {
+        "1003": 0.94,
+        "1004": 0.12,
+        "1005": 11.75,
+        "1008": 47,
+        "1079": 2.4,
+        "1087": 40,
+        "1089": 0.1,
+        "1092": 181,
+        "1093": 0,
+        "1114": 0,
+        "1162": 53.2,
+        "1258": 0.015,
+        "2000": 9.35
+      }
+    },
+    {
+      "fdc_id": "169105",
+      "data_type": "sr_legacy_food",
+      "description": "Tangerines, (mandarin oranges), raw",
+      "food_category_id": "9",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "84247",
+          "amount": 1,
+          "label": "cup, sections",
+          "grams": 195
+        },
+        {
+          "id": "84248",
+          "amount": 1,
+          "label": "small (2-1/4\" dia)",
+          "grams": 76
+        },
+        {
+          "id": "84249",
+          "amount": 1,
+          "label": "medium (2-1/2\" dia)",
+          "grams": 88
+        },
+        {
+          "id": "84250",
+          "amount": 1,
+          "label": "large (2-3/4\" dia)",
+          "grams": 120
+        },
+        {
+          "id": "84251",
+          "amount": 1,
+          "label": "NLEA serving",
+          "grams": 109
+        }
+      ],
+      "nutrients": {
+        "1003": 0.81,
+        "1004": 0.31,
+        "1005": 13.34,
+        "1008": 53,
+        "1079": 1.8,
+        "1087": 37,
+        "1089": 0.15,
+        "1092": 166,
+        "1093": 2,
+        "1114": 0,
+        "1162": 26.7,
+        "1258": 0.039,
+        "2000": 10.58
+      }
+    },
+    {
+      "fdc_id": "169124",
+      "data_type": "sr_legacy_food",
+      "description": "Pineapple, raw, all varieties",
+      "food_category_id": "9",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "84287",
+          "amount": 1,
+          "label": "cup, chunks",
+          "grams": 165
+        },
+        {
+          "id": "84288",
+          "amount": 1,
+          "label": "fruit",
+          "grams": 905
+        },
+        {
+          "id": "84289",
+          "amount": 1,
+          "label": "slice (4-2/3\" dia x 3/4\" thick)",
+          "grams": 166
+        },
+        {
+          "id": "84290",
+          "amount": 1,
+          "label": "slice (3-1/2\" dia x 3/4\" thick)",
+          "grams": 84
+        },
+        {
+          "id": "84291",
+          "amount": 1,
+          "label": "slice, thin (3-1/2\" dia x 1/2\" thick)",
+          "grams": 56
+        }
+      ],
+      "nutrients": {
+        "1003": 0.54,
+        "1004": 0.12,
+        "1005": 13.12,
+        "1008": 50,
+        "1079": 1.4,
+        "1087": 13,
+        "1089": 0.29,
+        "1092": 109,
+        "1093": 1,
+        "1114": 0,
+        "1162": 47.8,
+        "1258": 0.009,
+        "2000": 9.85
+      }
+    },
+    {
+      "fdc_id": "169135",
+      "data_type": "sr_legacy_food",
+      "description": "Lima beans, immature seeds, cooked, boiled, drained, without salt",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "84311",
+          "amount": 1,
+          "label": "cup",
+          "grams": 170
+        }
+      ],
+      "nutrients": {
+        "1003": 6.81,
+        "1004": 0.32,
+        "1005": 23.64,
+        "1008": 123,
+        "1079": 5.4,
+        "1087": 32,
+        "1089": 2.45,
+        "1092": 570,
+        "1093": 17,
+        "1114": 0,
+        "1162": 10.1,
+        "1258": 0.073,
+        "2000": 1.63
+      }
+    },
+    {
+      "fdc_id": "169141",
+      "data_type": "sr_legacy_food",
+      "description": "Beans, snap, green, cooked, boiled, drained, without salt",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "84317",
+          "amount": 1,
+          "label": "cup",
+          "grams": 125
+        }
+      ],
+      "nutrients": {
+        "1003": 1.89,
+        "1004": 0.28,
+        "1005": 7.88,
+        "1008": 35,
+        "1079": 3.2,
+        "1087": 44,
+        "1089": 0.65,
+        "1092": 146,
+        "1093": 1,
+        "1114": 0,
+        "1162": 9.7,
+        "1258": 0.064,
+        "2000": 3.63
+      }
+    },
+    {
+      "fdc_id": "169211",
+      "data_type": "sr_legacy_food",
+      "description": "Bamboo shoots, cooked, boiled, drained, without salt",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "84441",
+          "amount": 1,
+          "label": "cup (1/2\" slices)",
+          "grams": 120
+        },
+        {
+          "id": "84442",
+          "amount": 1,
+          "label": "shoot",
+          "grams": 144
+        }
+      ],
+      "nutrients": {
+        "1003": 1.53,
+        "1004": 0.22,
+        "1005": 1.92,
+        "1008": 12,
+        "1079": 1,
+        "1087": 12,
+        "1089": 0.24,
+        "1092": 533,
+        "1093": 4,
+        "1114": 0,
+        "1162": 0,
+        "1258": 0.051
+      }
+    },
+    {
+      "fdc_id": "169223",
+      "data_type": "sr_legacy_food",
+      "description": "Yardlong bean, cooked, boiled, drained, without salt",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "84461",
+          "amount": 1,
+          "label": "cup slices",
+          "grams": 104
+        },
+        {
+          "id": "84462",
+          "amount": 1,
+          "label": "pod",
+          "grams": 14
+        }
+      ],
+      "nutrients": {
+        "1003": 2.53,
+        "1004": 0.1,
+        "1005": 9.18,
+        "1008": 47,
+        "1087": 44,
+        "1089": 0.98,
+        "1092": 290,
+        "1093": 4,
+        "1114": 0,
+        "1162": 16.2,
+        "1258": 0.026
+      }
+    },
+    {
+      "fdc_id": "169229",
+      "data_type": "sr_legacy_food",
+      "description": "Eggplant, cooked, boiled, drained, without salt",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "84477",
+          "amount": 1,
+          "label": "cup (1\" cubes)",
+          "grams": 99
+        }
+      ],
+      "nutrients": {
+        "1003": 0.83,
+        "1004": 0.23,
+        "1005": 8.73,
+        "1008": 35,
+        "1079": 2.5,
+        "1087": 6,
+        "1089": 0.25,
+        "1092": 123,
+        "1093": 1,
+        "1114": 0,
+        "1162": 1.3,
+        "1258": 0.044,
+        "2000": 3.2
+      }
+    },
+    {
+      "fdc_id": "169233",
+      "data_type": "sr_legacy_food",
+      "description": "Gourd, white-flowered (calabash), cooked, boiled, drained, without salt",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "84487",
+          "amount": 1,
+          "label": "cup (1\" cubes)",
+          "grams": 146
+        }
+      ],
+      "nutrients": {
+        "1003": 0.6,
+        "1004": 0.02,
+        "1005": 3.69,
+        "1008": 15,
+        "1079": 1.2,
+        "1087": 24,
+        "1089": 0.25,
+        "1092": 170,
+        "1093": 2,
+        "1114": 0,
+        "1162": 8.5,
+        "1258": 0.002
+      }
+    },
+    {
+      "fdc_id": "169249",
+      "data_type": "sr_legacy_food",
+      "description": "Lettuce, green leaf, raw",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "84520",
+          "amount": 1,
+          "label": "cup shredded",
+          "grams": 36
+        },
+        {
+          "id": "84521",
+          "amount": 1,
+          "label": "head",
+          "grams": 360
+        },
+        {
+          "id": "84522",
+          "amount": 1,
+          "label": "leaf inner",
+          "grams": 4.8
+        },
+        {
+          "id": "84523",
+          "amount": 1,
+          "label": "leaf outer",
+          "grams": 24
+        }
+      ],
+      "nutrients": {
+        "1003": 1.36,
+        "1004": 0.15,
+        "1005": 2.87,
+        "1008": 15,
+        "1079": 1.3,
+        "1087": 36,
+        "1089": 0.86,
+        "1092": 194,
+        "1093": 28,
+        "1114": 0,
+        "1162": 9.2,
+        "1258": 0.02,
+        "2000": 0.78
+      }
+    },
+    {
+      "fdc_id": "169261",
+      "data_type": "sr_legacy_food",
+      "description": "Okra, cooked, boiled, drained, without salt",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "84555",
+          "amount": 0.5,
+          "label": "cup slices",
+          "grams": 80
+        },
+        {
+          "id": "84556",
+          "amount": 8,
+          "label": "pods (3\" long)",
+          "grams": 85
+        }
+      ],
+      "nutrients": {
+        "1003": 1.87,
+        "1004": 0.21,
+        "1005": 4.51,
+        "1008": 22,
+        "1079": 2.5,
+        "1087": 77,
+        "1089": 0.28,
+        "1092": 135,
+        "1093": 6,
+        "1114": 0,
+        "1162": 16.3,
+        "1258": 0.045,
+        "2000": 2.4
+      }
+    },
+    {
+      "fdc_id": "169276",
+      "data_type": "sr_legacy_food",
+      "description": "Radishes, raw",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "84582",
+          "amount": 1,
+          "label": "cup slices",
+          "grams": 116
+        },
+        {
+          "id": "84583",
+          "amount": 1,
+          "label": "large (1\" to 1-1/4\" dia)",
+          "grams": 9
+        },
+        {
+          "id": "84584",
+          "amount": 1,
+          "label": "medium (3/4\" to 1\" dia)",
+          "grams": 4.5
+        },
+        {
+          "id": "84585",
+          "amount": 1,
+          "label": "slice",
+          "grams": 1
+        },
+        {
+          "id": "84586",
+          "amount": 1,
+          "label": "small",
+          "grams": 2
+        },
+        {
+          "id": "84587",
+          "amount": 0.5,
+          "label": "cup slices",
+          "grams": 58
+        }
+      ],
+      "nutrients": {
+        "1003": 0.68,
+        "1004": 0.1,
+        "1005": 3.4,
+        "1008": 16,
+        "1079": 1.6,
+        "1087": 25,
+        "1089": 0.34,
+        "1092": 233,
+        "1093": 39,
+        "1114": 0,
+        "1162": 14.8,
+        "1258": 0.032,
+        "2000": 1.86
+      }
+    },
+    {
+      "fdc_id": "169302",
+      "data_type": "sr_legacy_food",
+      "description": "Water convolvulus, cooked, boiled, drained, without salt",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "84624",
+          "amount": 1,
+          "label": "cup, chopped",
+          "grams": 98
+        }
+      ],
+      "nutrients": {
+        "1003": 2.08,
+        "1004": 0.24,
+        "1005": 3.7,
+        "1008": 20,
+        "1079": 1.9,
+        "1087": 54,
+        "1089": 1.32,
+        "1092": 284,
+        "1093": 122,
+        "1114": 0,
+        "1162": 16,
+        "1258": 0.039
+      }
+    },
+    {
+      "fdc_id": "169304",
+      "data_type": "sr_legacy_food",
+      "description": "Sweet potato leaves, cooked, steamed, without salt",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "84627",
+          "amount": 1,
+          "label": "cup",
+          "grams": 64
+        }
+      ],
+      "nutrients": {
+        "1003": 2.18,
+        "1004": 0.34,
+        "1005": 7.38,
+        "1008": 35,
+        "1079": 1.9,
+        "1087": 33,
+        "1089": 0.63,
+        "1092": 312,
+        "1093": 7,
+        "1114": 0,
+        "1162": 1.5,
+        "1258": 0.065,
+        "2000": 5.48
+      }
+    },
+    {
+      "fdc_id": "169704",
+      "data_type": "sr_legacy_food",
+      "description": "Rice, brown, long-grain, cooked (Includes foods for USDA's Food Distribution Program)",
+      "food_category_id": "20",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "85378",
+          "amount": 1,
+          "label": "cup",
+          "grams": 202
+        }
+      ],
+      "nutrients": {
+        "1003": 2.74,
+        "1004": 0.97,
+        "1005": 25.58,
+        "1008": 123,
+        "1079": 1.6,
+        "1087": 3,
+        "1089": 0.56,
+        "1092": 86,
+        "1093": 4,
+        "1114": 0,
+        "1162": 0,
+        "1258": 0.26,
+        "2000": 0.24
+      }
+    },
+    {
+      "fdc_id": "169711",
+      "data_type": "sr_legacy_food",
+      "description": "Rice, white, glutinous, unenriched, cooked",
+      "food_category_id": "20",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "85385",
+          "amount": 1,
+          "label": "cup",
+          "grams": 174
+        }
+      ],
+      "nutrients": {
+        "1003": 2.02,
+        "1004": 0.19,
+        "1005": 21.09,
+        "1008": 97,
+        "1079": 1,
+        "1087": 2,
+        "1089": 0.14,
+        "1092": 10,
+        "1093": 5,
+        "1114": 0,
+        "1162": 0,
+        "1258": 0.039,
+        "2000": 0.05
+      }
+    },
+    {
+      "fdc_id": "169902",
+      "data_type": "sr_legacy_food",
+      "description": "Quail, cooked, total edible",
+      "food_category_id": "5",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "85638",
+          "amount": 1,
+          "label": "oz",
+          "grams": 28.35
+        },
+        {
+          "id": "85639",
+          "amount": 1,
+          "label": "lb",
+          "grams": 453
+        }
+      ],
+      "nutrients": {
+        "1003": 25.1,
+        "1004": 14.1,
+        "1005": 0,
+        "1008": 227,
+        "1079": 0,
+        "1087": 15,
+        "1089": 4.43,
+        "1092": 216,
+        "1093": 52,
+        "1114": 0.2,
+        "1162": 2.3,
+        "1258": 3.955,
+        "2000": 0
+      }
+    },
+    {
+      "fdc_id": "169910",
+      "data_type": "sr_legacy_food",
+      "description": "Mangos, raw",
+      "food_category_id": "9",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "85651",
+          "amount": 1,
+          "label": "cup pieces",
+          "grams": 165
+        },
+        {
+          "id": "85652",
+          "amount": 1,
+          "label": "fruit without refuse",
+          "grams": 336
+        }
+      ],
+      "nutrients": {
+        "1003": 0.82,
+        "1004": 0.38,
+        "1005": 14.98,
+        "1008": 60,
+        "1079": 1.6,
+        "1087": 11,
+        "1089": 0.16,
+        "1092": 168,
+        "1093": 1,
+        "1114": 0,
+        "1162": 36.4,
+        "1258": 0.092,
+        "2000": 13.66
+      }
+    },
+    {
+      "fdc_id": "169926",
+      "data_type": "sr_legacy_food",
+      "description": "Papayas, raw",
+      "food_category_id": "9",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "85692",
+          "amount": 1,
+          "label": "cup 1\" pieces",
+          "grams": 145
+        },
+        {
+          "id": "85693",
+          "amount": 1,
+          "label": "cup, mashed",
+          "grams": 230
+        },
+        {
+          "id": "85694",
+          "amount": 1,
+          "label": "fruit, small",
+          "grams": 157
+        },
+        {
+          "id": "85695",
+          "amount": 1,
+          "label": "fruit, large",
+          "grams": 781
+        }
+      ],
+      "nutrients": {
+        "1003": 0.47,
+        "1004": 0.26,
+        "1005": 10.82,
+        "1008": 43,
+        "1079": 1.7,
+        "1087": 20,
+        "1089": 0.25,
+        "1092": 182,
+        "1093": 8,
+        "1114": 0,
+        "1162": 60.9,
+        "1258": 0.081,
+        "2000": 7.82
+      }
+    },
+    {
+      "fdc_id": "169967",
+      "data_type": "sr_legacy_food",
+      "description": "Broccoli, cooked, boiled, drained, without salt",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "85772",
+          "amount": 0.5,
+          "label": "cup, chopped",
+          "grams": 78
+        },
+        {
+          "id": "85773",
+          "amount": 1,
+          "label": "stalk, large (11\"-12\" long)",
+          "grams": 280
+        },
+        {
+          "id": "85774",
+          "amount": 1,
+          "label": "stalk, medium (7-1/2\" - 8\" long)",
+          "grams": 180
+        },
+        {
+          "id": "85775",
+          "amount": 1,
+          "label": "stalk, small (5\" long)",
+          "grams": 140
+        },
+        {
+          "id": "85776",
+          "amount": 1,
+          "label": "spear (about 5\" long)",
+          "grams": 37
+        }
+      ],
+      "nutrients": {
+        "1003": 2.38,
+        "1004": 0.41,
+        "1005": 7.18,
+        "1008": 35,
+        "1079": 3.3,
+        "1087": 40,
+        "1089": 0.67,
+        "1092": 293,
+        "1093": 41,
+        "1114": 0,
+        "1162": 64.9,
+        "1258": 0.079,
+        "2000": 1.39
+      }
+    },
+    {
+      "fdc_id": "169976",
+      "data_type": "sr_legacy_food",
+      "description": "Cabbage, cooked, boiled, drained, without salt",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "85799",
+          "amount": 0.5,
+          "label": "cup, shredded",
+          "grams": 75
+        },
+        {
+          "id": "85800",
+          "amount": 1,
+          "label": "head",
+          "grams": 1262
+        }
+      ],
+      "nutrients": {
+        "1003": 1.27,
+        "1004": 0.06,
+        "1005": 5.51,
+        "1008": 23,
+        "1079": 1.9,
+        "1087": 48,
+        "1089": 0.17,
+        "1092": 196,
+        "1093": 8,
+        "1114": 0,
+        "1162": 37.5,
+        "1258": 0,
+        "2000": 2.79
+      }
+    },
+    {
+      "fdc_id": "169985",
+      "data_type": "sr_legacy_food",
+      "description": "Cassava, raw",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "85816",
+          "amount": 1,
+          "label": "cup",
+          "grams": 206
+        },
+        {
+          "id": "85817",
+          "amount": 1,
+          "label": "root",
+          "grams": 408
+        }
+      ],
+      "nutrients": {
+        "1003": 1.36,
+        "1004": 0.28,
+        "1005": 38.06,
+        "1008": 160,
+        "1079": 1.8,
+        "1087": 16,
+        "1089": 0.27,
+        "1092": 271,
+        "1093": 14,
+        "1114": 0,
+        "1162": 20.6,
+        "1258": 0.074,
+        "2000": 1.7
+      }
+    },
+    {
+      "fdc_id": "169999",
+      "data_type": "sr_legacy_food",
+      "description": "Corn, sweet, yellow, cooked, boiled, drained, without salt",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "85850",
+          "amount": 1,
+          "label": "ear small (5-1/2\" to 6-1/2\" long)",
+          "grams": 89
+        },
+        {
+          "id": "85851",
+          "amount": 1,
+          "label": "ear medium (6-3/4\" to 7-1/2\" long)",
+          "grams": 103
+        },
+        {
+          "id": "85852",
+          "amount": 1,
+          "label": "ear large (7-3/4\" to 9\" long)",
+          "grams": 118
+        },
+        {
+          "id": "85853",
+          "amount": 1,
+          "label": "cup cut",
+          "grams": 149
+        },
+        {
+          "id": "85854",
+          "amount": 1,
+          "label": "baby ear",
+          "grams": 8
+        }
+      ],
+      "nutrients": {
+        "1003": 3.41,
+        "1004": 1.5,
+        "1005": 20.98,
+        "1008": 96,
+        "1079": 2.4,
+        "1087": 3,
+        "1089": 0.45,
+        "1092": 218,
+        "1093": 1,
+        "1114": 0,
+        "1162": 5.5,
+        "1258": 0.197,
+        "2000": 4.54
+      }
+    },
+    {
+      "fdc_id": "170072",
+      "data_type": "sr_legacy_food",
+      "description": "Yam, cooked, boiled, drained, or baked, without salt",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "85997",
+          "amount": 1,
+          "label": "cup, cubes",
+          "grams": 136
+        },
+        {
+          "id": "85998",
+          "amount": 0.5,
+          "label": "cup, cubes",
+          "grams": 68
+        }
+      ],
+      "nutrients": {
+        "1003": 1.49,
+        "1004": 0.14,
+        "1005": 27.48,
+        "1008": 116,
+        "1079": 3.9,
+        "1087": 14,
+        "1089": 0.52,
+        "1092": 670,
+        "1093": 8,
+        "1114": 0,
+        "1162": 12.1,
+        "1258": 0.029,
+        "2000": 0.49
+      }
+    },
+    {
+      "fdc_id": "170074",
+      "data_type": "sr_legacy_food",
+      "description": "Yambean (jicama), cooked, boiled, drained, without salt",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [],
+      "nutrients": {
+        "1003": 0.72,
+        "1004": 0.09,
+        "1005": 8.82,
+        "1008": 38,
+        "1087": 11,
+        "1089": 0.57,
+        "1092": 135,
+        "1093": 4,
+        "1114": 0,
+        "1162": 14.1
+      }
+    },
+    {
+      "fdc_id": "170162",
+      "data_type": "sr_legacy_food",
+      "description": "Nuts, cashew nuts, raw",
+      "food_category_id": "12",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "86155",
+          "amount": 1,
+          "label": "oz",
+          "grams": 28.35
+        }
+      ],
+      "nutrients": {
+        "1003": 18.22,
+        "1004": 43.85,
+        "1005": 30.19,
+        "1008": 553,
+        "1079": 3.3,
+        "1087": 37,
+        "1089": 6.68,
+        "1092": 660,
+        "1093": 12,
+        "1114": 0,
+        "1162": 0.5,
+        "1258": 7.783,
+        "2000": 5.91
+      }
+    },
+    {
+      "fdc_id": "170169",
+      "data_type": "sr_legacy_food",
+      "description": "Nuts, coconut meat, raw",
+      "food_category_id": "12",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "86163",
+          "amount": 1,
+          "label": "cup, shredded",
+          "grams": 80
+        },
+        {
+          "id": "86164",
+          "amount": 1,
+          "label": "medium",
+          "grams": 397
+        },
+        {
+          "id": "86165",
+          "amount": 1,
+          "label": "piece (2\" x 2\" x 1/2\")",
+          "grams": 45
+        }
+      ],
+      "nutrients": {
+        "1003": 3.33,
+        "1004": 33.49,
+        "1005": 15.23,
+        "1008": 354,
+        "1079": 9,
+        "1087": 14,
+        "1089": 2.43,
+        "1092": 356,
+        "1093": 20,
+        "1114": 0,
+        "1162": 3.3,
+        "1258": 29.698,
+        "2000": 6.23
+      }
+    },
+    {
+      "fdc_id": "170391",
+      "data_type": "sr_legacy_food",
+      "description": "Cabbage, chinese (pak-choi), cooked, boiled, drained, without salt",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "86553",
+          "amount": 1,
+          "label": "cup, shredded",
+          "grams": 170
+        }
+      ],
+      "nutrients": {
+        "1003": 1.56,
+        "1004": 0.16,
+        "1005": 1.78,
+        "1008": 12,
+        "1079": 1,
+        "1087": 93,
+        "1089": 1.04,
+        "1092": 371,
+        "1093": 34,
+        "1114": 0,
+        "1162": 26,
+        "1258": 0.021,
+        "2000": 0.83
+      }
+    },
+    {
+      "fdc_id": "170394",
+      "data_type": "sr_legacy_food",
+      "description": "Carrots, cooked, boiled, drained, without salt",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "86564",
+          "amount": 1,
+          "label": "tbsp",
+          "grams": 9.7
+        },
+        {
+          "id": "86565",
+          "amount": 0.5,
+          "label": "cup slices",
+          "grams": 78
+        },
+        {
+          "id": "86566",
+          "amount": 1,
+          "label": "carrot",
+          "grams": 46
+        }
+      ],
+      "nutrients": {
+        "1003": 0.76,
+        "1004": 0.18,
+        "1005": 8.22,
+        "1008": 35,
+        "1079": 3,
+        "1087": 30,
+        "1089": 0.34,
+        "1092": 235,
+        "1093": 58,
+        "1114": 0,
+        "1162": 3.6,
+        "1258": 0.03,
+        "2000": 3.45
+      }
+    },
+    {
+      "fdc_id": "170397",
+      "data_type": "sr_legacy_food",
+      "description": "Cauliflower, cooked, boiled, drained, without salt",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "86573",
+          "amount": 0.5,
+          "label": "cup (1\" pieces)",
+          "grams": 62
+        },
+        {
+          "id": "86574",
+          "amount": 3,
+          "label": "flowerets",
+          "grams": 54
+        }
+      ],
+      "nutrients": {
+        "1003": 1.84,
+        "1004": 0.45,
+        "1005": 4.11,
+        "1008": 23,
+        "1079": 2.3,
+        "1087": 16,
+        "1089": 0.32,
+        "1092": 142,
+        "1093": 15,
+        "1114": 0,
+        "1162": 44.3,
+        "1258": 0.07,
+        "2000": 2.08
+      }
+    },
+    {
+      "fdc_id": "170403",
+      "data_type": "sr_legacy_food",
+      "description": "Chayote, fruit, cooked, boiled, drained, without salt",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "86582",
+          "amount": 1,
+          "label": "cup (1\" pieces)",
+          "grams": 160
+        }
+      ],
+      "nutrients": {
+        "1003": 0.62,
+        "1004": 0.48,
+        "1005": 5.09,
+        "1008": 24,
+        "1079": 2.8,
+        "1087": 13,
+        "1089": 0.22,
+        "1092": 173,
+        "1093": 1,
+        "1114": 0,
+        "1162": 8,
+        "1258": 0,
+        "2000": 1.89
+      }
+    },
+    {
+      "fdc_id": "170420",
+      "data_type": "sr_legacy_food",
+      "description": "Peas, green, cooked, boiled, drained, without salt",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "86614",
+          "amount": 1,
+          "label": "cup",
+          "grams": 160
+        }
+      ],
+      "nutrients": {
+        "1003": 5.36,
+        "1004": 0.22,
+        "1005": 15.63,
+        "1008": 84,
+        "1079": 5.5,
+        "1087": 27,
+        "1089": 1.54,
+        "1092": 271,
+        "1093": 3,
+        "1114": 0,
+        "1162": 14.2,
+        "1258": 0.039,
+        "2000": 5.93
+      }
+    },
+    {
+      "fdc_id": "170438",
+      "data_type": "sr_legacy_food",
+      "description": "Potatoes, boiled, cooked in skin, flesh, without salt",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "86648",
+          "amount": 0.5,
+          "label": "cup",
+          "grams": 78
+        },
+        {
+          "id": "86649",
+          "amount": 1,
+          "label": "potato (2-1/2\" dia, sphere)",
+          "grams": 136
+        }
+      ],
+      "nutrients": {
+        "1003": 1.87,
+        "1004": 0.1,
+        "1005": 20.13,
+        "1008": 87,
+        "1079": 1.8,
+        "1087": 5,
+        "1089": 0.31,
+        "1092": 379,
+        "1093": 4,
+        "1114": 0,
+        "1162": 13,
+        "1258": 0.026,
+        "2000": 0.91
+      }
+    },
+    {
+      "fdc_id": "170457",
+      "data_type": "sr_legacy_food",
+      "description": "Tomatoes, red, ripe, raw, year round average",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "86681",
+          "amount": 1,
+          "label": "cup cherry tomatoes",
+          "grams": 149
+        },
+        {
+          "id": "86682",
+          "amount": 1,
+          "label": "cup, chopped or sliced",
+          "grams": 180
+        },
+        {
+          "id": "86683",
+          "amount": 1,
+          "label": "Italian tomato",
+          "grams": 62
+        },
+        {
+          "id": "86684",
+          "amount": 1,
+          "label": "cherry",
+          "grams": 17
+        },
+        {
+          "id": "86685",
+          "amount": 1,
+          "label": "large whole (3\" dia)",
+          "grams": 182
+        },
+        {
+          "id": "86686",
+          "amount": 1,
+          "label": "medium whole (2-3/5\" dia)",
+          "grams": 123
+        },
+        {
+          "id": "86687",
+          "amount": 1,
+          "label": "slice, medium (1/4\" thick)",
+          "grams": 20
+        },
+        {
+          "id": "86688",
+          "amount": 1,
+          "label": "plum tomato",
+          "grams": 62
+        },
+        {
+          "id": "86689",
+          "amount": 1,
+          "label": "small whole (2-2/5\" dia)",
+          "grams": 91
+        },
+        {
+          "id": "86690",
+          "amount": 1,
+          "label": "slice, thick/large (1/2\" thick)",
+          "grams": 27
+        },
+        {
+          "id": "86691",
+          "amount": 1,
+          "label": "wedge (1/4 of medium tomato)",
+          "grams": 31
+        },
+        {
+          "id": "86692",
+          "amount": 1,
+          "label": "slice, thin/small",
+          "grams": 15
+        },
+        {
+          "id": "86693",
+          "amount": 1,
+          "label": "NLEA serving",
+          "grams": 148
+        }
+      ],
+      "nutrients": {
+        "1003": 0.88,
+        "1004": 0.2,
+        "1005": 3.89,
+        "1008": 18,
+        "1079": 1.2,
+        "1087": 10,
+        "1089": 0.27,
+        "1092": 237,
+        "1093": 5,
+        "1114": 0,
+        "1162": 13.7,
+        "1258": 0.028,
+        "2000": 2.63
+      }
+    },
+    {
+      "fdc_id": "170477",
+      "data_type": "sr_legacy_food",
+      "description": "Winged beans, immature seeds, cooked, boiled, drained, without salt",
+      "food_category_id": "11",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "86734",
+          "amount": 1,
+          "label": "cup",
+          "grams": 62
+        }
+      ],
+      "nutrients": {
+        "1003": 5.31,
+        "1004": 0.66,
+        "1005": 3.21,
+        "1008": 38,
+        "1087": 61,
+        "1089": 1.09,
+        "1092": 274,
+        "1093": 4,
+        "1114": 0,
+        "1162": 9.8,
+        "1258": 0.181
+      }
+    },
+    {
+      "fdc_id": "171061",
+      "data_type": "sr_legacy_food",
+      "description": "Chicken, liver, all classes, cooked, simmered",
+      "food_category_id": "5",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "87879",
+          "amount": 3,
+          "label": "oz",
+          "grams": 85
+        },
+        {
+          "id": "87880",
+          "amount": 1,
+          "label": "liver",
+          "grams": 44
+        }
+      ],
+      "nutrients": {
+        "1003": 24.46,
+        "1004": 6.51,
+        "1005": 0.87,
+        "1008": 167,
+        "1079": 0,
+        "1087": 11,
+        "1089": 11.63,
+        "1092": 263,
+        "1093": 76,
+        "1114": 0,
+        "1162": 27.9,
+        "1258": 2.06,
+        "2000": 0
+      }
+    },
+    {
+      "fdc_id": "171477",
+      "data_type": "sr_legacy_food",
+      "description": "Chicken, broilers or fryers, breast, meat only, cooked, roasted",
+      "food_category_id": "5",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "88817",
+          "amount": 1,
+          "label": "cup, chopped or diced",
+          "grams": 140
+        },
+        {
+          "id": "88818",
+          "amount": 1,
+          "label": "unit (yield from 1 lb ready-to-cook chicken)",
+          "grams": 52
+        },
+        {
+          "id": "88819",
+          "amount": 0.5,
+          "label": "breast, bone and skin removed",
+          "grams": 86
+        }
+      ],
+      "nutrients": {
+        "1003": 31.02,
+        "1004": 3.57,
+        "1005": 0,
+        "1008": 165,
+        "1079": 0,
+        "1087": 15,
+        "1089": 1.04,
+        "1092": 256,
+        "1093": 74,
+        "1114": 0.1,
+        "1162": 0,
+        "1258": 1.01,
+        "2000": 0
+      }
+    },
+    {
+      "fdc_id": "171688",
+      "data_type": "sr_legacy_food",
+      "description": "Apples, raw, with skin (Includes foods for USDA's Food Distribution Program)",
+      "food_category_id": "9",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "89190",
+          "amount": 1,
+          "label": "cup, quartered or chopped",
+          "grams": 125
+        },
+        {
+          "id": "89191",
+          "amount": 1,
+          "label": "cup slices",
+          "grams": 109
+        },
+        {
+          "id": "89192",
+          "amount": 1,
+          "label": "large (3-1/4\" dia)",
+          "grams": 223
+        },
+        {
+          "id": "89193",
+          "amount": 1,
+          "label": "medium (3\" dia)",
+          "grams": 182
+        },
+        {
+          "id": "89194",
+          "amount": 1,
+          "label": "small (2-3/4\" dia)",
+          "grams": 149
+        },
+        {
+          "id": "89195",
+          "amount": 1,
+          "label": "extra small (2-1/2\" dia)",
+          "grams": 101
+        },
+        {
+          "id": "89196",
+          "amount": 1,
+          "label": "NLEA serving",
+          "grams": 242
+        }
+      ],
+      "nutrients": {
+        "1003": 0.26,
+        "1004": 0.17,
+        "1005": 13.81,
+        "1008": 52,
+        "1079": 2.4,
+        "1087": 6,
+        "1089": 0.12,
+        "1092": 107,
+        "1093": 1,
+        "1114": 0,
+        "1162": 4.6,
+        "1258": 0.028,
+        "2000": 10.39
+      }
+    },
+    {
+      "fdc_id": "171705",
+      "data_type": "sr_legacy_food",
+      "description": "Avocados, raw, all commercial varieties",
+      "food_category_id": "9",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "89223",
+          "amount": 1,
+          "label": "cup, cubes",
+          "grams": 150
+        },
+        {
+          "id": "89224",
+          "amount": 1,
+          "label": "cup, pureed",
+          "grams": 230
+        },
+        {
+          "id": "89225",
+          "amount": 1,
+          "label": "cup, sliced",
+          "grams": 146
+        },
+        {
+          "id": "89226",
+          "amount": 1,
+          "label": "avocado, NS as to Florida or California",
+          "grams": 201
+        },
+        {
+          "id": "89227",
+          "amount": 1,
+          "label": "NLEA Serving",
+          "grams": 50
+        }
+      ],
+      "nutrients": {
+        "1003": 2,
+        "1004": 14.66,
+        "1005": 8.53,
+        "1008": 160,
+        "1079": 6.7,
+        "1087": 12,
+        "1089": 0.55,
+        "1092": 485,
+        "1093": 7,
+        "1114": 0,
+        "1162": 10,
+        "1258": 2.126,
+        "2000": 0.66
+      }
+    },
+    {
+      "fdc_id": "171714",
+      "data_type": "sr_legacy_food",
+      "description": "Breadfruit, raw",
+      "food_category_id": "9",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "89243",
+          "amount": 1,
+          "label": "cup",
+          "grams": 220
+        },
+        {
+          "id": "89244",
+          "amount": 0.25,
+          "label": "fruit, small",
+          "grams": 96
+        }
+      ],
+      "nutrients": {
+        "1003": 1.07,
+        "1004": 0.23,
+        "1005": 27.12,
+        "1008": 103,
+        "1079": 4.9,
+        "1087": 17,
+        "1089": 0.54,
+        "1092": 490,
+        "1093": 2,
+        "1114": 0,
+        "1162": 29,
+        "1258": 0.048,
+        "2000": 11
+      }
+    },
+    {
+      "fdc_id": "171715",
+      "data_type": "sr_legacy_food",
+      "description": "Carambola, (starfruit), raw",
+      "food_category_id": "9",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "89245",
+          "amount": 1,
+          "label": "cup, cubes",
+          "grams": 132
+        },
+        {
+          "id": "89246",
+          "amount": 1,
+          "label": "cup, sliced",
+          "grams": 108
+        },
+        {
+          "id": "89247",
+          "amount": 1,
+          "label": "large (4-1/2\" long)",
+          "grams": 124
+        },
+        {
+          "id": "89248",
+          "amount": 1,
+          "label": "medium (3-5/8\" long)",
+          "grams": 91
+        },
+        {
+          "id": "89249",
+          "amount": 1,
+          "label": "small (3-1/8\" long)",
+          "grams": 70
+        }
+      ],
+      "nutrients": {
+        "1003": 1.04,
+        "1004": 0.33,
+        "1005": 6.73,
+        "1008": 31,
+        "1079": 2.8,
+        "1087": 3,
+        "1089": 0.08,
+        "1092": 133,
+        "1093": 2,
+        "1114": 0,
+        "1162": 34.4,
+        "1258": 0.019,
+        "2000": 3.98
+      }
+    },
+    {
+      "fdc_id": "171794",
+      "data_type": "sr_legacy_food",
+      "description": "Beef, ground, 90% lean meat / 10% fat, crumbles, cooked, pan-browned",
+      "food_category_id": "13",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "89378",
+          "amount": 3,
+          "label": "oz",
+          "grams": 85
+        },
+        {
+          "id": "89379",
+          "amount": 1,
+          "label": "portion ( yield from 1/2 lb raw meat )",
+          "grams": 154
+        }
+      ],
+      "nutrients": {
+        "1003": 28.45,
+        "1004": 12.04,
+        "1005": 0,
+        "1008": 230,
+        "1079": 0,
+        "1087": 16,
+        "1089": 3.08,
+        "1092": 433,
+        "1093": 87,
+        "1114": 0,
+        "1162": 0,
+        "1258": 4.712,
+        "2000": 0
+      }
+    },
+    {
+      "fdc_id": "171963",
+      "data_type": "sr_legacy_food",
+      "description": "Fish, grouper, mixed species, cooked, dry heat",
+      "food_category_id": "15",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "89635",
+          "amount": 3,
+          "label": "oz",
+          "grams": 85
+        },
+        {
+          "id": "89636",
+          "amount": 1,
+          "label": "fillet",
+          "grams": 202
+        }
+      ],
+      "nutrients": {
+        "1003": 24.84,
+        "1004": 1.3,
+        "1005": 0,
+        "1008": 118,
+        "1079": 0,
+        "1087": 21,
+        "1089": 1.14,
+        "1092": 475,
+        "1093": 53,
+        "1162": 0,
+        "1258": 0.299
+      }
+    },
+    {
+      "fdc_id": "171975",
+      "data_type": "sr_legacy_food",
+      "description": "Mollusks, clam, mixed species, cooked, moist heat",
+      "food_category_id": "15",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "89661",
+          "amount": 3,
+          "label": "oz",
+          "grams": 85
+        },
+        {
+          "id": "89662",
+          "amount": 20,
+          "label": "small",
+          "grams": 190
+        }
+      ],
+      "nutrients": {
+        "1003": 25.55,
+        "1004": 1.95,
+        "1005": 5.13,
+        "1008": 148,
+        "1079": 0,
+        "1087": 92,
+        "1089": 2.81,
+        "1092": 628,
+        "1093": 1202,
+        "1162": 22.1,
+        "1258": 0.188
+      }
+    },
+    {
+      "fdc_id": "171980",
+      "data_type": "sr_legacy_food",
+      "description": "Mollusks, oyster, eastern, wild, cooked, moist heat",
+      "food_category_id": "15",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "89671",
+          "amount": 3,
+          "label": "oz",
+          "grams": 85
+        },
+        {
+          "id": "89672",
+          "amount": 6,
+          "label": "medium",
+          "grams": 42
+        }
+      ],
+      "nutrients": {
+        "1003": 11.42,
+        "1004": 3.42,
+        "1005": 5.45,
+        "1008": 102,
+        "1079": 0,
+        "1087": 116,
+        "1089": 9.21,
+        "1092": 139,
+        "1093": 166,
+        "1114": 0,
+        "1162": 0,
+        "1258": 0.948,
+        "2000": 1.23
+      }
+    },
+    {
+      "fdc_id": "171994",
+      "data_type": "sr_legacy_food",
+      "description": "Fish, mackerel, Pacific and jack, mixed species, cooked, dry heat",
+      "food_category_id": "15",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "89700",
+          "amount": 1,
+          "label": "oz, boneless",
+          "grams": 28.35
+        },
+        {
+          "id": "89701",
+          "amount": 1,
+          "label": "cubic inch, boneless",
+          "grams": 17
+        },
+        {
+          "id": "89702",
+          "amount": 1,
+          "label": "fillet",
+          "grams": 176
+        },
+        {
+          "id": "89703",
+          "amount": 3,
+          "label": "oz",
+          "grams": 85
+        }
+      ],
+      "nutrients": {
+        "1003": 25.73,
+        "1004": 10.12,
+        "1005": 0,
+        "1008": 201,
+        "1079": 0,
+        "1087": 29,
+        "1089": 1.49,
+        "1092": 521,
+        "1093": 110,
+        "1114": 11.4,
+        "1162": 2.1,
+        "1258": 2.881,
+        "2000": 0
+      }
+    },
+    {
+      "fdc_id": "171995",
+      "data_type": "sr_legacy_food",
+      "description": "Fish, milkfish, cooked, dry heat",
+      "food_category_id": "15",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "89704",
+          "amount": 3,
+          "label": "oz",
+          "grams": 85
+        }
+      ],
+      "nutrients": {
+        "1003": 26.32,
+        "1004": 8.63,
+        "1005": 0,
+        "1008": 190,
+        "1079": 0,
+        "1087": 65,
+        "1089": 0.41,
+        "1092": 374,
+        "1093": 92,
+        "1162": 0
+      }
+    },
+    {
+      "fdc_id": "172189",
+      "data_type": "sr_legacy_food",
+      "description": "Egg, duck, whole, fresh, raw",
+      "food_category_id": "1",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "90055",
+          "amount": 1,
+          "label": "egg",
+          "grams": 70
+        }
+      ],
+      "nutrients": {
+        "1003": 12.81,
+        "1004": 13.77,
+        "1005": 1.45,
+        "1008": 185,
+        "1079": 0,
+        "1087": 64,
+        "1089": 3.85,
+        "1092": 222,
+        "1093": 146,
+        "1114": 1.7,
+        "1162": 0,
+        "1258": 3.681,
+        "2000": 0.93
+      }
+    },
+    {
+      "fdc_id": "172411",
+      "data_type": "sr_legacy_food",
+      "description": "Duck, domesticated, meat only, cooked, roasted",
+      "food_category_id": "5",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "90572",
+          "amount": 1,
+          "label": "cup, chopped or diced",
+          "grams": 140
+        },
+        {
+          "id": "90573",
+          "amount": 1,
+          "label": "unit (yield from 1 lb ready-to-cook duck)",
+          "grams": 100
+        },
+        {
+          "id": "90574",
+          "amount": 0.5,
+          "label": "duck",
+          "grams": 221
+        }
+      ],
+      "nutrients": {
+        "1003": 23.48,
+        "1004": 11.2,
+        "1005": 0,
+        "1008": 201,
+        "1079": 0,
+        "1087": 12,
+        "1089": 2.7,
+        "1092": 252,
+        "1093": 65,
+        "1114": 0.1,
+        "1162": 0,
+        "1258": 3.951,
+        "2000": 0
+      }
+    },
+    {
+      "fdc_id": "172430",
+      "data_type": "sr_legacy_food",
+      "description": "Peanuts, all types, raw",
+      "food_category_id": "16",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "90608",
+          "amount": 1,
+          "label": "oz",
+          "grams": 28.35
+        },
+        {
+          "id": "90609",
+          "amount": 1,
+          "label": "cup",
+          "grams": 146
+        }
+      ],
+      "nutrients": {
+        "1003": 25.8,
+        "1004": 49.24,
+        "1005": 16.13,
+        "1008": 567,
+        "1079": 8.5,
+        "1087": 92,
+        "1089": 4.58,
+        "1092": 705,
+        "1093": 18,
+        "1114": 0,
+        "1162": 0,
+        "1258": 6.279,
+        "2000": 4.72
+      }
+    },
+    {
+      "fdc_id": "172476",
+      "data_type": "sr_legacy_food",
+      "description": "Tofu, raw, regular, prepared with calcium sulfate",
+      "food_category_id": "16",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "90685",
+          "amount": 0.5,
+          "label": "cup",
+          "grams": 124
+        },
+        {
+          "id": "90686",
+          "amount": 0.25,
+          "label": "block",
+          "grams": 116
+        }
+      ],
+      "nutrients": {
+        "1003": 8.08,
+        "1004": 4.78,
+        "1005": 1.87,
+        "1008": 76,
+        "1079": 0.3,
+        "1087": 350,
+        "1089": 5.36,
+        "1092": 121,
+        "1093": 7,
+        "1114": 0,
+        "1162": 0.1,
+        "1258": 0.691,
+        "2000": 0.62
+      }
+    },
+    {
+      "fdc_id": "173044",
+      "data_type": "sr_legacy_food",
+      "description": "Guavas, common, raw",
+      "food_category_id": "9",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "91858",
+          "amount": 1,
+          "label": "cup",
+          "grams": 165
+        },
+        {
+          "id": "91859",
+          "amount": 1,
+          "label": "fruit, without refuse",
+          "grams": 55
+        }
+      ],
+      "nutrients": {
+        "1003": 2.55,
+        "1004": 0.95,
+        "1005": 14.32,
+        "1008": 68,
+        "1079": 5.4,
+        "1087": 18,
+        "1089": 0.26,
+        "1092": 417,
+        "1093": 2,
+        "1114": 0,
+        "1162": 228.3,
+        "1258": 0.272,
+        "2000": 8.92
+      }
+    },
+    {
+      "fdc_id": "173424",
+      "data_type": "sr_legacy_food",
+      "description": "Egg, whole, cooked, hard-boiled",
+      "food_category_id": "1",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "92498",
+          "amount": 1,
+          "label": "cup, chopped",
+          "grams": 136
+        },
+        {
+          "id": "92499",
+          "amount": 1,
+          "label": "tbsp",
+          "grams": 8.5
+        },
+        {
+          "id": "92500",
+          "amount": 1,
+          "label": "large",
+          "grams": 50
+        }
+      ],
+      "nutrients": {
+        "1003": 12.58,
+        "1004": 10.61,
+        "1005": 1.12,
+        "1008": 155,
+        "1079": 0,
+        "1087": 50,
+        "1089": 1.19,
+        "1092": 126,
+        "1093": 124,
+        "1114": 2.2,
+        "1162": 0,
+        "1258": 3.267,
+        "2000": 1.12
+      }
+    },
+    {
+      "fdc_id": "173683",
+      "data_type": "sr_legacy_food",
+      "description": "Fish, pompano, florida, cooked, dry heat",
+      "food_category_id": "15",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "93100",
+          "amount": 1,
+          "label": "fillet",
+          "grams": 88
+        },
+        {
+          "id": "93101",
+          "amount": 3,
+          "label": "oz",
+          "grams": 85
+        }
+      ],
+      "nutrients": {
+        "1003": 23.69,
+        "1004": 12.14,
+        "1005": 0,
+        "1008": 211,
+        "1079": 0,
+        "1087": 43,
+        "1089": 0.67,
+        "1092": 636,
+        "1093": 76,
+        "1162": 0,
+        "1258": 4.499
+      }
+    },
+    {
+      "fdc_id": "173699",
+      "data_type": "sr_legacy_food",
+      "description": "Fish, snapper, mixed species, cooked, dry heat",
+      "food_category_id": "15",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "93134",
+          "amount": 3,
+          "label": "oz",
+          "grams": 85
+        },
+        {
+          "id": "93135",
+          "amount": 1,
+          "label": "fillet",
+          "grams": 170
+        }
+      ],
+      "nutrients": {
+        "1003": 26.3,
+        "1004": 1.72,
+        "1005": 0,
+        "1008": 128,
+        "1079": 0,
+        "1087": 40,
+        "1089": 0.24,
+        "1092": 522,
+        "1093": 57,
+        "1162": 1.6,
+        "1258": 0.365
+      }
+    },
+    {
+      "fdc_id": "173714",
+      "data_type": "sr_legacy_food",
+      "description": "Fish, catfish, channel, wild, cooked, dry heat",
+      "food_category_id": "15",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "93169",
+          "amount": 1,
+          "label": "fillet",
+          "grams": 143
+        },
+        {
+          "id": "93170",
+          "amount": 3,
+          "label": "oz",
+          "grams": 85
+        }
+      ],
+      "nutrients": {
+        "1003": 18.47,
+        "1004": 2.85,
+        "1005": 0,
+        "1008": 105,
+        "1079": 0,
+        "1087": 11,
+        "1089": 0.35,
+        "1092": 419,
+        "1093": 50,
+        "1162": 0.8,
+        "1258": 0.744
+      }
+    },
+    {
       "fdc_id": "173904",
       "data_type": "sr_legacy_food",
       "description": "Cereals, oats, regular and quick, not fortified, dry",
@@ -3975,6 +5914,263 @@
       }
     },
     {
+      "fdc_id": "174182",
+      "data_type": "sr_legacy_food",
+      "description": "Fish, anchovy, european, raw",
+      "food_category_id": "15",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "93876",
+          "amount": 3,
+          "label": "oz",
+          "grams": 85
+        }
+      ],
+      "nutrients": {
+        "1003": 20.35,
+        "1004": 4.84,
+        "1005": 0,
+        "1008": 131,
+        "1079": 0,
+        "1087": 147,
+        "1089": 3.25,
+        "1092": 383,
+        "1093": 104,
+        "1162": 0,
+        "1258": 1.282,
+        "2000": 0
+      }
+    },
+    {
+      "fdc_id": "174185",
+      "data_type": "sr_legacy_food",
+      "description": "Fish, carp, cooked, dry heat",
+      "food_category_id": "15",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "93883",
+          "amount": 3,
+          "label": "oz",
+          "grams": 85
+        },
+        {
+          "id": "93884",
+          "amount": 1,
+          "label": "fillet",
+          "grams": 170
+        }
+      ],
+      "nutrients": {
+        "1003": 22.86,
+        "1004": 7.17,
+        "1005": 0,
+        "1008": 162,
+        "1079": 0,
+        "1087": 52,
+        "1089": 1.59,
+        "1092": 427,
+        "1093": 63,
+        "1162": 1.6,
+        "1258": 1.388
+      }
+    },
+    {
+      "fdc_id": "174194",
+      "data_type": "sr_legacy_food",
+      "description": "Fish, eel, mixed species, cooked, dry heat",
+      "food_category_id": "15",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "93902",
+          "amount": 1,
+          "label": "oz, boneless",
+          "grams": 28.35
+        },
+        {
+          "id": "93903",
+          "amount": 1,
+          "label": "oz with bone (yield after bone removed)",
+          "grams": 22
+        },
+        {
+          "id": "93904",
+          "amount": 1,
+          "label": "cubic inch, boneless",
+          "grams": 17
+        },
+        {
+          "id": "93905",
+          "amount": 1,
+          "label": "fillet",
+          "grams": 159
+        },
+        {
+          "id": "93906",
+          "amount": 3,
+          "label": "oz",
+          "grams": 85
+        }
+      ],
+      "nutrients": {
+        "1003": 23.65,
+        "1004": 14.95,
+        "1005": 0,
+        "1008": 236,
+        "1079": 0,
+        "1087": 26,
+        "1089": 0.64,
+        "1092": 349,
+        "1093": 65,
+        "1162": 1.8,
+        "1258": 3.023
+      }
+    },
+    {
+      "fdc_id": "174205",
+      "data_type": "sr_legacy_food",
+      "description": "Crustaceans, crab, blue, cooked, moist heat",
+      "food_category_id": "15",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "93928",
+          "amount": 1,
+          "label": "cup, flaked and pieces",
+          "grams": 118
+        },
+        {
+          "id": "93929",
+          "amount": 1,
+          "label": "cup (not packed)",
+          "grams": 135
+        },
+        {
+          "id": "93930",
+          "amount": 1,
+          "label": "oz",
+          "grams": 28.35
+        },
+        {
+          "id": "93931",
+          "amount": 3,
+          "label": "oz",
+          "grams": 85
+        }
+      ],
+      "nutrients": {
+        "1003": 17.88,
+        "1004": 0.74,
+        "1005": 0,
+        "1008": 83,
+        "1079": 0,
+        "1087": 91,
+        "1089": 0.5,
+        "1092": 259,
+        "1093": 395,
+        "1114": 0,
+        "1162": 3.3,
+        "1258": 0.201,
+        "2000": 0
+      }
+    },
+    {
+      "fdc_id": "174217",
+      "data_type": "sr_legacy_food",
+      "description": "Mollusks, mussel, blue, cooked, moist heat",
+      "food_category_id": "15",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "93960",
+          "amount": 3,
+          "label": "oz",
+          "grams": 85
+        }
+      ],
+      "nutrients": {
+        "1003": 23.8,
+        "1004": 4.48,
+        "1005": 7.39,
+        "1008": 172,
+        "1079": 0,
+        "1087": 33,
+        "1089": 6.72,
+        "1092": 268,
+        "1093": 369,
+        "1162": 13.6,
+        "1258": 0.85
+      }
+    },
+    {
+      "fdc_id": "174223",
+      "data_type": "sr_legacy_food",
+      "description": "Mollusks, squid, mixed species, raw",
+      "food_category_id": "15",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "93968",
+          "amount": 1,
+          "label": "oz, boneless",
+          "grams": 28.35
+        },
+        {
+          "id": "93969",
+          "amount": 3,
+          "label": "oz",
+          "grams": 85
+        }
+      ],
+      "nutrients": {
+        "1003": 15.58,
+        "1004": 1.38,
+        "1005": 3.08,
+        "1008": 92,
+        "1079": 0,
+        "1087": 32,
+        "1089": 0.68,
+        "1092": 246,
+        "1093": 44,
+        "1114": 0,
+        "1162": 4.7,
+        "1258": 0.358,
+        "2000": 0
+      }
+    },
+    {
+      "fdc_id": "174249",
+      "data_type": "sr_legacy_food",
+      "description": "Mollusks, octopus, common, cooked, moist heat",
+      "food_category_id": "15",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "94020",
+          "amount": 3,
+          "label": "oz",
+          "grams": 85
+        }
+      ],
+      "nutrients": {
+        "1003": 29.82,
+        "1004": 2.08,
+        "1005": 4.4,
+        "1008": 164,
+        "1079": 0,
+        "1087": 106,
+        "1089": 9.54,
+        "1092": 630,
+        "1093": 460,
+        "1114": 0,
+        "1162": 8,
+        "1258": 0.453,
+        "2000": 0
+      }
+    },
+    {
       "fdc_id": "174257",
       "data_type": "sr_legacy_food",
       "description": "Mung beans, mature seeds, cooked, boiled, without salt",
@@ -4002,6 +6198,36 @@
         "1162": 1,
         "1258": 0.116,
         "2000": 2
+      }
+    },
+    {
+      "fdc_id": "174299",
+      "data_type": "sr_legacy_food",
+      "description": "Soybeans, mature seeds, cooked, boiled, with salt",
+      "food_category_id": "16",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "94102",
+          "amount": 1,
+          "label": "cup",
+          "grams": 172
+        }
+      ],
+      "nutrients": {
+        "1003": 18.21,
+        "1004": 8.97,
+        "1005": 8.36,
+        "1008": 172,
+        "1079": 6,
+        "1087": 102,
+        "1089": 5.14,
+        "1092": 515,
+        "1093": 237,
+        "1114": 0,
+        "1162": 1.7,
+        "1258": 1.297,
+        "2000": 2.36
       }
     },
     {
@@ -4044,6 +6270,41 @@
         "1162": 3.2,
         "1258": 0.054,
         "2000": 15.48
+      }
+    },
+    {
+      "fdc_id": "174687",
+      "data_type": "sr_legacy_food",
+      "description": "Jackfruit, raw",
+      "food_category_id": "9",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "94754",
+          "amount": 1,
+          "label": "cup, sliced",
+          "grams": 165
+        },
+        {
+          "id": "94755",
+          "amount": 1,
+          "label": "cup 1\" pieces",
+          "grams": 151
+        }
+      ],
+      "nutrients": {
+        "1003": 1.72,
+        "1004": 0.64,
+        "1005": 23.25,
+        "1008": 95,
+        "1079": 1.5,
+        "1087": 24,
+        "1089": 0.23,
+        "1092": 448,
+        "1093": 2,
+        "1162": 13.7,
+        "1258": 0.195,
+        "2000": 19.08
       }
     },
     {
@@ -4131,6 +6392,40 @@
       }
     },
     {
+      "fdc_id": "175124",
+      "data_type": "sr_legacy_food",
+      "description": "Fish, mullet, striped, cooked, dry heat",
+      "food_category_id": "15",
+      "publication_date": "2019-04-01",
+      "portions": [
+        {
+          "id": "95690",
+          "amount": 1,
+          "label": "fillet",
+          "grams": 93
+        },
+        {
+          "id": "95691",
+          "amount": 3,
+          "label": "oz",
+          "grams": 85
+        }
+      ],
+      "nutrients": {
+        "1003": 24.81,
+        "1004": 4.86,
+        "1005": 0,
+        "1008": 150,
+        "1079": 0,
+        "1087": 31,
+        "1089": 1.41,
+        "1092": 458,
+        "1093": 71,
+        "1162": 1.2,
+        "1258": 1.431
+      }
+    },
+    {
       "fdc_id": "175139",
       "data_type": "sr_legacy_food",
       "description": "Fish, sardine, Atlantic, canned in oil, drained solids with bone",
@@ -4191,38 +6486,44 @@
       }
     },
     {
-      "fdc_id": "175168",
+      "fdc_id": "175159",
       "data_type": "sr_legacy_food",
-      "description": "Fish, salmon, Atlantic, farmed, cooked, dry heat",
+      "description": "Fish, tuna, fresh, yellowfin, raw",
       "food_category_id": "15",
       "publication_date": "2019-04-01",
       "portions": [
         {
-          "id": "95788",
+          "id": "95769",
+          "amount": 1,
+          "label": "oz, boneless",
+          "grams": 28.35
+        },
+        {
+          "id": "95770",
+          "amount": 1,
+          "label": "cubic inch, boneless",
+          "grams": 16
+        },
+        {
+          "id": "95771",
           "amount": 3,
           "label": "oz",
           "grams": 85
-        },
-        {
-          "id": "95789",
-          "amount": 0.5,
-          "label": "fillet",
-          "grams": 178
         }
       ],
       "nutrients": {
-        "1003": 22.1,
-        "1004": 12.35,
+        "1003": 24.4,
+        "1004": 0.49,
         "1005": 0,
-        "1008": 206,
+        "1008": 109,
         "1079": 0,
-        "1087": 15,
-        "1089": 0.34,
-        "1092": 384,
-        "1093": 61,
-        "1114": 13.1,
-        "1162": 3.7,
-        "1258": 2.397,
+        "1087": 4,
+        "1089": 0.77,
+        "1092": 441,
+        "1093": 45,
+        "1114": 1.7,
+        "1162": 0,
+        "1258": 0.172,
         "2000": 0
       }
     },
@@ -4319,75 +6620,39 @@
       }
     },
     {
-      "fdc_id": "175200",
+      "fdc_id": "175304",
       "data_type": "sr_legacy_food",
-      "description": "Beans, pinto, mature seeds, cooked, boiled, without salt",
-      "food_category_id": "16",
+      "description": "Game meat, goat, cooked, roasted",
+      "food_category_id": "17",
       "publication_date": "2019-04-01",
       "portions": [
         {
-          "id": "95832",
-          "amount": 1,
-          "label": "cup",
-          "grams": 171
+          "id": "95996",
+          "amount": 3,
+          "label": "oz",
+          "grams": 85
         },
         {
-          "id": "95833",
+          "id": "95997",
           "amount": 1,
-          "label": "tbsp",
-          "grams": 10.6
+          "label": "piece, cooked (yield from 1 lb raw meat, boneless)",
+          "grams": 340
         }
       ],
       "nutrients": {
-        "1003": 9.01,
-        "1004": 0.65,
-        "1005": 26.22,
+        "1003": 27.1,
+        "1004": 3.03,
+        "1005": 0,
         "1008": 143,
-        "1079": 9,
-        "1087": 46,
-        "1089": 2.09,
-        "1092": 436,
-        "1093": 1,
-        "1114": 0,
-        "1162": 0.8,
-        "1258": 0.136,
-        "2000": 0.34
-      }
-    },
-    {
-      "fdc_id": "175203",
-      "data_type": "sr_legacy_food",
-      "description": "Beans, white, mature seeds, cooked, boiled, without salt",
-      "food_category_id": "16",
-      "publication_date": "2019-04-01",
-      "portions": [
-        {
-          "id": "95838",
-          "amount": 1,
-          "label": "cup",
-          "grams": 179
-        },
-        {
-          "id": "95839",
-          "amount": 1,
-          "label": "tbsp",
-          "grams": 11.2
-        }
-      ],
-      "nutrients": {
-        "1003": 9.73,
-        "1004": 0.35,
-        "1005": 25.09,
-        "1008": 139,
-        "1079": 6.3,
-        "1087": 90,
-        "1089": 3.7,
-        "1092": 561,
-        "1093": 6,
+        "1079": 0,
+        "1087": 17,
+        "1089": 3.73,
+        "1092": 405,
+        "1093": 86,
         "1114": 0,
         "1162": 0,
-        "1258": 0.091,
-        "2000": 0.34
+        "1258": 0.93,
+        "2000": 0
       }
     }
   ]

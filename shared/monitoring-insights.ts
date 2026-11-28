@@ -1,4 +1,5 @@
-import { foodCatalog, parsePlanWeek, workoutCatalog, type PlanWeek } from './daily-plans'
+import { storedFoodCatalog as foodCatalog } from './food-catalog'
+import { parsePlanWeek, workoutCatalog, type PlanWeek } from './daily-plans'
 import { journalTrend } from './progress-journal'
 import { shiftDate, type ProgressEntry } from './progress'
 

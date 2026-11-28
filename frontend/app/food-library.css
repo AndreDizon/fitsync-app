@@ -50,3 +50,7 @@
  .food-library-heading{align-items:flex-start}.food-preview-badge{padding:8px 10px}
 }
 @media(max-width:350px){.food-library .food-grid{grid-template-columns:1fr}.food-library-heading{flex-wrap:wrap}.food-library .food-diet-filter{grid-template-columns:1fr}}
+.food-dish-examples ul{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 24px;margin:14px 0;padding-left:20px}
+.food-dish-examples li{padding-left:2px;overflow-wrap:anywhere}
+.food-dish-examples small{display:block;line-height:1.6}
+@media(max-width:600px){.food-dish-examples ul{grid-template-columns:1fr;gap:8px}}

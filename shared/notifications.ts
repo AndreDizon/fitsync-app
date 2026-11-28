@@ -1,4 +1,5 @@
-import { currentDay, currentWeek, type PlanWeek, workoutCatalog, foodCatalog } from './daily-plans'
+import { storedFoodCatalog as foodCatalog } from './food-catalog'
+import { currentDay, currentWeek, type PlanWeek, workoutCatalog } from './daily-plans'
 import { dateInZone, milestones, shiftDate, validDate, type Award } from './progress'
 
 export const notificationFeatures = [

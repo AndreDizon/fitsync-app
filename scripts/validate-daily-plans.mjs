@@ -90,7 +90,7 @@ assert(engine.parsePlanWeek(week));const bad=structuredClone(week);bad.days[0].w
 const invalid=structuredClone(week);invalid.days[0].workout.items[0].exerciseId='forged';assert.equal(engine.parsePlanWeek(invalid),null)
 const owner='11111111-1111-4111-8111-111111111111',other='22222222-2222-4222-8222-222222222222',db=new PGlite()
 await db.exec(`create role anon;create role authenticated;create schema auth;create table auth.users(id uuid primary key);create function auth.uid() returns uuid language sql stable as $$select nullif(current_setting('request.jwt.claim.sub',true),'')::uuid$$;grant usage on schema auth to authenticated;grant execute on function auth.uid() to authenticated;insert into auth.users values('${owner}'),('${other}');`)
-for(const migration of ['20261107_plan_playlists.sql','20261108_playlist_schedule.sql','20261109_daily_plans.sql']) await db.exec(await readFile('backend/migrations/'+migration,'utf8'))
+for(const migration of ['20261107_plan_playlists.sql','20261108_playlist_schedule.sql','20261109_daily_plans.sql','20261128_philippine_food_catalog.sql']) await db.exec(await readFile('backend/migrations/'+migration,'utf8'))
 await db.exec(await readFile('backend/migrations/20261109_daily_plans.sql','utf8'))
 async function as(user,sql,args=[]){return db.transaction(async tx=>{await tx.exec('set local role authenticated');await tx.query("select set_config('request.jwt.claim.sub',$1,true)",[user]);return tx.query(sql,args)})}
 week.revision=1

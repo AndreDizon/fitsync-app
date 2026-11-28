@@ -139,7 +139,9 @@ export function GymAdminPayments({ data, locked, run }: AdminPageProps) {
               },
               {
                 label: 'Type / status',
-                render: (r) => r.kind + (r.voided ? ' - voided' : ''),
+                render: (r) => r.voided
+                  ? (r.kind === 'refund' ? 'Refund voided' : 'Payment voided')
+                  : r.kind === 'refund' ? 'Refunded' : 'Payment received',
               },
               {
                 label: 'Actions',
@@ -220,8 +222,8 @@ export function GymAdminPayments({ data, locked, run }: AdminPageProps) {
                     onChange={(e) => setStatus(e.target.value)}
                   >
                     <option value="all">All balances</option>
-                    <option value="outstanding">Outstanding</option>
-                    <option value="settled">Settled</option>
+                    <option value="outstanding">Unpaid / partially paid</option>
+                    <option value="settled">Paid / no payment required</option>
                   </select>
                 </label>
               </>
@@ -268,7 +270,9 @@ export function GymAdminPayments({ data, locked, run }: AdminPageProps) {
                         : 'gg-period-active')
                     }
                   >
-                    {Number(p.outstanding) > 0 ? 'Outstanding' : 'Settled'}
+                    {Number(p.outstanding) > 0
+                      ? Number(p.paid) > 0 ? 'Partially paid' : 'Unpaid'
+                      : Number(p.price) > 0 ? 'Paid' : 'No payment required'}
                   </span>
                 ),
               },

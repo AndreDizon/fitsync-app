@@ -1,5 +1,5 @@
 import exercises from '../backend/data/exercises.json'
-import foods from '../backend/data/foods.json'
+import { storedFoodCatalog as foods } from './food-catalog'
 
 export type PlaylistKind = 'workout' | 'nutrition'
 export type PlaylistDuration = 'day' | 'week'

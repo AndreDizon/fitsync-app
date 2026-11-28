@@ -1,0 +1,3176 @@
+[
+  {
+    "id": "cooked-white-rice",
+    "fdcId": "168878",
+    "name": "White rice (Kanin)",
+    "aliases": [
+      "white rice",
+      "kanin",
+      "rice"
+    ],
+    "category": "Grains",
+    "foodTypes": [
+      "Rice"
+    ],
+    "state": "Cooked",
+    "method": "Cooked",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Sinangag",
+      "Arroz caldo",
+      "Lugaw",
+      "Tapsilog",
+      "Champorado"
+    ]
+  },
+  {
+    "id": "brown-rice",
+    "fdcId": "169704",
+    "name": "Brown rice",
+    "aliases": [
+      "brown rice",
+      "brown",
+      "rice"
+    ],
+    "category": "Grains",
+    "foodTypes": [
+      "Rice"
+    ],
+    "state": "Cooked",
+    "method": "Cooked",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Brown-rice sinangag (variation)",
+      "Brown-rice arroz caldo (variation)",
+      "Steamed brown rice with inihaw na isda",
+      "Brown-rice chicken lugaw (variation)",
+      "Brown-rice vegetable fried rice (variation)"
+    ]
+  },
+  {
+    "id": "ph-glutinous-rice",
+    "fdcId": "169711",
+    "name": "Glutinous rice (Malagkit)",
+    "aliases": [
+      "glutinous rice",
+      "malagkit"
+    ],
+    "category": "Grains",
+    "foodTypes": [
+      "Rice"
+    ],
+    "state": "Cooked",
+    "method": "Cooked",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Biko",
+      "Suman sa malagkit",
+      "Ginataang bilo-bilo",
+      "Bibingkang malagkit",
+      "Puto maya"
+    ]
+  },
+  {
+    "id": "ph-corn",
+    "fdcId": "169999",
+    "name": "Corn (Mais)",
+    "aliases": [
+      "corn",
+      "mais"
+    ],
+    "category": "Grains",
+    "foodTypes": [
+      "Corn"
+    ],
+    "state": "Cooked",
+    "method": "Boiled",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Ginataang mais",
+      "Suam na mais",
+      "Nilagang mais",
+      "Maja blanca with corn",
+      "Mais con yelo"
+    ]
+  },
+  {
+    "id": "dry-oats",
+    "fdcId": "173904",
+    "name": "Oats",
+    "aliases": [
+      "oats",
+      "rolled oats",
+      "oatmeal"
+    ],
+    "category": "Grains",
+    "foodTypes": [
+      "Oats"
+    ],
+    "state": "Ready to eat",
+    "method": "Ready to eat",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Lugaw na oats (variation)",
+      "Arroz caldo with oats (variation)",
+      "Oatmeal with banana",
+      "Oatmeal cookies",
+      "Banana-oat pancakes (home-style variation)"
+    ]
+  },
+  {
+    "id": "ph-rice-noodles",
+    "fdcId": "168914",
+    "name": "Rice noodles (Bihon)",
+    "aliases": [
+      "rice noodles",
+      "bihon"
+    ],
+    "category": "Grains",
+    "foodTypes": [
+      "Rice noodles"
+    ],
+    "state": "Cooked",
+    "method": "Cooked",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Pancit bihon guisado",
+      "Pancit palabok with bihon",
+      "Pancit sotanghon-bihon",
+      "Bihon soup",
+      "Bam-i with bihon"
+    ]
+  },
+  {
+    "id": "ph-egg-noodles",
+    "fdcId": "168919",
+    "name": "Egg noodles (Miki)",
+    "aliases": [
+      "egg noodles",
+      "miki"
+    ],
+    "category": "Grains",
+    "foodTypes": [
+      "Egg noodles"
+    ],
+    "state": "Cooked",
+    "method": "Cooked",
+    "allergens": [
+      "Eggs",
+      "Wheat"
+    ],
+    "vegan": false,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "requires-verification",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Pancit miki guisado",
+      "Miki soup",
+      "Pancit lomi",
+      "Pancit batil patung",
+      "Miki-bihon guisado"
+    ]
+  },
+  {
+    "id": "white-bread",
+    "fdcId": "174924",
+    "name": "White bread",
+    "aliases": [
+      "white bread",
+      "bread"
+    ],
+    "category": "Grains",
+    "foodTypes": [
+      "Wheat"
+    ],
+    "state": "Ready to eat",
+    "method": "Ready to eat",
+    "allergens": [
+      "Wheat"
+    ],
+    "vegan": false,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "requires-verification",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Pinoy-style French toast",
+      "Bread pudding",
+      "Chicken sandwich",
+      "Tuna sandwich",
+      "Egg sandwich"
+    ]
+  },
+  {
+    "id": "ph-potato",
+    "fdcId": "170438",
+    "name": "Potato (Patatas)",
+    "aliases": [
+      "potato",
+      "patatas"
+    ],
+    "category": "Roots & tubers",
+    "foodTypes": [
+      "Starchy roots"
+    ],
+    "state": "Cooked",
+    "method": "Boiled",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Chicken afritada with potatoes",
+      "Pork menudo with potatoes",
+      "Tortang patatas",
+      "Beef caldereta with potatoes",
+      "Chicken curry with potatoes"
+    ]
+  },
+  {
+    "id": "boiled-sweet-potato",
+    "fdcId": "168484",
+    "name": "Sweet potato (Kamote)",
+    "aliases": [
+      "sweet potato",
+      "kamote",
+      "sweet",
+      "potato"
+    ],
+    "category": "Roots & tubers",
+    "foodTypes": [
+      "Starchy roots"
+    ],
+    "state": "Cooked",
+    "method": "Boiled",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Kamote cue",
+      "Ginataang bilo-bilo with kamote",
+      "Nilagang kamote",
+      "Kamote fries",
+      "Nilupak na kamote"
+    ]
+  },
+  {
+    "id": "ph-cassava",
+    "fdcId": "169985",
+    "name": "Cassava (Kamoteng kahoy)",
+    "aliases": [
+      "cassava",
+      "kamoteng kahoy"
+    ],
+    "category": "Roots & tubers",
+    "foodTypes": [
+      "Starchy roots"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": true,
+    "prepMinutes": 30,
+    "budget": "Budget-friendly",
+    "referenceNote": "Nutrition is for raw edible weight; cook appropriately before eating. Do not apply raw values to cooked portions.",
+    "sampleDishes": [
+      "Cassava cake",
+      "Pichi-pichi",
+      "Suman na kamoteng kahoy",
+      "Nilupak na kamoteng kahoy",
+      "Ginataang kamoteng kahoy"
+    ]
+  },
+  {
+    "id": "cooked-taro",
+    "fdcId": "168486",
+    "name": "Taro (Gabi)",
+    "aliases": [
+      "taro",
+      "gabi"
+    ],
+    "category": "Roots & tubers",
+    "foodTypes": [
+      "Starchy roots"
+    ],
+    "state": "Cooked",
+    "method": "Cooked",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Sinigang na baboy sa gabi",
+      "Nilagang gabi",
+      "Ginataang gabi",
+      "Ginataang bilo-bilo with gabi",
+      "Sinigang na hipon with gabi"
+    ]
+  },
+  {
+    "id": "cooked-yam",
+    "fdcId": "170072",
+    "name": "Yam",
+    "aliases": [
+      "yam"
+    ],
+    "category": "Roots & tubers",
+    "foodTypes": [
+      "Starchy roots"
+    ],
+    "state": "Cooked",
+    "method": "Boiled",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Generic USDA yam reference. Use purple yam specifically for ube dishes; this is not a cultivar-specific ube record. Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Nilagang yam",
+      "Ginataang yam",
+      "Ube halaya (use purple yam / ube)",
+      "Ube ice cream (use purple yam / ube)",
+      "Ube suman (use purple yam / ube)"
+    ]
+  },
+  {
+    "id": "ph-breadfruit",
+    "fdcId": "171714",
+    "name": "Breadfruit (Rimas)",
+    "aliases": [
+      "breadfruit",
+      "rimas"
+    ],
+    "category": "Fruits",
+    "foodTypes": [
+      "Fresh fruit"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": true,
+    "prepMinutes": 30,
+    "budget": "Budget-friendly",
+    "referenceNote": "Nutrition is for raw edible weight; cook appropriately before eating. Do not apply raw values to cooked portions.",
+    "sampleDishes": [
+      "Ginataang rimas",
+      "Pritong rimas",
+      "Rimas cue",
+      "Nilagang rimas",
+      "Minatamis na rimas"
+    ]
+  },
+  {
+    "id": "boiled-eggplant",
+    "fdcId": "169229",
+    "name": "Eggplant (Talong)",
+    "aliases": [
+      "eggplant",
+      "talong"
+    ],
+    "category": "Vegetables",
+    "foodTypes": [
+      "Vegetables"
+    ],
+    "state": "Cooked",
+    "method": "Boiled",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Tortang talong",
+      "Ensaladang talong",
+      "Binagoongang talong",
+      "Ginataang talong",
+      "Pinakbet with talong"
+    ]
+  },
+  {
+    "id": "ph-bitter-melon",
+    "fdcId": "168394",
+    "name": "Bitter melon (Ampalaya)",
+    "aliases": [
+      "bitter melon",
+      "ampalaya"
+    ],
+    "category": "Vegetables",
+    "foodTypes": [
+      "Vegetables"
+    ],
+    "state": "Cooked",
+    "method": "Boiled",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Ginisang ampalaya with egg",
+      "Pinakbet with ampalaya",
+      "Ampalaya con carne",
+      "Ensaladang ampalaya",
+      "Ginisang munggo with ampalaya"
+    ]
+  },
+  {
+    "id": "boiled-okra",
+    "fdcId": "169261",
+    "name": "Okra",
+    "aliases": [
+      "okra"
+    ],
+    "category": "Vegetables",
+    "foodTypes": [
+      "Vegetables"
+    ],
+    "state": "Cooked",
+    "method": "Boiled",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Pinakbet with okra",
+      "Dinengdeng with okra",
+      "Nilagang okra with bagoong",
+      "Sinigang na baboy with okra",
+      "Ensaladang okra"
+    ]
+  },
+  {
+    "id": "ph-yardlong-beans",
+    "fdcId": "169223",
+    "name": "Yardlong beans (Sitaw)",
+    "aliases": [
+      "yardlong beans",
+      "sitaw"
+    ],
+    "category": "Vegetables",
+    "foodTypes": [
+      "Vegetables"
+    ],
+    "state": "Cooked",
+    "method": "Boiled",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Adobong sitaw",
+      "Ginataang sitaw at kalabasa",
+      "Kare-kare with sitaw",
+      "Ginisang sitaw with pork",
+      "Dinengdeng with sitaw"
+    ]
+  },
+  {
+    "id": "green-beans",
+    "fdcId": "169141",
+    "name": "Green beans (Baguio beans)",
+    "aliases": [
+      "green beans",
+      "baguio beans",
+      "green",
+      "beans",
+      "snap"
+    ],
+    "category": "Vegetables",
+    "foodTypes": [
+      "Vegetables"
+    ],
+    "state": "Cooked",
+    "method": "Boiled",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Ginisang Baguio beans with pork",
+      "Chop suey with Baguio beans",
+      "Lumpiang sariwa with Baguio beans",
+      "Beef stir-fry with Baguio beans",
+      "Ginisang Baguio beans with shrimp"
+    ]
+  },
+  {
+    "id": "ph-green-peas",
+    "fdcId": "170420",
+    "name": "Green peas (Gisantes)",
+    "aliases": [
+      "green peas",
+      "gisantes"
+    ],
+    "category": "Vegetables",
+    "foodTypes": [
+      "Vegetables"
+    ],
+    "state": "Cooked",
+    "method": "Boiled",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Pork giniling with gisantes",
+      "Chicken pastel with gisantes",
+      "Arroz a la Valenciana with gisantes",
+      "Chicken afritada with gisantes",
+      "Pork menudo with gisantes"
+    ]
+  },
+  {
+    "id": "ph-winged-beans",
+    "fdcId": "170477",
+    "name": "Winged beans (Sigarilyas)",
+    "aliases": [
+      "winged beans",
+      "sigarilyas"
+    ],
+    "category": "Vegetables",
+    "foodTypes": [
+      "Vegetables"
+    ],
+    "state": "Cooked",
+    "method": "Boiled",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "USDA reference is immature seeds only, not whole winged-bean pods. Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Gising-gising na sigarilyas",
+      "Ginataang sigarilyas",
+      "Ensaladang sigarilyas",
+      "Ginisang sigarilyas with pork",
+      "Dinengdeng with sigarilyas"
+    ]
+  },
+  {
+    "id": "ph-water-spinach",
+    "fdcId": "169302",
+    "name": "Water spinach (Kangkong)",
+    "aliases": [
+      "water spinach",
+      "kangkong"
+    ],
+    "category": "Vegetables",
+    "foodTypes": [
+      "Leafy vegetables"
+    ],
+    "state": "Cooked",
+    "method": "Boiled",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Adobong kangkong",
+      "Sinigang na baboy with kangkong",
+      "Crispy kangkong",
+      "Kangkong with oyster sauce",
+      "Ginisang munggo with kangkong"
+    ]
+  },
+  {
+    "id": "ph-moringa-leaves",
+    "fdcId": "168417",
+    "name": "Moringa leaves (Malunggay)",
+    "aliases": [
+      "moringa leaves",
+      "malunggay"
+    ],
+    "category": "Vegetables",
+    "foodTypes": [
+      "Leafy vegetables"
+    ],
+    "state": "Cooked",
+    "method": "Boiled",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Tinolang manok with malunggay",
+      "Ginisang munggo with malunggay",
+      "Ginataang malunggay",
+      "Laswa with malunggay",
+      "Bulanglang with malunggay"
+    ]
+  },
+  {
+    "id": "ph-jute-leaves",
+    "fdcId": "168420",
+    "name": "Jute leaves (Saluyot)",
+    "aliases": [
+      "jute leaves",
+      "saluyot"
+    ],
+    "category": "Vegetables",
+    "foodTypes": [
+      "Leafy vegetables"
+    ],
+    "state": "Cooked",
+    "method": "Boiled",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Dinengdeng with saluyot",
+      "Bulanglang with saluyot",
+      "Laswa with saluyot",
+      "Ginisang saluyot (home-style variation)",
+      "Saluyot with bamboo shoots (regional variation)"
+    ]
+  },
+  {
+    "id": "ph-squash",
+    "fdcId": "168449",
+    "name": "Squash (Kalabasa)",
+    "aliases": [
+      "squash",
+      "kalabasa"
+    ],
+    "category": "Vegetables",
+    "foodTypes": [
+      "Vegetables"
+    ],
+    "state": "Cooked",
+    "method": "Boiled",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Ginataang kalabasa",
+      "Ukoy na kalabasa",
+      "Pinakbet with kalabasa",
+      "Bulanglang with kalabasa",
+      "Laswa with kalabasa"
+    ]
+  },
+  {
+    "id": "ph-chayote",
+    "fdcId": "170403",
+    "name": "Chayote (Sayote)",
+    "aliases": [
+      "chayote",
+      "sayote"
+    ],
+    "category": "Vegetables",
+    "foodTypes": [
+      "Vegetables"
+    ],
+    "state": "Cooked",
+    "method": "Boiled",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Ginisang sayote with pork",
+      "Tinolang manok with sayote",
+      "Chop suey with sayote",
+      "Ginisang sayote with egg",
+      "Ginisang sayote with sardines"
+    ]
+  },
+  {
+    "id": "ph-bottle-gourd",
+    "fdcId": "169233",
+    "name": "Bottle gourd (Upo)",
+    "aliases": [
+      "bottle gourd",
+      "upo"
+    ],
+    "category": "Vegetables",
+    "foodTypes": [
+      "Vegetables"
+    ],
+    "state": "Cooked",
+    "method": "Boiled",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Ginisang upo with pork",
+      "Upo with misua",
+      "Ginisang upo with sardines",
+      "Ginisang upo with shrimp",
+      "Bulanglang with upo"
+    ]
+  },
+  {
+    "id": "ph-sponge-gourd",
+    "fdcId": "168415",
+    "name": "Sponge gourd (Patola)",
+    "aliases": [
+      "sponge gourd",
+      "patola"
+    ],
+    "category": "Vegetables",
+    "foodTypes": [
+      "Vegetables"
+    ],
+    "state": "Cooked",
+    "method": "Boiled",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Misua with patola",
+      "Ginisang patola with shrimp",
+      "Dinengdeng with patola",
+      "Patola with sardines",
+      "Laswa with patola"
+    ]
+  },
+  {
+    "id": "ph-bok-choy",
+    "fdcId": "170391",
+    "name": "Bok choy (Pechay)",
+    "aliases": [
+      "bok choy",
+      "pechay"
+    ],
+    "category": "Vegetables",
+    "foodTypes": [
+      "Leafy vegetables"
+    ],
+    "state": "Cooked",
+    "method": "Boiled",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Pesang isda with pechay",
+      "Nilagang baka with pechay",
+      "Ginisang pechay with tofu",
+      "Kare-kare with pechay",
+      "Pochero with pechay"
+    ]
+  },
+  {
+    "id": "ph-cabbage",
+    "fdcId": "169976",
+    "name": "Cabbage (Repolyo)",
+    "aliases": [
+      "cabbage",
+      "repolyo"
+    ],
+    "category": "Vegetables",
+    "foodTypes": [
+      "Vegetables"
+    ],
+    "state": "Cooked",
+    "method": "Boiled",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Ginisang repolyo",
+      "Nilagang baboy with repolyo",
+      "Pancit bihon with repolyo",
+      "Chicken sopas with repolyo",
+      "Pork pochero with repolyo"
+    ]
+  },
+  {
+    "id": "ph-carrot",
+    "fdcId": "170394",
+    "name": "Carrot",
+    "aliases": [
+      "carrot"
+    ],
+    "category": "Vegetables",
+    "foodTypes": [
+      "Vegetables"
+    ],
+    "state": "Cooked",
+    "method": "Boiled",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Lumpiang Shanghai with carrots",
+      "Chicken afritada with carrots",
+      "Chop suey with carrots",
+      "Pork menudo with carrots",
+      "Filipino-style carrot cake"
+    ]
+  },
+  {
+    "id": "ph-radish",
+    "fdcId": "169276",
+    "name": "Radish (Labanos)",
+    "aliases": [
+      "radish",
+      "labanos"
+    ],
+    "category": "Vegetables",
+    "foodTypes": [
+      "Vegetables"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 5,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Sinigang na baboy with labanos",
+      "Ensaladang labanos",
+      "Atsarang labanos",
+      "Bulanglang with labanos",
+      "Sinigang na hipon with labanos"
+    ]
+  },
+  {
+    "id": "cucumber-with-peel",
+    "fdcId": "168409",
+    "name": "Cucumber (Pipino)",
+    "aliases": [
+      "cucumber",
+      "pipino"
+    ],
+    "category": "Vegetables",
+    "foodTypes": [
+      "Vegetables"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 5,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Ensaladang pipino",
+      "Pipino at kamatis salad",
+      "Atsarang pipino",
+      "Cucumber, tomato and salted-egg salad",
+      "Filipino chicken sandwich with cucumber"
+    ]
+  },
+  {
+    "id": "tomato",
+    "fdcId": "170457",
+    "name": "Tomato (Kamatis)",
+    "aliases": [
+      "tomato",
+      "kamatis"
+    ],
+    "category": "Vegetables",
+    "foodTypes": [
+      "Vegetables"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 5,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Ginisang itlog at kamatis",
+      "Ensaladang kamatis",
+      "Sinigang na isda sa kamatis",
+      "Tomato and salted-egg salad",
+      "Ginisang sardinas with tomatoes"
+    ]
+  },
+  {
+    "id": "ph-lettuce",
+    "fdcId": "169249",
+    "name": "Lettuce (Letsugas)",
+    "aliases": [
+      "lettuce",
+      "letsugas"
+    ],
+    "category": "Vegetables",
+    "foodTypes": [
+      "Leafy vegetables"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 5,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Lumpiang sariwa wrapped in lettuce",
+      "Lettuce, cucumber and tomato salad",
+      "Chicken sandwich with lettuce",
+      "Tuna sandwich with lettuce",
+      "Filipino-style chicken salad with lettuce"
+    ]
+  },
+  {
+    "id": "boiled-cauliflower",
+    "fdcId": "170397",
+    "name": "Cauliflower",
+    "aliases": [
+      "cauliflower"
+    ],
+    "category": "Vegetables",
+    "foodTypes": [
+      "Vegetables"
+    ],
+    "state": "Cooked",
+    "method": "Boiled",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Moderate",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Chop suey with cauliflower",
+      "Ginisang cauliflower with shrimp",
+      "Ginataang mixed vegetables with cauliflower",
+      "Pancit canton with cauliflower",
+      "Buttered mixed vegetables with cauliflower"
+    ]
+  },
+  {
+    "id": "boiled-broccoli",
+    "fdcId": "169967",
+    "name": "Broccoli",
+    "aliases": [
+      "broccoli",
+      "broccoli florets",
+      "vegetable"
+    ],
+    "category": "Vegetables",
+    "foodTypes": [
+      "Vegetables"
+    ],
+    "state": "Cooked",
+    "method": "Boiled",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Moderate",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Beef with broccoli",
+      "Chop suey with broccoli",
+      "Ginisang broccoli with chicken",
+      "Chicken with broccoli",
+      "Buttered mixed vegetables with broccoli"
+    ]
+  },
+  {
+    "id": "ph-bamboo-shoots",
+    "fdcId": "169211",
+    "name": "Bamboo shoots (Labong)",
+    "aliases": [
+      "bamboo shoots",
+      "labong"
+    ],
+    "category": "Vegetables",
+    "foodTypes": [
+      "Vegetables"
+    ],
+    "state": "Cooked",
+    "method": "Boiled",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Ginataang labong",
+      "Adobong labong",
+      "Dinengdeng with labong",
+      "Lumpiang labong",
+      "Laswa with labong"
+    ]
+  },
+  {
+    "id": "ph-sweet-potato-leaves",
+    "fdcId": "169304",
+    "name": "Sweet potato leaves (Talbos ng kamote)",
+    "aliases": [
+      "sweet potato leaves",
+      "talbos ng kamote"
+    ],
+    "category": "Vegetables",
+    "foodTypes": [
+      "Leafy vegetables"
+    ],
+    "state": "Cooked",
+    "method": "Cooked",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Ensaladang talbos ng kamote",
+      "Dinengdeng with talbos ng kamote",
+      "Sinigang na isda with talbos ng kamote",
+      "Ginisang talbos ng kamote",
+      "Steamed talbos ng kamote with bagoong"
+    ]
+  },
+  {
+    "id": "ph-taro-leaves",
+    "fdcId": "168488",
+    "name": "Taro leaves (Dahon ng gabi)",
+    "aliases": [
+      "taro leaves",
+      "dahon ng gabi"
+    ],
+    "category": "Vegetables",
+    "foodTypes": [
+      "Leafy vegetables"
+    ],
+    "state": "Cooked",
+    "method": "Cooked",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Laing",
+      "Pinangat na gabi",
+      "Ginataang dahon ng gabi",
+      "Linapay (regional gabi-leaf dish)",
+      "Tinumok (gabi-leaf parcels)"
+    ]
+  },
+  {
+    "id": "ph-jicama",
+    "fdcId": "170074",
+    "name": "Jicama (Singkamas)",
+    "aliases": [
+      "jicama",
+      "singkamas"
+    ],
+    "category": "Vegetables",
+    "foodTypes": [
+      "Vegetables"
+    ],
+    "state": "Cooked",
+    "method": "Boiled",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Lumpiang sariwa with singkamas",
+      "Lumpiang Shanghai with singkamas",
+      "Ensaladang singkamas",
+      "Singkamas with bagoong",
+      "Lumpiang ubod with singkamas"
+    ]
+  },
+  {
+    "id": "raw-banana",
+    "fdcId": "173944",
+    "name": "Banana (Saging)",
+    "aliases": [
+      "banana",
+      "saging",
+      "fruit"
+    ],
+    "category": "Fruits",
+    "foodTypes": [
+      "Fresh fruit"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 5,
+    "budget": "Budget-friendly",
+    "referenceNote": "Generic raw dessert-banana reference. Saba dishes need cooking banana; their prepared nutrition is not represented here. Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Turon (use saba)",
+      "Banana cue (use saba)",
+      "Maruya (use saba)",
+      "Minatamis na saging (use saba)",
+      "Saging con hielo (use saba)"
+    ]
+  },
+  {
+    "id": "mango",
+    "fdcId": "169910",
+    "name": "Mango (Mangga)",
+    "aliases": [
+      "mango",
+      "mangga"
+    ],
+    "category": "Fruits",
+    "foodTypes": [
+      "Fresh fruit"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 5,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Mango float",
+      "Ensaladang mangga",
+      "Hilaw na mangga with bagoong",
+      "Mango sago",
+      "Mango ice candy"
+    ]
+  },
+  {
+    "id": "papaya",
+    "fdcId": "169926",
+    "name": "Papaya",
+    "aliases": [
+      "papaya"
+    ],
+    "category": "Fruits",
+    "foodTypes": [
+      "Fresh fruit"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 5,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Tinolang manok with green papaya",
+      "Atsarang papaya",
+      "Ripe papaya served as dessert",
+      "Papaya fruit salad",
+      "Minatamis na papaya"
+    ]
+  },
+  {
+    "id": "pineapple",
+    "fdcId": "169124",
+    "name": "Pineapple (Pinya)",
+    "aliases": [
+      "pineapple",
+      "pinya"
+    ],
+    "category": "Fruits",
+    "foodTypes": [
+      "Fresh fruit"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 5,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Pininyahang manok",
+      "Hamonado with pineapple",
+      "Pineapple upside-down cake",
+      "Pork hamonado",
+      "Filipino fruit salad with pineapple"
+    ]
+  },
+  {
+    "id": "ph-coconut-meat",
+    "fdcId": "170169",
+    "name": "Coconut meat (Niyog)",
+    "aliases": [
+      "coconut meat",
+      "niyog"
+    ],
+    "category": "Fruits",
+    "foodTypes": [
+      "Fresh fruit"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 5,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Buko salad (use young coconut)",
+      "Buko pie (use young coconut)",
+      "Bukayo (use mature coconut)",
+      "Ginataang bilo-bilo with niyog",
+      "Palitaw with grated niyog"
+    ]
+  },
+  {
+    "id": "watermelon",
+    "fdcId": "167765",
+    "name": "Watermelon (Pakwan)",
+    "aliases": [
+      "watermelon",
+      "pakwan"
+    ],
+    "category": "Fruits",
+    "foodTypes": [
+      "Fresh fruit"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 5,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Fresh watermelon dessert platter",
+      "Watermelon fruit salad",
+      "Watermelon ice candy",
+      "Mixed-fruit dessert bowl with pakwan",
+      "Chilled pakwan with condensed milk (home-style variation)"
+    ]
+  },
+  {
+    "id": "cantaloupe",
+    "fdcId": "169092",
+    "name": "Cantaloupe (Melon)",
+    "aliases": [
+      "cantaloupe",
+      "melon"
+    ],
+    "category": "Fruits",
+    "foodTypes": [
+      "Fresh fruit"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 5,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Melon sago dessert",
+      "Fresh melon dessert platter",
+      "Melon ice candy",
+      "Mixed-fruit dessert bowl with melon",
+      "Melon gulaman dessert"
+    ]
+  },
+  {
+    "id": "guava",
+    "fdcId": "173044",
+    "name": "Guava (Bayabas)",
+    "aliases": [
+      "guava",
+      "bayabas"
+    ],
+    "category": "Fruits",
+    "foodTypes": [
+      "Fresh fruit"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 5,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Sinigang sa bayabas",
+      "Bayabas jam with pandesal",
+      "Fresh guava dessert platter",
+      "Minatamis na bayabas",
+      "Guava jelly with pandesal"
+    ]
+  },
+  {
+    "id": "ph-jackfruit",
+    "fdcId": "174687",
+    "name": "Jackfruit (Langka)",
+    "aliases": [
+      "jackfruit",
+      "langka"
+    ],
+    "category": "Fruits",
+    "foodTypes": [
+      "Fresh fruit"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 5,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Ginataang langka (use unripe fruit)",
+      "Turon with ripe langka",
+      "Minatamis na langka",
+      "Ginataang bilo-bilo with langka",
+      "Langka ice cream"
+    ]
+  },
+  {
+    "id": "ph-soursop",
+    "fdcId": "167761",
+    "name": "Soursop (Guyabano)",
+    "aliases": [
+      "soursop",
+      "guyabano"
+    ],
+    "category": "Fruits",
+    "foodTypes": [
+      "Fresh fruit"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 5,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Guyabano ice candy",
+      "Guyabano ice cream",
+      "Fresh guyabano served as dessert",
+      "Guyabano gelatin (home-style variation)",
+      "Chilled guyabano with milk (home-style variation)"
+    ]
+  },
+  {
+    "id": "ph-sugar-apple",
+    "fdcId": "168175",
+    "name": "Sugar apple (Atis)",
+    "aliases": [
+      "sugar apple",
+      "atis"
+    ],
+    "category": "Fruits",
+    "foodTypes": [
+      "Fresh fruit"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 5,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Fresh atis served as dessert",
+      "Atis ice cream",
+      "Chilled atis pulp with milk (home-style variation)",
+      "Atis dessert bowl with cream (home-style variation)",
+      "Atis gelatin (home-style variation)"
+    ]
+  },
+  {
+    "id": "ph-sapodilla",
+    "fdcId": "167759",
+    "name": "Sapodilla (Chico)",
+    "aliases": [
+      "sapodilla",
+      "chico"
+    ],
+    "category": "Fruits",
+    "foodTypes": [
+      "Fresh fruit"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 5,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Fresh chico served as dessert",
+      "Chico ice candy (home-style variation)",
+      "Chilled chico with milk (home-style variation)",
+      "Chico ice cream (home-style variation)",
+      "Chico fruit-salad cup (home-style variation)"
+    ]
+  },
+  {
+    "id": "ph-star-fruit",
+    "fdcId": "171715",
+    "name": "Star fruit (Balimbing)",
+    "aliases": [
+      "star fruit",
+      "balimbing"
+    ],
+    "category": "Fruits",
+    "foodTypes": [
+      "Fresh fruit"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 5,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Fresh balimbing served as dessert",
+      "Sinigang sa balimbing (regional variation)",
+      "Ensaladang balimbing",
+      "Minatamis na balimbing (home-style variation)",
+      "Balimbing fruit-salad cup (home-style variation)"
+    ]
+  },
+  {
+    "id": "ph-pomelo",
+    "fdcId": "167754",
+    "name": "Pomelo (Suha)",
+    "aliases": [
+      "pomelo",
+      "suha"
+    ],
+    "category": "Fruits",
+    "foodTypes": [
+      "Fresh fruit"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 5,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Pomelo salad",
+      "Pomelo and shrimp salad",
+      "Fresh pomelo dessert platter",
+      "Pomelo, cucumber and tomato salad",
+      "Pomelo and salted-egg salad (home-style variation)"
+    ]
+  },
+  {
+    "id": "ph-mandarin-orange",
+    "fdcId": "169105",
+    "name": "Mandarin orange (Dalanghita)",
+    "aliases": [
+      "mandarin orange",
+      "dalanghita"
+    ],
+    "category": "Fruits",
+    "foodTypes": [
+      "Fresh fruit"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 5,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Fresh dalanghita served as dessert",
+      "Fruit salad with dalanghita",
+      "Crema de fruta with dalanghita (variation)",
+      "Dalanghita gulaman (home-style variation)",
+      "Chilled dalanghita and cream dessert (home-style variation)"
+    ]
+  },
+  {
+    "id": "orange",
+    "fdcId": "169097",
+    "name": "Orange (Kahel)",
+    "aliases": [
+      "orange",
+      "kahel",
+      "dalandan"
+    ],
+    "category": "Fruits",
+    "foodTypes": [
+      "Fresh fruit"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 5,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Fruit salad with orange segments",
+      "Crema de fruta with oranges (variation)",
+      "Fresh orange dessert platter",
+      "Orange gulaman dessert",
+      "Orange and mango fruit salad"
+    ]
+  },
+  {
+    "id": "apple-with-skin",
+    "fdcId": "171688",
+    "name": "Apple (Mansanas)",
+    "aliases": [
+      "apple",
+      "mansanas"
+    ],
+    "category": "Fruits",
+    "foodTypes": [
+      "Fresh fruit"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 5,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Chicken macaroni salad with apples",
+      "Fruit salad with apples",
+      "Apple and chicken salad",
+      "Filipino-style apple pie",
+      "Apple and raisin macaroni salad"
+    ]
+  },
+  {
+    "id": "avocado",
+    "fdcId": "171705",
+    "name": "Avocado (Abokado)",
+    "aliases": [
+      "avocado",
+      "abokado"
+    ],
+    "category": "Fruits",
+    "foodTypes": [
+      "Fresh fruit"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 5,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Avocado with condensed milk",
+      "Avocado ice candy",
+      "Avocado ice cream",
+      "Avocado and sago dessert",
+      "Avocado graham dessert (home-style variation)"
+    ]
+  },
+  {
+    "id": "grapes",
+    "fdcId": "174683",
+    "name": "Grapes (Ubas)",
+    "aliases": [
+      "grapes",
+      "ubas"
+    ],
+    "category": "Fruits",
+    "foodTypes": [
+      "Fresh fruit"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 5,
+    "budget": "Moderate",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Filipino fruit salad with grapes",
+      "Chicken macaroni salad with grapes",
+      "Fresh grape dessert platter",
+      "Grape and apple fruit salad",
+      "Grapes in a chilled cream dessert (home-style variation)"
+    ]
+  },
+  {
+    "id": "ph-lychee",
+    "fdcId": "169086",
+    "name": "Lychee (Litsiyas)",
+    "aliases": [
+      "lychee",
+      "litsiyas"
+    ],
+    "category": "Fruits",
+    "foodTypes": [
+      "Fresh fruit"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 5,
+    "budget": "Moderate",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Buko-lychee salad",
+      "Lychee gulaman dessert",
+      "Lychee sago dessert",
+      "Lychee gelatin dessert",
+      "Lychee and nata de coco dessert"
+    ]
+  },
+  {
+    "id": "roasted-chicken-breast",
+    "fdcId": "171477",
+    "name": "Chicken (Manok)",
+    "aliases": [
+      "chicken",
+      "manok"
+    ],
+    "category": "Protein foods",
+    "foodTypes": [
+      "Poultry"
+    ],
+    "state": "Cooked",
+    "method": "Roasted",
+    "allergens": [],
+    "vegan": false,
+    "vegetarian": false,
+    "pescatarian": false,
+    "halal": "requires-verification",
+    "requiresCooking": false,
+    "prepMinutes": 35,
+    "budget": "Moderate",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Chicken adobo",
+      "Tinolang manok",
+      "Chicken inasal",
+      "Chicken afritada",
+      "Chicken pastel"
+    ]
+  },
+  {
+    "id": "ph-duck",
+    "fdcId": "172411",
+    "name": "Duck (Itik)",
+    "aliases": [
+      "duck",
+      "itik"
+    ],
+    "category": "Protein foods",
+    "foodTypes": [
+      "Poultry"
+    ],
+    "state": "Cooked",
+    "method": "Roasted",
+    "allergens": [],
+    "vegan": false,
+    "vegetarian": false,
+    "pescatarian": false,
+    "halal": "requires-verification",
+    "requiresCooking": false,
+    "prepMinutes": 35,
+    "budget": "Moderate",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Adobong itik",
+      "Fried itik",
+      "Kalderetang itik",
+      "Itik tim",
+      "Paksiw na itik"
+    ]
+  },
+  {
+    "id": "ph-quail",
+    "fdcId": "169902",
+    "name": "Quail (Pugo)",
+    "aliases": [
+      "quail",
+      "pugo"
+    ],
+    "category": "Protein foods",
+    "foodTypes": [
+      "Poultry"
+    ],
+    "state": "Cooked",
+    "method": "Cooked",
+    "allergens": [],
+    "vegan": false,
+    "vegetarian": false,
+    "pescatarian": false,
+    "halal": "requires-verification",
+    "requiresCooking": false,
+    "prepMinutes": 35,
+    "budget": "Moderate",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Adobong pugo",
+      "Pritong pugo",
+      "Inihaw na pugo",
+      "Pugo afritada (home-style variation)",
+      "Pugo caldereta (home-style variation)"
+    ]
+  },
+  {
+    "id": "roasted-pork-tenderloin",
+    "fdcId": "168250",
+    "name": "Pork (Baboy)",
+    "aliases": [
+      "pork",
+      "baboy",
+      "tenderloin"
+    ],
+    "category": "Protein foods",
+    "foodTypes": [
+      "Pork"
+    ],
+    "state": "Cooked",
+    "method": "Roasted",
+    "allergens": [],
+    "vegan": false,
+    "vegetarian": false,
+    "pescatarian": false,
+    "halal": "not-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 35,
+    "budget": "Moderate",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Sinigang na baboy",
+      "Pork menudo",
+      "Lechon kawali",
+      "Pork adobo",
+      "Bicol Express"
+    ]
+  },
+  {
+    "id": "lean-ground-beef",
+    "fdcId": "171794",
+    "name": "Beef (Baka)",
+    "aliases": [
+      "beef",
+      "baka",
+      "mince"
+    ],
+    "category": "Protein foods",
+    "foodTypes": [
+      "Beef"
+    ],
+    "state": "Cooked",
+    "method": "Cooked",
+    "allergens": [],
+    "vegan": false,
+    "vegetarian": false,
+    "pescatarian": false,
+    "halal": "requires-verification",
+    "requiresCooking": false,
+    "prepMinutes": 35,
+    "budget": "Moderate",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Bistek Tagalog",
+      "Nilagang baka",
+      "Beef caldereta",
+      "Beef pares",
+      "Kare-kare"
+    ]
+  },
+  {
+    "id": "ph-goat-meat",
+    "fdcId": "175304",
+    "name": "Goat meat (Kambing)",
+    "aliases": [
+      "goat meat",
+      "kambing"
+    ],
+    "category": "Protein foods",
+    "foodTypes": [
+      "Goat meat"
+    ],
+    "state": "Cooked",
+    "method": "Roasted",
+    "allergens": [],
+    "vegan": false,
+    "vegetarian": false,
+    "pescatarian": false,
+    "halal": "requires-verification",
+    "requiresCooking": false,
+    "prepMinutes": 35,
+    "budget": "Moderate",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Kalderetang kambing",
+      "Adobong kambing",
+      "Kilawing kambing (cooked goat meat)",
+      "Sinampalukang kambing",
+      "Papaitang kambing (use appropriate meat and offal)"
+    ]
+  },
+  {
+    "id": "ph-chicken-liver",
+    "fdcId": "171061",
+    "name": "Chicken liver (Atay ng manok)",
+    "aliases": [
+      "chicken liver",
+      "atay ng manok"
+    ],
+    "category": "Protein foods",
+    "foodTypes": [
+      "Organ meats"
+    ],
+    "state": "Cooked",
+    "method": "Cooked",
+    "allergens": [],
+    "vegan": false,
+    "vegetarian": false,
+    "pescatarian": false,
+    "halal": "requires-verification",
+    "requiresCooking": false,
+    "prepMinutes": 35,
+    "budget": "Moderate",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Adobong atay ng manok",
+      "Ginisang atay ng manok",
+      "Chicken menudo with chicken liver",
+      "Chicken-liver bistek",
+      "Chicken-liver sisig"
+    ]
+  },
+  {
+    "id": "ph-pork-liver",
+    "fdcId": "167863",
+    "name": "Pork liver (Atay ng baboy)",
+    "aliases": [
+      "pork liver",
+      "atay ng baboy"
+    ],
+    "category": "Protein foods",
+    "foodTypes": [
+      "Organ meats"
+    ],
+    "state": "Cooked",
+    "method": "Cooked",
+    "allergens": [],
+    "vegan": false,
+    "vegetarian": false,
+    "pescatarian": false,
+    "halal": "not-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 35,
+    "budget": "Moderate",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Pork menudo with pork liver",
+      "Igado",
+      "Adobong atay ng baboy",
+      "Pork-liver bistek",
+      "Pork-liver sisig"
+    ]
+  },
+  {
+    "id": "ph-beef-liver",
+    "fdcId": "168626",
+    "name": "Beef liver (Atay ng baka)",
+    "aliases": [
+      "beef liver",
+      "atay ng baka"
+    ],
+    "category": "Protein foods",
+    "foodTypes": [
+      "Organ meats"
+    ],
+    "state": "Cooked",
+    "method": "Cooked",
+    "allergens": [],
+    "vegan": false,
+    "vegetarian": false,
+    "pescatarian": false,
+    "halal": "requires-verification",
+    "requiresCooking": false,
+    "prepMinutes": 35,
+    "budget": "Moderate",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Beef liver bistek",
+      "Ginisang atay ng baka",
+      "Adobong atay ng baka",
+      "Igado with beef liver (variation)",
+      "Beef-liver caldereta (variation)"
+    ]
+  },
+  {
+    "id": "hard-boiled-egg",
+    "fdcId": "173424",
+    "name": "Chicken egg (Itlog ng manok)",
+    "aliases": [
+      "chicken egg",
+      "itlog ng manok",
+      "egg",
+      "itlog"
+    ],
+    "category": "Protein foods",
+    "foodTypes": [
+      "Eggs"
+    ],
+    "state": "Cooked",
+    "method": "Boiled",
+    "allergens": [
+      "Eggs"
+    ],
+    "vegan": false,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Tortang talong with chicken egg",
+      "Scrambled egg with tomatoes",
+      "Chicken-egg tokneneng",
+      "Tortang giniling",
+      "Tortang patatas"
+    ]
+  },
+  {
+    "id": "ph-duck-egg",
+    "fdcId": "172189",
+    "name": "Duck egg (Itlog ng pato)",
+    "aliases": [
+      "duck egg",
+      "itlog ng pato"
+    ],
+    "category": "Protein foods",
+    "foodTypes": [
+      "Eggs"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [
+      "Eggs"
+    ],
+    "vegan": false,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": true,
+    "prepMinutes": 30,
+    "budget": "Budget-friendly",
+    "referenceNote": "Nutrition is for raw edible weight; cook appropriately before eating. Do not apply raw values to cooked portions.",
+    "sampleDishes": [
+      "Itlog na maalat",
+      "Duck-egg leche flan",
+      "Bibingka with salted duck egg",
+      "Salted-egg and tomato salad",
+      "Duck-egg omelet"
+    ]
+  },
+  {
+    "id": "calcium-set-tofu",
+    "fdcId": "172476",
+    "name": "Tofu (Tokwa)",
+    "aliases": [
+      "tofu",
+      "tokwa",
+      "soy"
+    ],
+    "category": "Legumes",
+    "foodTypes": [
+      "Soy"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [
+      "Soy"
+    ],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 5,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Tokwa't baboy",
+      "Sizzling tofu",
+      "Adobong tokwa",
+      "Ginisang tokwa with pechay",
+      "Tofu sisig"
+    ]
+  },
+  {
+    "id": "cooked-mung-beans",
+    "fdcId": "174257",
+    "name": "Mung beans (Munggo)",
+    "aliases": [
+      "mung beans",
+      "munggo",
+      "monggo",
+      "beans"
+    ],
+    "category": "Legumes",
+    "foodTypes": [
+      "Beans"
+    ],
+    "state": "Cooked",
+    "method": "Boiled",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 60,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Ginisang munggo",
+      "Ginataang munggo",
+      "Hopia munggo",
+      "Munggo with chicharon",
+      "Buchi with mung-bean filling"
+    ]
+  },
+  {
+    "id": "red-kidney-beans",
+    "fdcId": "175194",
+    "name": "Red kidney beans",
+    "aliases": [
+      "red kidney beans",
+      "kidney",
+      "beans"
+    ],
+    "category": "Legumes",
+    "foodTypes": [
+      "Beans"
+    ],
+    "state": "Cooked",
+    "method": "Boiled",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 60,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Minatamis na red beans for halo-halo",
+      "Ginataang red beans (home-style variation)",
+      "Pork-and-beans with red kidney beans (variation)",
+      "Red-bean hopia",
+      "Red-bean ice candy"
+    ]
+  },
+  {
+    "id": "ph-lima-beans",
+    "fdcId": "169135",
+    "name": "Lima beans (Patani)",
+    "aliases": [
+      "lima beans",
+      "patani"
+    ],
+    "category": "Legumes",
+    "foodTypes": [
+      "Beans"
+    ],
+    "state": "Cooked",
+    "method": "Boiled",
+    "allergens": [],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 60,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Ginisang patani",
+      "Ginataang patani",
+      "Dinengdeng with patani",
+      "Laswa with patani",
+      "Bulanglang with patani"
+    ]
+  },
+  {
+    "id": "ph-soybeans",
+    "fdcId": "174299",
+    "name": "Soybeans (Utaw)",
+    "aliases": [
+      "soybeans",
+      "utaw"
+    ],
+    "category": "Legumes",
+    "foodTypes": [
+      "Soy"
+    ],
+    "state": "Cooked",
+    "method": "Boiled",
+    "allergens": [
+      "Soy"
+    ],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 60,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Soy polvoron (soybeans processed into soy flour)",
+      "Taho (soybeans processed into silken tofu)",
+      "Tokwa (soybeans processed into tofu)",
+      "Soy hotcakes (soybean-flour variation)",
+      "Soy nuggets (soybean-pulp variation)"
+    ]
+  },
+  {
+    "id": "ph-peanuts",
+    "fdcId": "172430",
+    "name": "Peanuts (Mani)",
+    "aliases": [
+      "peanuts",
+      "mani"
+    ],
+    "category": "Nuts & seeds",
+    "foodTypes": [
+      "Nuts"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [
+      "Peanuts"
+    ],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 5,
+    "budget": "Budget-friendly",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Kare-kare with ground peanuts",
+      "Adobong mani",
+      "Peanut brittle",
+      "Peanut polvoron",
+      "Peanut butter pandesal"
+    ]
+  },
+  {
+    "id": "cashews",
+    "fdcId": "170162",
+    "name": "Cashew nuts (Kasoy)",
+    "aliases": [
+      "cashew nuts",
+      "kasoy",
+      "cashews"
+    ],
+    "category": "Nuts & seeds",
+    "foodTypes": [
+      "Nuts"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [
+      "Tree nuts"
+    ],
+    "vegan": true,
+    "vegetarian": true,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 5,
+    "budget": "Moderate",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Sans rival with cashews",
+      "Cashew polvoron",
+      "Roasted kasoy",
+      "Turrones de casoy",
+      "Cashew brittle"
+    ]
+  },
+  {
+    "id": "ph-milkfish",
+    "fdcId": "171995",
+    "name": "Milkfish (Bangus)",
+    "aliases": [
+      "milkfish",
+      "bangus"
+    ],
+    "category": "Protein foods",
+    "foodTypes": [
+      "Fish"
+    ],
+    "state": "Cooked",
+    "method": "Dry-heat cooked",
+    "allergens": [
+      "Fish"
+    ],
+    "vegan": false,
+    "vegetarian": false,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 20,
+    "budget": "Moderate",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Daing na bangus",
+      "Rellenong bangus",
+      "Sinigang na bangus",
+      "Bangus sisig",
+      "Paksiw na bangus"
+    ]
+  },
+  {
+    "id": "cooked-tilapia",
+    "fdcId": "175177",
+    "name": "Tilapia",
+    "aliases": [
+      "tilapia",
+      "fish",
+      "isda"
+    ],
+    "category": "Protein foods",
+    "foodTypes": [
+      "Fish"
+    ],
+    "state": "Cooked",
+    "method": "Dry-heat cooked",
+    "allergens": [
+      "Fish"
+    ],
+    "vegan": false,
+    "vegetarian": false,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 20,
+    "budget": "Moderate",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Inihaw na tilapia",
+      "Ginataang tilapia",
+      "Pinaputok na tilapia",
+      "Paksiw na tilapia",
+      "Sweet-and-sour tilapia"
+    ]
+  },
+  {
+    "id": "ph-catfish",
+    "fdcId": "173714",
+    "name": "Catfish (Hito)",
+    "aliases": [
+      "catfish",
+      "hito"
+    ],
+    "category": "Protein foods",
+    "foodTypes": [
+      "Fish"
+    ],
+    "state": "Cooked",
+    "method": "Dry-heat cooked",
+    "allergens": [
+      "Fish"
+    ],
+    "vegan": false,
+    "vegetarian": false,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 20,
+    "budget": "Moderate",
+    "referenceNote": "USDA channel-catfish reference; local hito species may differ. Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Inihaw na hito",
+      "Adobong hito",
+      "Ginataang hito",
+      "Pritong hito",
+      "Hito in yellow-bean sauce (home-style variation)"
+    ]
+  },
+  {
+    "id": "ph-grouper",
+    "fdcId": "171963",
+    "name": "Grouper (Lapu-lapu)",
+    "aliases": [
+      "grouper",
+      "lapu-lapu"
+    ],
+    "category": "Protein foods",
+    "foodTypes": [
+      "Fish"
+    ],
+    "state": "Cooked",
+    "method": "Dry-heat cooked",
+    "allergens": [
+      "Fish"
+    ],
+    "vegan": false,
+    "vegetarian": false,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 20,
+    "budget": "Moderate",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Escabecheng lapu-lapu",
+      "Sinigang na lapu-lapu",
+      "Steamed lapu-lapu",
+      "Lapu-lapu in sweet-and-sour sauce",
+      "Lapu-lapu sa tausi"
+    ]
+  },
+  {
+    "id": "ph-snapper",
+    "fdcId": "173699",
+    "name": "Snapper (Maya-maya)",
+    "aliases": [
+      "snapper",
+      "maya-maya"
+    ],
+    "category": "Protein foods",
+    "foodTypes": [
+      "Fish"
+    ],
+    "state": "Cooked",
+    "method": "Dry-heat cooked",
+    "allergens": [
+      "Fish"
+    ],
+    "vegan": false,
+    "vegetarian": false,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 20,
+    "budget": "Moderate",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Sinigang na maya-maya",
+      "Escabecheng maya-maya",
+      "Pesang maya-maya",
+      "Inihaw na maya-maya",
+      "Pinangat na maya-maya"
+    ]
+  },
+  {
+    "id": "ph-pompano",
+    "fdcId": "173683",
+    "name": "Pompano",
+    "aliases": [
+      "pompano"
+    ],
+    "category": "Protein foods",
+    "foodTypes": [
+      "Fish"
+    ],
+    "state": "Cooked",
+    "method": "Dry-heat cooked",
+    "allergens": [
+      "Fish"
+    ],
+    "vegan": false,
+    "vegetarian": false,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 20,
+    "budget": "Moderate",
+    "referenceNote": "USDA Florida-pompano reference; this is not a species-specific analysis of Philippine golden pompano. Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Pinangat na pompano",
+      "Inihaw na pompano",
+      "Pompano sa tausi",
+      "Ginataang pompano",
+      "Steamed pompano with ginger"
+    ]
+  },
+  {
+    "id": "ph-mullet",
+    "fdcId": "175124",
+    "name": "Mullet (Banak)",
+    "aliases": [
+      "mullet",
+      "banak"
+    ],
+    "category": "Protein foods",
+    "foodTypes": [
+      "Fish"
+    ],
+    "state": "Cooked",
+    "method": "Dry-heat cooked",
+    "allergens": [
+      "Fish"
+    ],
+    "vegan": false,
+    "vegetarian": false,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 20,
+    "budget": "Moderate",
+    "referenceNote": "USDA striped-mullet reference; local banak species may differ. Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Paksiw na banak",
+      "Inihaw na banak",
+      "Sinigang na banak",
+      "Pritong banak",
+      "Ginataang banak"
+    ]
+  },
+  {
+    "id": "ph-carp",
+    "fdcId": "174185",
+    "name": "Carp (Karpa)",
+    "aliases": [
+      "carp",
+      "karpa"
+    ],
+    "category": "Protein foods",
+    "foodTypes": [
+      "Fish"
+    ],
+    "state": "Cooked",
+    "method": "Dry-heat cooked",
+    "allergens": [
+      "Fish"
+    ],
+    "vegan": false,
+    "vegetarian": false,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 20,
+    "budget": "Moderate",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Paksiw na karpa",
+      "Ginataang karpa",
+      "Pritong karpa",
+      "Sinigang na karpa",
+      "Escabecheng karpa"
+    ]
+  },
+  {
+    "id": "ph-eel",
+    "fdcId": "174194",
+    "name": "Eel (Palos)",
+    "aliases": [
+      "eel",
+      "palos"
+    ],
+    "category": "Protein foods",
+    "foodTypes": [
+      "Fish"
+    ],
+    "state": "Cooked",
+    "method": "Dry-heat cooked",
+    "allergens": [
+      "Fish"
+    ],
+    "vegan": false,
+    "vegetarian": false,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 20,
+    "budget": "Moderate",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Adobong palos",
+      "Ginataang palos",
+      "Inihaw na palos",
+      "Pritong palos",
+      "Paksiw na palos"
+    ]
+  },
+  {
+    "id": "ph-tuna",
+    "fdcId": "175159",
+    "name": "Tuna (Tambakol)",
+    "aliases": [
+      "tuna",
+      "tambakol"
+    ],
+    "category": "Protein foods",
+    "foodTypes": [
+      "Fish"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [
+      "Fish"
+    ],
+    "vegan": false,
+    "vegetarian": false,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": true,
+    "prepMinutes": 30,
+    "budget": "Moderate",
+    "referenceNote": "Nutrition is for raw edible weight; cook appropriately before eating. Do not apply raw values to cooked portions.",
+    "sampleDishes": [
+      "Ginataang tambakol",
+      "Inihaw na tuna",
+      "Tuna sisig",
+      "Tuna kinilaw",
+      "Tuna escabeche"
+    ]
+  },
+  {
+    "id": "canned-sardines",
+    "fdcId": "175139",
+    "name": "Sardines (Sardinas)",
+    "aliases": [
+      "sardines",
+      "sardinas"
+    ],
+    "category": "Protein foods",
+    "foodTypes": [
+      "Fish"
+    ],
+    "state": "Ready to eat",
+    "method": "Canned",
+    "allergens": [
+      "Fish"
+    ],
+    "vegan": false,
+    "vegetarian": false,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 20,
+    "budget": "Moderate",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Ginisang sardinas",
+      "Sardinas with misua",
+      "Tortang sardinas",
+      "Sardinas with sotanghon",
+      "Sardine fish balls (home-style variation)"
+    ]
+  },
+  {
+    "id": "ph-mackerel",
+    "fdcId": "171994",
+    "name": "Mackerel (Alumahan)",
+    "aliases": [
+      "mackerel",
+      "alumahan"
+    ],
+    "category": "Protein foods",
+    "foodTypes": [
+      "Fish"
+    ],
+    "state": "Cooked",
+    "method": "Dry-heat cooked",
+    "allergens": [
+      "Fish"
+    ],
+    "vegan": false,
+    "vegetarian": false,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": false,
+    "prepMinutes": 20,
+    "budget": "Moderate",
+    "referenceNote": "USDA Pacific/jack-mackerel reference; local Indian mackerel (alumahan) may differ. Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Paksiw na alumahan",
+      "Inihaw na alumahan",
+      "Pritong alumahan",
+      "Ginataang alumahan",
+      "Escabecheng alumahan"
+    ]
+  },
+  {
+    "id": "ph-anchovies",
+    "fdcId": "174182",
+    "name": "Anchovies (Dilis)",
+    "aliases": [
+      "anchovies",
+      "dilis"
+    ],
+    "category": "Protein foods",
+    "foodTypes": [
+      "Fish"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [
+      "Fish"
+    ],
+    "vegan": false,
+    "vegetarian": false,
+    "pescatarian": true,
+    "halal": "ingredient-compatible",
+    "requiresCooking": true,
+    "prepMinutes": 30,
+    "budget": "Moderate",
+    "referenceNote": "USDA European-anchovy reference; local dilis species may differ. Nutrition is for raw edible weight; cook appropriately before eating. Do not apply raw values to cooked portions.",
+    "sampleDishes": [
+      "Dilis fritters",
+      "Sweet-and-spicy dilis",
+      "Sinangag with dilis",
+      "Ukoy na dilis",
+      "Tortang dilis"
+    ]
+  },
+  {
+    "id": "cooked-shrimp",
+    "fdcId": "175180",
+    "name": "Shrimp (Hipon)",
+    "aliases": [
+      "shrimp",
+      "hipon",
+      "prawns"
+    ],
+    "category": "Protein foods",
+    "foodTypes": [
+      "Shellfish"
+    ],
+    "state": "Cooked",
+    "method": "Cooked",
+    "allergens": [
+      "Shellfish"
+    ],
+    "vegan": false,
+    "vegetarian": false,
+    "pescatarian": true,
+    "halal": "requires-verification",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Moderate",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Sinigang na hipon",
+      "Ginataang hipon",
+      "Ukoy na hipon",
+      "Halabos na hipon",
+      "Garlic-butter shrimp"
+    ]
+  },
+  {
+    "id": "ph-crab",
+    "fdcId": "174205",
+    "name": "Crab (Alimango)",
+    "aliases": [
+      "crab",
+      "alimango"
+    ],
+    "category": "Protein foods",
+    "foodTypes": [
+      "Shellfish"
+    ],
+    "state": "Cooked",
+    "method": "Cooked",
+    "allergens": [
+      "Shellfish"
+    ],
+    "vegan": false,
+    "vegetarian": false,
+    "pescatarian": true,
+    "halal": "requires-verification",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Moderate",
+    "referenceNote": "USDA blue-crab reference; this is not a mud-crab-specific analysis of alimango. Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Ginataang alimango",
+      "Steamed alimango",
+      "Chili-garlic alimango",
+      "Adobong alimango",
+      "Rellenong alimango"
+    ]
+  },
+  {
+    "id": "ph-squid",
+    "fdcId": "174223",
+    "name": "Squid (Pusit)",
+    "aliases": [
+      "squid",
+      "pusit"
+    ],
+    "category": "Protein foods",
+    "foodTypes": [
+      "Shellfish"
+    ],
+    "state": "Raw",
+    "method": "Raw",
+    "allergens": [
+      "Shellfish"
+    ],
+    "vegan": false,
+    "vegetarian": false,
+    "pescatarian": true,
+    "halal": "requires-verification",
+    "requiresCooking": true,
+    "prepMinutes": 30,
+    "budget": "Moderate",
+    "referenceNote": "Nutrition is for raw edible weight; cook appropriately before eating. Do not apply raw values to cooked portions.",
+    "sampleDishes": [
+      "Adobong pusit",
+      "Inihaw na pusit",
+      "Rellenong pusit",
+      "Crispy calamares",
+      "Ginataang pusit"
+    ]
+  },
+  {
+    "id": "ph-octopus",
+    "fdcId": "174249",
+    "name": "Octopus (Pugita)",
+    "aliases": [
+      "octopus",
+      "pugita"
+    ],
+    "category": "Protein foods",
+    "foodTypes": [
+      "Shellfish"
+    ],
+    "state": "Cooked",
+    "method": "Cooked",
+    "allergens": [
+      "Shellfish"
+    ],
+    "vegan": false,
+    "vegetarian": false,
+    "pescatarian": true,
+    "halal": "requires-verification",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Moderate",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Adobong pugita",
+      "Ginataang pugita",
+      "Inihaw na pugita",
+      "Pugita sisig (home-style variation)",
+      "Kilawing pugita (use cooked octopus)"
+    ]
+  },
+  {
+    "id": "ph-clams",
+    "fdcId": "171975",
+    "name": "Clams (Halaan)",
+    "aliases": [
+      "clams",
+      "halaan"
+    ],
+    "category": "Protein foods",
+    "foodTypes": [
+      "Shellfish"
+    ],
+    "state": "Cooked",
+    "method": "Cooked",
+    "allergens": [
+      "Shellfish"
+    ],
+    "vegan": false,
+    "vegetarian": false,
+    "pescatarian": true,
+    "halal": "requires-verification",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Moderate",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Tinolang halaan",
+      "Ginataang halaan",
+      "Ginisang halaan with garlic",
+      "Sinigang na halaan",
+      "Halaan with corn and malunggay"
+    ]
+  },
+  {
+    "id": "ph-mussels",
+    "fdcId": "174217",
+    "name": "Mussels (Tahong)",
+    "aliases": [
+      "mussels",
+      "tahong"
+    ],
+    "category": "Protein foods",
+    "foodTypes": [
+      "Shellfish"
+    ],
+    "state": "Cooked",
+    "method": "Cooked",
+    "allergens": [
+      "Shellfish"
+    ],
+    "vegan": false,
+    "vegetarian": false,
+    "pescatarian": true,
+    "halal": "requires-verification",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Moderate",
+    "referenceNote": "USDA blue-mussel reference; Philippine green mussels (tahong) may differ. Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Tinolang tahong",
+      "Baked tahong",
+      "Ginisang tahong",
+      "Adobong tahong",
+      "Tahong sisig"
+    ]
+  },
+  {
+    "id": "ph-oysters",
+    "fdcId": "171980",
+    "name": "Oysters (Talaba)",
+    "aliases": [
+      "oysters",
+      "talaba"
+    ],
+    "category": "Protein foods",
+    "foodTypes": [
+      "Shellfish"
+    ],
+    "state": "Cooked",
+    "method": "Cooked",
+    "allergens": [
+      "Shellfish"
+    ],
+    "vegan": false,
+    "vegetarian": false,
+    "pescatarian": true,
+    "halal": "requires-verification",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Moderate",
+    "referenceNote": "USDA Eastern-oyster reference; local talaba species may differ. Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Baked talaba",
+      "Steamed talaba",
+      "Talaba fritters",
+      "Talaba omelet",
+      "Garlic-butter talaba"
+    ]
+  },
+  {
+    "id": "ph-scallops",
+    "fdcId": "167742",
+    "name": "Scallops",
+    "aliases": [
+      "scallops"
+    ],
+    "category": "Protein foods",
+    "foodTypes": [
+      "Shellfish"
+    ],
+    "state": "Cooked",
+    "method": "Cooked",
+    "allergens": [
+      "Shellfish"
+    ],
+    "vegan": false,
+    "vegetarian": false,
+    "pescatarian": true,
+    "halal": "requires-verification",
+    "requiresCooking": false,
+    "prepMinutes": 15,
+    "budget": "Moderate",
+    "referenceNote": "Match the exact source variety and cooking method. Sauces, coatings and added ingredients are excluded unless explicitly named in the source.",
+    "sampleDishes": [
+      "Baked scallops with garlic and cheese",
+      "Garlic-butter scallops",
+      "Inihaw na scallops",
+      "Scallop sisig (home-style variation)",
+      "Adobong scallops (home-style variation)"
+    ]
+  }
+]

@@ -7,7 +7,7 @@ const compiled = await build({ entryPoints: ['frontend/lib/nutrition.ts'], bundl
 const { foods, nutrientsFor, nutritionTotals, foodPreferenceCheck, matchesFoodFilters, foodGroups } = await import(`data:text/javascript;base64,${Buffer.from(compiled.outputFiles[0].text).toString('base64')}`)
 assert.equal(foods.length, 100)
 assert.equal(new Set(foods.map(food => food.id)).size, 100)
-assert.equal(new Set(foods.map(food => food.category)).size, 9)
+assert.equal(new Set(foods.map(food => food.category)).size, 7)
 for (const food of foods) {
   const record = source.records.find(record => Number(record.fdc_id) === food.source.fdcId)
   assert(record, food.id)

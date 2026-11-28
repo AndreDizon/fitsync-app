@@ -1,15 +1,13 @@
 import { readFile, writeFile, mkdir } from 'node:fs/promises'
 import { createHash } from 'node:crypto'
 import { fileURLToPath } from 'node:url'
-import { curatedFoods } from './curated-foods.mjs'
-import { expandedFoodMetadata } from './expanded-food-metadata.mjs'
-import { foodClassifications } from './food-classifications.mjs'
+import { philippineFoodMetadata } from './philippine-foods.mjs'
 
 process.chdir(fileURLToPath(new URL('../', import.meta.url)))
 const source = JSON.parse(await readFile('backend/data/foods-source.json', 'utf8'))
 const fields = { energyKcal: '1008', proteinG: '1003', carbsG: '1005', fatG: '1004', fiberG: '1079', sugarsG: '2000', saturatedFatG: '1258', sodiumMg: '1093', calciumMg: '1087', ironMg: '1089', potassiumMg: '1092', vitaminDUg: '1114', vitaminCMg: '1162' }
-const foods = [...curatedFoods, ...expandedFoodMetadata(source)].map(meta => {
-  const classifications = meta.classifications ?? foodClassifications[meta.id]
+const foods = philippineFoodMetadata(source).map(meta => {
+  const classifications = meta.classifications
   if (!classifications) throw new Error(`Missing classifications for ${meta.id}`)
   const record = source.records.find(record => record.fdc_id === meta.fdcId)
   if (!record) throw new Error(`Missing USDA record for ${meta.id}`)

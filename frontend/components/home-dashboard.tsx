@@ -1,4 +1,5 @@
 'use client'
+import { foodById } from '@/lib/nutrition'
 import { SyncStatus } from './sync-status'
 import { useEffect, useRef, useState } from 'react'
 import { ArrowLeft, ArrowRight, ArrowUpRight, Droplet, Flame, RefreshCw, Settings2 } from 'lucide-react'
@@ -6,7 +7,7 @@ import { usePlanAccount } from '@/lib/playlist-account'
 import { usePlanningProfile } from '@/lib/planning-profile'
 import { cachedWeek, syncWeek, type StoredWeek } from '@/lib/daily-plans'
 import { cachedProgress, loadProgress, type ProgressSnapshot } from '@/lib/progress'
-import { currentDay, currentWeek, foodCatalog, foodTotals, taskMinutes, workoutCatalog } from '../../shared/daily-plans'
+import { currentDay, currentWeek, foodTotals, taskMinutes, workoutCatalog } from '../../shared/daily-plans'
 import { CoachChat } from './coach-chat'
 import { HomeCardArt } from './home-card-art'
 import { HomeInsights } from './home-insights'
@@ -107,7 +108,7 @@ export function HomeDashboard({ onOpen }: { onOpen: (destination: HomeDestinatio
   const plannedMinutes=Math.round(moves.reduce((sum,item)=>sum+taskMinutes(item),0))
   const minutes=Math.round(moves.filter(item=>item.done).reduce((sum,item)=>sum+taskMinutes(item),0))
   const next=all.filter(item=>!item.done).sort((a,b)=>a.time.localeCompare(b.time))[0]
-  const nextName=next?('foodId' in next?foodCatalog.find(food=>food.id===next.foodId)?.name:workoutCatalog.find(exercise=>exercise.id===next.exerciseId)?.name):null
+  const nextName=next?('foodId' in next?foodById(next.foodId)?.name:workoutCatalog.find(exercise=>exercise.id===next.exerciseId)?.name):null
   const openPlan=(mode:'workout'|'nutrition',tab:'plan'|'playlist'|'library'='plan')=>onOpen({page:'plans',mode,tab})
   async function refreshSummaries(){
     if(!identity){setRecord(cachedWeek(owner,week));setNotice('');return 'Local plan summaries are refreshed.'}

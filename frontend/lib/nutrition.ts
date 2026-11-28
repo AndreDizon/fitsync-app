@@ -1,4 +1,5 @@
 import seed from '../../backend/data/foods.json'
+import { storedFoodCatalog } from '../../shared/food-catalog'
 import type { OnboardingProfile } from '../../shared/onboarding'
 
 export type FoodNutrients = { energyKcal: number | null; proteinG: number | null; carbsG: number | null; fatG: number | null; fiberG: number | null; sugarsG: number | null; saturatedFatG: number | null; sodiumMg: number | null; calciumMg: number | null; ironMg: number | null; potassiumMg: number | null; vitaminDUg: number | null; vitaminCMg: number | null }
@@ -8,14 +9,14 @@ export type Food = {
   defaultPortionId: string; portions: { id: string; label: string; grams: number; source: string }[];
   allergens: string[]; vegan: boolean; vegetarian: boolean; pescatarian: boolean; halal: string;
   prepMinutes: number; prepTimeSource: string; budget: string; benefits: { title: string; text: string; source: string | null }[];
-  preparation: string[]; measureNote: string; pairing: string[]; productNote?: string; crossContact: string;
+  preparation: string[]; measureNote: string; pairing: string[]; productNote?: string; crossContact: string; sampleDishes?: string[]; referenceNote?: string;
   nutrients: FoodNutrients; source: { provider: string; dataset: string; fdcId: number; description: string; publishedAt: string; reviewedAt: string; url: string };
 }
 export const foods = seed as Food[]
 export const mealSlots = ['Breakfast', 'Lunch', 'Dinner', 'Snack'] as const
 export type MealSlot = typeof mealSlots[number]
 export type FoodPlanEntry = { id: string; foodId: string; grams: number; slot: MealSlot; day: number }
-export const foodById = (id: string) => foods.find(food => food.id === id)
+export const foodById = (id: string) => (storedFoodCatalog as Food[]).find(food => food.id === id)
 export function nutrientsFor(food: Food, grams: number): FoodNutrients {
   if (!Number.isFinite(grams) || grams < 1 || grams > 2000) throw new Error('Choose an edible portion between 1 and 2,000 g.')
   return Object.fromEntries(Object.entries(food.nutrients).map(([key, value]) => [key, value === null ? null : value * (grams / 100)])) as FoodNutrients
@@ -39,7 +40,7 @@ export function nutritionTotals(entries: FoodPlanEntry[]) {
 }
 export const formatNutrient = (value: number | null, decimals = 1) => value === null ? 'Not reported' : value.toLocaleString('en-US', { maximumFractionDigits: decimals })
 
-export const foodGroups = ['Grains', 'Protein foods', 'Legumes', 'Fruits', 'Vegetables', 'Dairy', 'Nuts & seeds', 'Oils & fats', 'Roots & tubers']
+export const foodGroups = ['Grains', 'Protein foods', 'Legumes', 'Fruits', 'Vegetables', 'Nuts & seeds', 'Roots & tubers']
 export const foodDiets = (food: Food) => [food.vegan && 'Vegan ingredients', food.vegetarian && 'Vegetarian ingredients', food.pescatarian && 'Pescatarian ingredients'].filter(Boolean) as string[]
 export type FoodFilters = { group: string; type: string; preparation: string; meal: string; excludedAllergens: string[] }
 export function matchesFoodFilters(food: Food, filters: FoodFilters) {

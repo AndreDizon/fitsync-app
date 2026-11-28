@@ -185,7 +185,7 @@ export function MyPlanWorkspace({ kind, focusWater = false, initialDate }: { kin
 
   const catalog = nutrition ? foodCatalog.map(food => ({ id: food.id, name: food.name, meta: food.category })) : workoutCatalog.map(exercise => ({ id: exercise.id, name: exercise.name, meta: exercise.target + ' · ' + exercise.equipment }))
   const matches = catalog.filter(item => (item.name + ' ' + item.meta).toLowerCase().includes(query.trim().toLowerCase()))
-  const nameOf = (item: PlanTask) => 'foodId' in item ? foodCatalog.find(food => food.id === item.foodId)?.name ?? 'Food' : workoutCatalog.find(exercise => exercise.id === item.exerciseId)?.name ?? 'Exercise'
+  const nameOf = (item: PlanTask) => 'foodId' in item ? foodById(item.foodId)?.name ?? 'Food' : workoutCatalog.find(exercise => exercise.id === item.exerciseId)?.name ?? 'Exercise'
   const taskGroups = planTaskGroups(schedule.items, nutrition)
   const timelineItems = taskGroups.flatMap(group => group.items)
   const firstIncomplete = timelineItems.findIndex(item => !item.done)

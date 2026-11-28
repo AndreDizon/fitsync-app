@@ -1,5 +1,6 @@
 import exercises from '../backend/data/exercises.json'
 import foods from '../backend/data/foods.json'
+import { storedFoodCatalog } from './food-catalog'
 import { defaultWorkoutStartTime } from './onboarding'
 import { defaultMealTime, newPlaylistItem, parsePlaylist, type PlaylistItem, type PlaylistKind } from './playlists'
 import type { OnboardingProfile } from './onboarding'
@@ -93,7 +94,7 @@ export function taskMinutes(item: PlaylistItem & { preparation?: SessionPreparat
   return (taskSeconds(item) + (extra ? extra.warmupSeconds + extra.cooldownSeconds + extra.transitionSeconds : 0)) / 60
 }
 export function foodTotals(items: PlanTask[]) {
-  return items.reduce((sum, item) => { if ('foodId' in item) { const food = foods.find(food => food.id === item.foodId); if (food) { sum.energy += (food.nutrients.energyKcal ?? 0) * item.grams / 100; sum.protein += (food.nutrients.proteinG ?? 0) * item.grams / 100; sum.carbs += (food.nutrients.carbsG ?? 0) * item.grams / 100; sum.fat += (food.nutrients.fatG ?? 0) * item.grams / 100 } } return sum }, { energy: 0, protein: 0, carbs: 0, fat: 0 })
+  return items.reduce((sum, item) => { if ('foodId' in item) { const food = storedFoodCatalog.find(food => food.id === item.foodId); if (food) { sum.energy += (food.nutrients.energyKcal ?? 0) * item.grams / 100; sum.protein += (food.nutrients.proteinG ?? 0) * item.grams / 100; sum.carbs += (food.nutrients.carbsG ?? 0) * item.grams / 100; sum.fat += (food.nutrients.fatG ?? 0) * item.grams / 100 } } return sum }, { energy: 0, protein: 0, carbs: 0, fat: 0 })
 }
 function shuffle<T>(input: T[], seed: number) { const list = [...input]; let n = seed + 1; for (let i = list.length - 1; i > 0; i--) { n = (Math.imul(n, 1664525) + 1013904223) >>> 0; const j = n % (i + 1); [list[i], list[j]] = [list[j], list[i]] } return list }
 export function eligibleExercises(profile: OnboardingProfile) {
@@ -113,7 +114,7 @@ export function eligibleExercises(profile: OnboardingProfile) {
 export function eligibleFoods(profile: OnboardingProfile) {
   const dislikes = profile.dislikes.toLowerCase().split(/[,;\n]+/).map(v => v.trim()).filter(Boolean)
   if (profile.allergies.includes('Other')) return []
-  return foods.filter(food => !food.allergens.some(a => profile.allergies.includes(a)) && !(profile.diet === 'Vegan' && !food.vegan || profile.diet === 'Vegetarian' && !food.vegetarian || profile.diet === 'Pescatarian' && !food.pescatarian || profile.diet === 'Halal' && food.halal !== 'ingredient-compatible') && !dislikes.some(v => (food.name + ' ' + food.aliases.join(' ')).toLowerCase().includes(v)) && food.prepMinutes <= Number(profile.cookingMinutes) && (profile.budget !== 'Budget-friendly' || food.budget === 'Budget-friendly') && !(/raw/i.test(food.state) && ['Protein foods','Legumes'].includes(food.category)))
+  return foods.filter(food => !food.requiresCooking && !food.allergens.some(a => profile.allergies.includes(a)) && !(profile.diet === 'Vegan' && !food.vegan || profile.diet === 'Vegetarian' && !food.vegetarian || profile.diet === 'Pescatarian' && !food.pescatarian || profile.diet === 'Halal' && food.halal !== 'ingredient-compatible') && !dislikes.some(v => (food.name + ' ' + food.aliases.join(' ')).toLowerCase().includes(v)) && food.prepMinutes <= Number(profile.cookingMinutes) && (profile.budget !== 'Budget-friendly' || food.budget === 'Budget-friendly') && !(/raw/i.test(food.state) && ['Protein foods','Legumes'].includes(food.category)))
 }
 export function formulateDay(profile: OnboardingProfile, kind: PlaylistKind, day: number, variation: number, exclude: string[] = [], alternative = false): { schedule: DaySchedule; notes: string[] } {
   const notes: string[] = [], schedule: DaySchedule = { items: [], rest: false, source: 'System-formulated', variation }

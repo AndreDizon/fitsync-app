@@ -10,7 +10,7 @@ export function queryFoodCatalog(foods: Food[], selection: FoodQuery) {
   const terms = normalize(selection.query.slice(0, 200)).split(/\s+/).filter(Boolean)
   const matches = (food: Food, except?: FoodFacet) => {
     const filters = { ...selection, ...(except ? { [except]: '' } : {}) }
-    return matchesFoodFilters(food, filters) && dietMatch(food, except === 'diet' ? '' : selection.diet) && terms.every(term => normalize([food.name, ...food.aliases, food.category, food.state, ...Object.values(food.classifications).flat(), ...foodDiets(food)].join(' ')).includes(term))
+    return matchesFoodFilters(food, filters) && dietMatch(food, except === 'diet' ? '' : selection.diet) && terms.every(term => normalize([food.name, ...food.aliases, ...(food.sampleDishes || []), food.category, food.state, ...Object.values(food.classifications).flat(), ...foodDiets(food)].join(' ')).includes(term))
   }
   const facets = {
     group: [...new Set(foods.flatMap(food => food.classifications.groups))].sort(),
