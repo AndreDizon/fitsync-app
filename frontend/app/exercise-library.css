@@ -173,7 +173,12 @@
 
 .exercise-page-numbers { display: flex; gap: 5px; }
 .exercise-detail-dialog{width:min(780px,calc(100vw - 24px));background:#fffdf5}
-.exercise-detail-header{background:#fffdf5;align-items:flex-start}
+.exercise-detail-header{background:#fffdf5;align-items:flex-start;flex-wrap:wrap;padding:20px 28px 0;gap:12px}
+.exercise-detail-header>div:first-child{flex:1;min-width:0}
+.exercise-detail-header h2{margin:0;font-size:26px;line-height:1.2;letter-spacing:-.03em}
+.exercise-detail-header>.exercise-close{flex:none;width:44px;min-height:44px;border-radius:12px;background:#fff3c0;color:#333c25;border:1px solid #e0cb7a}
+.exercise-detail-header>.exercise-guide-tabs{flex:0 0 100%;padding:0;margin:0;border:0}
+.exercise-detail-body{padding:24px 28px 28px}
 .exercise-guide-subtitle{font-size:13px;line-height:1.6;color:#626b60;margin:8px 0 0}
 .exercise-guide-tabs{display:flex;gap:4px;padding:8px 20px 0;border-bottom:1px solid #dedfce;background:#fffdf5}
 .exercise-guide-tabs button{flex:1;min-width:0;min-height:48px;padding:10px 8px;border:0;border-bottom:3px solid transparent;border-radius:10px 10px 0 0;background:transparent;color:#334136;font-size:12px;font-weight:700}
@@ -212,6 +217,13 @@
 .exercise-weight-controls input[aria-invalid=true]{border-color:#a84d35}
 .exercise-estimates dl{grid-template-columns:repeat(2,minmax(0,1fr))}.exercise-estimates dd{overflow-wrap:anywhere}
 .exercise-guide-section.exercise-estimates{padding:0;margin:0;border:0;border-radius:0;background:transparent}
+.exercise-detail-dialog .exercise-calculation-results{padding:18px;border:0;border-radius:12px;background:#29322b;gap:18px;color:#fff7df}
+.exercise-detail-dialog .exercise-calculation-results>div{min-width:0}
+.exercise-detail-dialog .exercise-calculation-results dt{color:#e0e8d6;font-size:12px}
+.exercise-detail-dialog .exercise-calculation-results dd{color:#fff7df;font-size:26px;font-weight:750;font-variant-numeric:tabular-nums;line-height:1.4}
+.exercise-detail-dialog .exercise-calculation-results>div:first-child dd{color:#ffe253}
+@media(max-width:500px){.exercise-detail-header{padding:16px 18px 0}.exercise-detail-header h2{font-size:21px}.exercise-detail-body{padding:22px 18px}.exercise-detail-header>.exercise-guide-tabs button{min-height:48px;font-size:12px}.exercise-detail-dialog .exercise-calculation-results dd{font-size:23px}}
+@media(max-height:550px){.exercise-detail-header{position:static}}
 @media(max-width:400px){.exercise-estimates dl{grid-template-columns:1fr;gap:16px}}
 .exercise-guide-levels{display:flex;flex-wrap:wrap;gap:8px;margin:16px 0}
 .exercise-guide-levels button{flex:1;min-height:44px;border:1px solid #d4d9ce;border-radius:10px;padding:10px;color:#334136;background:#fff;font-size:13px;font-weight:650}

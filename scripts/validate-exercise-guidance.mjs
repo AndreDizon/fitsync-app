@@ -2,7 +2,7 @@ import assert from 'node:assert/strict'
 import { readFile } from 'node:fs/promises'
 import { build } from 'esbuild'
 
-const result = await build({ stdin: { contents: "export * from './frontend/lib/exercise-guidance'; export * from './frontend/lib/exercise-technique'; export * from './frontend/lib/exercise-scenario';", resolveDir: process.cwd(), loader: 'ts' }, bundle: true, write: false, platform: 'node', format: 'esm' })
+const result = await build({ stdin: { contents: "export * from './frontend/lib/exercise-guidance'; export * from './frontend/lib/exercise-technique'; export * from './frontend/lib/exercise-scenario'; export * from './frontend/lib/exercise-practice-notes';", resolveDir: process.cwd(), loader: 'ts' }, bundle: true, write: false, platform: 'node', format: 'esm' })
 const guide = await import('data:text/javascript;base64,' + Buffer.from(result.outputFiles[0].text).toString('base64'))
 const catalog = JSON.parse(await readFile('frontend/public/offline/exercises.json', 'utf8')).data
 assert.equal(guide.exerciseTechniqueIds.length, 100, 'Exactly 100 explicit technique mappings')
@@ -15,6 +15,11 @@ for (const exercise of catalog) {
   assert.equal(technique.checks.length, 2, exercise.id)
   assert(guide.techniqueSources[technique.source]?.url.startsWith('https://'))
   assert(technique.purpose && technique.easier && technique.harder)
+  const practice = guide.exercisePracticeNotes(exercise)
+  for (const key of ['setup', 'warmup', 'breathing', 'counting', 'weeklyRecovery']) assert(practice[key]?.length > 35, `${exercise.id}: ${key}`)
+  if (exercise.movementPattern === 'Core') assert.match(practice.breathing, /Keep breathing/)
+  if (exercise.equipment === 'band') assert.match(practice.setup, /anchor/)
+  if (exercise.category === 'stretching') assert.match(practice.warmup, /easy movement/)
   for (const level of guide.guidanceLevels) {
     const guidance = guide.exerciseGuidance(exercise, level)
     assert(guidance.target && guidance.rest && guidance.progression)
