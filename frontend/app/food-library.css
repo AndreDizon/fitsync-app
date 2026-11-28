@@ -182,3 +182,10 @@
 }
 
 .food-detail-refined #food-panel-nutrition>.fd-overview+.fd-nutrition{margin-top:24px;padding-top:24px;border-top:1px solid #e0e3d7}
+
+/* Match the workout guide's equal-width navigation and selected state. */
+.food-detail-refined .food-detail-header .fd-section-nav{flex:0 0 100%;gap:4px;padding:0;margin:0}
+.food-detail-refined .food-detail-header .fd-section-nav button{flex:1 1 0;min-width:0;min-height:48px;padding:10px 8px;border:0;border-bottom:3px solid transparent;border-radius:10px 10px 0 0;background:transparent;box-shadow:none;color:#334136;font-size:12px;font-weight:700;line-height:1.4;white-space:normal}
+.food-detail-refined .food-detail-header .fd-section-nav button[aria-selected=true]{background:#ffe23b;border-bottom-color:#ab8d15;color:#22291d;box-shadow:none}
+.food-detail-refined .fd-more-information>.fd-reference-match{margin:0 0 20px}
+@media(max-width:500px){.food-detail-refined .food-detail-header .fd-section-nav{gap:2px}.food-detail-refined .food-detail-header .fd-section-nav button{padding-inline:5px}}

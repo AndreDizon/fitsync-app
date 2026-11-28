@@ -199,6 +199,8 @@
 .exercise-guide-facts{display:grid;gap:0;margin:16px 0 0}
 .exercise-guide-facts>div{display:grid;grid-template-columns:110px minmax(0,1fr);gap:12px;padding:9px 0;border-bottom:1px solid #e0e1d6}
 .exercise-guide-facts dt{font-size:12px;color:#626b60}.exercise-guide-facts dd{margin:0;font-size:13px;font-weight:650;color:#29352b;overflow-wrap:anywhere;text-transform:capitalize}
+.exercise-reference-facts{margin:0}.exercise-reference-facts>div{display:grid;grid-template-columns:160px minmax(0,1fr);gap:16px;padding:12px 0;border-bottom:1px solid #dedfce;font-size:13px;line-height:1.6}.exercise-reference-facts dt{color:#626b60}.exercise-reference-facts dd{margin:0;color:#29352b;overflow-wrap:anywhere}
+@media(max-width:400px){.exercise-reference-facts>div{grid-template-columns:1fr;gap:4px}}
 .exercise-guide-checks{margin:0;display:grid;gap:10px}
 .exercise-guide-checks li{margin:0!important}
 .exercise-guide-safety,.exercise-guide-footnote{font-size:12px!important;line-height:1.7!important;margin-top:16px!important;color:#626b60!important}

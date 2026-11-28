@@ -107,10 +107,9 @@ export function FoodDetails({ food, onClose }: { food: Food; onClose: () => void
 
       </div>
       <div id="food-panel-reference" role="tabpanel" aria-labelledby="food-tab-reference" className="fd-tab-panel" hidden={activeTab !== 'reference'} tabIndex={0}>
-      {referenceException && <aside className="fd-reference-match"><strong>About this reference</strong><p>{food.referenceNote}</p></aside>}
-
       <div className="fd-more-information">
         <div className="fd-section-heading"><BookOpen size={21} aria-hidden="true" /><div><h3 id="food-more-title" tabIndex={-1}>Food reference & notes</h3><p>Food classifications and the source behind the numbers.</p></div></div>
+        {referenceException && <aside className="fd-reference-match"><strong>About this reference</strong><p>{food.referenceNote}</p></aside>}
 
         <section className="fd-info-section"><h3>Food groups & eating preferences</h3><div><dl className="fd-facts-list">
           <div><dt>Food groups</dt><dd className="fd-group-row">{food.classifications.groups.map(group => <FoodGroupBadge key={group} group={group} />)}</dd></div>
