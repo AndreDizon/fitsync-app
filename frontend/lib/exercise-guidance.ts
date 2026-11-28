@@ -1,9 +1,10 @@
 import type { SeedExercise } from './exercise-offline'
+import { exerciseTechnique } from './exercise-technique'
 
 export const guidanceLevels = ['Beginner', 'Intermediate', 'Advanced'] as const
 export type GuidanceLevel = typeof guidanceLevels[number]
 
-export function exerciseGuidance(exercise: Pick<SeedExercise, 'category' | 'movementPattern' | 'target_muscle' | 'equipment'>, level: GuidanceLevel = 'Beginner') {
+export function exerciseGuidance(exercise: Pick<SeedExercise, 'category' | 'movementPattern' | 'target_muscle' | 'equipment'> & { id?: string }, level: GuidanceLevel = 'Beginner') {
   const category = exercise.category.toLowerCase()
   const progression = level === 'Beginner'
     ? 'Practise the easiest controlled variation. Finish each set while you could still perform a few good repetitions; build consistency before adding load.'
@@ -29,12 +30,17 @@ export function exerciseGuidance(exercise: Pick<SeedExercise, 'category' | 'move
     effort: 'Choose low-impact preparation if you cannot land quietly and steadily. More experience alone does not make a high-impact variation suitable.', progression,
     source: 'HSS: plyometrics for beginners', url: 'https://www.hss.edu/health-library/move-better/plyometrics-workouts-for-beginner',
   }
-  const compound = /^(squat|hinge|push|pull)$/i.test(exercise.movementPattern) && !/biceps|triceps|deltoid|calves|forearm/i.test(exercise.target_muscle)
+  const technique = exercise.id ? exerciseTechnique(exercise.id) : undefined
+  const compound = technique ? !!technique.compound : /^(squat|hinge|push|pull)$/i.test(exercise.movementPattern) && !/biceps|triceps|deltoid|calves|forearm/i.test(exercise.target_muscle)
+  const core = exercise.movementPattern === 'Core'
   return {
-    target: level === 'Beginner' ? 'Learn the movement with manageable resistance' : level === 'Intermediate' ? 'Progress repetitions and load gradually' : 'Organize work around strength, growth or endurance',
+    target: core
+      ? level === 'Beginner' ? 'Find a steady, controlled position' : level === 'Intermediate' ? 'Keep control through the full set' : 'Increase challenge without losing position'
+      : level === 'Beginner' ? `Learn controlled ${technique?.label.toLowerCase() ?? 'movement'} technique` : level === 'Intermediate' ? 'Progress repetitions and load gradually' : 'Match the challenge to your training goal',
     rest: compound ? '2-3 min between sets' : '1-2 min between sets',
     restDetail: `${compound ? 'Multi-joint work often needs more recovery to repeat good repetitions.' : 'For manageable accessory work, start with 60-120 seconds.'} For heavy strength sets, allow 2-5 minutes, extending rest if performance or technique has not recovered. These are FitSync starting ranges, not fixed rules for an expertise level.`,
-    effort: 'Use resistance that lets you control the whole movement. A general-health routine should cover all major muscle groups across the week; you do not need to test your maximum.', progression,
+    effort: core ? 'Choose resistance or a body position that lets you control your trunk while breathing. Stop the set when you cannot maintain the position or movement described in the technique tab.' : 'Choose resistance that lets you repeat the same controlled range. You do not need a maximum-effort test to find a manageable starting load.',
+    progression: core ? level === 'Beginner' ? 'Begin with the easier option below and keep the reach or hold short enough to stay controlled.' : level === 'Intermediate' ? 'Build repeatable control before increasing reach, hold time or resistance. Change one of these at a time.' : 'Use a more demanding lever or resistance only while the intended trunk action stays controlled. Extra repetitions after position is lost do not count as progress.' : progression,
     source: 'ACSM: 2026 resistance training guidance', url: 'https://acsm.org/resistance-training-guidelines-update-2026/',
   }
 }

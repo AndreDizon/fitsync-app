@@ -117,3 +117,20 @@ Exercise details separate movement technique, experience-based training guidance
 - [HSS plyometrics guidance](https://www.hss.edu/health-library/move-better/plyometrics-workouts-for-beginner) informs landing control and progression; recovery follows movement quality rather than an invented expertise-specific timer.
 
 To-do previews show the saved rest between sets and the next exercise's existing recovery/setup allowance. That allowance is already included in the next task's estimate; displaying it does not add time to the schedule. One-set tasks have no between-set break. Missing transition allowances are described without inventing a duration. This is educational content, not evidence of clinical validation or professional certification.
+
+### Exercise technique and information grouping review — November 29, 2026
+
+`frontend/lib/exercise-technique.ts` explicitly maps the 100 catalog IDs to movement-family notes. Existing four-step, variation-specific instructions remain intact. New purpose statements, two technique checks and easier/harder options are FitSync editorial synthesis; references describe related movements, and do not independently validate every equipment variation. The UI explicitly states this distinction.
+
+| Related source | Use in the guide |
+| --- | --- |
+| [ACE chest press](https://www.acefitness.org/resources/everyone/exercise-library/19/chest-press/) and [push-up](https://www.acefitness.org/resources/everyone/exercise-library/41/push-up/) | Supported pressing and bodyweight pressing differ from chest flys; control the lowering phase and preserve support. |
+| [ACE bent-over row](https://www.acefitness.org/resources/everyone/exercise-library/12/bent-over-row/) | Stable torso and controlled pulling; the exact support and grip remain variation-specific. |
+| [ACE squat](https://www.acefitness.org/resources/everyone/exercise-library/135/bodyweight-squat/) | Lower-body balance, hip/knee movement and a controllable range. Single-leg and machine variants keep their own catalog instructions. |
+| [ACSM: understanding the deadlift and its variations](https://doi.org/10.1249/FIT.0000000000000570) | Distinguish a standing Romanian deadlift from a conventional floor reset. |
+| [NASM: dead bug](https://www.nasm.org/resource-center/exercise-library/dead-bug) and [core functions](https://www.nasm.org/resource-center/blog/training/best-abs-exercises) | Distinguish anti-extension, anti-rotation, side support, flexion and rotation. Pallof guidance emphasizes resisting rotation rather than twisting. |
+| [ACE exercise library](https://www.acefitness.org/resources/everyone/exercise-library/) | Supplemental movement references for raises, curls, extensions, machines and other accessory work; the general library link is not represented as an exact source for every variation. |
+
+Reading order is movement purpose and demonstration → four-step technique → common mistakes and corrections. Training groups experience-based guidance and scaling, catalog targets and counting, rest, then time/energy estimates. Reference groups classification, relevant sources, estimation limits and media credits. Only the selected tab's content is mounted.
+
+Compound/accessory rest recommendations now use explicit movement mappings rather than the primary-muscle string: overhead and close-grip presses remain compound, while flys, knee extensions, hamstring curls and raises remain accessory. This changes educational library recommendations only; saved tasks and scheduling calculations are not rewritten. Expertise is not treated as a diagnosis or an automatic license to lift heavier. `scripts/validate-exercise-guidance.mjs` checks exact catalog coverage, uniqueness and these distinctions.
