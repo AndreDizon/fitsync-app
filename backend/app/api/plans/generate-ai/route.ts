@@ -2,7 +2,7 @@ import { authenticate } from '../../../../lib/auth'
 import { readPlaylistBody } from '../../../../lib/playlist-body'
 import { formulateAiDay } from '../../../../lib/ai-plan'
 import { readCompletedOnboarding } from '../../../../../shared/onboarding'
-import { validWorkoutDate, workoutDayIndex, workoutDateNote } from '../../../../../shared/workout-program'
+import { validWorkoutDate, workoutDayIndex, nutritionDateNote, workoutDateNote } from '../../../../../shared/workout-program'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -20,7 +20,7 @@ export async function POST(request: Request) {
   const raw = body.value as { kind?: string; day?: number; variation?: number; date?: string }
   if (!raw || !['workout', 'nutrition'].includes(raw.kind ?? '') || !Number.isInteger(raw.day) || raw.day! < 0 || raw.day! > 6 || !Number.isInteger(raw.variation) || raw.variation! < 0 || raw.variation! > 100000) return reply({ error: 'Invalid AI formulation request.' }, 400)
   if (raw.date !== undefined && (typeof raw.date !== 'string' || !validWorkoutDate(raw.date) || workoutDayIndex(raw.date) !== raw.day)) return reply({ error: 'The selected date does not match this weekday.' }, 400)
-  const issue = raw.kind === 'workout' ? workoutDateNote(profile, raw.date) : null
+  const issue = raw.kind === 'workout' ? workoutDateNote(profile, raw.date) : nutritionDateNote(profile, raw.date)
   if (issue) return reply({ error: issue }, 400)
   const now = Date.now(), uid = auth.user!.id, usage = requests.get(uid)
   if (usage && usage.until > now && usage.count >= 4) return reply({ error: 'Please wait a minute before formulating another AI plan.' }, 429)

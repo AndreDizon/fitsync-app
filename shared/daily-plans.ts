@@ -2,10 +2,10 @@ import exercises from '../backend/data/exercises.json'
 import foods from '../backend/data/foods.json'
 import { storedFoodCatalog } from './food-catalog'
 import { defaultWorkoutStartTime } from './onboarding'
-import { defaultMealTime, newPlaylistItem, parsePlaylist, type PlaylistItem, type PlaylistKind } from './playlists'
+import { newPlaylistItem, parsePlaylist, type PlaylistItem, type PlaylistKind } from './playlists'
 import type { OnboardingProfile } from './onboarding'
 import { youthEnergyRange } from './youth-energy'
-import { workoutDateNote, workoutRestPrescription, validWorkoutDate, workoutDayIndex } from './workout-program'
+import { nutritionDateNote, strengthTrainingDays, workoutDateNote, workoutRestPrescription, validWorkoutDate, workoutDayIndex } from './workout-program'
 
 export type ActualSet = { amount: number; weightKg: number }
 export type SessionPreparation = { warmupSeconds: number; cooldownSeconds: number; transitionSeconds: number }
@@ -52,6 +52,7 @@ export function parsePlanWeek(value: unknown): PlanWeek | null {
 }
 export function planTargets(profile: OnboardingProfile | null, rest = false): PlanTargets {
   const targets: PlanTargets = { minutes: rest ? 0 : Number(profile?.sessionMinutes) || 0, energy: null, energyRange: null, protein: null, carbs: null, fat: null, notes: [] }
+  if (profile?.nutritionContext === 'review') { targets.notes.push('Individual nutrition guidance requested. Automatic energy targets and menus are paused; use a qualified professional to set your needs.'); return targets }
   const age = Number(profile?.age), height = Number(profile?.heightCm), weight = Number(profile?.weightKg)
   if (profile && Number.isInteger(age) && age >= 13 && age < 18) {
     const range = youthEnergyRange(profile)
@@ -73,12 +74,13 @@ export function planTargets(profile: OnboardingProfile | null, rest = false): Pl
   if (target && (profile.goal === 'fat_loss' && target >= weight || profile.goal === 'muscle_gain' && target <= weight)) { factor = 1; targets.notes.push('Target weight and goal point in different directions, so the estimate uses maintenance energy.') }
   // Gender identity is not biological sex. Show the two published equation coefficients as a range.
   const base = 10 * weight + 6.25 * height - 5 * age
-  const range = [Math.round((base - 161) * activity * factor), Math.round((base + 5) * activity * factor)] as [number, number]
+  const coefficients = profile.energySex === 'female' ? [-161, -161] : profile.energySex === 'male' ? [5, 5] : [-161, 5]
+  const range = coefficients.map(coefficient => Math.round((base + coefficient) * activity * factor)) as [number, number]
   if (range[0] < 1200 || range[1] > 4500) { targets.notes.push('The equation is outside this app’s planning range. Review targets with a qualified professional.'); return targets }
   targets.energyRange = range; targets.energy = Math.round((range[0] + range[1]) / 2)
   const proteinShare = ['muscle_gain','strength'].includes(profile.goal) ? .25 : .2
   targets.protein = Math.round(targets.energy * proteinShare / 4); targets.fat = Math.round(targets.energy * .3 / 9); targets.carbs = Math.round(targets.energy * (1 - proteinShare - .3) / 4)
-  targets.notes.push('Energy is an estimate from Mifflin–St Jeor with an activity multiplier and a 10% goal adjustment. The displayed range uses both sex coefficients; gender is not treated as biological sex. Macros are planning allocations, not a prescription.')
+  targets.notes.push('Energy is an estimate from Mifflin–St Jeor with an activity multiplier and a 10% goal adjustment. The selected equation coefficient is used; when no coefficient is selected, both results form a range. Gender is never used as biological sex. Activity multipliers are approximate; workout calories are not added again. Macros are planning allocations, not a prescription.')
   return targets
 }
 export function workoutPhase(item: PlanTask): string {
@@ -119,13 +121,21 @@ export function eligibleFoods(profile: OnboardingProfile) {
 }
 export function formulateDay(profile: OnboardingProfile, kind: PlaylistKind, day: number, variation: number, exclude: string[] = [], alternative = false, date?: string): { schedule: DaySchedule; notes: string[] } {
   const notes: string[] = [], schedule: DaySchedule = { items: [], rest: false, source: 'System-formulated', variation }
+  if (date && (!validWorkoutDate(date) || workoutDayIndex(date) !== day)) return { schedule, notes: ['The selected date does not match this weekday.'] }
+  if (kind === 'nutrition') { const issue = nutritionDateNote(profile, date); if (issue) return { schedule, notes: [issue] } }
   if (kind === 'workout') {
+    if (profile.exerciseReadiness === 'review') return { schedule, notes: ['Individual exercise guidance requested. Automatic workouts are paused; review suitable movements with a qualified professional.'] }
     const dateProblem = workoutDateNote(profile, date)
     if (dateProblem || date && (!validWorkoutDate(date) || workoutDayIndex(date) !== day)) return { schedule, notes: [dateProblem || 'The selected date does not match this weekday. Choose the correct calendar date.'] }
     schedule.rest = !alternative && !profile.days.some(value => value.slice(0,3).toLowerCase() === weekDays[day].slice(0,3).toLowerCase())
     if (schedule.rest) return { schedule, notes: ['Recovery day from your onboarding schedule.'] }
-    const prefer = profile.goal === 'mobility' ? 'stretching' : ['endurance','fat_loss'].includes(profile.goal) ? 'cardio' : 'strength'
-    const candidates = shuffle(eligibleExercises(profile).filter(e => !exclude.includes(e.id)), day * 997 + variation * 31).sort((a,b) => Number(b.category === prefer) - Number(a.category === prefer))
+    const strengthDays = strengthTrainingDays(profile.days)
+    const strengthDay = strengthDays.includes(day)
+    const prefer = profile.goal === 'mobility' ? 'stretching' : strengthDay ? 'strength' : 'cardio'
+    notes.push(strengthDay ? 'Full-body strength emphasis. Use a manageable effort with about 2 repetitions left in reserve; stop for pain. Increase load only after controlled repetitions are consistently manageable across two sessions.' : 'Conditioning and mobility emphasis between strength days. Start at a conversational pace and build gradually.')
+    if (strengthDays.length < 2 && profile.goal !== 'mobility') notes.push('Your selected weekdays allow fewer than two separated strength days. Consider nonconsecutive training days; the draft does not meet the full adult weekly strength recommendation.')
+    if (!profile.focusAreas.includes('Overall')) notes.push('Selected focus areas restrict exercise coverage. Choose Overall for a whole-body routine; focused drafts may not cover all major muscle groups.')
+    const candidates = shuffle(eligibleExercises(profile).filter(e => !exclude.includes(e.id) && (strengthDay || profile.goal === 'mobility' || e.category !== 'strength')), day * 997 + variation * 31).sort((a,b) => Number(b.category === prefer) - Number(a.category === prefer))
     const duration = Number(profile.sessionMinutes)
     const startTime = profile.workoutStartTime ?? defaultWorkoutStartTime
     if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(startTime)) return { schedule, notes: ['Choose a valid workout start time in your planning preferences.'] }
@@ -227,11 +237,47 @@ export function formulateDay(profile: OnboardingProfile, kind: PlaylistKind, day
       if (!options.length) { if (m === 0) notes.push('No eligible ' + groups[g].join('/') + ' option; this menu may be incomplete.'); continue }
       const food = options[(m + variation) % options.length], entry = newPlaylistItem('nutrition', food.id, day)
       if (!('foodId' in entry)) continue
-      entry.meal = slots[m] as typeof entry.meal; entry.time = meals === 5 && m === 1 ? '10:30' : defaultMealTime(entry.meal)
+      entry.meal = slots[m] as typeof entry.meal
+      const timeMinutes = (time: string) => { const [h, minute] = time.split(':').map(Number); return h * 60 + minute }
+      const first = timeMinutes(profile.firstMealTime || '08:00'), last = timeMinutes(profile.lastMealTime || '19:00')
+      entry.time = clock(Math.round(first + (last - first) * m / (meals - 1)))
       const cap = food.category === 'Oils & fats' ? 20 : food.category === 'Nuts & seeds' ? 35 : 450
       entry.grams = Math.max(5, Math.min(cap, Math.round(target / meals * shares[g] / food.nutrients.energyKcal! * 100 / 5) * 5))
       schedule.items.push({ ...entry, done: false })
     }
+    // Fit editable ingredient portions to energy and macro targets without breaking exclusions or caps.
+    const targets = planTargets(profile)
+    const desired = [target, targets.protein!, targets.carbs!, targets.fat!]
+    const score = () => { const totals = foodTotals(schedule.items); return [totals.energy, totals.protein, totals.carbs, totals.fat].reduce((sum, value, index) => sum + (index === 0 ? 4 : 1) * ((value - desired[index]) / Math.max(1, desired[index])) ** 2, 0) }
+    for (let pass = 0; pass < 12; pass++) {
+      let improved = false
+      for (const item of schedule.items) {
+        if (!('foodId' in item)) continue
+        const food = foodCatalog.find(food => food.id === item.foodId)!
+        const cap = food.category === 'Oils & fats' ? 20 : food.category === 'Nuts & seeds' ? 35 : 450
+        const original = item.grams; let best = original, cost = score()
+        for (const direction of [-1, 1]) {
+          item.grams = Math.max(5, Math.min(cap, original + direction * 10))
+          const candidate = score(); if (candidate < cost - .000001) { best = item.grams; cost = candidate }
+        }
+        item.grams = best; improved ||= best !== original
+      }
+      if (!improved) break
+    }
+    const actual = foodTotals(schedule.items)
+    let produce = 0, fiber = 0, fiberKnown = true
+    for (const item of schedule.items) {
+      if (!('foodId' in item)) continue
+      const food = foodCatalog.find(food => food.id === item.foodId)!
+      if (['Fruits', 'Vegetables'].includes(food.category)) produce += item.grams
+      if (food.nutrients.fiberG === null) fiberKnown = false
+      else fiber += food.nutrients.fiberG * item.grams / 100
+    }
+    if (produce < 400) notes.push('Food-quality gap: this draft contains ' + Math.round(produce) + ' g of fruit and vegetables. WHO guidance for ages over 10 uses at least 400 g daily; review variety and portions.')
+    if (!fiberKnown) notes.push('Food-quality gap: fibre data are incomplete, so daily fibre adequacy cannot be checked.')
+    else if (fiber < 25) notes.push('Food-quality gap: this draft supplies about ' + Math.round(fiber) + ' g fibre, below the WHO 25 g daily reference for ages over 10. Review suitable whole grains, legumes, fruit and vegetables.')
+    notes.push('Draft energy: ' + Math.round(actual.energy) + ' kcal; reference: ' + target + ' kcal. Protein: ' + Math.round(actual.protein) + ' g; reference: ' + targets.protein + ' g.')
+    if (Math.abs(actual.energy - target) > target * .15 || actual.protein < targets.protein! * .8) notes.push('This draft has a substantial energy or protein gap. Available foods and portion limits cannot meet the reference; review foods and portions before following it.')
     if (!pool.length) notes.push('No foods match your preferences. Other allergies require a manual ingredient review.')
     notes.push('Ingredient portions are a menu draft, not recipes or a guaranteed complete diet. Planned nutrients can differ from computed targets. Check preparation states and product labels.')
   }

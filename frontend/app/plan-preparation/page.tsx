@@ -11,12 +11,12 @@ export default async function PlanPreparationPage() {
   if (await currentTester()) {
     const profile = await testerOnboarding()
     if (!profile) redirect('/onboarding')
-    return <PlanPreparation profile={profile} />
+    return <PlanPreparation profile={profile} owner="local-tester" />
   }
   const client = await authClient()
   const user = client ? (await client.auth.getUser()).data.user : null
   if (!user) redirect('/login')
   const profile = readCompletedOnboarding(user.user_metadata.fitsync_onboarding)
   if (!profile) redirect('/onboarding')
-  return <PlanPreparation profile={profile} />
+  return <PlanPreparation profile={profile} owner={user.id} />
 }

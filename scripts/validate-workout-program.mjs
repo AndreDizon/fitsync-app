@@ -3,7 +3,7 @@ import { build } from 'esbuild'
 
 const bundle = await build({ stdin: { contents: "export * from './shared/workout-program'; export * from './shared/onboarding'; export * from './shared/daily-plans'; export {aiPlanCandidates} from './backend/lib/ai-plan';", resolveDir: process.cwd(), loader: 'ts' }, bundle: true, write: false, format: 'esm', platform: 'node' })
 const engine = await import('data:text/javascript;base64,' + Buffer.from(bundle.outputFiles[0].text).toString('base64'))
-const draft = { ...engine.emptyOnboarding, goal: 'fat_loss', age: '28', gender: 'Man', heightCm: '175', weightKg: '75', targetWeightKg: '70', activity: 'Lightly active', experience: 'Intermediate', days: ['Mon', 'Wed', 'Fri'], workoutStartDate: '2026-11-30', sessionMinutes: '45', equipment: ['Bodyweight', 'Dumbbells', 'Barbell'], diet: 'No preference', allergiesReviewed: true, mealsPerDay: '3', cookingMinutes: '30', budget: 'Flexible' }
+const draft = { ...engine.emptyOnboarding, goal: 'fat_loss', nutritionContext: 'standard', exerciseReadiness: 'ready', age: '28', gender: 'Man', heightCm: '175', weightKg: '75', targetWeightKg: '70', activity: 'Lightly active', experience: 'Intermediate', days: ['Mon', 'Wed', 'Fri'], workoutStartDate: '2026-11-30', sessionMinutes: '45', equipment: ['Bodyweight', 'Dumbbells', 'Barbell'], diet: 'No preference', allergiesReviewed: true, mealsPerDay: '3', cookingMinutes: '30', budget: 'Flexible' }
 const profile = engine.readCompletedOnboarding({ ...draft, version: 2, completedAt: '2026-11-28T00:00:00Z' })
 assert(profile)
 assert.deepEqual(engine.validateOnboarding(profile, undefined, false, true, true), [])

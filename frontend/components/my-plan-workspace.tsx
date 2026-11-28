@@ -24,7 +24,7 @@ import { PlanTaskDisclosure } from './plan-task-disclosure'
 import { PlanTaskPreview } from './plan-task-preview'
 import { PlanWeekCalendar } from './plan-week-calendar'
 import { PlanFormulationSkeleton, PlanRevealCard } from './plan-formulation-skeleton'
-import { addWorkoutDays, workoutDateNote } from '../../shared/workout-program'
+import { addWorkoutDays, workoutDateNote, nutritionDateNote } from '../../shared/workout-program'
 
 const metricNotes: Record<string, string> = {
   'Movement time': 'Time invested in your movement', Exercises: 'One completed task at a time',
@@ -187,7 +187,7 @@ export function MyPlanWorkspace({ kind, focusWater = false, initialDate }: { kin
   if (!record) return <div className="my-plan-loading" role="status">Opening your week…</div>
   const today = record.document.days[day], schedule = kind === 'workout' && profile ? { ...today[kind], rest: !profile.days.includes(weekDays[day].slice(0,3)) } : today[kind], completed = schedule.items.filter(item => item.done)
   const selectedDate = addWorkoutDays(week, day)
-  const programIssue = !nutrition && profile ? workoutDateNote(profile, selectedDate) : null
+  const programIssue = profile ? nutrition ? nutritionDateNote(profile, selectedDate) : workoutDateNote(profile, selectedDate) : null
   const targets = planTargets(profile, today.workout.rest), planned = foodTotals(schedule.items), eaten = foodTotals(completed)
   const minutes = schedule.items.reduce((sum, item) => sum + taskMinutes(item), 0), doneMinutes = completed.reduce((sum, item) => sum + taskMinutes(item), 0)
 

@@ -90,3 +90,8 @@ Reviewed November 23, 2026. All 30 questions present everyday decisions rather t
 Run `node scripts/validate-monitoring-insights.mjs` for portion scaling, unknown versus zero values, date boundaries, duplicate handling, actual-session comparisons, recovery coverage and outlook eligibility.
 
 Use the existing food, exercise, estimate and library-filter validators to check catalog integrity. Browser checks should cover portion/100-g switching, invalid portions, unknown versus zero nutrients, contextual onboarding explanations, expandable references, keyboard dialog dismissal and 320–1440 px layouts. Existing source JSON and offline catalogs must stay unchanged for a presentation-only content update.
+
+
+## Shared onboarding start and initial formulation ? November 28, 2026
+
+The current implementation is specified in [onboarding-planning-standard.md](./onboarding-planning-standard.md). This supersedes the earlier workout-only start boundary: nutrition now shares that boundary and continues on workout rest days. Preparation generates the first seven days, preserves existing schedules, and reports suitability and menu-quality gaps. Adult equation coefficient choice, meal windows, nonconsecutive strength emphasis, and planning suitability checks are now connected to the shared engine. Standards, app heuristics, and remaining validation limits are distinguished in that specification.

@@ -16,9 +16,27 @@ export function addWorkoutDays(date: string, offset: number) {
   const value = new Date(date + 'T12:00:00Z'); value.setUTCDate(value.getUTCDate() + offset)
   return value.toISOString().slice(0, 10)
 }
+// Nutrition continues on workout rest days; both use the same dated program boundary.
+export function nutritionDateNote(profile: Pick<OnboardingDraft, 'workoutStartDate'>, date?: string): string | null {
+  if (!profile.workoutStartDate) return null
+  if (!date || !validWorkoutDate(date)) return 'Choose a calendar date before formulating your nutrition plan.'
+  return date < profile.workoutStartDate ? `Your workout and nutrition plan starts on ${profile.workoutStartDate}. Choose that date or a later date.` : null
+}
+// Maximum nonconsecutive strength days, including recovery across Sunday/Monday.
+export function strengthTrainingDays(trainingDays: readonly string[]): number[] {
+  const selected = weekdays.map((day, index) => trainingDays.includes(day) ? index : -1).filter(index => index >= 0)
+  let best: number[] = []
+  for (let mask = 1; mask < 128; mask++) {
+    const option = selected.filter(day => mask & (1 << day))
+    if (option.length > 3 || option.some(day => option.includes((day + 1) % 7))) continue
+    if (option.length > best.length) best = option
+  }
+  return best
+}
 // A user-visible arithmetic scenario, not an energy-balance or muscle-growth prediction.
-export function workoutWeightOutlook(profile: Pick<OnboardingDraft, 'age' | 'heightCm' | 'weightKg' | 'targetWeightKg' | 'targetWeightPace' | 'days' | 'workoutStartDate'>) {
+export function workoutWeightOutlook(profile: Pick<OnboardingDraft, 'age' | 'heightCm' | 'weightKg' | 'targetWeightKg' | 'targetWeightPace' | 'days' | 'workoutStartDate' | 'nutritionContext'>) {
   const unavailable = (reason: string) => ({ date: null, reason, rate: null, weeks: null, sessions: null })
+  if (profile.nutritionContext === 'review') return unavailable('Review your weight goals with a qualified professional. Automatic target dates are paused.')
   if (!profile.workoutStartDate || !workoutDateAllowed(profile.workoutStartDate, profile.days) || profile.days.length > maximumTrainingDays) return unavailable('Choose a training-day start date to see your outlook.')
   if (Number(profile.age) < 18 || !profile.age) return unavailable('For ages under 18, growth changes weight needs. A qualified professional should review weight goals; no target-weight date is calculated.')
   const current = Number(profile.weightKg), target = Number(profile.targetWeightKg), height = Number(profile.heightCm) / 100

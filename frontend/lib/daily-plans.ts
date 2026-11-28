@@ -1,4 +1,6 @@
-import { blankWeek, parsePlanWeek, type PlanWeek } from '../../shared/daily-plans'
+import { blankWeek, currentWeek, formulateDay, parsePlanWeek, type PlanWeek } from '../../shared/daily-plans'
+import { addWorkoutDays, validWorkoutDate, workoutDayIndex, workoutDateAllowed } from '../../shared/workout-program'
+import { validateOnboarding, type OnboardingProfile } from '../../shared/onboarding'
 import { accountRequest } from './account-request'
 export type StoredWeek = { document: PlanWeek; pending: boolean; conflict?: boolean; error?: string; token: string }
 const prefix = 'fitsync-private-daily-plan:'
@@ -48,6 +50,56 @@ async function request(owner: string, week: string, document?: PlanWeek) {
   return parsed
 }
 const pending = new Map<string, Promise<StoredWeek>>()
+const preparing = new Map<string, Promise<{ planned: number; attention: string[]; pending: boolean }>>()
+/** Prepare seven dated days, preserving every existing schedule and revision. */
+export function prepareInitialPlans(owner: string, profile: OnboardingProfile) {
+  const id = owner + ':' + profile.completedAt
+  const existing = preparing.get(id)
+  if (existing) return existing
+  const started = epoch
+  const run = async () => {
+    const problems = validateOnboarding(profile, undefined, false, true, true)
+    if (problems.length) throw new Error(problems[0] + ' Review your onboarding preferences before preparing plans.')
+    const start = profile.workoutStartDate || ''
+    if (!validWorkoutDate(start) || !workoutDateAllowed(start, profile.days)) throw new Error('Review your shared start date and training days in onboarding.')
+    const dates = Array.from({ length: 7 }, (_, offset) => addWorkoutDays(start, offset))
+    if (!dates.every(validWorkoutDate)) throw new Error('Choose a start date that leaves seven days within the supported calendar.')
+    const weeks = [...new Set(dates.map(date => currentWeek(new Date(date + 'T12:00:00Z'), 'UTC')))]
+    const attention = new Set<string>(); let planned = 0, hasPending = false
+    const active = () => { if (started !== epoch) throw new Error('Account changed. Sign in again before preparing plans.') }
+    for (const week of weeks) {
+      active()
+      const saved = await syncWeek(owner, week)
+      active()
+      if (saved.error || saved.conflict) throw new Error(saved.error || 'Resolve the saved-week conflict before preparing plans.')
+      const document = structuredClone(saved.document)
+      let changed = false
+      for (const date of dates.filter(date => currentWeek(new Date(date + 'T12:00:00Z'), 'UTC') === week)) {
+        const day = workoutDayIndex(date)
+        for (const kind of ['workout', 'nutrition'] as const) {
+          const previous = document.days[day][kind]
+          if (previous.items.length || previous.source !== 'Not planned') continue
+          if (kind === 'workout' && !workoutDateAllowed(date, profile.days)) {
+            document.days[day].workout = { ...previous, rest: true, source: 'Scheduled recovery' }; changed = true; continue
+          }
+          const result = formulateDay(profile, kind, day, 1, [], false, date)
+          if (!result.schedule.items.length) { result.notes.forEach(note => attention.add(note)); continue }
+          document.days[day][kind] = result.schedule; planned++; changed = true
+          result.notes.filter(note => /gap|incomplete|fewer than two|may not cover/.test(note)).forEach(note => attention.add(note))
+        }
+      }
+      if (changed) { active(); storeWeek(owner, document, saved.token) }
+      const synced = changed ? await syncWeek(owner, week) : saved
+      active()
+      if (synced.conflict) throw new Error('This week changed elsewhere. Your device copy is preserved; reload before continuing.')
+      hasPending ||= synced.pending
+      if (synced.error) attention.add('Plans are saved on this device, but account sync needs retrying.')
+    }
+    if (owner === 'local-tester') attention.add('Tester plans are saved only on this device.')
+    return { planned, attention: [...attention], pending: hasPending && owner !== 'local-tester' }
+  }
+  const work = run().finally(() => preparing.delete(id)); preparing.set(id, work); return work
+}
 export async function syncWeek(owner: string, week: string): Promise<StoredWeek> {
   const id = key(owner, week)
   const started = epoch, workId = id + ':' + started
