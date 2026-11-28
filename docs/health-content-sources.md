@@ -147,8 +147,13 @@ The existing activity-class MET range is preserved across expertise levels; expe
 
 ### Training, calculations and references: content separation
 
+
 The current modal order is **Training & rest → Calculations → Exercise reference**. Training groups demonstration, purpose and muscles, preparation, four-step technique, breathing/counting, common mistakes, easier/harder variations and recovery. Calculations groups experience and kg/lb controls together before the example targets, recovery allowances and duration/energy results. Reference contains related source links, estimation methodology and media/editorial credits. Controls retain their values when changing tabs; unselected content is not rendered.
 
 The exercise records receive supplementary warm-up, equipment-check, breathing, counting and weekly-recovery notes via `frontend/lib/exercise-practice-notes.ts`. They complement the existing exact variation instructions. Equipment branches cover bands, cables, machines, free weights and bodyweight setups; cardio, flexibility, impact work and core holds retain distinct effort/breathing guidance. The library's strict offline catalog schema, saved prescriptions and planning engine are unchanged.
 
 The gap review compared [ACE's chest-press structure](https://www.acefitness.org/resources/everyone/exercise-library/19/chest-press/) and [NASM's dead-bug structure](https://www.nasm.org/resource-center/exercise-library/dead-bug) with our current records. [Mayo Clinic's technique guidance](https://www.mayoclinic.org/healthy-lifestyle/fitness/in-depth/weight-training/art-20045842) supports warm-up, regular breathing, controlled movement and recovery between demanding muscle sessions. These new notes are educational editorial guidance, not a screening assessment or rehabilitation prescription. The nutrition modal supplies the visual reference: cream surface, yellow selected tab, compact facts and a charcoal results panel.
+
+### Pre-start warm-up
+
+The library and every non-rest workout to-do plan show a separate warm-up guide. Existing Stationary Bike, Incline Treadmill Walk and Elliptical Cross-Trainer records can be viewed as easy-pace options; walking or marching is the equipment-free default. These are warm-up adaptations, not the catalog's working-set prescriptions. The [American Heart Association](https://www.heart.org/en/healthy-living/exercise/fitness-basics/warm-up-cool-down) supports a gradual 5–10 minute warm-up. New generated plans schedule warm-up before the chosen workout start. Overall session budgets retain it once; exercise block estimates and subsequent block timestamps exclude it. Legacy tasks retain stored time allowances; playlists without a stored warm-up show a separate five-minute preparation suggestion.

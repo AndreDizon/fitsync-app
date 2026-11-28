@@ -92,9 +92,21 @@ export function workoutPhase(item: PlanTask): string {
 }
 export function taskSeconds(item: PlaylistItem & { secondsPerRep?: number }) { if ('foodId' in item) return 0; return item.sets * (item.targetType === 'time' ? item.target : item.target * (item.secondsPerRep ?? 3)) + Math.max(0, item.sets - 1) * item.restSeconds }
 export function taskMinutes(item: PlaylistItem & { preparation?: SessionPreparation; secondsPerRep?: number }) {
-  if ('foodId' in item) return 0
-  const extra = item.preparation
-  return (taskSeconds(item) + (extra ? extra.warmupSeconds + extra.cooldownSeconds + extra.transitionSeconds : 0)) / 60
+  return taskTimeBreakdown(item).totalSeconds / 60
+}
+// Warm-up happens before the chosen workout start; retain it in the overall time budget.
+export function taskBlockMinutes(item: PlaylistItem & { preparation?: SessionPreparation; secondsPerRep?: number }) {
+  const timing = taskTimeBreakdown(item)
+  return (timing.totalSeconds - timing.warmupSeconds) / 60
+}
+export function taskTimeBreakdown(item: PlaylistItem & { preparation?: SessionPreparation; secondsPerRep?: number }) {
+  const workout = 'exerciseId' in item
+  const workSeconds = workout ? item.sets * (item.targetType === 'time' ? item.target : item.target * (item.secondsPerRep ?? 3)) : 0
+  const restSeconds = workout ? Math.max(0, item.sets - 1) * item.restSeconds : 0
+  const warmupSeconds = workout ? item.preparation?.warmupSeconds ?? 0 : 0
+  const cooldownSeconds = workout ? item.preparation?.cooldownSeconds ?? 0 : 0
+  const transitionSeconds = workout ? item.preparation?.transitionSeconds ?? 0 : 0
+  return { workSeconds, restSeconds, warmupSeconds, cooldownSeconds, transitionSeconds, totalSeconds: workSeconds + restSeconds + warmupSeconds + cooldownSeconds + transitionSeconds }
 }
 export function foodTotals(items: PlanTask[]) {
   return items.reduce((sum, item) => { if ('foodId' in item) { const food = storedFoodCatalog.find(food => food.id === item.foodId); if (food) { sum.energy += (food.nutrients.energyKcal ?? 0) * item.grams / 100; sum.protein += (food.nutrients.proteinG ?? 0) * item.grams / 100; sum.carbs += (food.nutrients.carbsG ?? 0) * item.grams / 100; sum.fat += (food.nutrients.fatG ?? 0) * item.grams / 100 } } return sum }, { energy: 0, protein: 0, carbs: 0, fat: 0 })
@@ -220,10 +232,10 @@ export function formulateDay(profile: OnboardingProfile, kind: PlaylistKind, day
       if (remaining > 0) notes.push('Your eligible exercise selection supports a shorter session (' + Math.round((duration * 60 - remaining) / 60) + ' minutes). Add suitable exercises or broaden your equipment/focus preferences; extra time is not filled with excessive sets or rest.')
     }
     let elapsed = 0
-    for (const item of schedule.items) { item.time = clock(startMinutes + Math.floor(elapsed / 60)); elapsed += Math.round(taskMinutes(item) * 60) }
+    for (const item of schedule.items) { item.time = clock(startMinutes + Math.floor(elapsed / 60)); elapsed += Math.round(taskBlockMinutes(item) * 60) }
     notes.push(weekDays[day] + ': ' + duration + '-minute ' + profile.experience.toLowerCase() + ' session for ' + (profile.focusAreas?.join(', ') || 'overall fitness') + ', using ' + profile.equipment.join(', ') + '. Your selected goal guides exercise type, sets and rest.')
     if (!schedule.items.length) notes.push('No eligible alternatives match your equipment, focus and movement preferences. Adjust onboarding or pick manually.')
-    notes.push(alternative ? 'Alternative exercises use their own set and rest estimates; replacing an item can change the session total.' : 'Session minutes include work, between-set rests, warm-up, cooldown and setup/transitions. Preparation is credited with its attached task when you mark it done. These are scheduled estimates, not stopwatch measurements; editing or replacing tasks can change the total.')
+    notes.push(alternative ? 'Alternative exercises use their own set and rest estimates; replacing an item can change the session total.' : 'Warm up before your selected workout start time. Your session budget includes this separate warm-up once, plus work, between-set rest, cooldown and setup/transitions. Exercise block times exclude warm-up. These are scheduled estimates, not stopwatch measurements; editing or replacing tasks can change the total.')
   } else {
     notes.push('Built around your ' + profile.diet.toLowerCase() + ' eating preference, ' + profile.mealsPerDay + ' meals, available preparation time and saved ingredient exclusions.')
     const target = planTargets(profile).energy

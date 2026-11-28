@@ -62,7 +62,7 @@ for (const duration of ['30','45','60','75','90']) for (const goal of ['general_
  const parsed=engine.parsePlanWeek(saved);assert(parsed)
  assert.equal(parsed.days[0].workout.items.reduce((sum,item)=>sum+Math.round(engine.taskMinutes(item)*60),0),Number(duration)*60,'Offline/database round trip preserves timing')
  let elapsed=480*60
- for(const item of plan.items){assert.equal(item.time,`${String(Math.floor(elapsed/3600)).padStart(2,'0')}:${String(Math.floor(elapsed/60)%60).padStart(2,'0')}`);elapsed+=Math.round(engine.taskMinutes(item)*60)}
+ for(const item of plan.items){assert.equal(item.time,`${String(Math.floor(elapsed/3600)).padStart(2,'0')}:${String(Math.floor(elapsed/60)%60).padStart(2,'0')}`);elapsed+=Math.round(engine.taskBlockMinutes(item)*60)}
  const finished=plan.items.map(item=>({...item,done:true}));assert.equal(Math.round(finished.filter(item=>item.done).reduce((sum,item)=>sum+engine.taskMinutes(item),0)),Number(duration))
 }
 const badPreparation=structuredClone(week);badPreparation.days[0].workout.items[0].preparation.transitionSeconds=-1;assert.equal(engine.parsePlanWeek(badPreparation),null)
