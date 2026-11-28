@@ -90,6 +90,7 @@
 .app-shell .pwc-plan-view{padding:20px 24px 0}
 .app-shell .pwc-calendar-jumps{display:flex;flex-wrap:wrap;gap:8px}
 .app-shell .pwc-calendar-jumps button{min-height:44px;padding:10px 14px;background:#f4f8ff;color:#293e59;border:1px solid #c3d5ed;border-radius:8px;font-size:12px;font-weight:650;cursor:pointer}
+.app-shell .pwc-calendar-jumps button:disabled{opacity:.55;cursor:not-allowed}
 .app-shell .pwc-month-picker{display:flex;align-items:center;flex-wrap:wrap;gap:8px 12px;margin-top:16px;font-size:12px;font-weight:650;color:var(--week-muted)}
 .app-shell .pwc-month-picker input{min-width:0;max-width:100%;min-height:44px;padding:9px 12px;border:1px solid #c3d5ed;border-radius:8px;background:#f4f8ff;color:#293e59;font:inherit;font-size:16px;caret-color:#293e59}
 .app-shell .pwc-month-picker input:focus-visible{outline:3px solid #ffdf32;outline-offset:3px}

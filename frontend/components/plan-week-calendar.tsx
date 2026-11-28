@@ -43,9 +43,15 @@ export function PlanWeekCalendar({ week, day, days, timeZone, nutrition, onSelec
   const range = `${month.format(first)} ${first.getUTCDate()} – ${month.format(last)} ${last.getUTCDate()}, ${last.getUTCFullYear()}`
   const selected = days[day]
   const status = (entry: CalendarDay) => entry.rest ? 'Rest day' : !entry.total ? 'Not planned' : `${entry.done}/${entry.total} done`
-  const jump = (date: string) => { setAnchor(date.slice(0, 7)); setVisibleMonths(1); onSelectDate(date) }
-  const monthAt = (offset: number) => { const date = new Date(anchor + '-01T12:00:00Z'); date.setUTCMonth(date.getUTCMonth() + offset); return date }
-  const monthCount = Math.min(visibleMonths, (2200 - Number(anchor.slice(0, 4))) * 12 + 12 - Number(anchor.slice(5, 7)) + 1)
+  const rangeEnd = endDate || (startDate && startDate > todayDate ? startDate : todayDate)
+  const hasRange = rangeEnd >= todayDate
+  const firstMonth = todayDate.slice(0, 7), lastMonth = rangeEnd.slice(0, 7)
+  const boundedAnchor = anchor < firstMonth ? firstMonth : anchor > lastMonth ? lastMonth : anchor
+  const inRange = (date: string) => hasRange && date >= todayDate && date <= rangeEnd
+  const jump = (date: string) => { if (!inRange(date)) return; setAnchor(date.slice(0, 7)); setVisibleMonths(1); onSelectDate(date) }
+  const monthAt = (offset: number) => { const date = new Date(boundedAnchor + '-01T12:00:00Z'); date.setUTCMonth(date.getUTCMonth() + offset); return date }
+  const remainingMonths = hasRange ? (Number(lastMonth.slice(0, 4)) - Number(boundedAnchor.slice(0, 4))) * 12 + Number(lastMonth.slice(5, 7)) - Number(boundedAnchor.slice(5, 7)) + 1 : 0
+  const monthCount = Math.min(visibleMonths, remainingMonths)
   const summaries = new Map<string, CalendarDay[] | null>()
   const summaryFor = (date: string) => {
     const key = currentWeek(new Date(date + 'T12:00:00Z'), 'UTC')
@@ -78,7 +84,7 @@ export function PlanWeekCalendar({ week, day, days, timeZone, nutrition, onSelec
         </g>
       </svg>
     </div>
-    <header className="pwc-heading"><div><h3>{view === 'week' ? 'Your week' : 'My plan calendar'}</h3><p>{view === 'week' ? range : 'Browse every date. Select a day to open its to-do list.'}</p></div><label className="pwc-view-control"><span className="pwc-visually-hidden">Calendar view</span><select aria-label="Calendar view" value={view} onChange={event => { const next = event.target.value as 'week' | 'plan'; setView(next); setVisibleMonths(1); if (next === 'week') onSelectDate(localToday()); else setAnchor((startDate || selectedDate).slice(0, 7)) }}><option value="week">This week</option><option value="plan">My plan calendar</option></select></label></header>
+    <header className="pwc-heading"><div><h3>{view === 'week' ? 'Your week' : 'My plan calendar'}</h3><p>{view === 'week' ? range : 'Dates from today through your estimated end date.'}</p></div><label className="pwc-view-control"><span className="pwc-visually-hidden">Calendar view</span><select aria-label="Calendar view" value={view} onChange={event => { const next = event.target.value as 'week' | 'plan'; setView(next); setVisibleMonths(1); if (next === 'week') onSelectDate(localToday()); else { const date = localToday(); setAnchor(date.slice(0, 7)); if (date <= rangeEnd) onSelectDate(date) } }}><option value="week">This week</option><option value="plan">My plan calendar</option></select></label></header>
     {view === 'week' ? <nav className="pwc-days" aria-label="Choose plan day">
       {weekDays.map((name, index) => {
         const entry = days[index], complete = entry.total > 0 && entry.done === entry.total && !entry.rest
@@ -91,25 +97,29 @@ export function PlanWeekCalendar({ week, day, days, timeZone, nutrition, onSelec
         </button>
       })}
     </nav> : <div className="pwc-plan-view">
-      <div className="pwc-calendar-jumps" aria-label="Jump to calendar marker"><button type="button" onClick={() => jump(localToday())}>Today</button>{startDate && <button type="button" onClick={() => jump(startDate)}>Plan start</button>}{endDate && <button type="button" onClick={() => jump(endDate)}>Estimated end</button>}</div>
-      <label className="pwc-month-picker"><span>Browse month</span><input type="month" min="1900-01" max="2200-12" value={anchor} onChange={event => { if (validWorkoutDate(event.target.value + '-01')) { setAnchor(event.target.value); setVisibleMonths(1) } }} /></label>
-      <p className="pwc-calendar-note">{startDate ? 'Plan starts ' + new Intl.DateTimeFormat('en', { dateStyle: 'medium', timeZone: 'UTC' }).format(new Date(startDate + 'T12:00:00Z')) + '. ' : 'Set a workout start date in planning preferences to show the start marker. '}{endDate ? 'The end marker is your target-weight scenario, not a guaranteed completion date.' : 'No target-weight end date is available for this profile.'} Dates follow {timeZone}. Select an unloaded day to fetch its saved plan.</p>
+      <div className="pwc-calendar-jumps" aria-label="Jump to calendar marker"><button type="button" disabled={!hasRange} onClick={() => jump(localToday())}>Today</button>{startDate && <button type="button" disabled={!inRange(startDate)} title={!inRange(startDate) ? 'The start date is outside the remaining plan dates' : undefined} onClick={() => jump(startDate)}>Plan start</button>}{endDate && <button type="button" disabled={!inRange(endDate)} onClick={() => jump(endDate)}>Estimated end</button>}</div>
+      <label className="pwc-month-picker"><span>Browse month</span><input type="month" min={firstMonth} max={lastMonth < firstMonth ? firstMonth : lastMonth} disabled={!hasRange} value={hasRange ? boundedAnchor : firstMonth} onChange={event => { const value = event.target.value; if (validWorkoutDate(value + '-01') && value >= firstMonth && value <= lastMonth) { setAnchor(value); setVisibleMonths(1) } }} /></label>
+      <p className="pwc-calendar-note">{startDate ? 'Plan starts ' + new Intl.DateTimeFormat('en', { dateStyle: 'medium', timeZone: 'UTC' }).format(new Date(startDate + 'T12:00:00Z')) + '. ' : 'Set a workout start date in planning preferences to show the start marker. '}{endDate ? 'The end marker is your target-weight scenario, not a guaranteed completion date.' : 'No estimated end date is available, so only today through the start date is shown.'} Dates follow {timeZone}. Select an unloaded day to fetch its saved plan.</p>
+      {!hasRange && <p className="pwc-calendar-note" role="status">Your estimated end date has passed. Update your planning preferences to show a new range.</p>}
       <div className="pwc-months">{Array.from({ length: monthCount }, (_, index) => {
-        const first = monthAt(index), monthKey = first.toISOString().slice(0, 7), offset = (first.getUTCDay() + 6) % 7
-        const count = new Date(Date.UTC(first.getUTCFullYear(), first.getUTCMonth() + 1, 0)).getUTCDate()
+        const first = monthAt(index), monthKey = first.toISOString().slice(0, 7)
+        const firstDay = monthKey === firstMonth ? Number(todayDate.slice(8, 10)) : 1
+        const lastDay = monthKey === lastMonth ? Number(rangeEnd.slice(8, 10)) : new Date(Date.UTC(first.getUTCFullYear(), first.getUTCMonth() + 1, 0)).getUTCDate()
+        const offset = workoutDayIndex(monthKey + '-' + String(firstDay).padStart(2, '0'))
+        const count = lastDay - firstDay + 1
         return <section className="pwc-month" key={monthKey} aria-label={new Intl.DateTimeFormat('en', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(first)}>
           <h4>{new Intl.DateTimeFormat('en', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(first)}</h4>
           <div className="pwc-month-weekdays" aria-hidden="true">{weekDays.map(name => <span key={name}>{name.slice(0, 3)}</span>)}</div>
           <div className="pwc-month-days">{Array.from({ length: offset }, (_, blank) => <span className="pwc-blank-date" key={'blank-' + blank} />)}{Array.from({ length: count }, (_, index) => {
-            const date = monthKey + '-' + String(index + 1).padStart(2, '0'), entry = summaryFor(date)
+            const date = monthKey + '-' + String(firstDay + index).padStart(2, '0'), entry = summaryFor(date)
             const description = entry.rest ? 'Rest day' : 'unknown' in entry ? 'Select to load' : status(entry)
-            return <button type="button" className="pwc-day" key={date} data-date={date} data-rest={entry.rest} aria-pressed={selectedDate === date} aria-current={todayDate === date ? 'date' : undefined} aria-label={[new Intl.DateTimeFormat('en', { dateStyle: 'full', timeZone: 'UTC' }).format(new Date(date + 'T12:00:00Z')), ...markerLabels(date), description].join(', ')} onClick={() => onSelectDate(date)}><span className="pwc-date">{index + 1}</span><span className="pwc-day-status">{description}</span>{markers(date)}</button>
+            return <button type="button" className="pwc-day" key={date} data-date={date} data-rest={entry.rest} aria-pressed={selectedDate === date} aria-current={todayDate === date ? 'date' : undefined} aria-label={[new Intl.DateTimeFormat('en', { dateStyle: 'full', timeZone: 'UTC' }).format(new Date(date + 'T12:00:00Z')), ...markerLabels(date), description].join(', ')} onClick={() => onSelectDate(date)}><span className="pwc-date">{firstDay + index}</span><span className="pwc-day-status">{description}</span>{markers(date)}</button>
           })}</div>
         </section>
       })}</div>
-      {monthAt(monthCount - 1).toISOString().slice(0, 7) < '2200-12' && <button type="button" className="pwc-more-dates" onClick={() => setVisibleMonths(count => count + 1)}>Show more dates</button>}
-      <p className="pwc-range-announcement" role="status">Showing {monthCount} {monthCount === 1 ? 'month' : 'months'}. More dates are added below.</p>
+      {monthCount < remainingMonths && <button type="button" className="pwc-more-dates" onClick={() => setVisibleMonths(count => count + 1)}>Show more dates</button>}
+      <p className="pwc-range-announcement" role="status">{hasRange ? <>Showing {monthCount} {monthCount === 1 ? 'month' : 'months'}. {monthCount < remainingMonths ? 'More plan dates are available below.' : 'No dates beyond the estimated end are shown.'}</> : 'No dates in the remaining plan range.'}</p>
     </div>}
-    <footer className="pwc-summary" aria-live="polite"><strong>{view === 'plan' ? new Intl.DateTimeFormat('en', { dateStyle: 'full', timeZone: 'UTC' }).format(new Date(selectedDate + 'T12:00:00Z')) : weekDays[day]}{today === day ? ' · Today' : ''}</strong><span>{selected.rest ? 'Recovery day' : !selected.total ? `Add ${nutrition ? 'foods' : 'exercises'} to plan this day` : `${selected.done} of ${selected.total} ${nutrition ? 'food portions' : selected.total === 1 ? 'exercise' : 'exercises'} completed`}</span></footer>
+    {(view === 'week' || inRange(selectedDate)) && <footer className="pwc-summary" aria-live="polite"><strong>{view === 'plan' ? new Intl.DateTimeFormat('en', { dateStyle: 'full', timeZone: 'UTC' }).format(new Date(selectedDate + 'T12:00:00Z')) : weekDays[day]}{today === day ? ' · Today' : ''}</strong><span>{selected.rest ? 'Recovery day' : !selected.total ? `Add ${nutrition ? 'foods' : 'exercises'} to plan this day` : `${selected.done} of ${selected.total} ${nutrition ? 'food portions' : selected.total === 1 ? 'exercise' : 'exercises'} completed`}</span></footer>}
   </section>
 }
