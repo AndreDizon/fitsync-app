@@ -121,3 +121,10 @@
  .app-shell .pwc-markers{font-size:8px;gap:2px}.app-shell .pwc-markers>span{padding:2px 2px;overflow-wrap:anywhere}
 }
 @media(max-width:380px){.app-shell .pwc-plan-view{padding-inline:10px}.app-shell .pwc-month-weekdays,.app-shell .pwc-month-days{gap:2px}.app-shell .pwc-month-days .pwc-date{font-size:20px}.app-shell .pwc-month-days .pwc-day{min-height:74px}}
+.app-shell .pwc-day[data-unplanned=true],
+.app-shell .pwc-day[data-unplanned=true]:hover,
+.app-shell .pwc-day[data-unplanned=true][aria-current=date],
+.app-shell .pwc-day[data-unplanned=true][aria-pressed=true]{background:#e7e8e8!important;border-color:#c7cccf!important;color:#596168!important;box-shadow:none!important;cursor:default;opacity:1;transform:none!important}
+.app-shell .pwc-day[data-unplanned=true] .pwc-weekday,
+.app-shell .pwc-day[data-unplanned=true] .pwc-day-status{background:transparent!important;color:#596168!important}
+.app-shell .pwc-day[data-unplanned=true] .pwc-markers>span{background:#d4d9dc!important;color:#39464e!important}
