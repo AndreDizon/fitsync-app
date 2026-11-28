@@ -53,6 +53,17 @@ export function workoutWeightOutlook(profile: Pick<OnboardingDraft, 'age' | 'hei
   for (let offset = 0; offset <= duration; offset++) if (workoutDateAllowed(addWorkoutDays(profile.workoutStartDate, offset), profile.days)) sessions++
   return { date, rate, weeks: Math.ceil(duration / 7), sessions, reason: `Assumes your entered current weight applies on the selected start date, followed by ${rate} kg of weight ${target < current ? 'loss' : 'gain'} per week. This is a scenario, not a personal forecast. Meals, consistency, health and metabolism affect actual results. Weight gain does not mean muscle gain. Rest days count toward calendar time.` }
 }
+/** A draft scheduling boundary, not a claim that the user's goal will be reached. */
+export function initialPlanRange(profile: Pick<OnboardingDraft, 'age' | 'heightCm' | 'weightKg' | 'targetWeightKg' | 'targetWeightPace' | 'days' | 'workoutStartDate' | 'nutritionContext'>) {
+  const start = profile.workoutStartDate || ''
+  if (!validWorkoutDate(start) || !workoutDateAllowed(start, profile.days)) return null
+  const outlook = workoutWeightOutlook(profile)
+  const end = outlook.date || addWorkoutDays(start, 27)
+  if (!validWorkoutDate(end)) return null
+  const days = Math.round((Date.parse(end) - Date.parse(start)) / 86400000) + 1
+  if (days < 1 || days > 731) return null
+  return { start, end, days, basis: outlook.date ? 'scenario' as const : 'review' as const }
+}
 export function workoutDateNote(profile: Pick<OnboardingDraft, 'days' | 'workoutStartDate'>, date?: string): string | null {
   if (profile.days.length > maximumTrainingDays) return 'Update your training days: FitSync requires at least two rest days each week.'
   if (!profile.workoutStartDate) return null // Existing profiles without a dated program remain readable.

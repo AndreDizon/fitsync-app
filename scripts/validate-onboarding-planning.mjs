@@ -37,14 +37,50 @@ globalThis.accountFixture = async (url, options) => {
   return { userId: 'member', data: remote.get(new URL(url, 'https://fixture.test').searchParams.get('week')) || null }
 }
 const result = await e.prepareInitialPlans('member', profile)
-assert.equal(result.planned, 12, 'Seven meal days and five workout days, starting Friday, span two stored weeks')
-assert.equal(remote.size, 2)
+assert.equal(result.planned, 48, 'The no-target fallback covers 28 meal days and 20 training days')
+assert.equal(result.end, '2026-12-31')
+assert.equal(result.days, 28)
+assert.equal(remote.size, 5)
 assert.equal(e.cachedWeek('member', '2026-11-30').document.days[3].nutrition.source, 'Not planned', 'Never generate before the shared start')
 assert(e.cachedWeek('member', '2026-11-30').document.days[5].workout.rest)
 const before = JSON.stringify([...remote])
 assert.equal((await e.prepareInitialPlans('member', profile)).planned, 0)
 assert.equal(JSON.stringify([...remote]), before, 'Retries preserve generated plans and revisions')
+const scenario = { ...profile, goal: 'fat_loss', targetWeightKg: '74', targetWeightPace: '0.5', completedAt: '2026-11-29T00:00:00Z' }
+storage.clear(); remote.clear()
+const progress = []
+const full = await e.prepareInitialPlans('member', scenario, value => progress.push(value))
+assert.equal(full.end, '2026-12-18')
+assert.equal(full.days, 15)
+assert.equal(full.planned, 26)
+assert.equal(progress.at(-1).completed, 15)
+assert.equal(progress.at(-1).through, '2026-12-18')
+assert.equal(e.cachedWeek('member', '2026-12-14').document.days[5].nutrition.source, 'Not planned', 'Never generate past the inclusive end date')
+assert(e.cachedWeek('member', '2026-12-14').document.days[4].nutrition.items.length, 'Include the end date itself')
+const first = e.cachedWeek('member', '2026-11-30').document.days[4].nutrition
+const next = e.cachedWeek('member', '2026-12-07').document.days[4].nutrition
+assert.notDeepEqual(first.items.map(item => item.foodId), next.items.map(item => item.foodId), 'Vary the menu between weeks')
+assert.equal(e.initialPlanRange({ ...profile, age: '17' }).basis, 'review')
+assert.equal(e.initialPlanRange({ ...profile, workoutStartDate: '2200-12-25' }), null, 'Fallback must stay in the supported calendar')
+
+if (process.argv.includes('--long')) {
+  storage.clear(); remote.clear()
+  const basicSet = globalThis.localStorage.setItem
+  globalThis.localStorage.setItem = (key, value) => {
+    const size = [...storage.entries()].reduce((sum, [name, data]) => sum + (name === key ? 0 : data.length * 2), 0) + value.length * 2
+    if (size > 300000) throw new DOMException('Fixture quota', 'QuotaExceededError')
+    basicSet(key, value)
+  }
+  const longProfile = { ...profile, goal: 'fat_loss', weightKg: '95', targetWeightKg: '69', targetWeightPace: '0.25', completedAt: '2026-11-30T00:00:00Z' }
+  const longResult = await e.prepareInitialPlans('member', longProfile)
+  assert.equal(longResult.days, 729)
+  assert.equal(longResult.end, e.workoutWeightOutlook(longProfile).date)
+  assert.equal(remote.size, 105, 'All weeks must reach account storage, even under device quota pressure')
+  for (const document of remote.values()) assert(e.parsePlanWeek(document))
+  assert(longResult.attention.some(note => note.includes('without a device copy')))
+  globalThis.localStorage.setItem = basicSet
+}
 globalThis.accountFixture = async () => { throw new Error('Connection unavailable') }
 await assert.rejects(e.prepareInitialPlans('other', profile), /Connection unavailable/)
 assert.equal(e.cachedWeek('other', '2026-11-30').document.days[4].nutrition.items.length, 0, 'Never overwrite an unknown remote week after failed refresh')
-console.log('PASS onboarding planning: shared dates, first-week generation, two-week persistence, idempotency, sync failures, suitability checks, energy coefficients, meal windows and weekly recovery.')
+console.log('PASS onboarding planning: shared dates, full-range inclusive generation, four-week fallback, weekly variation, progress and multiweek persistence, idempotency, sync failures, suitability checks, energy coefficients, meal windows and weekly recovery.')

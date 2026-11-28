@@ -1,5 +1,5 @@
 import { blankWeek, currentWeek, formulateDay, parsePlanWeek, type PlanWeek } from '../../shared/daily-plans'
-import { addWorkoutDays, validWorkoutDate, workoutDayIndex, workoutDateAllowed } from '../../shared/workout-program'
+import { addWorkoutDays, initialPlanRange, validWorkoutDate, workoutDayIndex, workoutDateAllowed } from '../../shared/workout-program'
 import { validateOnboarding, type OnboardingProfile } from '../../shared/onboarding'
 import { accountRequest } from './account-request'
 export type StoredWeek = { document: PlanWeek; pending: boolean; conflict?: boolean; error?: string; token: string }
@@ -50,31 +50,39 @@ async function request(owner: string, week: string, document?: PlanWeek) {
   return parsed
 }
 const pending = new Map<string, Promise<StoredWeek>>()
-const preparing = new Map<string, Promise<{ planned: number; attention: string[]; pending: boolean }>>()
-/** Prepare seven dated days, preserving every existing schedule and revision. */
-export function prepareInitialPlans(owner: string, profile: OnboardingProfile) {
+export type PreparationProgress = { completed: number; total: number; through: string | null }
+const preparing = new Map<string, { promise: Promise<{ planned: number; attention: string[]; pending: boolean; start: string; end: string; days: number }>; listeners: Set<(progress: PreparationProgress) => void>; progress: PreparationProgress }>()
+/** Prepare the full inclusive draft range, preserving every existing schedule and revision. */
+export function prepareInitialPlans(owner: string, profile: OnboardingProfile, onProgress?: (progress: PreparationProgress) => void) {
   const id = owner + ':' + profile.completedAt
   const existing = preparing.get(id)
-  if (existing) return existing
+  if (existing) { if (onProgress) { existing.listeners.add(onProgress); onProgress(existing.progress) } return existing.promise }
+  const listeners = new Set<(progress: PreparationProgress) => void>(onProgress ? [onProgress] : [])
+  let progress: PreparationProgress = { completed: 0, total: 0, through: null }
+  const report = (value: PreparationProgress) => { progress = value; const entry = preparing.get(id); if (entry) entry.progress = value; listeners.forEach(listener => listener(value)) }
   const started = epoch
   const run = async () => {
     const problems = validateOnboarding(profile, undefined, false, true, true)
     if (problems.length) throw new Error(problems[0] + ' Review your onboarding preferences before preparing plans.')
     const start = profile.workoutStartDate || ''
     if (!validWorkoutDate(start) || !workoutDateAllowed(start, profile.days)) throw new Error('Review your shared start date and training days in onboarding.')
-    const dates = Array.from({ length: 7 }, (_, offset) => addWorkoutDays(start, offset))
-    if (!dates.every(validWorkoutDate)) throw new Error('Choose a start date that leaves seven days within the supported calendar.')
+    const range = initialPlanRange(profile)
+    if (!range) throw new Error('Review your plan dates; the full range must fit within the supported calendar.')
+    const dates = Array.from({ length: range.days }, (_, offset) => addWorkoutDays(start, offset))
+    report({ completed: 0, total: range.days, through: null })
     const weeks = [...new Set(dates.map(date => currentWeek(new Date(date + 'T12:00:00Z'), 'UTC')))]
     const attention = new Set<string>(); let planned = 0, hasPending = false
+    const confirmedWeeks: string[] = []
     const active = () => { if (started !== epoch) throw new Error('Account changed. Sign in again before preparing plans.') }
-    for (const week of weeks) {
+    for (const [weekIndex, week] of weeks.entries()) {
       active()
       const saved = await syncWeek(owner, week)
       active()
       if (saved.error || saved.conflict) throw new Error(saved.error || 'Resolve the saved-week conflict before preparing plans.')
       const document = structuredClone(saved.document)
       let changed = false
-      for (const date of dates.filter(date => currentWeek(new Date(date + 'T12:00:00Z'), 'UTC') === week)) {
+      const weekDates = dates.filter(date => currentWeek(new Date(date + 'T12:00:00Z'), 'UTC') === week)
+      for (const date of weekDates) {
         const day = workoutDayIndex(date)
         for (const kind of ['workout', 'nutrition'] as const) {
           const previous = document.days[day][kind]
@@ -82,23 +90,43 @@ export function prepareInitialPlans(owner: string, profile: OnboardingProfile) {
           if (kind === 'workout' && !workoutDateAllowed(date, profile.days)) {
             document.days[day].workout = { ...previous, rest: true, source: 'Scheduled recovery' }; changed = true; continue
           }
-          const result = formulateDay(profile, kind, day, 1, [], false, date)
+          const result = formulateDay(profile, kind, day, weekIndex + 1, [], false, date)
           if (!result.schedule.items.length) { result.notes.forEach(note => attention.add(note)); continue }
           document.days[day][kind] = result.schedule; planned++; changed = true
-          result.notes.filter(note => /gap|incomplete|fewer than two|may not cover/.test(note)).forEach(note => attention.add(note))
+          result.notes.filter(note => /gap|incomplete|fewer than two|may not cover/.test(note)).forEach(note => attention.add(note.includes('gap') ? 'Some meal drafts have energy, protein, fibre or produce gaps. Review their foods and portions; the generated range is not a verified complete diet.' : note))
         }
       }
-      if (changed) { active(); storeWeek(owner, document, saved.token) }
+      if (changed) {
+        active()
+        for (;;) {
+          try { storeWeek(owner, document, saved.token); break }
+          catch (error) {
+            if (!(error instanceof DOMException) || error.name !== 'QuotaExceededError') throw error
+            const evict = confirmedWeeks.findIndex(candidate => {
+              const copy = cachedWeek(owner, candidate)
+              return candidate !== weeks[0] && !copy.pending && !copy.conflict && copy.document.revision > 0
+            })
+            if (owner === 'local-tester' || evict < 0) throw new Error('Device storage is full. Completed weeks are kept; free browser storage and retry to finish the remaining dates.')
+            // Only discard a replaceable cache after account storage confirmed that exact week.
+            localStorage.removeItem(key(owner, confirmedWeeks.splice(evict, 1)[0]))
+            attention.add('Some synced weeks are stored in your account without a device copy. Select those dates online to load them.')
+          }
+        }
+      }
       const synced = changed ? await syncWeek(owner, week) : saved
       active()
       if (synced.conflict) throw new Error('This week changed elsewhere. Your device copy is preserved; reload before continuing.')
       hasPending ||= synced.pending
-      if (synced.error) attention.add('Plans are saved on this device, but account sync needs retrying.')
+      if (synced.error) throw new Error('Plans through this week are kept on your device, but sync could not finish. Retry preparation to resume; existing plans will be preserved.')
+      if (!synced.pending && changed && synced.document.revision > 0) confirmedWeeks.push(week)
+      report({ completed: progress.completed + weekDates.length, total: range.days, through: weekDates[weekDates.length - 1] })
+      // Yield between weeks so long-range preparation leaves the page responsive.
+      await new Promise(resolve => setTimeout(resolve, 0))
     }
     if (owner === 'local-tester') attention.add('Tester plans are saved only on this device.')
-    return { planned, attention: [...attention], pending: hasPending && owner !== 'local-tester' }
+    return { planned, attention: [...attention], pending: hasPending && owner !== 'local-tester', start, end: range.end, days: range.days }
   }
-  const work = run().finally(() => preparing.delete(id)); preparing.set(id, work); return work
+  const work = run().finally(() => preparing.delete(id)); preparing.set(id, { promise: work, listeners, progress }); return work
 }
 export async function syncWeek(owner: string, week: string): Promise<StoredWeek> {
   const id = key(owner, week)

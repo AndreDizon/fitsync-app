@@ -100,3 +100,8 @@ The current implementation is specified in [onboarding-planning-standard.md](./o
 ### Logical onboarding order and trend sensitivity
 
 The shared start date now follows training weekdays on onboarding page three; nutrition suitability is grouped with food inputs on page four. Progress uses weekly medians, bounded extrapolation and leave-one-week-out sensitivity checks. Research sources, exact app thresholds, exclusions and validation limits are recorded in [the planning specification](./onboarding-planning-standard.md#updated-prediction-method). These changes reduce specific failure modes; they do not establish clinical predictive accuracy.
+
+
+### Full-range default planning
+
+Onboarding preparation now generates all dates from the shared start through the displayed scenario target date, inclusive. When no supported weight-target date exists, it explicitly prepares a 28-day review period. This supersedes the earlier seven-day generation limit. The forecast formula itself remains a transparent assumption, not a validated personal prediction. Future calorie targets use current inputs rather than assumed future weight. See the planning specification for progress, retry, review and storage behavior.

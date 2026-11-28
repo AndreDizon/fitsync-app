@@ -4,7 +4,7 @@ import { Check, ChevronLeft, ChevronRight } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { currentDay, currentWeek, weekDays } from '../../shared/daily-plans'
 import { shiftDate } from '../../shared/progress'
-import { validWorkoutDate, workoutDayIndex, workoutWeightOutlook } from '../../shared/workout-program'
+import { validWorkoutDate, workoutDayIndex, initialPlanRange } from '../../shared/workout-program'
 import type { OnboardingProfile } from '../../shared/onboarding'
 import '@/app/plan-week-calendar.css'
 
@@ -23,7 +23,8 @@ export function PlanWeekCalendar({ week, day, days, timeZone, nutrition, onSelec
 }) {
   const [view, setView] = useState<'week' | 'plan'>('week')
   const startDate = profile?.workoutStartDate && validWorkoutDate(profile.workoutStartDate) ? profile.workoutStartDate : null
-  const endDate = profile ? workoutWeightOutlook(profile).date : null
+  const planningRange = profile ? initialPlanRange(profile) : null
+  const endDate = planningRange?.end || null
   const [anchor, setAnchor] = useState(() => (startDate || week).slice(0, 7))
   useEffect(() => { setAnchor((startDate || week).slice(0, 7)) }, [startDate])
   const localToday = () => { const now = new Date(); return shiftDate(currentWeek(now, timeZone), currentDay(now, timeZone)) }
@@ -101,7 +102,7 @@ export function PlanWeekCalendar({ week, day, days, timeZone, nutrition, onSelec
     </nav> : <div className="pwc-plan-view">
       <div className="pwc-calendar-jumps" role="group" aria-label="Jump to calendar marker"><button type="button" aria-pressed={hasRange && selectedDate === todayDate} disabled={!hasRange} onClick={() => jump(localToday())}>{hasRange && selectedDate === todayDate && <Check size={15} aria-hidden="true" />}Today</button>{startDate && <button type="button" aria-pressed={inRange(startDate) && selectedDate === startDate} disabled={!inRange(startDate)} title={!inRange(startDate) ? 'The start date is outside the remaining plan dates' : undefined} onClick={() => jump(startDate)}>{inRange(startDate) && selectedDate === startDate && <Check size={15} aria-hidden="true" />}Plan start</button>}{endDate && <button type="button" aria-pressed={inRange(endDate) && selectedDate === endDate} disabled={!inRange(endDate)} onClick={() => jump(endDate)}>{inRange(endDate) && selectedDate === endDate && <Check size={15} aria-hidden="true" />}Estimated end</button>}</div>
       <label className="pwc-month-picker"><span>Browse month</span><input type="month" min={firstMonth} max={lastMonth < firstMonth ? firstMonth : lastMonth} disabled={!hasRange} value={hasRange ? boundedAnchor : firstMonth} onChange={event => { const value = event.target.value; if (validWorkoutDate(value + '-01') && value >= firstMonth && value <= lastMonth) { setAnchor(value) } }} /></label>
-      <p className="pwc-calendar-note">{startDate ? 'Plan starts ' + new Intl.DateTimeFormat('en', { dateStyle: 'medium', timeZone: 'UTC' }).format(new Date(startDate + 'T12:00:00Z')) + '. ' : 'Set a workout start date in planning preferences to show the start marker. '}{endDate ? 'The end marker is your target-weight scenario, not a guaranteed completion date.' : 'No estimated end date is available, so only today through the start date is shown.'} Dates follow {timeZone}. Select an unloaded day to fetch its saved plan.</p>
+      <p className="pwc-calendar-note">{startDate ? 'Plan starts ' + new Intl.DateTimeFormat('en', { dateStyle: 'medium', timeZone: 'UTC' }).format(new Date(startDate + 'T12:00:00Z')) + '. ' : 'Set a workout start date in planning preferences to show the start marker. '}{endDate ? planningRange?.basis === 'review' ? 'The end marker is your four-week draft planning boundary, not a target-weight prediction.' : 'The end marker is your target-weight scenario and draft planning boundary, not a guaranteed goal date.' : 'No estimated end date is available, so only today through the start date is shown.'} Dates follow {timeZone}. Select an unloaded day to fetch its saved plan.</p>
       {!hasRange && <p className="pwc-calendar-note" role="status">Your estimated end date has passed. Update your planning preferences to show a new range.</p>}
       <div className="pwc-months">{Array.from({ length: monthCount }, (_, index) => {
         const first = monthAt(index), monthKey = first.toISOString().slice(0, 7)
