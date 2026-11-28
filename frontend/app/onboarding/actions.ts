@@ -19,7 +19,7 @@ export async function saveOnboarding(_: OnboardingState, form: FormData): Promis
   try { value = JSON.parse(raw) } catch { return { error: 'These preferences could not be read. Please try again.' } }
   const draft = parseOnboarding(value)
   if (!draft) return { error: 'Check your preferences and try again.' }
-  const errors = validateOnboarding(draft)
+  const errors = validateOnboarding(draft, undefined, false, true, true)
   if (errors.length) return { error: errors.join(' ') }
   const profile: OnboardingProfile = { ...draft, goal: draft.goal as Goal, version: 2, completedAt: new Date().toISOString() }
   try {

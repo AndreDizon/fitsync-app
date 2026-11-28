@@ -4,6 +4,8 @@ import { useActionState, useEffect, useRef, useState, type MouseEvent } from 're
 import Link from 'next/link'
 import { ArrowLeft, ArrowRight, Check, Dumbbell, Utensils, ShieldCheck, Clock3, Flag, UserRound, ClipboardCheck, Activity, Flame, Trophy, HeartPulse, Move } from 'lucide-react'
 import { Wordmark } from './wordmark'
+import { WorkoutStartCalendar, formatWorkoutDate } from './workout-start-calendar'
+import { maximumTrainingDays, workoutWeightOutlook, workoutRestOptions, workoutDateAllowed } from '../../shared/workout-program'
 import { BodyFocusMap } from './body-focus-map'
 import { HealthReference } from './health-reference'
 import { activityDescriptions, eatingPreferenceDescriptions, experienceDescriptions, suggestSessionMinutes } from '@/lib/health-guidance'
@@ -33,10 +35,10 @@ function OnboardingCoach({ question, mobile = false }: { question: string; mobil
     <img src="/mascot/fox-greeting.png" width={1143} height={1358} alt="Your friendly FitSync fox coach" />
   </div>
 }
-function Choices({ legend, options, value, onChange, multiple = false, hint, descriptions, suggested }: { legend: string; options: readonly string[]; value: string | string[]; onChange: (value: string) => void; multiple?: boolean; hint?: string; descriptions?: Record<string, string>; suggested?: string }) {
+function Choices({ legend, options, value, onChange, multiple = false, hint, descriptions, suggested, disabledOptions = [] }: { legend: string; options: readonly string[]; value: string | string[]; onChange: (value: string) => void; multiple?: boolean; hint?: string; descriptions?: Record<string, string>; suggested?: string; disabledOptions?: readonly string[] }) {
   return <fieldset className="onb-choices"><legend>{legend}</legend>{hint && <p>{hint}</p>}<div>{options.map(option => {
     const selected = Array.isArray(value) ? value.includes(option) : value === option
-    return <label key={option} className={selected ? 'selected' : ''}><input type={multiple ? 'checkbox' : 'radio'} name={legend} checked={selected} onChange={() => onChange(option)} /><span>{option}</span>{suggested === option && <small className="onb-suggested-label">Suggested</small>}{selected && <Check size={15} aria-hidden="true" />}</label>
+    return <label key={option} className={selected ? 'selected' : ''}><input type={multiple ? 'checkbox' : 'radio'} name={legend} checked={selected} disabled={disabledOptions.includes(option)} onChange={() => onChange(option)} /><span>{option}</span>{suggested === option && <small className="onb-suggested-label">Suggested</small>}{selected && <Check size={15} aria-hidden="true" />}</label>
   })}</div>{descriptions && typeof value === 'string' && descriptions[value] && <p className="onb-choice-description" role="status">{descriptions[value]}</p>}</fieldset>
 }
 export function Onboarding({ name, profile }: { name: string; profile: OnboardingProfile | null }) {
@@ -44,7 +46,12 @@ export function Onboarding({ name, profile }: { name: string; profile: Onboardin
   const targetError = targetWeightGoalError(draft)
   const targetMaximum = draft.goal === 'fat_loss' && Number(draft.weightKg) >= 20 && Number(draft.weightKg) <= 350 ? Number(draft.weightKg) : 350
   const sessionSuggestion = suggestSessionMinutes(draft)
+  const program = workoutWeightOutlook(draft)
+  const restDays = days.filter(day => !draft.days.includes(day))
   const teen = Number(draft.age) >= 13 && Number(draft.age) < 18
+  useEffect(() => {
+    if (Number(draft.targetWeightKg) > Number(draft.weightKg) && draft.targetWeightPace === '0.5') setDraft(previous => ({ ...previous, targetWeightPace: '0.25' }))
+  }, [draft.targetWeightKg, draft.weightKg, draft.targetWeightPace])
   const [timeZones, setTimeZones] = useState<string[]>(['Asia/Manila', 'UTC'])
   useEffect(() => {
     const detected = Intl.DateTimeFormat().resolvedOptions().timeZone
@@ -62,6 +69,7 @@ export function Onboarding({ name, profile }: { name: string; profile: Onboardin
   const update = <K extends keyof OnboardingDraft>(key: K, value: OnboardingDraft[K]) => { setErrors([]); setDraft(previous => ({ ...previous, [key]: value })) }
   const toggle = (key: 'days' | 'equipment' | 'adjustments' | 'allergies', value: string) => {
     setErrors([])
+    if (key === 'days' && !draft.days.includes(value) && draft.days.length >= maximumTrainingDays) { setErrors(['Keep at least two rest days. Select up to five training days.']); return }
     setDraft(previous => {
       const selected = previous[key].includes(value)
       return { ...previous, [key]: selected ? previous[key].filter(item => item !== value) : [...previous[key], value], ...(key === 'allergies' ? { allergiesReviewed: true, otherAllergy: value === 'Other' && selected ? '' : previous.otherAllergy } : {}) }
@@ -72,13 +80,13 @@ export function Onboarding({ name, profile }: { name: string; profile: Onboardin
     setErrors([])
     setDraft(previous => ({ ...previous, focusAreas: area === 'Overall' ? ['Overall'] : previous.focusAreas.includes(area) ? previous.focusAreas.filter(item => item !== area) : [...previous.focusAreas.filter(item => item !== 'Overall'), area] }))
   }
-  const next = () => { const problems = validateOnboarding(draft, step); if (problems.length) setErrors(problems); else move(step + 1) }
+  const next = () => { const problems = validateOnboarding(draft, step, false, true, true); if (problems.length) setErrors(problems); else move(step + 1) }
   const checkBeforeReturning = (event: MouseEvent<HTMLAnchorElement>) => {
     if (pending) { event.preventDefault(); return }
-    const problems = validateOnboarding(draft)
+    const problems = validateOnboarding(draft, undefined, false, true, true)
     if (!problems.length) return
     event.preventDefault()
-    const missingStep = [0, 1, 2, 3].find(index => validateOnboarding(draft, index).length > 0)
+    const missingStep = [0, 1, 2, 3].find(index => validateOnboarding(draft, index, false, true, true).length > 0)
     setStep(missingStep ?? step)
     setErrors(['Please complete the required information before returning to the app.', ...problems])
   }
@@ -103,7 +111,7 @@ export function Onboarding({ name, profile }: { name: string; profile: Onboardin
         <h1 id="onb-title" ref={heading} tabIndex={-1}>{current.title}</h1><p className="onb-intro">{current.note}</p>
         <form action={action} noValidate onSubmit={event => {
           if (step !== 4) { event.preventDefault(); next(); return }
-          const problems = validateOnboarding(draft)
+          const problems = validateOnboarding(draft, undefined, false, true, true)
           if (problems.length) { event.preventDefault(); setErrors(problems) }
         }}>
           <input type="hidden" name="profile" value={JSON.stringify(draft)} />
@@ -128,8 +136,13 @@ export function Onboarding({ name, profile }: { name: string; profile: Onboardin
             </>}
             {step === 2 && <>
               <Choices legend="Training experience" options={['Beginner', 'Intermediate', 'Advanced']} value={draft.experience} onChange={value => update('experience', value)} descriptions={experienceDescriptions} hint="Choose based on technique and recent training experience, not how heavy you can lift. Start with Beginner if unsure." />
-              <Choices legend="Preferred training days" options={days} value={draft.days} onChange={value => toggle('days', value)} multiple hint="Pick 1–6 days. Keep at least one day for recovery." />
+              <Choices legend="Preferred training days" options={days} value={draft.days} onChange={value => toggle('days', value)} multiple disabledOptions={draft.days.length >= maximumTrainingDays ? days.filter(day => !draft.days.includes(day)) : []} hint="Pick 1–5 training days. FitSync requires at least two rest days; you can choose more." />
+              <p className="onb-rest-help">Rest days: <strong>{restDays.join(', ') || 'Choose at least two'}</strong>. These are days without a generated workout; gentle everyday movement is optional.</p>
+              <WorkoutStartCalendar value={draft.workoutStartDate || ''} trainingDays={draft.days} timeZone={draft.timeZone} onChange={value => update('workoutStartDate', value)} />
+              {draft.workoutStartDate && !workoutDateAllowed(draft.workoutStartDate, draft.days) && <p className="onb-rest-help" role="alert">Your start date is now a rest day. Choose another date or update your training days.</p>}
+              {draft.workoutStartDate && <section className="onb-program-summary" aria-label="Workout start and target-weight outlook"><h3>Your start & target-weight outlook</h3><dl><div><dt>Workout starts</dt><dd>{formatWorkoutDate(draft.workoutStartDate)}</dd></div><div><dt>Estimated goal date</dt><dd>{program.date ? formatWorkoutDate(program.date) : 'Not estimated'}</dd></div><div><dt>Weight target</dt><dd>{draft.weightKg} to {draft.targetWeightKg} kg</dd></div></dl>{!teen && Number(draft.weightKg) !== Number(draft.targetWeightKg) && <div className="onb-input"><label htmlFor="target-weight-pace">Assumed weight change per week</label><select id="target-weight-pace" value={draft.targetWeightPace || '0.25'} onChange={event => update('targetWeightPace', event.target.value)}>{['0.1', '0.25', ...(Number(draft.targetWeightKg) < Number(draft.weightKg) ? ['0.5'] : [])].map(value => <option key={value} value={value}>{value} kg / week</option>)}</select></div>}<p>{program.date ? <>Scenario only: assumes {program.rate} kg per week. About {program.weeks} weeks and {program.sessions} scheduled workouts. Reaching this date does not stop workouts or confirm your goal.</> : program.reason}</p><details className="onb-outlook-method"><summary>How this date is estimated</summary><p>{program.reason} Progress uses actual weight logs for trend-based estimates.</p><p>For weight loss, the CDC describes gradual loss; these rates are planning assumptions, not individual recommendations. Gain assumptions are FitSync scenarios, not a validated muscle-growth model. <a href="https://www.cdc.gov/healthy-weight-growth/losing-weight/index.html" target="_blank" rel="noreferrer">Read the CDC reference</a></p></details></section>}
               <div className="onb-input onb-workout-start"><label htmlFor="workout-start-time">What time would you like to start your workout?</label><small id="workout-start-help">Your first exercise starts here. Later exercises follow using their estimated durations. Local time in {draft.timeZone.replaceAll('_', ' ')}. Applies when you generate a new day.</small><input id="workout-start-time" type="time" step={60} value={draft.workoutStartTime} aria-describedby="workout-start-help" onClick={event => { if (event.currentTarget.showPicker) { event.preventDefault(); event.currentTarget.focus(); try { event.currentTarget.showPicker() } catch { /* Native text editing remains available. */ } } }} onKeyDown={event => { if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); try { event.currentTarget.showPicker?.() } catch { event.currentTarget.focus() } } }} onChange={event => update('workoutStartTime', event.target.value)} /></div>
+              <div className="onb-input"><label htmlFor="workout-rest-seconds">Rest between sets</label><select id="workout-rest-seconds" value={draft.workoutRestSeconds || 'auto'} onChange={event => update('workoutRestSeconds', event.target.value)}>{workoutRestOptions.map(value => <option key={value} value={value}>{value === 'auto' ? 'Recommended for my goal' : Number(value) < 120 ? value + ' seconds' : Number(value) / 60 + ' minutes'}</option>)}</select><p className="onb-rest-help">Your preference is adjusted by exercise: strength-focused or heavy lifts use 2–5 minutes; other resistance work uses 1–3 minutes, or 1–2 for endurance. Rest, warm-up and cooldown all count toward session time. <a href="https://www.healthline.com/health/fitness/how-long-should-a-workout-last" target="_blank" rel="noreferrer">Workout duration reference</a></p></div>
               <section className="onb-session-settings" aria-label="Session duration">
               <Choices legend="Minutes per session" options={sessionMinuteOptions} value={draft.sessionMinutes} onChange={value => update('sessionMinutes', value)} suggested={sessionSuggestion?.minutes} hint="Includes warm-up, exercise, rest and cooldown. Choose what fits your day." />
               <HealthReference className="onb-session-recommendation" title={<span className="onb-session-guidance">
@@ -169,7 +182,7 @@ export function Onboarding({ name, profile }: { name: string; profile: Onboardin
               <div className="onb-summary-grid">{[
                 { icon: Flag, title: 'Focus areas', edit: 0, rows: [draft.focusAreas.join(', ')] },
                 { icon: UserRound, title: 'Starting point', edit: 1, rows: [draft.timeZone.replaceAll('_', ' '), draft.age ? `${draft.age} years · ${draft.gender}` : draft.ageRange, draft.activity, ...(teen ? ['Total daily activity: ' + (draft.youthActivity || 'Not set')] : []), [draft.heightCm && `${draft.heightCm} cm`, draft.weightKg && `${draft.weightKg} kg`].filter(Boolean).join(' · ') || 'Measurements required', draft.targetWeightKg ? `Target weight: ${draft.targetWeightKg} kg` : 'Target weight required'] },
-                { icon: Dumbbell, title: 'Movement', edit: 2, rows: [draft.experience, 'Workout starts at ' + draft.workoutStartTime + ' (' + draft.timeZone + ')', `${days.filter(day => draft.days.includes(day)).join(', ')} · ${draft.sessionMinutes} min`, draft.equipment.join(', '), draft.adjustments.join(', ') || 'No movement preferences selected'] },
+                { icon: Dumbbell, title: 'Movement', edit: 2, rows: [draft.experience, 'Start date: ' + formatWorkoutDate(draft.workoutStartDate || ''), 'Estimated target-weight date: ' + (program.date ? formatWorkoutDate(program.date) : 'Not estimated'), 'Rest days: ' + restDays.join(', '), 'Workout starts at ' + draft.workoutStartTime + ' (' + draft.timeZone + ')', `${days.filter(day => draft.days.includes(day)).join(', ')} · ${draft.sessionMinutes} min`, draft.equipment.join(', '), draft.adjustments.join(', ') || 'No movement preferences selected'] },
                 { icon: Utensils, title: 'Food preferences', edit: 3, rows: [draft.diet, `${draft.mealsPerDay} meals · ${draft.cookingMinutes} min cooking`, draft.budget, draft.allergies.length ? `Allergies: ${draft.allergies.join(', ')}${draft.otherAllergy ? ` (${draft.otherAllergy})` : ''}` : 'No known food allergies', draft.dislikes ? `Avoid: ${draft.dislikes}` : 'No food dislikes added'] },
               ].map(({ icon: Icon, title, edit, rows }) => <article key={title}><div><Icon size={19} /><h3>{title}</h3><button type="button" onClick={() => move(edit)}>Edit</button></div>{rows.map((row, index) => <p key={index}>{row}</p>)}</article>)}</div>
               <p className="onb-note"><Clock3 size={18} />Your workout start time and session length guide new exercise schedules. You can edit individual times in My Plan.</p>

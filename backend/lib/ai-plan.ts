@@ -4,11 +4,11 @@ import type { PlaylistKind } from '../../shared/playlists'
 
 // The model selects an entire eligible draft. It never supplies catalogue IDs,
 // portions, prescriptions or targets, so provider output cannot bypass the planner.
-export function aiPlanCandidates(profile: OnboardingProfile, kind: PlaylistKind, day: number, variation: number) {
+export function aiPlanCandidates(profile: OnboardingProfile, kind: PlaylistKind, day: number, variation: number, date?: string) {
   const seen = new Set<string>()
   const candidates: ReturnType<typeof formulateDay>[] = []
   for (let offset = 0; offset < 12 && candidates.length < 4; offset++) {
-    const draft = formulateDay(profile, kind, day, (variation + offset) % 100001)
+    const draft = formulateDay(profile, kind, day, (variation + offset) % 100001, [], false, date)
     if (draft.schedule.rest || !draft.schedule.items.length) continue
     const signature = JSON.stringify(draft.schedule.items.map(({ id: _id, ...item }) => item))
     if (seen.has(signature)) continue
@@ -36,9 +36,9 @@ async function freeModels(signal: AbortSignal) {
   return selected
 }
 
-export async function formulateAiDay(profile: OnboardingProfile, kind: PlaylistKind, day: number, variation: number, signal: AbortSignal) {
+export async function formulateAiDay(profile: OnboardingProfile, kind: PlaylistKind, day: number, variation: number, signal: AbortSignal, date?: string) {
   if (!process.env.OPENROUTER_API_KEY) throw new Error('AI formulate is not configured. Add OPENROUTER_API_KEY to the backend environment, or use System formulate.')
-  const candidates = aiPlanCandidates(profile, kind, day, variation)
+  const candidates = aiPlanCandidates(profile, kind, day, variation, date)
   if (!candidates.length) throw new Error('No eligible day drafts are available. Check your planning preferences or choose items from the library.')
   const targets = planTargets(profile)
   const age = Number(profile.age)

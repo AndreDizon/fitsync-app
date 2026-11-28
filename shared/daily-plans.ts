@@ -5,6 +5,7 @@ import { defaultWorkoutStartTime } from './onboarding'
 import { defaultMealTime, newPlaylistItem, parsePlaylist, type PlaylistItem, type PlaylistKind } from './playlists'
 import type { OnboardingProfile } from './onboarding'
 import { youthEnergyRange } from './youth-energy'
+import { workoutDateNote, workoutRestPrescription, validWorkoutDate, workoutDayIndex } from './workout-program'
 
 export type ActualSet = { amount: number; weightKg: number }
 export type SessionPreparation = { warmupSeconds: number; cooldownSeconds: number; transitionSeconds: number }
@@ -116,9 +117,11 @@ export function eligibleFoods(profile: OnboardingProfile) {
   if (profile.allergies.includes('Other')) return []
   return foods.filter(food => !food.requiresCooking && !food.allergens.some(a => profile.allergies.includes(a)) && !(profile.diet === 'Vegan' && !food.vegan || profile.diet === 'Vegetarian' && !food.vegetarian || profile.diet === 'Pescatarian' && !food.pescatarian || profile.diet === 'Halal' && food.halal !== 'ingredient-compatible') && !dislikes.some(v => (food.name + ' ' + food.aliases.join(' ')).toLowerCase().includes(v)) && food.prepMinutes <= Number(profile.cookingMinutes) && (profile.budget !== 'Budget-friendly' || food.budget === 'Budget-friendly') && !(/raw/i.test(food.state) && ['Protein foods','Legumes'].includes(food.category)))
 }
-export function formulateDay(profile: OnboardingProfile, kind: PlaylistKind, day: number, variation: number, exclude: string[] = [], alternative = false): { schedule: DaySchedule; notes: string[] } {
+export function formulateDay(profile: OnboardingProfile, kind: PlaylistKind, day: number, variation: number, exclude: string[] = [], alternative = false, date?: string): { schedule: DaySchedule; notes: string[] } {
   const notes: string[] = [], schedule: DaySchedule = { items: [], rest: false, source: 'System-formulated', variation }
   if (kind === 'workout') {
+    const dateProblem = workoutDateNote(profile, date)
+    if (dateProblem || date && (!validWorkoutDate(date) || workoutDayIndex(date) !== day)) return { schedule, notes: [dateProblem || 'The selected date does not match this weekday. Choose the correct calendar date.'] }
     schedule.rest = !alternative && !profile.days.some(value => value.slice(0,3).toLowerCase() === weekDays[day].slice(0,3).toLowerCase())
     if (schedule.rest) return { schedule, notes: ['Recovery day from your onboarding schedule.'] }
     const prefer = profile.goal === 'mobility' ? 'stretching' : ['endurance','fat_loss'].includes(profile.goal) ? 'cardio' : 'strength'
@@ -146,7 +149,7 @@ export function formulateDay(profile: OnboardingProfile, kind: PlaylistKind, day
       item.sets = heavy(exercise) ? 3 : profile.experience === 'Beginner' ? 2 : 3
       item.target = profile.goal === 'strength' ? 6 : /deadlift/i.test(exercise.name) ? 8 : profile.goal === 'endurance' ? 12 : 10
       item.secondsPerRep = heavy(exercise) ? 5 : 4
-      item.restSeconds = heavy(exercise) ? 180 : compound(exercise) ? 120 : 75
+      item.restSeconds = workoutRestPrescription(profile, heavy(exercise), compound(exercise)).seconds
       let setup = heavy(exercise) ? 120 : compound(exercise) ? 60 : 30
       if (exercise.category === 'cardio' || exercise.category === 'stretching') {
         item.sets = exercise.category === 'stretching' ? 2 : 1; item.targetType = 'time'
@@ -186,7 +189,9 @@ export function formulateDay(profile: OnboardingProfile, kind: PlaylistKind, day
         for (const item of schedule.items) {
           if (!('exerciseId' in item) || item.sets < 2) continue
           const exercise = workoutCatalog.find(exercise => exercise.id === item.exerciseId)!
-          const cap = exercise.category === 'stretching' ? 30 : heavy(exercise) ? (profile.goal === 'strength' ? 300 : 240) : compound(exercise) ? 180 : 120
+          const cap = exercise.category === 'stretching' ? 30 : workoutRestPrescription(profile, heavy(exercise), compound(exercise)).max
+          // A chosen rest duration is a prescription, not spare time to fill.
+          if (profile.workoutRestSeconds && profile.workoutRestSeconds !== 'auto') continue
           const cost = item.sets - 1
           if (item.restSeconds < cap && remaining >= cost) { item.restSeconds++; remaining -= cost; changed = true }
         }

@@ -1,4 +1,5 @@
 import { youthActivityOptions } from './youth-energy'
+import { maximumTrainingDays, workoutDateAllowed, workoutRestOptions } from './workout-program'
 
 export const goalOptions = [
   ['general_fitness', 'Feel fitter', 'Build a balanced, sustainable routine.'],
@@ -22,6 +23,7 @@ export const defaultWorkoutStartTime = '08:00'
 export type OnboardingDraft = {
   goal: Goal | ''; timeZone: string; ageRange: string; age: string; gender: string; heightCm: string; weightKg: string; targetWeightKg: string; focusAreas: string[];
   activity: string; youthActivity?: string; experience: string; days: string[]; workoutStartTime: string; sessionMinutes: string;
+  workoutStartDate?: string; workoutRestSeconds?: string; targetWeightPace?: string;
   equipment: string[]; adjustments: string[]; diet: string; allergies: string[];
   allergiesReviewed: boolean; otherAllergy: string; dislikes: string; mealsPerDay: string; cookingMinutes: string; budget: string;
 }
@@ -29,6 +31,7 @@ export type OnboardingProfile = OnboardingDraft & { goal: Goal; version: 1 | 2; 
 export const emptyOnboarding: OnboardingDraft = {
   goal: '', timeZone: 'Asia/Manila', ageRange: '', age: '', gender: '', heightCm: '', weightKg: '', targetWeightKg: '', focusAreas: ['Overall'], activity: '', experience: '',
   youthActivity: '', days: [], workoutStartTime: defaultWorkoutStartTime, sessionMinutes: '', equipment: [], adjustments: [], diet: '', allergies: [],
+  workoutStartDate: '', workoutRestSeconds: 'auto', targetWeightPace: '0.25',
   allergiesReviewed: false, otherAllergy: '', dislikes: '', mealsPerDay: '', cookingMinutes: '', budget: '',
 }
 export function validTimeZone(value: string): boolean { try { if (!value || value.length > 80) return false; new Intl.DateTimeFormat('en', { timeZone: value }); return true } catch { return false } }
@@ -40,7 +43,7 @@ export function targetWeightGoalError(value: Pick<OnboardingDraft, 'goal' | 'wei
   }
   return null
 }
-export function validateOnboarding(value: OnboardingDraft, step?: number, legacy = false, requireMeasurements = true): string[] {
+export function validateOnboarding(value: OnboardingDraft, step?: number, legacy = false, requireMeasurements = true, requireProgramStart = false): string[] {
   const errors: string[] = []
   const check = (section: number) => step === undefined || step === section
   if (check(0) && !goalOptions.some(([key]) => key === value.goal)) errors.push('Choose your main goal.')
@@ -65,7 +68,11 @@ export function validateOnboarding(value: OnboardingDraft, step?: number, legacy
   }
   if (check(2)) {
     if (!oneOf(value.experience, ['Beginner', 'Intermediate', 'Advanced'])) errors.push('Choose your training experience.')
-    if (value.days.length < 1 || value.days.length > 6 || !value.days.every(day => oneOf(day, days))) errors.push('Choose 1–6 training days, leaving at least one rest day.')
+    if (value.days.length < 1 || value.days.length > (requireMeasurements ? maximumTrainingDays : 6) || new Set(value.days).size !== value.days.length || !value.days.every(day => oneOf(day, days))) errors.push('Choose 1–5 training days, leaving at least two rest days.')
+    if (value.workoutStartDate && !workoutDateAllowed(value.workoutStartDate, value.days)) errors.push('Choose a workout start date on one of your training days, not a rest day.')
+    if (requireProgramStart && !value.workoutStartDate) errors.push('Choose your workout program start date.')
+    if (value.workoutRestSeconds && !oneOf(value.workoutRestSeconds, workoutRestOptions)) errors.push('Choose a valid rest time between sets.')
+    if (value.targetWeightPace && (!['0.1', '0.25', '0.5'].includes(value.targetWeightPace) || Number(value.targetWeightKg) > Number(value.weightKg) && Number(value.targetWeightPace) > 0.25)) errors.push('Choose a supported weight-change assumption; weight gain uses at most 0.25 kg per week.')
     if (!oneOf(value.sessionMinutes, [...sessionMinuteOptions, '15', '20'])) errors.push('Choose a session length.')
     if (!/^([01]\d|2[0-3]):[0-5]\d$/.test(value.workoutStartTime)) errors.push('Choose a valid workout start time.')
     else {
@@ -94,7 +101,7 @@ export function parseOnboarding(input: unknown): OnboardingDraft | null {
   const draft = { ...emptyOnboarding }
   for (const key of Object.keys(emptyOnboarding) as (keyof OnboardingDraft)[]) {
     // Earlier profiles did not contain these fields. Preserve their existing answers.
-    const value = raw[key] === undefined && ['age', 'gender', 'targetWeightKg', 'focusAreas', 'timeZone', 'workoutStartTime', 'youthActivity'].includes(key) ? emptyOnboarding[key] : raw[key]
+    const value = raw[key] === undefined && ['age', 'gender', 'targetWeightKg', 'focusAreas', 'timeZone', 'workoutStartTime', 'youthActivity', 'workoutStartDate', 'workoutRestSeconds', 'targetWeightPace'].includes(key) ? emptyOnboarding[key] : raw[key]
     if (key === 'allergiesReviewed') { if (typeof value !== 'boolean') return null; draft[key] = value }
     else if (key === 'days' || key === 'equipment' || key === 'adjustments' || key === 'allergies' || key === 'focusAreas') {
       if (!Array.isArray(value) || value.length > 12 || value.some(item => typeof item !== 'string' || item.length > 80) || new Set(value).size !== value.length) return null
