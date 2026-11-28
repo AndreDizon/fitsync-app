@@ -89,7 +89,9 @@
 .app-shell .pwc-markers>[data-marker='Estimated end']{background:#eee1f7;color:#603478}
 .app-shell .pwc-plan-view{padding:20px 24px 0}
 .app-shell .pwc-calendar-jumps{display:flex;flex-wrap:wrap;gap:8px}
-.app-shell .pwc-calendar-jumps button{min-height:44px;padding:10px 14px;background:#f4f8ff;color:#293e59;border:1px solid #c3d5ed;border-radius:8px;font-size:12px;font-weight:650;cursor:pointer}
+.app-shell .pwc-calendar-jumps button{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:44px;padding:10px 14px;background:#f4f8ff;color:#293e59;border:1px solid #c3d5ed;border-radius:8px;font-size:12px;font-weight:650;cursor:pointer}
+.app-shell .pwc-calendar-jumps button[aria-pressed=true]{background:#ffdf32;color:#332b19;border-color:#ac8d1b;box-shadow:inset 0 -3px #a78a19;font-weight:750}
+.app-shell .pwc-calendar-jumps button>svg{flex:none}
 .app-shell .pwc-calendar-jumps button:disabled{opacity:.55;cursor:not-allowed}
 .app-shell .pwc-month-picker{display:flex;align-items:center;flex-wrap:wrap;gap:8px 12px;margin-top:16px;font-size:12px;font-weight:650;color:var(--week-muted)}
 .app-shell .pwc-month-picker input{min-width:0;max-width:100%;min-height:44px;padding:9px 12px;border:1px solid #c3d5ed;border-radius:8px;background:#f4f8ff;color:#293e59;font:inherit;font-size:16px;caret-color:#293e59}
@@ -97,6 +99,10 @@
 .app-shell .pwc-calendar-note{font-size:12px;line-height:1.65;color:var(--week-muted);max-width:80ch;margin:14px 0 20px}
 .app-shell .pwc-month+.pwc-month{margin-top:24px;padding-top:20px;border-top:1px solid #ffffff45}
 .app-shell .pwc-month h4{font-size:18px;font-weight:700;color:#fff;margin:0 0 16px}
+.app-shell .pwc-month-navigation{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;align-items:center;gap:12px;margin-bottom:16px}
+.app-shell .pwc-month-navigation h4{margin:0;text-align:center}
+.app-shell .pwc-month-navigation button{display:grid;place-items:center;width:44px;height:44px;border:1px solid #bfa32c;border-radius:9px;background:#ffdf32;color:#332b19;cursor:pointer}
+.app-shell .pwc-month-navigation button:disabled{background:#ffffff12;border-color:#ffffff50;color:#e0ecff;opacity:.5;cursor:not-allowed}
 .app-shell .pwc-month-weekdays,.app-shell .pwc-month-days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:6px}
 .app-shell .pwc-month-weekdays{margin-bottom:6px;font-size:11px;text-align:center;font-weight:650;color:var(--week-muted)}
 .app-shell .pwc-month-days .pwc-day{min-height:105px;padding:12px 3px 10px;gap:6px}
